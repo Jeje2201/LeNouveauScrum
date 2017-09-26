@@ -13,6 +13,7 @@
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -46,6 +47,14 @@
             <span class="nav-link-text">Heures Descendues</span>
           </a>
         </li>
+         </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
+          <a class="nav-link" href="BurnDownChart.php">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">BurnDownChart</span>
+          </a>
+        </li>
+        ------------------------------
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>

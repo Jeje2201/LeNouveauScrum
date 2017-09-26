@@ -8,7 +8,8 @@
   <!-- Navigation-->
   <div class="content-wrapper">
     <div class="container-fluid">
-  
+
+    
       
         <!-- Phase de selection pour l'ajout-->
       <div class="card mb-3">
@@ -92,12 +93,13 @@
           <i class="fa fa-table"></i>  Heures descendue(s) par Employé(e), par Projet</div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="datatable1" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>Employé</th>
                   <th>Projet</th>
                   <th>Heure</th>
+                  <th>Date</th>
                 </tr>
               </thead>
             </table>
@@ -110,7 +112,7 @@
           <i class="fa fa-table"></i>  Heures descendue(s) par jour</div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="datatable2" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>Heures</th>
@@ -127,7 +129,7 @@
           <i class="fa fa-table"></i>  Total d'heures descendues</div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="datatable3" width="100%" cellspacing="0">
               <thead>
                 <tr>
                   <th>Total</th>
@@ -143,13 +145,107 @@
   
 <?php require_once __Dir__ . '/footer.php'; ?>
 <script>
-$('#dateDebut').datetimepicker({
+//Script au lancement
+		$(document).ready(function() {
+		    update();
+		} );
+		    
+		/////////// Attrapper les infos de la requete sql
+		var getdatafromurlNEW = function(myurl)
+		{
+		    var exist = null;
+		    console.log("getdatafromurlNEW", myurl);
+		    $.ajax({
+		        url: myurl,
+		        async: false,
+		        success: function(result){
+		            exist = result;
+		        },
+		        error: function(xhr){
+		            console.log("error NEW", xhr);
+		            
+		        }
+		    });
+		    return (exist);
+		};
+		    
+		/////////// Fonction pour mettre à jours l'affichage
+		var update = function(){
+		    
+		    x = parseInt($("#sprintIdList").val()); 
+		    
+		    var hdown = getdatafromurlNEW("http://localhost/ScrumManager/api/www/heuresdescendues/LaListeGeneral/"+x);
+		    var hdownperday = getdatafromurlNEW("http://localhost/ScrumManager/api/www/heuresdescendues/LaListeParJour/"+x);
+		    var hdowntotal = getdatafromurlNEW("http://localhost/ScrumManager/api/www/heuresdescendues/LaListeTotal/"+x);
+		    
+		    var heures = hdown[0];
+		    var date = hdownperday[1];
+		    var heuretotal = hdowntotal[0]
+		    
+		    var Leshdown = [];
+		    var LeshdownParJour = [];
+		    var LeshdownTotal = [];
+		        
+		    for (i = 0; i < heures.length; i++) {
+		        Leshdown.push({heure: hdown[0][i], date: hdown[1][i], projet: hdown[2][i], employe: hdown[3][i]});
+		     }
+		         
+		    for (i = 0; i < date.length; i++) {
+		        LeshdownParJour.push({heure: hdownperday[0][i], date: hdownperday[1][i]});
+		    }
+		    
+		    LeshdownTotal.push({total: hdowntotal[0]});
+		        
+		    console.log('Heure descendues convertie en objet js : ',Leshdown);
+		    console.log('Heure descendues groupé par jours convertie en objet js : ',LeshdownParJour);
+		    console.log('Heure descendues total convertie en objet js : ',LeshdownTotal);
+		        
+		    $('#datatable1').DataTable({
+		        "bDestroy": true,
+		        data: Leshdown,
+		        columns: [
+		            { data: 'employe' },
+		            { data: 'projet' },
+		            { data: 'heure' },
+		            { data: 'date' }
+		        ]
+		    });
+		    
+		    $('#datatable2').DataTable({
+		        "paging":   false,
+		        "info":     false,
+		        "bFilter":  false,
+		        "bDestroy": true,
+		        data: LeshdownParJour,
+		        columns: [
+		            { data: 'heure' },
+		            { data: 'date' }
+		        ]
+		    });
+		    
+		    $('#datatable3').DataTable({
+		        "paging":   false,
+		        "ordering":   false,
+		        "info":     false,
+		        "bFilter":  false,
+		        "bDestroy": true,
+		        data: LeshdownTotal,
+		        columns: [
+		            { data: 'total' }
+		        ]
+		    });
+		    
+		};
+		    
+		//Donnée a l'objet datedebut le format de date
+		$('#dateDebut').datetimepicker({
 		    format: 'yyyy-mm-dd',
 		    autoclose: true,
 		    minView : 2
 		});
-
-function DateAujourdhui(_id){
+		
+		//Changer l'affichage de la date si possible erreur
+		function DateAujourdhui(_id){
 		    var _dat = document.querySelector(_id);
 		    var aujourdui = new Date(),
 		        j = aujourdui.getDate()-1,
@@ -168,6 +264,7 @@ function DateAujourdhui(_id){
 		};
 		
 		DateAujourdhui("#dateDebut");
+		
 	</script>
 
 </body>

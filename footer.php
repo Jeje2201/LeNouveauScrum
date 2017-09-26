@@ -30,6 +30,7 @@
 
    <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/highcharts.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Core plugin JavaScript-->
@@ -46,6 +47,9 @@
 
     <!-- BootStrap pour les heures-->
     <script src="js/bootstrap-datetimepicker.js"></script>
+    <!-- Classe pour le Hightsharr-->
+            
+
     
     <script>
      $('#toggleNavColor').click(function() {
