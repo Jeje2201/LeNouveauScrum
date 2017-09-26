@@ -2,7 +2,6 @@
 <html lang="en">
 
 <?php require_once __Dir__ . '/header.php'; ?>
-  <?php require_once __Dir__ . '/BarreDeNavigation.php'; ?>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   
