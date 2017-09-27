@@ -34,10 +34,10 @@
 					<span class="nav-link-text">Créer Sprint</span>
 					</a>
 				</li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Attribution Heures">
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 					<a class="nav-link" href="AttributionHeures.php">
 					<i class="fa fa-fw fa-table"></i>
-					<span class="nav-link-text">Attribution Heures</span>
+					<span class="nav-link-text">Heures Attribuées</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeiresDescendues">

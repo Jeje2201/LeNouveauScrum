@@ -58,7 +58,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Numéro Sprint</label>
+							<label for="exampleInputEmail1">Nombre d'heures</label>
 							<input class="form-control" id="exampleInputEmail1" type="number" placeholder="Le texte" min="1" value="1">
 						</div>
 						<div class="form-group">
@@ -70,7 +70,7 @@
 								</span>
 							</div>
 						</div>
-						<a class="btn btn-primary btn-block" href="login.html">Attribuer</a>
+						<a class="btn btn-primary btn-block" href="login.html">Descendre</a>
 					</form>
 					<!--
 						<div class="text-center">
