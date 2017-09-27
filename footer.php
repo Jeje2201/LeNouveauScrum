@@ -1,7 +1,7 @@
     <footer class="sticky-footer">
         <div class="container">
             <div class="text-center">
-                Copyright © Ns Scrum 2017 <i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/Jeje2201/LeNouveauScrum">  Projet Github</a> <i class="fa fa-globe" aria-hidden="true"></i><a href="http://mrjeje.esy.es/">  Website</a>
+                Copyright © Ns Scrum 2017
             </div>
         </div>
     </footer>
