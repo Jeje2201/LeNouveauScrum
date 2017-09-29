@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php require_once __Dir__ . '/header.php'; ?>
+    
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<div class="content-wrapper">
@@ -109,6 +110,7 @@
 			<!-- /.container-fluid-->
 			<!-- /.content-wrapper-->
 		</div>
+        
 		<?php require_once __Dir__ . '/footer.php'; ?>
 		<script>
 			/////////// Attrapper les infos de la requete sql
