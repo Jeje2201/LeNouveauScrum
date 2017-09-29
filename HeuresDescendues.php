@@ -59,18 +59,18 @@
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Nombre d'heures</label>
-							<input class="form-control" id="exampleInputEmail1" type="number" placeholder="Le texte" min="1" value="1">
+							<input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputName">Jours</label>
 							<div class='input-group date'>
-								<input type='text' placeholder="Date de Début"  name="dateDebut" id='dateDebut' class="form-control" />
+								<input type='text' placeholder="Date de Début" name="dateDebut" id='dateDebut' class="form-control" />
 								<span class="input-group-addon">
 								<span class="fa fa-calendar"></span>
 								</span>
 							</div>
 						</div>
-						<button type="submit" class="btn btn-success btn-block">
+						<button type="submit" class="btn btn-primary btn-block">
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Descendre
 							</button>
 					</form>
