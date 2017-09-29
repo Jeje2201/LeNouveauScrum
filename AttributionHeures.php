@@ -134,8 +134,8 @@
 				var update = function(){  
 				x = parseInt($("#sprintIdList").val()); // x prend la valeur du nombre selectionner depuis la liste deroulante affichant tout les sprints
 				
-				var hatt = getdatafromurlNEW("http://localhost/ScrumManager/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées tout sous forme de 3 tableaux
-				var tothatt = getdatafromurlNEW("http://localhost/ScrumManager/api/www/action/gettothouratt/"+x);
+				var hatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées tout sous forme de 3 tableaux
+				var tothatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gettothouratt/"+x);
 				
 				var counter = hatt[2]; //créer un timer qui prendre comme valeur le nombre de resultat d'un des 3 tableau obtenue au par avant
 				
