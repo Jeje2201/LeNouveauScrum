@@ -11,7 +11,7 @@
 					<i class="fa fa-plus"></i> Heure Descendue
 				</div>
 				<div class="card-body">
-					<form>
+					<form method="POST" action="EditerBdd\AjoutHeureDescendue.php">
 						<div class="form-group">
 							<label for="sel1">Sprint n°</label>
 							<select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
@@ -70,7 +70,9 @@
 								</span>
 							</div>
 						</div>
-						<a class="btn btn-primary btn-block" href="login.html">Descendre</a>
+						<button type="submit" class="btn btn-success btn-block">
+							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Descendre
+							</button>
 					</form>
 					<!--
 						<div class="text-center">

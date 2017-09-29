@@ -6,6 +6,7 @@
 		$data = $req->fetch_assoc();
 		?>
 	<body class="fixed-nav sticky-footer" id="page-top">
+    <form method="POST" role="form" action="EditerBdd\AjoutSprint.php">
 		<div class="content-wrapper">
 			<div class="container">
 				<div class="card card-register mx-auto mt-5">
@@ -14,7 +15,7 @@
 						<form>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Numéro Sprint</label>
-								<input class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp" placeholder="Le texte" min="<?php echo $data['nummax']+1; ?>" max="<?php echo $data['nummax']+1; ?>" value="<?php echo $data['nummax']+1; ?>">
+								<input class="form-control" id="numero" name="numero" type="number" aria-describedby="emailHelp" placeholder="Le texte" min="<?php echo $data['nummax']+1; ?>" max="<?php echo $data['nummax']+1; ?>" value="<?php echo $data['nummax']+1; ?>">
 							</div>
 							<div class="form-group">
 								<div class="form-row">
@@ -30,7 +31,7 @@
 									<div class="col-md-6">
 										<label for="exampleInputLastName">Heure de Fin</label>
 										<div class='input-group date'>
-											<input type='text' placeholder="Date de Début"  name="Datefin" id='DateFin' class="form-control" />
+											<input type='text' placeholder="Date de Début"  name="dateFin" id='dateFin' class="form-control" />
 											<span class="input-group-addon">
 											<span class="fa fa-calendar"></span>
 											</span>
@@ -38,7 +39,9 @@
 									</div>
 								</div>
 							</div>
-							<a class="btn btn-primary btn-block" href="login.html">Créer</a>
+                            <button type="submit" class="btn btn-primary btn-block">
+					<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Créer
+					</button>
 						</form>
 						<!--
 							<div class="text-center">
@@ -49,9 +52,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- Bootstrap core JavaScript-->
 			<?php require_once __Dir__ . '/footer.php'; ?>
 		</div>
+        </form>
 	</body>
 	<script>
 		//Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
@@ -128,7 +131,7 @@
 		_dat.value = data;
 		};
 		
-		DateApres("#DateFin");
+		DateApres("#dateFin");
 		
 	</script>
 </html>

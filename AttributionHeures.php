@@ -6,12 +6,13 @@
 		<div class="content-wrapper">
 			<div class="container-fluid">
 				<!-- Phase de selection pour l'ajout-->
+                
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-plus"></i> Attribution Heure
 					</div>
 					<div class="card-body">
-						<form>
+						<form method="POST" action="EditerBdd\AjoutHeureAttribution.php">
 							<div class="form-group">
 								<label for="sel1">Sprint n°</label>
 								<select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
@@ -59,9 +60,11 @@
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Nombres d'heures</label>
-								<input class="form-control" id="exampleInputEmail1" type="number" placeholder="Le texte" min="1" value="1">
+								<input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
 							</div>
-							<a class="btn btn-primary btn-block" href="login.html">Attribuer</a>
+							<button type="submit" class="btn btn-primary btn-block">
+							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Attribuer
+							</button>
 						</form>
 						<!--
 							<div class="text-center">
