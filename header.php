@@ -53,9 +53,9 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
-					<a class="nav-link mr-lg-2" id="toggleNavColor" href="#" data-toggle="" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-fw fa-lightbulb-o"></i>
-					</a>
+                <a class="nav-link mr-lg-2" id="toggleNavColor" href="#" data-toggle="" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-fw fa-lightbulb-o"></i>
+				</a>
 			</ul>
 		</div>
 	</nav>
@@ -64,5 +64,5 @@
 		or die ('Cannot connect to db');
 		
 		$host = "localhost";
-    ?>
+		  ?>
 </body>

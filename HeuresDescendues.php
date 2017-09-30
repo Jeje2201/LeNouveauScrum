@@ -71,8 +71,8 @@
 							</div>
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">
-							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Descendre
-							</button>
+						<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Descendre
+						</button>
 					</form>
 					<!--
 						<div class="text-center">

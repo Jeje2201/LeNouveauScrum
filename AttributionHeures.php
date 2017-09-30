@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php require_once __Dir__ . '/header.php'; ?>
-    
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<!-- Navigation-->
 		<div class="content-wrapper">
 			<div class="container-fluid">
 				<!-- Phase de selection pour l'ajout-->
-                
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-plus"></i> Attribution Heure
@@ -110,7 +108,6 @@
 			<!-- /.container-fluid-->
 			<!-- /.content-wrapper-->
 		</div>
-        
 		<?php require_once __Dir__ . '/footer.php'; ?>
 		<script>
 			/////////// Attrapper les infos de la requete sql

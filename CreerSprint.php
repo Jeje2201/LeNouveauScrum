@@ -6,13 +6,12 @@
 		$data = $req->fetch_assoc();
 		?>
 	<body class="fixed-nav sticky-footer" id="page-top">
-    <form method="POST" role="form" action="EditerBdd\AjoutSprint.php">
 		<div class="content-wrapper">
 			<div class="container">
 				<div class="card card-register mx-auto mt-5">
 					<div class="card-header">Créer un Sprint</div>
 					<div class="card-body">
-						<form>
+						<form method="POST" role="form" action="EditerBdd\AjoutSprint.php">
 							<div class="form-group">
 								<label for="exampleInputEmail1">Numéro Sprint</label>
 								<input class="form-control" id="numero" name="numero" type="number" aria-describedby="emailHelp" placeholder="Le texte" min="<?php echo $data['nummax']+1; ?>" max="<?php echo $data['nummax']+1; ?>" value="<?php echo $data['nummax']+1; ?>">
@@ -39,9 +38,9 @@
 									</div>
 								</div>
 							</div>
-                            <button type="submit" class="btn btn-primary btn-block">
-					<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Créer
-					</button>
+							<button type="submit" class="btn btn-primary btn-block">
+							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Créer
+							</button>
 						</form>
 						<!--
 							<div class="text-center">
@@ -54,7 +53,7 @@
 			</div>
 			<?php require_once __Dir__ . '/footer.php'; ?>
 		</div>
-        </form>
+		</form>
 	</body>
 	<script>
 		//Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
