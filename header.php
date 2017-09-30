@@ -66,5 +66,5 @@
 		or die ('Cannot connect to db');
 		
 		$host = "localhost";
-		?>
+    ?>
 </body>
