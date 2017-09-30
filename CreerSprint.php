@@ -48,10 +48,8 @@
 					</div>
 				</div>
 			</div>
-			<?php require_once __Dir__ . '/footer.php'; ?>
 		</div>
-		</form>
-	</body>
+        <?php require_once __Dir__ . '/footer.php'; ?>
 	<script>
 		//Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
 		$('#dateDebut').datetimepicker({
@@ -130,4 +128,5 @@
 		DateApres("#dateFin");
 		
 	</script>
+    </body>
 </html>
