@@ -2,16 +2,15 @@
 <html lang="en">
 	<?php require_once __Dir__ . '/header.php'; ?>
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-		<!-- Navigation-->
 		<div class="content-wrapper">
 		<div class="container-fluid">
-			<!-- Phase de selection pour l'ajout-->
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="fa fa-plus"></i> Heure Descendue
 				</div>
 				<div class="card-body">
 					<form method="POST" action="EditerBdd\AjoutHeureDescendue.php">
+                        <!-- Selectionner le sprint sur lequel l'on va jouer -->
 						<div class="form-group">
 							<label for="sel1">Sprint n°</label>
 							<select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
@@ -27,6 +26,7 @@
 								?> 
 							</select>
 						</div>
+                        <!-- Choisir le projet -->
 						<div class="form-group">
 							<label for="sel1">Projet</label>
 							<select class="form-control"  name="projetid">
@@ -43,6 +43,7 @@
 								?>
 							</select>
 						</div>
+                        <!-- Choisir l'employé -->
 						<div class="form-group">
 							<?php
 								$result = $conn->query("select id, prenom from employe");
@@ -57,10 +58,12 @@
 								?>
 							</select>
 						</div>
+                        <!-- Choisir le nombre d'heures à descendre -->
 						<div class="form-group">
 							<label for="exampleInputEmail1">Nombre d'heures</label>
 							<input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
 						</div>
+                        <!-- Choisir le jour où les heures furent descendues -->
 						<div class="form-group">
 							<label for="exampleInputName">Jours</label>
 							<div class='input-group date'>
@@ -70,19 +73,14 @@
 								</span>
 							</div>
 						</div>
+                        <!-- Envoyer les infos dans la bdd -->
 						<button type="submit" class="btn btn-primary btn-block">
 						<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Descendre
 						</button>
 					</form>
-					<!--
-						<div class="text-center">
-						  <a class="d-block small mt-3" href="login.html">Login Page</a>
-						  <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-						</div>
-						-->
 				</div>
 			</div>
-			<!-- Example DataTables Card-->
+			<!-- Premiere table avec toutes les heures descendues par Employé par projet par jours-->
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="fa fa-table"></i>  Heures descendue(s) par Employé(e), par Projet
@@ -102,7 +100,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Example DataTables Card-->
+			<!-- Table total heures descendues par jours -->
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="fa fa-table"></i>  Heures descendue(s) par jour
@@ -120,7 +118,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Example DataTables Card-->
+			<!-- Table total heures descendues -->
 			<div class="card mb-3">
 				<div class="card-header">
 					<i class="fa fa-table"></i>  Total d'heures descendues
@@ -137,8 +135,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- /.container-fluid-->
-			<!-- /.content-wrapper-->
 		</div>
 		<?php require_once __Dir__ . '/footer.php'; ?>
 		<script>

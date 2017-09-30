@@ -12,12 +12,14 @@
 					<div class="card-header">Créer un Sprint</div>
 					<div class="card-body">
 						<form method="POST" role="form" action="EditerBdd\AjoutSprint.php">
+                            <!-- Numero du nouveau sprint -->
 							<div class="form-group">
 								<label for="exampleInputEmail1">Numéro Sprint</label>
 								<input class="form-control" id="numero" name="numero" type="number" aria-describedby="emailHelp" placeholder="Le texte" min="<?php echo $data['nummax']+1; ?>" max="<?php echo $data['nummax']+1; ?>" value="<?php echo $data['nummax']+1; ?>">
 							</div>
 							<div class="form-group">
 								<div class="form-row">
+                                    <!-- Heure de début -->
 									<div class="col-md-6">
 										<label for="exampleInputName">Heure de Début</label>
 										<div class='input-group date'>
@@ -27,6 +29,7 @@
 											</span>
 										</div>
 									</div>
+                                    <!-- Heure de fin -->
 									<div class="col-md-6">
 										<label for="exampleInputLastName">Heure de Fin</label>
 										<div class='input-group date'>
@@ -42,12 +45,6 @@
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Créer
 							</button>
 						</form>
-						<!--
-							<div class="text-center">
-							  <a class="d-block small mt-3" href="login.html">Login Page</a>
-							  <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-							</div>
-							-->
 					</div>
 				</div>
 			</div>

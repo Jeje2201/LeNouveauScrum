@@ -10,6 +10,7 @@
 				<div class="card mb-3">
 					<div class="card-header">Selection BurndownChart</div>
 					<div class="card-body">
+                        <!-- Selectionner le sprint sur lequel l'on va jouer -->
 						<div class="form-group">
 							<select class="form-control"  id="sprintIdList" onchange='sprintIdListChanged();'>
 							<?php
@@ -34,12 +35,6 @@
 						</div>
 						<a class="btn btn-primary btn-block" href="#" onClick="plus1()">+</a>
 						<a class="btn btn-primary btn-block" href="#"onClick="moins1()">-</a>
-						<!--
-							<div class="text-center">
-							  <a class="d-block small mt-3" href="login.html">Login Page</a>
-							  <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-							</div>
-							-->
 					</div>
 				</div>
 				<!-- Area Chart Example-->

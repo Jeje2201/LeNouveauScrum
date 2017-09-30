@@ -2,16 +2,15 @@
 <html lang="en">
 	<?php require_once __Dir__ . '/header.php'; ?>
 	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-		<!-- Navigation-->
 		<div class="content-wrapper">
 			<div class="container-fluid">
-				<!-- Phase de selection pour l'ajout-->
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-plus"></i> Attribution Heure
 					</div>
 					<div class="card-body">
 						<form method="POST" action="EditerBdd\AjoutHeureAttribution.php">
+                            <!-- Selectionner le sprint sur lequel l'on va jouer -->
 							<div class="form-group">
 								<label for="sel1">Sprint n°</label>
 								<select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
@@ -27,6 +26,7 @@
 									?> 
 								</select>
 							</div>
+                            <!-- Choisir le projet -->
 							<div class="form-group">
 								<label for="sel1">Projet</label>
 								<select class="form-control"  name="projetid">
@@ -43,6 +43,7 @@
 									?>
 								</select>
 							</div>
+                            <!-- Choisir l'employé -->
 							<div class="form-group">
 								<?php
 									$result = $conn->query("select id, prenom from employe");
@@ -57,23 +58,19 @@
 									?>
 								</select>
 							</div>
+                            <!-- Choisir le nombre d'heures à attribuer -->
 							<div class="form-group">
-								<label for="exampleInputEmail1">Nombres d'heures</label>
+								<label for="exampleInputEmail1">Nombre d'heures</label>
 								<input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
 							</div>
+                            <!-- Envoyer les infos dans la bdd -->
 							<button type="submit" class="btn btn-primary btn-block">
 							<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Attribuer
 							</button>
 						</form>
-						<!--
-							<div class="text-center">
-							  <a class="d-block small mt-3" href="login.html">Login Page</a>
-							  <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-							</div>
-							-->
 					</div>
 				</div>
-				<!-- Example DataTables Card-->
+				<!-- Premiere table avec toutes les heures attribués par Employé par projet-->
 				<div class="card mb-3">
 					<div class="card-header">
 						<i class="fa fa-table"></i>  Heures attribuée(s) par Employé(e), par Projet
@@ -105,8 +102,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- /.container-fluid-->
-			<!-- /.content-wrapper-->
 		</div>
 		<?php require_once __Dir__ . '/footer.php'; ?>
 		<script>
@@ -131,12 +126,13 @@
 				
 				/////////// Fonction pour mettre à jour l'affichage
 				var update = function(){  
-				x = parseInt($("#sprintIdList").val()); // x prend la valeur du nombre selectionner depuis la liste deroulante affichant tout les sprints
+                
+				x = parseInt($("#sprintIdList").val()); // x prend la valeur du nombre de la liste deroulante affichant tout les sprints
 				
-				var hatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées tout sous forme de 3 tableaux
-				var tothatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gettothouratt/"+x);
+				var hatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées du sprint "x"
+				var tothatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gettothouratt/"+x); //Comme avant mais pour le total d'heures
 				
-				var counter = hatt[2]; //créer un timer qui prendre comme valeur le nombre de resultat d'un des 3 tableau obtenue au par avant
+				var counter = hatt[2]; //créer un counter qui prendre comme valeur le nombre de resultat d'un des 3 tableau obtenue au par avant
 				
 				var Lehatt = []; //créer un talbeau
 				var Letothatt = [];
