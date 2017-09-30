@@ -1,6 +1,6 @@
 
--- CREATE DATABASE scrum;
-USE letest;
+CREATE DATABASE scrum;
+USE scrum;
 
 
 -- phpMyAdmin SQL Dump
