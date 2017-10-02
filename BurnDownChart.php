@@ -103,7 +103,7 @@
 				    
 				            var x = $("#sprintIdList").val();
 				            bloquerbouton();
-				            var result = getdatafromurlNEW("http://<?php echo $host;?>/LeNouveauScrum/api/www/burndownchart/getChart/"+x);
+				            var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+x);
 				            var heures = result[0];
 				            var dates = result[1];
 				            var seuils = result[2];
@@ -122,7 +122,7 @@
 				    
 				    $("#sprintIdList").val(x);
 				    
-				    var result = getdatafromurlNEW("http://<?php echo $host;?>/LeNouveauScrum/api/www/burndownchart/sprintExist/"+x);
+				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+x);
 				    
 				    if (result)
 				    {
@@ -152,7 +152,7 @@
 				    
 				    $("#sprintIdList").val(x);
 				   
-				    var result = getdatafromurlNEW("http://<?php echo $host;?>/LeNouveauScrum/api/www/burndownchart/sprintExist/"+x); //check si le resultat est true ou false
+				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+x); //check si le resultat est true ou false
 				        
 				    if (result) //si le sprint exist, resultat true donc passage ici
 				    {
@@ -234,7 +234,7 @@
 				
 				    var x = parseInt($("#sprintIdList").val());
 				    
-				    var result = getdatafromurlNEW("http://<?php echo $host;?>/LeNouveauScrum/api/www/burndownchart/sprintExist/"+x);
+				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+x);
 				        
 				    if (result)
 				    {
@@ -249,8 +249,6 @@
 				misajour();
 				
 			</script>
-			<!-- /.container-fluid-->
-			<!-- /.content-wrapper-->
 		</div>
 	</body>
 </html>

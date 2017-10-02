@@ -167,9 +167,9 @@
 					    
 					    x = parseInt($("#sprintIdList").val()); 
 					    
-					    var hdown = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/heuresdescendues/LaListeGeneral/"+x);
-					    var hdownperday = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/heuresdescendues/LaListeParJour/"+x);
-					    var hdowntotal = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/heuresdescendues/LaListeTotal/"+x);
+					    var hdown = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/heuresdescendues/LaListeGeneral/"+x);
+					    var hdownperday = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/heuresdescendues/LaListeParJour/"+x);
+					    var hdowntotal = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/heuresdescendues/LaListeTotal/"+x);
 					    
 					    var heures = hdown[0];
 					    var date = hdownperday[1];

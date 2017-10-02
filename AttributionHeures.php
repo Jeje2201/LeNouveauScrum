@@ -129,8 +129,8 @@
                 
 				x = parseInt($("#sprintIdList").val()); // x prend la valeur du nombre de la liste deroulante affichant tout les sprints
 				
-				var hatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées du sprint "x"
-				var tothatt = getdatafromurlNEW("http://localhost/LeNouveauScrum/api/www/action/gettothouratt/"+x); //Comme avant mais pour le total d'heures
+				var hatt = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/action/gethouratt/"+x); // la variable hatt prend le resultat de la requette qui renvoit les h attribuées du sprint "x"
+				var tothatt = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/action/gettothouratt/"+x); //Comme avant mais pour le total d'heures
 				
 				var counter = hatt[2]; //créer un counter qui prendre comme valeur le nombre de resultat d'un des 3 tableau obtenue au par avant
 				
