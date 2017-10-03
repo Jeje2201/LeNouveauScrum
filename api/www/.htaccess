@@ -2,7 +2,7 @@
     Options -MultiViews
 
     RewriteEngine On
-    #RewriteBase /ScrumManager/api/www
+    #RewriteBase /LeNouveauScrum/api/www
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]

@@ -96,7 +96,9 @@
 					</div>
 				</div>
 				<?php require_once __Dir__ . '/footer.php'; ?>
+                
 			</div>
+            <script src="js/getdataformulNEW.js"></script>
 			<script>
 				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
 				var misajour = function(){
@@ -209,25 +211,6 @@
 				        DemanderNouveauSprint();
 				    }
 				}
-				
-				/// FONCTION POUR TRANSFORMER L'URL COMME IL FAUT ///
-				var getdatafromurlNEW = function(myurl)
-				{
-				    var exist = null;
-				    console.log("getdatafromurlNEW", myurl);
-				    $.ajax({
-				        url: myurl,
-				        async: false,
-				        success: function(result){
-				            exist = result;
-				        },
-				        error: function(xhr){
-				            console.log("error NEW", xhr);
-				            DemanderNouveauSprint();
-				        }
-				    });
-				    return (exist);
-				};
 				
 				//Fonction lorsque l'on choisie un nouveau sprint depuis la liste deroulante
 				var sprintIdListChanged = function(){

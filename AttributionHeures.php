@@ -104,26 +104,8 @@
 			</div>
 		</div>
 		<?php require_once __Dir__ . '/footer.php'; ?>
+        <script src="js/getdataformulNEW.js"></script>
 		<script>
-			/////////// Attrapper les infos de la requete sql
-				var getdatafromurlNEW = function(myurl)
-				{
-				    var exist = null;
-				    console.log("getdatafromurlNEW", myurl);
-				    $.ajax({
-				        url: myurl,
-				        async: false,
-				        success: function(result){
-				            exist = result;
-				        },
-				        error: function(xhr){
-				            console.log("error NEW", xhr);
-				            
-				        }
-				    });
-				    return (exist);
-				};
-				
 				/////////// Fonction pour mettre à jour l'affichage
 				var update = function(){  
                 

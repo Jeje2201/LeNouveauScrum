@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __Dir__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
@@ -12,10 +12,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
-        'dbname' => 'scrum',
-        'user' => 'root',
-        'password' => '',
-        'host' => 'localhost',
         'driver' => 'pdo_mysql',
     ),
 ));
@@ -30,3 +26,4 @@ require_once('./heuresattribues.php');
 $app['debug'] = true;
 
 $app->run();
+?>

@@ -11,6 +11,9 @@
 	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
 	<link href="css/sb-admin.css" rel="stylesheet">
+    <!-- Classe pour le Hightsharr-->
+    <script src="js/highcharts.js"></script>
+    
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -59,17 +62,5 @@
 			</ul>
 		</div>
 	</nav>
-	<?php
-    
-        $HostName = "localhost";
-        $HostUsername = "root";
-        $HostPassword = "";
-        $BddTableName = "scrum";
-        $ProjectFolderName = "LeNouveauScrum";
-        
-		$conn = new mysqli($HostName, $HostUsername, $HostPassword, $BddTableName) 
-		or die ('Cannot connect to db');
-		
-		
-		  ?>
+    <?php require_once __Dir__ . '/api/www/Variables.php'; ?>
 </body>

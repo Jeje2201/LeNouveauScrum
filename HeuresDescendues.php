@@ -137,30 +137,12 @@
 			</div>
 		</div>
 		<?php require_once __Dir__ . '/footer.php'; ?>
+        <script src="js/getdataformulNEW.js"></script>
 		<script>
 			//Script au lancement
 					$(document).ready(function() {
 					    update();
 					} );
-					    
-					/////////// Attrapper les infos de la requete sql
-					var getdatafromurlNEW = function(myurl)
-					{
-					    var exist = null;
-					    console.log("getdatafromurlNEW", myurl);
-					    $.ajax({
-					        url: myurl,
-					        async: false,
-					        success: function(result){
-					            exist = result;
-					        },
-					        error: function(xhr){
-					            console.log("error NEW", xhr);
-					            
-					        }
-					    });
-					    return (exist);
-					};
 					    
 					/////////// Fonction pour mettre à jours l'affichage
 					var update = function(){

@@ -1,4 +1,9 @@
 <?php
+
+require 'Variables.php';
+
+$LeTest1 = $HostName; //Aucune erreur, il trouve le fichier et reconnait la variable "HostName"
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -48,6 +53,7 @@ $app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app) {
     $toReturn[] = $interferences;
     $toReturn[] = $sprintou;
     return $app->json($toReturn);
+    
 })->bind('get_action');
 
 
@@ -82,3 +88,4 @@ $app->get('/burndownchart/sprintExist/{numero}', function ($numero) use ($app) {
         return $app->json(false);
     }
 })->bind('get_sprintExist');
+?>

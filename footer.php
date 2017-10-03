@@ -27,15 +27,13 @@
 		</div>
 	</div>
 </div>
-<!-- Bootstrap core JavaScript-->
+
+<!-- Jquery JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
-<!-- Classe pour le Hightsharr-->
-<script src="js/highcharts.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/popper/popper.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Page level plugin JavaScript-->
 <script src="vendor/datatables/jquery.dataTables.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
