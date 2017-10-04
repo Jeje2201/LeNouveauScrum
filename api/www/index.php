@@ -2,6 +2,8 @@
 
 require_once __Dir__.'/../vendor/autoload.php';
 
+require 'Variables.php';
+
 $app = new Silex\Application();
 
 $app->register(new Silex\Provider\RoutingServiceProvider());

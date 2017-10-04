@@ -1,18 +1,13 @@
-
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
-require 'Variables.php';
 
-$LeTest = "'mysql:host=$HostName;dbname=$BddTableName;charset=utf8', '$HostUsername', '$HostPassword'";
-
-$app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app, $HostUsername, $HostPassword) {
+$app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
     $qb = $app['db']->createQueryBuilder('');
     try
     {   
-        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', $HostUsername, $HostPassword);
-       
+        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
     }
     catch(Exception $e)
     {
@@ -57,12 +52,12 @@ $app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app, $Hos
 })->bind('get_action');
 
 
-$app->get('/burndownchart/sprintExist/{numero}', function ($numero) use ($app) {
+$app->get('/burndownchart/sprintExist/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
+        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
     }
     catch(Exception $e)
     {
