@@ -1,18 +1,18 @@
+
 <?php
-
-require 'Variables.php';
-
-$LeTest1 = $HostName; //Aucune erreur, il trouve le fichier et reconnait la variable "HostName"
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
+require 'Variables.php';
 
-$app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app) {
+$LeTest = "'mysql:host=$HostName;dbname=$BddTableName;charset=utf8', '$HostUsername', '$HostPassword'";
+
+$app->get('/burndownchart/getChart/{numero}', function ($numero) use ($app, $HostUsername, $HostPassword) {
     $qb = $app['db']->createQueryBuilder('');
-
     try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
+    {   
+        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', $HostUsername, $HostPassword);
+       
     }
     catch(Exception $e)
     {
