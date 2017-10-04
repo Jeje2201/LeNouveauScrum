@@ -36,15 +36,8 @@ __*Importation de la base de données*__
 
 __*Paramétrer les infos de l'application*__
 
-(Les parties suivante ne sont pas encore totalement opérationelles, et pour cause, toutes modifications ne seront pas importés dans tous les fichiers php, veuillez donc garder les paramètres de wamp par défaut pour le moment).
-1. Ouvrir le dossier "LeNouveauScrum".
-2. Ouvrir le fichier "header.php".
-3. Editer la ligne
-  - $host = "localhost";
-En remplacant "localhost" si vous avez éditez vos configurations par défaut.
-4. Editer la ligne
-  - $conn = new mysqli('localhost', 'root', '', 'scrum') 
-  Si vous avez changé vos informations de connexion à la base de donnée et son nom.
+1. Ouvrir le fichier "Configs.php" situé dans "LeNouveauScrum -> api -> www -> Configs.php".
+2. Remplacer les infos des variables selon vos configurations. (si vous n'avez rien touché, tout devrait fonctionner sans changement nécessaire)
 
 __*Une fois tout installé, paramétré, il est temps de tester l'application*__
 
