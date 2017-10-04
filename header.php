@@ -62,5 +62,5 @@
 			</ul>
 		</div>
 	</nav>
-    <?php require_once __Dir__ . '/api/www/Variables.php'; ?>
+    <?php require_once __Dir__ . '/api/www/Configs.php'; ?>
 </body>

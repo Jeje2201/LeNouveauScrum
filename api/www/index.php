@@ -2,7 +2,7 @@
 
 require_once __Dir__.'/../vendor/autoload.php';
 
-require 'Variables.php';
+require 'Configs.php';
 
 $app = new Silex\Application();
 
