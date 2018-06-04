@@ -2,7 +2,9 @@
 
 Cette application à destination de Natural Solutions permet de gérer l'ensemble du __Scrum__ de l'entreprise. C'est à dire "Créer des sprints", "Attribuer des heures", "Descendre des heures" et "Afficher la Burndownchat".
 
-[![](https://img.youtube.com/vi/3zR7fPJpwnc/0.jpg)](https://www.youtube.com/watch?v=3zR7fPJpwnc)
+### Vidéo de présentation 📺
+Cliquer pour jouer la vidéo
+[![](https://user-images.githubusercontent.com/19387127/40909578-2f50af62-67ea-11e8-9be3-f3324a5d5060.png)](https://www.youtube.com/watch?v=3zR7fPJpwnc)
 
 ## Pour Commencer..
 
