@@ -16,18 +16,18 @@ Vous aurais besoin au préalable d'installer
 
 ### Installation 💾 
 
-__*Installation de Wamp*__
+__*1.  Installation de Wamp*__
 
 1. Télécharger et installer Wamp. 
 2. Lancer Wamp.
 3. S'assurer que tous les services de Wamp sont lancés. (l'icone Wamp dans la barre de tache ne doit être ni orange, ni rouge mais bien verte)
 
-__*Importation de l'application*__
+__*2. Importation de l'application*__
 
 1. Ouvrir le répertoir www de wamp. (Par defaut le répertoir ce situe à " C:\wamp64\www ")
 2. Drag and drop le repository "ScrumManager" dans le répertoire www. 
 
-__*Importation de la base de données*__
+__*3. Importation de la base de données*__
 
 1. Lancer le service phpmyadmin de wamp. Aussi disponible en passant par " http://localhost/phpmyadmin/ "
  - Nom d'utilisateur : root
@@ -35,17 +35,21 @@ __*Importation de la base de données*__
 2. Se diriger vers "import"
 3. Choisir le fichier "ToutEnUn.sql" et exécuter. La base de données devrait se créer et se remplir d'un jeu de données du sprint 96 - 97 - 98 avec des heures attribuées et descendues.
 
-__*Paramétrer les infos de l'application*__
+ __*4. Paramétrer les infos de l'application*__
 
 1. Ouvrir le fichier "Configs.php" situé dans "ScrumManager -> api -> www -> Configs.php".
 2. Remplacer les infos des variables selon vos configurations. (si vous n'avez rien touché, tout devrait fonctionner sans changement nécessaire)
 
-__*Une fois tout installé, paramétré, il est temps de tester l'application*__
+__*5. Une fois tout installé, paramétré, il est temps de tester l'application*__
 
 1. Démarrer wamp.
 2. Lancer l'application. Par défaut elle sera acccessible depuis un navigateur avec ce lien (http://localhost/ScrumManager/).
 
 Vous voilà prêt à utiliser l'application.
+
+## Bugs ? Erreurs ? 🐛
+
+Pour toute erreur découverte, merci de la reporter dans la section erreur (https://github.com/Jeje2201/ScrumManager/issues/new)
 
 ## Développé avec 📦
 
