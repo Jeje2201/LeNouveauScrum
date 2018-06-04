@@ -16,10 +16,9 @@ Vous aurais besoin au préalable d'installer
 
 __*Installation de Wamp*__
 
-1. Télécharger Wamp. 
-2. Installer wamp par son .exe
-3. Une fois correctement installé, lancer Wamp.
-4. S'assurer que tous les services sont lancés. (l'icone ne doit être ni orange, ni rouge mais bien verte)
+1. Télécharger et installer Wamp. 
+2. Lancer Wamp.
+3. S'assurer que tous les services de Wamp sont lancés. (l'icone Wamp dans la barre de tache ne doit être ni orange, ni rouge mais bien verte)
 
 __*Importation de l'application*__
 
@@ -28,11 +27,11 @@ __*Importation de l'application*__
 
 __*Importation de la base de données*__
 
-1. Lancer le service phpmyadmin de wamp. Disponible aussi en passant par " http://localhost/phpmyadmin/ "
+1. Lancer le service phpmyadmin de wamp. Aussi disponible en passant par " http://localhost/phpmyadmin/ "
  - Nom d'utilisateur : root
  - Mot de passe : 
 2. Se diriger vers "import"
-3. Choisir le fichier "ToutEnUn.sql" et exécuter. La base de données devrait se créer et se remplir d'un jeu de données du sprint 96 - 97 - 98.
+3. Choisir le fichier "ToutEnUn.sql" et exécuter. La base de données devrait se créer et se remplir d'un jeu de données du sprint 96 - 97 - 98 avec des heures attribuées et descendues.
 
 __*Paramétrer les infos de l'application*__
 
@@ -46,16 +45,6 @@ __*Une fois tout installé, paramétré, il est temps de tester l'application*__
 
 Vous voilà prêt à utiliser l'application.
 
-## Choses à faire
-
-Voici une liste de foncionalitées qui je pense seraient bien à ajouter à l'application dans un futur : 
-
-  - Permettre la **suppression** et **modification** de données
-    - Des sprints.
-    - Des heures attribuées.
-    - Des heures descendues.
-  - Améliorer la connexion à la base de données depuis les différentes page et les méthodes pour receuillir les données style MVC ?.
-
 ## Développé avec
 
 * [JMerise](http://www.jfreesoft.com/JMerise/) - Outil de modélisation des MCD.
@@ -66,9 +55,6 @@ Voici une liste de foncionalitées qui je pense seraient bien à ajouter à l'ap
 ## Autheur
 
 * **[Leriche Jérémy](http://mrjeje.esy.es/)** - *Travail initial*
-
-
-
 
 ## Template utilisé
 
