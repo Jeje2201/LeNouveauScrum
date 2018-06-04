@@ -1,4 +1,4 @@
-# ScrumManager
+# ScrumManager 📌 
 
 Cette application à destination de Natural Solutions permet de gérer l'ensemble du __Scrum__ de l'entreprise. C'est à dire "Créer des sprints", "Attribuer des heures", "Descendre des heures" et "Afficher la Burndownchat".
 
@@ -14,7 +14,7 @@ Vous aurais besoin au préalable d'installer
 
 * [WampServer](http://www.wampserver.com/)
 
-### Installation
+### Installation 💾 
 
 __*Installation de Wamp*__
 
@@ -47,17 +47,19 @@ __*Une fois tout installé, paramétré, il est temps de tester l'application*__
 
 Vous voilà prêt à utiliser l'application.
 
-## Développé avec
+## Développé avec 📦
 
 * [JMerise](http://www.jfreesoft.com/JMerise/) - Outil de modélisation des MCD.
 * [Bootstrap](http://getbootstrap.com/) - HTML, CSS, and JS framework.
-* [DataTables](https://datatables.net/) - Plug-in for the jQuery Javascript library.
-* [Highcharts](https://www.highcharts.com/) - Plugin to set up interactive charts.
+* [DataTables](https://datatables.net/) - Plug-in pour la bibliothèque jQuery Javascript.
+* [Datetimepicker](https://eonasdan.github.io/bootstrap-datetimepicker/) - Plugin pour avoir une sélection de date plus propre.
+* [Highcharts](https://www.highcharts.com/) - Plugin pour créer les graph interactif.
 
-## Autheur
 
-* **[Leriche Jérémy](http://mrjeje.esy.es/)** - *Travail initial*
+## Autheur 👨‍💻
 
-## Template utilisé
+**[Leriche Jérémy](http://mrjeje.esy.es/)**
+
+## Bootstrap Template 📄
 
 __sb-admin__ ( [Site](https://startbootstrap.com/template-overviews/sb-admin/) | [Projet GitHub](https://github.com/BlackrockDigital/startbootstrap-sb-admin) )
