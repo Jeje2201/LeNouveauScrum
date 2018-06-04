@@ -3,12 +3,12 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-$app->get('/action/gethouratt/{numero}', function ($numero) use ($app) {
+$app->get('/action/gethouratt/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
+        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
     }
     catch(Exception $e)
     {
@@ -43,12 +43,12 @@ $app->get('/action/gethouratt/{numero}', function ($numero) use ($app) {
 })->bind('get_hatt');
 
 
-$app->get('/action/gettothouratt/{numero}', function ($numero) use ($app) {
+$app->get('/action/gettothouratt/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
+        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
     }
     catch(Exception $e)
     {
