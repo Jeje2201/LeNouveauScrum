@@ -11,7 +11,7 @@
 						<img src="https://media.giphy.com/media/xT1XGOGdyDrL2BTfxK/giphy.gif" alt="HTML5 Icon">
 						</br> 
 						</br>
-						<i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/Jeje2201/LeNouveauScrum">  Projet Github</a> <i class="fa fa-globe" aria-hidden="true"></i><a href="http://mrjeje.esy.es/">  Website</a>
+						<i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/Jeje2201/ScrumManager">  Projet Github</a> <i class="fa fa-globe" aria-hidden="true"></i><a href="http://mrjeje.esy.es/">  Website</a>
 					</div>
 				</div>
 			</div>

@@ -24,7 +24,7 @@ __*Installation de Wamp*__
 __*Importation de l'application*__
 
 1. Ouvrir le répertoir www de wamp. (Par defaut le répertoir ce situe à " C:\wamp64\www ")
-2. Drag and drop le repository "LeNouveauScrum" dans le répertoire www. 
+2. Drag and drop le repository "ScrumManager" dans le répertoire www. 
 
 __*Importation de la base de données*__
 
@@ -36,13 +36,13 @@ __*Importation de la base de données*__
 
 __*Paramétrer les infos de l'application*__
 
-1. Ouvrir le fichier "Configs.php" situé dans "LeNouveauScrum -> api -> www -> Configs.php".
+1. Ouvrir le fichier "Configs.php" situé dans "ScrumManager -> api -> www -> Configs.php".
 2. Remplacer les infos des variables selon vos configurations. (si vous n'avez rien touché, tout devrait fonctionner sans changement nécessaire)
 
 __*Une fois tout installé, paramétré, il est temps de tester l'application*__
 
 1. Démarrer wamp.
-2. Lancer l'application. Par défaut elle sera acccessible depuis un navigateur avec ce lien (http://localhost/LeNouveauScrum/).
+2. Lancer l'application. Par défaut elle sera acccessible depuis un navigateur avec ce lien (http://localhost/ScrumManager/).
 
 Vous voilà prêt à utiliser l'application.
 

@@ -3,7 +3,7 @@
     $HostUsername = "root";
     $HostPassword = "";
     $BddTableName = "scrum";
-    $ProjectFolderName = "LeNouveauScrum";
+    $ProjectFolderName = "ScrumManager";
     
     $conn = new mysqli($HostName, $HostUsername, $HostPassword, $BddTableName) 
     or die ('Cannot connect to db');
