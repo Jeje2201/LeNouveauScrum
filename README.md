@@ -1,4 +1,4 @@
-# ScrumManager
+﻿# ScrumManager
 
 L'application permet de gérer la partie scrum de l'entreprise. Créer des sprints, attribuer des heures, descendre des heures et afficher la burndownchat.
 
