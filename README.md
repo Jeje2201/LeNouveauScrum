@@ -25,7 +25,8 @@ __*1.  Installation de Wamp*__
 __*2. Importation de l'application*__
 
 1. Ouvrir le répertoir www de wamp. (Par defaut le répertoir ce situe à " C:\wamp64\www ")
-2. Drag and drop le repository "ScrumManager" dans le répertoire www. 
+2. Drag and drop le repository "ScrumManager" dans le répertoire www.
+3. !Attention! Le nom du dossier doit être "ScrumManager" et non "ScrumManager-V2.0" ou autre. Respecter la casse.
 
 __*3. Importation de la base de données*__
 
