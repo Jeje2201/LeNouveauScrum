@@ -1,12 +1,10 @@
-# ScrumManager 📌 
+# ScrumManager
 
-Cette application à destination de Natural Solutions permet de gérer l'ensemble du __Scrum__ de l'entreprise. C'est à dire "Créer des sprints", "Attribuer des heures", "Descendre des heures" et "Afficher la Burndownchat".
+L'application permet de gérer la partie scrum de l'entreprise. Créer des sprints, attribuer des heures, descendre des heures et afficher la burndownchat.
 
-[![](https://img.youtube.com/vi/3zR7fPJpwnc/0.jpg)](https://www.youtube.com/watch?v=3zR7fPJpwnc)
+## Pour Commencer
 
-## Pour Commencer..
-
-Ces instructions vont vous permettre d'obtenir une copie du projet en cours sur votre machine.
+Ces instructions vous permettront d'obtenir une copie du projet en cours d'exécution sur votre machine à des fins de développement et de test.
 
 ### Prérequis
 
@@ -14,52 +12,66 @@ Vous aurais besoin au préalable d'installer
 
 * [WampServer](http://www.wampserver.com/)
 
-### Installation 💾 
+### Installation
 
 __*Installation de Wamp*__
 
-1. Télécharger et installer Wamp. 
-2. Lancer Wamp.
-3. S'assurer que tous les services de Wamp sont lancés. (l'icone Wamp dans la barre de tache ne doit être ni orange, ni rouge mais bien verte)
+1. Télécharger wamp. 
+2. Installer wamp par son .exe
+3. Une fois installé, lancer Wamp.
+4. S'assurer que tous les services sont lancés. (l'icone doit être verte, ni orange, ni rouge)
 
 __*Importation de l'application*__
 
 1. Ouvrir le répertoir www de wamp. (Par defaut le répertoir ce situe à " C:\wamp64\www ")
-2. Drag and drop le repository "ScrumManager" dans le répertoire www. 
+2. Drag and drop le dossier ScrumManager dans le répertoire www. 
 
 __*Importation de la base de données*__
 
-1. Lancer le service phpmyadmin de wamp. Aussi disponible en passant par " http://localhost/phpmyadmin/ "
+1. Lancer le service phpmyadmin de wamp. Disponible aussi en passant par " http://localhost/phpmyadmin/ "
  - Nom d'utilisateur : root
  - Mot de passe : 
 2. Se diriger vers "import"
-3. Choisir le fichier "ToutEnUn.sql" et exécuter. La base de données devrait se créer et se remplir d'un jeu de données du sprint 96 - 97 - 98 avec des heures attribuées et descendues.
+3. Choisir le fichier "ToutEnUn.sql" et exécuter. La base de données c'est crée et remplie avec les données du sprint 96 - 97 - 98
 
 __*Paramétrer les infos de l'application*__
 
-1. Ouvrir le fichier "Configs.php" situé dans "ScrumManager -> api -> www -> Configs.php".
-2. Remplacer les infos des variables selon vos configurations. (si vous n'avez rien touché, tout devrait fonctionner sans changement nécessaire)
+1. Ouvrir le dossier ScrumManager
+2. Editer le fichier header.php
+3. Editer la ligne
+  - $host = "localhost";
+En remplacant "localhost" si vous avez éditez vos configurations par défaut.
+4. Editer la ligne
+  - $conn = new mysqli('localhost', 'root', '', 'scrum') 
+  Si vous avez changé vos informations de connexion à la base de donnée et son nom.
 
 __*Une fois tout installé, paramétré, il est temps de tester l'application*__
 
 1. Démarrer wamp.
-2. Lancer l'application. Par défaut elle sera acccessible depuis un navigateur avec ce lien (http://localhost/ScrumManager/).
+2. Lancer l'application. Par défaut elle sera acccessible depuis un navigateur avec ce lien (http://localhost/ScrumManager/)
 
 Vous voilà prêt à utiliser l'application.
 
-## Développé avec 📦
+## Choses à faire
 
-* [JMerise](http://www.jfreesoft.com/JMerise/) - Outil de modélisation des MCD.
-* [Bootstrap](http://getbootstrap.com/) - HTML, CSS, and JS framework.
-* [DataTables](https://datatables.net/) - Plug-in pour la bibliothèque jQuery Javascript.
-* [Datetimepicker](https://eonasdan.github.io/bootstrap-datetimepicker/) - Plugin pour avoir une sélection de date plus propre.
-* [Highcharts](https://www.highcharts.com/) - Plugin pour créer les graph interactif.
+Voici une liste de foncionalitées à ajouter dans l'application : 
 
+  - Permettre la **suppression** et **modification** de données
+    - Des sprints.
+    - Des heures attribuées.
+    - Des heures descendues.
+  - Améliorer la connexion à la base de données depuis les différents page ?
 
-## Autheur 👨‍💻
+## Développé avec
 
-**[Leriche Jérémy](http://mrjeje.esy.es/)**
+* [JMerise](http://www.jfreesoft.com/JMerise/) - Outil de modélisation des MCD
+* [Bootstrap](http://getbootstrap.com/) - HTML, CSS, and JS framework
+* [DataTables](https://datatables.net/) - Plug-in for the jQuery Javascript library
 
-## Bootstrap Template 📄
+## Version
 
-__sb-admin__ ( [Site](https://startbootstrap.com/template-overviews/sb-admin/) | [Projet GitHub](https://github.com/BlackrockDigital/startbootstrap-sb-admin) )
+1.0
+
+## Autheur
+
+* **Leriche Jérémy** - *Initial work* - [Jeje2201](https://github.com/Jeje2201)

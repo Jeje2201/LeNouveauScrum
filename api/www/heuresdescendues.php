@@ -3,12 +3,12 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-$app->get('/heuresdescendues/LaListeGeneral/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
+$app->get('/heuresdescendues/LaListeGeneral/{numero}', function ($numero) use ($app) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
+        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
     }
     catch(Exception $e)
     {
@@ -46,12 +46,12 @@ $app->get('/heuresdescendues/LaListeGeneral/{numero}', function ($numero) use ($
 
 ///////////////////////////////////
 
-$app->get('/heuresdescendues/LaListeParJour/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
+$app->get('/heuresdescendues/LaListeParJour/{numero}', function ($numero) use ($app) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
+        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
     }
     catch(Exception $e)
     {
@@ -85,12 +85,12 @@ $app->get('/heuresdescendues/LaListeParJour/{numero}', function ($numero) use ($
 
 ///////////////////////////////////
 
-$app->get('/heuresdescendues/LaListeTotal/{numero}', function ($numero) use ($app,$HostName, $HostUsername, $HostPassword,$BddTableName) {
+$app->get('/heuresdescendues/LaListeTotal/{numero}', function ($numero) use ($app) {
     $qb = $app['db']->createQueryBuilder('');
 
     try
     {
-        $bdd = new PDO("mysql:host=$HostName;dbname=$BddTableName;charset=utf8", $HostUsername, $HostPassword);
+        $bdd = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'root', '');
     }
     catch(Exception $e)
     {
