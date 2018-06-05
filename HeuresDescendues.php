@@ -67,7 +67,7 @@
 						<div class="form-group">
 							<label for="exampleInputName">Jours</label>
 							<div class='input-group date'>
-								<input type='text' placeholder="Date de Début" name="dateDebut" id='dateDebut' class="form-control" />
+								<input type='text' placeholder="Date de Début" name="DateHier" id='DateHier' class="form-control" />
 								<span class="input-group-addon">
 								<span class="fa fa-calendar"></span>
 								</span>
@@ -212,21 +212,21 @@
 					    
 					};
 					    
-					//Donnée a l'objet datedebut le format de date
-					$('#dateDebut').datetimepicker({
+					//Donnée a l'objet DateHier le format de date
+					$('#DateHier').datetimepicker({
 					    format: 'yyyy-mm-dd',
 					    autoclose: true,
 					    minView : 2
 					});
 					
 					//Changer l'affichage de la date si possible erreur
-					function DateAujourdhui(_id){
+					function DateHier(_id){
 					    var _dat = document.querySelector(_id);
-					    var aujourdui = new Date(),
-					        j = aujourdui.getDate()-1,
-					        m = aujourdui.getMonth()+1, 
-					        a = aujourdui.getFullYear(),
-					        data;
+						var Apres = new Date();
+						Apres.setDate(Apres.getDate()-1);
+						j = Apres.getDate(),
+						m = Apres.getMonth()+1, 
+						a = Apres.getFullYear();
 					        
 					    if(j < 10){
 					        j = "0" + j;
@@ -234,11 +234,10 @@
 					    if(m < 10){
 					        m = "0" + m;
 					    };
-					    data = a + "-" + m + "-" + j;
-					    _dat.value = data;
+					    _dat.value = a + "-" + m + "-" + j;
 					};
 					
-					DateAujourdhui("#dateDebut");
+					DateHier("#DateHier");
 				
 		</script>
 	</body>
