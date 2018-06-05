@@ -10,6 +10,7 @@
 	<!-- Custom fonts for this template-->
 	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
+	<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
 	<link href="css/sb-admin.css" rel="stylesheet">
     <!-- Classe pour le Hightsharr-->
     <script src="js/highcharts.js"></script>
