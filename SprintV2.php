@@ -18,6 +18,7 @@
       </div>
 
 
+
 <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="datatable1" width="100%" cellspacing="0">
@@ -82,18 +83,19 @@
 
 });
 
-  // $('#datatable1').DataTable({
+// var action = "Load"
+//   $('#datatable1').DataTable({
 
-  //   ajax:{
-  //     url:'action.php',
-  //     columns:[
-  //      {data:0},
-  //      {data:1},
-  //      {data:2}
-  //     ]
+//     ajax:{
+//       url:'action.php',
+//       columns:[
+//        {data:0},
+//        {data:1},
+//        {data:2}
+//       ]
 
-  //   }
-  // })
+//     }
+//   })
 
 
 }

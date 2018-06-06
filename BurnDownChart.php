@@ -14,27 +14,26 @@
 						<div class="form-group">
 							<select class="form-control"  id="sprintIdList" onchange='sprintIdListChanged();'>
 							<?php
-								$result = $conn->query("select id, numero from sprint order by id desc");
+
+							echo '<script> var ListIdSprint =[]; </script>';
+
+								$result = $conn->query("select id, numero from sprint order by numero desc");
 								
 								                while ($row = $result->fetch_assoc()) {
 								                  unset($id, $numero);
 								                  $id = $row['id'];
 								                  $numero = $row['numero']; 
-								                  echo '<option value="'.$numero.'"> ' .$numero. ' </option>';
-								                  if (!$lastNumero)
-								                        $lastNumero = $numero;
-								                    if ($numero < $numero+1)
-								                        $firstNumero = $numero;
-								                }
-								            echo "<script>
-								                    var PremierSprint = $firstNumero;
-								                    var DernierSprint = $lastNumero;
-								                </script>";
+								                  echo '<option value="'.$numero.'">' .$numero. '</option>
+								                  <script> ListIdSprint.push('.$numero.'); </script>';
+								              }
+
+								                  echo'<script>console.log("liste complete de numero de sprint: ", ListIdSprint);</script>';
+								                  
 								?>
 							</select>
 						</div>
-						<a class="btn btn-primary btn-block" href="#" onClick="plus1()">+</a>
-						<a class="btn btn-primary btn-block" href="#"onClick="moins1()">-</a>
+						<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="plus1()">+</a>
+						<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="moins1()">-</a>
 					</div>
 				</div>
 				<!-- Area Chart Example-->
@@ -100,18 +99,27 @@
 			</div>
             <script src="js/getdataformulNEW.js"></script>
 			<script>
+
+
+				var bouttonMoins1 = document.getElementById("bouttonMoins1");
+				var bouttonPlus1 = document.getElementById("bouttonPlus1")
+
+
+
 				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
 				var misajour = function(){
 				    
-				            var x = $("#sprintIdList").val();
-				            bloquerbouton();
+				            x = parseInt($("#sprintIdList").val())
+				            bloquerbouton(x);
 				            var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+x);
 				            var heures = result[0];
 				            var dates = result[1];
 				            var seuils = result[2];
 				            var sprintou = result[3];
 				            createChartNEW(heures, dates, seuils, sprintou);
-				            $("#sprintIdList").val(x); 
+				            $("#sprintIdList").val(x);
+
+				           
 				           
 				};
 				
@@ -176,26 +184,21 @@
 				};
 				
 				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
-				var bloquerbouton = function(){
+				var bloquerbouton = function(x){
 				    
-				   x = parseInt($("#sprintIdList").val());
-				   
-				   if ((x < DernierSprint) && (x > PremierSprint)){
-				       $('button.ajout').prop('disabled', false);
-				       $('button.suppression').prop('disabled', false);
-				        }
-				        
-				    else if ( x == DernierSprint )
-				    {
-				       $('button.suppression').prop('disabled', false);
-				       $('button.ajout').prop('disabled', true);
-				    }
-				    
-				    else
-				    {
-				       $('button.suppression').prop('disabled', true);
-				       $('button.ajout').prop('disabled', false);
-				    }
+				   if(ListIdSprint[0] == x)
+				            bouttonPlus1.classList.add("disabled")
+				        else
+				        	bouttonPlus1.classList.remove("disabled")
+
+				        if(ListIdSprint[ListIdSprint.length-1] == x)
+				        	bouttonMoins1.classList.add("disabled")
+				        else
+				        	bouttonMoins1.classList.remove("disabled")
+
+				        console.log('valeur de la list: ',x);
+				        console.log('valeur max: ',ListIdSprint[0])
+
 				};
 				
 				//Si le sprint ne peux s'afficher alors demander a l'utilisateur d'en rentrer un nouveau
