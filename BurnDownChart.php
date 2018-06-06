@@ -52,7 +52,7 @@ $data = $req->fetch_assoc();
 					<i class="fa fa-area-chart"></i> Area Chart Example
 				</div>
 				<div class="card-body">
-					<div id="container" style="height: 600;margin-top:20px;width: 1300"></div>
+					<div id="container"></div>
 					<script>
 						var createChartNEW = function(heures, dates, seuils, sprintou){
 							heures = heures.map(function (x) { 

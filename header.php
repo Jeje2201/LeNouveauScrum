@@ -4,6 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="Jeremy">
+	<link rel="icon" href="Icone.ico" />
 	<title>ScrumJeremy</title>
 	<!-- Bootstrap core CSS-->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +34,7 @@
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
 					<a class="nav-link" href="CreerSprint.php">
 					<i class="fa fa-fw fa fa-plus"></i>
-					<span class="nav-link-text">Créer Sprint</span>
+					<span class="nav-link-text">Sprints</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
