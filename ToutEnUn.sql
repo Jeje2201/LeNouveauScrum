@@ -1571,7 +1571,7 @@ ALTER TABLE `attribution`
   ADD CONSTRAINT `FK_Attribution_id_Caracteristiques` FOREIGN KEY (`id_Caracteristiques`) REFERENCES `caracteristiques` (`id`),
   ADD CONSTRAINT `FK_Attribution_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
   ADD CONSTRAINT `FK_Attribution_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
-  ADD CONSTRAINT `FK_Attribution_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`),
+  ADD CONSTRAINT `FK_Attribution_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Attribution_id_TypeTache` FOREIGN KEY (`id_TypeTache`) REFERENCES `typetache` (`id`);
 
 --
@@ -1586,7 +1586,7 @@ ALTER TABLE `demo`
 --
 ALTER TABLE `disponible`
   ADD CONSTRAINT `FK_Disponible_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_Disponible_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`);
+  ADD CONSTRAINT `FK_Disponible_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `employe`
@@ -1608,7 +1608,7 @@ ALTER TABLE `employe_projet`
 ALTER TABLE `heuresdescendues`
   ADD CONSTRAINT `FK_HeuresDescendues_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
   ADD CONSTRAINT `FK_HeuresDescendues_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
-  ADD CONSTRAINT `FK_HeuresDescendues_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`);
+  ADD CONSTRAINT `FK_HeuresDescendues_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `interference`
@@ -1616,7 +1616,7 @@ ALTER TABLE `heuresdescendues`
 ALTER TABLE `interference`
   ADD CONSTRAINT `FK_Interference_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
   ADD CONSTRAINT `FK_Interference_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
-  ADD CONSTRAINT `FK_Interference_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`),
+  ADD CONSTRAINT `FK_Interference_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Interference_id_TypeInterference` FOREIGN KEY (`id_TypeInterference`) REFERENCES `typeinterference` (`id`);
 
 --
@@ -1637,7 +1637,7 @@ ALTER TABLE `projet`
 ALTER TABLE `sprint_projet`
   ADD CONSTRAINT `FK_Sprint_Projet_id_Objectif` FOREIGN KEY (`id_Objectif`) REFERENCES `objectif` (`id`),
   ADD CONSTRAINT `FK_Sprint_Projet_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
-  ADD CONSTRAINT `FK_Sprint_Projet_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`);
+  ADD CONSTRAINT `FK_Sprint_Projet_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

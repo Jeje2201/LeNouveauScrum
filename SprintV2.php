@@ -32,7 +32,7 @@
             </div>
           </div> -->
 
-          
+
     </div>
   </div>
 </body>
@@ -159,7 +159,7 @@
  //This JQuery code is for Delete customer data. If we have click on any customer row delete button then this code will execute
  $(document).on('click', '.delete', function(){
   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-  if(confirm("Are you sure you want to remove this data?")) //Confim Box if OK then
+  if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) //Confim Box if OK then
   {
    var action = "Delete"; //Define action variable value Delete
    $.ajax({

@@ -2099,16 +2099,16 @@ fieldset[disabled] a.btn {
   border-color: #117a8b;
 }
 
-.btn-warning {
-  color: #111;
-  background-color: #ffc107;
-  border-color: #ffc107;
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
-.btn-warning:hover {
-  color: #111;
-  background-color: #e0a800;
-  border-color: #d39e00;
+.btn-danger:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
 }
 
 .btn-warning:focus, .btn-warning.focus {
