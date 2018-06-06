@@ -1,8 +1,5 @@
   <html>
   <?php include('header.php'); ?>
-  <?php $req = $conn->query('SELECT numero as nummax from sprint where numero = (SELECT max(numero) FROM sprint)');
-  $data = $req->fetch_assoc();
-  ?>
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
@@ -47,7 +44,7 @@
   </div>
   <div class="modal-body">
     <label>Numero</label>
-    <input type="text" name="numero" id='numero' class="form-control" placeholder="Le texte" value="<?php echo $data['nummax']+1;?>">
+    <input type="text" name="numero" id='numero' class="form-control">
     <br />
     <label>Date Debut</label>
     <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
@@ -104,7 +101,7 @@
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
-  $('#numero').val(<?php echo $data['nummax']+1;?>); //This will clear Modal first name textbox
+  $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
