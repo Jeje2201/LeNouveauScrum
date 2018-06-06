@@ -97,7 +97,6 @@
 //     }
 //   })
 
-
 }
 
  //This JQuery code will Reset value of Modal item when modal will load for create new records

@@ -131,7 +131,9 @@ $data = $req->fetch_assoc();
 				/// Lors de l'appuis sur le bouton pour voir le sprint suivant ou précédent///
 				var plus1 = function(number){
 
-					SprintSuperieure = parseInt($("#sprintIdList").val()) + 1;
+					var toto = ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))-1;
+
+					SprintSuperieure = ListIdSprint[toto];
 
 					$("#sprintIdList").val(SprintSuperieure);
 
@@ -144,7 +146,9 @@ $data = $req->fetch_assoc();
 				//////////////////////////////////////////////////////////////////
 				var moins1 = function(number){
 
-					SprintInferieur = parseInt($("#sprintIdList").val()) -1;
+					var toto = ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+1;
+
+					SprintInferieur = ListIdSprint[toto];
 
 					$("#sprintIdList").val(SprintInferieur);
 
@@ -191,6 +195,8 @@ $data = $req->fetch_assoc();
 						misajour();
 					else
 						alert('Ce sprint n\'a pas de données. Rien à afficher.');
+
+					bloquerbouton();
 
 				};
 				
