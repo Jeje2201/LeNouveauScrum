@@ -16,11 +16,11 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   $output .= '
    <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
     <tr>
-     <th>Numero</th>
-     <th>Date Debut</th>
-     <th>Date Fin</th>
-     <th>Update</th>
-     <th>Delete</th>
+     <th width="30%">Numero</th>
+     <th width="30%">Date Debut</th>
+     <th width="30%">Date Fin</th>
+     <th width="5%">Update</th>
+     <th width="5%">Delete</th>
     </tr>
   ';
   if($statement->rowCount() > 0)
@@ -32,8 +32,8 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
      <td>'.$row["numero"].'</td>
      <td>'.$row["dateDebut"].'</td>
      <td>'.$row["dateFin"].'</td>
-     <td><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button></td>
-     <td><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></td>
+     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button></center></td>
+     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button></center></td>
     </tr>
     ';
    }
