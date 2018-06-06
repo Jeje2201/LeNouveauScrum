@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once __Dir__ . '/header.php'; ?>
-<?php $req = $conn->query('SELECT numero as nummax from sprint where id = (SELECT max(id) FROM sprint)');
-$data = $req->fetch_assoc();
-?>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="content-wrapper">
 		<div class="container-fluid">

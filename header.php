@@ -39,13 +39,13 @@
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 					<a class="nav-link" href="AttributionHeures.php">
-					<i class="fa fa-fw fa-table"></i>
+					<i class="fa fa-fw fa fa fa-calendar"></i>
 					<span class="nav-link-text">Heures Attribuées</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeiresDescendues">
 					<a class="nav-link" href="HeuresDescendues.php">
-					<i class="fa fa-fw fa-table"></i>
+					<i class="fa fa-fw fa fa-thumbs-up"></i>
 					<span class="nav-link-text">Heures Descendues</span>
 					</a>
 				</li>
