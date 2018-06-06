@@ -137,7 +137,7 @@ $data = $req->fetch_assoc();
 
 				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint); //Regarde si le sprint existe ou non dans la bdd
 
-				    UpdateOuNonChart(result); //Appel la fonction pour regarder si elle existe ou non et déduire quoi faire
+				    UpdateOuNonChart(result, NumeroduSprint); //Appel la fonction pour regarder si elle existe ou non et déduire quoi faire
 
 				};
 				
@@ -156,28 +156,25 @@ $data = $req->fetch_assoc();
 					else
 						bouttonMoins1.classList.remove("disabled")
 
-					console.log('valeur de la list: ',x);
-					console.log('valeur max: ',ListIdSprint[0])
-
 				};
 				
 				//Fonction lorsque l'on choisie un nouveau sprint depuis la liste deroulante
 				var sprintIdListChanged = function(){
 
-					var x = parseInt($("#sprintIdList").val());
+					var NumeroduSprint = parseInt($("#sprintIdList").val());
 
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+x);
+					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint);
 
-					UpdateOuNonChart(result);
+					UpdateOuNonChart(result, NumeroduSprint);
 
 				};
 
-				var UpdateOuNonChart = function(result){
+				var UpdateOuNonChart = function(result, NumeroduSprint){
 
 					if (result)
 						misajour();
 					else
-						alert('Ce sprint n\'a pas de données. Rien à afficher.');
+						alert('Le sprint n°'+NumeroduSprint+' n\'a pas de données. Rien à afficher.');
 
 					bloquerbouton();
 
