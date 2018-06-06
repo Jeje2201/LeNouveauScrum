@@ -36,10 +36,10 @@ $data = $req->fetch_assoc();
 							</div>
 
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="plus1()">+</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprint('-1')">+</a>
 							</div>
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="moins1()">-</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprint('+1')">-</a>
 							</div>
 						</div>
 					</div>
@@ -127,34 +127,17 @@ $data = $req->fetch_assoc();
 					$("#sprintIdList").val(x);
 
 				};
-				
-				/// Lors de l'appuis sur le bouton pour voir le sprint suivant ou précédent///
-				var plus1 = function(number){
 
-					var toto = ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))-1;
+				//Fonction appelé lors du changement d'un sprint avec les boutons plus et moins
+				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
+					
+					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Prend la valeur du prochain numéro de sprint en regardant la valeur de l'indice +1 ou -1 de la list, donc soit le numéro du précédent ou suivant sprint dans la liste
 
-					SprintSuperieure = ListIdSprint[toto];
+					$("#sprintIdList").val(NumeroduSprint); //Donne a la liste ce numéro
 
-					$("#sprintIdList").val(SprintSuperieure);
+				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint); //Regarde si le sprint existe ou non dans la bdd
 
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+SprintSuperieure);
-
-					UpdateOuNonChart(result);
-
-				};
-				
-				//////////////////////////////////////////////////////////////////
-				var moins1 = function(number){
-
-					var toto = ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+1;
-
-					SprintInferieur = ListIdSprint[toto];
-
-					$("#sprintIdList").val(SprintInferieur);
-
-				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+SprintInferieur); //check si le resultat est true ou false
-
-				    UpdateOuNonChart(result);
+				    UpdateOuNonChart(result); //Appel la fonction pour regarder si elle existe ou non et déduire quoi faire
 
 				};
 				
