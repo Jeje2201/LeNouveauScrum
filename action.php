@@ -9,7 +9,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  //For Load All Data
  if($_POST["action"] == "Load") 
  {
-  $statement = $connection->prepare("SELECT * FROM sprint ORDER BY id DESC");
+  $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
   $statement->execute();
   $result = $statement->fetchAll();
   $output = '';
