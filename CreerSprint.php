@@ -1,6 +1,6 @@
   <html>
   <?php include('header.php'); ?>
-  <?php $req = $conn->query('SELECT numero as nummax from sprint where id = (SELECT max(id) FROM sprint)');
+  <?php $req = $conn->query('SELECT numero as nummax from sprint where numero = (SELECT max(numero) FROM sprint)');
   $data = $req->fetch_assoc();
   ?>
   <body class="fixed-nav sticky-footer" id="page-top">
