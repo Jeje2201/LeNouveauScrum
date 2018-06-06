@@ -52,6 +52,20 @@ body.fixed-nav {
 .z-1 {
   z-index: 1; }
 
+  .btn-warning {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+.btn-xs,
+.btn-group-xs > .btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
 #mainNav .navbar-collapse {
   overflow: auto;
   max-height: 75vh; }
