@@ -4,30 +4,30 @@
     <div class="content-wrapper">
       <div class="container">
         <div class="mb-3">
-           <div align="right">
-            <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
-            <!-- It will show Modal for Create new Records !-->
-          </div>
-          <br />
+         <div align="right">
+          <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
+          <!-- It will show Modal for Create new Records !-->
+        </div>
+        <br />
 
-          <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
+        <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
       </div>
 
 
-<!-- <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="datatable1" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>Employé</th>
-                    <th>Projet</th>
-                    <th>Heure</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-          </div> -->
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="datatable1" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Employé</th>
+                <th>Projet</th>
+                <th>Heure</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
 
 
     </div>
@@ -78,23 +78,7 @@
     console.log('le data initial: ',data) 
     $('#result').html(data); //It will display data under div tag with id result
   }
-
 });
-
-// var action = "Load"
-//   $('#datatable1').DataTable({
-
-//     ajax:{
-//       url:'action.php',
-//       columns:[
-//        {data:0},
-//        {data:1},
-//        {data:2}
-//       ]
-
-//     }
-//   })
-
 }
 
  //This JQuery code will Reset value of Modal item when modal will load for create new records
