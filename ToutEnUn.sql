@@ -1131,7 +1131,7 @@ INSERT INTO `projet` (`id`, `nom`, `couleur`, `id_TypeProjet`) VALUES
 
 CREATE TABLE `sprint` (
   `id` int(11) NOT NULL,
-  `numero` varchar(10) DEFAULT NULL,
+  `numero` int(10) DEFAULT NULL,
   `dateDebut` date DEFAULT NULL,
   `dateFin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
