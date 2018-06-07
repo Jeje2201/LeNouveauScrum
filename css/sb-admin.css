@@ -7,7 +7,7 @@ html {
   position: relative;
   min-height: 100%; }
 
-#myInput {
+#BarreDeRecherche {
     background-image: url('../css/searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
@@ -361,7 +361,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   max-width: 40rem; }
 
 footer.sticky-footer {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   width: 100%;

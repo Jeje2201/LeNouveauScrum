@@ -10,7 +10,7 @@
         </div>
         <br />
 
- <input class="form-control" id="myInput" type="text" placeholder="Search..">
+ <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
@@ -52,14 +52,12 @@
 
   $(document).ready(function(){
 
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
+  $("#BarreDeRecherche").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-});
 
  fetchUser(); //This function will load all data on web page when page load
  function fetchUser() // This function will fetch data from table and display under <div id="result">
@@ -81,6 +79,8 @@ $(document).ready(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
   $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
+  $('#dateDebut').text(DateAujourdhui("#dateDebut"));
+  $('#dateFin').text(DateApres("#dateFin"));
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
@@ -156,7 +156,6 @@ $(document).ready(function(){
 });
 });
 
-
   //Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
   $('#dateDebut').datetimepicker({
     format: 'yyyy-mm-dd',
@@ -168,7 +167,6 @@ $(document).ready(function(){
     autoclose: true,
     minView : 2
   });
-
 
     //Fonction pour auto remplir la date d'aujourd'hui dans le premier input date
     function DateAujourdhui(_id){
@@ -203,14 +201,5 @@ $(document).ready(function(){
 
       _dat.value = a + "-" + m + "-" + j;
     }
-
-
-    DateAujourdhui("#dateDebut");
-    DateApres("#dateFin");
-
-
-
-
-
 
   </script>
