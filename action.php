@@ -15,6 +15,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   $output = '';
   $output .= '
    <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+    <thead>
     <tr>
      <th width="30%">Numero</th>
      <th width="30%">Date Debut</th>
@@ -22,6 +23,8 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
      <th width="5%"><center>Editer</center></th>
      <th width="5%"><center>Supprimer</center></center></th>
     </tr>
+    </thead>
+    <tbody id="myTable">
   ';
   if($statement->rowCount() > 0)
   {
@@ -46,7 +49,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
     </tr>
    ';
   }
-  $output .= '</table>';
+  $output .= '</tbody></table>';
   echo $output;
  }
 

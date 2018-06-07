@@ -10,26 +10,11 @@
         </div>
         <br />
 
+ <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
       </div>
-
-
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered" id="datatable1" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Employé</th>
-                <th>Projet</th>
-                <th>Heure</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-
-
     </div>
   </div>
 </body>
@@ -66,6 +51,16 @@
 <script>
 
   $(document).ready(function(){
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
  fetchUser(); //This function will load all data on web page when page load
  function fetchUser() // This function will fetch data from table and display under <div id="result">
  {
