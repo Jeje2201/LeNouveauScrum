@@ -10,7 +10,7 @@
         </div>
         <br />
 
- <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
@@ -52,12 +52,12 @@
 
   $(document).ready(function(){
 
-  $("#BarreDeRecherche").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $("#BarreDeRecherche").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
-  });
 
  fetchUser(); //This function will load all data on web page when page load
  function fetchUser() // This function will fetch data from table and display under <div id="result">
