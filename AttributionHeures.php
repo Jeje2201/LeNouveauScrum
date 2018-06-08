@@ -21,7 +21,7 @@
           </select>
         </div>
          <div class="col-md-2" align="right">
-          <button type="button" id="modal_button" class="btn btn-info">Attribution</button>
+          <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
           <!-- It will show Modal for Create new Records !-->
         </div>
       </div>
