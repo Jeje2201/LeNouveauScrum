@@ -32,7 +32,6 @@
 							<select class="form-control"  name="projetid">
 							<?php
 								$result = $conn->query("select id, nom from projet");
-								    
 								
 								        while ($row = $result->fetch_assoc()) {
 								          unset($id, $nom);
