@@ -64,11 +64,6 @@
           </a>
         </li>
       </ul>
-			<ul class="navbar-nav ml-auto">
-                <a class="nav-link mr-lg-2" id="toggleNavColor" href="#" data-toggle="" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-fw fa-lightbulb-o"></i>
-				</a>
-			</ul>
 		</div>
 	</nav>
     <?php require_once __Dir__ . '/api/www/Configs.php'; ?>
