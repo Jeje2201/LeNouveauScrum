@@ -21,7 +21,7 @@
           </select>
         </div>
          <div class="col-md-2" align="right">
-          <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
+          <button type="button" id="modal_button" class="btn btn-info">Descendre</button>
           <!-- It will show Modal for Create new Records !-->
         </div>
       </div>
@@ -63,7 +63,6 @@
       <?php
       $result = $conn->query("select id, nom from projet order by nom");
 
-
       while ($row = $result->fetch_assoc()) {
         unset($id, $nom);
         $id = $row['id'];
@@ -75,6 +74,9 @@
     <br />
     <label>Nombre d'heures</label>
     <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+    <br />
+    <label>Date</label>
+    <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
     <br />
   </div>
   <div class="modal-footer">
@@ -122,7 +124,8 @@
  //This JQuery code will Reset value of Modal item when modal will load for create new records
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
-  $('.modal-title').text("Attribuer"); //It will change Modal title to Create new Records
+  $('.modal-title').text("Descendre"); //It will change Modal title to Create new Records
+  $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
@@ -198,6 +201,35 @@
  }
 });
 });
+
+  //Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
+  $('#DateAujourdhui').datetimepicker({
+    format: 'yyyy-mm-dd',
+    autoclose: true,
+    minView : 2
+  });
+
+    //Fonction pour auto remplir la date d'aujourd'hui dans le premier input date
+    function ChoixDate(_id,jours){
+      var _dat = document.querySelector(_id);
+      var Apres = new Date();
+      Apres.setDate(Apres.getDate()+jours);
+      j = Apres.getDate(),
+      m = Apres.getMonth()+1, 
+      a = Apres.getFullYear();
+
+      if(j < 10){
+        j = "0" + j;
+      };
+      if(m < 10){
+        m = "0" + m;
+      };
+
+      _dat.value = a + "-" + m + "-" + j;
+    
+    };
+
+
 
   function BootstrapAlert(message){
     $('.alert').text(message);
