@@ -60,12 +60,13 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Create")
  {
   $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet)
+   INSERT INTO heuresdescendues (heure, DateDescendu, id_Sprint, id_Employe, id_Projet) 
+   VALUES (:NombreHeure, :DateDescendu, :idSprint, :idEmploye, :idProjet)
   ");
   $result = $statement->execute(
    array(
     ':NombreHeure' => $_POST["NombreHeure"],
+    ':DateDescendu' => $_POST["DateAujourdhui"],
     ':idSprint' => $_POST["idSprint"],
     ':idEmploye' => $_POST["idEmploye"],
     ':idProjet' => $_POST["idProjet"]
@@ -75,6 +76,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   {
    echo 'Heure(s) Attribuée(s) ! 😄';
   }
+
  }
 
  //This Code is for fetch single customer data for display on Modal

@@ -80,7 +80,7 @@
     <br />
   </div>
   <div class="modal-footer">
-    <input  type="hidden" name="id" id="id" />
+    <input name="id" id="id" />
     <input type="submit" name="action" id="action" class="btn btn-success" />
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
   </div>
@@ -135,14 +135,15 @@
   var idEmploye = $('#employeId').val();
   var idProjet = $('#projetId').val();
   var NombreHeure = $('#nbheure').val();
+  var DateAujourdhui = $('#DateAujourdhui').val();
   var id = $('#id').val();
   var action = $('#action').val();  //Get the value of Modal Action button and stored into action variable
-  if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') //This condition will check both variable has some value
+  if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') //This condition will check both variable has some value
   {
    $.ajax({
     url : "ActionDescendre.php",    //Request send to "ActionDescendre.php page"
     method:"POST",     //Using of Post method for send data
-    data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, //Send data to server
+    data:{id:id, DateAujourdhui:DateAujourdhui, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, //Send data to server
     success:function(data){
      BootstrapAlert(data);
      $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
