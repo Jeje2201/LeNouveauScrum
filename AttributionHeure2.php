@@ -103,7 +103,7 @@
  {
   var action = "Load";
   $.ajax({
-   url : "ActionSprint.php", //Request send to "ActionSprint.php page"
+   url : "ActionAttributionHeure.php", //Request send to "ActionAttributionHeure.php page"
    method:"POST", //Using of Post method for send data
    data:{action:action}, //action variable data has been send to server
    success:function(data){
@@ -116,9 +116,6 @@
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
-  $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
-  $('#dateDebut').text(ChoixDate("#dateDebut",0));
-  $('#dateFin').text(ChoixDate("#dateFin",14));
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
@@ -132,7 +129,7 @@
   if(numero != '' && dateDebut != '' && dateFin != '') //This condition will check both variable has some value
   {
    $.ajax({
-    url : "ActionSprint.php",    //Request send to "ActionSprint.php page"
+    url : "ActionAttributionHeure.php",    //Request send to "ActionAttributionHeure.php page"
     method:"POST",     //Using of Post method for send data
     data:{numero:numero, dateDebut:dateDebut, id:id, dateFin:dateFin, action:action}, //Send data to server
     success:function(data){
@@ -153,7 +150,7 @@
   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
   var action = "Select";   //We have define action variable value is equal to select
   $.ajax({
-   url:"ActionSprint.php",   //Request send to "ActionSprint.php page"
+   url:"ActionAttributionHeure.php",   //Request send to "ActionAttributionHeure.php page"
    method:"POST",    //Using of Post method for send data
    data:{id:id, action:action},//Send data to server
    dataType:"json",   //Here we have define json data type, so server will send data in json format.
@@ -176,7 +173,7 @@
   {
    var action = "Delete"; //Define action variable value Delete
    $.ajax({
-    url:"ActionSprint.php",    //Request send to "ActionSprint.php page"
+    url:"ActionAttributionHeure.php",    //Request send to "ActionAttributionHeure.php page"
     method:"POST",     //Using of Post method for send data
     data:{id:id, action:action}, //Data send to server from ajax method
     success:function(data)
@@ -192,38 +189,6 @@
  }
 });
 });
-
-  //Creation du format des datatimepicker avec un format ok pour l'insertion dans la bdd, un close auto lorsque l'on choisie la date et un view a 2 car on a pas besoin de plus.
-  $('#dateDebut').datetimepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true,
-    minView : 2
-  });
-  $('#dateFin').datetimepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true,
-    minView : 2
-  });
-
-    //Fonction pour auto remplir la date d'aujourd'hui dans le premier input date
-    function ChoixDate(_id,jours){
-      var _dat = document.querySelector(_id);
-      var Apres = new Date();
-      Apres.setDate(Apres.getDate()+jours);
-      j = Apres.getDate(),
-      m = Apres.getMonth()+1, 
-      a = Apres.getFullYear();
-
-      if(j < 10){
-        j = "0" + j;
-      };
-      if(m < 10){
-        m = "0" + m;
-      };
-
-      _dat.value = a + "-" + m + "-" + j;
-    
-    };
 
     function BootstrapAlert(message){
       $('.alert').text(message);
