@@ -10,7 +10,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Load") 
  {
   $numero = $_POST["idAffiche"];
-  $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
+  $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.prenom as employe FROM heuresdescendues inner JOIN employe ON heuresdescendues.id_Employe = employe.id INNER JOIN projet on projet.id = heuresdescendues.id_Projet INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint WHERE id_sprint= $numero ORDER BY heuresdescendues.id desc");
   $statement->execute();
   $result = $statement->fetchAll();
   $output = '';
@@ -18,9 +18,10 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
    <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
     <thead>
     <tr>
-     <th width="30%">Employé(e)</th>
-     <th width="30%">Projet</th>
-     <th width="30%">Heure(s)</th>
+     <th width="20%">Employé(e)</th>
+     <th width="20%">Projet</th>
+     <th width="20%">Date</th>
+     <th width="20%">Heure(s)</th>
      <th width="5%"><center>Editer</center></th>
      <th width="5%"><center>Supprimer</center></center></th>
     </tr>
@@ -35,6 +36,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
     <tr>
      <td>'.$row["employe"].'</td>
      <td>'.$row["projet"].'</td>
+     <td>'.$row["Datee"].'</td>
      <td>'.$row["NbHeure"].'</td>
      <td><center><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Editer</button></center></td>
      <td><center><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></center></td>
