@@ -3,6 +3,9 @@
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
+
+<div class="alert alert-success"  style="display: none" role="alert"> </div>
+
         <div class="mb-3">
          <div align="right">
           <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
@@ -60,6 +63,7 @@
     });
 
  fetchUser(); //This function will load all data on web page when page load
+
  function fetchUser() // This function will fetch data from table and display under <div id="result">
  {
   var action = "Load";
@@ -68,7 +72,6 @@
    method:"POST", //Using of Post method for send data
    data:{action:action}, //action variable data has been send to server
    success:function(data){
-    console.log('le data initial: ',data) 
     $('#result').html(data); //It will display data under div tag with id result
   }
 });
@@ -98,8 +101,7 @@
     method:"POST",     //Using of Post method for send data
     data:{numero:numero, dateDebut:dateDebut, id:id, dateFin:dateFin, action:action}, //Send data to server
     success:function(data){
-     console.log(data);    //It will pop up which data it was received from server side
-     alert(data);
+     BootstrapAlert(data);
      $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
      fetchUser();    // Fetch User function has been called and it will load data under divison tag with id result
    }
@@ -145,7 +147,7 @@
     success:function(data)
     {
      fetchUser();    // fetchUser() function has been called and it will load data under divison tag with id result
-     alert(data);    //It will pop up which data it was received from server side
+     BootstrapAlert(data);
    }
  })
  }
@@ -178,6 +180,12 @@
 
       Ajouter0JoursMois(j,m,a,_dat)
     };
+
+    function BootstrapAlert(message){
+      $('.alert').text(message);
+      $('.alert').show();
+      $('.alert').delay(2000).fadeOut('slow');
+    }
 
     //Mettre le deuxieme datapicker à 14jours après la date d'aujourd'hui.
     function DateApres(_id){
