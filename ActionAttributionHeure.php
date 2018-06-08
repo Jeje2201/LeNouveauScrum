@@ -88,9 +88,9 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   $result = $statement->fetchAll();
   foreach($result as $row)
   {
-   $output["numero"] = $row["numero"];
-   $output["dateDebut"] = $row["dateDebut"];
-   $output["dateFin"] = $row["dateFin"];
+   $output["heure"] = $row["heure"];
+   $output["id_Employe"] = $row["id_Employe"];
+   $output["id_Projet"] = $row["id_Projet"];
   }
   echo json_encode($output);
  }
@@ -98,22 +98,23 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Update")
  {
   $statement = $connection->prepare(
-   "UPDATE sprint 
-   SET numero = :numero, dateDebut = :dateDebut, dateFin = :dateFin 
+   "UPDATE attribution 
+   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
    WHERE id = :id
    "
   );
   $result = $statement->execute(
    array(
-    ':numero' => $_POST["numero"],
-    ':dateDebut' => $_POST["dateDebut"],
-    ':dateFin' => $_POST["dateFin"],
+    ':heure' => $_POST["NombreHeure"],
+    ':id_Sprint' => $_POST["idSprint"],
+    ':id_Projet' => $_POST["idProjet"],
+    ':id_Employe'   => $_POST["idProjet"],
     ':id'   => $_POST["id"]
    )
   );
   if(!empty($result))
   {
-   echo 'Sprint modifié ! 😮';
+   echo 'Heure(s) attribuée(s) modifiée(s) ! 😮';
   }
  }
 
