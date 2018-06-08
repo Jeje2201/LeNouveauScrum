@@ -4,8 +4,22 @@
     <div class="content-wrapper">
       <div class="container">
 
-<div class="alert alert-success"  style="display: none" role="alert"> </div>
+        <div class="alert alert-success"  style="display: none" role="alert"> </div>
+        <div class="mb-6">
+          <label>Numero</label>
+          <select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='fetchUser();'>
+            <?php
+            $result = $conn->query("select id, numero from sprint order by numero desc");
 
+            while ($row = $result->fetch_assoc()) {
+              unset($id, $numero);
+              $id = $row['id'];
+              $numero = $row['numero']; 
+              echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+            }
+            ?> 
+          </select>
+        </div>
         <div class="mb-3">
          <div align="right">
           <button type="button" id="modal_button" class="btn btn-info">Atrribuer un nombre d'heures</button>
@@ -32,46 +46,35 @@
   </div>
   <div class="modal-body">
     <label>Numero</label>
-    <select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
-                <?php
-                  $result = $conn->query("select id, numero from sprint order by numero desc");
-                  
-                                  while ($row = $result->fetch_assoc()) {
-                                                unset($id, $numero);
-                                                $id = $row['id'];
-                                                $numero = $row['numero']; 
-                                                echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                                  }
-                  ?> 
-                </select>
+    <input type="text" name="numero" id='numeroSprint' class="form-control">
     <br />
     <label>Employé</label>
     <select class="form-control"  name="employéid">
-                <?php
-                  $result = $conn->query("select id, prenom from employe order by prenom");
-                          while ($row = $result->fetch_assoc()) {
-                            unset($id, $nom);
-                            $id = $row['id'];
-                            $prenom = $row['prenom']; 
-                            echo '<option value="'.$id.'"> ' .$prenom. ' </option>';
-                          }
-                  ?>
-                </select>
+      <?php
+      $result = $conn->query("select id, prenom from employe order by prenom");
+      while ($row = $result->fetch_assoc()) {
+        unset($id, $nom);
+        $id = $row['id'];
+        $prenom = $row['prenom']; 
+        echo '<option value="'.$id.'"> ' .$prenom. ' </option>';
+      }
+      ?>
+    </select>
     <br />
     <label>Projet</label>
     <select class="form-control"  name="projetid">
-                <?php
-                  $result = $conn->query("select id, nom from projet order by nom");
-                      
-                  
-                          while ($row = $result->fetch_assoc()) {
-                            unset($id, $nom);
-                            $id = $row['id'];
-                            $nom = $row['nom']; 
-                            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-                          }
-                  ?>
-                </select>
+      <?php
+      $result = $conn->query("select id, nom from projet order by nom");
+
+
+      while ($row = $result->fetch_assoc()) {
+        unset($id, $nom);
+        $id = $row['id'];
+        $nom = $row['nom']; 
+        echo '<option value="'.$id.'"> ' .$nom. ' </option>';
+      }
+      ?>
+    </select>
     <br />
     <label>Nombre d'heures</label>
     <input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
@@ -101,11 +104,12 @@
 
  function fetchUser() // This function will fetch data from table and display under <div id="result">
  {
+  var idAffiche = parseInt(document.getElementById("sprintIdList").value)
   var action = "Load";
   $.ajax({
    url : "ActionAttributionHeure.php", //Request send to "ActionAttributionHeure.php page"
    method:"POST", //Using of Post method for send data
-   data:{action:action}, //action variable data has been send to server
+   data:{action:action, idAffiche:idAffiche}, //action variable data has been send to server
    success:function(data){
     $('#result').html(data); //It will display data under div tag with id result
   }
@@ -116,6 +120,7 @@
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
+  $('#numeroSprint').val(document.getElementById("sprintIdList").value); //This will clear Modal first name textbox
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
@@ -190,9 +195,9 @@
 });
 });
 
-    function BootstrapAlert(message){
-      $('.alert').text(message);
-      $('.alert').show();
-      $('.alert').delay(2000).fadeOut('slow');
-    }
-  </script>
+  function BootstrapAlert(message){
+    $('.alert').text(message);
+    $('.alert').show();
+    $('.alert').delay(2000).fadeOut('slow');
+  }
+</script>
