@@ -69,7 +69,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Sprint créé!';
+   echo 'Sprint créé ! 😄';
   }
  }
 
@@ -111,7 +111,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Sprint modifié!';
+   echo 'Sprint modifié ! 😮';
   }
  }
 
@@ -127,7 +127,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Data Deleted';
+   echo 'Sprint supprimé ! 😢';
   }
  }
 
