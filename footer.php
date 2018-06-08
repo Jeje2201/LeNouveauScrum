@@ -26,9 +26,10 @@
 <!-- BootStrap pour les heures-->
 <script src="js/bootstrap-datetimepicker.js"></script>
 <script>
-	$('#toggleNavColor').click(function() {
-	 $('nav').toggleClass('navbar-dark navbar-light');
-	 $('nav').toggleClass('bg-dark bg-light');
-	 $('body').toggleClass('bg-dark bg-light');
-	});
+
+	var url = location.pathname.split("/")[2];
+	$('nav a[href^="' + url + '"]')
+	.closest('li')
+	.addClass('active');
+	
 </script>
