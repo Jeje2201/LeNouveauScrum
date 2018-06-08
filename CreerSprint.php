@@ -82,8 +82,8 @@
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
   $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
-  $('#dateDebut').text(DateAujourdhui("#dateDebut"));
-  $('#dateFin').text(DateApres("#dateFin"));
+  $('#dateDebut').text(ChoixDate("#dateDebut",0));
+  $('#dateFin').text(ChoixDate("#dateFin",14));
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
@@ -171,35 +171,14 @@
   });
 
     //Fonction pour auto remplir la date d'aujourd'hui dans le premier input date
-    function DateAujourdhui(_id){
-      var _dat = document.querySelector(_id);
-      var aujourdui = new Date(),
-      j = aujourdui.getDate(),
-      m = aujourdui.getMonth()+1, 
-      a = aujourdui.getFullYear();
-
-      Ajouter0JoursMois(j,m,a,_dat)
-    };
-
-    function BootstrapAlert(message){
-      $('.alert').text(message);
-      $('.alert').show();
-      $('.alert').delay(2000).fadeOut('slow');
-    }
-
-    //Mettre le deuxieme datapicker à 14jours après la date d'aujourd'hui.
-    function DateApres(_id){
+    function ChoixDate(_id,jours){
       var _dat = document.querySelector(_id);
       var Apres = new Date();
-      Apres.setDate(Apres.getDate()+14);
+      Apres.setDate(Apres.getDate()+jours);
       j = Apres.getDate(),
       m = Apres.getMonth()+1, 
       a = Apres.getFullYear();
 
-      Ajouter0JoursMois(j,m,a,_dat)
-    };
-    
-    function Ajouter0JoursMois(j,m,a,_dat){
       if(j < 10){
         j = "0" + j;
       };
@@ -208,6 +187,12 @@
       };
 
       _dat.value = a + "-" + m + "-" + j;
-    }
+    
+    };
 
+    function BootstrapAlert(message){
+      $('.alert').text(message);
+      $('.alert').show();
+      $('.alert').delay(2000).fadeOut('slow');
+    }
   </script>
