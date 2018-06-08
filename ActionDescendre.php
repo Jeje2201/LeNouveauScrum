@@ -123,7 +123,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Delete")
  {
   $statement = $connection->prepare(
-   "DELETE FROM attribution WHERE id = :id"
+   "DELETE FROM heuresdescendues WHERE id = :id"
   );
   $result = $statement->execute(
    array(
@@ -132,7 +132,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Heure attribuée supprimée ! 😢';
+   echo 'Heure(s) descendue(s) supprimée(s) ! 😢';
   }
  }
 
