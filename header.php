@@ -7,9 +7,9 @@
 	<link rel="icon" href="Icone.ico" />
 	<title>ScrumJeremy</title>
 	<!-- Bootstrap core CSS-->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
-	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
 	<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
 	<link href="css/sb-admin.css" rel="stylesheet">

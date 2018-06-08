@@ -50,7 +50,6 @@
 </div>
 </div>
 <?php require_once __Dir__ . '/footer.php'; ?>
-<script src="js/bootstrap-datetimepicker.js"></script>
 <script>
 
   $(document).ready(function(){
