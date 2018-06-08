@@ -8,7 +8,7 @@
 
         <div class="mb-3">
          <div align="right">
-          <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
+          <button type="button" id="modal_button" class="btn btn-info">Atrribuer un nombre d'heures</button>
           <!-- It will show Modal for Create new Records !-->
         </div>
         <br />
@@ -32,13 +32,49 @@
   </div>
   <div class="modal-body">
     <label>Numero</label>
-    <input type="text" name="numero" id='numero' class="form-control">
+    <select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='update();'>
+                <?php
+                  $result = $conn->query("select id, numero from sprint order by numero desc");
+                  
+                                  while ($row = $result->fetch_assoc()) {
+                                                unset($id, $numero);
+                                                $id = $row['id'];
+                                                $numero = $row['numero']; 
+                                                echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+                                  }
+                  ?> 
+                </select>
     <br />
-    <label>Date Debut</label>
-    <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+    <label>Employé</label>
+    <select class="form-control"  name="employéid">
+                <?php
+                  $result = $conn->query("select id, prenom from employe order by prenom");
+                          while ($row = $result->fetch_assoc()) {
+                            unset($id, $nom);
+                            $id = $row['id'];
+                            $prenom = $row['prenom']; 
+                            echo '<option value="'.$id.'"> ' .$prenom. ' </option>';
+                          }
+                  ?>
+                </select>
     <br />
-    <label>Date Fin</label>
-    <input type="text" name="dateFin" id='dateFin' class="form-control" />
+    <label>Projet</label>
+    <select class="form-control"  name="projetid">
+                <?php
+                  $result = $conn->query("select id, nom from projet order by nom");
+                      
+                  
+                          while ($row = $result->fetch_assoc()) {
+                            unset($id, $nom);
+                            $id = $row['id'];
+                            $nom = $row['nom']; 
+                            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
+                          }
+                  ?>
+                </select>
+    <br />
+    <label>Nombre d'heures</label>
+    <input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
     <br />
   </div>
   <div class="modal-footer">
