@@ -6,8 +6,8 @@
 
         <div class="alert alert-success"  style="display: none" role="alert"> </div>
         <div class="mb-6">
-          <label>Numero</label>
-          <select class="form-control"  id="sprintIdList" name="sprintIdList" onchange='fetchUser();'>
+          <label>Sprint n°</label>
+          <select class="form-control"  id="numeroSprint" name="numeroSprint">
             <?php
             $result = $conn->query("select id, numero from sprint order by numero desc");
 
@@ -45,24 +45,21 @@
     <h4 class="modal-title">Create New Records</h4>
   </div>
   <div class="modal-body">
-    <label>Numero</label>
-    <input type="text" name="numero" id='numeroSprint' class="form-control">
-    <br />
     <label>Employé</label>
-    <select class="form-control"  name="employéid">
+    <select class="form-control" id="employeId" name="employeId">
       <?php
-      $result = $conn->query("select id, prenom from employe order by prenom");
+      $result = $conn->query("select id, prenom, nom from employe order by prenom");
       while ($row = $result->fetch_assoc()) {
-        unset($id, $nom);
         $id = $row['id'];
         $prenom = $row['prenom']; 
-        echo '<option value="'.$id.'"> ' .$prenom. ' </option>';
+        $nom = $row['nom']; 
+        echo '<option value="'.$id.'"> ' .$prenom. ' - '.$nom.' </option>';
       }
       ?>
     </select>
     <br />
     <label>Projet</label>
-    <select class="form-control"  name="projetid">
+    <select class="form-control"  id="projetId" name="projetId">
       <?php
       $result = $conn->query("select id, nom from projet order by nom");
 
@@ -77,7 +74,7 @@
     </select>
     <br />
     <label>Nombre d'heures</label>
-    <input class="form-control" name="nbheure" type="number" placeholder="Le texte" min="1" value="1">
+    <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
     <br />
   </div>
   <div class="modal-footer">
@@ -88,7 +85,9 @@
 </div>
 </div>
 </div>
+
 <?php require_once __Dir__ . '/footer.php'; ?>
+
 <script>
 
   $(document).ready(function(){
@@ -104,7 +103,7 @@
 
  function fetchUser() // This function will fetch data from table and display under <div id="result">
  {
-  var idAffiche = parseInt(document.getElementById("sprintIdList").value)
+  var idAffiche = parseInt(document.getElementById("numeroSprint").value)
   var action = "Load";
   $.ajax({
    url : "ActionAttributionHeure.php", //Request send to "ActionAttributionHeure.php page"
@@ -116,27 +115,30 @@
 });
 }
 
+ $('#numeroSprint').click(function(){
+  fetchUser();
+});
+
  //This JQuery code will Reset value of Modal item when modal will load for create new records
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
-  $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
-  $('#numeroSprint').val(document.getElementById("sprintIdList").value); //This will clear Modal first name textbox
+  $('.modal-title').text("Attribuer un nombre d'heures"); //It will change Modal title to Create new Records
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
  //This JQuery code is for Click on Modal action button for Create new records or Update existing records. This code will use for both Create and Update of data through modal
  $('#action').click(function(){
-  var numero = $('#numero').val(); //Get the value of first name textbox.
-  var dateDebut = $('#dateDebut').val(); //Get the value of last name textbox
-  var dateFin = $('#dateFin').val();  //Get the value of hidden field customer id
-  var id = $('#id').val();
+  var idSprint = parseInt(document.getElementById("numeroSprint").value)
+  var idEmploye = parseInt(document.getElementById("employeId").value)
+  var idProjet = parseInt(document.getElementById("projetId").value)
+  var NombreHeure = parseInt(document.getElementById("nbheure").value)
   var action = $('#action').val();  //Get the value of Modal Action button and stored into action variable
-  if(numero != '' && dateDebut != '' && dateFin != '') //This condition will check both variable has some value
+  if(id != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') //This condition will check both variable has some value
   {
    $.ajax({
     url : "ActionAttributionHeure.php",    //Request send to "ActionAttributionHeure.php page"
     method:"POST",     //Using of Post method for send data
-    data:{numero:numero, dateDebut:dateDebut, id:id, dateFin:dateFin, action:action}, //Send data to server
+    data:{idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, //Send data to server
     success:function(data){
      BootstrapAlert(data);
      $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.

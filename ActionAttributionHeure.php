@@ -46,7 +46,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   {
    $output .= '
     <tr>
-     <td align="center">Data not Found</td>
+     <td align="center">Aucune donnée à afficher 😰</td>
     </tr>
    ';
   }
@@ -58,19 +58,20 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Create")
  {
   $statement = $connection->prepare("
-   INSERT INTO sprint (numero, dateDebut, dateFin) 
-   VALUES (:numero, :dateDebut, :dateFin)
+   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet)
   ");
   $result = $statement->execute(
    array(
-    ':numero' => $_POST["numero"],
-    ':dateDebut' => $_POST["dateDebut"],
-    ':dateFin' => $_POST["dateFin"]
+    ':NombreHeure' => $_POST["NombreHeure"],
+    ':idSprint' => $_POST["idSprint"],
+    ':idEmploye' => $_POST["idEmploye"],
+    ':idProjet' => $_POST["idProjet"]
    )
   );
   if(!empty($result))
   {
-   echo 'Sprint créé ! 😄';
+   echo 'Heure(s) Attribuée(s) ! 😄';
   }
  }
 
@@ -79,7 +80,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  {
   $output = array();
   $statement = $connection->prepare(
-   "SELECT * FROM sprint 
+   "SELECT * FROM attribution 
    WHERE id = '".$_POST["id"]."' 
    LIMIT 1"
   );
@@ -119,7 +120,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Delete")
  {
   $statement = $connection->prepare(
-   "DELETE FROM sprint WHERE id = :id"
+   "DELETE FROM attribution WHERE id = :id"
   );
   $result = $statement->execute(
    array(
@@ -128,7 +129,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Sprint supprimé ! 😢';
+   echo 'Heure attribuée supprimée ! 😢';
   }
  }
 
