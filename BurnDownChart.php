@@ -16,36 +16,36 @@
 				<div class="card-header">Sélection BurndownChart</div>
 				<div class="card-body">
 					<!-- Selectionner le sprint sur lequel l'on va jouer -->
-						<div class="form-row">
-							<div class="col-md-6">
-								<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
-									<?php
+					<div class="form-row">
+						<div class="col-md-6">
+							<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
+								<?php
 
-									echo '<script> var ListIdSprint =[]; </script>';
+								echo '<script> var ListIdSprint =[]; </script>';
 
-									$result = $conn->query("select id, numero from sprint order by numero desc");
+								$result = $conn->query("select id, numero from sprint order by numero desc");
 
-									while ($row = $result->fetch_assoc()) {
-										unset($id, $numero);
-										$id = $row['id'];
-										$numero = $row['numero']; 
-										echo '<option value="'.$numero.'">' .$numero. '</option>
-										<script> ListIdSprint.push('.$numero.'); </script>';
-									}
+								while ($row = $result->fetch_assoc()) {
+									unset($id, $numero);
+									$id = $row['id'];
+									$numero = $row['numero']; 
+									echo '<option value="'.$numero.'">' .$numero. '</option>
+									<script> ListIdSprint.push('.$numero.'); </script>';
+								}
 
-									echo'<script>console.log("liste complete de numero de sprint: ", ListIdSprint);</script>';
+								echo'<script>console.log("liste complete de numero de sprint: ", ListIdSprint);</script>';
 
-									?>
-								</select>
-							</div>
-
-							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
-							</div>
-							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
-							</div>
+								?>
+							</select>
 						</div>
+
+						<div class="col-md-3">
+							<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- Area Chart Example-->
@@ -56,7 +56,7 @@
 				<div class="card-body">
 					<div id="container"></div>
 					<script>
-						var createChartNEW = function(heures, dates, seuils, sprintou){
+						var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
 							heures = heures.map(function (x) { 
 								return parseInt(x, 10); 
 							});
@@ -65,8 +65,6 @@
 								return parseInt(x, 10); 
 							});
 
-							var x = $("#sprintIdList").val();
-
 							console.log("Les Informations : ",heures, dates, seuils, sprintou);
 
 							new Highcharts.Chart({
@@ -74,7 +72,7 @@
 									renderTo: 'container'
 								},
 								title:{
-									text: 'BurnDownChart du Sprint n°'+x
+									text: 'BurnDownChart du Sprint n°'+NumeroduSprint
 								},
 								subtitle:{
 									text: document.ontouchstart === undefined ?
@@ -111,27 +109,24 @@
 		</div>
 		<script src="js/getdataformulNEW.js"></script>
 		<script>
+
+			$( document ).ready(function() {
+				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
+			});
+
 				//Fonction appelée lors du changement d'un sprint
 				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
 
 					if (Changement != 0) //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
 					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Nouveau sprint = Indexation du numero + argument de la fonction ChangerSprint
 
-					else
+				else
 					NumeroduSprint = parseInt($("#sprintIdList").val()); //sinon checker en fonction du nouveau numéro sélectionné par la liste
 
-				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint); //Regarde si le sprint existe ou non dans la bdd
+				misajour(NumeroduSprint);
 
-					if (result) //si il existe, mettre a jours la bdd
-						misajour(NumeroduSprint);
 
-					else{ //sinon popup indiquant aucun résultat
-						$('#myModal').modal('show');
-    					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩');
-    					bloquerbouton(NumeroduSprint);
-					}
-
-				};
+			};
 
 				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
 				var bloquerbouton = function(NumeroSprint){
@@ -152,17 +147,18 @@
 				var misajour = function(NumeroduSprint){
 
 					bloquerbouton(NumeroduSprint);
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
-					var heures = result[0];
-					var dates = result[1];
-					var seuils = result[2];
-					var sprintou = result[3];
-					createChartNEW(heures, dates, seuils, sprintou);
+					
+					if(getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint) == null){
+						var AfficherRien = [0];
+						createChartNEW(AfficherRien, AfficherRien, AfficherRien, AfficherRien, NumeroduSprint);
+					}
+					else{
+						var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
+						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
+					}
 					$("#sprintIdList").val(NumeroduSprint);
 
 				};
-				
-				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 				
 			</script>
 		</div>

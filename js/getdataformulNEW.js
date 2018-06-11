@@ -10,7 +10,6 @@ var getdatafromurlNEW = function(myurl)
 				        },
 				        error: function(xhr){
 				            console.log("error NEW", xhr);
-				            DemanderNouveauSprint();
 				        }
 				    });
 				    return (exist);
