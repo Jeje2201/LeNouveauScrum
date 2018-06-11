@@ -74,7 +74,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Heure(s) Descend(s) ! 😄';
+   echo 'Heure(s) Descendue(s) ! 😄';
   }
 
  }
