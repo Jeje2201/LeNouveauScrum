@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<select class="form-control"  id="sprintIdList" onchange='ChangerSprintList();'>
+								<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
 									<?php
 
 									echo '<script> var ListIdSprint =[]; </script>';
@@ -41,10 +41,10 @@
 							</div>
 
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprintBouton('-1')">+</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprint('-1')">+</a>
 							</div>
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprintBouton('+1')">-</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprint('+1')">-</a>
 							</div>
 						</div>
 					</div>
@@ -115,35 +115,23 @@
 		<script src="js/getdataformulNEW.js"></script>
 		<script>
 
-				//Fonction appelé lors du changement d'un sprint avec les boutons plus et moins
-				var ChangerSprintBouton = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
+				//Fonction appelée lors du changement d'un sprint
+				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
 
-					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Prend la valeur du prochain numéro de sprint en regardant la valeur de l'indice +1 ou -1 de la list, donc soit le numéro du précédent ou suivant sprint dans la liste
-
+					if (Changement != 0){ //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
+					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Nouveau sprint = Indexation du numero + argument de la fonction ChangerSprint
 					$("#sprintIdList").val(NumeroduSprint); //Donne a la liste ce numéro
+					}
+
+					else
+					NumeroduSprint = parseInt($("#sprintIdList").val()); //sinon checker en fonction du nouveau numéro sélectionné par la liste
 
 				    var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint); //Regarde si le sprint existe ou non dans la bdd
 
-				    UpdateOuNonChart(result, NumeroduSprint); //Appel la fonction pour regarder si elle existe ou non et déduire quoi faire
-
-				};
-				
-				//Fonction lorsque l'on choisie un nouveau sprint depuis la liste deroulante
-				var ChangerSprintList = function(){
-
-					var NumeroduSprint = parseInt($("#sprintIdList").val());
-
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/sprintExist/"+NumeroduSprint);
-
-					UpdateOuNonChart(result, NumeroduSprint);
-
-				};
-
-				var UpdateOuNonChart = function(result, NumeroduSprint){
-
-					if (result)
-						misajour();
-					else{
+					if (result) //si il existe, mettre a jours la bdd
+						misajour(NumeroduSprint);
+					
+					else{ //sinon popup indiquant aucun résultat
 						$('#myModal').modal('show');
     					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩');
     					bloquerbouton(NumeroduSprint);
@@ -167,21 +155,20 @@
 				};
 
 				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
-				var misajour = function(){
+				var misajour = function(NumeroduSprint){
 
-					NumeroSprint = parseInt($("#sprintIdList").val())
-					bloquerbouton(NumeroSprint);
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroSprint);
+					bloquerbouton(NumeroduSprint);
+					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
 					var heures = result[0];
 					var dates = result[1];
 					var seuils = result[2];
 					var sprintou = result[3];
 					createChartNEW(heures, dates, seuils, sprintou);
-					$("#sprintIdList").val(NumeroSprint);
+					$("#sprintIdList").val(NumeroduSprint);
 
 				};
 				
-				misajour();
+				misajour($("#sprintIdList").val());
 				
 			</script>
 		</div>
