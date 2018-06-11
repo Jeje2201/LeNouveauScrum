@@ -114,7 +114,6 @@
 				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 			});
 
-				//Fonction appelée lors du changement d'un sprint
 				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
 
 					if (Changement != 0) //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
@@ -143,19 +142,19 @@
 
 				};
 
-				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
 				var misajour = function(NumeroduSprint){
 
 					bloquerbouton(NumeroduSprint);
+
+					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
 					
-					if(getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint) == null){
+					if(result == null){
 						var AfficherRien = [0];
 						createChartNEW(AfficherRien, AfficherRien, AfficherRien, AfficherRien, NumeroduSprint);
 					}
-					else{
-						var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
+					else
 						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
-					}
+
 					$("#sprintIdList").val(NumeroduSprint);
 
 				};
