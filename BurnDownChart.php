@@ -4,6 +4,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="content-wrapper">
 		<div class="container-fluid">
+				<div class="alert alert-danger"  style="display: none" role="alert"> yolo </div>
 			<div class="card mb-3">
 				<div class="card-header">Selection BurndownChart</div>
 				<div class="card-body">
@@ -170,8 +171,11 @@
 
 					if (result)
 						misajour();
-					else
-						alert('Le sprint n°'+NumeroduSprint+' n\'a pas de données. Rien à afficher.');
+					else{
+						 $('.alert').text('Sprint n°'+NumeroduSprint+' impossible à afficher..');
+   						 $('.alert').show();
+  						 $('.alert').delay(3500).fadeOut('slow');
+						}
 
 					bloquerbouton();
 
