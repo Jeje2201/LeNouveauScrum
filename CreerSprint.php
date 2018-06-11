@@ -4,49 +4,49 @@
     <div class="content-wrapper">
       <div class="container">
 
-<div class="alert alert-success"  style="display: none" role="alert"> </div>
+        <div class="alert alert-success"  style="display: none" role="alert"> </div>
 
-<div class="form-row">
-  <div class="col-md-9">
-        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-</div>
-            <div class="col-md-3" align="right">
-          <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
-          <!-- It will show Modal for Create new Records !-->
-</div>
+        <div class="form-row">
+          <div class="col-md-9">
+            <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+          </div>
+          <div class="col-md-3" align="right">
+            <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
+            <!-- It will show Modal for Create new Records !-->
+          </div>
 
-</div>
+        </div>
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
+      </div>
+    </div>
+  </body>
+  </html>
+
+  <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+  <div id="customerModal" class="modal fade">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h4 class="modal-title">Create New Records</h4>
+    </div>
+    <div class="modal-body">
+      <label>Numero</label>
+      <input type="text" name="numero" id='numero' class="form-control">
+      <br />
+      <label>Date Debut</label>
+      <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+      <br />
+      <label>Date Fin</label>
+      <input type="text" name="dateFin" id='dateFin' class="form-control" />
+      <br />
+    </div>
+    <div class="modal-footer">
+      <input type="hidden" name="id" id="id" />
+      <input type="submit" name="action" id="action" class="btn btn-success" />
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
   </div>
-</body>
-</html>
-
-<!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
-<div id="customerModal" class="modal fade">
- <div class="modal-dialog">
-  <div class="modal-content">
-   <div class="modal-header">
-    <h4 class="modal-title">Create New Records</h4>
-  </div>
-  <div class="modal-body">
-    <label>Numero</label>
-    <input type="text" name="numero" id='numero' class="form-control">
-    <br />
-    <label>Date Debut</label>
-    <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
-    <br />
-    <label>Date Fin</label>
-    <input type="text" name="dateFin" id='dateFin' class="form-control" />
-    <br />
-  </div>
-  <div class="modal-footer">
-    <input type="hidden" name="id" id="id" />
-    <input type="submit" name="action" id="action" class="btn btn-success" />
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  </div>
-</div>
 </div>
 </div>
 <?php require_once __Dir__ . '/footer.php'; ?>
@@ -186,7 +186,7 @@
       };
 
       _dat.value = a + "-" + m + "-" + j;
-    
+      
     };
 
     function BootstrapAlert(message){
