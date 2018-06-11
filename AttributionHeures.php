@@ -22,7 +22,7 @@
         </div>
          <div class="col-md-2" align="right">
           <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
-          
+
         </div>
       </div>
         <br />
@@ -36,7 +36,6 @@
   </div>
 </body>
 </html>
-
 
 <div id="customerModal" class="modal fade">
  <div class="modal-dialog">
@@ -62,7 +61,6 @@
     <select class="form-control"  id="projetId" name="projetId">
       <?php
       $result = $conn->query("select id, nom from projet order by nom");
-
 
       while ($row = $result->fetch_assoc()) {
         unset($id, $nom);
@@ -119,14 +117,12 @@
   fetchUser();
 });
 
- 
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); 
   $('.modal-title').text("Attribuer"); 
   $('#action').val('Create'); 
 });
 
- 
  $('#action').click(function(){
   var idSprint = $('#numeroSprint').val();
   var idEmploye = $('#employeId').val();
@@ -153,7 +149,6 @@
  }
 });
 
- 
  $(document).on('click', '.update', function(){
   var id = $(this).attr("id"); 
   var action = "Select";   
@@ -175,7 +170,6 @@
 });
 });
 
- 
  $(document).on('click', '.delete', function(){
   var id = $(this).attr("id"); 
   if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) 

@@ -6,7 +6,7 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
 
 if(isset($_POST["action"])) 
 {
- 
+
  if($_POST["action"] == "Load") 
  {
   $numero = $_POST["idAffiche"];
@@ -54,7 +54,6 @@ if(isset($_POST["action"]))
   echo $output;
  }
 
- 
  if($_POST["action"] == "Create")
  {
   $statement = $connection->prepare("
@@ -75,7 +74,6 @@ if(isset($_POST["action"]))
   }
  }
 
- 
  if($_POST["action"] == "Select")
  {
   $output = array();
@@ -137,4 +135,3 @@ if(isset($_POST["action"]))
 }
 
 ?>
- 

@@ -22,7 +22,7 @@
         </div>
          <div class="col-md-2" align="right">
           <button type="button" id="modal_button" class="btn btn-info">Descendre</button>
-          
+
         </div>
       </div>
         <br />
@@ -36,7 +36,6 @@
   </div>
 </body>
 </html>
-
 
 <div id="customerModal" class="modal fade">
  <div class="modal-dialog">
@@ -121,7 +120,6 @@
   fetchUser();
 });
 
- 
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); 
   $('.modal-title').text("Descendre"); 
@@ -130,7 +128,6 @@
   $('#action').val('Create'); 
 });
 
- 
  $('#action').click(function(){
   var idSprint = $('#numeroSprint').val();
   var idEmploye = $('#employeId').val();
@@ -158,7 +155,6 @@
  }
 });
 
- 
  $(document).on('click', '.update', function(){
   var id = $(this).attr("id"); 
   var action = "Select";   
@@ -181,7 +177,6 @@
 });
 });
 
- 
  $(document).on('click', '.delete', function(){
   var id = $(this).attr("id"); 
   if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) 
@@ -205,14 +200,12 @@
 });
 });
 
-  
   $('#DateAujourdhui').datetimepicker({
     format: 'yyyy-mm-dd',
     autoclose: true,
     minView : 2
   });
 
-    
     function ChoixDate(_id,jours){
       var _dat = document.querySelector(_id);
       var Apres = new Date();
@@ -229,10 +222,8 @@
       };
 
       _dat.value = a + "-" + m + "-" + j;
-    
+
     };
-
-
 
   function BootstrapAlert(message){
     $('.alert').text(message);
