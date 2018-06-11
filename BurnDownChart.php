@@ -54,7 +54,7 @@
 					<i class="fa fa-area-chart"></i>
 				</div>
 				<div class="card-body">
-					<div id="container"></div>
+					<div id="container">
 					<script>
 						var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
 							heures = heures.map(function (x) { 
@@ -93,7 +93,7 @@
 									data: heures
 								},
 								{
-									name: 'Seuil',
+									name: 'Seuil (Interventions, ...)',
 									data: seuils,
 									color: 'red'
 								}
@@ -102,6 +102,7 @@
 						};
 
 					</script>
+					</div>
 				</div>
 			</div>
 			<?php require_once __Dir__ . '/footer.php'; ?>
