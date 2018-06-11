@@ -6,18 +6,18 @@
 
 <div class="alert alert-success"  style="display: none" role="alert"> </div>
 
-        <div class="mb-3">
-         <div align="right">
+<div class="form-row">
+  <div class="col-md-9">
+        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+</div>
+            <div class="col-md-3" align="right">
           <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
           <!-- It will show Modal for Create new Records !-->
-        </div>
-        <br />
+</div>
 
-        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
+</div>
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
 
-      </div>
     </div>
   </div>
 </body>

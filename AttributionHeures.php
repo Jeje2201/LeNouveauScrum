@@ -6,7 +6,7 @@
         <div class="alert alert-success"  style="display: none" role="alert"> </div>
         <div class="mb-3">
           <div class="form-row">
-            <div class="col-md-10">
+            <div class="col-md-9">
           <select class="form-control"  id="numeroSprint" name="numeroSprint">
             <?php
             $result = $conn->query("select id, numero from sprint order by numero desc");
@@ -20,7 +20,7 @@
             ?> 
           </select>
         </div>
-         <div class="col-md-2" align="right">
+         <div class="col-md-3" align="right">
           <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
 
         </div>
