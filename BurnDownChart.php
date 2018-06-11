@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
-								<select class="form-control"  id="sprintIdList" onchange='sprintIdListChanged();'>
+								<select class="form-control"  id="sprintIdList" onchange='ChangerSprintList();'>
 									<?php
 
 									echo '<script> var ListIdSprint =[]; </script>';
@@ -41,10 +41,10 @@
 							</div>
 
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprint('-1')">+</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprintBouton('-1')">+</a>
 							</div>
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprint('+1')">-</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprintBouton('+1')">-</a>
 							</div>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 			<!-- Area Chart Example-->
 			<div class="card">
 				<div class="card-header">
-					<i class="fa fa-area-chart"></i> Area Chart Example
+					<i class="fa fa-area-chart"></i>
 				</div>
 				<div class="card-body">
 					<div id="container"></div>
@@ -115,26 +115,8 @@
 		<script src="js/getdataformulNEW.js"></script>
 		<script>
 
-			var bouttonMoins1 = document.getElementById("bouttonMoins1");
-			var bouttonPlus1 = document.getElementById("bouttonPlus1")
-
-				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
-				var misajour = function(){
-
-					x = parseInt($("#sprintIdList").val())
-					bloquerbouton();
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+x);
-					var heures = result[0];
-					var dates = result[1];
-					var seuils = result[2];
-					var sprintou = result[3];
-					createChartNEW(heures, dates, seuils, sprintou);
-					$("#sprintIdList").val(x);
-
-				};
-
 				//Fonction appelé lors du changement d'un sprint avec les boutons plus et moins
-				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
+				var ChangerSprintBouton = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
 
 					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Prend la valeur du prochain numéro de sprint en regardant la valeur de l'indice +1 ou -1 de la list, donc soit le numéro du précédent ou suivant sprint dans la liste
 
@@ -146,25 +128,8 @@
 
 				};
 				
-				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
-				var bloquerbouton = function(){
-
-					x = parseInt($("#sprintIdList").val());
-
-					if(ListIdSprint[0] == x)
-						bouttonPlus1.classList.add("disabled")
-					else
-						bouttonPlus1.classList.remove("disabled")
-
-					if(ListIdSprint[ListIdSprint.length-1] == x)
-						bouttonMoins1.classList.add("disabled")
-					else
-						bouttonMoins1.classList.remove("disabled")
-
-				};
-				
 				//Fonction lorsque l'on choisie un nouveau sprint depuis la liste deroulante
-				var sprintIdListChanged = function(){
+				var ChangerSprintList = function(){
 
 					var NumeroduSprint = parseInt($("#sprintIdList").val());
 
@@ -180,10 +145,39 @@
 						misajour();
 					else{
 						$('#myModal').modal('show');
-    					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩'); 
+    					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩');
+    					bloquerbouton(NumeroduSprint);
 					}
 
-					bloquerbouton();
+				};
+
+				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
+				var bloquerbouton = function(NumeroSprint){
+
+					if(ListIdSprint[0] == NumeroSprint)
+						document.getElementById("bouttonPlus1").classList.add("disabled")
+					else
+						document.getElementById("bouttonPlus1").classList.remove("disabled")
+
+					if(ListIdSprint[ListIdSprint.length-1] == NumeroSprint)
+						document.getElementById("bouttonMoins1").classList.add("disabled")
+					else
+						document.getElementById("bouttonMoins1").classList.remove("disabled")
+
+				};
+
+				/// FONCTION POUR RECCUPERER LES DONNEES DEPUIS LE SELECT, LE METTRE DANS LE LIENS DE L'API ET LE METTRE LE RESULTAT DANS LES DIFFERENTES VARIABLE ///
+				var misajour = function(){
+
+					NumeroSprint = parseInt($("#sprintIdList").val())
+					bloquerbouton(NumeroSprint);
+					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroSprint);
+					var heures = result[0];
+					var dates = result[1];
+					var seuils = result[2];
+					var sprintou = result[3];
+					createChartNEW(heures, dates, seuils, sprintou);
+					$("#sprintIdList").val(NumeroSprint);
 
 				};
 				
