@@ -74,7 +74,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   );
   if(!empty($result))
   {
-   echo 'Heure(s) Attribuée(s) ! 😄';
+   echo 'Heure(s) Descend(s) ! 😄';
   }
 
  }
@@ -84,7 +84,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  {
   $output = array();
   $statement = $connection->prepare(
-   "SELECT * FROM attribution 
+   "SELECT * FROM heuresdescendues 
    WHERE id = '".$_POST["id"]."' 
    LIMIT 1"
   );
@@ -93,6 +93,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   foreach($result as $row)
   {
    $output["heure"] = $row["heure"];
+   $output["DateAujourdhui"] = $row["DateDescendu"];
    $output["id_Employe"] = $row["id_Employe"];
    $output["id_Projet"] = $row["id_Projet"];
   }
@@ -102,23 +103,24 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
  if($_POST["action"] == "Update")
  {
   $statement = $connection->prepare(
-   "UPDATE attribution 
-   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
+   "UPDATE heuresdescendues
+   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, DateDescendu = :DateDescendu, id_Employe = :id_Employe 
    WHERE id = :id
    "
   );
   $result = $statement->execute(
    array(
     ':heure' => $_POST["NombreHeure"],
+    ':DateDescendu' => $_POST["DateAujourdhui"],
     ':id_Sprint' => $_POST["idSprint"],
     ':id_Projet' => $_POST["idProjet"],
-    ':id_Employe'   => $_POST["idProjet"],
+    ':id_Employe'   => $_POST["idEmploye"],
     ':id'   => $_POST["id"]
    )
   );
   if(!empty($result))
   {
-   echo 'Heure(s) attribuée(s) modifiée(s) ! 😮';
+   echo 'Heure(s) descendue(s) modifiée(s) ! 😮';
   }
  }
 

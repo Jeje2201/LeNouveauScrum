@@ -172,10 +172,11 @@
     $('.modal-title').text("Update Records"); //This code will change this class text to Update records
     $('#action').val("Update");     //This code will change Button value to Update
     $('#id').val(id); 
-    $('#idSprint').val(data.idSprint);  //It will assign value to modal first name texbox
+    $('#idSprint').val(data.id_Sprint);  //It will assign value to modal first name texbox
     $('#employeId').val(data.id_Employe);  //It will assign value to modal first name texbox
     $('#projetId').val(data.id_Projet);  //It will assign value of modal last name textbox
     $('#nbheure').val(data.heure);  //It will assign value of modal last name textbox
+    $('#DateAujourdhui').val(data.DateAujourdhui);  //It will assign value of modal last name textbox
   }
 });
 });
