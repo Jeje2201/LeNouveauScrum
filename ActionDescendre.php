@@ -22,8 +22,7 @@ if(isset($_POST["action"]))
      <th width="20%">Projet</th>
      <th width="20%">Date</th>
      <th width="20%">Heure(s)</th>
-     <th width="5%"><center>Editer</center></th>
-     <th width="5%"><center>Supprimer</center></center></th>
+     <th width="10%"><center>Editer</center></th>
     </tr>
     </thead>
     <tbody id="myTable">
@@ -38,8 +37,7 @@ if(isset($_POST["action"]))
      <td>'.$row["projet"].'</td>
      <td>'.$row["Datee"].'</td>
      <td>'.$row["NbHeure"].'</td>
-     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Editer</button></center></td>
-     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></center></td>
+     <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
     </tr>
     ';
    }
@@ -48,7 +46,7 @@ if(isset($_POST["action"]))
   {
    $output .= '
     <tr>
-     <td align="center">Aucune donnée à afficher 😰</td>
+     <td align="center">Aucune donnée à afficher 💩</td>
     </tr>
    ';
   }

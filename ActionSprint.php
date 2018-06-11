@@ -20,8 +20,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
      <th width="30%">Numero</th>
      <th width="30%">Date Debut</th>
      <th width="30%">Date Fin</th>
-     <th width="5%"><center>Editer</center></th>
-     <th width="5%"><center>Supprimer</center></center></th>
+     <th width="10%"><center>Editer</center></th>
     </tr>
     </thead>
     <tbody id="myTable">
@@ -35,8 +34,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
      <td>'.$row["numero"].'</td>
      <td>'.$row["dateDebut"].'</td>
      <td>'.$row["dateFin"].'</td>
-     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Editer</button></center></td>
-     <td><center><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></center></td>
+     <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
     </tr>
     ';
    }
@@ -45,7 +43,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   {
    $output .= '
     <tr>
-     <td align="center">Data not Found</td>
+     <td align="center">Aucune donnée à afficher 💩</td>
     </tr>
    ';
   }
