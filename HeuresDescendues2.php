@@ -126,6 +126,7 @@
   $('#customerModal').modal('show'); //It will load modal on web page
   $('.modal-title').text("Descendre"); //It will change Modal title to Create new Records
   $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
+  $('#nbheure').val(1);
   $('#action').val('Create'); //This will reset Button value ot Create
 });
 
