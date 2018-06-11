@@ -108,7 +108,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
     ':heure' => $_POST["NombreHeure"],
     ':id_Sprint' => $_POST["idSprint"],
     ':id_Projet' => $_POST["idProjet"],
-    ':id_Employe'   => $_POST["idProjet"],
+    ':id_Employe'   => $_POST["idEmploye"],
     ':id'   => $_POST["id"]
    )
   );
