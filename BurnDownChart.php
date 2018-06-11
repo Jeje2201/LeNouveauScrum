@@ -4,7 +4,14 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="content-wrapper">
 		<div class="container-fluid">
-			<div class="alert alert-danger"  style="display: none" role="alert"> yolo </div>
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-body" id="InterieurDeLalert">
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="card mb-3">
 				<div class="card-header">Selection BurndownChart</div>
 				<div class="card-body">
@@ -128,7 +135,7 @@
 
 				//Fonction appelé lors du changement d'un sprint avec les boutons plus et moins
 				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
-				
+
 					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Prend la valeur du prochain numéro de sprint en regardant la valeur de l'indice +1 ou -1 de la list, donc soit le numéro du précédent ou suivant sprint dans la liste
 
 					$("#sprintIdList").val(NumeroduSprint); //Donne a la liste ce numéro
@@ -172,9 +179,8 @@
 					if (result)
 						misajour();
 					else{
-						$('.alert').text('Sprint n°'+NumeroduSprint+' impossible à afficher..');
-						$('.alert').show();
-						$('.alert').delay(3500).fadeOut('slow');
+						$('#myModal').modal('show');
+    					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩'); 
 					}
 
 					bloquerbouton();
