@@ -13,10 +13,9 @@
 				</div>
 			</div>
 			<div class="card mb-3">
-				<div class="card-header">Selection BurndownChart</div>
+				<div class="card-header">Sélection BurndownChart</div>
 				<div class="card-body">
 					<!-- Selectionner le sprint sur lequel l'on va jouer -->
-					<div class="form-group">
 						<div class="form-row">
 							<div class="col-md-6">
 								<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
@@ -41,14 +40,12 @@
 							</div>
 
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus1" onClick="ChangerSprint('-1')">+</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
 							</div>
 							<div class="col-md-3">
-								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins1" onClick="ChangerSprint('+1')">-</a>
+								<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
 							</div>
 						</div>
-					</div>
-
 				</div>
 			</div>
 			<!-- Area Chart Example-->
@@ -114,14 +111,11 @@
 		</div>
 		<script src="js/getdataformulNEW.js"></script>
 		<script>
-
 				//Fonction appelée lors du changement d'un sprint
 				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
 
-					if (Changement != 0){ //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
+					if (Changement != 0) //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
 					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Nouveau sprint = Indexation du numero + argument de la fonction ChangerSprint
-					$("#sprintIdList").val(NumeroduSprint); //Donne a la liste ce numéro
-					}
 
 					else
 					NumeroduSprint = parseInt($("#sprintIdList").val()); //sinon checker en fonction du nouveau numéro sélectionné par la liste
@@ -130,7 +124,7 @@
 
 					if (result) //si il existe, mettre a jours la bdd
 						misajour(NumeroduSprint);
-					
+
 					else{ //sinon popup indiquant aucun résultat
 						$('#myModal').modal('show');
     					$('#InterieurDeLalert').text('Sprint n°'+NumeroduSprint+' manque de données 💩');
@@ -143,14 +137,14 @@
 				var bloquerbouton = function(NumeroSprint){
 
 					if(ListIdSprint[0] == NumeroSprint)
-						document.getElementById("bouttonPlus1").classList.add("disabled")
+						document.getElementById("bouttonPlus").classList.add("disabled")
 					else
-						document.getElementById("bouttonPlus1").classList.remove("disabled")
+						document.getElementById("bouttonPlus").classList.remove("disabled")
 
 					if(ListIdSprint[ListIdSprint.length-1] == NumeroSprint)
-						document.getElementById("bouttonMoins1").classList.add("disabled")
+						document.getElementById("bouttonMoins").classList.add("disabled")
 					else
-						document.getElementById("bouttonMoins1").classList.remove("disabled")
+						document.getElementById("bouttonMoins").classList.remove("disabled")
 
 				};
 
@@ -168,7 +162,7 @@
 
 				};
 				
-				misajour($("#sprintIdList").val());
+				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 				
 			</script>
 		</div>
