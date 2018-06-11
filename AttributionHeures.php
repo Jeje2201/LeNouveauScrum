@@ -3,7 +3,14 @@
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
-        <div class="alert alert-success"  style="display: none" role="alert"> </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body" id="InterieurDeLalert">
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="mb-3">
           <div class="form-row">
             <div class="col-md-9">
@@ -194,8 +201,7 @@
   });
 
   function BootstrapAlert(message){
-    $('.alert').text(message);
-    $('.alert').show();
-    $('.alert').delay(2000).fadeOut('slow');
+    $('#myModal').modal('show');
+    $('#InterieurDeLalert').text(message); 
   }
 </script>
