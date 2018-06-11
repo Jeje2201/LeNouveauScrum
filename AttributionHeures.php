@@ -22,14 +22,14 @@
         </div>
          <div class="col-md-2" align="right">
           <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
-          <!-- It will show Modal for Create new Records !-->
+          
         </div>
       </div>
         <br />
 
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-        <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
+        <div id="result" class="table-responsive"> 
 
       </div>
     </div>
@@ -37,7 +37,7 @@
 </body>
 </html>
 
-<!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+
 <div id="customerModal" class="modal fade">
  <div class="modal-dialog">
   <div class="modal-content">
@@ -99,18 +99,18 @@
       });
     });
 
- fetchUser(); //This function will load all data on web page when page load
+ fetchUser(); 
 
- function fetchUser() // This function will fetch data from table and display under <div id="result">
+ function fetchUser() 
  {
   var idAffiche = $('#numeroSprint').val();
   var action = "Load";
   $.ajax({
-   url : "ActionAttributionHeure.php", //Request send to "ActionAttributionHeure.php page"
-   method:"POST", //Using of Post method for send data
-   data:{action:action, idAffiche:idAffiche}, //action variable data has been send to server
+   url : "ActionAttributionHeure.php", 
+   method:"POST", 
+   data:{action:action, idAffiche:idAffiche}, 
    success:function(data){
-    $('#result').html(data); //It will display data under div tag with id result
+    $('#result').html(data); 
   }
 });
 }
@@ -119,82 +119,82 @@
   fetchUser();
 });
 
- //This JQuery code will Reset value of Modal item when modal will load for create new records
+ 
  $('#modal_button').click(function(){
-  $('#customerModal').modal('show'); //It will load modal on web page
-  $('.modal-title').text("Attribuer"); //It will change Modal title to Create new Records
-  $('#action').val('Create'); //This will reset Button value ot Create
+  $('#customerModal').modal('show'); 
+  $('.modal-title').text("Attribuer"); 
+  $('#action').val('Create'); 
 });
 
- //This JQuery code is for Click on Modal action button for Create new records or Update existing records. This code will use for both Create and Update of data through modal
+ 
  $('#action').click(function(){
   var idSprint = $('#numeroSprint').val();
   var idEmploye = $('#employeId').val();
   var idProjet = $('#projetId').val();
   var NombreHeure = $('#nbheure').val();
   var id = $('#id').val();
-  var action = $('#action').val();  //Get the value of Modal Action button and stored into action variable
-  if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') //This condition will check both variable has some value
+  var action = $('#action').val();  
+  if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') 
   {
    $.ajax({
-    url : "ActionAttributionHeure.php",    //Request send to "ActionAttributionHeure.php page"
-    method:"POST",     //Using of Post method for send data
-    data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, //Send data to server
+    url : "ActionAttributionHeure.php",    
+    method:"POST",     
+    data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
     success:function(data){
      BootstrapAlert(data);
-     $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
-     fetchUser();    // Fetch User function has been called and it will load data under divison tag with id result
+     $('#customerModal').modal('hide'); 
+     fetchUser();    
    }
  });
  }
  else
  {
-   alert("Tous les champs doivent être plein."); //If both or any one of the variable has no value them it will display this message
+   alert("Tous les champs doivent être plein."); 
  }
 });
 
- //This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
+ 
  $(document).on('click', '.update', function(){
-  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-  var action = "Select";   //We have define action variable value is equal to select
+  var id = $(this).attr("id"); 
+  var action = "Select";   
   $.ajax({
-   url:"ActionAttributionHeure.php",   //Request send to "ActionAttributionHeure.php page"
-   method:"POST",    //Using of Post method for send data
-   data:{id:id, action:action},//Send data to server
-   dataType:"json",   //Here we have define json data type, so server will send data in json format.
+   url:"ActionAttributionHeure.php",   
+   method:"POST",    
+   data:{id:id, action:action},
+   dataType:"json",   
    success:function(data){
-    $('#customerModal').modal('show');   //It will display modal on webpage
-    $('.modal-title').text("Update Records"); //This code will change this class text to Update records
-    $('#action').val("Update");     //This code will change Button value to Update
+    $('#customerModal').modal('show');   
+    $('.modal-title').text("Update Records"); 
+    $('#action').val("Update");     
     $('#id').val(id); 
-    $('#idSprint').val(data.idSprint);  //It will assign value to modal first name texbox
-    $('#employeId').val(data.id_Employe);  //It will assign value to modal first name texbox
-    $('#projetId').val(data.id_Projet);  //It will assign value of modal last name textbox
-    $('#nbheure').val(data.heure);  //It will assign value of modal last name textbox
+    $('#idSprint').val(data.idSprint);  
+    $('#employeId').val(data.id_Employe);  
+    $('#projetId').val(data.id_Projet);  
+    $('#nbheure').val(data.heure);  
   }
 });
 });
 
- //This JQuery code is for Delete customer data. If we have click on any customer row delete button then this code will execute
+ 
  $(document).on('click', '.delete', function(){
-  var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-  if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) //Confim Box if OK then
+  var id = $(this).attr("id"); 
+  if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) 
   {
-   var action = "Delete"; //Define action variable value Delete
+   var action = "Delete"; 
    $.ajax({
-    url:"ActionAttributionHeure.php",    //Request send to "ActionAttributionHeure.php page"
-    method:"POST",     //Using of Post method for send data
-    data:{id:id, action:action}, //Data send to server from ajax method
+    url:"ActionAttributionHeure.php",    
+    method:"POST",     
+    data:{id:id, action:action}, 
     success:function(data)
     {
-     fetchUser();    // fetchUser() function has been called and it will load data under divison tag with id result
+     fetchUser();    
      BootstrapAlert(data);
    }
  })
  }
-  else  //Confim Box if cancel then 
+  else  
   {
-   return false; //No action will perform
+   return false; 
  }
 });
 });

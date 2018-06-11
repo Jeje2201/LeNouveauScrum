@@ -1,12 +1,12 @@
    <?php
-//Database connection by using PHP PDO
+
 $username = 'root';
 $password = '';
-$connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password ); // Create Object of PDO class by connecting to Mysql database
+$connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password ); 
 
-if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is set to not
+if(isset($_POST["action"])) 
 {
- //For Load All Data
+ 
  if($_POST["action"] == "Load") 
  {
   $numero = $_POST["idAffiche"];
@@ -54,7 +54,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   echo $output;
  }
 
- //This code for Create new Records
+ 
  if($_POST["action"] == "Create")
  {
   $statement = $connection->prepare("
@@ -75,7 +75,7 @@ if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is 
   }
  }
 
- //This Code is for fetch single customer data for display on Modal
+ 
  if($_POST["action"] == "Select")
  {
   $output = array();
