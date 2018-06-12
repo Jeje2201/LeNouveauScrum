@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="col-md-3" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Attribuer</button>
+              <button type="button" id="modal_button" class="btn btn-info">Tâche planifiée</button>
 
             </div>
           </div>
@@ -48,7 +48,7 @@
      <div class="modal-dialog">
       <div class="modal-content">
        <div class="modal-header">
-        <h4 class="modal-title">Create New Records</h4>
+        <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
         <label>Employé</label>
@@ -127,7 +127,7 @@
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
       $('.modal-title').text("Attribuer"); 
-      $('#action').val('Create'); 
+      $('#action').val('Attribuer'); 
     });
 
     $('#action').click(function(){

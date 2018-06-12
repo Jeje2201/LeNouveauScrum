@@ -52,7 +52,7 @@
    echo $output;
  }
 
- if($_POST["action"] == "Create")
+ if($_POST["action"] == "Attribuer")
  {
   $statement = $connection->prepare("
    INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
