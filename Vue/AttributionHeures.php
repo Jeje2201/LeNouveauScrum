@@ -199,9 +199,4 @@
      }
    });
   });
-
-  function BootstrapAlert(message){
-    $('#myModal').modal('show');
-    $('#InterieurDeLalert').text(message); 
-  }
 </script>
