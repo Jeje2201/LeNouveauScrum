@@ -1042,6 +1042,8 @@ CREATE TABLE `projet` (
   `id` int(11) NOT NULL,
   `nom` varchar(50) DEFAULT NULL,
   `couleur` varchar(25) DEFAULT NULL,
+  `abreviation` varchar(5) DEFAULT NULL,
+  `cheminIcone` varchar(50) DEFAULT NULL,
   `id_TypeProjet` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
