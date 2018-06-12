@@ -55,6 +55,37 @@
 					<span class="nav-link-text">BurnDownChart</span>
 					</a>
 				</li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
+            <i class="fa fa-fw fa-sitemap"></i>
+            <span class="nav-link-text">Paramètres</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseMulti" style="">
+            <li>
+              <a href="#">Employés</a>
+            </li>
+            <li>
+              <a href="#">Projets</a>
+            </li>
+            <li>
+              <a href="#">Sprints</a>
+            </li>
+            <li>
+              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
+              <ul class="sidenav-third-level collapse" id="collapseMulti2">
+                <li>
+                  <a href="#">Third Level Item</a>
+                </li>
+                <li>
+                  <a href="#">Third Level Item</a>
+                </li>
+                <li>
+                  <a href="#">Third Level Item</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
 			</ul>
 			<ul class="navbar-nav sidenav-toggler">
         <li class="nav-item" id="SlideNav">
