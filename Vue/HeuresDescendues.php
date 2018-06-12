@@ -54,7 +54,7 @@
         <label>Employé</label>
         <select class="form-control" id="employeId" name="employeId">
           <?php
-          $result = $conn->query("select id, prenom, nom from employe order by prenom");
+          $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
           while ($row = $result->fetch_assoc()) {
             $id = $row['id'];
             $prenom = $row['prenom']; 
