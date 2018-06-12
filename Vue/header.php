@@ -4,15 +4,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="Jeremy">
-	<link rel="icon" href="Icone.ico" />
+	<link rel="icon" href="../Assets/Icone.ico" />
 	<title>ScrumJeremy</title>
 	<!-- Bootstrap core CSS-->
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../Assets/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
-	<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="../Assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
-	<link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
-	<link href="../css/sb-admin.css" rel="stylesheet">
+	<link href="../Assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="../Assets/css/sb-admin.css" rel="stylesheet">
     <!-- Classe pour le Hightsharr-->
     
 </head>
