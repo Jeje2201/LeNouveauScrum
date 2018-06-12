@@ -35,7 +35,7 @@
    <div class="modal-dialog">
     <div class="modal-content">
      <div class="modal-header">
-      <h4 class="modal-title">Create New Records</h4>
+      <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body">
       <label>Numero</label>
@@ -51,7 +51,7 @@
     <div class="modal-footer">
       <input type="hidden" name="id" id="id" />
       <input type="submit" name="action" id="action" class="btn btn-success" />
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
     </div>
   </div>
 </div>
@@ -97,11 +97,11 @@
  //This JQuery code will Reset value of Modal item when modal will load for create new records
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
-  $('.modal-title').text("Créer nouveau sprint"); //It will change Modal title to Create new Records
+  $('.modal-title').text("Nouveau sprint"); //It will change Modal title to Create new Records
   $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
   $('#dateDebut').text(ChoixDate("#dateDebut",0));
   $('#dateFin').text(ChoixDate("#dateFin",14));
-  $('#action').val('Create'); //This will reset Button value ot Create
+  $('#action').val('Créer'); //This will reset Button value ot Create
 });
 
  //This JQuery code is for Click on Modal action button for Create new records or Update existing records. This code will use for both Create and Update of data through modal

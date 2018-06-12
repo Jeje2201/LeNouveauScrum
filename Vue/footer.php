@@ -19,3 +19,4 @@
 <script src="../Controleur/ChoixDate.js"></script>
 <script src="../Controleur/ClassActive.js"></script>
 <script src="../Controleur/bootstrap-datetimepicker.js"></script>
+<script src="../Controleur/ReductionNav.js"></script>

@@ -52,7 +52,7 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
  }
 
  //This code for Create new Records
- if($_POST["action"] == "Create")
+ if($_POST["action"] == "Créer")
  {
   $statement = $connection->prepare("
    INSERT INTO sprint (numero, dateDebut, dateFin) 

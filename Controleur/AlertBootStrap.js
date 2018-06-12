@@ -3,5 +3,5 @@ function BootstrapAlert(message){
     $('#InterieurDeLalert').text(message);
     setTimeout(function(){
     $('#myModal').modal('hide');
-}, 1500);
+}, 1100);
   }
