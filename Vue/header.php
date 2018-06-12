@@ -7,14 +7,13 @@
 	<link rel="icon" href="Icone.ico" />
 	<title>ScrumJeremy</title>
 	<!-- Bootstrap core CSS-->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
-	<link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
-	<link href="css/sb-admin.css" rel="stylesheet">
+	<link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<link href="../css/sb-admin.css" rel="stylesheet">
     <!-- Classe pour le Hightsharr-->
-    <script src="js/highcharts.js"></script>
     
 </head>
 <body>
@@ -66,5 +65,5 @@
       </ul>
 		</div>
 	</nav>
-    <?php require_once __Dir__ . '/api/www/Configs.php'; ?>
+    <?php require_once '../api/www/Configs.php'; ?>
 </body>

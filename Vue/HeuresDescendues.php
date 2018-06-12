@@ -114,7 +114,7 @@
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
       $.ajax({
-       url : "ActionDescendre.php", 
+       url : "../Modele/ActionDescendre.php", 
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
@@ -146,7 +146,7 @@
       if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') 
       {
        $.ajax({
-        url : "ActionDescendre.php",    
+        url : "../Modele/ActionDescendre.php",    
         method:"POST",     
         data:{id:id, DateAujourdhui:DateAujourdhui, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
         success:function(data){
@@ -166,7 +166,7 @@
       var id = $(this).attr("id"); 
       var action = "Select";   
       $.ajax({
-       url:"ActionDescendre.php",   
+       url : "../Modele/../Modele/ActionDescendre.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -190,7 +190,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url:"ActionDescendre.php",    
+        url : "../Modele/../Modele/ActionDescendre.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)

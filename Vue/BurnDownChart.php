@@ -108,7 +108,6 @@
 			<?php require_once __Dir__ . '/footer.php'; ?>
 
 		</div>
-		<script src="js/getdataformulNEW.js"></script>
 		<script>
 
 			$( document ).ready(function() {

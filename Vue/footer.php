@@ -10,15 +10,12 @@
 <i class="fa fa-angle-up"></i>
 </a>
 
-<!-- Jquery JavaScript-->
-<script src="js/jquery.min.js"></script>
-<!-- Bootstrap core JavaScript-->
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-<script src="js/AlertBootStrap.js"></script>
-<script src="js/ChoixDate.js"></script>
-<script src="js/ClassActive.js"></script>
-
-<!-- BootStrap pour les heures-->
-<script src="js/bootstrap-datetimepicker.js"></script>
+<script src="../Controleur/jquery.min.js"></script>
+<script src="../Controleur/highcharts.js"></script>
+<script src="../Controleur/popper.min.js"></script>
+<script src="../Controleur/bootstrap.min.js"></script>
+<script src="../Controleur/getdataformulNEW.js"></script>
+<script src="../Controleur/AlertBootStrap.js"></script>
+<script src="../Controleur/ChoixDate.js"></script>
+<script src="../Controleur/ClassActive.js"></script>
+<script src="../Controleur/bootstrap-datetimepicker.js"></script>
