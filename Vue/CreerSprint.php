@@ -39,7 +39,7 @@
     </div>
     <div class="modal-body">
       <label>Numero</label>
-      <input type="text" name="numero" id='numero' class="form-control">
+      <input type="number" name="numero" id='numero' class="form-control">
       <br />
       <label>Date Debut</label>
       <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
