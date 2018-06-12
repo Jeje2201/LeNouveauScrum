@@ -1186,9 +1186,9 @@ CREATE TABLE `statutobjectif` (
 --
 
 INSERT INTO `statutobjectif` (`id`, `nom`) VALUES
-(1, 'Demarre'),
-(2, 'Termine'),
-(3, 'AFaire'),
+(1, 'Ok'),
+(2, 'En cours'),
+(3, 'Non'),
 (4, 'Annule');
 
 -- --------------------------------------------------------
