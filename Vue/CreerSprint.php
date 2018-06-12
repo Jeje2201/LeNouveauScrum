@@ -35,7 +35,7 @@
    <div class="modal-dialog">
     <div class="modal-content">
      <div class="modal-header">
-      <h4 class="modal-title"></h4>
+      <h4 class="modal-title">Nouveau sprint</h4>
     </div>
     <div class="modal-body">
       <label>Numero</label>
@@ -97,7 +97,6 @@
  //This JQuery code will Reset value of Modal item when modal will load for create new records
  $('#modal_button').click(function(){
   $('#customerModal').modal('show'); //It will load modal on web page
-  $('.modal-title').text("Nouveau sprint"); //It will change Modal title to Create new Records
   $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
   $('#dateDebut').text(ChoixDate("#dateDebut",0));
   $('#dateFin').text(ChoixDate("#dateFin",14));

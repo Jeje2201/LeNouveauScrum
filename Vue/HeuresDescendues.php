@@ -48,7 +48,7 @@
      <div class="modal-dialog">
       <div class="modal-content">
        <div class="modal-header">
-        <h4 class="modal-title">Create New Records</h4>
+        <h4 class="modal-title">Tâche(s) achevée(s)</h4>
       </div>
       <div class="modal-body">
         <label>Employé</label>
@@ -128,11 +128,10 @@
     });
 
     $('#modal_button').click(function(){
-      $('#customerModal').modal('show'); 
-      $('.modal-title').text("Descendre"); 
+      $('#customerModal').modal('show');
       $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
       $('#nbheure').val(1);
-      $('#action').val('Create'); 
+      $('#action').val('Valider'); 
     });
 
     $('#action').click(function(){
