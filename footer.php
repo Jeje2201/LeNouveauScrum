@@ -15,13 +15,10 @@
 <!-- Bootstrap core JavaScript-->
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+<script src="js/AlertBootStrap.js"></script>
+<script src="js/ChoixDate.js"></script>
+<script src="js/ClassActive.js"></script>
+
 <!-- BootStrap pour les heures-->
 <script src="js/bootstrap-datetimepicker.js"></script>
-<script>
-
-	var url = location.pathname.split("/")[2];
-	$('nav a[href^="' + url + '"]')
-	.closest('li')
-	.addClass('active');
-	
-</script>
