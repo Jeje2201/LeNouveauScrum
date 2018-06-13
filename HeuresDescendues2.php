@@ -126,7 +126,7 @@
     });
 
     $('#action').click(function(){
-      var action = $('#action').val();  
+      var action = "Descendre"
       var IdAttribue = [];
 
       $('#Down').find("#lavaleur1").each(function(){ 

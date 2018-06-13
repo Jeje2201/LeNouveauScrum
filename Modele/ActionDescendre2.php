@@ -73,27 +73,29 @@ header('Content-type: application/json');
 
    echo json_encode($Test);
 
-
  }
 
- if($_POST["action"] == "Valider")
+
+
+ if($_POST["action"] == "Descendre")
  {
+
+$IdAttribue = $_POST["IdAttribue"];
+$Longeur = sizeof($IdAttribue);
+
   $statement = $connection->prepare("
-   INSERT INTO heuresdescendues (heure, DateDescendu, id_Sprint, id_Employe, id_Projet) 
-   VALUES (:NombreHeure, :DateDescendu, :idSprint, :idEmploye, :idProjet)
-   ");
-  $result = $statement->execute(
-   array(
-    ':NombreHeure' => $_POST["NombreHeure"],
-    ':DateDescendu' => $_POST["DateAujourdhui"],
-    ':idSprint' => $_POST["idSprint"],
-    ':idEmploye' => $_POST["idEmploye"],
-    ':idProjet' => $_POST["idProjet"]
-  )
- );
+    INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)
+    SELECT heure, id_Sprint, id_Employe, id_Projet, id, NOW() FROM attribution where attribution.id = $IdAttribue[0];
+    ");
+  $result = $statement->execute();
+
   if(!empty($result))
   {
    echo 'Heure(s) Descendue(s) ! 😄';
+ }
+ else
+ {
+  echo 'Probleme';
  }
 
 }
