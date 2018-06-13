@@ -36,9 +36,8 @@
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="result" class="table-responsive"> 
-
-          </div>
+          <div id="result" class="table-responsive"></div>
+          
         </div>
       </div>
     </body>
@@ -165,7 +164,7 @@
       var id = $(this).attr("id"); 
       var action = "Select";   
       $.ajax({
-       url : "Modele/Modele/ActionDescendre.php",   
+       url : "Modele/ActionDescendre.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -189,7 +188,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url : "Modele/Modele/ActionDescendre.php",    
+        url : "Modele/ActionDescendre.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)
