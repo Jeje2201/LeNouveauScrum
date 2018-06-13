@@ -99,7 +99,7 @@
   $('#customerModal').modal('show'); //It will load modal on web page
   $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
   $('#dateDebut').text(ChoixDate("#dateDebut",0));
-  $('#dateFin').text(ChoixDate("#dateFin",14));
+  $('#dateFin').text(ChoixDate("#dateFin",localStorage.getItem('NbJoursParSprint')));
   $('#action').val('Créer'); //This will reset Button value ot Create
 });
 

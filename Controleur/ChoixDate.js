@@ -1,4 +1,12 @@
 function ChoixDate(_id,jours){
+
+      if(jours == null){
+        var jours = 14;
+      }
+      else{
+        jours = parseInt(jours);
+      }
+
       var _dat = document.querySelector(_id);
       var Apres = new Date();
       Apres.setDate(Apres.getDate()+jours);

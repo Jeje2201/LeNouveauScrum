@@ -41,6 +41,9 @@
 		</div>
 		<script>
 
+			var Set = function(){ //la fonction démarre et met dans "changement" soit 1 ou -1
+				localStorage.setItem("NbJoursParSprint",$('#NbJoursParSprint').val());
+			};
 
 </script>
 </body>
