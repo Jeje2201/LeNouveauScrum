@@ -62,13 +62,13 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMulti" style="">
             <li>
+              <a href="GererSprint.php">Sprints</a>
+            </li>
+            <li>
               <a href="#">Employés</a>
             </li>
             <li>
               <a href="#">Projets</a>
-            </li>
-            <li>
-              <a href="#">Sprints</a>
             </li>
             <li>
               <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
