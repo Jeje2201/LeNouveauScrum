@@ -85,7 +85,7 @@
  {
   var action = "Load";
   $.ajax({
-   url : "../Modele/ActionSprint.php", //Request send to "ActionSprint.php page"
+   url : "Modele/ActionSprint.php", //Request send to "ActionSprint.php page"
    method:"POST", //Using of Post method for send data
    data:{action:action}, //action variable data has been send to server
    success:function(data){
@@ -113,7 +113,7 @@
   if(numero != '' && dateDebut != '' && dateFin != '') //This condition will check both variable has some value
   {
    $.ajax({
-    url : "../Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
+    url : "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
     method:"POST",     //Using of Post method for send data
     data:{numero:numero, dateDebut:dateDebut, id:id, dateFin:dateFin, action:action}, //Send data to server
     success:function(data){
@@ -134,7 +134,7 @@
   var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
   var action = "Select";   //We have define action variable value is equal to select
   $.ajax({
-   url : "../Modele/ActionSprint.php",   //Request send to "ActionSprint.php page"
+   url : "Modele/ActionSprint.php",   //Request send to "ActionSprint.php page"
    method:"POST",    //Using of Post method for send data
    data:{id:id, action:action},//Send data to server
    dataType:"json",   //Here we have define json data type, so server will send data in json format.
@@ -157,7 +157,7 @@
   {
    var action = "Delete"; //Define action variable value Delete
    $.ajax({
-    url : "../Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
+    url : "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
     method:"POST",     //Using of Post method for send data
     data:{id:id, action:action}, //Data send to server from ajax method
     success:function(data)

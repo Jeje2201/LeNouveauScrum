@@ -111,7 +111,7 @@
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
       $.ajax({
-       url : "../Modele/ActionAttributionHeure.php", 
+       url : "Modele/ActionAttributionHeure.php", 
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
@@ -140,7 +140,7 @@
       if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') 
       {
        $.ajax({
-        url : "../Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionAttributionHeure.php",    
         method:"POST",     
         data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
         success:function(data){
@@ -160,7 +160,7 @@
       var id = $(this).attr("id"); 
       var action = "Select";   
       $.ajax({
-       url : "../Modele/ActionAttributionHeure.php",   
+       url : "Modele/ActionAttributionHeure.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -183,7 +183,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url : "../Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionAttributionHeure.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)
