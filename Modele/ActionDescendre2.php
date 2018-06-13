@@ -27,9 +27,10 @@
 $output1.='<div class="card bg-light">
       <div class="card-body text-center">
         <p class="card-text">'.$row["employe"].' | '.$row["projet"].' | <b>'.$row["NbHeure"].'h</b></p>
-        <input style="display: none" class="lavaleur" value="'.$row["id"].'" />
-        <button style="display: none" onclick="GoTop(this)">Annuler</button>
-        <button onclick="GoDown(this)">Achevée</button>
+        <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
+        <input style="display: none" id="lavaleur2" value="'.$row["projet"].'" />
+        <button style="display: none" onclick="GoTop(this)"><</button>
+        <button onclick="GoDown(this)">></button>
       </div>
     </div>';
 
@@ -38,7 +39,15 @@ $output1.='<div class="card bg-light">
 
    $Test -> Attribution = $output1;
 
-$statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.prenom as employe FROM heuresdescendues inner JOIN employe ON heuresdescendues.id_Employe = employe.id INNER JOIN projet on projet.id = heuresdescendues.id_Projet INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint WHERE id_sprint= $numero AND id_Employe = $idEmploye ORDER BY heuresdescendues.id desc");
+$statement = $connection->prepare("
+  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee,
+  projet.nom as projet, employe.prenom as employe
+  FROM heuresdescendues
+  INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
+  INNER JOIN projet on projet.id = heuresdescendues.id_Projet
+  INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
+  WHERE id_sprint= $numero
+  AND id_Employe = $idEmploye ORDER BY heuresdescendues.id desc");
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -51,9 +60,6 @@ $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdesce
 $output2.='<div class="card bg-light">
       <div class="card-body text-center">
         <p class="card-text">'.$row["employe"].' | '.$row["projet"].' | <b>'.$row["NbHeure"].'h</b></p>
-        <input style="display: none" class="lavaleur" value="'.$row["id"].'" />
-        <button onclick="GoTop(this)">Annuler</button>
-        <button style="display: none" onclick="GoDown(this)">Achevée</button>
       </div>
     </div>';
 

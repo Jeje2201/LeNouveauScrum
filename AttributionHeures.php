@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="col-md-3" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Tâche planifiée</button>
+              <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
 
             </div>
           </div>
@@ -85,7 +85,7 @@
       <div class="modal-footer">
         <input  type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -126,7 +126,7 @@
 
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
-      $('.modal-title').text("Attribuer"); 
+      $('.modal-title').text("Tâche planifiée"); 
       $('#action').val('Attribuer'); 
     });
 
