@@ -71,18 +71,10 @@
               <a href="#">Projets</a>
             </li>
             <li>
-              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-              <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
+              <a href="#">Heures Attribuées</a>
+            </li>
+            <li>
+              <a href="#">Heures Descendues</a>
             </li>
           </ul>
         </li>
