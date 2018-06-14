@@ -50,7 +50,7 @@
 
         <div>
         <label>Actif</label>
-        <input id="Actif" type="checkbox">
+        <input id="Actif" type="checkbox" checked>
         </div>
 
         <div class="form-group">
@@ -100,6 +100,10 @@
       $('#customerModal').modal('show'); 
       $('.modal-title').text("Ajouter un employé"); 
       $('#action').val('Ajouter'); 
+      $('#Prenom').val('');
+      $('#Nom').val('');
+      $('#Actif').prop( "checked", true ); 
+      $('#Couleur').val('#ff00fa');
     });
 
     $('#action').click(function(){
