@@ -62,10 +62,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMulti" style="">
             <li>
-              <a href="GererSprint.php">Sprints</a>
+              <a href="Gestion_Sprint.php">Sprints</a>
             </li>
             <li>
-              <a href="GestionEmploye.php">Employés</a>
+              <a href="Gestion_Employe.php">Employés</a>
             </li>
             <li>
               <a href="#">Projets</a>
@@ -74,7 +74,7 @@
               <a href="#">Heures Attribuées</a>
             </li>
             <li>
-              <a href="#">Heures Descendues</a>
+              <a href="Gestion_HeuresDescendues.php">Heures Descendues</a>
             </li>
           </ul>
         </li>

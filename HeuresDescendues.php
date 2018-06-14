@@ -1,6 +1,6 @@
   <html>
   <?php include('header.php'); ?>
-  <body class="fixed-nav sticky-footer" id="page-top">
+  <body class="fixed-nav sticky-footer" id="page-Result">
     <div class="content-wrapper">
       <div class="container">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -12,85 +12,83 @@
           </div>
         </div>
         <div class="mb-3">
-          <div class="form-row">
-            <div class="col-md-10">
-              <select class="form-control"  id="numeroSprint" name="numeroSprint">
-                <?php
-                $result = $conn->query("select id, numero from sprint order by numero desc");
+          <div class="form-group">
+            <select class="form-control"  id="numeroSprint" name="numeroSprint">
+              <?php
+              $result = $conn->query("select id, numero from sprint order by numero desc");
 
-                while ($row = $result->fetch_assoc()) {
-                  unset($id, $numero);
-                  $id = $row['id'];
-                  $numero = $row['numero']; 
-                  echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                }
-                ?> 
-              </select>
-            </div>
-            <div class="col-md-2" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Descendre</button>
-
-            </div>
+              while ($row = $result->fetch_assoc()) {
+                unset($id, $numero);
+                $id = $row['id'];
+                $numero = $row['numero']; 
+                echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+              }
+              ?> 
+            </select>
           </div>
-          <br />
 
-          <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+          <div class="form-group">
+            <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
+              <?php
+              $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
+              while ($row = $result->fetch_assoc()) {
+                $id = $row['id'];
+                $prenom = $row['prenom']; 
+                $nom = $row['nom']; 
+                echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
+              }
+              ?>
+            </select>
+          </div>
 
-          <div id="result" class="table-responsive"></div>
-          
+          <div class="form-group">
+            <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <button type="button" id="action" class="btn btn-info">Descendre</button>
+          </div>
+
         </div>
-      </div>
-    </body>
-    </html>
+        <br />
 
-    <div id="customerModal" class="modal fade">
-     <div class="modal-dialog">
-      <div class="modal-content">
-       <div class="modal-header">
-        <h4 class="modal-title">Tâche(s) achevée(s)</h4>
       </div>
-      <div class="modal-body">
-        <label>Employé</label>
-        <select class="form-control" id="employeId" name="employeId">
-          <?php
-          $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $prenom = $row['prenom']; 
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Projet</label>
-        <select class="form-control"  id="projetId" name="projetId">
-          <?php
-          $result = $conn->query("select id, nom from projet order by nom");
 
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $nom);
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
-        <br />
-        <label>Date</label>
-        <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
-        <br />
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="row">
+
+        <div class="card col-sm-6">
+          <div class="card-header"><center>Tâches En Cours</center></div>
+          <div class="card-body card-columns" id=Top>
+          </div>
+        </div>
+
+        <div class="card col-sm-6">
+          <div class="card-header"><center>Tâches Terminées</center></div>
+          <div class="card-body card-columns" id=Down>
+          </div>
+        </div>
+
       </div>
     </div>
+  </body>
+  </html>
+
+  <div id="customerModal" class="modal fade">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h4 class="modal-title">Tâche(s) achevée(s)</h4>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+      <input type="hidden" name="id" id="id" />
+      <input type="submit" name="action" id="action" class="btn btn-success" />
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
   </div>
+</div>
 </div>
 
 <?php require_once __Dir__ . '/footer.php'; ?>
@@ -99,72 +97,68 @@
 
   $(document).ready(function(){
 
-    $("#BarreDeRecherche").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
+    $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
 
-    fetchUser(); 
+    fetchUser();
 
     function fetchUser() 
     {
       var idAffiche = $('#numeroSprint').val();
+      var idEmploye = $('#numeroEmploye').val();
       var action = "Load";
       $.ajax({
-       url : "Modele/ActionDescendre.php", 
+       url : "Modele/ActionDescendre2.php", 
        method:"POST", 
-       data:{action:action, idAffiche:idAffiche}, 
+       data:{action:action, idAffiche:idAffiche, idEmploye:idEmploye}, 
        success:function(data){
-        $('#result').html(data); 
+        $('#Top').html(data.Attribution); 
+        $('#Down').html(data.Descendue); 
       }
     });
+
     }
 
     $('#numeroSprint').change(function(){
       fetchUser();
     });
 
-    $('#modal_button').click(function(){
-      $('#customerModal').modal('show');
-      $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
-      $('#nbheure').val(1);
-      $('#action').val('Valider'); 
+    $('#numeroEmploye').change(function(){
+      fetchUser();
     });
 
     $('#action').click(function(){
-      var idSprint = $('#numeroSprint').val();
-      var idEmploye = $('#employeId').val();
-      var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val();
-      var DateAujourdhui = $('#DateAujourdhui').val();
-      var id = $('#id').val();
-      var action = $('#action').val();  
-      if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') 
+      var action = "Descendre"
+      var IdAttribue = [];
+
+        $('#Down').find("div").find("div").find("input").each(function(){ 
+        IdAttribue.push($(this).val());
+      });
+      console.log('Tous les id a kill: ',IdAttribue)
+
+      if(IdAttribue != '') 
       {
        $.ajax({
-        url : "Modele/ActionDescendre.php",    
+        url : "Modele/ActionDescendre2.php",    
         method:"POST",     
-        data:{id:id, DateAujourdhui:DateAujourdhui, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
+        data:{IdAttribue:IdAttribue, action:action}, 
         success:function(data){
          BootstrapAlert(data);
-         $('#customerModal').modal('hide'); 
          fetchUser();    
        }
      });
      }
      else
      {
-       alert("Tous les champs doivent être plein."); 
+       alert("Tu dois d'abord déplacer au moins une tâche en cours dans tâche terminée."); 
      }
+
    });
 
     $(document).on('click', '.update', function(){
       var id = $(this).attr("id"); 
       var action = "Select";   
       $.ajax({
-       url : "Modele/ActionDescendre.php",   
+       url : "Modele/Modele/ActionDescendre2.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -188,7 +182,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url : "Modele/ActionDescendre.php",    
+        url : "Modele/Modele/ActionDescendre2.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)
@@ -210,5 +204,17 @@
     autoclose: true,
     minView : 2
   });
+
+  function GoTop(id) { 
+    $(id).parent().parent().appendTo($("#Top"));
+    $(id).hide();
+    $(id).next().show();
+  };
+
+  function GoDown(id) { 
+    $(id).parent().parent().appendTo($("#Down"));
+    $(id).hide();
+    $(id).prev().show();
+  };
 
 </script>
