@@ -14,7 +14,19 @@
       $idEmploye = $_POST["idEmploye"];
       $numero = $_POST["idAffiche"];
 
-      $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero AND id_Employe = $idEmploye ORDER BY attribution.id DESC");
+      $statement = $connection->prepare("
+        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe
+        FROM attribution
+        inner JOIN employe ON employe.id = attribution.id_Employe
+        INNER JOIN projet ON projet.id = attribution.id_Projet
+        INNER JOIN sprint ON sprint.id = attribution.id_Sprint
+        where attribution.id_Sprint = $numero
+        AND attribution.id_Employe = $idEmploye
+        AND attribution.id not in
+        (SELECT distinct heuresdescendues.id_Attribution
+         from heuresdescendues
+         where heuresdescendues.id_Attribution IS NOT NULL)
+        ");
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -91,7 +103,7 @@ $Longeur = sizeof($IdAttribue);
 
   if(!empty($result))
   {
-   echo 'Heure(s) Descendue(s) ! 😄';
+   echo 'Tache attribuées maintenant descendues';
  }
  else
  {
