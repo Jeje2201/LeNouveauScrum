@@ -55,7 +55,7 @@
 
         <div class="form-group">
         <label>Couleur</label>
-        <input name="Couleur" id="Couleur" type="color">
+        <input name="Couleur" id="Couleur" type="color" value="#ff00fa">
         </div>
 
       </div>
@@ -147,7 +147,13 @@
        success:function(data){
         $('#customerModal').modal('show');   
         $('.modal-title').text("Mettre à jour"); 
-        $('#action').val("Update");     
+        $('#action').val("Update");  
+
+        if(data.Actif ==1)
+$('#Actif').prop('checked', true);
+          else
+$('#Actif').prop('checked', false);
+        
         $('#id').val(id); 
         $('#Prenom').val(data.Prenom);  
         $('#Nom').val(data.Nom); 

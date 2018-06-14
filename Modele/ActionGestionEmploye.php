@@ -90,6 +90,7 @@ if($_POST["action"] == "Select")
    $output["Prenom"] = $row["prenom"];
    $output["Nom"] = $row["nom"];
    $output["Couleur"] = $row["Couleur"];
+   $output["Actif"] = $row["actif"];
  }
  echo json_encode($output);
 }
