@@ -60,7 +60,7 @@
 
       </div>
       <div class="modal-footer">
-        <input name="id" id="id" />
+        <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
