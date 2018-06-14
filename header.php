@@ -65,7 +65,7 @@
               <a href="GererSprint.php">Sprints</a>
             </li>
             <li>
-              <a href="#">Employés</a>
+              <a href="GestionEmploye.php">Employés</a>
             </li>
             <li>
               <a href="#">Projets</a>
