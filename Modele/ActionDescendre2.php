@@ -15,7 +15,7 @@
       $numero = $_POST["idAffiche"];
 
       $statement = $connection->prepare("
-        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe
+        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe, employe.nom as Nom
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
         INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -36,7 +36,7 @@
        foreach($result as $row)
        {
 
-$output1.='<div class="card bg-light">
+$output1.='<div class="card '.$row["employe"].$row["Nom"].'">
       <div class="card-body text-center">
         <p class="card-text">'.$row["employe"].' | '.$row["projet"].' | <b>'.$row["NbHeure"].'h</b></p>
         <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
