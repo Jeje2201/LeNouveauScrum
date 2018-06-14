@@ -9,7 +9,7 @@
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom DESC");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom ASC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -53,18 +53,20 @@
    echo $output;
  }
 
- if($_POST["action"] == "Attribuer")
+ if($_POST["action"] == "Ajouter")
  {
   $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet)
+   INSERT INTO employe (prenom, nom, Couleur, actif, Initial) 
+   VALUES (:prenom, :nom, :Couleur, :actif, :Initial)
    ");
-  $result = $statement->execute(
+
+     $result = $statement->execute(
    array(
-    ':NombreHeure' => $_POST["NombreHeure"],
-    ':idSprint' => $_POST["idSprint"],
-    ':idEmploye' => $_POST["idEmploye"],
-    ':idProjet' => $_POST["idProjet"]
+    ':prenom' => $_POST["Prenom_Employe"],
+    ':nom' => $_POST["Nom_Employe"],
+    ':Couleur' => $_POST["Couleur"],
+    ':actif' => $_POST["Actif"],
+    ':Initial' => $_POST["Initial"]
   )
  );
   if(!empty($result))
@@ -77,7 +79,7 @@ if($_POST["action"] == "Select")
 {
   $output = array();
   $statement = $connection->prepare(
-   "SELECT * FROM attribution 
+   "SELECT * FROM employe 
    WHERE id = '".$_POST["id"]."' 
    LIMIT 1"
  );
@@ -85,9 +87,9 @@ if($_POST["action"] == "Select")
   $result = $statement->fetchAll();
   foreach($result as $row)
   {
-   $output["heure"] = $row["heure"];
-   $output["id_Employe"] = $row["id_Employe"];
-   $output["id_Projet"] = $row["id_Projet"];
+   $output["Prenom"] = $row["prenom"];
+   $output["Nom"] = $row["nom"];
+   $output["Couleur"] = $row["Couleur"];
  }
  echo json_encode($output);
 }
@@ -95,30 +97,31 @@ if($_POST["action"] == "Select")
 if($_POST["action"] == "Update")
 {
   $statement = $connection->prepare(
-   "UPDATE attribution 
-   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
+   "UPDATE employe 
+   SET prenom = :prenom, nom = :nom, Couleur = :Couleur, Initial =:Initial, actif = :actif 
    WHERE id = :id
    "
  );
   $result = $statement->execute(
    array(
-    ':heure' => $_POST["NombreHeure"],
-    ':id_Sprint' => $_POST["idSprint"],
-    ':id_Projet' => $_POST["idProjet"],
-    ':id_Employe'   => $_POST["idEmploye"],
+    ':prenom' => $_POST["Prenom_Employe"],
+    ':nom' => $_POST["Nom_Employe"],
+    ':Couleur' => $_POST["Couleur"],
+    ':actif'   => $_POST["Actif"],
+    ':Initial'   => $_POST["Initial"],
     ':id'   => $_POST["id"]
   )
  );
   if(!empty($result))
   {
-   echo 'Heure(s) attribuée(s) modifiée(s) ! 😮';
+   echo 'Employé(e) Modifi(e) ! 😮';
  }
 }
 
 if($_POST["action"] == "Delete")
 {
   $statement = $connection->prepare(
-   "DELETE FROM attribution WHERE id = :id"
+   "DELETE FROM employe WHERE id = :id"
  );
   $result = $statement->execute(
    array(
@@ -127,7 +130,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Heure attribuée supprimée ! 😢';
+   echo 'Employé(e) supprimé(e) ! 😢';
  }
 }
 

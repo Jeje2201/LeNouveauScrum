@@ -14,7 +14,7 @@
         <div class="mb-3">
           <div class="form-row">
             <div class="col-md-3">
-              <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
+              <button type="button" id="modal_button" class="btn btn-info">Créer un(e) employé(e)</button>
 
             </div>
           </div>
@@ -37,39 +37,30 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <label>Employé</label>
-        <select class="form-control" id="employeId" name="employeId">
-          <?php
-          $result = $conn->query("select id, prenom, nom from employe where employe.actif = 1 order by prenom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $prenom = $row['prenom']; 
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Projet</label>
-        <select class="form-control"  id="projetId" name="projetId">
-          <?php
-          $result = $conn->query("select id, nom from projet order by nom");
 
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $nom);
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
-        <br />
+        <div class="form-group">
+        <label>Prénom</label>
+        <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Jackouille">
+        </div>
+
+        <div class="form-group">
+        <label>Nom</label>
+        <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
+        </div>
+
+        <div>
+        <label>Actif</label>
+        <input id="Actif" type="checkbox">
+        </div>
+
+        <div class="form-group">
+        <label>Couleur</label>
+        <input name="Couleur" id="Couleur" type="color">
+        </div>
+
       </div>
       <div class="modal-footer">
-        <input  type="hidden" name="id" id="id" />
+        <input name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
@@ -102,36 +93,40 @@
        success:function(data){
         $('#result').html(data); 
       }
-    });
+    });     
     }
-
-    $('#numeroSprint').change(function(){
-      fetchUser();
-    });
 
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
-      $('.modal-title').text("Tâche planifiée"); 
-      $('#action').val('Attribuer'); 
+      $('.modal-title').text("Ajouter un employé"); 
+      $('#action').val('Ajouter'); 
     });
 
     $('#action').click(function(){
-      var idSprint = $('#numeroSprint').val();
-      var idEmploye = $('#employeId').val();
-      var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val();
+      var Nom_Employe = $('#Nom').val();
+      var Prenom_Employe = $('#Prenom').val();
+      if (document.getElementById("Actif").checked == true){
+        var Actif = 1;
+      } else {
+        var Actif = 0;
+      }
+      var Couleur = $('#Couleur').val();
+      console.log(typeof(Couleur))
+      var Initial = "To";
+      var action = $('#action').val();
       var id = $('#id').val();
-      var action = $('#action').val();  
-      if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') 
+      console.log(Prenom_Employe+' '+Nom_Employe+' '+ Actif+' '+Couleur+' '+Initial+' '+action+' '+id);
+      if(Nom_Employe != '' && Prenom_Employe != '' && Couleur != '') 
       {
        $.ajax({
-        url : "Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionGestionEmploye.php",    
         method:"POST",     
-        data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
+        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Couleur:Couleur, Initial:Initial, action:action}, 
         success:function(data){
          BootstrapAlert(data);
+         console.log(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();    
+         fetchUser();
        }
      });
      }
@@ -143,32 +138,31 @@
 
     $(document).on('click', '.update', function(){
       var id = $(this).attr("id"); 
-      var action = "Select";   
+      var action = "Select";
       $.ajax({
-       url : "Modele/ActionAttributionHeure.php",   
+       url : "Modele/ActionGestionEmploye.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
        success:function(data){
         $('#customerModal').modal('show');   
-        $('.modal-title').text("Update Records"); 
+        $('.modal-title').text("Mettre à jour"); 
         $('#action').val("Update");     
         $('#id').val(id); 
-        $('#idSprint').val(data.idSprint);  
-        $('#employeId').val(data.id_Employe);  
-        $('#projetId').val(data.id_Projet);  
-        $('#nbheure').val(data.heure);  
+        $('#Prenom').val(data.Prenom);  
+        $('#Nom').val(data.Nom); 
+        $('#Couleur').val(data.Couleur);  
       }
     });
     });
 
     $(document).on('click', '.delete', function(){
       var id = $(this).attr("id"); 
-      if(confirm("Es-tu sûr de vouloir supprimer ce sprint?")) 
+      if(confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?")) 
       {
        var action = "Delete"; 
        $.ajax({
-        url : "Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionGestionEmploye.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)
@@ -183,5 +177,6 @@
        return false; 
      }
    });
+
   });
 </script>
