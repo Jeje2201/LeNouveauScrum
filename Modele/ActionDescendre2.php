@@ -40,7 +40,6 @@ $output1.='<div class="card bg-light">
       <div class="card-body text-center">
         <p class="card-text">'.$row["employe"].' | '.$row["projet"].' | <b>'.$row["NbHeure"].'h</b></p>
         <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
-        <input style="display: none" id="lavaleur2" value="'.$row["projet"].'" />
         <button style="display: none" onclick="GoTop(this)"><</button>
         <button onclick="GoDown(this)">></button>
       </div>
@@ -88,28 +87,29 @@ header('Content-type: application/json');
  }
 
 
-
  if($_POST["action"] == "Descendre")
  {
 
 $IdAttribue = $_POST["IdAttribue"];
-$Longeur = sizeof($IdAttribue);
+
+ for($i=0;$i < sizeof($IdAttribue) ;$i++){
+
 
   $statement = $connection->prepare("
     INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)
-    SELECT heure, id_Sprint, id_Employe, id_Projet, id, NOW() FROM attribution where attribution.id = $IdAttribue[0];
+    SELECT heure, id_Sprint, id_Employe, id_Projet, id, NOW() FROM attribution where attribution.id = $IdAttribue[$i];
     ");
   $result = $statement->execute();
 
   if(!empty($result))
   {
-   echo 'Tache attribuées maintenant descendues';
+   echo 'Tâche(s) attribuée(s) bien descendue(s)';
  }
  else
  {
   echo 'Probleme';
  }
-
+ }
 }
 
 if($_POST["action"] == "Select")

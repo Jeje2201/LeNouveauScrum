@@ -129,7 +129,7 @@
       var action = "Descendre"
       var IdAttribue = [];
 
-      $('#Down').find("#lavaleur1").each(function(){ 
+        $('#Down').find("div").find("div").find("input").each(function(){ 
         IdAttribue.push($(this).val());
       });
       console.log('Tous les id a kill: ',IdAttribue)
@@ -148,7 +148,7 @@
      }
      else
      {
-       alert("Tous les champs doivent être plein."); 
+       alert("Tu dois d'abord déplacer au moins une tâche en cours dans tâche terminée."); 
      }
 
    });
