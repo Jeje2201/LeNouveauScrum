@@ -115,6 +115,7 @@
         $('#Down').html(data.Descendue); 
       }
     });
+
     }
 
     $('#numeroSprint').change(function(){
