@@ -112,7 +112,7 @@
       }
       var Couleur = $('#Couleur').val();
       console.log(typeof(Couleur))
-      var Initial = "To";
+      var Initial = Prenom_Employe.charAt(0)+Nom_Employe.charAt(0);
       var action = $('#action').val();
       var id = $('#id').val();
       console.log(Prenom_Employe+' '+Nom_Employe+' '+ Actif+' '+Couleur+' '+Initial+' '+action+' '+id);
