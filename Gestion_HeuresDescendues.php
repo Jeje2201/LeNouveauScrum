@@ -27,10 +27,6 @@
                 ?> 
               </select>
             </div>
-            <div class="col-md-2" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Descendre</button>
-
-            </div>
           </div>
           <br />
 
@@ -124,13 +120,6 @@
 
     $('#numeroSprint').change(function(){
       fetchUser();
-    });
-
-    $('#modal_button').click(function(){
-      $('#customerModal').modal('show');
-      $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
-      $('#nbheure').val(1);
-      $('#action').val('Valider'); 
     });
 
     $('#action').click(function(){
