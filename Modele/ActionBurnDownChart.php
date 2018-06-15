@@ -20,6 +20,18 @@
       echo $result["Total"];
     }
 
+    if($_POST["action"] == "GetTotalQuiResteADescendre")
+    {
+
+      $NumeroSprint = $_POST["NumeroSprint"];
+      $statement = $connection->prepare(
+       "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint)"
+     );
+      $statement->execute();
+      $result = $statement->fetch();
+      echo $result["Total"];
+    }
+
   }
 
   ?>

@@ -55,6 +55,9 @@
 							<label> Total à descendre </label>
 							<input type="number" class="form-control" id="GetTotalADescendre" disabled></input>
 						</div>
+						<div class="col-md-3" id="BarDePourcentageDheureDescendue">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -136,21 +139,6 @@
 
 			};
 
-
-			function GetTotalADescendre() 
-			{
-				var action = "GetTotalADescendre";
-				var NumeroSprint = $('#sprintIdList').val();
-				$.ajax({
-					url : "Modele/ActionBurnDownChart.php", 
-					method:"POST", 
-					data:{action:action, NumeroSprint:NumeroSprint}, 
-					success:function(data){
-						data = data.replace(/\s+/g, '');
-						$("#GetTotalADescendre").val(data);
-					}
-				});
-			}
 				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
 				var bloquerbouton = function(NumeroSprint){
 
@@ -180,12 +168,29 @@
 						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
 					}
 
-					GetTotalADescendre();
-
 					$("#sprintIdList").val(NumeroduSprint);
 
+					if(result[2][0] == null)
+						$("#LeSeuilDansLeDiv").val(0);
+					else
 					$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
 
+					var action = "GetTotalADescendre";
+					var NumeroSprint = $('#sprintIdList').val();
+					$.ajax({
+						url : "Modele/ActionBurnDownChart.php", 
+						method:"POST", 
+						data:{action:action, NumeroSprint:NumeroSprint}, 
+						success:function(Total){
+							Total = Total.replace(/\s+/g, '');
+							$("#GetTotalADescendre").val(Total);
+
+					$("#BarDePourcentageDheureDescendue").html('<label> Total descendue '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
+
+						}
+					});
+
+					
 
 				};
 				
