@@ -1,13 +1,9 @@
    <?php
-//Database connection by using PHP PDO
    $username = 'root';
    $password = '';
-$connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password ); // Create Object of PDO class by connecting to Mysql database
-
-  if(isset($_POST["action"])) //Check value of $_POST["action"] variable value is set to not
-  {
- //For Load All Data
-   if($_POST["action"] == "Load") 
+$connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password ); 
+  if(isset($_POST["action"]))   {
+    if($_POST["action"] == "Load") 
    {
     $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
     $statement->execute();
@@ -51,8 +47,7 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
    echo $output;
  }
 
- //This code for Create new Records
- if($_POST["action"] == "Créer")
+  if($_POST["action"] == "Créer")
  {
   $statement = $connection->prepare("
    INSERT INTO sprint (numero, dateDebut, dateFin) 
@@ -70,10 +65,7 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
    echo 'Sprint créé ! 😄';
  }
 }
-
-
- //This Code is for fetch single customer data for display on Modal
-if($_POST["action"] == "SprintMax")
+ if($_POST["action"] == "SprintMax")
 {
   $output = '';
   $statement = $connection->prepare(
@@ -84,8 +76,7 @@ if($_POST["action"] == "SprintMax")
   echo $result["numero"];
 }
 
- //This Code is for fetch single customer data for display on Modal
-if($_POST["action"] == "Select")
+ if($_POST["action"] == "Select")
 {
   $output = array();
   $statement = $connection->prepare(
