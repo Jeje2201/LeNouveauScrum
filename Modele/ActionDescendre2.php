@@ -14,7 +14,25 @@
       $idEmploye = $_POST["idEmploye"];
       $numero = $_POST["idAffiche"];
 
-      $statement = $connection->prepare("
+      if($_POST["idEmploye"] == "DAMSON"){
+ $statement = $connection->prepare("
+        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+        FROM attribution
+        inner JOIN employe ON employe.id = attribution.id_Employe
+        INNER JOIN projet ON projet.id = attribution.id_Projet
+        INNER JOIN sprint ON sprint.id = attribution.id_Sprint
+        where attribution.id_Sprint = $numero
+        AND attribution.id_Employe in (select id from employe)
+        AND attribution.id not in
+        (SELECT distinct heuresdescendues.id_Attribution
+         from heuresdescendues
+         where heuresdescendues.id_Attribution IS NOT NULL)
+        ");
+      }
+
+else{
+
+  $statement = $connection->prepare("
         SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
@@ -27,7 +45,7 @@
          from heuresdescendues
          where heuresdescendues.id_Attribution IS NOT NULL)
         ");
-
+}
       $statement->execute();
       $result = $statement->fetchAll();
       $output1 = '';
@@ -56,6 +74,7 @@ $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
     }
 
    $Test -> Attribution = $output1;
+if($_POST["idEmploye"] == "DAMSON"){
 
 $statement = $connection->prepare("
   SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
@@ -64,7 +83,20 @@ $statement = $connection->prepare("
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
   INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
   WHERE id_sprint= $numero
-  AND id_Employe = $idEmploye ORDER BY heuresdescendues.id desc");
+  AND id_Employe in (select id from employe)
+  ORDER BY heuresdescendues.id desc");
+}
+else{
+$statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+  FROM heuresdescendues
+  INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
+  INNER JOIN projet on projet.id = heuresdescendues.id_Projet
+  INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
+  WHERE id_sprint= $numero
+  AND id_Employe = $idEmploye
+  ORDER BY heuresdescendues.id desc");
+
+}
 
       $statement->execute();
       $result = $statement->fetchAll();

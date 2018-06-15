@@ -38,6 +38,7 @@
                 echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
               }
               ?>
+              <option value="DAMSON">TOUT LE MONDE</option>
             </select>
           </div>
 
