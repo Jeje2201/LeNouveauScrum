@@ -65,53 +65,53 @@
 				</div>
 				<div class="card-body">
 					<div id="container">
-					<script>
-						var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
-							heures = heures.map(function (x) { 
-								return parseInt(x, 10); 
-							});
-							
-							seuils = seuils.map(function (x) { 
-								return parseInt(x, 10); 
-							});
+						<script>
+							var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
+								heures = heures.map(function (x) { 
+									return parseInt(x, 10); 
+								});
 
-							console.log("Les Informations : ",heures, dates, seuils, sprintou);
+								seuils = seuils.map(function (x) { 
+									return parseInt(x, 10); 
+								});
 
-							new Highcharts.Chart({
-								chart: {
-									renderTo: 'container'
-								},
-								title:{
-									text: 'BurnDownChart du Sprint n°'+NumeroduSprint
-								},
-								subtitle:{
-									text: document.ontouchstart === undefined ?
-									'Déplace ta souris sur les points pour avoir plus de détails': ''
-								},
-								yAxis: {
-									min: 0,
-									title: {
-										text: 'Heures'
+								console.log("Les Informations : ",heures, dates, seuils, sprintou);
+
+								new Highcharts.Chart({
+									chart: {
+										renderTo: 'container'
+									},
+									title:{
+										text: 'BurnDownChart du Sprint n°'+NumeroduSprint
+									},
+									subtitle:{
+										text: document.ontouchstart === undefined ?
+										'Déplace ta souris sur les points pour avoir plus de détails': ''
+									},
+									yAxis: {
+										min: 0,
+										title: {
+											text: 'Heures'
+										}
+									},
+									xAxis: {
+										type: 'datetime',
+										categories: dates
+									},
+									series: [{
+										name: 'Heures Restantes',
+										data: heures
+									},
+									{
+										name: 'Seuil (Interventions, ...)',
+										data: seuils,
+										color: 'red'
 									}
-								},
-								xAxis: {
-									type: 'datetime',
-									categories: dates
-								},
-								series: [{
-									name: 'Heures Restantes',
-									data: heures
-								},
-								{
-									name: 'Seuil (Interventions, ...)',
-									data: seuils,
-									color: 'red'
-								}
-								]
-							});
-						};
+									]
+								});
+							};
 
-					</script>
+						</script>
 					</div>
 				</div>
 			</div>
@@ -134,24 +134,23 @@
 
 				misajour(NumeroduSprint);
 
-
 			};
 
 
- function GetTotalADescendre() 
- {
-  var action = "GetTotalADescendre";
-  var NumeroSprint = $('#sprintIdList').val();
-  $.ajax({
-   url : "Modele/ActionBurnDownChart.php", 
-   method:"POST", 
-   data:{action:action, NumeroSprint:NumeroSprint}, 
-   success:function(data){
-   	data = data.replace(/\s+/g, '');
-   	$("#GetTotalADescendre").val(data);
-  }
-});
-}
+			function GetTotalADescendre() 
+			{
+				var action = "GetTotalADescendre";
+				var NumeroSprint = $('#sprintIdList').val();
+				$.ajax({
+					url : "Modele/ActionBurnDownChart.php", 
+					method:"POST", 
+					data:{action:action, NumeroSprint:NumeroSprint}, 
+					success:function(data){
+						data = data.replace(/\s+/g, '');
+						$("#GetTotalADescendre").val(data);
+					}
+				});
+			}
 				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
 				var bloquerbouton = function(NumeroSprint){
 
