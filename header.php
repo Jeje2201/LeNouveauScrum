@@ -62,6 +62,9 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMulti" style="">
             <li>
+              <a href="Gestion_Parametres.php">Réglages</a>
+            </li>
+            <li>
               <a href="Gestion_Sprint.php">Sprints</a>
             </li>
             <li>
