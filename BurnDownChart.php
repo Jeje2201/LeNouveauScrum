@@ -47,9 +47,13 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-md-1">
+						<div class="col-md-3">
 							<label> Seuil </label>
 							<input type="number" class="form-control" id="LeSeuilDansLeDiv" disabled></input>
+						</div>
+						<div class="col-md-3">
+							<label> Total à descendre </label>
+							<input type="number" class="form-control" id="GetTotalADescendre" disabled></input>
 						</div>
 					</div>
 				</div>
@@ -133,6 +137,21 @@
 
 			};
 
+
+ function GetTotalADescendre() 
+ {
+  var action = "GetTotalADescendre";
+  var NumeroSprint = $('#sprintIdList').val();
+  $.ajax({
+   url : "Modele/ActionBurnDownChart.php", 
+   method:"POST", 
+   data:{action:action, NumeroSprint:NumeroSprint}, 
+   success:function(data){
+   	data = data.replace(/\s+/g, '');
+   	$("#GetTotalADescendre").val(data);
+  }
+});
+}
 				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
 				var bloquerbouton = function(NumeroSprint){
 
@@ -158,11 +177,16 @@
 						var AfficherRien = [0];
 						createChartNEW(AfficherRien, AfficherRien, AfficherRien, AfficherRien, NumeroduSprint);
 					}
-					else
+					else{
 						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
+					}
+
+					GetTotalADescendre();
 
 					$("#sprintIdList").val(NumeroduSprint);
+
 					$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
+
 
 				};
 				
