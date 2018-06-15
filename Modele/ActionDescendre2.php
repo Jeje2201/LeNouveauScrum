@@ -27,6 +27,7 @@
         (SELECT distinct heuresdescendues.id_Attribution
          from heuresdescendues
          where heuresdescendues.id_Attribution IS NOT NULL)
+         ORDER BY employe.prenom
         ");
       }
 
@@ -44,6 +45,7 @@ else{
         (SELECT distinct heuresdescendues.id_Attribution
          from heuresdescendues
          where heuresdescendues.id_Attribution IS NOT NULL)
+         ORDER BY employe.prenom
         ");
 }
       $statement->execute();
@@ -84,7 +86,7 @@ $statement = $connection->prepare("
   INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
   WHERE id_sprint= $numero
   AND id_Employe in (select id from employe)
-  ORDER BY heuresdescendues.id desc");
+  ORDER BY employe.prenom");
 }
 else{
 $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.prenom as E_Prenom, employe.couleur as E_Couleur
@@ -94,7 +96,7 @@ $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdesce
   INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
   WHERE id_sprint= $numero
   AND id_Employe = $idEmploye
-  ORDER BY heuresdescendues.id desc");
+  ORDER BY employe.prenom");
 
 }
 
