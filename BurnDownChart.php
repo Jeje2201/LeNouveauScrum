@@ -16,7 +16,7 @@
 				<div class="card-header">Sélection BurndownChart</div>
 				<div class="card-body">
 					<!-- Selectionner le sprint sur lequel l'on va jouer -->
-					<div class="form-row">
+					<div class="form-group row">
 						<div class="col-md-6">
 							<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
 								<?php
@@ -44,6 +44,12 @@
 						</div>
 						<div class="col-md-3">
 							<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-1">
+							<label> Seuil </label>
+							<input type="number" class="form-control" id="LeSeuilDansLeDiv" disabled></input>
 						</div>
 					</div>
 				</div>
@@ -156,6 +162,7 @@
 						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
 
 					$("#sprintIdList").val(NumeroduSprint);
+					$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
 
 				};
 				
