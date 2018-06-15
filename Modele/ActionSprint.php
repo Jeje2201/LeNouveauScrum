@@ -71,6 +71,19 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
  }
 }
 
+
+ //This Code is for fetch single customer data for display on Modal
+if($_POST["action"] == "SprintMax")
+{
+  $output = '';
+  $statement = $connection->prepare(
+   "SELECT Max(numero)+1 as numero FROM sprint"
+ );
+  $statement->execute();
+  $result = $statement->fetch();
+  echo $result["numero"];
+}
+
  //This Code is for fetch single customer data for display on Modal
 if($_POST["action"] == "Select")
 {
