@@ -56,74 +56,74 @@
 							<input type="number" class="form-control" id="GetTotalADescendre" disabled></input>
 						</div>
 						<div class="col-md-3" id="BarDePourcentageDheureDescendue">
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Area Chart Example-->
-			<div class="card">
-				<div class="card-header">
-					<i class="fa fa-area-chart"></i>
-				</div>
-				<div class="card-body">
-					<div id="container">
-						<script>
-							var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
-								heures = heures.map(function (x) { 
-									return parseInt(x, 10); 
-								});
+		</div>
+		<!-- Area Chart Example-->
+		<div class="card">
+			<div class="card-header">
+				<i class="fa fa-area-chart"></i>
+			</div>
+			<div class="card-body">
+				<div id="container">
+					<script>
+						var createChartNEW = function(heures, dates, seuils, sprintou, NumeroduSprint){
+							heures = heures.map(function (x) { 
+								return parseInt(x, 10); 
+							});
 
-								seuils = seuils.map(function (x) { 
-									return parseInt(x, 10); 
-								});
+							seuils = seuils.map(function (x) { 
+								return parseInt(x, 10); 
+							});
 
-								console.log("Les Informations : ",heures, dates, seuils, sprintou);
+							console.log("Les Informations : ",heures, dates, seuils, sprintou);
 
-								new Highcharts.Chart({
-									chart: {
-										renderTo: 'container'
-									},
-									title:{
-										text: 'BurnDownChart du Sprint n°'+NumeroduSprint
-									},
-									subtitle:{
-										text: document.ontouchstart === undefined ?
-										'Déplace ta souris sur les points pour avoir plus de détails': ''
-									},
-									yAxis: {
-										min: 0,
-										title: {
-											text: 'Heures'
-										}
-									},
-									xAxis: {
-										type: 'datetime',
-										categories: dates
-									},
-									series: [{
-										name: 'Heures Restantes',
-										data: heures
-									},
-									{
-										name: 'Seuil (Interventions, ...)',
-										data: seuils,
-										color: 'red'
+							new Highcharts.Chart({
+								chart: {
+									renderTo: 'container'
+								},
+								title:{
+									text: 'BurnDownChart du Sprint n°'+NumeroduSprint
+								},
+								subtitle:{
+									text: document.ontouchstart === undefined ?
+									'Déplace ta souris sur les points pour avoir plus de détails': ''
+								},
+								yAxis: {
+									min: 0,
+									title: {
+										text: 'Heures'
 									}
-									]
-								});
-							};
+								},
+								xAxis: {
+									type: 'datetime',
+									categories: dates
+								},
+								series: [{
+									name: 'Heures Restantes',
+									data: heures
+								},
+								{
+									name: 'Seuil (Interventions, ...)',
+									data: seuils,
+									color: 'red'
+								}
+								]
+							});
+						};
 
-						</script>
-					</div>
+					</script>
 				</div>
 			</div>
-			<?php require_once __Dir__ . '/footer.php'; ?>
-
 		</div>
-		<script>
+		<?php require_once __Dir__ . '/footer.php'; ?>
 
-			$( document ).ready(function() {
+	</div>
+	<script>
+
+		$( document ).ready(function() {
 				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 			});
 
@@ -173,7 +173,7 @@
 					if(result[2][0] == null)
 						$("#LeSeuilDansLeDiv").val(0);
 					else
-					$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
+						$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
 
 					var action = "GetTotalADescendre";
 					var NumeroSprint = $('#sprintIdList').val();
@@ -185,7 +185,7 @@
 							Total = Total.replace(/\s+/g, '');
 							$("#GetTotalADescendre").val(Total);
 
-					$("#BarDePourcentageDheureDescendue").html('<label> Total descendue '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
+							$("#BarDePourcentageDheureDescendue").html('<label> Total descendue '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
 
 						}
 					});
