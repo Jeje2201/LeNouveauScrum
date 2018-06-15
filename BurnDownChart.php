@@ -47,15 +47,15 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<label> Seuil </label>
 							<input type="number" class="form-control" id="LeSeuilDansLeDiv" disabled></input>
 						</div>
-						<div class="col-md-3">
-							<label> Total à descendre </label>
+						<div class="col-md-4">
+							<label> Total heures à descendre </label>
 							<input type="number" class="form-control" id="GetTotalADescendre" disabled></input>
 						</div>
-						<div class="col-md-3" id="BarDePourcentageDheureDescendue">
+						<div class="col-md-4" id="BarDePourcentageDheureDescendue">
 						</div>
 					</div>
 				</div>
@@ -185,7 +185,7 @@
 							Total = Total.replace(/\s+/g, '');
 							$("#GetTotalADescendre").val(Total);
 
-							$("#BarDePourcentageDheureDescendue").html('<label> Total descendue '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
+							$("#BarDePourcentageDheureDescendue").html('<label> Total heures descendues: '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
 
 						}
 					});
