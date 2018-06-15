@@ -17,10 +17,6 @@
           <div class="col-md-9">
             <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
           </div>
-          <div class="col-md-3" align="right">
-            <button type="button" id="modal_button" class="btn btn-info">Créer nouveau sprint</button>
-            <!-- It will show Modal for Create new Records !-->
-          </div>
 
         </div>
         <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
@@ -93,15 +89,6 @@
   }
 });
 }
-
- //This JQuery code will Reset value of Modal item when modal will load for create new records
- $('#modal_button').click(function(){
-  $('#customerModal').modal('show'); //It will load modal on web page
-  $('#numero').val(parseInt(document.getElementById("datatable").rows[1].cells[0].innerHTML)+1); //This will clear Modal first name textbox
-  $('#dateDebut').text(ChoixDate("#dateDebut",0));
-  $('#dateFin').text(ChoixDate("#dateFin",localStorage.getItem('NbJoursParSprint')));
-  $('#action').val('Créer'); //This will reset Button value ot Create
-});
 
  //This JQuery code is for Click on Modal action button for Create new records or Update existing records. This code will use for both Create and Update of data through modal
  $('#action').click(function(){
