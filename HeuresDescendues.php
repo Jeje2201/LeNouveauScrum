@@ -29,6 +29,7 @@
 
           <div class="form-group">
             <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
+              <option value="DAMSON">*</option>
               <?php
               $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
               while ($row = $result->fetch_assoc()) {
@@ -38,7 +39,6 @@
                 echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
               }
               ?>
-              <option value="DAMSON">TOUT LE MONDE</option>
             </select>
           </div>
 

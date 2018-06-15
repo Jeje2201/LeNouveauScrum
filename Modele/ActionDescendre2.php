@@ -16,7 +16,7 @@
 
       if($_POST["idEmploye"] == "DAMSON"){
  $statement = $connection->prepare("
-        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
         INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -33,7 +33,7 @@
 else{
 
   $statement = $connection->prepare("
-        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
         INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -56,7 +56,7 @@ else{
 
 $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
       <div class="card-body text-center">
-        <p class="card-text">'.$row["E_Initial"].'<br>'.$row["projet"].'<br>'.$row["NbHeure"].'h</p>
+        <p class="card-text">'.$row["E_Prenom"].' ('.$row["E_Initial"].')<br>'.$row["projet"].'<br>'.$row["NbHeure"].'h</p>
         <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
         <button style="display: none" onclick="GoTop(this)"><</button>
         <button onclick="GoDown(this)">></button>
@@ -77,7 +77,7 @@ $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
 if($_POST["idEmploye"] == "DAMSON"){
 
 $statement = $connection->prepare("
-  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
   FROM heuresdescendues
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
@@ -87,7 +87,7 @@ $statement = $connection->prepare("
   ORDER BY heuresdescendues.id desc");
 }
 else{
-$statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.couleur as E_Couleur
+$statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.Initial as E_Initial, employe.prenom as E_Prenom, employe.couleur as E_Couleur
   FROM heuresdescendues
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
@@ -108,7 +108,7 @@ $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdesce
 
 $output2.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
       <div class="card-body text-center">
-        <p class="card-text">'.$row["E_Initial"].'<br>'.$row["projet"].'<br>'.$row["NbHeure"].'h</p>
+        <p class="card-text">'.$row["E_Prenom"].' ('.$row["E_Initial"].')<br>'.$row["projet"].'<br>'.$row["NbHeure"].'h</p>
       </div>
     </div>';
 
