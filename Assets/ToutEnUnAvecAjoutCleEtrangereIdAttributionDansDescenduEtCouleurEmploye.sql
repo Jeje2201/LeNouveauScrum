@@ -556,7 +556,7 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (11, 'EP', 'Eric', 'Pringels', NULL, 0, NULL, NULL),
 (12, 'FB', 'Fabien', 'Buisson', NULL, 0, NULL, NULL),
 (13, 'FF', 'Florian', 'Fauchier', NULL, 0, NULL, NULL),
-(14, 'FB', 'Frederic', 'Berton', '#e5a0ff', 1, NULL, NULL),
+(14, 'FB', 'Frederic', 'Berton', NULL, 1, NULL, NULL),
 (15, 'GT', 'Gerald', 'Tibi', NULL, 0, NULL, NULL),
 (16, 'GF', 'Ghislain', 'Fortin', NULL, 0, NULL, NULL),
 (17, 'GB', 'Gilles', 'Bassiere', NULL, 0, NULL, NULL),

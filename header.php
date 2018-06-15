@@ -58,11 +58,11 @@
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
             <i class="fa fa-fw fa-sitemap"></i>
-            <span class="nav-link-text">Paramètres</span>
+            <span class="nav-link-text">Gestions</span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseMulti" style="">
             <li>
-              <a href="Gestion_Parametres.php">Réglages</a>
+              <a href="Gestion_Parametres.php">Paramètres</a>
             </li>
             <li>
               <a href="Gestion_Sprint.php">Sprints</a>
