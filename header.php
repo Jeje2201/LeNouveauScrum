@@ -91,5 +91,5 @@
       </ul>
 		</div>
 	</nav>
-    <?php require_once 'api/www/Configs.php'; ?>
+    <?php require_once 'Configs.php'; ?>
 </body>
