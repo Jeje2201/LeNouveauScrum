@@ -130,10 +130,12 @@
     $('#action').click(function(){
       var action = "Descendre"
       var IdAttribue = [];
+      var LeJourDeDescente = $('#DateAujourdhui').val()
 
-        $('#Down').find("div").find("div").find("input").each(function(){ 
+      $('#Down').find("div").find("div").find("input").each(function(){ 
         IdAttribue.push($(this).val());
       });
+
       console.log('Tous les id a kill: ',IdAttribue)
 
       if(IdAttribue != '') 
@@ -141,7 +143,7 @@
        $.ajax({
         url : "Modele/ActionDescendre2.php",    
         method:"POST",     
-        data:{IdAttribue:IdAttribue, action:action}, 
+        data:{IdAttribue:IdAttribue, action:action, LeJourDeDescente:LeJourDeDescente}, 
         success:function(data){
          BootstrapAlert(data);
          fetchUser();    

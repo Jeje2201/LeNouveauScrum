@@ -130,6 +130,7 @@ header('Content-type: application/json');
  if($_POST["action"] == "Descendre")
  {
 
+$LeJourDeDescente = $_POST["LeJourDeDescente"];
 $IdAttribue = $_POST["IdAttribue"];
 
  for($i=0;$i < sizeof($IdAttribue) ;$i++){
@@ -137,7 +138,7 @@ $IdAttribue = $_POST["IdAttribue"];
 
   $statement = $connection->prepare("
     INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)
-    SELECT heure, id_Sprint, id_Employe, id_Projet, id, NOW() FROM attribution where attribution.id = $IdAttribue[$i];
+    SELECT heure, id_Sprint, id_Employe, id_Projet, id, '$LeJourDeDescente' FROM attribution where attribution.id = $IdAttribue[$i];
     ");
   $result = $statement->execute();
 
