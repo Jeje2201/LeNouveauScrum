@@ -158,39 +158,32 @@
 
 					bloquerbouton(NumeroduSprint);
 
-					var result = getdatafromurlNEW("/<?php echo $ProjectFolderName ?>/api/www/burndownchart/getChart/"+NumeroduSprint);
-					
-					if(result == null){
-						var AfficherRien = [0];
-						createChartNEW(AfficherRien, AfficherRien, AfficherRien, AfficherRien, NumeroduSprint);
-					}
-					else{
-						createChartNEW(result[0], result[1], result[2], result[3], NumeroduSprint);
-					}
-
 					$("#sprintIdList").val(NumeroduSprint);
 
-					if(result[2][0] == null)
-						$("#LeSeuilDansLeDiv").val(0);
-					else
-						$("#LeSeuilDansLeDiv").val(parseInt(result[2][0]));
 
-					var action = "GetTotalADescendre";
+					var action = "GetLesInfosDeLaBurnDownChart";
 					var NumeroSprint = $('#sprintIdList').val();
+
 					$.ajax({
 						url : "Modele/ActionBurnDownChart.php", 
 						method:"POST", 
 						data:{action:action, NumeroSprint:NumeroSprint}, 
 						success:function(Total){
-							Total = Total.replace(/\s+/g, '');
-							$("#GetTotalADescendre").val(Total);
+							Total = JSON.parse(Total);
+							console.log('Le Tableau',Total);
 
-							$("#BarDePourcentageDheureDescendue").html('<label> Total heures descendues: '+Math.round(((Total-result[0][result[0].length-1])*100/Total))+'% </label><div class="progress"><div class="progress-bar" role="progressbar" style="width: '+((Total-result[0][result[0].length-1])*100/Total)+'%; height: 36px; aria-valuenow="'+((Total-result[0][result[0].length-1])*100/Total)+'" aria-valuemin="0" aria-valuemax="100">');
+							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
-						}
-					});
+							$("#BarDePourcentageDheureDescendue").html('<label> Total heures descendues: '+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'% </label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
 
-					
+					 if(Total[2][0] == null)
+					 	$("#LeSeuilDansLeDiv").val(0);
+					 else
+						$("#LeSeuilDansLeDiv").val(parseInt(Total[2][0]));
+					 	}
+					 	
+
+					});					
 
 				};
 				
