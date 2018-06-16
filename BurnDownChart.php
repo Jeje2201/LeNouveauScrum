@@ -101,6 +101,14 @@
 									type: 'datetime',
 									categories: dates
 								},
+								plotOptions: {
+									line: {
+										dataLabels: {
+											enabled: true
+										},
+										enableMouseTracking: true
+									}
+								},
 								series: [{
 									name: 'Heures Restantes',
 									data: heures
@@ -179,8 +187,10 @@
 								$("#LeSeuilDansLeDiv").val(0);
 							else
 								$("#LeSeuilDansLeDiv").val(parseInt(Total[2][0]));
+
+							$("#GetTotalADescendre").val(Total[4]);
 						}
-						
+
 
 					});					
 
