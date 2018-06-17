@@ -155,8 +155,7 @@ body.fixed-nav {
           padding: 1em; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
-          padding-left: 0;
-          list-style: none; }
+          padding-left: 0;}
           #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li,
           #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li {
             width: 250px; }
