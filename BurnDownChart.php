@@ -57,8 +57,8 @@
 				<div class="card-body">
 				<div id=Seuil></div>
 				<div id="TotalHAttribues"></div>
-				<div id="TotalHDescendue"></div>
 				<div id="TotalHResteADescendre"></div>
+				<div id="TotalHDescendue"></div>
 				<div id="BarDePourcentageDheureDescendue"></div>
 
 				
@@ -188,7 +188,7 @@
 
 							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
-							$("#BarDePourcentageDheureDescendue").html('<label> Total H descendues: <b>'+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'%</b></label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
+							$("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
 
 							if(Total[2][0] == null)
 								$("#Seuil").html("Seuil: <b>"+0+"h<b>");
@@ -197,9 +197,10 @@
 
 								$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");
 
-								$("#TotalHDescendue").html("Heures déjà descendues: <b>"+(Total[4]-Total[0][Total[0].length-1])+"h</b>");
-
 								$("#TotalHResteADescendre").html("Heures restante à descendre: <b>"+(Total[0][Total[0].length-1])+"h</b>");
+
+								$("#TotalHDescendue").html("Heures déjà descendues: <b>"+(Total[4]-Total[0][Total[0].length-1])+"h</b> soit <b>"+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'%</b>');
+
 							
 						}
 
