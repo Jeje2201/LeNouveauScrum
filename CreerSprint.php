@@ -24,12 +24,22 @@
 
           <div class="form-group">
             <label>Date Debut</label>
+            <div class='input-group date'>
             <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+            <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                      </span>
+          </div>
           </div>
 
           <div class="form-group">
             <label>Date Fin</label>
+            <div class='input-group date'>
             <input type="text" name="dateFin" id='dateFin' class="form-control" />
+            <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                      </span>
+          </div>
           </div>
 
           <div class="form-group">
