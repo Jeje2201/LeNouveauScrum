@@ -55,10 +55,10 @@
 <div class="card col-sm-6">
 				<div class="card-header">Information Burndownchart</div>
 				<div class="card-body">
-				<div id=Seuil> Seuil </div>
-				<div id="TotalHAttribues"> Total heures à descendre </div>
-				<div id="TotalHDescendue"> Total heures déjà descendues </div>
-				<div id="TotalHResteADescendre"> Total heures restante à descendre </div>
+				<div id=Seuil></div>
+				<div id="TotalHAttribues"></div>
+				<div id="TotalHDescendue"></div>
+				<div id="TotalHResteADescendre"></div>
 				<div id="BarDePourcentageDheureDescendue"></div>
 
 				
@@ -188,19 +188,18 @@
 
 							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
-							$("#BarDePourcentageDheureDescendue").html('<label> Total H descendues: '+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'% </label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
+							$("#BarDePourcentageDheureDescendue").html('<label> Total H descendues: <b>'+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'%</b></label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
 
 							if(Total[2][0] == null)
-								$("#Seuil").text("Seuil: "+0+"h");
+								$("#Seuil").html("Seuil: <b>"+0+"h<b>");
 							else
-								$("#Seuil").text("Seuil: "+parseInt(Total[2][0])+"h");
+								$("#Seuil").html("Seuil: <b>"+parseInt(Total[2][0])+"h</b>");
 
-								$("#TotalHAttribues").text("Total heures à descendre: "+Total[4]+"h");
+								$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");
 
-								$("#TotalHDescendue").text("Heures déjà descendues: "+(Total[4]-Total[0][Total[0].length-1])+"h");
+								$("#TotalHDescendue").html("Heures déjà descendues: <b>"+(Total[4]-Total[0][Total[0].length-1])+"h</b>");
 
-								$("#TotalHResteADescendre").text("Heures restante à descendre: "+(Total[0][Total[0].length-1])+"h");
-
+								$("#TotalHResteADescendre").html("Heures restante à descendre: <b>"+(Total[0][Total[0].length-1])+"h</b>");
 							
 						}
 
