@@ -12,12 +12,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="card mb-3">
+			<div class="row">
+			<div class="card col-sm-6">
 				<div class="card-header">Sélection BurndownChart</div>
 				<div class="card-body">
 					<!-- Selectionner le sprint sur lequel l'on va jouer -->
 					<div class="form-group row">
-						<div class="col-md-6">
 							<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
 								<?php
 
@@ -37,29 +37,36 @@
 
 								?>
 							</select>
-						</div>
-
-						<div class="col-md-3">
+</div>
+<div class="row">
 							<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
+						
 						</div>
-						<div class="col-md-3">
+					</br>
+						<div class="row">
 							<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
-						</div>
+						
 					</div>
-					<div class="form-group row">
-						<div class="col-md-4">
-							<label> Seuil </label>
-							<input type="number" class="form-control" id="LeSeuilDansLeDiv" disabled></input>
-						</div>
-						<div class="col-md-4">
-							<label> Total heures à descendre </label>
-							<input type="number" class="form-control" id="GetTotalADescendre" disabled></input>
-						</div>
-						<div class="col-md-4" id="BarDePourcentageDheureDescendue">
-						</div>
-					</div>
+							
+					
 				</div>
 			</div>
+
+<div class="card col-sm-6">
+				<div class="card-header">Information Burndownchart</div>
+				<div class="card-body">
+				<div id=Seuil> Seuil </div>
+				<div id="TotalHAttribues"> Total heures à descendre </div>
+				<div id="TotalHDescendue"> Total heures déjà descendues </div>
+				<div id="TotalHResteADescendre"> Total heures restante à descendre </div>
+				<div id="BarDePourcentageDheureDescendue"></div>
+
+				
+
+			</div>
+		</div>
+	</div>
+
 		</div>
 		<!-- Area Chart Example-->
 		<div class="card">
@@ -181,14 +188,20 @@
 
 							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
-							$("#BarDePourcentageDheureDescendue").html('<label> Total heures descendues: '+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'% </label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
+							$("#BarDePourcentageDheureDescendue").html('<label> Total H descendues: '+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'% </label><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; height: 36px; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">');
 
 							if(Total[2][0] == null)
-								$("#LeSeuilDansLeDiv").val(0);
+								$("#Seuil").text("Seuil: "+0+"h");
 							else
-								$("#LeSeuilDansLeDiv").val(parseInt(Total[2][0]));
+								$("#Seuil").text("Seuil: "+parseInt(Total[2][0])+"h");
 
-							$("#GetTotalADescendre").val(Total[4]);
+								$("#TotalHAttribues").text("Total heures à descendre: "+Total[4]+"h");
+
+								$("#TotalHDescendue").text("Heures déjà descendues: "+(Total[4]-Total[0][Total[0].length-1])+"h");
+
+								$("#TotalHResteADescendre").text("Heures restante à descendre: "+(Total[0][Total[0].length-1])+"h");
+
+							
 						}
 
 
