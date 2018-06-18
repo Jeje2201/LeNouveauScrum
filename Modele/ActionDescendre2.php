@@ -58,6 +58,9 @@
 
       $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
       <div class="card-body text-center">
+      <div class="card-body-icon">
+                <img src="https://image.ibb.co/dAuFkJ/logo.png" width="40px">
+              </div>
       <p class="card-text"><b>'.$row["E_Prenom"].' ('.$row["E_Initial"].')</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
       <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
       <button style="display: none" onclick="GoTop(this)"><</button>
