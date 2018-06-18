@@ -34,6 +34,10 @@ switch($vue)
         include("Vues/BurnDownChart.php");
   break;
 
+      case 'GestionSprint':
+        include("Vues/Gestion_Sprint.php");
+  break;
+
 }
 
 include("Vues/footer.php");

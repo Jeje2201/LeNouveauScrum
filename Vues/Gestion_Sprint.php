@@ -1,5 +1,3 @@
-  <html>
-  <?php include('header.php'); ?>
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
@@ -52,7 +50,6 @@
   </div>
 </div>
 </div>
-<?php require_once __Dir__ . '/footer.php'; ?>
 <script>
 
   $(document).ready(function(){
@@ -79,9 +76,9 @@
 
  function fetchUser() // This function will fetch data from table and display under <div id="result">
  {
-  var action = "Load";
+  var action = "TableauDeSprint";
   $.ajax({
-   url : "Modele/ActionSprint.php", //Request send to "ActionSprint.php page"
+   url : "Modele/RequetesAjax.php", //Request send to "ActionSprint.php page"
    method:"POST", //Using of Post method for send data
    data:{action:action}, //action variable data has been send to server
    success:function(data){

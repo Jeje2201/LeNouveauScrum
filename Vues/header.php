@@ -66,8 +66,7 @@
 						<a href="Gestion_Parametres.php"><i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Paramètres</a>
 					</li>
 					<li>
-
-						<a href="Gestion_Sprint.php"><i class="fa fa-fw fa-rocket" aria-hidden="true"></i></i> Sprints</a>
+						<a href="index.php?vue=GestionSprint"><i class="fa fa-fw fa-rocket" aria-hidden="true"></i></i> Sprints</a>
 					</li>
 					<li>
 						<a href="Gestion_Employe.php"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Employés</a>
