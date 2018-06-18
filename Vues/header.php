@@ -1,3 +1,4 @@
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,32 +26,32 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Accueil">
-					<a class="nav-link" href="Index.php">
+					<a class="nav-link" href="index.php?vue=Acceuil">
 						<i class="fa fa-fw fa-home" aria-hidden="true"></i>
 						<span class="nav-link-text">Accueil</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-					<a class="nav-link" href="CreerSprint.php">
+					<a class="nav-link" href="index.php?vue=Sprint">
 						<i class="fa fa-fw fa-rocket"></i>
 						<span class="nav-link-text">Sprints</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
-					<a class="nav-link" href="AttributionHeures.php">
+					<a class="nav-link" href="index.php?vue=Attribution">
 						<i class="fa fa-fw fa-arrow-down"></i>
 						<span class="nav-link-text">Heures Attribuées</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeiresDescendues">
-					<a class="nav-link" href="HeuresDescendues.php">
+					<a class="nav-link" href="index.php?vue=Descendation">
 						<i class="fa fa-fw fa-arrow-up"></i>
 						<span class="nav-link-text">Heures Descendues</span>
 					</a>
 				</li>
 			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
-				<a class="nav-link" href="BurnDownChart.php">
+				<a class="nav-link" href="index.php?vue=Burndownchart">
 					<i class="fa fa-fw fa-area-chart"></i>
 					<span class="nav-link-text">BurnDownChart</span>
 				</a>
@@ -92,5 +93,14 @@
 		</ul>
 	</div>
 </nav>
-<?php require_once 'Configs.php'; ?>
 </body>
+<script src="Controleur/jquery.min.js"></script>
+<script src="Controleur/highcharts.js"></script>
+<script src="Controleur/popper.min.js"></script>
+<script src="Controleur/bootstrap.min.js"></script>
+<script src="Controleur/getdataformulNEW.js"></script>
+<script src="Controleur/AlertBootStrap.js"></script>
+<script src="Controleur/ChoixDate.js"></script>
+<script src="Controleur/ClassActive.js"></script>
+<script src="Controleur/bootstrap-datetimepicker.js"></script>
+<script src="Controleur/ReductionNav.js"></script>
