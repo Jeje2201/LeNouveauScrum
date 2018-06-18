@@ -207,14 +207,13 @@
   function DeplaceToi(id) { 
 
 if($(id).parent().parent().parent().attr('id') == 'Top'){
-  console.log('go fini');
   $(id).parent().parent().appendTo($("#Down"));
   $(id).html('<i class="fa fa-arrow-left" aria-hidden="true">');
   
 }
 else{
    $(id).parent().parent().appendTo($("#Top"));
-    $(id).html('<i class="fa fa-arrow-right" aria-hidden="true">');
+    $(id).html('<i class="fa fa-fw fa-arrow-right" aria-hidden="true">');
   }
 }
 
