@@ -13,84 +13,84 @@
 	<!-- Custom styles for this template-->
 	<link href="Assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
 	<link href="Assets/css/sb-admin.css" rel="stylesheet">
-    <!-- Classe pour le Hightsharr-->
-    
+	<!-- Classe pour le Hightsharr-->
+	
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 		<a class="navbar-brand" href="index.php">Ns Scrum</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
+			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Accueil">
 					<a class="nav-link" href="Index.php">
-					<i class="fa fa-fw fa-home" aria-hidden="true"></i>
-					<span class="nav-link-text">Accueil</span>
+						<i class="fa fa-fw fa-home" aria-hidden="true"></i>
+						<span class="nav-link-text">Accueil</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
 					<a class="nav-link" href="CreerSprint.php">
-					<i class="fa fa-fw fa-rocket"></i>
-					<span class="nav-link-text">Sprints</span>
+						<i class="fa fa-fw fa-rocket"></i>
+						<span class="nav-link-text">Sprints</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 					<a class="nav-link" href="AttributionHeures.php">
-					<i class="fa fa-fw fa-arrow-down"></i>
-					<span class="nav-link-text">Heures Attribuées</span>
+						<i class="fa fa-fw fa-arrow-down"></i>
+						<span class="nav-link-text">Heures Attribuées</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeiresDescendues">
 					<a class="nav-link" href="HeuresDescendues.php">
-					<i class="fa fa-fw fa-arrow-up"></i>
-					<span class="nav-link-text">Heures Descendues</span>
+						<i class="fa fa-fw fa-arrow-up"></i>
+						<span class="nav-link-text">Heures Descendues</span>
 					</a>
 				</li>
-				</li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
-					<a class="nav-link" href="BurnDownChart.php">
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
+				<a class="nav-link" href="BurnDownChart.php">
 					<i class="fa fa-fw fa-area-chart"></i>
 					<span class="nav-link-text">BurnDownChart</span>
-					</a>
-				</li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
-            <i class="fa fa-wrench" aria-hidden="true"></i>
-            <span class="nav-link-text">Gestions</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseMulti">
-            <li>
-              <a href="Gestion_Parametres.php"><i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Paramètres</a>
-            </li>
-            <li>
+				</a>
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
+				<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
+					<i class="fa fa-wrench" aria-hidden="true"></i>
+					<span class="nav-link-text">Gestions</span>
+				</a>
+				<ul class="sidenav-second-level collapse" id="collapseMulti">
+					<li>
+						<a href="Gestion_Parametres.php"><i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Paramètres</a>
+					</li>
+					<li>
 
-              <a href="Gestion_Sprint.php"><i class="fa fa-fw fa-rocket" aria-hidden="true"></i></i> Sprints</a>
-            </li>
-            <li>
-              <a href="Gestion_Employe.php"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Employés</a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
-            </li>
-            <li>
-              <a href="#"><i class="fa fa-fw fa-arrow-down" aria-hidden="true"></i> Heures Attribuées</a>
-            </li>
-            <li>
-              <a href="Gestion_HeuresDescendues.php"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
-            </li>
-          </ul>
-        </li>
-			</ul>
-			<ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item" id="SlideNav">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-		</div>
-	</nav>
-    <?php require_once 'Configs.php'; ?>
+						<a href="Gestion_Sprint.php"><i class="fa fa-fw fa-rocket" aria-hidden="true"></i></i> Sprints</a>
+					</li>
+					<li>
+						<a href="Gestion_Employe.php"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Employés</a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-fw fa-arrow-down" aria-hidden="true"></i> Heures Attribuées</a>
+					</li>
+					<li>
+						<a href="Gestion_HeuresDescendues.php"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="navbar-nav sidenav-toggler">
+			<li class="nav-item" id="SlideNav">
+				<a class="nav-link text-center" id="sidenavToggler">
+					<i class="fa fa-fw fa-angle-left"></i>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<?php require_once 'Configs.php'; ?>
 </body>

@@ -39,23 +39,23 @@
       <div class="modal-body">
 
         <div class="form-group">
-        <label>Prénom</label>
-        <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Jackouille">
+          <label>Prénom</label>
+          <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Jackouille">
         </div>
 
         <div class="form-group">
-        <label>Nom</label>
-        <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
+          <label>Nom</label>
+          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
         </div>
 
         <div>
-        <label>Actif</label>
-        <input id="Actif" type="checkbox" checked>
+          <label>Actif</label>
+          <input id="Actif" type="checkbox" checked>
         </div>
 
         <div class="form-group">
-        <label>Couleur</label>
-        <input name="Couleur" id="Couleur" type="color" value="#ff00fa">
+          <label>Couleur</label>
+          <input name="Couleur" id="Couleur" type="color" value="#ff00fa">
         </div>
 
       </div>
@@ -154,9 +154,9 @@
         $('#action').val("Update");  
 
         if(data.Actif ==1)
-$('#Actif').prop('checked', true);
-          else
-$('#Actif').prop('checked', false);
+          $('#Actif').prop('checked', true);
+        else
+          $('#Actif').prop('checked', false);
         
         $('#id').val(id); 
         $('#Prenom').val(data.Prenom);  
