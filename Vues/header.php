@@ -78,7 +78,7 @@
 						<a href="#"><i class="fa fa-fw fa-arrow-down" aria-hidden="true"></i> Heures Attribuées</a>
 					</li>
 					<li>
-						<a href="Gestion_HeuresDescendues.php"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
+						<a href="index.php?vue=GestionDescendation"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
 					</li>
 				</ul>
 			</li>

@@ -38,6 +38,10 @@ switch($vue)
         include("Vues/Gestion_Sprint.php");
   break;
 
+case 'GestionDescendation':
+        include("Vues/Gestion_HeuresDescendues.php");
+  break;
+
 }
 
 include("Vues/footer.php");
