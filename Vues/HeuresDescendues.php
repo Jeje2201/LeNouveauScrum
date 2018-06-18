@@ -56,13 +56,13 @@
       <div class="row">
 
         <div class="card col-sm-6">
-          <div class="card-header"><center>Tâches En Cours</center></div>
+          <div class="card-header"><center>Tâche(s) en cours</center></div>
           <div class="card-body card-columns" id=Top>
           </div>
         </div>
 
         <div class="card col-sm-6">
-          <div class="card-header"><center>Tâches Terminées</center></div>
+          <div class="card-header"><center>Tâche(s) achevée(s)</center></div>
           <div class="card-body card-columns" id=Down>
           </div>
         </div>
@@ -207,12 +207,12 @@
   function DeplaceToi(id) { 
 
 if($(id).parent().parent().parent().attr('id') == 'Top'){
-  $(id).parent().parent().appendTo($("#Down"));
+  $(id).parent().parent().prependTo($("#Down"));
   $(id).html('<i class="fa fa-arrow-left" aria-hidden="true">');
   
 }
 else{
-   $(id).parent().parent().appendTo($("#Top"));
+   $(id).parent().parent().prependTo($("#Top"));
     $(id).html('<i class="fa fa-fw fa-arrow-right" aria-hidden="true">');
   }
 }
