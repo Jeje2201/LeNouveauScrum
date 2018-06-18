@@ -63,8 +63,8 @@
               </div>
       <p class="card-text"><b>'.$row["E_Prenom"].' ('.$row["E_Initial"].')</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
       <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
-      <button style="display: none" onclick="GoTop(this)"><</button>
-      <button onclick="GoDown(this)">></button>
+      <a style="display: none" class="btn btn-primary btn-block" href="#" onclick="GoTop(this)"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+      <a class="btn btn-primary btn-block" href="#" onclick="GoDown(this)"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
       </div>
       </div>';
 
