@@ -204,16 +204,18 @@
     minView : 2
   });
 
-  function GoTop(id) { 
-    $(id).parent().parent().appendTo($("#Top"));
-    $(id).hide();
-    $(id).next().show();
-  };
+  function DeplaceToi(id) { 
 
-  function GoDown(id) { 
-    $(id).parent().parent().appendTo($("#Down"));
-    $(id).hide();
-    $(id).prev().show();
-  };
+if($(id).parent().parent().parent().attr('id') == 'Top'){
+  console.log('go fini');
+  $(id).parent().parent().appendTo($("#Down"));
+  $(id).html('<i class="fa fa-arrow-left" aria-hidden="true">');
+  
+}
+else{
+   $(id).parent().parent().appendTo($("#Top"));
+    $(id).html('<i class="fa fa-arrow-right" aria-hidden="true">');
+  }
+}
 
 </script>
