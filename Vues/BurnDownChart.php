@@ -1,6 +1,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="content-wrapper">
 		<div class="container-fluid">
+
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
@@ -9,8 +10,9 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row">
-				<div class="card col-sm-6">
+				<div class="card col-sm-2">
 					<div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
 					<div class="card-body">
 						<!-- Selectionner le sprint sur lequel l'on va jouer -->
@@ -35,30 +37,28 @@
 								?>
 							</select>
 						</div>
+
 						<div class="row">
 							<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
-							
 						</div>
-					</br>
-					<div class="row">
-						<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
-						
+
+						</br>
+
+						<div class="row">
+							<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
+						</div>		
+					
 					</div>
-					
-					
-				</div>
 			</div>
 
-			<div class="card col-sm-6">
+			<div class="card col-sm-10">
 				<div class="card-header"><i class="fa fa-eye"></i> Informations</div>
 				<div class="card-body">
-					<div id=Seuil></div>
 					<div id="TotalHAttribues"></div>
+					<div id=Seuil></div>
 					<div id="TotalHResteADescendre"></div>
 					<div id="TotalHDescendue"></div>
 					<div id="BarDePourcentageDheureDescendue"></div>
-
-					
 
 				</div>
 			</div>
