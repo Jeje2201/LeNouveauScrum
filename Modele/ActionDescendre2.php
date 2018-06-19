@@ -17,56 +17,58 @@
       if($_POST["idEmploye"] == "ToutLeMonde")
         $Requete1 = "AND attribution.id_Employe in (select id from employe)";
       else
-      $Requete1 = "AND attribution.id_Employe = $idEmploye";
+        $Requete1 = "AND attribution.id_Employe = $idEmploye";
 
-       $statement = $connection->prepare("
+      $statement = $connection->prepare("
         SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
         INNER JOIN projet ON projet.id = attribution.id_Projet
         INNER JOIN sprint ON sprint.id = attribution.id_Sprint
-        where attribution.id_Sprint = $numero ".$Requete1." AND attribution.id not in
+        where attribution.id_Sprint = $numero "
+        .$Requete1.
+        " AND attribution.id not in
         (SELECT distinct heuresdescendues.id_Attribution
         from heuresdescendues
         where heuresdescendues.id_Attribution IS NOT NULL)
         ORDER BY employe.prenom
         ");
 
-    $statement->execute();
-    $result = $statement->fetchAll();
-    $output1 = '';
-    if($statement->rowCount() > 0)
-    {
-     foreach($result as $row)
-     {
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output1 = '';
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
 
-      $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
-      <div class="card-body text-center">
-      <div class="card-body-icon">
-                <img src="'.$row["Logo"].'" width="40px">
-              </div>
-      <p class="card-text"><b>'.$row["E_Prenom"].' ('.$row["E_Initial"].')</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
-      <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
-      <a style="color: #fff;" class="btn btn-primary btn-block" onclick="DeplaceToi(this)"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
-      </div>';
+        $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
+        <div class="card-body text-center">
+        <div class="card-body-icon">
+        <img src="'.$row["Logo"].'" width="40px">
+        </div>
+        <p class="card-text"><b>'.$row["E_Prenom"].' ('.$row["E_Initial"].')</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
+        <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
+        <a style="color: #fff;" class="btn btn-primary btn-block" onclick="DeplaceToi(this)"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        </div>';
+      }
     }
-  }
 
-  if($_POST["idEmploye"] == "ToutLeMonde")
+    if($_POST["idEmploye"] == "ToutLeMonde")
      $Requete2 = "AND id_Employe in (select id from employe)";
    else
     $Requete2 = "AND id_Employe = $idEmploye";
 
-    $statement = $connection->prepare("
-      SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
-      FROM heuresdescendues
-      INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
-      INNER JOIN projet on projet.id = heuresdescendues.id_Projet
-      INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-      WHERE id_sprint= $numero "
-      .$Requete2.
-      " ORDER BY employe.prenom");
+  $statement = $connection->prepare("
+    SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
+    FROM heuresdescendues
+    INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
+    INNER JOIN projet on projet.id = heuresdescendues.id_Projet
+    INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
+    WHERE id_sprint= $numero "
+    .$Requete2.
+    " ORDER BY employe.prenom");
 
   $statement->execute();
   $result = $statement->fetchAll();
@@ -78,9 +80,9 @@
 
     $output2.='<div class="card" style="background-color:'.$row["E_Couleur"].'">
     <div class="card-body text-center">
-      <div class="card-body-icon">
-                <img src="'.$row["Logo"].'" width="40px">
-              </div>
+    <div class="card-body-icon">
+    <img src="'.$row["Logo"].'" width="40px">
+    </div>
     <p class="card-text"><b>'.$row["E_Prenom"].' ('.$row["E_Initial"].')</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
     </div>
     </div>';
@@ -98,34 +100,34 @@ echo json_encode($Test);
 
 }
 
-    if($_POST["action"] == "DateMinMax")
-    {
+if($_POST["action"] == "DateMinMax")
+{
 
-      $idAffiche = $_POST["idAffiche"];
+  $idAffiche = $_POST["idAffiche"];
 
-      $statement = $connection->prepare(
-       $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
-     );
-      $statement->execute();
-      $result = $statement->fetchAll();
+  $statement = $connection->prepare(
+   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
+ );
+  $statement->execute();
+  $result = $statement->fetchAll();
 
-      $DateMin = [];
-      $DateMax = [];
+  $DateMin = [];
+  $DateMax = [];
 
-      foreach ($result as $row) {
-       $DateMin[] = $row['DateMin'];
-       $DateMax[] = $row['DateMax'];
-     }
+  foreach ($result as $row) {
+   $DateMin[] = $row['DateMin'];
+   $DateMax[] = $row['DateMax'];
+ }
 
-     $array[] = $DateMin;
-     $array[] = $DateMax;
+ $array[] = $DateMin;
+ $array[] = $DateMax;
 
-header('Cache-Control: no-cache, must-revalidate');
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Content-type: application/json');
-   echo json_encode($array);
-   
-   }
+ header('Cache-Control: no-cache, must-revalidate');
+ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+ header('Content-type: application/json');
+ echo json_encode($array);
+
+}
 
 
 if($_POST["action"] == "Descendre")
