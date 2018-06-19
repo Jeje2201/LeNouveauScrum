@@ -29,7 +29,7 @@
             <div class="col-md-3" align="right">
               <button type="button" id="modal_button" class="btn btn-info">Créer un objectif</button>
             </div>
-            
+
           </div>
           <br />
 
@@ -65,19 +65,19 @@
         </select>
         <br />
         <label>Objectif</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="Je suis un objectif.." >
+        <input class="form-control" name="LabelProjet" id="LabelProjet" type="text" placeholder="Je suis un objectif.." >
         <br />
          <label>Etat</label>
-        <select class="form-control" id="employeId" name="employeId">
+        <form class="form-control" name="EtatObjectif" id="EtatObjectif">
           <?php
           $result = $conn->query("select id, nom from statutobjectif order by nom");
           while ($row = $result->fetch_assoc()) {
             $id = $row['id'];
             $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> '.$nom.' </option>';
+            echo '<input type="radio" name="gender" value="'.$id.'"> '.$nom.'<br>';
           }
           ?>
-        </select>
+        </form>
       </div>
       <div class="modal-footer">
         <input  type="hidden" name="id" id="id" />

@@ -10,7 +10,7 @@
      if($_POST["action"] == "Load") 
      {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif");
+      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -18,8 +18,8 @@
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="15%">Projet</th>
-      <th width="65%">Objectif</th>
+      <th width="10%">Projet</th>
+      <th width="70%">Objectif</th>
       <th width="10%">Etat</th>
       <th width="5%%"><center>Editer</center></th>
       </tr>
@@ -32,7 +32,7 @@
        {
         $output .= '
         <tr>
-        <td></td>
+        <td>'.$row["projet"].'</td>
         <td>'.$row["objectif"].'</td>
         <td>'.$row["etat"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
