@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php require_once __Dir__ . '/header.php'; ?>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="content-wrapper">
 		<div class="container-fluid">
@@ -46,5 +43,3 @@
 		};
 
 	</script>
-</body>
-</html>

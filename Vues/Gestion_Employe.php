@@ -1,5 +1,3 @@
-  <html>
-  <?php include('header.php'); ?>
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
@@ -67,8 +65,6 @@
     </div>
   </div>
 </div>
-
-<?php require_once __Dir__ . '/footer.php'; ?>
 
 <script>
 

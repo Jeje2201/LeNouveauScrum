@@ -42,6 +42,15 @@ case 'GestionDescendation':
         include("Vues/Gestion_HeuresDescendues.php");
   break;
 
+case 'GestionEmploye':
+        include("Vues/Gestion_Employe.php");
+  break;
+
+  case 'Parametres':
+        include("Vues/Gestion_Parametres.php");
+  break;
+
+
 }
 
 include("Vues/footer.php");
