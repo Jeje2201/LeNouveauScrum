@@ -57,6 +57,7 @@
 					<div id="TotalHAttribues"></div>
 					<div id=Seuil></div>
 					<div id="TotalHResteADescendre"></div>
+					<div id="TotalHDescendueAvecSeuil">ww</div>
 					<div id="TotalHDescendue"></div>
 					<div id="BarDePourcentageDheureDescendue"></div>
 
@@ -205,6 +206,8 @@
 								$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");
 
 								$("#TotalHResteADescendre").html("Heures restante à descendre: <b>"+(Total[0][Total[0].length-1])+"h</b>");
+
+								$("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil compris): <b>"+((Total[0][Total[0].length-1])-(parseInt(Total[2][0])))+"h</b>");
 
 								$("#TotalHDescendue").html("Heures déjà descendues: <b>"+(Total[4]-Total[0][Total[0].length-1])+"h</b> soit <b>"+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'%</b>');
 
