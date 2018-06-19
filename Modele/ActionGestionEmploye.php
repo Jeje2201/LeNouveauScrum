@@ -9,7 +9,7 @@
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom ASC");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
