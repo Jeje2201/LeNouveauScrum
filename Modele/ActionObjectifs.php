@@ -76,7 +76,7 @@ if($_POST["action"] == "Select")
 {
   $output = array();
   $statement = $connection->prepare(
-   "SELECT * FROM attribution 
+   "SELECT * FROM objectif 
    WHERE id = '".$_POST["id"]."' 
    LIMIT 1"
  );
@@ -84,9 +84,9 @@ if($_POST["action"] == "Select")
   $result = $statement->fetchAll();
   foreach($result as $row)
   {
-   $output["heure"] = $row["heure"];
-   $output["id_Employe"] = $row["id_Employe"];
    $output["id_Projet"] = $row["id_Projet"];
+   $output["objectif"] = $row["objectif"];
+   $output["id_StatutObjectif"] = $row["id_StatutObjectif"];
  }
  echo json_encode($output);
 }

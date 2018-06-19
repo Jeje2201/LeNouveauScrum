@@ -165,10 +165,9 @@
         $('.modal-title').text("Update Records"); 
         $('#action').val("Update");     
         $('#id').val(id); 
-        $('#idSprint').val(data.idSprint);  
-        $('#employeId').val(data.id_Employe);  
-        $('#projetId').val(data.id_Projet);  
-        $('#nbheure').val(data.heure);  
+        $('#projetId').val(data.objectif);
+        $('#LabelObjectif').val(data.objectif);
+        $('#LabelObjectif').val(data.objectif);
       }
     });
     });
