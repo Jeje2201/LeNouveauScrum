@@ -110,6 +110,17 @@
        success:function(data){
         $('#Top').html(data.Attribution); 
         $('#Down').html(data.Descendue); 
+
+      var action = "DateMinMax";
+      $.ajax({
+       url : "Modele/ActionDescendre2.php", 
+       method:"POST", 
+       data:{action:action, idAffiche:idAffiche}, 
+       success:function(data){
+        $('#DateAujourdhui').datetimepicker('setStartDate',data[0]);
+        $('#DateAujourdhui').datetimepicker('setEndDate',data[1]);
+      }
+    });
       }
     });
 

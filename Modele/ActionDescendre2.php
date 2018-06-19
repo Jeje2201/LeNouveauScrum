@@ -130,6 +130,35 @@ echo json_encode($Test);
 
 }
 
+    if($_POST["action"] == "DateMinMax")
+    {
+
+      $idAffiche = $_POST["idAffiche"];
+
+      $statement = $connection->prepare(
+       $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
+     );
+      $statement->execute();
+      $result = $statement->fetchAll();
+
+      $DateMin = [];
+      $DateMax = [];
+
+      foreach ($result as $row) {
+       $DateMin[] = $row['DateMin'];
+       $DateMax[] = $row['DateMax'];
+     }
+
+     $array[] = $DateMin;
+     $array[] = $DateMax;
+
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-type: application/json');
+   echo json_encode($array);
+   
+   }
+
 
 if($_POST["action"] == "Descendre")
 {
