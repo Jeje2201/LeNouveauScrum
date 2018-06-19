@@ -50,6 +50,15 @@ case 'GestionEmploye':
         include("Vues/Gestion_Parametres.php");
   break;
 
+    case 'Objectifs':
+        include("Vues/Objectifs.php");
+  break;
+
+    default:
+        print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
+      <div class="container">JE CONNAIS PAS CETTE PAGE NOOON... :((');
+  break;
+
 
 }
 

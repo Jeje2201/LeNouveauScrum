@@ -56,9 +56,15 @@
 					<span class="nav-link-text">BurnDownChart</span>
 				</a>
 			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
+				<a class="nav-link" href="index.php?vue=Objectifs">
+					<i class="fa fa-fw fa-bullseye"></i>
+					<span class="nav-link-text">Objectifs</span>
+				</a>
+			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
 				<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
-					<i class="fa fa-wrench" aria-hidden="true"></i>
+					<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>
 					<span class="nav-link-text">Gestions</span>
 				</a>
 				<ul class="sidenav-second-level collapse" id="collapseMulti">
