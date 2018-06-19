@@ -74,13 +74,13 @@
           while ($row = $result->fetch_assoc()) {
             $id = $row['id'];
             $nom = $row['nom']; 
-            echo '<input type="radio" name="Etat" value="'.$id.'"> '.$nom.'<br>';
+            echo '<input type="radio" name="Etat" id="EtatNum'.$id.'" value="'.$id.'"> '.$nom.'<br>';
           }
           ?>
         </form>
       </div>
       <div class="modal-footer">
-        <input  type="hidden" name="id" id="id" />
+        <input  name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
@@ -123,6 +123,7 @@
       $('#customerModal').modal('show'); 
       $('.modal-title').text("Créer un objectif"); 
       $('#action').val('Créer'); 
+      $('#EtatNum2').prop("checked", true);
     });
 
     $('#action').click(function(){
@@ -161,13 +162,14 @@
        data:{id:id, action:action},
        dataType:"json",   
        success:function(data){
+        console.log('ohmondieu:',data)
         $('#customerModal').modal('show');   
         $('.modal-title').text("Update Records"); 
         $('#action').val("Update");     
         $('#id').val(id); 
-        $('#projetId').val(data.objectif);
-        $('#LabelObjectif').val(data.objectif);
-        $('#LabelObjectif').val(data.objectif);
+        $('#projetId').val(data.id_Projet);
+        $('#LabelObjectif').text(data.objectif);
+        $('#EtatNum'+data.id_StatutObjectif).prop("checked", true);
       }
     });
     });
