@@ -27,9 +27,9 @@
               </select>
             </div>
             <div class="col-md-3" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
-
+              <button type="button" id="modal_button" class="btn btn-info">Créer un objectif</button>
             </div>
+            
           </div>
           <br />
 
@@ -50,19 +50,6 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <label>Employé</label>
-        <select class="form-control" id="employeId" name="employeId">
-          <?php
-          $result = $conn->query("select id, prenom, nom from employe where employe.actif = 1 order by prenom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $prenom = $row['prenom']; 
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-          }
-          ?>
-        </select>
-        <br />
         <label>Projet</label>
         <select class="form-control"  id="projetId" name="projetId">
           <?php
@@ -77,9 +64,20 @@
           ?>
         </select>
         <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+        <label>Objectif</label>
+        <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="Je suis un objectif.." >
         <br />
+         <label>Etat</label>
+        <select class="form-control" id="employeId" name="employeId">
+          <?php
+          $result = $conn->query("select id, nom from statutobjectif order by nom");
+          while ($row = $result->fetch_assoc()) {
+            $id = $row['id'];
+            $nom = $row['nom']; 
+            echo '<option value="'.$id.'"> '.$nom.' </option>';
+          }
+          ?>
+        </select>
       </div>
       <div class="modal-footer">
         <input  type="hidden" name="id" id="id" />
@@ -108,7 +106,7 @@
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
       $.ajax({
-       url : "Modele/ActionAttributionHeure.php", 
+       url : "Modele/ActionObjectifs.php", 
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
@@ -131,15 +129,14 @@
       var idSprint = $('#numeroSprint').val();
       var idEmploye = $('#employeId').val();
       var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val();
       var id = $('#id').val();
       var action = $('#action').val();  
-      if(idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') 
+      if(idSprint != '' && idEmploye != '' && idProjet != '') 
       {
        $.ajax({
-        url : "Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionObjectifs.php",    
         method:"POST",     
-        data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, NombreHeure:NombreHeure, action:action}, 
+        data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, action:action}, 
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
@@ -157,7 +154,7 @@
       var id = $(this).attr("id"); 
       var action = "Select";   
       $.ajax({
-       url : "Modele/ActionAttributionHeure.php",   
+       url : "Modele/ActionObjectifs.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -180,7 +177,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url : "Modele/ActionAttributionHeure.php",    
+        url : "Modele/ActionObjectifs.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)

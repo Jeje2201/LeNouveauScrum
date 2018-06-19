@@ -10,7 +10,7 @@
      if($_POST["action"] == "Load") 
      {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
+      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -18,10 +18,10 @@
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Employé(e)</th>
-      <th width="30%">Projet</th>
-      <th width="30%">Heure(s)</th>
-      <th width="10%"><center>Editer</center></th>
+      <th width="15%">Projet</th>
+      <th width="65%">Objectif</th>
+      <th width="10%">Etat</th>
+      <th width="5%%"><center>Editer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -32,9 +32,9 @@
        {
         $output .= '
         <tr>
-        <td>'.$row["employe"].'</td>
-        <td>'.$row["projet"].'</td>
-        <td>'.$row["NbHeure"].'</td>
+        <td></td>
+        <td>'.$row["objectif"].'</td>
+        <td>'.$row["etat"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
         </tr>
         ';
@@ -117,7 +117,7 @@ if($_POST["action"] == "Update")
 if($_POST["action"] == "Delete")
 {
   $statement = $connection->prepare(
-   "DELETE FROM attribution WHERE id = :id"
+   "DELETE FROM objectif WHERE id = :id"
  );
   $result = $statement->execute(
    array(
@@ -126,7 +126,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Heure attribuée supprimée ! 😢';
+   echo 'Objectif supprimé ! 😢';
  }
 }
 
