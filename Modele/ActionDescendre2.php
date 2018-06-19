@@ -14,40 +14,24 @@
       $idEmploye = $_POST["idEmploye"];
       $numero = $_POST["idAffiche"];
 
-      if($_POST["idEmploye"] == "DAMSON"){
+      if($_POST["idEmploye"] == "ToutLeMonde")
+        $Requete1 = "AND attribution.id_Employe in (select id from employe)";
+      else
+      $Requete1 = "AND attribution.id_Employe = $idEmploye";
+
        $statement = $connection->prepare("
         SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
         FROM attribution
         inner JOIN employe ON employe.id = attribution.id_Employe
         INNER JOIN projet ON projet.id = attribution.id_Projet
         INNER JOIN sprint ON sprint.id = attribution.id_Sprint
-        where attribution.id_Sprint = $numero
-        AND attribution.id_Employe in (select id from employe)
-        AND attribution.id not in
+        where attribution.id_Sprint = $numero ".$Requete1." AND attribution.id not in
         (SELECT distinct heuresdescendues.id_Attribution
         from heuresdescendues
         where heuresdescendues.id_Attribution IS NOT NULL)
         ORDER BY employe.prenom
         ");
-     }
 
-     else{
-
-      $statement = $connection->prepare("
-        SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
-        FROM attribution
-        inner JOIN employe ON employe.id = attribution.id_Employe
-        INNER JOIN projet ON projet.id = attribution.id_Projet
-        INNER JOIN sprint ON sprint.id = attribution.id_Sprint
-        where attribution.id_Sprint = $numero
-        AND attribution.id_Employe = $idEmploye
-        AND attribution.id not in
-        (SELECT distinct heuresdescendues.id_Attribution
-        from heuresdescendues
-        where heuresdescendues.id_Attribution IS NOT NULL)
-        ORDER BY employe.prenom
-        ");
-    }
     $statement->execute();
     $result = $statement->fetchAll();
     $output1 = '';
@@ -68,16 +52,11 @@
       </div>';
     }
   }
-  else{
-    $output1.='<div class="card bg-light">
-    <div class="card-body text-center">
-    <p class="card-text">Toutes les tâches sont terminées! 😎</p>
-    </div>
-    </div>';
-  }
 
-  $Test -> Attribution = $output1;
-  if($_POST["idEmploye"] == "DAMSON"){
+  if($_POST["idEmploye"] == "ToutLeMonde")
+     $Requete2 = "AND id_Employe in (select id from employe)";
+   else
+    $Requete2 = "AND id_Employe = $idEmploye";
 
     $statement = $connection->prepare("
       SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
@@ -85,21 +64,9 @@
       INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
       INNER JOIN projet on projet.id = heuresdescendues.id_Projet
       INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-      WHERE id_sprint= $numero
-      AND id_Employe in (select id from employe)
-      ORDER BY employe.prenom");
-  }
-  else{
-    $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.prenom as E_Prenom, employe.couleur as E_Couleur
-      FROM heuresdescendues
-      INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
-      INNER JOIN projet on projet.id = heuresdescendues.id_Projet
-      INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-      WHERE id_sprint= $numero
-      AND id_Employe = $idEmploye
-      ORDER BY employe.prenom");
-
-  }
+      WHERE id_sprint= $numero "
+      .$Requete2.
+      " ORDER BY employe.prenom");
 
   $statement->execute();
   $result = $statement->fetchAll();
@@ -120,6 +87,7 @@
 
   }
 }
+$Test -> Attribution = $output1;
 $Test -> Descendue = $output2;
 
 header('Cache-Control: no-cache, must-revalidate');

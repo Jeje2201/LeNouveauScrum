@@ -89,7 +89,7 @@
        success:function(data){
         $('#result').html(data); 
       }
-    });     
+    });
     }
 
     $('#modal_button').click(function(){
