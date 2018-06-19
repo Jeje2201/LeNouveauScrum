@@ -94,17 +94,17 @@ if($_POST["action"] == "Select")
 if($_POST["action"] == "Update")
 {
   $statement = $connection->prepare(
-   "UPDATE attribution 
-   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
+   "UPDATE objectif 
+   SET objectif = :LabelObjectif, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_StatutObjectif = :EtatObjectif 
    WHERE id = :id
    "
  );
   $result = $statement->execute(
    array(
-    ':heure' => $_POST["NombreHeure"],
+    ':LabelObjectif' => $_POST["LabelObjectif"],
     ':id_Sprint' => $_POST["idSprint"],
     ':id_Projet' => $_POST["idProjet"],
-    ':id_Employe'   => $_POST["idEmploye"],
+    ':EtatObjectif'   => $_POST["EtatObjectif"],
     ':id'   => $_POST["id"]
   )
  );

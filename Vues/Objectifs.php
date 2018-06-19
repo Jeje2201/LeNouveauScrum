@@ -165,10 +165,10 @@
         console.log('ohmondieu:',data)
         $('#customerModal').modal('show');   
         $('.modal-title').text("Update Records"); 
-        $('#action').val("Update");     
+        $('#action').val("Update");
         $('#id').val(id); 
         $('#projetId').val(data.id_Projet);
-        $('#LabelObjectif').text(data.objectif);
+        $('#LabelObjectif').val(data.objectif);
         $('#EtatNum'+data.id_StatutObjectif).prop("checked", true);
       }
     });
