@@ -612,8 +612,8 @@ INSERT INTO `statutobjectif` (`id`, `nom`) VALUES
 (1, 'Ok'),
 (2, 'En cours'),
 (3, 'Non'),
-(4, 'Annule');
-
+(4, 'Annule'),
+(5, '?');
 -- --------------------------------------------------------
 
 --
