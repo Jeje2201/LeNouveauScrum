@@ -65,7 +65,7 @@
         </select>
         <br />
         <label>Objectif</label>
-        <input class="form-control" name="LabelProjet" id="LabelProjet" type="text" placeholder="Je suis un objectif.." >
+        <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Je suis un objectif.." >
         <br />
          <label>Etat</label>
         <form class="form-control" name="EtatObjectif" id="EtatObjectif">
@@ -74,7 +74,7 @@
           while ($row = $result->fetch_assoc()) {
             $id = $row['id'];
             $nom = $row['nom']; 
-            echo '<input type="radio" name="gender" value="'.$id.'"> '.$nom.'<br>';
+            echo '<input type="radio" name="Etat" value="'.$id.'"> '.$nom.'<br>';
           }
           ?>
         </form>
@@ -121,22 +121,24 @@
 
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
-      $('.modal-title').text("Tâche planifiée"); 
-      $('#action').val('Attribuer'); 
+      $('.modal-title').text("Créer un objectif"); 
+      $('#action').val('Créer'); 
     });
 
     $('#action').click(function(){
       var idSprint = $('#numeroSprint').val();
-      var idEmploye = $('#employeId').val();
       var idProjet = $('#projetId').val();
+      var LabelObjectif = $('#LabelObjectif').val();
+      var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       var id = $('#id').val();
       var action = $('#action').val();  
-      if(idSprint != '' && idEmploye != '' && idProjet != '') 
+      console.log(idSprint, idProjet,LabelObjectif,EtatObjectif);
+      if(idSprint != '' && LabelObjectif != ''  && EtatObjectif != '' && idProjet != '') 
       {
        $.ajax({
         url : "Modele/ActionObjectifs.php",    
         method:"POST",     
-        data:{id:id, idSprint:idSprint, idEmploye:idEmploye, idProjet:idProjet, action:action}, 
+        data:{id:id, idSprint:idSprint, LabelObjectif:LabelObjectif, EtatObjectif:EtatObjectif, idProjet:idProjet, action:action}, 
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
