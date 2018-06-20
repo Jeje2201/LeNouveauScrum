@@ -195,7 +195,7 @@ body.fixed-nav {
       width: 250px;
       padding: 0; }
       #mainNav.fixed-top .sidenav-toggler > .nav-item > .nav-link {
-        padding: 1em; } }
+        padding: 1.3em; } }
 
 #mainNav.fixed-top.navbar-dark .sidenav-toggler {
   background-color: #212529; }
