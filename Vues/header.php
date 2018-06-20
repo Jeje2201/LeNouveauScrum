@@ -8,7 +8,7 @@
 	<link rel="icon" href="Assets/Icone.ico" />
 	<title>ScrumJeremy</title>
 	<!-- Bootstrap core CSS-->
-	<link href="Assets/css/bootstrap.css" rel="stylesheet">
+	<link href="Assets/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
 	<link href="Assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Custom styles for this template-->
