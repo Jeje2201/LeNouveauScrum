@@ -7,7 +7,7 @@ USE scrum;
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 19 juin 2018 à 14:50
+-- Généré le :  mer. 20 juin 2018 à 12:29
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
   PRIMARY KEY (`id`),
   KEY `FK_Employe_id_TypeEmploye` (`id_TypeEmploye`),
   KEY `FK_Employe_id_Poste` (`id_Poste`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `employe`
@@ -154,7 +154,7 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (17, 'GB', 'Gilles', 'Bassiere', NULL, 0, NULL, NULL),
 (18, 'JT', 'Jerome', 'TenShong', NULL, 0, NULL, NULL),
 (19, 'JL', 'Jean Francois', 'Leger', NULL, 0, NULL, NULL),
-(20, 'JA', 'Jean-Vitus', 'Albertini', NULL, 1, NULL, NULL),
+(20, 'JA', 'Jean-Vitus', 'Albertini', '#68f06b', 1, NULL, NULL),
 (21, 'JD', 'Jeanne', 'Dauvergne', NULL, 0, NULL, NULL),
 (22, 'JL', 'Jeremy', 'Leriche', NULL, 1, NULL, NULL),
 (23, 'JC', 'Julie', 'Chabalier', NULL, 0, NULL, NULL),
@@ -166,7 +166,7 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (29, 'MM', 'Marion', 'Marcoux', NULL, 0, NULL, NULL),
 (30, 'MJ', 'Matheo', 'Jaouen', NULL, 0, NULL, NULL),
 (31, 'MT', 'Mathieu', 'Thomazo', NULL, 0, NULL, NULL),
-(32, 'OR', 'Olivier', 'Robellotti', NULL, 0, NULL, NULL),
+(32, 'OR', 'Olivier', 'Rovellotti', '#000000', 0, NULL, NULL),
 (33, 'PD', 'Pierre', 'Delaunay', NULL, 0, NULL, NULL),
 (34, 'RF', 'Romain', 'Fabbro', NULL, 0, NULL, NULL),
 (35, 'SM', 'Sabine', 'Meneut', NULL, 0, NULL, NULL),
@@ -174,12 +174,22 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (37, 'SR', 'Stephanie', 'Ritz', NULL, 0, NULL, NULL),
 (38, 'TA', 'Tamou', 'Amadha', NULL, 0, NULL, NULL),
 (39, 'TR', 'Thibault', 'Rhudel', NULL, 0, NULL, NULL),
-(40, 'TP', 'Thomas', 'Pell', NULL, 0, NULL, NULL),
+(40, 'TP', 'Thomas', 'Peel', '#000000', 0, NULL, NULL),
 (41, 'TL', 'Tom', 'Lopez', NULL, 1, NULL, NULL),
 (42, 'VB', 'Vincent', 'Bourgeois', NULL, 0, NULL, NULL),
 (43, 'VG', 'Vivien', 'Grivaud', NULL, 0, NULL, NULL),
 (44, 'YT', 'Yacine', 'Thomazo', NULL, 0, NULL, NULL),
-(45, 'GG', 'Groupe', 'Groupe', NULL, 1, NULL, NULL);
+(45, 'GG', 'Groupe', 'Groupe', NULL, 1, NULL, NULL),
+(46, 'AR', 'Angelique', 'Ries', '#ff00fa', 1, NULL, NULL),
+(47, 'NH', 'Nabil', 'Hamadou', '#dd2024', 1, NULL, NULL),
+(48, 'RK', 'Romain', 'Knezevitch', '#ff00fa', 0, NULL, NULL),
+(49, 'CL', 'Christophe', 'Lavagna', '#99e3e3', 1, NULL, NULL),
+(50, 'HA', 'HervÃ©', 'Aymes', '#86f997', 0, NULL, NULL),
+(51, 'SP', 'SÃ©bastien', 'Paris', '#ff00fa', 0, NULL, NULL),
+(52, 'NF', 'Naomi', 'Fischer', '#a4f898', 1, NULL, NULL),
+(53, 'JD', 'Julien', 'Dejasmin', '#ff00fa', 1, NULL, NULL),
+(54, 'EV', 'El-Makki', 'Voundy', '#fe787b', 1, NULL, NULL),
+(55, 'RG', 'RÃ©mi', 'Guijarro Espinosa', '#4da4b3', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -475,78 +485,78 @@ CREATE TABLE IF NOT EXISTS `projet` (
 --
 
 INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `cheminIcone`, `id_TypeProjet`) VALUES
-(1, 'AO', NULL, NULL, NULL, NULL),
-(2, 'PIM-Atlas', NULL, NULL, NULL, NULL),
-(3, 'ecoBalade', NULL, NULL, NULL, NULL),
-(4, 'eCollection', NULL, NULL, NULL, NULL),
-(5, 'iFeedBird', NULL, NULL, NULL, NULL),
-(6, 'Multiprojets', NULL, NULL, NULL, NULL),
-(7, 'Data Centralization', NULL, NULL, NULL, NULL),
-(8, 'Tuyaux (Bonna)', NULL, NULL, NULL, NULL),
-(9, 'Noe', NULL, NULL, NULL, NULL),
-(10, 'ecoReleve Data', NULL, NULL, NULL, NULL),
-(11, 'eReleve', NULL, NULL, NULL, NULL),
-(12, 'Kitizen', NULL, NULL, NULL, NULL),
-(13, 'INPN', NULL, NULL, NULL, NULL),
-(14, 'Collier Loups', NULL, NULL, NULL, NULL),
-(15, 'BioLit', NULL, NULL, NULL, NULL),
-(16, 'FormBuilder', NULL, NULL, NULL, NULL),
-(17, 'Sauvages de ma rue PACA', NULL, NULL, NULL, NULL),
-(18, 'Mycoflore', NULL, NULL, NULL, NULL),
-(19, 'Site Web NS', NULL, NULL, NULL, NULL),
-(20, 'TRACK', NULL, NULL, NULL, NULL),
-(21, 'Photomapping', NULL, NULL, NULL, NULL),
-(22, 'ButterflyId', NULL, NULL, NULL, NULL),
-(23, 'NS Interne', NULL, NULL, NULL, NULL),
-(24, 'Renecore Apps', NULL, NULL, NULL, NULL),
-(25, 'Mon jardin', NULL, NULL, NULL, NULL),
-(26, 'Green citizen', NULL, NULL, NULL, NULL),
-(27, 'Alerting App', NULL, NULL, NULL, NULL),
-(28, 'Futback', NULL, NULL, NULL, NULL),
-(29, 'Sweet', NULL, NULL, NULL, NULL),
-(30, 'Aveyron nature', NULL, NULL, NULL, NULL),
-(31, 'Tout a pied', NULL, NULL, NULL, NULL),
-(32, 'ecoReleve Explorer', NULL, NULL, NULL, NULL),
-(33, 'Footback', NULL, NULL, NULL, NULL),
-(34, 'ecoReleve Core', NULL, NULL, NULL, NULL),
-(35, 'M-EOL', NULL, NULL, NULL, NULL),
-(36, 'Nature en Ville', NULL, NULL, NULL, NULL),
-(37, 'CAU13', NULL, NULL, NULL, NULL),
-(38, 'ecoReleve Glossaire', NULL, NULL, NULL, NULL),
-(39, 'ecoOnto', NULL, NULL, NULL, NULL),
-(40, 'geodiva', NULL, NULL, NULL, NULL),
-(41, 'GR2013 2.0', NULL, NULL, NULL, NULL),
-(42, 'Pocket', NULL, NULL, NULL, NULL),
-(43, 'Site Web Labs', NULL, NULL, NULL, NULL),
-(44, 'Armadillo', NULL, NULL, NULL, NULL),
-(45, 'PIM', NULL, NULL, NULL, NULL),
-(46, 'SIB', NULL, NULL, NULL, NULL),
-(47, 'ecoOnto-med', NULL, NULL, NULL, NULL),
-(48, 'ecoReleve Mobile', NULL, NULL, NULL, NULL),
-(49, 'Mica environnement', NULL, NULL, NULL, NULL),
-(50, 'Valo - LIF', NULL, NULL, NULL, NULL),
-(51, 'AAP FP7 environnement', NULL, NULL, NULL, NULL),
-(52, 'Carnet de plongee', NULL, NULL, NULL, NULL),
-(53, 'Curieux2Sciences', NULL, NULL, NULL, NULL),
-(54, 'EcoBalade Bidules', NULL, NULL, NULL, NULL),
-(55, 'ecoReleve', NULL, NULL, NULL, NULL),
-(56, 'ecoReleve Core/GIS', NULL, NULL, NULL, NULL),
-(57, 'eReleve-Release', NULL, NULL, NULL, NULL),
-(58, 'Faro', NULL, NULL, NULL, NULL),
-(59, 'MICA', NULL, NULL, NULL, NULL),
-(60, 'Open Data', NULL, NULL, NULL, NULL),
-(61, 'ANDD', NULL, NULL, NULL, NULL),
-(62, 'Sentiers sous-marins', NULL, NULL, NULL, NULL),
-(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, NULL, NULL),
-(64, 'Marche des collines', NULL, NULL, NULL, NULL),
-(65, 'OCK', NULL, NULL, NULL, NULL),
-(66, 'Scrum', NULL, NULL, NULL, NULL),
-(67, 'Position', NULL, NULL, NULL, NULL),
-(68, 'Biotope', NULL, NULL, NULL, NULL),
-(69, 'Airele', NULL, NULL, NULL, NULL),
-(70, 'SECAFI', NULL, NULL, NULL, NULL),
-(71, 'Support', NULL, NULL, NULL, NULL),
-(72, 'Inconnu', NULL, NULL, NULL, NULL);
+(1, 'AO', NULL, NULL, 'inconnue', NULL),
+(2, 'PIM-Atlas', NULL, NULL, 'inconnue', NULL),
+(3, 'ecoBalade', NULL, NULL, 'inconnue', NULL),
+(4, 'eCollection', NULL, NULL, 'inconnue', NULL),
+(5, 'iFeedBird', NULL, NULL, 'inconnue', NULL),
+(6, 'Multiprojets', NULL, NULL, 'inconnue', NULL),
+(7, 'Data Centralization', NULL, NULL, 'inconnue', NULL),
+(8, 'Tuyaux (Bonna)', NULL, NULL, 'inconnue', NULL),
+(9, 'Noe', NULL, NULL, 'inconnue', NULL),
+(10, 'ecoReleve Data', NULL, NULL, 'inconnue', NULL),
+(11, 'eReleve', NULL, NULL, 'inconnue', NULL),
+(12, 'Kitizen', NULL, NULL, 'inconnue', NULL),
+(13, 'INPN', NULL, NULL, 'inconnue', NULL),
+(14, 'Collier Loups', NULL, NULL, 'inconnue', NULL),
+(15, 'BioLit', NULL, NULL, 'inconnue', NULL),
+(16, 'FormBuilder', NULL, NULL, 'inconnue', NULL),
+(17, 'Sauvages de ma rue PACA', NULL, NULL, 'inconnue', NULL),
+(18, 'Mycoflore', NULL, NULL, 'inconnue', NULL),
+(19, 'Site Web NS', NULL, NULL, 'inconnue', NULL),
+(20, 'TRACK', NULL, NULL, 'inconnue', NULL),
+(21, 'Photomapping', NULL, NULL, 'inconnue', NULL),
+(22, 'ButterflyId', NULL, NULL, 'inconnue', NULL),
+(23, 'NS Interne', NULL, NULL, 'inconnue', NULL),
+(24, 'Renecore Apps', NULL, NULL, 'inconnue', NULL),
+(25, 'Mon jardin', NULL, NULL, 'inconnue', NULL),
+(26, 'Green citizen', NULL, NULL, 'inconnue', NULL),
+(27, 'Alerting App', NULL, NULL, 'inconnue', NULL),
+(28, 'Futback', NULL, NULL, 'inconnue', NULL),
+(29, 'Sweet', NULL, NULL, 'inconnue', NULL),
+(30, 'Aveyron nature', NULL, NULL, 'inconnue', NULL),
+(31, 'Tout a pied', NULL, NULL, 'inconnue', NULL),
+(32, 'ecoReleve Explorer', NULL, NULL, 'inconnue', NULL),
+(33, 'Footback', NULL, NULL, 'inconnue', NULL),
+(34, 'ecoReleve Core', NULL, NULL, 'inconnue', NULL),
+(35, 'M-EOL', NULL, NULL, 'inconnue', NULL),
+(36, 'Nature en Ville', NULL, NULL, 'inconnue', NULL),
+(37, 'CAU13', NULL, NULL, 'inconnue', NULL),
+(38, 'ecoReleve Glossaire', NULL, NULL, 'inconnue', NULL),
+(39, 'ecoOnto', NULL, NULL, 'inconnue', NULL),
+(40, 'geodiva', NULL, NULL, 'inconnue', NULL),
+(41, 'GR2013 2.0', NULL, NULL, 'inconnue', NULL),
+(42, 'Pocket', NULL, NULL, 'inconnue', NULL),
+(43, 'Site Web Labs', NULL, NULL, 'inconnue', NULL),
+(44, 'Armadillo', NULL, NULL, 'inconnue', NULL),
+(45, 'PIM', NULL, NULL, 'inconnue', NULL),
+(46, 'SIB', NULL, NULL, 'inconnue', NULL),
+(47, 'ecoOnto-med', NULL, NULL, 'inconnue', NULL),
+(48, 'ecoReleve Mobile', NULL, NULL, 'inconnue', NULL),
+(49, 'Mica environnement', NULL, NULL, 'inconnue', NULL),
+(50, 'Valo - LIF', NULL, NULL, 'inconnue', NULL),
+(51, 'AAP FP7 environnement', NULL, NULL, 'inconnue', NULL),
+(52, 'Carnet de plongee', NULL, NULL, 'inconnue', NULL),
+(53, 'Curieux2Sciences', NULL, NULL, 'inconnue', NULL),
+(54, 'EcoBalade Bidules', NULL, NULL, 'inconnue', NULL),
+(55, 'ecoReleve', NULL, NULL, 'inconnue', NULL),
+(56, 'ecoReleve Core/GIS', NULL, NULL, 'inconnue', NULL),
+(57, 'eReleve-Release', NULL, NULL, 'inconnue', NULL),
+(58, 'Faro', NULL, NULL, 'inconnue', NULL),
+(59, 'MICA', NULL, NULL, 'inconnue', NULL),
+(60, 'Open Data', NULL, NULL, 'inconnue', NULL),
+(61, 'ANDD', NULL, NULL, 'inconnue', NULL),
+(62, 'Sentiers sous-marins', NULL, NULL, 'inconnue', NULL),
+(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, 'inconnue', NULL),
+(64, 'Marche des collines', NULL, NULL, 'inconnue', NULL),
+(65, 'OCK', NULL, NULL, 'inconnue', NULL),
+(66, 'Scrum', NULL, NULL, 'inconnue', NULL),
+(67, 'Position', NULL, NULL, 'inconnue', NULL),
+(68, 'Biotope', NULL, NULL, 'inconnue', NULL),
+(69, 'Airele', NULL, NULL, 'inconnue', NULL),
+(70, 'SECAFI', NULL, NULL, 'inconnue', NULL),
+(71, 'Support', NULL, NULL, 'inconnue', NULL),
+(72, 'Inconnu', NULL, NULL, 'inconnue', NULL);
 
 -- --------------------------------------------------------
 
@@ -587,19 +597,20 @@ DROP TABLE IF EXISTS `statutobjectif`;
 CREATE TABLE IF NOT EXISTS `statutobjectif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) DEFAULT NULL,
+  `couleur` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `statutobjectif`
 --
 
-INSERT INTO `statutobjectif` (`id`, `nom`) VALUES
-(1, 'Ok'),
-(2, 'En cours'),
-(3, 'Non'),
-(4, 'Annule'),
-(5, '?');
+INSERT INTO `statutobjectif` (`id`, `nom`, `couleur`) VALUES
+(1, 'Ok', '#95D972'),
+(2, 'En cours', '#E88648'),
+(3, 'Non', '#E8514E'),
+(4, 'Annule', '#E8514E'),
+(5, '?', '#222222');
 
 -- --------------------------------------------------------
 
