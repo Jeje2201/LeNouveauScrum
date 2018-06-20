@@ -57,13 +57,13 @@
 
         <div class="card col-sm-6">
           <div class="card-header"><center>Tâche(s) en cours</center></div>
-          <div class="card-body card-columns" id=Top>
+          <div class="card-body card-columns" id=EnCours>
           </div>
         </div>
 
         <div class="card col-sm-6">
           <div class="card-header"><center>Tâche(s) achevée(s)</center></div>
-          <div class="card-body card-columns" id=Down>
+          <div class="card-body card-columns" id=Fini>
           </div>
         </div>
 
@@ -108,8 +108,8 @@
        method:"POST", 
        data:{action:action, idAffiche:idAffiche, idEmploye:idEmploye}, 
        success:function(data){
-        $('#Top').html(data.Attribution); 
-        $('#Down').html(data.Descendue); 
+        $('#EnCours').html(data.Attribution); 
+        $('#Fini').html(data.Descendue); 
 
       var action = "DateMinMax";
       $.ajax({
@@ -139,7 +139,7 @@
       var IdAttribue = [];
       var LeJourDeDescente = $('#DateAujourdhui').val()
 
-      $('#Down').find("div").find("div").find("input").each(function(){ 
+      $('#Fini').find("div").find("div").find("input").each(function(){ 
         IdAttribue.push($(this).val());
       });
 
@@ -217,13 +217,13 @@
 
   function DeplaceToi(id) { 
 
-if($(id).parent().parent().parent().attr('id') == 'Top'){
-  $(id).parent().parent().prependTo($("#Down"));
+if($(id).parent().parent().parent().attr('id') == 'EnCours'){
+  $(id).parent().parent().prependTo($("#Fini"));
   $(id).html('<i class="fa fa-arrow-left" aria-hidden="true">');
   
 }
 else{
-   $(id).parent().parent().prependTo($("#Top"));
+   $(id).parent().parent().prependTo($("#EnCours"));
     $(id).html('<i class="fa fa-fw fa-arrow-right" aria-hidden="true">');
   }
 }
