@@ -57,7 +57,7 @@
 					<div id="TotalHAttribues"></div>
 					<div id=Seuil></div>
 					<div id="TotalHResteADescendre"></div>
-					<div id="TotalHDescendueAvecSeuil">ww</div>
+					<div id="TotalHDescendueAvecSeuil"></div>
 					<div id="TotalHDescendue"></div>
 					<div id="BarDePourcentageDheureDescendue"></div>
 
