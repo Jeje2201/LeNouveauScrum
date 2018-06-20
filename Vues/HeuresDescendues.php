@@ -9,49 +9,56 @@
             </div>
           </div>
         </div>
-        <div class="mb-3">
-          <div class="form-group">
-            <select class="form-control"  id="numeroSprint" name="numeroSprint">
-              <?php
-              $result = $conn->query("select id, numero from sprint order by numero desc");
+              <div class="row">
+        <div class="card col-md-12">
+          <div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
+          <div class="card-body" style="height: 80px;">
+            <!-- Selectionner le sprint sur lequel l'on va jouer -->
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-1">
+                  <select class="form-control"  id="numeroSprint" name="numeroSprint">
+                    <?php
+                    $result = $conn->query("select id, numero from sprint order by numero desc");
 
-              while ($row = $result->fetch_assoc()) {
-                unset($id, $numero);
-                $id = $row['id'];
-                $numero = $row['numero']; 
-                echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-              }
-              ?> 
-            </select>
+                    while ($row = $result->fetch_assoc()) {
+                      unset($id, $numero);
+                      $id = $row['id'];
+                      $numero = $row['numero']; 
+                      echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+                    }
+                    ?> 
+                  </select>
+                </div>
+              <div class="col-md-3">
+                          <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
+                            <option value="ToutLeMonde">*</option>
+                            <?php
+                            $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
+                            while ($row = $result->fetch_assoc()) {
+                              $id = $row['id'];
+                              $prenom = $row['prenom']; 
+                              $nom = $row['nom']; 
+                              echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
+                            }
+                            ?>
+                          </select>
+              </div>
+
+              <div class="col-md-3">
+                <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+              </div>
+
+            <div class="col-md-5">
+              <button type="button" id="action" class="btn btn-info">Descendre</button>  
+            </div>
+          
           </div>
-
-          <div class="form-group">
-            <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
-              <option value="ToutLeMonde">*</option>
-              <?php
-              $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
-              while ($row = $result->fetch_assoc()) {
-                $id = $row['id'];
-                $prenom = $row['prenom']; 
-                $nom = $row['nom']; 
-                echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-              }
-              ?>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
-          </div>
-
-          <div class="form-group">
-            <button type="button" id="action" class="btn btn-info">Descendre</button>
-          </div>
-
-        </div>
-        <br />
+      </div>
+    </div>
 
       </div>
+    </div>
 
       <div class="row">
 
