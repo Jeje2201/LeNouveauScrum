@@ -46,7 +46,11 @@
     {
      $output .= '
      <tr>
-     <td align="center">Aucune donnée à afficher 💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
      </tr>
      ';
    }

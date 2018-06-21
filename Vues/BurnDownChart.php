@@ -187,7 +187,7 @@
 							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
 							if(Total[0][Total[0].length-1] == undefined){
-								$("#Seuil").html("Aucune information disponible.. 💩");
+								$("#Seuil").html("💩");
 
 								$("#TotalHAttribues").html("");
 
@@ -197,7 +197,7 @@
 
 								$("#BarDePourcentageDheureDescendue").html("");
 
-								$("#container").html("Aucune chart à afficher.. 💩");
+								$("#container").html("💩");
 							}
 							else{
 								console.log('ah bah oui');

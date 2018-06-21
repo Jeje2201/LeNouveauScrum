@@ -54,6 +54,9 @@
         </div>';
       }
     }
+    else{
+  $output1.='💩';
+}
 
     if($_POST["idEmploye"] == "ToutLeMonde")
      $Requete2 = "AND id_Employe in (select id from employe)";
@@ -88,6 +91,9 @@
     </div>';
 
   }
+}
+else{
+  $output2.='💩';
 }
 $Test -> Attribution = $output1;
 $Test -> Descendue = $output2;

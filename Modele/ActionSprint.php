@@ -39,7 +39,7 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
    {
      $output .= '
      <tr>
-     <td align="center">Aucune donnée à afficher 💩</td>
+     <td align="center">💩</td>
      </tr>
      ';
    }

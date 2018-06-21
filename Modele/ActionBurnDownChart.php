@@ -58,16 +58,10 @@
       $ToutADescendre[] = $result["Total"];
     }
 
-     
 $array[] = $ToutADescendre;
 
-
-
    echo json_encode($array);
-   
 
    }
-
- 
-
+   
  ?>
