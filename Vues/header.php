@@ -43,7 +43,7 @@
 						<span class="nav-link-text">Heures Attribuées</span>
 					</a>
 				</li>
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeiresDescendues">
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeuresDescendues">
 					<a class="nav-link" href="index.php?vue=Descendation">
 						<i class="fa fa-fw fa-arrow-up"></i>
 						<span class="nav-link-text">Heures Descendues</span>
@@ -56,10 +56,16 @@
 					<span class="nav-link-text">BurnDownChart</span>
 				</a>
 			</li>
-			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="BurnDownChart">
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">
 				<a class="nav-link" href="index.php?vue=Objectifs">
-					<i class="fa fa-fw fa-bullseye"></i>
+					<i class="fa fa-fw fa-sticky-note-o"></i>
 					<span class="nav-link-text">Objectifs</span>
+				</a>
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Retrospective">
+				<a class="nav-link" href="index.php?vue=Retrospective">
+					<i class="fa fa-fw fa-bullseye"></i>
+					<span class="nav-link-text">Retrospective</span>
 				</a>
 			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
