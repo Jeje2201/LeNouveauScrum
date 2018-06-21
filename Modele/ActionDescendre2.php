@@ -54,9 +54,6 @@
         </div>';
       }
     }
-    else{
-  $output1.='💩';
-}
 
     if($_POST["idEmploye"] == "ToutLeMonde")
      $Requete2 = "AND id_Employe in (select id from employe)";
@@ -91,9 +88,6 @@
     </div>';
 
   }
-}
-else{
-  $output2.='💩';
 }
 $Test -> Attribution = $output1;
 $Test -> Descendue = $output2;
@@ -150,16 +144,15 @@ if($_POST["action"] == "Descendre")
       SELECT heure, id_Sprint, id_Employe, id_Projet, id, '$LeJourDeDescente' FROM attribution where attribution.id = $IdAttribue[$i];
       ");
     $result = $statement->execute();
-
+}
     if(!empty($result))
     {
-     echo 'Tâche(s) attribuée(s) bien descendue(s)';
+     echo 'Tâche(s) attribuée(s) bien descendue(s) 😄';
    }
    else
    {
     echo 'Probleme';
   }
-}
 }
 
 if($_POST["action"] == "Select")
