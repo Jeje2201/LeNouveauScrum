@@ -1,4 +1,2 @@
-	var url = location.pathname.split("/")[2];
-	$('nav a[href^="' + url + '"]')
-	.closest('li')
-	.addClass('active');
+	var sPageURL = window.location.search.substring(1).split('=');
+	$('nav a[href^="index.php?vue=' + sPageURL[1] + '"]').closest('li').addClass('active');
