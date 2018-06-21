@@ -44,13 +44,67 @@
     {
      $output .= '
      <tr>
-     <td align="center">Aucune donnée à afficher 💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
      </tr>
      ';
    }
    $output .= '</tbody></table>';
    echo $output;
  }
+
+
+ if($_POST["action"] == "retrospective") 
+     {
+      $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label
+        FROM retrospective
+        WHERE Etat = 0
+        ORDER BY DateCreation desc
+        ");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead>
+      <tr>
+      <th width="10%">Date</th>
+      <th width="85%">Remarque</th>
+      <th width="5%%"><center>Editer</center></th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+        $output .= '
+        <tr >
+        <td>'.$row["DateCreation"].'</td>
+        <td>'.$row["Label"].'</td>
+        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button></center></td>
+        </tr>
+        ';
+      }
+    }
+    else
+    {
+     $output .= '
+     <tr>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     <td align="center">💩</td>
+     </tr>
+     ';
+   }
+   $output .= '</tbody></table>';
+   echo $output;
+ }
+
+
 
  if($_POST["action"] == "Créer")
  {
@@ -69,6 +123,23 @@
   if(!empty($result))
   {
    echo 'Objectif créé! ! 😄';
+ }
+}
+
+ if($_POST["action"] == "CréerRetrospective")
+ {
+  $statement = $connection->prepare("
+   INSERT INTO retrospective (Label, Etat, DateCreation) 
+   VALUES (:Label, 0, NOW())
+   ");
+  $result = $statement->execute(
+   array(
+    ':Label' => $_POST["Labelretrospective"]
+  )
+ );
+  if(!empty($result))
+  {
+   echo 'Retrospective créée! ! 😄';
  }
 }
 
@@ -111,6 +182,24 @@ if($_POST["action"] == "Changer")
   if(!empty($result))
   {
    echo 'Objectif modifié ! 😮';
+ }
+}
+
+if($_POST["action"] == "retrospectiveFini")
+{
+  $statement = $connection->prepare(
+   "UPDATE retrospective 
+   SET Etat = 1
+   WHERE id = :id
+   ");
+  $result = $statement->execute(
+   array(
+    ':id'   => $_POST["id"]
+  )
+ );
+    if(!empty($result))
+  {
+   echo 'Remarque validé! ! 😮';
  }
 }
 

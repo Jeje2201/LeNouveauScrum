@@ -54,10 +54,6 @@ case 'GestionEmploye':
         include("Vues/Objectifs.php");
   break;
 
-      case 'Retrospective':
-        include("Vues/Retrospective.php");
-  break;
-
     default:
         print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
       <div class="container">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');

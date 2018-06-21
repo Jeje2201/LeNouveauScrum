@@ -62,12 +62,6 @@
 					<span class="nav-link-text">Objectifs</span>
 				</a>
 			</li>
-			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Retrospective">
-				<a class="nav-link" href="index.php?vue=Retrospective">
-					<i class="fa fa-fw fa-bullseye"></i>
-					<span class="nav-link-text">Retrospective</span>
-				</a>
-			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
 				<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
 					<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>

@@ -12,8 +12,8 @@
         </div>
         <div class="mb-3">
           <div class="form-row">
-            <div class="col-md-9">
-              <a href="javascript:demoFromHTML()">WoW</a> 
+            <div class="col-md-2">
+              <!-- <a href="javascript:demoFromHTML()">WoW</a>  -->
               <select class="form-control"  id="numeroSprint" name="numeroSprint">
                 <?php
                 $result = $conn->query("select id, numero from sprint order by numero desc");
@@ -27,8 +27,11 @@
                 ?> 
               </select>
             </div>
-            <div class="col-md-3" align="right">
+            <div class="col-md-5">
               <button type="button" id="modal_button" class="btn btn-info">Créer un objectif</button>
+            </div>
+            <div class="col-md-5">
+              <button type="button" id="Bouttonretrospective" class="btn btn-info">Créer une rétrospective</button>
             </div>
 
           </div>
@@ -36,9 +39,14 @@
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="result" class="table-responsive"> 
+          <h3> Objectif(s) </h3>
 
-          </div>
+          <div id="result" class="table-responsive"></div>
+
+          <h3> Rétrospective(s) </h3>
+
+          <div id="retrospective" class="table-responsive"></div>
+
         </div>
       </div>
     </body>
@@ -81,8 +89,26 @@
         </form>
       </div>
       <div class="modal-footer">
-        <input  name="id" id="id" />
+        <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="Modalretrospective" class="modal fade">
+     <div class="modal-dialog">
+      <div class="modal-content">
+       <div class="modal-header">
+        <h4 class="modal-title">Remarque</h4>
+      </div>
+      <div class="modal-body">
+        <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une rétrospective.." >
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -114,6 +140,17 @@
         $('#result').html(data); 
       }
     });
+
+      var action = "retrospective";
+      $.ajax({
+       url : "Modele/ActionObjectifs.php", 
+       method:"POST", 
+       data:{action:action}, 
+       success:function(data){
+        $('#retrospective').html(data); 
+      }
+    });
+
     }
 
     $('#numeroSprint').change(function(){
@@ -126,6 +163,13 @@
       $('.modal-title').text("Créer un objectif"); 
       $('#action').val('Créer');
       $('#LabelObjectif').val("");
+      $('#EtatNum5').prop("checked", true);
+    });
+
+    $('#Bouttonretrospective').click(function(){
+      $('#Modalretrospective').modal('show'); 
+      $('.modal-title').text("Créer une rétrospective"); 
+      $('#Labelretrospective').val("");
       $('#EtatNum5').prop("checked", true);
     });
 
@@ -155,6 +199,44 @@
        alert("Tous les champs doivent être plein."); 
      }
    });
+
+      $('#CreerRetrospective').click(function(){
+
+      var Labelretrospective = $('#Labelretrospective').val();
+      var action = "CréerRetrospective";  
+      console.log(action, Labelretrospective);
+      if(Labelretrospective != '') 
+      {
+       $.ajax({
+        url : "Modele/ActionObjectifs.php",    
+        method:"POST",     
+        data:{Labelretrospective:Labelretrospective, action:action}, 
+        success:function(data){
+         BootstrapAlert(data);
+         $('#Modalretrospective').modal('hide'); 
+         fetchUser();    
+       }
+     });
+     }
+     else
+     {
+       alert("Tous les champs doivent être plein."); 
+     }
+   });
+
+    $(document).on('click', '.success', function(){
+      var id = $(this).attr("id"); 
+      var action = "retrospectiveFini";   
+      $.ajax({
+       url : "Modele/ActionObjectifs.php",   
+       method:"POST",
+       data:{id:id, action:action},
+       success:function(data){
+        BootstrapAlert(data);
+        fetchUser();
+      }
+    });
+    });
 
     $(document).on('click', '.update', function(){
       var id = $(this).attr("id"); 
