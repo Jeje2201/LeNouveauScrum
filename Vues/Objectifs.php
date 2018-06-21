@@ -124,8 +124,9 @@
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
       $('.modal-title').text("Créer un objectif"); 
-      $('#action').val('Créer'); 
-      $('#EtatNum2').prop("checked", true);
+      $('#action').val('Créer');
+      $('#LabelObjectif').val("");
+      $('#EtatNum5').prop("checked", true);
     });
 
     $('#action').click(function(){
@@ -166,8 +167,8 @@
        success:function(data){
         console.log('ohmondieu:',data)
         $('#customerModal').modal('show');   
-        $('.modal-title').text("Update Records"); 
-        $('#action').val("Update");
+        $('.modal-title').text("Editer objectif"); 
+        $('#action').val("Changer");
         $('#id').val(id); 
         $('#projetId').val(data.id_Projet);
         $('#LabelObjectif').val(data.objectif);

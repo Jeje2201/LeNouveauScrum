@@ -91,7 +91,7 @@ if($_POST["action"] == "Select")
  echo json_encode($output);
 }
 
-if($_POST["action"] == "Update")
+if($_POST["action"] == "Changer")
 {
   $statement = $connection->prepare(
    "UPDATE objectif 
@@ -110,7 +110,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) attribuée(s) modifiée(s) ! 😮';
+   echo 'Objectif modifié ! 😮';
  }
 }
 
