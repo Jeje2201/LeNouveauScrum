@@ -7,7 +7,7 @@ USE scrum;
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 20 juin 2018 à 12:29
+-- Généré le :  jeu. 21 juin 2018 à 10:19
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -557,6 +557,21 @@ INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `cheminIcone`, `id_
 (70, 'SECAFI', NULL, NULL, 'inconnue', NULL),
 (71, 'Support', NULL, NULL, 'inconnue', NULL),
 (72, 'Inconnu', NULL, NULL, 'inconnue', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `retrospective`
+--
+
+DROP TABLE IF EXISTS `retrospective`;
+CREATE TABLE IF NOT EXISTS `retrospective` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Label` varchar(250) NOT NULL,
+  `DateCreation` date NOT NULL,
+  `Etat` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
