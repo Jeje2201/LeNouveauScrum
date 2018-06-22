@@ -109,4 +109,4 @@
 <script src="Controleur/ClassActive.js"></script>
 <script src="Controleur/bootstrap-datetimepicker.js"></script>
 <script src="Controleur/ReductionNav.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="Controleur/jsPDF.js"></script>
