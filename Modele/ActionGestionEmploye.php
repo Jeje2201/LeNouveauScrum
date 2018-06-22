@@ -56,8 +56,8 @@
  if($_POST["action"] == "Ajouter")
  {
   $statement = $connection->prepare("
-   INSERT INTO employe (prenom, nom, Couleur, actif, Initial) 
-   VALUES (:prenom, :nom, :Couleur, :actif, :Initial)
+   INSERT INTO employe (prenom, nom, Couleur, actif, Initial, id_TypeEmploye) 
+   VALUES (:prenom, :nom, :Couleur, :actif, :Initial, :Type_Employe)
    ");
 
      $result = $statement->execute(
@@ -66,7 +66,8 @@
     ':nom' => $_POST["Nom_Employe"],
     ':Couleur' => $_POST["Couleur"],
     ':actif' => $_POST["Actif"],
-    ':Initial' => $_POST["Initial"]
+    ':Initial' => $_POST["Initial"],
+    ':Type_Employe' => $_POST["Type_Employe"]
   )
  );
   if(!empty($result))
@@ -91,6 +92,7 @@ if($_POST["action"] == "Select")
    $output["Nom"] = $row["nom"];
    $output["Couleur"] = $row["Couleur"];
    $output["Actif"] = $row["actif"];
+   $output["TypeEmploye"] = $row["id_TypeEmploye"];
  }
  echo json_encode($output);
 }

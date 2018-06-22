@@ -46,6 +46,20 @@
           <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
         </div>
 
+        <div class="form-group">
+        <label>Type</label>
+        <select class="form-control" id="TypeEmploye" name="TypeEmploye">
+          <?php
+          $result = $conn->query("select id, nom from typeemploye order by nom");
+          while ($row = $result->fetch_assoc()) {
+            $id = $row['id'];
+            $nom = $row['nom']; 
+            echo '<option value="'.$id.'"> '.$nom.' </option>';
+          }
+          ?>
+        </select>
+        </div>
+
         <div>
           <label>Actif</label>
           <input id="Actif" type="checkbox" checked>
@@ -105,23 +119,22 @@
     $('#action').click(function(){
       var Nom_Employe = $('#Nom').val();
       var Prenom_Employe = $('#Prenom').val();
+      var Type_Employe = $('#TypeEmploye').val();
       if (document.getElementById("Actif").checked == true){
         var Actif = 1;
       } else {
         var Actif = 0;
       }
       var Couleur = $('#Couleur').val();
-      console.log(typeof(Couleur))
       var Initial = Prenom_Employe.charAt(0)+Nom_Employe.charAt(0);
       var action = $('#action').val();
       var id = $('#id').val();
-      console.log(Prenom_Employe+' '+Nom_Employe+' '+ Actif+' '+Couleur+' '+Initial+' '+action+' '+id);
-      if(Nom_Employe != '' && Prenom_Employe != '' && Couleur != '') 
+      if(Nom_Employe != '' && Prenom_Employe != '') 
       {
        $.ajax({
         url : "Modele/ActionGestionEmploye.php",    
         method:"POST",     
-        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Couleur:Couleur, Initial:Initial, action:action}, 
+        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Couleur:Couleur, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
         success:function(data){
          BootstrapAlert(data);
          console.log(data);
@@ -157,7 +170,9 @@
         $('#id').val(id); 
         $('#Prenom').val(data.Prenom);  
         $('#Nom').val(data.Nom); 
-        $('#Couleur').val(data.Couleur);  
+        $('#Couleur').val(data.Couleur);
+        $('#TypeEmploye').val(data.TypeEmploye);
+
       }
     });
     });
