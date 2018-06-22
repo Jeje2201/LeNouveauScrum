@@ -9,7 +9,7 @@
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -17,8 +17,9 @@
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="35%">Prénom</th>
-      <th width="35%">Nom</th>
+      <th width="25%">Prénom</th>
+      <th width="25%">Nom</th>
+      <th width="20%">Job</th>
       <th width="10%">Couleur</th>
       <th width="10%">Actif</th>
       <th width="10%"><center>Editer</center></th>
@@ -34,6 +35,7 @@
         <tr>
         <td>'.$row["Prenom"].'</td>
         <td>'.$row["Nom"].'</td>
+        <td>'.$row["TypeJob"].'</td>
         <td style="background-color:'.$row["Couleur"].'"></td>
         <td>'.$row["Actif"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
@@ -101,7 +103,7 @@ if($_POST["action"] == "Update")
 {
   $statement = $connection->prepare(
    "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Couleur = :Couleur, Initial =:Initial, actif = :actif 
+   SET prenom = :prenom, nom = :nom, Couleur = :Couleur, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
    WHERE id = :id
    "
  );
@@ -112,6 +114,7 @@ if($_POST["action"] == "Update")
     ':Couleur' => $_POST["Couleur"],
     ':actif'   => $_POST["Actif"],
     ':Initial'   => $_POST["Initial"],
+    ':Type_Employe' => $_POST["Type_Employe"],
     ':id'   => $_POST["id"]
   )
  );
