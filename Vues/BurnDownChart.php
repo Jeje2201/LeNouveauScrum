@@ -10,17 +10,14 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="row">
-				<div class="card col-sm-2">
+				<div class="card col-sm-3">
 					<div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
 					<div class="card-body">
 						<!-- Selectionner le sprint sur lequel l'on va jouer -->
-						<div class="form-group row">
-							<select class="form-control"  id="sprintIdList" onchange="ChangerSprint('0')">
-								<?php
 
-								echo '<script> var ListIdSprint =[]; </script>';
+							<select class="form-control"  id="sprintIdList" onchange="misajour($('#sprintIdList').val())">
+								<?php
 
 								$result = $conn->query("select id, numero from sprint order by numero desc");
 
@@ -28,46 +25,23 @@
 									unset($id, $numero);
 									$id = $row['id'];
 									$numero = $row['numero']; 
-									echo '<option value="'.$numero.'">' .$numero. '</option>
-									<script> ListIdSprint.push('.$numero.'); </script>';
+									echo '<option value="'.$numero.'">' .$numero. '</option>';
 								}
-
-								echo'<script>console.log("liste complete de numero de sprint: ", ListIdSprint);</script>';
 
 								?>
 							</select>
-						</div>
 
-						<div class="row">
-							<a class="btn btn-primary btn-block" href="#" id="bouttonPlus" onClick="ChangerSprint('-1')">+</a>
-						</div>
-
-						</br>
-
-						<div class="row">
-							<a class="btn btn-primary btn-block" href="#" id="bouttonMoins" onClick="ChangerSprint('+1')">-</a>
-						</div>		
-					
-					</div>
-			</div>
-
-			<div class="card col-sm-10">
-				<div class="card-header"><i class="fa fa-eye"></i> Informations</div>
-				<div class="card-body">
 					<div id="TotalHAttribues"></div>
 					<div id=Seuil></div>
 					<div id="TotalHResteADescendre"></div>
 					<div id="TotalHDescendueAvecSeuil"></div>
 					<div id="TotalHDescendue"></div>
 					<div id="BarDePourcentageDheureDescendue"></div>
-
 				</div>
 			</div>
-		</div>
 
-	</div>
 	<!-- Area Chart Example-->
-	<div class="card">
+	<div class="card col-sm-9">
 		<div class="card-header">
 			<i class="fa fa-area-chart"></i>
 			Affichage
@@ -134,45 +108,17 @@
 	</div>
 
 </div>
+
+</div>
 <script>
 
 	$( document ).ready(function() {
 				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 			});
 
-				var ChangerSprint = function(Changement){ //la fonction démarre et met dans "changement" soit 1 ou -1
-
-					if (Changement != 0) //Detecte si le changement est fait par la liste ou les boutons, si par les boutons
-					NumeroduSprint = ListIdSprint[ListIdSprint.indexOf(parseInt($("#sprintIdList").val()))+parseInt(Changement)]; //Nouveau sprint = Indexation du numero + argument de la fonction ChangerSprint
-
-				else
-					NumeroduSprint = parseInt($("#sprintIdList").val()); //sinon checker en fonction du nouveau numéro sélectionné par la liste
-
-				misajour(NumeroduSprint);
-
-			};
-
-				//Fonction pour bloquer les bouton de changement de sprints si on est au sprint minimum ou maximum ou entre
-				var bloquerbouton = function(NumeroSprint){
-
-					if(ListIdSprint[0] == NumeroSprint)
-						document.getElementById("bouttonPlus").classList.add("disabled")
-					else
-						document.getElementById("bouttonPlus").classList.remove("disabled")
-
-					if(ListIdSprint[ListIdSprint.length-1] == NumeroSprint)
-						document.getElementById("bouttonMoins").classList.add("disabled")
-					else
-						document.getElementById("bouttonMoins").classList.remove("disabled")
-
-				};
-
 				var misajour = function(NumeroduSprint){
 
-					bloquerbouton(NumeroduSprint);
-
 					$("#sprintIdList").val(NumeroduSprint);
-
 
 					var action = "GetLesInfosDeLaBurnDownChart";
 					var NumeroSprint = $('#sprintIdList').val();
@@ -215,14 +161,12 @@
 
 							}
 
-							
 						}
-
 
 					});					
 
 				};
-				
+
 			</script>
 		</div>
 	</body>
