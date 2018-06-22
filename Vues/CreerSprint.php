@@ -3,16 +3,9 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-body" id="InterieurDeLalert">
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="card mb-3">
+
+        <div class="card mb-3 h-100">
           <div class="card-header"><b>Sprint</b></div>
           <div class="card-body">
 
