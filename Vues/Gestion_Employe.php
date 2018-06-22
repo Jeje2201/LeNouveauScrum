@@ -99,7 +99,7 @@
       $('#Prenom').val('');
       $('#Nom').val('');
       $('#Actif').prop( "checked", true ); 
-      $('#Couleur').val('#ff00fa');
+      $('#Couleur').val('#ffffff');
     });
 
     $('#action').click(function(){

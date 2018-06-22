@@ -813,7 +813,7 @@ ALTER TABLE `heuresdescendues`
   ADD CONSTRAINT `FK_HeuresDescendues_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
   ADD CONSTRAINT `FK_HeuresDescendues_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
   ADD CONSTRAINT `FK_HeuresDescendues_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `heuresdescendues_ibfk_1` FOREIGN KEY (`id_Attribution`) REFERENCES `attribution` (`id`);
+  ADD CONSTRAINT `heuresdescendues_ibfk_1` FOREIGN KEY (`id_Attribution`) REFERENCES `attribution` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `interference`

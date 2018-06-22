@@ -26,6 +26,12 @@
 						<small class="form-text text-muted">Exemple; "60" veut dire que chaque employé pourra travailler un maximum de 60 heures pour un sprint</small>
 					</div>
 
+					<div class="form-group">
+						<label for="exampleInputEmail1">Temps affichage popup</label>
+						<input type="number" class="form-control" id="TempsAffichagePopup" step='100' value="1500" min="0">
+						<small class="form-text text-muted">Exemple; "1500" veut dire que lors d'actions, la popup s'affichera 1.5s (soit 1500 ms)</small>
+					</div>
+
 				</div>
 			</div>
 
@@ -40,6 +46,8 @@
 
 			var Set = function(){ //la fonction démarre et met dans "changement" soit 1 ou -1
 			localStorage.setItem("NbJoursParSprint",$('#NbJoursParSprint').val());
+			localStorage.setItem("TempsAffichagePopup",$('#TempsAffichagePopup').val());
+
 		};
 
 	</script>
