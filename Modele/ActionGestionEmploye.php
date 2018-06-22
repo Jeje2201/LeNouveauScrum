@@ -66,7 +66,7 @@
    array(
     ':prenom' => $_POST["Prenom_Employe"],
     ':nom' => $_POST["Nom_Employe"],
-    ':Couleur' => $_POST["Couleur"],
+    ':Couleur' => '#'.substr(bin2hex($_POST['Prenom_Employe'].$_POST['Nom_Employe']),0,6),
     ':actif' => $_POST["Actif"],
     ':Initial' => $_POST["Initial"],
     ':Type_Employe' => $_POST["Type_Employe"]
@@ -74,7 +74,7 @@
  );
   if(!empty($result))
   {
-   echo 'Heure(s) Attribuée(s) ! 😄';
+   echo 'Nouvel(le) employé(e) / Stagiaire ! 😄';
  }
 }
 
@@ -92,7 +92,6 @@ if($_POST["action"] == "Select")
   {
    $output["Prenom"] = $row["prenom"];
    $output["Nom"] = $row["nom"];
-   $output["Couleur"] = $row["Couleur"];
    $output["Actif"] = $row["actif"];
    $output["TypeEmploye"] = $row["id_TypeEmploye"];
  }
@@ -103,7 +102,7 @@ if($_POST["action"] == "Update")
 {
   $statement = $connection->prepare(
    "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Couleur = :Couleur, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
+   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
    WHERE id = :id
    "
  );
@@ -111,7 +110,6 @@ if($_POST["action"] == "Update")
    array(
     ':prenom' => $_POST["Prenom_Employe"],
     ':nom' => $_POST["Nom_Employe"],
-    ':Couleur' => $_POST["Couleur"],
     ':actif'   => $_POST["Actif"],
     ':Initial'   => $_POST["Initial"],
     ':Type_Employe' => $_POST["Type_Employe"],

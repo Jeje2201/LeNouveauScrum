@@ -58,11 +58,6 @@
           <input id="Actif" type="checkbox" checked>
         </div>
 
-        <div class="form-group">
-          <label>Couleur</label>
-          <input name="Couleur" id="Couleur" type="color" value="#ff00fa">
-        </div>
-
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
@@ -106,7 +101,6 @@
       $('#Prenom').val('');
       $('#Nom').val('');
       $('#Actif').prop( "checked", true ); 
-      $('#Couleur').val('#ffffff');
     });
 
     $('#action').click(function(){
@@ -118,16 +112,17 @@
       } else {
         var Actif = 0;
       }
-      var Couleur = $('#Couleur').val();
+
       var Initial = Prenom_Employe.charAt(0)+Nom_Employe.charAt(0);
       var action = $('#action').val();
       var id = $('#id').val();
-      if(Nom_Employe != '' && Prenom_Employe != '') 
+
+      if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') 
       {
        $.ajax({
         url : "Modele/ActionGestionEmploye.php",    
         method:"POST",     
-        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Couleur:Couleur, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
+        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
         success:function(data){
          BootstrapAlert(data);
          console.log(data);
@@ -163,7 +158,6 @@
         $('#id').val(id); 
         $('#Prenom').val(data.Prenom);  
         $('#Nom').val(data.Nom); 
-        $('#Couleur').val(data.Couleur);
         $('#TypeEmploye').val(data.TypeEmploye);
 
       }
