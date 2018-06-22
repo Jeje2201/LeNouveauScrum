@@ -30,7 +30,8 @@
 
 								?>
 							</select>
-
+							<br>
+					<h3><u>Informations</u></h3>
 					<div id="TotalHAttribues"></div>
 					<div id=Seuil></div>
 					<div id="TotalHResteADescendre"></div>
