@@ -21,7 +21,7 @@
       <th width="10%">Etat</th>
       <th width="10%">Projet</th>
       <th width="75%">Objectif</th>
-      <th width="5%"><center>Editer</center></th>
+      <th width="5%%"><center>Editer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
