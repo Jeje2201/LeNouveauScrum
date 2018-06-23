@@ -147,7 +147,6 @@
 								$("#container").html("💩");
 							}
 							else{
-								console.log('ah bah oui');
 								$("#Seuil").html("Seuil: <b>"+parseInt(Total[2][0])+"h</b>");
 
 								$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");

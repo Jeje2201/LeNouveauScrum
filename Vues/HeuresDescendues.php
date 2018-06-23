@@ -138,8 +138,6 @@
         IdAttribue.push($(this).val());
       });
 
-      console.log('Tous les id a kill: ',IdAttribue)
-
       if(IdAttribue != '') 
       {
        $.ajax({

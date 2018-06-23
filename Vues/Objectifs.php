@@ -173,7 +173,6 @@
       var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       var id = $('#id').val();
       var action = $('#action').val();  
-      console.log(idSprint, idProjet,LabelObjectif,EtatObjectif);
       if(idSprint != '' && LabelObjectif != ''  && EtatObjectif != '' && idProjet != '') 
       {
        $.ajax({
@@ -197,7 +196,6 @@
 
       var Labelretrospective = $('#Labelretrospective').val();
       var action = "CréerRetrospective";  
-      console.log(action, Labelretrospective);
       if(Labelretrospective != '') 
       {
        $.ajax({
@@ -240,7 +238,6 @@
        data:{id:id, action:action},
        dataType:"json",   
        success:function(data){
-        console.log('ohmondieu:',data)
         $('#customerModal').modal('show');   
         $('.modal-title').text("Editer objectif"); 
         $('#action').val("Changer");
