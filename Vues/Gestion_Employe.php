@@ -107,7 +107,6 @@
       var Nom_Employe = $('#Nom').val();
       var Prenom_Employe = $('#Prenom').val();
       var Type_Employe = $('#TypeEmploye').val();
-      console.log('ducoup: ',Type_Employe);
       if (document.getElementById("Actif").checked == true){
         var Actif = 1;
       } else {
@@ -118,7 +117,7 @@
       var action = $('#action').val();
       var id = $('#id').val();
 
-      if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != null) 
+      if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') 
       {
        $.ajax({
         url : "Modele/ActionGestionEmploye.php",    
