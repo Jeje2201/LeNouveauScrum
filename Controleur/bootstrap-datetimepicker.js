@@ -112,10 +112,10 @@
     this.timezone = options.timezone || timeZoneAbbreviation();
 
     this.icons = {
-      leftArrow: this.fontAwesome ? 'fa-arrow-left' : (this.bootcssVer === 3 ? 'glyphicon-arrow-left' : 'icon-arrow-left'),
-      rightArrow: this.fontAwesome ? 'fa-arrow-right' : (this.bootcssVer === 3 ? 'glyphicon-arrow-right' : 'icon-arrow-right')
+      leftArrow: this.fontAwesome ? 'fa-arrow-left' : (this.bootcssVer === 3 ? 'fa-chevron-left' : 'fa-arrow-left'),
+      rightArrow: this.fontAwesome ? 'fa-arrow-right' : (this.bootcssVer === 3 ? 'fa-chevron-right' : 'fa-chevron-right')
     }
-    this.icontype = this.fontAwesome ? 'fa' : 'glyphicon';
+    this.icontype = this.fontAwesome ? 'fa' : 'fa';
 
     this._attachEvents();
 
@@ -222,7 +222,7 @@
     }
     if (this.isRTL) {
       this.picker.addClass('datetimepicker-rtl');
-      var selector = this.bootcssVer === 3 ? '.prev span, .next span' : '.prev i, .next i';
+      var selector = this.bootcssVer === 3 ? '.prev span, .next span' : '.prev span, .next span';
       this.picker.find(selector).toggleClass(this.icons.leftArrow + ' ' + this.icons.rightArrow);
     }
 
