@@ -32,7 +32,7 @@
       $Requete1 = "AND attribution.id_Employe = $idEmploye";
 
     $statement = $connection->prepare("
-      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
+      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom
       FROM attribution
       inner JOIN employe ON employe.id = attribution.id_Employe
       INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -53,15 +53,17 @@
     {
      foreach($result as $row)
      {
-      $output1.='<div class="card" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
-      <div class="card-body text-center">
-      <div class="card-body-icon">
-      <img src="Assets/Image/Projets/'.$row["Logo"].'.png" width="40px">
-      </div>
-      <p class="card-text"><b>'.$row["E_Initial"].'</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
-      <input style="display: none" id="lavaleur1" value="'.$row["id"].'" />
-      <a style="color: #fff;" class="btn btn-primary btn-block" onclick="DeplaceToi(this)"><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
+      $output1.='
+      <img style="left: 50%; top: 10px; z-index: 10; position: relative; transform: rotate(15deg);" src="Assets/Image/punaise.png" width="35px">
+      <div class="card BOUGEMOI" style="/*background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/" id="'.$row["id"].'" onclick="DeplaceToi(this)">
+        
+        <div class="card-header text-center">
+
+          <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">'.$row["E_Initial"].' '.$row["projet"].'</span>
+        </div>
+        <div class="card-body text-center" style="padding-top: 5px; padding-bottom: 5px;">
+          <p class="card-text"><i>'.$row["NbHeure"].'h</i><img style="left: 35%; position: relative; transform: rotate(15deg);" src="Assets/Image/Projets/'.$row["Logo"].'.png" width="35px"></p>
+        </div>
       </div>';
     }
   }
