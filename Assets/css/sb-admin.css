@@ -18,6 +18,16 @@ html {
     margin-bottom: 12px; /* Add some space below the input */
 }
 
+.EcartPlusPetit {
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
+  .LogoProjet{
+    left: 35%;
+    width: 35px;
+    position: relative;
+  }
+
 body {
   overflow-x: hidden; }
 

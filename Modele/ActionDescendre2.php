@@ -59,10 +59,10 @@
         
         <div class="card-header text-center">
 
-          <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">'.$row["E_Initial"].' '.$row["projet"].'</span>
+          <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
         </div>
-        <div class="card-body text-center" style="padding-top: 5px; padding-bottom: 5px;">
-          <p class="card-text"><i>'.$row["NbHeure"].'h</i><img style="left: 35%; position: relative; transform: rotate(15deg);" src="Assets/Image/Projets/'.$row["Logo"].'.png" width="35px"></p>
+        <div class="card-body text-center EcartPlusPetit">
+          <p class="card-text"><i>'.$row["NbHeure"].'h</i><img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png"></p>
         </div>
       </div>';
     }
@@ -76,7 +76,7 @@
   $Requete2 = "AND id_Employe = $idEmploye";
 
 $statement = $connection->prepare("
-  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom
+  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom
   FROM heuresdescendues
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
@@ -93,12 +93,12 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-  $output2.='<div class="card" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
-  <div class="card-body text-center">
-  <div class="card-body-icon">
-  <img src="Assets/Image/Projets/'.$row["Logo"].'.png" width="40px">
+  $output2.='<div class="card" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
+  <div class="card-header text-center">
+<span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
   </div>
-  <p class="card-text"><b>'.$row["E_Initial"].'</b><br><u>'.$row["projet"].'</u><br><i>'.$row["NbHeure"].'h</i></p>
+  <div class="card-body text-center EcartPlusPetit">
+  <p class="card-text"><i>'.$row["NbHeure"].'h</i></p>
   </div>
   </div>';
 
