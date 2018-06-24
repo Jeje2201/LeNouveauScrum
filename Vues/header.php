@@ -111,7 +111,6 @@
 <script src="Controleur/highcharts.js"></script>
 <script src="Controleur/popper.min.js"></script>
 <script src="Controleur/bootstrap.min.js"></script>
-<script src="Controleur/getdataformulNEW.js"></script>
 <script src="Controleur/AlertBootStrap.js"></script>
 <script src="Controleur/ChoixDate.js"></script>
 <script src="Controleur/ClassActive.js"></script>

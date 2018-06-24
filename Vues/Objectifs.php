@@ -7,6 +7,7 @@
           <div class="form-row">
             <div class="col-md-2">
               <!-- <a href="javascript:demoFromHTML()">WoW</a>  -->
+               <a href="javascript:GetScreenshot($('#numeroSprint option:selected').text());">Imprimmer</a>               
               <select class="form-control"  id="numeroSprint" name="numeroSprint">
                 <?php
                 $result = $conn->query("select id, numero from sprint order by numero desc");
@@ -33,12 +34,10 @@
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
           <h3> Objectif(s) </h3>
-
-          <div id="result" class="table-responsive"></div>
+          <div id="TableObjectif" class="table-responsive"></div>
 
           <h3> Rétrospective(s) </h3>
-
-          <div id="retrospective" class="table-responsive"></div>
+          <div id="TableRetrospective" class="table-responsive"></div>
 
         </div>
       </div>
@@ -130,7 +129,7 @@
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
-        $('#result').html(data); 
+        $('#TableObjectif').html(data); 
       }
     });
 
@@ -140,7 +139,7 @@
        method:"POST", 
        data:{action:action}, 
        success:function(data){
-        $('#retrospective').html(data); 
+        $('#TableRetrospective').html(data); 
       }
     });
 
@@ -272,45 +271,34 @@
    });
   });
 
-  function demoFromHTML() {
-    
-        var pdf = new jsPDF('p', 'pt', 'letter');
-        // source can be HTML-formatted string, or a reference
-        // to an actual DOM element from which the text will be scraped.
-        source = $('#result')[0];
+function GetScreenshot(NumeroSprint){
 
-        // we support special element handlers. Register them with jQuery-style 
-        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-        // There is no support for any other type of selectors 
-        // (class, of compound) at this time.
-        specialElementHandlers = {
-            // element with id of "bypass" - jQuery style selector
-            '#bypassme': function (element, renderer) {
-                // true = "handled elsewhere, bypass text extraction"
-                return true
-            }
-        };
-        margins = {
-            top: 80,
-            bottom: 60,
-            left: 40,
-            width: 522
-        };
-        // all coords and widths are in jsPDF instance's declared units
-        // 'inches' in this case
-        pdf.fromHTML(
-            source, // HTML string or DOM elem ref.
-            margins.left, // x coord
-            margins.top, { // y coord
-                'width': margins.width, // max width of content on PDF
-                'elementHandlers': specialElementHandlers
-            },
+$('#TableObjectif th:nth-child(4)').remove();
+$('#TableObjectif td:nth-child(4)').remove();
 
-            function (dispose) {
-                // dispose: object with X, Y of the last line add to the PDF 
-                //          this allow the insertion of new lines after html
-                pdf.save('Test.pdf');
-            }, margins
-        );
-    }
+$('#TableRetrospective th:nth-child(3)').remove();
+$('#TableRetrospective td:nth-child(3)').remove();
+
+    var doc = new jsPDF('landscape');
+
+    doc.setFontSize(30);
+    doc.text(20, 20, 'Les objectifs');
+
+    doc.fromHTML($('#TableObjectif').get(0),20,20,{
+    });
+
+        doc.addPage();
+
+    doc.setFontSize(30);
+    doc.text(20, 20, 'Les retrospectives');
+
+    doc.fromHTML($('#TableRetrospective').get(0),20,20,{
+      // 'width':500
+    });
+
+    doc.save('Sprint n°'+NumeroSprint +'.pdf');
+
+    location.reload();
+  
+}
 </script>
