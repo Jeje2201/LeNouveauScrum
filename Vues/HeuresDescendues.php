@@ -134,8 +134,8 @@
       var IdAttribue = [];
       var LeJourDeDescente = $('#DateAujourdhui').val()
 
-      $('#Fini').find("div").find("div").find("input").each(function(){ 
-        IdAttribue.push($(this).val());
+      $('#Fini').find(".BOUGEMOI").each(function(){ 
+        IdAttribue.push($(this).attr('id'));
       });
 
       if(IdAttribue != '') 
@@ -164,16 +164,20 @@
     minView : 2
   });
 
-  function DeplaceToi(id) { 
-
-    if($(id).parent().parent().parent().attr('id') == 'EnCours'){
-      $(id).parent().parent().prependTo($("#Fini"));
-      $(id).html('<i class="fa fa-arrow-left" aria-hidden="true">');
+   function DeplaceToi(id) { 
+console.log('wow');
+    if($(id).parent().attr('id') == 'EnCours'){
+      $(id).prependTo($("#Fini"));
+      $(id).addClass('border-danger')
+      $(id).children().addClass('border-danger')
+      $(id).children().addClass('text-danger')
       
     }
     else{
-     $(id).parent().parent().prependTo($("#EnCours"));
-     $(id).html('<i class="fa fa-fw fa-arrow-right" aria-hidden="true">');
+     $(id).prependTo($("#EnCours"));
+     $(id).removeClass('border-danger')
+     $(id).children().removeClass('border-danger')
+     $(id).children().removeClass('text-danger')
    }
  }
 
