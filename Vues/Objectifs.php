@@ -3,43 +3,58 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div class="mb-3">
-          <div class="form-row">
-            <div class="col-md-2">
-              <!-- <a href="javascript:demoFromHTML()">WoW</a>  -->
-               <a href="javascript:GetScreenshot($('#numeroSprint option:selected').text());">Imprimmer</a>               
-              <select class="form-control"  id="numeroSprint" name="numeroSprint">
-                <?php
-                $result = $conn->query("select id, numero from sprint order by numero desc");
 
-                while ($row = $result->fetch_assoc()) {
-                  unset($id, $numero);
-                  $id = $row['id'];
-                  $numero = $row['numero']; 
-                  echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                }
-                ?> 
-              </select>
-            </div>
-            <div class="col-md-5">
-              <button type="button" id="modal_button" class="btn btn-info">Créer un objectif</button>
-            </div>
-            <div class="col-md-5">
-              <button type="button" id="Bouttonretrospective" class="btn btn-info">Créer une rétrospective</button>
+
+                    <div class="card col-md-12">
+            <div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
+            <div class="card-body">
+              <!-- Selectionner le sprint sur lequel l'on va jouer -->
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-sm-3">
+<select class="form-control"  id="numeroSprint" name="numeroSprint">
+                      <?php
+                      $result = $conn->query("select id, numero from sprint order by numero desc");
+
+                      while ($row = $result->fetch_assoc()) {
+                        unset($id, $numero);
+                        $id = $row['id'];
+                        $numero = $row['numero']; 
+                        echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+                      }
+                      ?> 
+                    </select>
+                  </div>
+
+                  <div class="col-sm-2">
+                     <button type="button" id="modal_button" class="btn btn-info">Objectif</button>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <button type="button" id="Bouttonretrospective" class="btn btn-info">Rétrospective</button>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <button type="button" id="BouttonImprimmer" class="btn btn-info">Imprimmer</button>
+                  </div>
+                  
+                </div>
+              </div>
             </div>
 
           </div>
-          <br />
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <h3> Objectif(s) </h3>
-          <div id="TableObjectif" class="table-responsive"></div>
+
+          <h3>Objectif(s)</h3>
+
+            <div id="TableObjectif" class="table-responsive"></div>
+
 
           <h3> Rétrospective(s) </h3>
           <div id="TableRetrospective" class="table-responsive"></div>
 
-        </div>
       </div>
     </body>
     </html>
@@ -271,7 +286,7 @@
    });
   });
 
-function GetScreenshot(NumeroSprint){
+$('#BouttonImprimmer').click(function(){
 
 $('#TableObjectif th:nth-child(4)').remove();
 $('#TableObjectif td:nth-child(4)').remove();
@@ -296,9 +311,9 @@ $('#TableRetrospective td:nth-child(3)').remove();
       // 'width':500
     });
 
-    doc.save('Sprint n°'+NumeroSprint +'.pdf');
+    doc.save('Sprint n°'+$('#numeroSprint option:selected').text() +'.pdf');
 
     location.reload();
   
-}
+});
 </script>
