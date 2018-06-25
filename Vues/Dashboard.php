@@ -2,17 +2,41 @@
   <div class="content-wrapper">
    <div class="container-fluid">
     <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">Le Dashboard <a href="javascript:Test();">Imprimmer</a>  </li>
-      </ol>
-
 
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-area-chart"></i> Total heures descendues par employé(e)</div>
+          <i class="fa fa-area-chart"></i> Sprint</div>
+          <div class="card-body">
+            <select class="form-control"  id="sprintIdList" onchange="Test($('#sprintIdList').val())">
+                <?php
+
+                $result = $conn->query("select id, numero from sprint order by numero desc");
+
+                while ($row = $result->fetch_assoc()) {
+                  unset($id, $numero);
+                  $id = $row['id'];
+                  $numero = $row['numero']; 
+                  echo '<option value="'.$id.'">' .$numero. '</option>';
+                }
+
+                ?>
+              </select>
+          </div>
+        </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-area-chart"></i> Total heures attribuées et descendues par employé(e)</div>
           <div class="card-body">
             <div id="HeureDescenduParEmploye"></div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-area-chart"></i> Total heures attribuées et descendues par projet</div>
+          <div class="card-body">
+            <div id="HeureDescenduParProjet"></div>
           </div>
         </div>
 
@@ -66,22 +90,27 @@
 
 
   $( document ).ready(function() {
-        // misajour();//au lancement de la page, afficher la burndownchart avec le numero de la liste
+        Test($('#sprintIdList').val());
       });
 
 
-function Test(){
-
+function Test(NumeroduSprint){
 
           var action = "GetTotalHeuresDescenduesParEmploye";
+
+          console.log('id du sprint: ',NumeroduSprint);
 
           $.ajax({
             url : "Modele/ActionDashboard.php", 
             method:"POST", 
-            data:{action:action}, 
-            success:function(yo){
+            data:{action:action, NumeroduSprint:NumeroduSprint}, 
+            success:function(hDescenduesParEmploye){
 
-              yo = JSON.parse(yo);
+              console.log('du coup: ',hDescenduesParEmploye)
+              
+              hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+
+              console.log(hDescenduesParEmploye);
 
       Highcharts.chart('HeureDescenduParEmploye', {
         chart: {
@@ -92,7 +121,7 @@ function Test(){
         },
         xAxis: {
           type: 'category',
-          categories: yo[0],
+          categories: hDescenduesParEmploye[0],
           labels: {
             rotation: -45,
             style: {
@@ -104,34 +133,147 @@ function Test(){
         yAxis: {
           min: 0,
           title: {
-            text: 'Total d\'heure descendues'
+            text: 'Total heures attribuées et descendues'
           }
         },
         legend: {
           enabled: false
         },
         tooltip: {
-          enabled: false
+          shared: true,
         },
+        plotOptions: {
+        column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0
+        }
+    },
         series: [{
-          name:'Heure Descendues',
-          data: yo[1],
-          dataLabels: {
+        name: 'Heures attribuées',
+        color: 'rgba(252, 65, 93)',
+        data: hDescenduesParEmploye[2],
+        pointPadding: 0.3,
+        pointPlacement: -0.2,
+        dataLabels: {
             enabled: true,
             rotation: -90,
             color: '#FFFFFF',
             align: 'right',
+            format: '{point.y}', // one decimal
             y: 10, // 10 pixels down from the top
             style: {
-              fontSize: '13px',
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }, {
+        name: 'Heures descendues',
+        color: 'rgba(0, 0, 0)',
+        data: hDescenduesParEmploye[1],
+        pointPadding: 0.4,
+        pointPlacement: -0.2,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
+      });
+
+
+
+      Highcharts.chart('HeureDescenduParProjet', {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: ''
+        },
+        xAxis: {
+          type: 'category',
+          categories: hDescenduesParEmploye[3],
+          labels: {
+            rotation: -45,
+            style: {
+              fontSize: '15px',
               fontFamily: 'Verdana, sans-serif'
             }
           }
-        }]
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Total heures attribuées et descendues'
+          }
+        },
+        legend: {
+          enabled: false
+        },
+        tooltip: {
+          shared: true,
+        },
+        plotOptions: {
+        column: {
+            grouping: false,
+            shadow: false,
+            borderWidth: 0
+        }
+    },
+        series: [{
+        name: 'Heures attribuées',
+        color: 'rgba(252, 65, 93)',
+        data: hDescenduesParEmploye[5],
+        pointPadding: 0.3,
+        pointPlacement: -0.2,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }, {
+        name: 'Heures descendues',
+        color: 'rgba(0, 0, 0)',
+        data: hDescenduesParEmploye[4],
+        pointPadding: 0.4,
+        pointPlacement: -0.2,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
       });
+
+
     }
   });
+
         }
+
+
+
 
 
   </script>

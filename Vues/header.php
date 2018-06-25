@@ -107,6 +107,7 @@
           </div>
         </div>
 </body>
+
 <script src="Controleur/jquery.min.js"></script>
 <script src="Controleur/highcharts.js"></script>
 <script src="Controleur/popper.min.js"></script>
