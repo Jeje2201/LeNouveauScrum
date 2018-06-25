@@ -41,15 +41,10 @@
 
     </div>
 
-    <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
-
-    <h3>Objectif(s)</h3>
+    <br>
 
     <div id="TableObjectif" class="table-responsive"></div>
 
-
-    <h3> Rétrospective(s) </h3>
     <div id="TableRetrospective" class="table-responsive"></div>
 
   </div>
@@ -64,7 +59,7 @@
   </div>
   <div class="modal-body">
     <label>Projet</label>
-    <select class="form-control"  id="projetId" name="projetId">
+    <select class="form-control" id="projetId" name="projetId">
       <?php
       $result = $conn->query("select id, nom from projet order by nom");
 
@@ -121,13 +116,6 @@
 <script>
 
   $(document).ready(function(){
-
-    $("#BarreDeRecherche").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
 
     fetchUser(); 
 
