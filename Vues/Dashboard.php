@@ -151,7 +151,6 @@ function Test(NumeroduSprint){
     },
         series: [{
         name: 'Heures attribuées',
-        color: 'rgba(252, 65, 93)',
         data: hDescenduesParEmploye[2],
         pointPadding: 0.3,
         pointPlacement: -0.2,
@@ -169,7 +168,6 @@ function Test(NumeroduSprint){
         }
     }, {
         name: 'Heures descendues',
-        color: 'rgba(0, 0, 0)',
         data: hDescenduesParEmploye[1],
         pointPadding: 0.4,
         pointPlacement: -0.2,
@@ -229,7 +227,6 @@ function Test(NumeroduSprint){
     },
         series: [{
         name: 'Heures attribuées',
-        color: 'rgba(252, 65, 93)',
         data: hDescenduesParEmploye[5],
         pointPadding: 0.3,
         pointPlacement: -0.2,
@@ -238,7 +235,7 @@ function Test(NumeroduSprint){
             rotation: -90,
             color: '#FFFFFF',
             align: 'right',
-            format: '{point.y}', // one decimal
+            format: '{point.y}h', // one decimal
             y: 10, // 10 pixels down from the top
             style: {
                 fontSize: '13px',
@@ -247,7 +244,6 @@ function Test(NumeroduSprint){
         }
     }, {
         name: 'Heures descendues',
-        color: 'rgba(0, 0, 0)',
         data: hDescenduesParEmploye[4],
         pointPadding: 0.4,
         pointPlacement: -0.2,
@@ -256,7 +252,7 @@ function Test(NumeroduSprint){
             rotation: -90,
             color: '#FFFFFF',
             align: 'right',
-            format: '{point.y}', // one decimal
+            format: '{point.y}h', // one decimal
             y: 10, // 10 pixels down from the top
             style: {
                 fontSize: '13px',

@@ -15,8 +15,8 @@
       $statement = $connection->prepare(
        $sql = "SELECT (select employe.prenom from employe where employe.id= heuresdescendues.id_Employe) as employe,
 sum(heuresdescendues.heure) as HDescendue,
-(select sum(attribution.heure) from attribution where heuresdescendues.id_Employe= attribution.id_Employe GROUP BY heuresdescendues.id_Employe) as Hattribue
-FROM `heuresdescendues`
+(select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue
+FROM `heuresdescendues` INNER JOIN employe on heuresdescendues.id_Employe = employe.id
 where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY HDescendue desc"
      );
 
@@ -37,7 +37,11 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY
 
 
            $statement = $connection->prepare(
-       $sql = "SELECT (select projet.nom from projet where projet.id= heuresdescendues.id_Projet) as projet, sum(heuresdescendues.heure) as HDescendue, (select sum(attribution.heure) from attribution where heuresdescendues.id_Projet= attribution.id_Projet GROUP BY heuresdescendues.id_Projet) as Hattribue FROM `heuresdescendues` where id_Sprint = $NumeroduSprint group by heuresdescendues.id_Projet ORDER BY HDescendue desc"
+       $sql = "SELECT (select projet.nom from projet where projet.id= heuresdescendues.id_Projet) as projet,
+sum(heuresdescendues.heure) as HDescendue,
+(select sum(attribution.heure) from attribution where attribution.id_Projet= projet.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue
+FROM `heuresdescendues` INNER JOIN projet on heuresdescendues.id_Projet = projet.id
+where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY HDescendue desc"
      );
       
       $statement->execute();
