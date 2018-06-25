@@ -1,7 +1,7 @@
 
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
-      <div class="container">
+      <div class="container-fluid">
 
 
 
