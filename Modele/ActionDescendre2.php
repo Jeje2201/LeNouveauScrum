@@ -54,7 +54,6 @@
      foreach($result as $row)
      {
       $output1.='
-      <img style="left: 50%; top: 10px; z-index: 10; position: relative; transform: rotate(15deg);" src="Assets/Image/punaise.png" width="35px">
       <div class="card BOUGEMOI" style="/*background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/" id="'.$row["id"].'" onclick="DeplaceToi(this)">
         
         <div class="card-header text-center">
@@ -93,8 +92,8 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-  $output2.='<div class="card" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
-  <div class="card-header text-center">
+  $output2.='<div class="card border-success" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
+  <div class="card-header text-center border-success">
 <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
   </div>
   <div class="card-body text-center EcartPlusPetit">
