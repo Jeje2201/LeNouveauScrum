@@ -170,14 +170,12 @@ console.log('wow');
       $(id).prependTo($("#Fini"));
       $(id).addClass('border-danger')
       $(id).children().addClass('border-danger')
-      $(id).children().addClass('text-danger')
       
     }
     else{
      $(id).prependTo($("#EnCours"));
      $(id).removeClass('border-danger')
      $(id).children().removeClass('border-danger')
-     $(id).children().removeClass('text-danger')
    }
  }
 
