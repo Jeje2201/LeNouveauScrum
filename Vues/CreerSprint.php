@@ -24,7 +24,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><span class="fa fa-calendar"></span>&nbsp; Date de Fin</span>
               </div>
-             <input type="text" name="dateFin" id='dateFin' class="form-control" />
+              <input type="text" name="dateFin" id='dateFin' class="form-control" />
             </div>
 
             <div class="form-group">

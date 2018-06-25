@@ -1,125 +1,121 @@
 
-  <body class="fixed-nav sticky-footer" id="page-top">
-    <div class="content-wrapper">
-      <div class="container-fluid">
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <div class="card col-md-12">
+        <div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
+        <div class="card-body">
+          <!-- Selectionner le sprint sur lequel l'on va jouer -->
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-sm-3">
+                <select class="form-control"  id="numeroSprint" name="numeroSprint">
+                  <?php
+                  $result = $conn->query("select id, numero from sprint order by numero desc");
 
-
-
-                    <div class="card col-md-12">
-            <div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
-            <div class="card-body">
-              <!-- Selectionner le sprint sur lequel l'on va jouer -->
-              <div class="form-group">
-                <div class="form-row">
-                  <div class="col-sm-3">
-<select class="form-control"  id="numeroSprint" name="numeroSprint">
-                      <?php
-                      $result = $conn->query("select id, numero from sprint order by numero desc");
-
-                      while ($row = $result->fetch_assoc()) {
-                        unset($id, $numero);
-                        $id = $row['id'];
-                        $numero = $row['numero']; 
-                        echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                      }
-                      ?> 
-                    </select>
-                  </div>
-
-                  <div class="col-sm-2">
-                     <button type="button" id="modal_button" class="btn btn-info">Objectif</button>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <button type="button" id="Bouttonretrospective" class="btn btn-info">Rétrospective</button>
-                  </div>
-
-                  <div class="col-sm-3">
-                    <button type="button" id="BouttonImprimmer" class="btn btn-info">Imprimmer</button>
-                  </div>
-                  
-                </div>
+                  while ($row = $result->fetch_assoc()) {
+                    unset($id, $numero);
+                    $id = $row['id'];
+                    $numero = $row['numero']; 
+                    echo '<option value="'.$id.'"> ' .$numero. ' </option>';
+                  }
+                  ?> 
+                </select>
               </div>
+
+              <div class="col-sm-2">
+               <button type="button" id="modal_button" class="btn btn-info">Objectif</button>
+             </div>
+
+             <div class="col-sm-3">
+              <button type="button" id="Bouttonretrospective" class="btn btn-info">Rétrospective</button>
+            </div>
+
+            <div class="col-sm-3">
+              <button type="button" id="BouttonImprimmer" class="btn btn-info">Imprimmer</button>
             </div>
 
           </div>
-
-          <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
-
-          <h3>Objectif(s)</h3>
-
-            <div id="TableObjectif" class="table-responsive"></div>
-
-
-          <h3> Rétrospective(s) </h3>
-          <div id="TableRetrospective" class="table-responsive"></div>
-
+        </div>
       </div>
-    </body>
-    </html>
 
-    <div id="customerModal" class="modal fade">
-     <div class="modal-dialog">
-      <div class="modal-content">
-       <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-        <label>Projet</label>
-        <select class="form-control"  id="projetId" name="projetId">
-          <?php
-          $result = $conn->query("select id, nom from projet order by nom");
-
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $nom);
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Objectif</label>
-        <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Je suis un objectif.." >
-        <br />
-         <label>Etat</label>
-        <form class="form-control" name="EtatObjectif" id="EtatObjectif">
-          <?php
-          $result = $conn->query("select id, nom from statutobjectif order by nom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<input type="radio" name="Etat" id="EtatNum'.$id.'" value="'.$id.'"> '.$nom.'<br>';
-          }
-          ?>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-      </div>
     </div>
+
+    <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+
+    <h3>Objectif(s)</h3>
+
+    <div id="TableObjectif" class="table-responsive"></div>
+
+
+    <h3> Rétrospective(s) </h3>
+    <div id="TableRetrospective" class="table-responsive"></div>
+
+  </div>
+</body>
+</html>
+
+<div id="customerModal" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h4 class="modal-title"></h4>
+  </div>
+  <div class="modal-body">
+    <label>Projet</label>
+    <select class="form-control"  id="projetId" name="projetId">
+      <?php
+      $result = $conn->query("select id, nom from projet order by nom");
+
+      while ($row = $result->fetch_assoc()) {
+        unset($id, $nom);
+        $id = $row['id'];
+        $nom = $row['nom']; 
+        echo '<option value="'.$id.'"> ' .$nom. ' </option>';
+      }
+      ?>
+    </select>
+    <br />
+    <label>Objectif</label>
+    <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Je suis un objectif.." >
+    <br />
+    <label>Etat</label>
+    <form class="form-control" name="EtatObjectif" id="EtatObjectif">
+      <?php
+      $result = $conn->query("select id, nom from statutobjectif order by nom");
+      while ($row = $result->fetch_assoc()) {
+        $id = $row['id'];
+        $nom = $row['nom']; 
+        echo '<input type="radio" name="Etat" id="EtatNum'.$id.'" value="'.$id.'"> '.$nom.'<br>';
+      }
+      ?>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <input type="hidden" name="id" id="id" />
+    <input type="submit" name="action" id="action" class="btn btn-success" />
+    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
   </div>
 </div>
+</div>
+</div>
 
-
-    <div id="Modalretrospective" class="modal fade">
-     <div class="modal-dialog">
-      <div class="modal-content">
-       <div class="modal-header">
-        <h4 class="modal-title">Remarque</h4>
-      </div>
-      <div class="modal-body">
-        <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une rétrospective.." >
-      </div>
-      <div class="modal-footer">
-        <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
+<div id="Modalretrospective" class="modal fade">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h4 class="modal-title">Remarque</h4>
   </div>
+  <div class="modal-body">
+    <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une rétrospective.." >
+  </div>
+  <div class="modal-footer">
+    <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
+    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+</div>
+</div>
 </div>
 
 <script>
@@ -133,7 +129,7 @@
       });
     });
 
-     fetchUser(); 
+    fetchUser(); 
 
     function fetchUser() 
     {
@@ -206,7 +202,7 @@
      }
    });
 
-      $('#CreerRetrospective').click(function(){
+    $('#CreerRetrospective').click(function(){
 
       var Labelretrospective = $('#Labelretrospective').val();
       var action = "CréerRetrospective";  
@@ -288,32 +284,32 @@
 
 $('#BouttonImprimmer').click(function(){
 
-$('#TableObjectif th:nth-child(4)').remove();
-$('#TableObjectif td:nth-child(4)').remove();
+  $('#TableObjectif th:nth-child(4)').remove();
+  $('#TableObjectif td:nth-child(4)').remove();
 
-$('#TableRetrospective th:nth-child(3)').remove();
-$('#TableRetrospective td:nth-child(3)').remove();
+  $('#TableRetrospective th:nth-child(3)').remove();
+  $('#TableRetrospective td:nth-child(3)').remove();
 
-    var doc = new jsPDF('landscape');
+  var doc = new jsPDF('landscape');
 
-    doc.setFontSize(30);
-    doc.text(20, 20, 'Les objectifs');
+  doc.setFontSize(30);
+  doc.text(20, 20, 'Les objectifs');
 
-    doc.fromHTML($('#TableObjectif').get(0),20,20,{
-    });
+  doc.fromHTML($('#TableObjectif').get(0),20,20,{
+  });
 
-        doc.addPage();
+  doc.addPage();
 
-    doc.setFontSize(30);
-    doc.text(20, 20, 'Les retrospectives');
+  doc.setFontSize(30);
+  doc.text(20, 20, 'Les retrospectives');
 
-    doc.fromHTML($('#TableRetrospective').get(0),20,20,{
+  doc.fromHTML($('#TableRetrospective').get(0),20,20,{
       // 'width':500
     });
 
-    doc.save('Sprint n°'+$('#numeroSprint option:selected').text() +'.pdf');
+  doc.save('Sprint n°'+$('#numeroSprint option:selected').text() +'.pdf');
 
-    location.reload();
+  location.reload();
   
 });
 </script>

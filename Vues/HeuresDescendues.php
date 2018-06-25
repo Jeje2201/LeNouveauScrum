@@ -164,8 +164,8 @@
     minView : 2
   });
 
-   function DeplaceToi(id) { 
-console.log('wow');
+  function DeplaceToi(id) { 
+    console.log('wow');
     if($(id).parent().attr('id') == 'EnCours'){
       $(id).prependTo($("#Fini"));
       $(id).addClass('border-danger')
