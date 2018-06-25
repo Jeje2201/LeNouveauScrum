@@ -1,7 +1,7 @@
   <body class="fixed-nav sticky-footer" id="page-Result">
     <div class="content-wrapper">
-      <div class="container">
-        <div class="row">
+      <div class="container-fluid">
+        <div class="row-fluid">
           <div class="card col-md-12">
             <div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
             <div class="card-body">
@@ -54,13 +54,13 @@
 
         <div class="row">
 
-          <div class="card col-sm-6">
+          <div class="card col-6">
             <div class="card-header"><center>Tâche(s) en cours</center></div>
             <div class="card-body card-columns" id=EnCours>
             </div>
           </div>
 
-          <div class="card col-sm-6">
+          <div class="card col-6">
             <div class="card-header"><center>Tâche(s) achevée(s)</center></div>
             <div class="card-body card-columns" id=Fini>
             </div>
