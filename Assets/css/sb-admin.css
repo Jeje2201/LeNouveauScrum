@@ -361,7 +361,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 @media (min-width: 1200px) {
   .card-columns {
-    column-count: 3; } }
+    column-count: 4; } }
 
 .card-login {
   max-width: 25rem; }
