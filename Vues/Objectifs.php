@@ -24,15 +24,15 @@
               </div>
 
               <div class="col-sm-2">
-               <button type="button" id="modal_button" class="btn btn-info">Objectif</button>
+               <button type="button" id="modal_button" class="btn btn-info btn-block">Objectif</button>
              </div>
 
              <div class="col-sm-3">
-              <button type="button" id="Bouttonretrospective" class="btn btn-info">Rétrospective</button>
+              <button type="button" id="Bouttonretrospective" class="btn btn-info btn-block">Rétrospective</button>
             </div>
 
             <div class="col-sm-3">
-              <button type="button" id="BouttonImprimmer" class="btn btn-info">Imprimmer</button>
+              <button type="button" id="BouttonImprimmer" class="btn btn-info btn-block">Imprimer</button>
             </div>
 
           </div>

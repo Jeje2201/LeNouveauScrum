@@ -1,8 +1,8 @@
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
-      <div class="container-fluid">
+      <div class="container">
 
-        <div class="card">
+        <div class="card card-login mx-auto mt-5">
           <div class="card-header"><b>Sprint</b></div>
           <div class="card-body">
 
@@ -28,7 +28,7 @@
             </div>
 
             <div class="form-group">
-              <button type="button" id="modal_button" class="btn btn-info">Créer un nouveau sprint</button>
+              <button type="button" id="modal_button" class="btn btn-info btn-block">Créer un nouveau sprint</button>
               <!-- It will show Modal for Create new Records !-->
             </div>
 
