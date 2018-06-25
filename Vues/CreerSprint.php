@@ -1,37 +1,30 @@
-
   <body class="fixed-nav sticky-footer" id="page-top">
     <div class="content-wrapper">
       <div class="container">
 
-
-
-        <div class="card mb-3 h-100">
+        <div class="card">
           <div class="card-header"><b>Sprint</b></div>
           <div class="card-body">
 
-            <div class="form-group">
-              <label>Numero</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Sprint n°</span>
+              </div>
               <input type="number" name="numero" id='numero' class="form-control">
             </div>
 
-            <div class="form-group">
-              <label>Date Debut</label>
-              <div class='input-group date'>
-                <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar"></span>
-                </span>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><span class="fa fa-calendar"></span>&nbsp; Date de Début</span>
               </div>
+              <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
             </div>
 
-            <div class="form-group">
-              <label>Date Fin</label>
-              <div class='input-group date'>
-                <input type="text" name="dateFin" id='dateFin' class="form-control" />
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar"></span>
-                </span>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><span class="fa fa-calendar"></span>&nbsp; Date de Fin</span>
               </div>
+             <input type="text" name="dateFin" id='dateFin' class="form-control" />
             </div>
 
             <div class="form-group">
@@ -42,10 +35,6 @@
           </div>
         </div>
       </div>
-
-
-      <div style="display: none" id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
-
     </div>
   </div>
 </body>
