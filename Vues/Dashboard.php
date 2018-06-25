@@ -136,56 +136,26 @@ function Test(NumeroduSprint){
             text: 'Total heures attribuées et descendues'
           }
         },
-        legend: {
-          enabled: false
-        },
         tooltip: {
           shared: true,
         },
         plotOptions: {
         column: {
             grouping: false,
-            shadow: false,
-            borderWidth: 0
+            shadow: true,
+            borderWidth: 1
         }
     },
         series: [{
         name: 'Heures attribuées',
         data: hDescenduesParEmploye[2],
         pointPadding: 0.3,
-        pointPlacement: -0.2,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
     }, {
         name: 'Heures descendues',
         data: hDescenduesParEmploye[1],
         pointPadding: 0.4,
-        pointPlacement: -0.2,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y}', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
     }]
       });
-
 
 
       Highcharts.chart('HeureDescenduParProjet', {
@@ -212,53 +182,24 @@ function Test(NumeroduSprint){
             text: 'Total heures attribuées et descendues'
           }
         },
-        legend: {
-          enabled: false
-        },
         tooltip: {
           shared: true,
         },
         plotOptions: {
         column: {
             grouping: false,
-            shadow: false,
-            borderWidth: 0
+            shadow: true,
+            borderWidth: 1
         }
     },
         series: [{
         name: 'Heures attribuées',
         data: hDescenduesParEmploye[5],
-        pointPadding: 0.3,
-        pointPlacement: -0.2,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y}h', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+        pointPadding: 0.3
     }, {
         name: 'Heures descendues',
         data: hDescenduesParEmploye[4],
-        pointPadding: 0.4,
-        pointPlacement: -0.2,
-        dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: '#FFFFFF',
-            align: 'right',
-            format: '{point.y}h', // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif'
-            }
-        }
+        pointPadding: 0.4
     }]
       });
 
