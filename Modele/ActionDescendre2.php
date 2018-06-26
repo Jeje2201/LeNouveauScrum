@@ -92,7 +92,7 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-  $output2.='<div class="card border-success" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
+  $output2.='<div class="card border-success PASTOUCHE" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
   <div class="card-header text-center border-success">
 <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
   </div>

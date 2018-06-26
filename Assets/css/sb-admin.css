@@ -18,6 +18,15 @@ html {
     margin-bottom: 12px; /* Add some space below the input */
 }
 
+
+.card .BOUGEMOI:hover{
+  cursor: crosshair;
+}
+
+.card .PASTOUCHE:hover{
+  cursor: not-allowed;
+}
+
 .EcartPlusPetit {
   padding-top: 5px;
   padding-bottom: 5px; }
