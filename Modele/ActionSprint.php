@@ -73,7 +73,10 @@ $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password
  );
   $statement->execute();
   $result = $statement->fetch();
+  if(isset($result["numero"]))
   echo $result["numero"];
+else
+  echo 1;
 }
 
  if($_POST["action"] == "Select")
