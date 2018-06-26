@@ -23,6 +23,7 @@
                     </select>
                   </div>
                   <div class="col-md-3">
+                    <div id="ListeEmploye"></div>
                     <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
                       <option value="ToutLeMonde">*</option>
                       <?php

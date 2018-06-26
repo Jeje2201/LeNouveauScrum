@@ -23,6 +23,11 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY
       $statement->execute();
       $result = $statement->fetchAll();
 
+      $employe = [];
+      $HDescendue = [];
+      $Hattribue = [];
+
+
       foreach ($result as $row) {
 
        $employe[] = $row['employe'];
@@ -35,7 +40,6 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY
      $array[] = $HDescendue;
      $array[] = $Hattribue;
 
-
            $statement = $connection->prepare(
        $sql = "SELECT (select projet.nom from projet where projet.id= heuresdescendues.id_Projet) as projet,
 sum(heuresdescendues.heure) as HDescendue,
@@ -46,6 +50,10 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY 
       
       $statement->execute();
       $result = $statement->fetchAll();
+
+      $projet = [];
+      $HDescendueProjet = [];
+      $HattribueProjet = [];
 
       foreach ($result as $row) {
 
@@ -59,6 +67,35 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY 
      $array[] = $HDescendueProjet;
      $array[] = $HattribueProjet;
 
+
+
+      $statement = $connection->prepare(
+      $sql = "SELECT COUNT(id) as Nombre, (SELECT statutobjectif.nom from statutobjectif WHERE statutobjectif.id = objectif.id_StatutObjectif) as Statut
+      from objectif
+      WHERE objectif.id_Sprint = $NumeroduSprint
+      GROUP BY objectif.id_StatutObjectif
+      ORDER BY objectif.id_StatutObjectif
+      ");
+      
+      $statement->execute();
+      $result = $statement->fetchAll();
+
+
+      $Total = [];
+
+      foreach ($result as $row) {
+
+        $MonTest = [];
+
+        $MonTest[] = $row['Statut'];
+        $MonTest[] = intval($row['Nombre']);
+
+       $Total[] = $MonTest;
+
+     }
+
+     $array[] = $Total;
+     
     }
 
    echo json_encode($array);
