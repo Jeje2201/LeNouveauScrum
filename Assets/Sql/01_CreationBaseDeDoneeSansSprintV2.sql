@@ -184,12 +184,12 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (47, 'NH', 'Nabil', 'Hamadou', '#ffffff', 1, NULL, NULL),
 (48, 'RK', 'Romain', 'Knezevitch', '#ffffff', 0, NULL, NULL),
 (49, 'CL', 'Christophe', 'Lavagna', '#ffffff', 1, NULL, NULL),
-(50, 'HA', 'HervÃ©', 'Aymes', '#ffffff', 0, NULL, NULL),
-(51, 'SP', 'SÃ©bastien', 'Paris', '#ffffff', 0, NULL, NULL),
+(50, 'HA', 'Herve', 'Aymes', '#ffffff', 0, NULL, NULL),
+(51, 'SP', 'Sebastien', 'Paris', '#ffffff', 0, NULL, NULL),
 (52, 'NF', 'Naomi', 'Fischer', '#ffffff', 1, NULL, NULL),
 (53, 'JD', 'Julien', 'Dejasmin', '#ffffff', 1, NULL, NULL),
 (54, 'EV', 'El-Makki', 'Voundy', '#ffffff', 1, NULL, NULL),
-(55, 'RG', 'RÃ©mi', 'Guijarro Espinosa', '#ffffff', 1, NULL, NULL);
+(55, 'RG', 'Remi', 'Guijarro Espinosa', '#ffffff', 1, NULL, NULL);
 -- --------------------------------------------------------
 
 --
@@ -555,7 +555,23 @@ INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `cheminIcone`, `id_
 (69, 'Airele', NULL, NULL, 'inconnue', NULL),
 (70, 'SECAFI', NULL, NULL, 'inconnue', NULL),
 (71, 'Support', NULL, NULL, 'inconnue', NULL),
-(72, 'Inconnu', NULL, NULL, 'inconnue', NULL);
+(72, 'Inconnu', NULL, NULL, 'inconnue', NULL),
+(73, 'FEMS', NULL, NULL, 'inconnue', NULL),
+(74, 'Creamontblanc', NULL, NULL, 'inconnue', NULL),
+(75, 'Ouigreens', NULL, NULL, 'inconnue', NULL),
+(76, 'Cistude', NULL, NULL, 'inconnue', NULL),
+(77, 'Espaces verts', NULL, NULL, 'inconnue', NULL),
+(78, 'Reneco devis', NULL, NULL, 'inconnue', NULL),
+(79, 'Panda', NULL, NULL, 'inconnue', NULL),
+(80, 'ONB', NULL, NULL, 'inconnue', NULL),
+(81, 'PeekMotion', NULL, NULL, 'inconnue', NULL),
+(82, 'Balance RFID', NULL, NULL, 'inconnue', NULL),
+(83, 'Vanoise', NULL, NULL, 'inconnue', NULL),
+(84, 'Geonature interopérabilité', NULL, NULL, 'inconnue', NULL),
+(85, 'Capel', NULL, NULL, 'inconnue', NULL),
+(86, 'Alfred', NULL, NULL, 'inconnue', NULL),
+(87, 'CITES', NULL, NULL, 'inconnue', NULL),
+(88, 'SINP-Espaces verts', NULL, NULL, 'inconnue', NULL);
 
 -- --------------------------------------------------------
 
