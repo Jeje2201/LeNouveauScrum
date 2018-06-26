@@ -7,7 +7,7 @@
         <div class="card-header">
           <i class="fa fa-area-chart"></i> Sprint</div>
           <div class="card-body">
-            <select class="form-control"  id="sprintIdList" onchange="Test($('#sprintIdList').val())">
+            <select class="form-control"  id="sprintIdList" onchange="Test($('#sprintIdList').val(),1)">
               <?php
 
               $result = $conn->query("select id, numero from sprint order by numero desc");
@@ -26,16 +26,15 @@
 
         <div class="card mb-3">
             <div class="card-body">
+              <center>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                      <button type="button" id="BoutonEmployes" class="btn btn-warning btn-xs update">Employés</button>
+                      <button type="button" id="BoutonProjets" class="btn btn-danger btn-xs delete">Projets</button>
+                  </div>
+                </center>
               <div id="HeureDescenduParEmploye"></div>
             </div>
           </div>
-
-          <div class="card mb-3">
-              <div class="card-body">
-                <div id="HeureDescenduParProjet"></div>
-              </div>
-            </div>
-
 
             <div class="row">
               <div class="col-lg-5">
@@ -72,11 +71,19 @@
 
 
         $( document ).ready(function() {
-          Test($('#sprintIdList').val());
+          Test($('#sprintIdList').val(),1);
+        });
+
+        $('#BoutonEmployes').click(function(){
+          Test($('#sprintIdList').val(),1);
+        });
+
+        $('#BoutonProjets').click(function(){
+          Test($('#sprintIdList').val(),2);
         });
 
 
-        function Test(NumeroduSprint){
+        function Test(NumeroduSprint, affichage){
 
           var action = "GetTotalHeuresDescenduesParEmploye";
 
@@ -94,12 +101,14 @@
 
               console.log(hDescenduesParEmploye);
 
+              if(affichage == 1){
+
               Highcharts.chart('HeureDescenduParEmploye', {
                 chart: {
                   type: 'column'
                 },
                 title: {
-                  text: 'Total heures attribuées et descendues par employé(e)'
+                  text: 'Total heures attribuées et descendues'
                 },
                 xAxis: {
                   type: 'category',
@@ -142,14 +151,16 @@
                   pointPadding: 0.4,
                 }]
               });
+              }
+              else{
 
 
-              Highcharts.chart('HeureDescenduParProjet', {
+              Highcharts.chart('HeureDescenduParEmploye', {
                 chart: {
                   type: 'column'
                 },
                 title: {
-                  text: 'Total heures attribuées et descendues par projet'
+                  text: 'Total heures attribuées et descendues'
                 },
                 xAxis: {
                   type: 'category',
@@ -188,6 +199,8 @@
                   pointPadding: 0.4
                 }]
               });
+
+              }
 
 Highcharts.chart('PieChartStatueObjectif', {
     chart: {
