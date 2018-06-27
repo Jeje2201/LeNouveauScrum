@@ -109,7 +109,7 @@
 </body>
 
 <script src="Controleur/jquery.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="Controleur/highcharts.js"></script>
 <script src="Controleur/popper.min.js"></script>
 <script src="Controleur/bootstrap.min.js"></script>
 <script src="Controleur/AlertBootStrap.js"></script>
@@ -118,4 +118,4 @@
 <script src="Controleur/bootstrap-datetimepicker.js"></script>
 <script src="Controleur/ReductionNav.js"></script>
 <script src="Controleur/jsPDF.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="Controleur/exporting.js"></script>
