@@ -12,11 +12,14 @@
 			</div>
 			<div class="row">
 				<div class="card col-sm-3">
-					<div class="card-header"><i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
 					<div class="card-body">
-						<!-- Selectionner le sprint sur lequel l'on va jouer -->
 
-							<select class="form-control"  id="sprintIdList" onchange="misajour($('#sprintIdList').val())">
+
+						            <div class="input-group mb-12">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Sprint n°</span>
+              </div>
+             <select class="form-control"  id="sprintIdList" onchange="misajour($('#sprintIdList').val())">
 								<?php
 
 
@@ -31,6 +34,10 @@
 
 								?>
 							</select>
+            </div>
+						<!-- Selectionner le sprint sur lequel l'on va jouer -->
+
+							
 							<br>
 					<h3><u>Informations</u></h3>
 					<div id="TotalHAttribues"></div>
@@ -44,10 +51,6 @@
 
 	<!-- Area Chart Example-->
 	<div class="card col-sm-9">
-		<div class="card-header">
-			<i class="fa fa-area-chart"></i>
-			Affichage
-		</div>
 		<div class="card-body">
 			<div id="EmplacementChart">
 			</div>
@@ -77,7 +80,7 @@
 						success:function(Total){
 							Total = JSON.parse(Total);
 
-							createChartNEW(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
+							CreerLaChart(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
 
 							if(Total[4][0] == null)
 								$("#TotalHAttribues").html("Total heures à descendre: <b>Inconnue</b>");
@@ -107,16 +110,13 @@
 								$("#TotalHDescendue").html("Heures déjà descendues: <b>"+(Total[4]-Total[0][Total[0].length-1])+"h</b> soit:");
 								$("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: '+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'%; aria-valuenow="'+((Total[4]-Total[0][Total[0].length-1])*100/Total[4])+'" aria-valuemin="0" aria-valuemax="100">'+Math.round(((Total[4]-Total[0][Total[0].length-1])*100/Total[4]))+'%</div></div>');
 								}
-
-							
-
 						}
 
 					});					
 
 				};
 
-					function createChartNEW(heures, dates, seuils, sprintou, NumeroduSprint){
+					function CreerLaChart(heures, dates, seuils, sprintou, NumeroduSprint){
 						heures = heures.map(function (x) { 
 							return parseInt(x, 10); 
 						});
