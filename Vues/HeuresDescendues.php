@@ -24,18 +24,7 @@
                   </div>
                   <div class="col-md-3">
                     <div id="ListeEmploye"></div>
-                    <select class="form-control"  id="numeroEmploye" name="numeroEmploye">
-                      <option value="ToutLeMonde">*</option>
-                      <?php
-                      $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
-                      while ($row = $result->fetch_assoc()) {
-                        $id = $row['id'];
-                        $prenom = $row['prenom']; 
-                        $nom = $row['nom']; 
-                        echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-                      }
-                      ?>
-                    </select>
+
                   </div>
 
                   <div class="col-md-3">
@@ -96,7 +85,10 @@
 
     $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
 
+
+    RemplirListeEmploye();
     fetchUser();
+
 
     function fetchUser() 
     {
@@ -123,11 +115,27 @@
       });
       }
     });
+    }
+
+    function RemplirListeEmploye() 
+    {
+      var idAffiche = $('#numeroSprint').val();
+      var action = "LoadListEmployes";
+      $.ajax({
+        url : "Modele/ActionDescendre2.php", 
+        method:"POST", 
+        data:{action:action, idAffiche:idAffiche}, 
+        success:function(data){
+          $('#ListeEmploye').html(data.Attribution); 
+        }
+    });
 
     }
 
+
     $('#numeroSprint, #numeroEmploye').change(function(){
       fetchUser();
+      RemplirListeEmploye();
     });
 
     $('#action').click(function(){

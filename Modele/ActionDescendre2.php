@@ -114,6 +114,43 @@ echo json_encode($Test);
 
 }
 
+   if($_POST["action"] == "LoadListEmployes") 
+   {
+    $Test = new stdClass;
+
+    $numero = $_POST["idAffiche"];
+
+$statement = $connection->prepare("
+  SELECT DISTINCT (select employe.prenom from employe where employe.id = attribution.id_Employe) as Prenom, (select employe.nom from employe where employe.id = attribution.id_Employe) as Nom, attribution.id_Employe as id
+  FROM attribution
+  where attribution.id_Sprint = $numero");
+
+$statement->execute();
+$result = $statement->fetchAll();
+$output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
+              <option value="ToutLeMonde">*</option>';
+if($statement->rowCount() > 0)
+{
+ foreach($result as $row)
+ {
+
+
+$output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+
+}
+
+$output2 .= '</select>';
+}
+$Test -> Attribution = $output2;
+
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-type: application/json');
+
+echo json_encode($Test);
+
+}
+
 if($_POST["action"] == "DateMinMax")
 {
 
