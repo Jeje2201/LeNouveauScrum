@@ -1,86 +1,91 @@
 
-  <body class="fixed-nav sticky-footer" id="page-top">
-    <div class="content-wrapper">
-      <div class="container">
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container">
 
-        <div class="mb-3">
-          <div class="form-row">
-            <div class="col-md-9">
-              <select class="form-control"  id="numeroSprint" name="numeroSprint">
-                <?php
-                $result = $conn->query("select id, numero from sprint order by numero desc");
 
-                while ($row = $result->fetch_assoc()) {
-                  unset($id, $numero);
-                  $id = $row['id'];
-                  $numero = $row['numero']; 
-                  echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                }
-                ?> 
-              </select>
-            </div>
-            <div class="col-md-3" align="right">
-              <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
 
-            </div>
-          </div>
-          <br />
-
-          <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
-          <div id="result" class="table-responsive"> 
-
-          </div>
+      <div class="input-group mb-12">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Sprint n°</span>
         </div>
-      </div>
-    </body>
-    </html>
-
-    <div id="customerModal" class="modal fade">
-     <div class="modal-dialog">
-      <div class="modal-content">
-       <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-        <label>Employé</label>
-        <select class="form-control" id="employeId" name="employeId">
+        <select class="form-control"  id="numeroSprint" name="numeroSprint">
           <?php
-          $result = $conn->query("select id, prenom, nom from employe where employe.actif = 1 order by prenom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $prenom = $row['prenom']; 
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Projet</label>
-        <select class="form-control"  id="projetId" name="projetId">
-          <?php
-          $result = $conn->query("select id, nom from projet order by nom");
+          $result = $conn->query("select id, numero from sprint order by numero desc");
 
           while ($row = $result->fetch_assoc()) {
-            unset($id, $nom);
+            unset($id, $numero);
             $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
+            $numero = $row['numero']; 
+            echo '<option value="'.$id.'"> ' .$numero. ' </option>';
           }
-          ?>
+          ?> 
         </select>
-        <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
-        <br />
+
+        <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
+
       </div>
-      <div class="modal-footer">
-        <input  type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+</br>
+      <div class="mb-3">
+
+        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+      </div>
+
+      <div class="mb-3">
+
+        <div id="result" class="table-responsive"></div>
+
       </div>
     </div>
+  </body>
+  </html>
+
+  <div id="customerModal" class="modal fade">
+   <div class="modal-dialog">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body">
+      <label>Employé</label>
+      <select class="form-control" id="employeId" name="employeId">
+        <?php
+        $result = $conn->query("select id, prenom, nom from employe where employe.actif = 1 order by prenom");
+        while ($row = $result->fetch_assoc()) {
+          $id = $row['id'];
+          $prenom = $row['prenom']; 
+          $nom = $row['nom']; 
+          echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
+        }
+        ?>
+      </select>
+      <br />
+      <label>Projet</label>
+      <select class="form-control"  id="projetId" name="projetId">
+        <?php
+        $result = $conn->query("select id, nom from projet order by nom");
+
+        while ($row = $result->fetch_assoc()) {
+          unset($id, $nom);
+          $id = $row['id'];
+          $nom = $row['nom']; 
+          echo '<option value="'.$id.'"> ' .$nom. ' </option>';
+        }
+        ?>
+      </select>
+      <br />
+      <label>Nombre d'heures</label>
+      <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+      <br />
+    </div>
+    <div class="modal-footer">
+      <input  type="hidden" name="id" id="id" />
+      <input type="submit" name="action" id="action" class="btn btn-success" />
+      <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+    </div>
   </div>
+</div>
 </div>
 
 <script>
