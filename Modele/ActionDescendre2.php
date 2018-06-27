@@ -12,9 +12,7 @@
     return $textcolour;
   }
 
-  $username = 'root';
-  $password = '';
-  $connection = new PDO( 'mysql:host=localhost;dbname=scrum', $username, $password ); 
+require_once ('../Modele/Configs.php');
 
   if(isset($_POST["action"])) 
   {

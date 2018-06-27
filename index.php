@@ -1,9 +1,9 @@
 <?php
+
 session_start();
 
 require_once ('Modele/Configs.php');
-include("Vues/header.php");
-
+require_once("Vues/header.php");
 
 if(!isset($_REQUEST['vue']))
 {
@@ -15,43 +15,43 @@ $vue = $_REQUEST['vue'];
 switch($vue)
 {
     case 'Acceuil':
-        include("Vues/Dashboard.php");
+        require_once("Vues/Dashboard.php");
   break;
 
     case 'Sprint':
-        include("Vues/CreerSprint.php");
+        require_once("Vues/CreerSprint.php");
   break;
 
     case 'Attribution':
-        include("Vues/AttributionHeures.php");
+        require_once("Vues/AttributionHeures.php");
   break;
 
   case 'Descendation':
-        include("Vues/HeuresDescendues.php");
+        require_once("Vues/HeuresDescendues.php");
   break;
 
     case 'Burndownchart':
-        include("Vues/BurnDownChart.php");
+        require_once("Vues/BurnDownChart.php");
   break;
 
       case 'GestionSprint':
-        include("Vues/Gestion_Sprint.php");
+        require_once("Vues/Gestion_Sprint.php");
   break;
 
 case 'GestionDescendation':
-        include("Vues/Gestion_HeuresDescendues.php");
+        require_once("Vues/Gestion_HeuresDescendues.php");
   break;
 
 case 'GestionEmploye':
-        include("Vues/Gestion_Employe.php");
+        require_once("Vues/Gestion_Employe.php");
   break;
 
   case 'Parametres':
-        include("Vues/Gestion_Parametres.php");
+        require_once("Vues/Gestion_Parametres.php");
   break;
 
     case 'Objectifs':
-        include("Vues/Objectifs.php");
+        require_once("Vues/Objectifs.php");
   break;
 
     default:
@@ -60,7 +60,7 @@ case 'GestionEmploye':
   break;
 }
 
-include("Vues/footer.php");
+require_once("Vues/footer.php");
 
 ?>
 

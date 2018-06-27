@@ -3,8 +3,6 @@
   <div class="content-wrapper">
     <div class="container">
 
-
-
       <div class="input-group mb-12">
         <div class="input-group-prepend">
           <span class="input-group-text">Sprint n°</span>
