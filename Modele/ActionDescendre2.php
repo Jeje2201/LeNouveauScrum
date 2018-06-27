@@ -19,7 +19,7 @@
   if(isset($_POST["action"])) 
   {
 
-   if($_POST["action"] == "Load") 
+   if($_POST["action"] == "AfficherCards") 
    {
     $Test = new stdClass;
 

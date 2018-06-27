@@ -85,19 +85,17 @@
 
     $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
 
-
     RemplirListeEmploye();
-    fetchUser();
+    AfficherCards();
 
-
-    function fetchUser() 
+    function AfficherCards() 
     {
       var idAffiche = $('#numeroSprint').val();
       var idEmploye = $('#numeroEmploye').val();
-      var action = "Load";
+      var action = "AfficherCards";
       $.ajax({
        url : "Modele/ActionDescendre2.php", 
-       method:"POST", 
+       method:"POST",
        data:{action:action, idAffiche:idAffiche, idEmploye:idEmploye}, 
        success:function(data){
         $('#EnCours').html(data.Attribution); 
@@ -123,7 +121,8 @@
       var action = "LoadListEmployes";
       $.ajax({
         url : "Modele/ActionDescendre2.php", 
-        method:"POST", 
+        method:"POST",
+        async: false,
         data:{action:action, idAffiche:idAffiche}, 
         success:function(data){
           $('#ListeEmploye').html(data.Attribution); 
@@ -133,9 +132,13 @@
     }
 
 
-    $('#numeroSprint, #numeroEmploye').change(function(){
-      fetchUser();
+    $('#numeroSprint').change(function(){
       RemplirListeEmploye();
+      AfficherCards();
+      });
+
+    $('#ListeEmploye').change(function(){
+      AfficherCards();
     });
 
     $('#action').click(function(){
@@ -155,13 +158,13 @@
         data:{IdAttribue:IdAttribue, action:action, LeJourDeDescente:LeJourDeDescente}, 
         success:function(data){
          BootstrapAlert(data);
-         fetchUser();    
+         AfficherCards();    
        }
      });
      }
      else
      {
-       alert("Tu dois d'abord déplacer au moins une tâche en cours dans tâche terminée."); 
+       alert("Tu dois d'abord déplacer au moins une tâche de son emplacement \"en cours\" -> \"terminée.\""); 
      }
 
    });
