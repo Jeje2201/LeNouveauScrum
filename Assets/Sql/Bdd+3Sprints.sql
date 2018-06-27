@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 15 juin 2018 à 11:53
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  mer. 27 juin 2018 à 14:32
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `attribution` (
   KEY `FK_Attribution_id_Projet` (`id_Projet`),
   KEY `FK_Attribution_id_Caracteristiques` (`id_Caracteristiques`),
   KEY `FK_Attribution_id_TypeTache` (`id_TypeTache`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `attribution`
@@ -145,7 +145,20 @@ INSERT INTO `attribution` (`id`, `heure`, `id_Sprint`, `id_Employe`, `id_Projet`
 (93, 20, 3, 43, 30, NULL, NULL),
 (94, 35, 3, 7, 30, NULL, NULL),
 (95, 28, 3, 42, 30, NULL, NULL),
-(96, 14, 3, 33, 30, NULL, NULL);
+(96, 14, 3, 33, 30, NULL, NULL),
+(97, 5, 4, 46, 51, NULL, NULL),
+(98, 6, 4, 46, 69, NULL, NULL),
+(99, 5, 4, 46, 27, NULL, NULL),
+(100, 3, 4, 46, 27, NULL, NULL),
+(101, 3, 4, 49, 51, NULL, NULL),
+(102, 4, 4, 49, 69, NULL, NULL),
+(103, 5, 4, 49, 27, NULL, NULL),
+(104, 5, 4, 54, 51, NULL, NULL),
+(105, 6, 4, 54, 69, NULL, NULL),
+(106, 7, 4, 54, 27, NULL, NULL),
+(107, 5, 4, 14, 51, NULL, NULL),
+(108, 8, 4, 14, 69, NULL, NULL),
+(109, 9, 4, 14, 27, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -533,58 +546,68 @@ CREATE TABLE IF NOT EXISTS `employe` (
   PRIMARY KEY (`id`),
   KEY `FK_Employe_id_TypeEmploye` (`id_TypeEmploye`),
   KEY `FK_Employe_id_Poste` (`id_Poste`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `employe`
 --
 
 INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id_TypeEmploye`, `id_Poste`) VALUES
-(1, 'AD', 'Abel', 'Delannoy', NULL, 0, NULL, NULL),
-(2, 'AS', 'Almudena', 'SanRoman', NULL, 0, NULL, NULL),
-(3, 'AS', 'Amandine', 'Sahl', NULL, 0, NULL, NULL),
-(4, 'AM', 'Antoine', 'Micelli', NULL, 0, NULL, NULL),
-(5, 'CR', 'Cecile', 'Robin', NULL, 0, NULL, NULL),
-(6, 'CS', 'Cedric', 'Seguin', NULL, 0, NULL, NULL),
-(7, 'CV', 'Celine', 'Vidal', NULL, 0, NULL, NULL),
-(8, 'CK', 'Christelle', 'Khozian', NULL, 0, NULL, NULL),
-(9, 'CG', 'Cyril', 'Gautreau', NULL, 0, NULL, NULL),
-(10, 'DL', 'David', 'Lassagne', NULL, 0, NULL, NULL),
-(11, 'EP', 'Eric', 'Pringels', NULL, 0, NULL, NULL),
-(12, 'FB', 'Fabien', 'Buisson', NULL, 0, NULL, NULL),
-(13, 'FF', 'Florian', 'Fauchier', NULL, 0, NULL, NULL),
-(14, 'FB', 'Frederic', 'Berton', NULL, 1, NULL, NULL),
-(15, 'GT', 'Gerald', 'Tibi', NULL, 0, NULL, NULL),
-(16, 'GF', 'Ghislain', 'Fortin', NULL, 0, NULL, NULL),
-(17, 'GB', 'Gilles', 'Bassiere', NULL, 0, NULL, NULL),
-(18, 'JT', 'Jerome', 'TenShong', NULL, 0, NULL, NULL),
-(19, 'JL', 'Jean Francois', 'Leger', NULL, 0, NULL, NULL),
-(20, 'JA', 'Jean-Vitus', 'Albertini', NULL, 1, NULL, NULL),
-(21, 'JD', 'Jeanne', 'Dauvergne', NULL, 0, NULL, NULL),
-(22, 'JL', 'Jeremy', 'Leriche', NULL, 1, NULL, NULL),
-(23, 'JC', 'Julie', 'Chabalier', NULL, 0, NULL, NULL),
-(24, 'JB', 'Julien', 'Bono', NULL, 0, NULL, NULL),
-(25, 'KS', 'Kamel', 'Sabri', NULL, 0, NULL, NULL),
-(26, 'KT', 'Khaled', 'Talbi', NULL, 0, NULL, NULL),
-(27, 'LC', 'Lea', 'Charbonnier', NULL, 0, NULL, NULL),
-(28, 'LP', 'Laura', 'Perez', NULL, 0, NULL, NULL),
-(29, 'MM', 'Marion', 'Marcoux', NULL, 0, NULL, NULL),
-(30, 'MJ', 'Matheo', 'Jaouen', NULL, 0, NULL, NULL),
-(31, 'MT', 'Mathieu', 'Thomazo', NULL, 0, NULL, NULL),
-(32, 'OR', 'Olivier', 'Robellotti', NULL, 0, NULL, NULL),
-(33, 'PD', 'Pierre', 'Delaunay', NULL, 0, NULL, NULL),
-(34, 'RF', 'Romain', 'Fabbro', NULL, 0, NULL, NULL),
-(35, 'SM', 'Sabine', 'Meneut', NULL, 0, NULL, NULL),
-(36, 'SB', 'Sandra', 'Bonnot', NULL, 0, NULL, NULL),
-(37, 'SR', 'Stephanie', 'Ritz', NULL, 0, NULL, NULL),
-(38, 'TA', 'Tamou', 'Amadha', NULL, 0, NULL, NULL),
-(39, 'TR', 'Thibault', 'Rhudel', NULL, 0, NULL, NULL),
-(40, 'TP', 'Thomas', 'Pell', NULL, 0, NULL, NULL),
-(41, 'TL', 'Tom', 'Lopez', NULL, 1, NULL, NULL),
-(42, 'VB', 'Vincent', 'Bourgeois', NULL, 0, NULL, NULL),
-(43, 'VG', 'Vivien', 'Grivaud', NULL, 0, NULL, NULL),
-(44, 'YT', 'Yacine', 'Thomazo', NULL, 0, NULL, NULL),
-(45, 'GG', 'Groupe', 'Groupe', NULL, 1, NULL, NULL);
+(1, 'AD', 'Abel', 'Delannoy', '#ffffff', 0, NULL, NULL),
+(2, 'AS', 'Almudena', 'SanRoman', '#ffffff', 0, NULL, NULL),
+(3, 'AS', 'Amandine', 'Sahl', '#ffffff', 0, NULL, NULL),
+(4, 'AM', 'Antoine', 'Micelli', '#ffffff', 0, NULL, NULL),
+(5, 'CR', 'Cecile', 'Robin', '#ffffff', 0, NULL, NULL),
+(6, 'CS', 'Cedric', 'Seguin', '#ffffff', 0, NULL, NULL),
+(7, 'CV', 'Celine', 'Vidal', '#ffffff', 0, NULL, NULL),
+(8, 'CK', 'Christelle', 'Khozian', '#ffffff', 0, NULL, NULL),
+(9, 'CG', 'Cyril', 'Gautreau', '#ffffff', 0, NULL, NULL),
+(10, 'DL', 'David', 'Lassagne', '#ffffff', 0, NULL, NULL),
+(11, 'EP', 'Eric', 'Pringels', '#ffffff', 0, NULL, NULL),
+(12, 'FB', 'Fabien', 'Buisson', '#ffffff', 0, NULL, NULL),
+(13, 'FF', 'Florian', 'Fauchier', '#ffffff', 0, NULL, NULL),
+(14, 'FB', 'Frederic', 'Berton', '#ffffff', 1, NULL, NULL),
+(15, 'GT', 'Gerald', 'Tibi', '#ffffff', 0, NULL, NULL),
+(16, 'GF', 'Ghislain', 'Fortin', '#ffffff', 0, NULL, NULL),
+(17, 'GB', 'Gilles', 'Bassiere', '#ffffff', 0, NULL, NULL),
+(18, 'JT', 'Jerome', 'TenShong', '#ffffff', 0, NULL, NULL),
+(19, 'JL', 'Jean Francois', 'Leger', '#ffffff', 0, NULL, NULL),
+(20, 'JA', 'Jean-Vitus', 'Albertini', '#ffffff', 1, NULL, NULL),
+(21, 'JD', 'Jeanne', 'Dauvergne', '#ffffff', 0, NULL, NULL),
+(22, 'JL', 'Jeremy', 'Leriche', '#ffffff', 1, NULL, NULL),
+(23, 'JC', 'Julie', 'Chabalier', '#ffffff', 0, NULL, NULL),
+(24, 'JB', 'Julien', 'Bono', '#ffffff', 0, NULL, NULL),
+(25, 'KS', 'Kamel', 'Sabri', '#ffffff', 0, NULL, NULL),
+(26, 'KT', 'Khaled', 'Talbi', '#ffffff', 0, NULL, NULL),
+(27, 'LC', 'Lea', 'Charbonnier', '#ffffff', 0, NULL, NULL),
+(28, 'LP', 'Laura', 'Perez', '#ffffff', 0, NULL, NULL),
+(29, 'MM', 'Marion', 'Marcoux', '#ffffff', 0, NULL, NULL),
+(30, 'MJ', 'Matheo', 'Jaouen', '#ffffff', 0, NULL, NULL),
+(31, 'MT', 'Mathieu', 'Thomazo', '#ffffff', 0, NULL, NULL),
+(32, 'OR', 'Olivier', 'Rovellotti', '#ffffff', 0, NULL, NULL),
+(33, 'PD', 'Pierre', 'Delaunay', '#ffffff', 0, NULL, NULL),
+(34, 'RF', 'Romain', 'Fabbro', '#ffffff', 0, NULL, NULL),
+(35, 'SM', 'Sabine', 'Meneut', '#ffffff', 0, NULL, NULL),
+(36, 'SB', 'Sandra', 'Bonnot', '#ffffff', 0, NULL, NULL),
+(37, 'SR', 'Stephanie', 'Ritz', '#ffffff', 0, NULL, NULL),
+(38, 'TA', 'Tamou', 'Amadha', '#ffffff', 0, NULL, NULL),
+(39, 'TR', 'Thibault', 'Rhudel', '#ffffff', 0, NULL, NULL),
+(40, 'TP', 'Thomas', 'Peel', '#ffffff', 0, NULL, NULL),
+(41, 'TL', 'Tom', 'Lopez', '#ffffff', 1, NULL, NULL),
+(42, 'VB', 'Vincent', 'Bourgeois', '#ffffff', 0, NULL, NULL),
+(43, 'VG', 'Vivien', 'Grivaud', '#ffffff', 0, NULL, NULL),
+(44, 'YT', 'Yacine', 'Thomazo', '#ffffff', 0, NULL, NULL),
+(45, 'GG', 'Groupe', 'Groupe', '#ffffff', 1, NULL, NULL),
+(46, 'AR', 'Angelique', 'Ries', '#ffffff', 1, NULL, NULL),
+(47, 'NH', 'Nabil', 'Hamadou', '#ffffff', 1, NULL, NULL),
+(48, 'RK', 'Romain', 'Knezevitch', '#ffffff', 0, NULL, NULL),
+(49, 'CL', 'Christophe', 'Lavagna', '#ffffff', 1, NULL, NULL),
+(50, 'HA', 'Herve', 'Aymes', '#ffffff', 0, NULL, NULL),
+(51, 'SP', 'Sebastien', 'Paris', '#ffffff', 0, NULL, NULL),
+(52, 'NF', 'Naomi', 'Fischer', '#ffffff', 1, NULL, NULL),
+(53, 'JD', 'Julien', 'Dejasmin', '#ffffff', 1, NULL, NULL),
+(54, 'EV', 'El-Makki', 'Voundy', '#ffffff', 1, NULL, NULL),
+(55, 'RG', 'Remi', 'Guijarro Espinosa', '#ffffff', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -802,7 +825,7 @@ CREATE TABLE IF NOT EXISTS `heuresdescendues` (
   KEY `FK_HeuresDescendues_id_Employe` (`id_Employe`),
   KEY `FK_HeuresDescendues_id_Projet` (`id_Projet`),
   KEY `FK_HeuresDescendues_id_Attribution` (`id_Attribution`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `heuresdescendues`
@@ -994,7 +1017,16 @@ INSERT INTO `heuresdescendues` (`id`, `heure`, `DateDescendu`, `id_Sprint`, `id_
 (183, 3, '2016-09-13', 3, 45, 30, NULL),
 (184, 3, '2016-09-14', 3, 45, 30, NULL),
 (185, 9, '2016-09-15', 3, 45, 30, NULL),
-(186, 30, '2016-09-16', 3, 45, 30, NULL);
+(186, 30, '2016-09-16', 3, 45, 30, NULL),
+(187, 4, '2018-06-26', 4, 49, 69, 102),
+(188, 5, '2018-06-26', 4, 14, 51, 107),
+(189, 5, '2018-06-27', 4, 46, 51, 97),
+(190, 5, '2018-06-27', 4, 54, 51, 104),
+(191, 3, '2018-06-29', 4, 49, 51, 101),
+(192, 6, '2018-06-29', 4, 46, 69, 98),
+(193, 7, '2018-06-29', 4, 54, 27, 106),
+(194, 9, '2018-06-30', 4, 14, 27, 109),
+(195, 5, '2018-06-30', 4, 49, 27, 103);
 
 -- --------------------------------------------------------
 
@@ -1054,11 +1086,30 @@ INSERT INTO `interference` (`id`, `heure`, `id_TypeInterference`, `id_Sprint`, `
 DROP TABLE IF EXISTS `objectif`;
 CREATE TABLE IF NOT EXISTS `objectif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_Sprint` int(11) DEFAULT NULL,
+  `id_Projet` int(11) DEFAULT NULL,
   `objectif` varchar(255) DEFAULT NULL,
   `id_StatutObjectif` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_Objectif_id_StatutObjectif` (`id_StatutObjectif`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `FK_Objectif_id_StatutObjectif` (`id_StatutObjectif`),
+  KEY `IdDuSprintDepuisObjectif` (`id_Sprint`),
+  KEY `IdDuProjetDepuisObjectif` (`id_Projet`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `objectif`
+--
+
+INSERT INTO `objectif` (`id`, `id_Sprint`, `id_Projet`, `objectif`, `id_StatutObjectif`) VALUES
+(1, 4, 51, 'je sais pas', 5),
+(2, 4, 51, 'je sais pas 2', 5),
+(3, 4, 51, 'Annule 1', 4),
+(4, 4, 51, 'Annule 2', 4),
+(5, 4, 51, 'Annule 3', 4),
+(6, 4, 51, 'En cours 1', 2),
+(7, 4, 51, 'En cours 2', 2),
+(8, 4, 51, 'Non 1', 3),
+(9, 4, 51, 'Ok 1', 1);
 
 -- --------------------------------------------------------
 
@@ -1089,85 +1140,116 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `id_TypeProjet` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Projet_id_TypeProjet` (`id_TypeProjet`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `projet`
 --
 
 INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `cheminIcone`, `id_TypeProjet`) VALUES
-(1, 'AO', NULL, NULL, NULL, NULL),
-(2, 'PIM-Atlas', NULL, NULL, NULL, NULL),
-(3, 'ecoBalade', NULL, NULL, NULL, NULL),
-(4, 'eCollection', NULL, NULL, NULL, NULL),
-(5, 'iFeedBird', NULL, NULL, NULL, NULL),
-(6, 'Multiprojets', NULL, NULL, NULL, NULL),
-(7, 'Data Centralization', NULL, NULL, NULL, NULL),
-(8, 'Tuyaux (Bonna)', NULL, NULL, NULL, NULL),
-(9, 'Noe', NULL, NULL, NULL, NULL),
-(10, 'ecoReleve Data', NULL, NULL, NULL, NULL),
-(11, 'eReleve', NULL, NULL, NULL, NULL),
-(12, 'Kitizen', NULL, NULL, NULL, NULL),
-(13, 'INPN', NULL, NULL, NULL, NULL),
-(14, 'Collier Loups', NULL, NULL, NULL, NULL),
-(15, 'BioLit', NULL, NULL, NULL, NULL),
-(16, 'FormBuilder', NULL, NULL, NULL, NULL),
-(17, 'Sauvages de ma rue PACA', NULL, NULL, NULL, NULL),
-(18, 'Mycoflore', NULL, NULL, NULL, NULL),
-(19, 'Site Web NS', NULL, NULL, NULL, NULL),
-(20, 'TRACK', NULL, NULL, NULL, NULL),
-(21, 'Photomapping', NULL, NULL, NULL, NULL),
-(22, 'ButterflyId', NULL, NULL, NULL, NULL),
-(23, 'NS Interne', NULL, NULL, NULL, NULL),
-(24, 'Renecore Apps', NULL, NULL, NULL, NULL),
-(25, 'Mon jardin', NULL, NULL, NULL, NULL),
-(26, 'Green citizen', NULL, NULL, NULL, NULL),
-(27, 'Alerting App', NULL, NULL, NULL, NULL),
-(28, 'Futback', NULL, NULL, NULL, NULL),
-(29, 'Sweet', NULL, NULL, NULL, NULL),
-(30, 'Aveyron nature', NULL, NULL, NULL, NULL),
-(31, 'Tout a pied', NULL, NULL, NULL, NULL),
-(32, 'ecoReleve Explorer', NULL, NULL, NULL, NULL),
-(33, 'Footback', NULL, NULL, NULL, NULL),
-(34, 'ecoReleve Core', NULL, NULL, NULL, NULL),
-(35, 'M-EOL', NULL, NULL, NULL, NULL),
-(36, 'Nature en Ville', NULL, NULL, NULL, NULL),
-(37, 'CAU13', NULL, NULL, NULL, NULL),
-(38, 'ecoReleve Glossaire', NULL, NULL, NULL, NULL),
-(39, 'ecoOnto', NULL, NULL, NULL, NULL),
-(40, 'geodiva', NULL, NULL, NULL, NULL),
-(41, 'GR2013 2.0', NULL, NULL, NULL, NULL),
-(42, 'Pocket', NULL, NULL, NULL, NULL),
-(43, 'Site Web Labs', NULL, NULL, NULL, NULL),
-(44, 'Armadillo', NULL, NULL, NULL, NULL),
-(45, 'PIM', NULL, NULL, NULL, NULL),
-(46, 'SIB', NULL, NULL, NULL, NULL),
-(47, 'ecoOnto-med', NULL, NULL, NULL, NULL),
-(48, 'ecoReleve Mobile', NULL, NULL, NULL, NULL),
-(49, 'Mica environnement', NULL, NULL, NULL, NULL),
-(50, 'Valo - LIF', NULL, NULL, NULL, NULL),
-(51, 'AAP FP7 environnement', NULL, NULL, NULL, NULL),
-(52, 'Carnet de plongee', NULL, NULL, NULL, NULL),
-(53, 'Curieux2Sciences', NULL, NULL, NULL, NULL),
-(54, 'EcoBalade Bidules', NULL, NULL, NULL, NULL),
-(55, 'ecoReleve', NULL, NULL, NULL, NULL),
-(56, 'ecoReleve Core/GIS', NULL, NULL, NULL, NULL),
-(57, 'eReleve-Release', NULL, NULL, NULL, NULL),
-(58, 'Faro', NULL, NULL, NULL, NULL),
-(59, 'MICA', NULL, NULL, NULL, NULL),
-(60, 'Open Data', NULL, NULL, NULL, NULL),
-(61, 'ANDD', NULL, NULL, NULL, NULL),
-(62, 'Sentiers sous-marins', NULL, NULL, NULL, NULL),
-(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, NULL, NULL),
-(64, 'Marche des collines', NULL, NULL, NULL, NULL),
-(65, 'OCK', NULL, NULL, NULL, NULL),
-(66, 'Scrum', NULL, NULL, NULL, NULL),
-(67, 'Position', NULL, NULL, NULL, NULL),
-(68, 'Biotope', NULL, NULL, NULL, NULL),
-(69, 'Airele', NULL, NULL, NULL, NULL),
-(70, 'SECAFI', NULL, NULL, NULL, NULL),
-(71, 'Support', NULL, NULL, NULL, NULL),
-(72, 'Inconnu', NULL, NULL, NULL, NULL);
+(1, 'AO', NULL, NULL, 'inconnue', NULL),
+(2, 'PIM-Atlas', NULL, NULL, 'inconnue', NULL),
+(3, 'ecoBalade', NULL, NULL, 'inconnue', NULL),
+(4, 'eCollection', NULL, NULL, 'inconnue', NULL),
+(5, 'iFeedBird', NULL, NULL, 'inconnue', NULL),
+(6, 'Multiprojets', NULL, NULL, 'inconnue', NULL),
+(7, 'Data Centralization', NULL, NULL, 'inconnue', NULL),
+(8, 'Tuyaux (Bonna)', NULL, NULL, 'inconnue', NULL),
+(9, 'Noe', NULL, NULL, 'inconnue', NULL),
+(10, 'ecoReleve Data', NULL, NULL, 'inconnue', NULL),
+(11, 'eReleve', NULL, NULL, 'inconnue', NULL),
+(12, 'Kitizen', NULL, NULL, 'inconnue', NULL),
+(13, 'INPN', NULL, NULL, 'inconnue', NULL),
+(14, 'Collier Loups', NULL, NULL, 'inconnue', NULL),
+(15, 'BioLit', NULL, NULL, 'inconnue', NULL),
+(16, 'FormBuilder', NULL, NULL, 'inconnue', NULL),
+(17, 'Sauvages de ma rue PACA', NULL, NULL, 'inconnue', NULL),
+(18, 'Mycoflore', NULL, NULL, 'inconnue', NULL),
+(19, 'Site Web NS', NULL, NULL, 'inconnue', NULL),
+(20, 'TRACK', NULL, NULL, 'inconnue', NULL),
+(21, 'Photomapping', NULL, NULL, 'inconnue', NULL),
+(22, 'ButterflyId', NULL, NULL, 'inconnue', NULL),
+(23, 'NS Interne', NULL, NULL, 'inconnue', NULL),
+(24, 'Renecore Apps', NULL, NULL, 'inconnue', NULL),
+(25, 'Mon jardin', NULL, NULL, 'inconnue', NULL),
+(26, 'Green citizen', NULL, NULL, 'inconnue', NULL),
+(27, 'Alerting App', NULL, NULL, 'inconnue', NULL),
+(28, 'Futback', NULL, NULL, 'inconnue', NULL),
+(29, 'Sweet', NULL, NULL, 'inconnue', NULL),
+(30, 'Aveyron nature', NULL, NULL, 'inconnue', NULL),
+(31, 'Tout a pied', NULL, NULL, 'inconnue', NULL),
+(32, 'ecoReleve Explorer', NULL, NULL, 'inconnue', NULL),
+(33, 'Footback', NULL, NULL, 'inconnue', NULL),
+(34, 'ecoReleve Core', NULL, NULL, 'inconnue', NULL),
+(35, 'M-EOL', NULL, NULL, 'inconnue', NULL),
+(36, 'Nature en Ville', NULL, NULL, 'inconnue', NULL),
+(37, 'CAU13', NULL, NULL, 'inconnue', NULL),
+(38, 'ecoReleve Glossaire', NULL, NULL, 'inconnue', NULL),
+(39, 'ecoOnto', NULL, NULL, 'inconnue', NULL),
+(40, 'geodiva', NULL, NULL, 'inconnue', NULL),
+(41, 'GR2013 2.0', NULL, NULL, 'inconnue', NULL),
+(42, 'Pocket', NULL, NULL, 'inconnue', NULL),
+(43, 'Site Web Labs', NULL, NULL, 'inconnue', NULL),
+(44, 'Armadillo', NULL, NULL, 'inconnue', NULL),
+(45, 'PIM', NULL, NULL, 'inconnue', NULL),
+(46, 'SIB', NULL, NULL, 'inconnue', NULL),
+(47, 'ecoOnto-med', NULL, NULL, 'inconnue', NULL),
+(48, 'ecoReleve Mobile', NULL, NULL, 'inconnue', NULL),
+(49, 'Mica environnement', NULL, NULL, 'inconnue', NULL),
+(50, 'Valo - LIF', NULL, NULL, 'inconnue', NULL),
+(51, 'AAP FP7 environnement', NULL, NULL, 'inconnue', NULL),
+(52, 'Carnet de plongee', NULL, NULL, 'inconnue', NULL),
+(53, 'Curieux2Sciences', NULL, NULL, 'inconnue', NULL),
+(54, 'EcoBalade Bidules', NULL, NULL, 'inconnue', NULL),
+(55, 'ecoReleve', NULL, NULL, 'inconnue', NULL),
+(56, 'ecoReleve Core/GIS', NULL, NULL, 'inconnue', NULL),
+(57, 'eReleve-Release', NULL, NULL, 'inconnue', NULL),
+(58, 'Faro', NULL, NULL, 'inconnue', NULL),
+(59, 'MICA', NULL, NULL, 'inconnue', NULL),
+(60, 'Open Data', NULL, NULL, 'inconnue', NULL),
+(61, 'ANDD', NULL, NULL, 'inconnue', NULL),
+(62, 'Sentiers sous-marins', NULL, NULL, 'inconnue', NULL),
+(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, 'inconnue', NULL),
+(64, 'Marche des collines', NULL, NULL, 'inconnue', NULL),
+(65, 'OCK', NULL, NULL, 'inconnue', NULL),
+(66, 'Scrum', NULL, NULL, 'inconnue', NULL),
+(67, 'Position', NULL, NULL, 'inconnue', NULL),
+(68, 'Biotope', NULL, NULL, 'inconnue', NULL),
+(69, 'Airele', NULL, NULL, 'inconnue', NULL),
+(70, 'SECAFI', NULL, NULL, 'inconnue', NULL),
+(71, 'Support', NULL, NULL, 'inconnue', NULL),
+(72, 'Inconnu', NULL, NULL, 'inconnue', NULL),
+(73, 'FEMS', NULL, NULL, 'inconnue', NULL),
+(74, 'Creamontblanc', NULL, NULL, 'inconnue', NULL),
+(75, 'Ouigreens', NULL, NULL, 'inconnue', NULL),
+(76, 'Cistude', NULL, NULL, 'inconnue', NULL),
+(77, 'Espaces verts', NULL, NULL, 'inconnue', NULL),
+(78, 'Reneco devis', NULL, NULL, 'inconnue', NULL),
+(79, 'Panda', NULL, NULL, 'inconnue', NULL),
+(80, 'ONB', NULL, NULL, 'inconnue', NULL),
+(81, 'PeekMotion', NULL, NULL, 'inconnue', NULL),
+(82, 'Balance RFID', NULL, NULL, 'inconnue', NULL),
+(83, 'Vanoise', NULL, NULL, 'inconnue', NULL),
+(84, 'Geonature interopérabilité', NULL, NULL, 'inconnue', NULL),
+(85, 'Capel', NULL, NULL, 'inconnue', NULL),
+(86, 'Alfred', NULL, NULL, 'inconnue', NULL),
+(87, 'CITES', NULL, NULL, 'inconnue', NULL),
+(88, 'SINP-Espaces verts', NULL, NULL, 'inconnue', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `retrospective`
+--
+
+DROP TABLE IF EXISTS `retrospective`;
+CREATE TABLE IF NOT EXISTS `retrospective` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Label` varchar(250) NOT NULL,
+  `DateCreation` date NOT NULL,
+  `Etat` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1191,25 +1273,8 @@ CREATE TABLE IF NOT EXISTS `sprint` (
 INSERT INTO `sprint` (`id`, `numero`, `dateDebut`, `dateFin`) VALUES
 (1, 96, '2016-07-25', '2016-08-05'),
 (2, 97, '2016-08-22', '2016-09-02'),
-(3, 98, '2016-09-05', '2016-09-16');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `sprint_projet`
---
-
-DROP TABLE IF EXISTS `sprint_projet`;
-CREATE TABLE IF NOT EXISTS `sprint_projet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_Objectif` int(11) DEFAULT NULL,
-  `id_Sprint` int(11) DEFAULT NULL,
-  `id_Projet` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_Sprint_Projet_id_Objectif` (`id_Objectif`),
-  KEY `FK_Sprint_Projet_id_Sprint` (`id_Sprint`),
-  KEY `FK_Sprint_Projet_id_Projet` (`id_Projet`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(3, 98, '2016-09-05', '2016-09-16'),
+(4, 99, '2018-06-27', '2018-07-11');
 
 -- --------------------------------------------------------
 
@@ -1235,18 +1300,20 @@ DROP TABLE IF EXISTS `statutobjectif`;
 CREATE TABLE IF NOT EXISTS `statutobjectif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) DEFAULT NULL,
+  `couleur` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `statutobjectif`
 --
 
-INSERT INTO `statutobjectif` (`id`, `nom`) VALUES
-(1, 'Ok'),
-(2, 'En cours'),
-(3, 'Non'),
-(4, 'Annule');
+INSERT INTO `statutobjectif` (`id`, `nom`, `couleur`) VALUES
+(1, 'Ok', '#95D972'),
+(2, 'En cours', '#E88648'),
+(3, 'Non', '#E8514E'),
+(4, 'Annule', '#E8514E'),
+(5, '?', '#222222');
 
 -- --------------------------------------------------------
 
@@ -1393,77 +1460,71 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Contraintes pour la table `attribution`
 --
 ALTER TABLE `attribution`
-  ADD CONSTRAINT `FK_Attribution_id_Caracteristiques` FOREIGN KEY (`id_Caracteristiques`) REFERENCES `caracteristiques` (`id`),
-  ADD CONSTRAINT `FK_Attribution_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_Attribution_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
+  ADD CONSTRAINT `FK_Attribution_id_Caracteristiques` FOREIGN KEY (`id_Caracteristiques`) REFERENCES `caracteristiques` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Attribution_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Attribution_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Attribution_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_Attribution_id_TypeTache` FOREIGN KEY (`id_TypeTache`) REFERENCES `typetache` (`id`);
+  ADD CONSTRAINT `FK_Attribution_id_TypeTache` FOREIGN KEY (`id_TypeTache`) REFERENCES `typetache` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `demo`
 --
 ALTER TABLE `demo`
-  ADD CONSTRAINT `FK_Demo_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_Demo_id_StatutDemo` FOREIGN KEY (`id_StatutDemo`) REFERENCES `statutdemo` (`id`);
+  ADD CONSTRAINT `FK_Demo_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Demo_id_StatutDemo` FOREIGN KEY (`id_StatutDemo`) REFERENCES `statutdemo` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `disponible`
 --
 ALTER TABLE `disponible`
-  ADD CONSTRAINT `FK_Disponible_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
+  ADD CONSTRAINT `FK_Disponible_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Disponible_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `employe`
 --
 ALTER TABLE `employe`
-  ADD CONSTRAINT `FK_Employe_id_Poste` FOREIGN KEY (`id_Poste`) REFERENCES `poste` (`id`),
-  ADD CONSTRAINT `FK_Employe_id_TypeEmploye` FOREIGN KEY (`id_TypeEmploye`) REFERENCES `typeemploye` (`id`);
+  ADD CONSTRAINT `FK_Employe_id_Poste` FOREIGN KEY (`id_Poste`) REFERENCES `poste` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Employe_id_TypeEmploye` FOREIGN KEY (`id_TypeEmploye`) REFERENCES `typeemploye` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `employe_projet`
 --
 ALTER TABLE `employe_projet`
-  ADD CONSTRAINT `FK_Employe_Projet_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_Employe_Projet_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`);
+  ADD CONSTRAINT `FK_Employe_Projet_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Employe_Projet_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `heuresdescendues`
 --
 ALTER TABLE `heuresdescendues`
-  ADD CONSTRAINT `FK_HeuresDescendues_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_HeuresDescendues_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
+  ADD CONSTRAINT `FK_HeuresDescendues_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_HeuresDescendues_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_HeuresDescendues_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `heuresdescendues_ibfk_1` FOREIGN KEY (`id_Attribution`) REFERENCES `attribution` (`id`);
+  ADD CONSTRAINT `heuresdescendues_ibfk_1` FOREIGN KEY (`id_Attribution`) REFERENCES `attribution` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `interference`
 --
 ALTER TABLE `interference`
-  ADD CONSTRAINT `FK_Interference_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`),
-  ADD CONSTRAINT `FK_Interference_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
+  ADD CONSTRAINT `FK_Interference_id_Employe` FOREIGN KEY (`id_Employe`) REFERENCES `employe` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Interference_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Interference_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_Interference_id_TypeInterference` FOREIGN KEY (`id_TypeInterference`) REFERENCES `typeinterference` (`id`);
+  ADD CONSTRAINT `FK_Interference_id_TypeInterference` FOREIGN KEY (`id_TypeInterference`) REFERENCES `typeinterference` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `objectif`
 --
 ALTER TABLE `objectif`
-  ADD CONSTRAINT `FK_Objectif_id_StatutObjectif` FOREIGN KEY (`id_StatutObjectif`) REFERENCES `statutobjectif` (`id`);
+  ADD CONSTRAINT `FK_Objectif_id_StatutObjectif` FOREIGN KEY (`id_StatutObjectif`) REFERENCES `statutobjectif` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `objectif_ibfk_1` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `objectif_ibfk_2` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `projet`
 --
 ALTER TABLE `projet`
-  ADD CONSTRAINT `FK_Projet_id_TypeProjet` FOREIGN KEY (`id_TypeProjet`) REFERENCES `typeprojet` (`id`);
-
---
--- Contraintes pour la table `sprint_projet`
---
-ALTER TABLE `sprint_projet`
-  ADD CONSTRAINT `FK_Sprint_Projet_id_Objectif` FOREIGN KEY (`id_Objectif`) REFERENCES `objectif` (`id`),
-  ADD CONSTRAINT `FK_Sprint_Projet_id_Projet` FOREIGN KEY (`id_Projet`) REFERENCES `projet` (`id`),
-  ADD CONSTRAINT `FK_Sprint_Projet_id_Sprint` FOREIGN KEY (`id_Sprint`) REFERENCES `sprint` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_Projet_id_TypeProjet` FOREIGN KEY (`id_TypeProjet`) REFERENCES `typeprojet` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
