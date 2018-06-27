@@ -15,6 +15,10 @@
 	<link href="Assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
 	<link href="Assets/css/sb-admin.css" rel="stylesheet">
 	<!-- Classe pour le Hightsharr-->
+
+
+	<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 	
 </head>
 <body>
@@ -119,3 +123,7 @@
 <script src="Assets/Js/ReductionNav.js"></script>
 <script src="Assets/Js/jsPDF.js"></script>
 <script src="Assets/Js/exporting.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>

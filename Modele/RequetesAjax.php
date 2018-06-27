@@ -51,6 +51,28 @@
      echo $output;
      break;
 
+     case 'TableauDeSprint2':
+      $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+
+         $test["numero"] = $row["numero"];
+         $test["dateDebut"] = $row["dateDebut"];
+         $test["dateFin"] = $row["dateFin"];
+         $test["id"] = $row["id"];
+
+          echo json_encode($test);
+
+       }
+
+     }
+    
+     break;
+
 }
 }
 ?>

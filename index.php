@@ -18,6 +18,10 @@ switch($vue)
         require_once("Vues/Dashboard.php");
   break;
 
+      case 'yolo':
+        require_once("Vues/Gestion_Sprint2.php");
+  break;
+
     case 'Sprint':
         require_once("Vues/CreerSprint.php");
   break;
