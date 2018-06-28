@@ -26,6 +26,7 @@
 
         <div class="card mb-3">
             <div class="card-body">
+
               <center>
                   <div class="btn-group" role="group" aria-label="Basic example">
                       <button type="button" id="BoutonEmployes" class="btn btn-warning btn-xs update">Employés</button>
@@ -68,7 +69,6 @@
 
 
       <script>
-
 
         $( document ).ready(function() {
           Test($('#sprintIdList').val(),1);

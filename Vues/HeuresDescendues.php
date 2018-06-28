@@ -78,10 +78,12 @@
     </div>
   </div>
 </div>
-
+<audio id="audio" src="Assets\Audio\Woosh.ogg" ></audio>
 <script>
 
   $(document).ready(function(){
+
+    var audio = document.getElementById("audio");
 
     $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
 
@@ -177,7 +179,9 @@
   });
 
   function DeplaceToi(id) { 
-    console.log('wow');
+   
+    audio.play();
+    
     if($(id).parent().attr('id') == 'EnCours'){
       $(id).prependTo($("#Fini"));
       $(id).addClass('border-danger')
