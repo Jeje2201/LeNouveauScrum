@@ -45,6 +45,8 @@
 
   $(document).ready(function(){
 
+    BarreDeRecherche('BarreDeRecherche','result');
+
  fetchUser(); //This function will load all data on web page when page load
 
  $('#dateDebut').datetimepicker({
@@ -56,13 +58,6 @@
   format: 'yyyy-mm-dd',
   autoclose: true,
   minView : 2
-});
-
- $("#BarreDeRecherche").on("keyup", function() {
-  var value = $(this).val().toLowerCase();
-  $("#myTable tr").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-  });
 });
 
  function fetchUser() // This function will fetch data from table and display under <div id="result">

@@ -106,10 +106,10 @@
 
   $(document).ready(function(){
 
-     RemplirListSprint() 
-    fetchUser(); 
+     RemplirListSprint('ListSrint');
+    RemplirTableau(); 
 
-    function fetchUser() 
+    function RemplirTableau() 
     {
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
@@ -135,7 +135,7 @@
     }
 
     $('#numeroSprint').change(function(){
-      fetchUser();
+      RemplirTableau();
       $('td:nth-child(4),th:nth-child(4)').hide();
     });
 
@@ -170,7 +170,7 @@
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();    
+         RemplirTableau();    
        }
      });
      }
@@ -193,7 +193,7 @@
         success:function(data){
          BootstrapAlert(data);
          $('#Modalretrospective').modal('hide'); 
-         fetchUser();    
+         RemplirTableau();    
        }
      });
      }
@@ -212,7 +212,7 @@
        data:{id:id, action:action},
        success:function(data){
         BootstrapAlert(data);
-        fetchUser();
+        RemplirTableau();
       }
     });
     });
@@ -248,7 +248,7 @@
         data:{id:id, action:action}, 
         success:function(data)
         {
-         fetchUser();    
+         RemplirTableau();    
          BootstrapAlert(data);
        }
      })

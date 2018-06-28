@@ -123,6 +123,7 @@
 <script src="Assets/Js/jsPDF.js"></script>
 <script src="Assets/Js/exporting.js"></script>
 <script src="Assets/Js/RemplirListSprint.js"></script>
+<script src="Assets/Js/BarreDeRecherche.js"></script>
 
 
 <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>

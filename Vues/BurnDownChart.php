@@ -47,7 +47,7 @@
 
 			$( document ).ready(function() {
 
-				RemplirListSprint();
+				RemplirListSprint('ListSrint');
 				MettreChartAJour($("#numeroSprint option:selected").text());//au lancement de la page, afficher la burndownchart avec le numero de la liste
 
 			});
@@ -75,7 +75,7 @@ $( "#ListSrint" ).change(function() {
 						else
 							$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");
 
-						if(typeof Total[2][0] == 'undefined')
+						if(Total[2][0] == null)
 							$("#Seuil").html("Seuil: <b>Inconnue</b>");
 						else
 							$("#Seuil").html("Seuil: <b>"+parseInt(Total[2][0])+"h</b>");
@@ -85,7 +85,7 @@ $( "#ListSrint" ).change(function() {
 						else
 							$("#TotalHResteADescendre").html("Heures restante à descendre: <b>"+(Total[0][Total[0].length-1])+"h</b>");
 
-						if((typeof Total[2][0] == 'undefined') || (typeof Total[0][0] == 'undefined'))
+						if((Total[2][0] == null ) || (typeof Total[0][0] == 'undefined'))
 							$("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil compris): <b>Inconnue</b>");
 						else
 							$("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil compris): <b>"+((Total[0][Total[0].length-1])-(parseInt(Total[2][0])))+"h</b>");

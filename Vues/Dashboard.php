@@ -57,7 +57,7 @@
       <script>
 
         $( document ).ready(function() {
-          RemplirListSprint() 
+          RemplirListSprint('ListSrint') 
           Test($('#numeroSprint').val(),1);
         
 

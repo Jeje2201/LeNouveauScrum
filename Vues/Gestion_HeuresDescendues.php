@@ -73,8 +73,10 @@
 
   $(document).ready(function(){
 
-    RemplirListSprint();
+    RemplirListSprint('ListSrint');
     ChargerTableau(); 
+    
+    BarreDeRecherche('BarreDeRecherche','result');
     
     function ChargerTableau() 
     {

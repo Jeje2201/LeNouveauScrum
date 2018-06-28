@@ -70,7 +70,7 @@
 
   $(document).ready(function(){
 
-    RemplirListSprint() 
+    RemplirListSprint('ListSrint') 
     RemplirListeEmploye();
     AfficherCards();
 

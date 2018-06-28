@@ -22,7 +22,7 @@
 
       <div class="mb-3">
 
-        <div id="result" class="table-responsive"></div>
+        <div id="TableListHeuresAttribuees" class="table-responsive"></div>
 
       </div>
     </div>
@@ -80,15 +80,11 @@
 
   $(document).ready(function(){
 
-    RemplirListSprint() 
-    RemplirTableau(); 
+    RemplirListSprint('ListSrint');
 
-    $("#BarreDeRecherche").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
+    RemplirTableau();
+
+    BarreDeRecherche('BarreDeRecherche','TableListHeuresAttribuees');
 
     function RemplirTableau() 
     {
@@ -99,7 +95,7 @@
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
-        $('#result').html(data); 
+        $('#TableListHeuresAttribuees').html(data); 
       }
     });
     }
