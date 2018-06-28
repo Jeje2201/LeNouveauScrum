@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">Nombre de jours pour 1 sprint</label>
 						<input type="number" class="form-control" name="NbJoursParSprint" id="NbJoursParSprint" value="14" min="1">
-						<small class="form-text text-muted">Exemple; "14" veut dire qu'un sprint aura une durée de 14 jours.</small>
+						<small class="form-text text-muted">Exemple; "14" veut dire que lors de la création d'un sprint, la différence entre les deux date sera de 14 jours.</small>
 					</div>
 
 					<div class="form-group">
@@ -19,9 +19,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Temps affichage popup</label>
+						<label for="exampleInputEmail1">Temps d'affichage de la popup</label>
 						<input type="number" class="form-control" id="TempsAffichagePopup" step='0.1' value="1.5" min="0.5">
-						<small class="form-text text-muted">Exemple; "1,5" veut dire que la popup ne s'affichera que 1,5s</small>
+						<small class="form-text text-muted">Exemple; "1,5" veut dire que la popup ne s'affichera que 1,5s (0.5 est le minimum et me dis pas que c'est trop long)</small>
 						<button  class="btn btn-primary" onClick="Popup()">Tester</button>
 					</div>
 

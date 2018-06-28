@@ -36,7 +36,7 @@ require_once ('../Modele/Configs.php');
         <td>'.$row["TypeJob"].'</td>
         <td style="background-color:'.$row["Couleur"].'"></td>
         <td>'.$row["Actif"].'</td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Changer</button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Supprimer</button></div></center></td>
+        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
       }
