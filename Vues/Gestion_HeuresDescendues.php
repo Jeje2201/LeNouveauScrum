@@ -12,7 +12,7 @@
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="result" class="table-responsive"></div>
+          <div id="TableauHeuresDescendues" class="table-responsive"></div>
           
         </div>
       </div>
@@ -75,8 +75,7 @@
 
     RemplirListSprint('ListSrint');
     ChargerTableau(); 
-    
-    BarreDeRecherche('BarreDeRecherche','result');
+    BarreDeRecherche('BarreDeRecherche','TableauHeuresDescendues');
     
     function ChargerTableau() 
     {
@@ -87,7 +86,7 @@
        method:"POST", 
        data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
-        $('#result').html(data); 
+        $('#TableauHeuresDescendues').html(data); 
       }
     });
     }
