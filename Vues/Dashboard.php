@@ -16,8 +16,8 @@
 
               <center>
                   <div class="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" id="BoutonEmployes" class="btn btn-warning btn-xs update">Employés</button>
-                      <button type="button" id="BoutonProjets" class="btn btn-danger btn-xs delete">Projets</button>
+                      <button type="button" id="BoutonEmployes" class="btn btn-warning update">Employés</button>
+                      <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
                   </div>
                 </center>
               <div id="HeureDescenduParEmploye"></div>

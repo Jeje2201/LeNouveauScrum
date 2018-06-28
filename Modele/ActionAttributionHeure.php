@@ -33,7 +33,7 @@ require_once ('../Modele/Configs.php');
         <td>'.$row["employe"].'</td>
         <td>'.$row["projet"].'</td>
         <td>'.$row["NbHeure"].'</td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger btn-xs delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
       }
