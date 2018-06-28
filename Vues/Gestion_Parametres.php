@@ -2,7 +2,7 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 			<div class="card mb-3">
-				<div class="card-header">Gérer Sprint</div>
+				<div class="card-header">Paramètres</div>
 				<div class="card-body">
 					<!-- Selectionner le sprint sur lequel l'on va jouer -->
 
@@ -20,8 +20,9 @@
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">Temps affichage popup</label>
-						<input type="number" class="form-control" id="TempsAffichagePopup" step='100' value="1500" min="0">
-						<small class="form-text text-muted">Exemple; "1500" veut dire que lors d'actions, la popup s'affichera 1.5s (soit 1500 ms)</small>
+						<input type="number" class="form-control" id="TempsAffichagePopup" step='0.1' value="1.5" min="0.5">
+						<small class="form-text text-muted">Exemple; "1,5" veut dire que la popup ne s'affichera que 1,5s</small>
+						<button  class="btn btn-primary" onClick="Popup()">Tester</button>
 					</div>
 
 				</div>
@@ -36,9 +37,14 @@
 		</div>
 		<script>
 
+			function Popup(){ 
+				Set();
+BootstrapAlert('Je suis un test :D');
+		};
+
 			var Set = function(){ //la fonction démarre et met dans "changement" soit 1 ou -1
 			localStorage.setItem("NbJoursParSprint",$('#NbJoursParSprint').val());
-			localStorage.setItem("TempsAffichagePopup",$('#TempsAffichagePopup').val());
+			localStorage.setItem("TempsAffichagePopup",$('#TempsAffichagePopup').val()*1000);
 
 		};
 
