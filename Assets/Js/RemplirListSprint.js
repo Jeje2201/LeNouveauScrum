@@ -1,4 +1,4 @@
-        function RemplirListSprint() 
+        function RemplirListSprint(DivId) 
     {
 
       var action = "ListeDeroulanteSprint";
@@ -8,7 +8,7 @@
        async: false,
        data:{action:action}, 
        success:function(data){
-        $('#ListSrint').html(data); 
+        $('#'+DivId+'').html(data); 
       }
     });
     }
