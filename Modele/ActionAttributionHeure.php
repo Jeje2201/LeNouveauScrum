@@ -5,7 +5,7 @@ require_once ('../Modele/Configs.php');
    if(isset($_POST["action"])) 
    {
 
-     if($_POST["action"] == "Load") 
+     if($_POST["action"] == "RemplirTableau") 
      {
       $numero = $_POST["idAffiche"];
       $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");

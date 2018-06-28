@@ -73,6 +73,30 @@
     
      break;
 
-}
+     case 'ListeDeroulanteSprint':
+
+      $statement = $connection->prepare("SELECT id as id, numero as numero from sprint order by numero desc");
+
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output2 = '<select class="form-control"  id="numeroSprint" name="numeroSprint">';
+
+      if($statement->rowCount() > 0)
+      {
+        foreach($result as $row)
+          {
+
+            $output2.='<option value="'.$row["id"].'"> '.$row["numero"].' </option>';
+
+          }
+
+        $output2 .= '</select>';
+      }
+
+      echo $output2;
+          
+      break;
+
+      }
 }
 ?>

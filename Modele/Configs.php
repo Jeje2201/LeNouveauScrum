@@ -5,8 +5,7 @@
     $BddTableName = "scrum";
     $ProjectFolderName = "ScrumManager";
 
-    //Etablir la connexion a la bdd en mysqli
-    $conn = new mysqli($HostName, $HostUsername, $HostPassword, $BddTableName) 
+$conn = new mysqli($HostName, $HostUsername, $HostPassword, $BddTableName) 
     or die ('Cannot connect to db');
 
     //Etablir la connexion pour les requetes ajax

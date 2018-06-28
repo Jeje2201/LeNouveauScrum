@@ -6,19 +6,8 @@
       <div class="input-group mb-12">
         <div class="input-group-prepend">
           <span class="input-group-text">Sprint n°</span>
+          <div id="ListSrint"></div>
         </div>
-        <select class="form-control"  id="numeroSprint" name="numeroSprint">
-          <?php
-          $result = $conn->query("select id, numero from sprint order by numero desc");
-
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $numero);
-            $id = $row['id'];
-            $numero = $row['numero']; 
-            echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-          }
-          ?> 
-        </select>
 
         <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
 
@@ -97,12 +86,29 @@
       });
     });
 
-    fetchUser(); 
 
-    function fetchUser() 
+RemlplirListSprint() 
+    RemplirTableau(); 
+
+        function RemlplirListSprint() 
+    {
+
+      var action = "ListeDeroulanteSprint";
+      $.ajax({
+       url : "Modele/RequetesAjax.php", 
+       method:"POST", 
+       async: false,
+       data:{action:action}, 
+       success:function(data){
+        $('#ListSrint').html(data); 
+      }
+    });
+    }
+
+    function RemplirTableau() 
     {
       var idAffiche = $('#numeroSprint').val();
-      var action = "Load";
+      var action = "RemplirTableau";
       $.ajax({
        url : "Modele/ActionAttributionHeure.php", 
        method:"POST", 
@@ -114,7 +120,7 @@
     }
 
     $('#numeroSprint').change(function(){
-      fetchUser();
+      RemplirTableau();
     });
 
     $('#modal_button').click(function(){
@@ -139,7 +145,7 @@
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();    
+         RemplirTableau();    
        }
      });
      }
@@ -181,7 +187,7 @@
         data:{id:id, action:action}, 
         success:function(data)
         {
-         fetchUser();    
+         RemplirTableau();    
          BootstrapAlert(data);
        }
      })
