@@ -136,9 +136,7 @@ if(action == 'Update') {
   }
 });
 
-
 }
-
 
 } );
     }
@@ -156,7 +154,6 @@ if(action == 'Update') {
       autoclose: true,
       minView : 2
     });
-
 
  
  $('#action').click(function(){
@@ -183,7 +180,5 @@ if(action == 'Update') {
    alert("Tous les champs doivent être plein."); 
  }
 });
-
-
 
 </script>

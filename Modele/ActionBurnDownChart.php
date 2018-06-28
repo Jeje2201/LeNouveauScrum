@@ -5,7 +5,6 @@ require_once ('../Modele/Configs.php');
    if(isset($_POST["action"])) 
    {
 
-
     if($_POST["action"] == "GetTotalADescendre")
     {
 

@@ -60,7 +60,6 @@ Pour toute erreur découverte, merci de la reporter dans la section erreur (http
 * [Datetimepicker](https://eonasdan.github.io/bootstrap-datetimepicker/) - Plugin pour avoir une sélection de date plus propre.
 * [Highcharts](https://www.highcharts.com/) - Plugin pour créer les graph interactif.
 
-
 ## Autheur 👨‍💻
 
 **[Leriche Jérémy](http://mrjeje.esy.es/)**

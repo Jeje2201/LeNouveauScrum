@@ -67,7 +67,6 @@
 
       </body>
 
-
       <script>
 
         $( document ).ready(function() {
@@ -81,7 +80,6 @@
         $('#BoutonProjets').click(function(){
           Test($('#sprintIdList').val(),2);
         });
-
 
         function Test(NumeroduSprint, affichage){
 
@@ -153,7 +151,6 @@
               });
               }
               else{
-
 
               Highcharts.chart('HeureDescenduParEmploye', {
                 chart: {
@@ -233,20 +230,9 @@ Highcharts.chart('PieChartStatueObjectif', {
     }]
 });
 
-
             }
           });
 
-
-
-
-
-
-
         }
-
-
-
-
 
       </script>

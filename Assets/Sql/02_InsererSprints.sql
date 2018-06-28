@@ -1,7 +1,6 @@
 
 USE scrum;
 
-
 INSERT INTO `sprint` (`id`, `numero`, `dateDebut`, `dateFin`) VALUES
 (1, '96', '2016-07-25', '2016-08-05'),
 (2, '97', '2016-08-22', '2016-09-02'),
@@ -410,7 +409,6 @@ INSERT INTO `disponible` (`id`, `DateValable`, `heure`, `id_Sprint`, `id_Employe
 (300, '2016-09-16', 2, 3, 42),
 (301, '2016-09-16', 2, 3, 33);
 
-
 INSERT INTO `heuresdescendues` (`id`, `heure`, `DateDescendu`, `id_Sprint`, `id_Employe`, `id_Projet`) VALUES
 (1, 1, '2016-07-26', 1, 45, 1),
 (2, 1, '2016-07-28', 1, 45, 1),
@@ -624,5 +622,4 @@ INSERT INTO `interference` (`id`, `heure`, `id_TypeInterference`, `id_Sprint`, `
 (20, 3, 1, 3, 23, 33),
 (21, 28, 1, 3, 30, 42),
 (22, 2, 4, 3, 3, 33);
-
 

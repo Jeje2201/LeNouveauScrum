@@ -21,7 +21,6 @@
 							<select class="form-control"  id="sprintIdList" onchange="misajour($('#sprintIdList').val())">
 								<?php
 
-
 								$result = $conn->query("select id, numero from sprint order by numero desc");
 
 								while ($row = $result->fetch_assoc()) {

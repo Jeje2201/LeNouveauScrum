@@ -6,8 +6,6 @@
             <div class="card-body">
               <!-- Selectionner le sprint sur lequel l'on va jouer -->
 
-
-
       <div class="input-group mb-12">
         <div class="input-group-prepend">
           <span class="input-group-text">Sprint n°</span>
@@ -132,7 +130,6 @@
     });
 
     }
-
 
     $('#numeroSprint').change(function(){
       RemplirListeEmploye();

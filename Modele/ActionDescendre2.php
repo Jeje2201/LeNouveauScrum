@@ -65,8 +65,6 @@ require_once ('../Modele/Configs.php');
     }
   }
 
-
-
   if($_POST["idEmploye"] == "ToutLeMonde")
    $Requete2 = "AND id_Employe in (select id from employe)";
  else
@@ -132,7 +130,6 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-
 $output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
 
 }
@@ -178,7 +175,6 @@ if($_POST["action"] == "DateMinMax")
 
 }
 
-
 if($_POST["action"] == "Descendre")
 {
 
@@ -186,7 +182,6 @@ if($_POST["action"] == "Descendre")
   $IdAttribue = $_POST["IdAttribue"];
 
   for($i=0;$i < sizeof($IdAttribue) ;$i++){
-
 
     $statement = $connection->prepare("
       INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)

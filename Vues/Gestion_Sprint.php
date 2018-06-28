@@ -2,8 +2,6 @@
     <div class="content-wrapper">
       <div class="container">
 
-
-
         <div class="form-row">
           <div class="col-md-9">
             <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
@@ -150,6 +148,5 @@
  }
 });
 });
-
 
 </script>

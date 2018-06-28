@@ -53,7 +53,6 @@ require_once ('../Modele/Configs.php');
    echo $output;
  }
 
-
  if($_POST["action"] == "retrospective") 
      {
       $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label
@@ -101,8 +100,6 @@ require_once ('../Modele/Configs.php');
    $output .= '</tbody></table>';
    echo $output;
  }
-
-
 
  if($_POST["action"] == "Créer")
  {

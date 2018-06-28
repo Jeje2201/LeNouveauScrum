@@ -25,7 +25,6 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY
       $HDescendue = [];
       $Hattribue = [];
 
-
       foreach ($result as $row) {
 
        $employe[] = $row['employe'];
@@ -65,8 +64,6 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY 
      $array[] = $HDescendueProjet;
      $array[] = $HattribueProjet;
 
-
-
       $statement = $connection->prepare(
       $sql = "SELECT COUNT(id) as Nombre, (SELECT statutobjectif.nom from statutobjectif WHERE statutobjectif.id = objectif.id_StatutObjectif) as Statut
       from objectif
@@ -77,7 +74,6 @@ where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY 
       
       $statement->execute();
       $result = $statement->fetchAll();
-
 
       $Total = [];
 

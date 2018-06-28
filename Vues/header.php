@@ -16,7 +16,6 @@
 	<link href="Assets/css/sb-admin.css" rel="stylesheet">
 	<!-- Classe pour le Hightsharr-->
 
-
 	<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	
