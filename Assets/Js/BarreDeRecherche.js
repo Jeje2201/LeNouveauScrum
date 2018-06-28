@@ -1,6 +1,11 @@
-$("#BarreDeRecherche").on("keyup", function() {
+   
+function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche){
+
+    $("#"+IdDivBarreDeRecherche+"").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
+      $("#"+IdTableRecherche+" tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
+
+}
