@@ -5,18 +5,7 @@
         <div class="mb-3">
           <div class="form-row">
             <div class="col-md-10">
-              <select class="form-control"  id="numeroSprint" name="numeroSprint">
-                <?php
-                $result = $conn->query("select id, numero from sprint order by numero desc");
-
-                while ($row = $result->fetch_assoc()) {
-                  unset($id, $numero);
-                  $id = $row['id'];
-                  $numero = $row['numero']; 
-                  echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                }
-                ?> 
-              </select>
+              <div id="ListSrint"></div>
             </div>
           </div>
           <br />
@@ -84,16 +73,10 @@
 
   $(document).ready(function(){
 
-    $("#BarreDeRecherche").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-
-    fetchUser(); 
-
-    function fetchUser() 
+    RemplirListSprint();
+    ChargerTableau(); 
+    
+    function ChargerTableau() 
     {
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
@@ -108,7 +91,7 @@
     }
 
     $('#numeroSprint').change(function(){
-      fetchUser();
+      ChargerTableau();
     });
 
     $('#action').click(function(){
@@ -128,7 +111,7 @@
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();    
+         ChargerTableau();    
        }
      });
      }
@@ -171,7 +154,7 @@
         data:{id:id, action:action}, 
         success:function(data)
         {
-         fetchUser();    
+         ChargerTableau();    
          BootstrapAlert(data);
        }
      })

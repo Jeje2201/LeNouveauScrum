@@ -4,10 +4,11 @@
     <div class="container">
 
       <div class="input-group mb-12">
+        
         <div class="input-group-prepend">
           <span class="input-group-text">Sprint n°</span>
-          <div id="ListSrint"></div>
         </div>
+        <div id="ListSrint"></div>
 
         <button type="button" id="modal_button" class="btn btn-info">Planifier une tâche</button>
 
@@ -79,31 +80,15 @@
 
   $(document).ready(function(){
 
+    RemplirListSprint() 
+    RemplirTableau(); 
+
     $("#BarreDeRecherche").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#myTable tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
-
-
-RemlplirListSprint() 
-    RemplirTableau(); 
-
-        function RemlplirListSprint() 
-    {
-
-      var action = "ListeDeroulanteSprint";
-      $.ajax({
-       url : "Modele/RequetesAjax.php", 
-       method:"POST", 
-       async: false,
-       data:{action:action}, 
-       success:function(data){
-        $('#ListSrint').html(data); 
-      }
-    });
-    }
 
     function RemplirTableau() 
     {

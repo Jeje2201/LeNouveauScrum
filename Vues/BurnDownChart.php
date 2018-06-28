@@ -14,24 +14,11 @@
 				<div class="card col-sm-3">
 					<div class="card-body">
 
-						<div class="input-group mb-12">
+						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Sprint n°</span>
 							</div>
-							<select class="form-control"  id="sprintIdList" onchange="misajour($('#sprintIdList').val())">
-								<?php
-
-								$result = $conn->query("select id, numero from sprint order by numero desc");
-
-								while ($row = $result->fetch_assoc()) {
-									unset($id, $numero);
-									$id = $row['id'];
-									$numero = $row['numero']; 
-									echo '<option value="'.$numero.'">' .$numero. '</option>';
-								}
-
-								?>
-							</select>
+							<div id="ListSrint"></div>
 						</div>
 
 						<br>
@@ -59,15 +46,20 @@
 		<script>
 
 			$( document ).ready(function() {
-				misajour($("#sprintIdList").val());//au lancement de la page, afficher la burndownchart avec le numero de la liste
+
+				RemplirListSprint();
+				MettreChartAJour($("#numeroSprint option:selected").text());//au lancement de la page, afficher la burndownchart avec le numero de la liste
+
 			});
 
-			var misajour = function(NumeroduSprint){
+$( "#ListSrint" ).change(function() {
+  MettreChartAJour($("#numeroSprint option:selected").text());
+});
 
-				$("#sprintIdList").val(NumeroduSprint);
+
+			function MettreChartAJour(NumeroSprint){
 
 				var action = "GetLesInfosDeLaBurnDownChart";
-				var NumeroSprint = $('#sprintIdList').val();
 
 				$.ajax({
 					url : "Modele/ActionBurnDownChart.php", 
@@ -76,7 +68,7 @@
 					success:function(Total){
 						Total = JSON.parse(Total);
 
-						CreerLaChart(Total[0], Total[1], Total[2], Total[3], NumeroduSprint);
+						CreerLaChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint);
 
 						if(Total[4][0] == null)
 							$("#TotalHAttribues").html("Total heures à descendre: <b>Inconnue</b>");

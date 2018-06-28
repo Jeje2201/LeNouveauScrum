@@ -7,20 +7,7 @@
         <div class="card-header">
           <i class="fa fa-area-chart"></i> Sprint</div>
           <div class="card-body">
-            <select class="form-control"  id="sprintIdList" onchange="Test($('#sprintIdList').val(),1)">
-              <?php
-
-              $result = $conn->query("select id, numero from sprint order by numero desc");
-
-              while ($row = $result->fetch_assoc()) {
-                unset($id, $numero);
-                $id = $row['id'];
-                $numero = $row['numero']; 
-                echo '<option value="'.$id.'">' .$numero. '</option>';
-              }
-
-              ?>
-            </select>
+            <div id="ListSrint"></div>
           </div>
         </div>
 
@@ -70,34 +57,35 @@
       <script>
 
         $( document ).ready(function() {
-          Test($('#sprintIdList').val(),1);
-        });
+          RemplirListSprint() 
+          Test($('#numeroSprint').val(),1);
+        
+
+         $('#numeroSprint').change(function(){
+           Test($('#numeroSprint').val(),1);
+          });
 
         $('#BoutonEmployes').click(function(){
-          Test($('#sprintIdList').val(),1);
+          Test($('#numeroSprint').val(),1);
         });
 
         $('#BoutonProjets').click(function(){
-          Test($('#sprintIdList').val(),2);
+          Test($('#numeroSprint').val(),2);
         });
 
         function Test(NumeroduSprint, affichage){
 
           var action = "GetTotalHeuresDescenduesParEmploye";
 
-          console.log('id du sprint: ',NumeroduSprint);
-
           $.ajax({
             url : "Modele/ActionDashboard.php", 
             method:"POST", 
             data:{action:action, NumeroduSprint:NumeroduSprint}, 
             success:function(hDescenduesParEmploye){
-
-              console.log('du coup: ',hDescenduesParEmploye)
               
               hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
 
-              console.log(hDescenduesParEmploye);
+              console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
 
               if(affichage == 1){
 
@@ -234,5 +222,6 @@ Highcharts.chart('PieChartStatueObjectif', {
           });
 
         }
+        });
 
       </script>

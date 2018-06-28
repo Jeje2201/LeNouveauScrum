@@ -44,7 +44,7 @@
 
     $('#dateDebut').text(ChoixDate("#dateDebut",0));
     $('#dateFin').text(ChoixDate("#dateFin",localStorage.getItem('NbJoursParSprint')));
-    fetchUser(); 
+    NumeroSprintMax(); 
 
     $('#dateDebut').datetimepicker({
       format: 'yyyy-mm-dd',
@@ -56,7 +56,7 @@
       autoclose: true,
       minView : 2
     });
-    function fetchUser() 
+    function NumeroSprintMax() 
     {
       var action = "SprintMax";
       $.ajax({
@@ -84,7 +84,7 @@
         success:function(data){
          BootstrapAlert(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();    
+         NumeroSprintMax();    
        }
      });
      }

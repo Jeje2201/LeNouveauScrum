@@ -11,18 +11,7 @@
           <span class="input-group-text">Sprint n°</span>
         </div>
 
-                    <select class="form-control"  id="numeroSprint" name="numeroSprint">
-                      <?php
-                      $result = $conn->query("select id, numero from sprint order by numero desc");
-
-                      while ($row = $result->fetch_assoc()) {
-                        unset($id, $numero);
-                        $id = $row['id'];
-                        $numero = $row['numero']; 
-                        echo '<option value="'.$id.'"> ' .$numero. ' </option>';
-                      }
-                      ?> 
-                    </select>
+                    <div id="ListSrint"></div>
 <div class="input-group-prepend">
           <span class="input-group-text">Employé(e)</span>
         </div>
@@ -81,12 +70,15 @@
 
   $(document).ready(function(){
 
+    RemplirListSprint() 
+    RemplirListeEmploye();
+    AfficherCards();
+
     var audio = document.getElementById("audio");
 
     $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
+    
 
-    RemplirListeEmploye();
-    AfficherCards();
 
     function AfficherCards() 
     {
