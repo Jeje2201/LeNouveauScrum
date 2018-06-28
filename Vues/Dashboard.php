@@ -12,82 +12,85 @@
         </div>
 
         <div class="card mb-3">
-            <div class="card-body">
+          <div class="card-body">
 
-              <center>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                      <button type="button" id="BoutonEmployes" class="btn btn-warning update">Employés</button>
-                      <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
-                  </div>
-                </center>
-              <div id="HeureDescenduParEmploye"></div>
-            </div>
-          </div>
-
-            <div class="row">
-              <div class="col-lg-5">
-                <!-- Example Bar Chart Card-->
-                <div class="card mb-3">
-                  <div class="card-header">
-                    <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
-                    <div class="card-body">
-                      <div class="row">
-                        <p>wow</p>
-                  </div>
-                </div>
+            <center>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" id="BoutonEmployes" class="btn btn-warning update">Employés</button>
+                <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
               </div>
-            </div>
-
-              <div class="col-lg-7">
-                <!-- Example Pie Chart Card-->
-                <div class="card mb-3">
-                    <div class="card-body">
-                      <div id="PieChartStatueObjectif"></div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+            </center>
+            <div id="HeureDescenduParEmploye"></div>
           </div>
         </div>
 
-      </body>
+        <div class="row">
+          <div class="col-lg-5">
+            <!-- Example Bar Chart Card-->
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
+                <div class="card-body">
+                  <div class="row">
+                    <p>wow</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <script>
+            <div class="col-lg-7">
+              <!-- Example Pie Chart Card-->
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div id="PieChartStatueObjectif"></div>
+                </div>
+              </div>
+            </div>
 
-        $( document ).ready(function() {
-          RemplirListSprint('ListSrint') 
-          Test($('#numeroSprint').val(),1);
-        
+          </div>
+        </div>
+      </div>
+    </div>
 
-         $('#numeroSprint').change(function(){
-           Test($('#numeroSprint').val(),1);
-          });
+  </body>
 
-        $('#BoutonEmployes').click(function(){
-          Test($('#numeroSprint').val(),1);
-        });
+  <script>
 
-        $('#BoutonProjets').click(function(){
-          Test($('#numeroSprint').val(),2);
-        });
+    $( document ).ready(function() {
 
-        function Test(NumeroduSprint, affichage){
+      RemplirListSprint('ListSrint') 
+      ChargerColumnHeures($('#numeroSprint').val(),1);
+      ChargerPieObjectif($('#numeroSprint').val());
 
-          var action = "GetTotalHeuresDescenduesParEmploye";
 
-          $.ajax({
-            url : "Modele/ActionDashboard.php", 
-            method:"POST", 
-            data:{action:action, NumeroduSprint:NumeroduSprint}, 
-            success:function(hDescenduesParEmploye){
-              
-              hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+      $('#numeroSprint').change(function(){
+       ChargerColumnHeures($('#numeroSprint').val(),1);
+       ChargerPieObjectif($('#numeroSprint').val());
+     });
 
-              console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
+      $('#BoutonEmployes').click(function(){
+        ChargerColumnHeures($('#numeroSprint').val(),1);
+      });
 
-              if(affichage == 1){
+      $('#BoutonProjets').click(function(){
+        ChargerColumnHeures($('#numeroSprint').val(),2);
+      });
+
+      function ChargerColumnHeures(NumeroduSprint, affichage){
+
+        var action = "GetTotalHeuresDescenduesParEmploye";
+
+        $.ajax({
+          url : "Modele/ActionDashboard.php", 
+          method:"POST", 
+          data:{action:action, NumeroduSprint:NumeroduSprint}, 
+          success:function(hDescenduesParEmploye){
+
+            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+
+            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
+
+            if(affichage == 1){
 
               Highcharts.chart('HeureDescenduParEmploye', {
                 chart: {
@@ -123,9 +126,9 @@
                     borderWidth: 1
                   },
                   dataLabels: {
-                enabled: true,
-                format: ''
-            }
+                    enabled: true,
+                    format: ''
+                  }
                 },
                 series: [{
                   name: 'Heures attribuées',
@@ -137,8 +140,8 @@
                   pointPadding: 0.4,
                 }]
               });
-              }
-              else{
+            }
+            else{
 
               Highcharts.chart('HeureDescenduParEmploye', {
                 chart: {
@@ -185,43 +188,63 @@
                 }]
               });
 
-              }
-
-Highcharts.chart('PieChartStatueObjectif', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Statut objectifs'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'         
-    },
-    plotOptions: {
-        pie: {
-
-        colors: ['#95D972', '#E88648', '#E8514E', '#E8514E', '#222222'],
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name}: {point.y} ({point.percentage:.0f} %)'
             }
-        }
-    },
-    series: [{
-        name: 'Effectué',
-        data: hDescenduesParEmploye[6]
-    }]
-});
 
-            }
-          });
-
-        }
+          }
         });
 
-      </script>
+}
+
+      function ChargerPieObjectif(NumeroduSprint){
+
+        var action = "GetTotalHeuresDescenduesParEmploye";
+
+        $.ajax({
+          url : "Modele/ActionDashboard.php", 
+          method:"POST", 
+          data:{action:action, NumeroduSprint:NumeroduSprint}, 
+          success:function(hDescenduesParEmploye){
+
+            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+
+            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
+
+            Highcharts.chart('PieChartStatueObjectif', {
+              chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+              },
+              title: {
+                text: 'Statut objectifs'
+              },
+              tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'         
+              },
+              plotOptions: {
+                pie: {
+
+                  colors: ['#95D972', '#E88648', '#E8514E', '#E8514E', '#222222'],
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y} ({point.percentage:.0f} %)'
+                  }
+                }
+              },
+              series: [{
+                name: 'Effectué',
+                data: hDescenduesParEmploye[6]
+              }]
+            });
+
+        }
+      });
+      }
+
+
+});
+
+</script>
