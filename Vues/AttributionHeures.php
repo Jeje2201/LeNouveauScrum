@@ -50,18 +50,7 @@
       </select>
       <br />
       <label>Projet</label>
-      <select class="form-control"  id="projetId" name="projetId">
-        <?php
-        $result = $conn->query("select id, nom from projet order by nom");
-
-        while ($row = $result->fetch_assoc()) {
-          unset($id, $nom);
-          $id = $row['id'];
-          $nom = $row['nom']; 
-          echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-        }
-        ?>
-      </select>
+      <div id="ListProjet"> </div>
       <br />
       <label>Nombre d'heures</label>
       <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
@@ -81,6 +70,8 @@
   $(document).ready(function(){
 
     RemplirListSprint('ListSrint');
+    
+    RemplirListProjet('ListProjet');
 
     RemplirTableau();
 

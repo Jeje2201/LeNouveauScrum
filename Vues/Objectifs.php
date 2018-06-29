@@ -47,23 +47,15 @@
     <h4 class="modal-title"></h4>
   </div>
   <div class="modal-body">
-    <label>Projet</label>
-    <select class="form-control" id="projetId" name="projetId">
-      <?php
-      $result = $conn->query("select id, nom from projet order by nom");
 
-      while ($row = $result->fetch_assoc()) {
-        unset($id, $nom);
-        $id = $row['id'];
-        $nom = $row['nom']; 
-        echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-      }
-      ?>
-    </select>
+    <label>Projet</label>
+    <div id="ListProjet"> </div>
     <br />
+
     <label>Objectif</label>
     <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Je suis un objectif.." >
     <br />
+
     <label>Etat</label>
     <form class="form-control" name="EtatObjectif" id="EtatObjectif">
       <?php
@@ -75,6 +67,7 @@
       }
       ?>
     </form>
+
   </div>
   <div class="modal-footer">
     <input type="hidden" name="id" id="id" />
@@ -107,6 +100,9 @@
   $(document).ready(function(){
 
      RemplirListSprint('ListSrint');
+
+    RemplirListProjet('ListProjet');
+
     RemplirTableau(); 
 
     function RemplirTableau() 

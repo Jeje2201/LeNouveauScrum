@@ -124,8 +124,9 @@
 <script src="Assets/Js/exporting.js"></script>
 <script src="Assets/Js/RemplirListSprint.js"></script>
 <script src="Assets/Js/BarreDeRecherche.js"></script>
+<script src="Assets/Js/RemplirListProjet.js"></script>
 
 
-<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<!-- <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script> -->

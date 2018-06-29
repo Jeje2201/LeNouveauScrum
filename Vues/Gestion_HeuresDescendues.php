@@ -26,6 +26,7 @@
         <h4 class="modal-title">Tâche(s) achevée(s)</h4>
       </div>
       <div class="modal-body">
+
         <label>Employé</label>
         <select class="form-control" id="employeId" name="employeId">
           <?php
@@ -39,31 +40,33 @@
           ?>
         </select>
         <br />
-        <label>Projet</label>
-        <select class="form-control"  id="projetId" name="projetId">
-          <?php
-          $result = $conn->query("select id, nom from projet order by nom");
 
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $nom);
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$nom. ' </option>';
-          }
-          ?>
-        </select>
-        <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
-        <br />
-        <label>Date</label>
-        <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
-        <br />
+                    <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Projet</span>
+              </div>
+              <div id="ListProjet"> </div>
+            </div>
+
+                      <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Nombre d'heures</span>
+              </div>
+              <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+            </div>
+
+                      <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Date</span>
+              </div>
+             <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+            </div>
+
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -74,6 +77,7 @@
   $(document).ready(function(){
 
     RemplirListSprint('ListSrint');
+    RemplirListProjet('ListProjet');
     ChargerTableau(); 
     BarreDeRecherche('BarreDeRecherche','TableauHeuresDescendues');
     
