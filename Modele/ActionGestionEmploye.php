@@ -1,5 +1,9 @@
    <?php
 
+   function generateRandomString($length) {
+    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+}
+
 require_once ('../Modele/Configs.php');
 
    if(isset($_POST["action"])) 
@@ -64,7 +68,7 @@ require_once ('../Modele/Configs.php');
    array(
     ':prenom' => $_POST["Prenom_Employe"],
     ':nom' => $_POST["Nom_Employe"],
-    ':Couleur' => '#'.substr(bin2hex($_POST['Prenom_Employe'].$_POST['Nom_Employe']),0,6),
+    ':Couleur' => '#'.rand(100000,999999),
     ':actif' => $_POST["Actif"],
     ':Initial' => $_POST["Initial"],
     ':Type_Employe' => $_POST["Type_Employe"]
