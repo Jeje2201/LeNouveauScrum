@@ -27,7 +27,11 @@
       </div>
       <div class="modal-body">
 
-        <label>Employé</label>
+
+       <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Employe</span>
+        </div>
         <select class="form-control" id="employeId" name="employeId">
           <?php
           $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
@@ -39,37 +43,38 @@
           }
           ?>
         </select>
-        <br />
-
-                    <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Projet</span>
-              </div>
-              <div id="ListProjet"> </div>
-            </div>
-
-                      <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Nombre d'heures</span>
-              </div>
-              <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
-            </div>
-
-                      <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Date</span>
-              </div>
-             <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
-            </div>
-
       </div>
-      <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Projet</span>
+        </div>
+        <div id="ListProjet"> </div>
       </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Nombre d'heures</span>
+        </div>
+        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Date</span>
+        </div>
+        <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <input type="hidden" name="id" id="id" />
+      <input type="submit" name="action" id="action" class="btn btn-success" />
+      <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
     </div>
   </div>
+</div>
 </div>
 
 <script>
@@ -136,7 +141,7 @@
        dataType:"json",   
        success:function(data){
         $('#customerModal').modal('show');   
-        $('.modal-title').text("Update Records"); 
+        $('.modal-title').text("Metre à jour les heures descendues"); 
         $('#action').val("Update");     
         $('#id').val(id); 
         $('#idSprint').val(data.id_Sprint);  
