@@ -1,7 +1,11 @@
    <?php
 
-   function generateRandomString($length) {
-    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+function random_color_part() {
+    return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+}
+
+function random_color() {
+    return random_color_part() . random_color_part() . random_color_part();
 }
 
 require_once ('../Modele/Configs.php');
@@ -68,7 +72,7 @@ require_once ('../Modele/Configs.php');
    array(
     ':prenom' => $_POST["Prenom_Employe"],
     ':nom' => $_POST["Nom_Employe"],
-    ':Couleur' => '#'.rand(100000,999999),
+    ':Couleur' => '#'.random_color(),
     ':actif' => $_POST["Actif"],
     ':Initial' => $_POST["Initial"],
     ':Type_Employe' => $_POST["Type_Employe"]
