@@ -17,7 +17,7 @@
              </div>
 
              <div class="col-sm-3">
-              <button type="button" id="Bouttonretrospective" class="btn btn-info btn-block">Rétrospective</button>
+              <button type="button" id="Bouttonretrospective" class="btn btn-info btn-block">Remarque</button>
             </div>
 
             <div class="col-sm-3">

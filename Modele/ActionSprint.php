@@ -14,8 +14,8 @@ require_once ('../Modele/Configs.php');
     <thead>
     <tr>
     <th width="30%">Numero</th>
-    <th width="30%">Date Debut</th>
-    <th width="30%">Date Fin</th>
+    <th width="30%">Debut</th>
+    <th width="30%">Fin</th>
     <th width="10%"><center>Editer</center></th>
     </tr>
     </thead>

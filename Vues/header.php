@@ -75,16 +75,10 @@
 						<a href="index.php?vue=Parametres"><i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Paramètres</a>
 					</li>
 					<li>
-						<a href="index.php?vue=GestionSprint"><i class="fa fa-fw fa-rocket" aria-hidden="true"></i></i> Sprints</a>
-					</li>
-					<li>
 						<a href="index.php?vue=GestionEmploye"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Employés</a>
 					</li>
 					<li>
 						<a href="#"><i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-fw fa-arrow-down" aria-hidden="true"></i> Heures Attribuées</a>
 					</li>
 					<li>
 						<a href="index.php?vue=GestionDescendation"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
