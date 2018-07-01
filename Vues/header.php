@@ -62,7 +62,7 @@
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">
 				<a class="nav-link" href="index.php?vue=Objectifs">
 					<i class="fa fa-fw fa-sticky-note-o"></i>
-					<span class="nav-link-text">Objectifs</span>
+					<span class="nav-link-text">Rétrospective</span>
 				</a>
 			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">

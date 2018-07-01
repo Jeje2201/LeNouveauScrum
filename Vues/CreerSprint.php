@@ -30,7 +30,7 @@
         </div>
 
       </div>
-</br>
+      
               <div class="form-row">
           <div class="col-md-9">
             <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
