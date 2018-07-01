@@ -29,9 +29,9 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Accueil">
-					<a class="nav-link" href="index.php?vue=Acceuil">
+					<a class="nav-link" href="index.php?vue=Dashboard">
 						<i class="fa fa-fw fa-home" aria-hidden="true"></i>
-						<span class="nav-link-text">Accueil</span>
+						<span class="nav-link-text">Dashboard</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">

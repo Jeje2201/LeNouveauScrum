@@ -7,14 +7,14 @@ require_once("Vues/header.php");
 
 if(!isset($_REQUEST['vue']))
 {
-    $_REQUEST['vue'] = 'Acceuil';
+    $_REQUEST['vue'] = 'Dashboard';
 }
 
 $vue = $_REQUEST['vue'];
 
 switch($vue)
 {
-    case 'Acceuil':
+    case 'Dashboard':
         require_once("Vues/Dashboard.php");
   break;
 
