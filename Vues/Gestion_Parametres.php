@@ -20,32 +20,48 @@
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">Temps d'affichage de la popup</label>
-						<input type="number" class="form-control" id="TempsAffichagePopup" step='0.1' value="1.5" min="0.5">
+						<input type="number" class="form-control" id="TempsAffichagePopup" step='0.1' value="1.5" min="0" max="3">
 						<small class="form-text text-muted">Exemple; "1,5" veut dire que la popup ne s'affichera que 1,5s (0.5 est le minimum et me dis pas que c'est trop long)</small>
-						<button  class="btn btn-primary" onClick="Popup()">Tester</button>
+						<button  class="btn btn-primary" id="popup">Tester</button>
 					</div>
 
 				</div>
 			</div>
 
 			<div class="col-md-3">
-				<button  class="btn btn-primary" onClick="Set()">Sauvegarder</button>
+				<button  class="btn btn-primary" id="set">Sauvegarder</button>
 			</div>
 
 			<?php require_once __Dir__ . '/footer.php'; ?>
 
 		</div>
 		<script>
+			 $(document).ready(function(){
 
-			function Popup(){ 
-				Set();
-BootstrapAlert('Je suis un test :D');
-		};
+			 	if(!isNaN(parseInt(localStorage.getItem('TempsAffichagePopup'))))
+			 		$('#TempsAffichagePopup').val(localStorage.getItem('TempsAffichagePopup')/1000);
+			 	
 
-			var Set = function(){ //la fonction démarre et met dans "changement" soit 1 ou -1
-			localStorage.setItem("NbJoursParSprint",$('#NbJoursParSprint').val());
-			localStorage.setItem("TempsAffichagePopup",$('#TempsAffichagePopup').val()*1000);
+			 	if(!isNaN(parseInt(localStorage.getItem('NbJoursParSprint'))))
+			 		$('#NbJoursParSprint').val(localStorage.getItem('NbJoursParSprint'))
 
-		};
 
+			 	$('#popup').click(function(){
+					var x = document.getElementById("snackbar");
+	    			x.className = "show";
+	  			 	x.innerHTML = "Popup de test";
+
+					setTimeout(function(){ x.className = x.className.replace("show", ""); }, $('#TempsAffichagePopup').val()*1000);
+				});
+
+
+				$('#set').click(function(){
+				localStorage.setItem("NbJoursParSprint",$('#NbJoursParSprint').val());
+				console.log('set nb jours pour 1 sprint: ',$('#NbJoursParSprint').val())
+				localStorage.setItem("TempsAffichagePopup",$('#TempsAffichagePopup').val()*1000);
+				console.log('set nb secondes pour la popup: ',$('#TempsAffichagePopup').val()*1000)
+
+				});
+
+			});
 	</script>
