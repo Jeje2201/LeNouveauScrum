@@ -133,7 +133,6 @@
         success:function(data){
 
          BootstrapAlert(data);
-         $('#customerModal').modal('hide'); 
          NumeroSprintMax();
          fetchUser();
 

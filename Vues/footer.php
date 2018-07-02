@@ -1,4 +1,5 @@
 </body>
+<div id="snackbar">Some text some message..</div>
 <footer class="sticky-footer">
 	<div class="container">
 		<div class="text-center">

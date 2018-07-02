@@ -16,7 +16,7 @@
 	<link href="Assets/css/sb-admin.css" rel="stylesheet">
 	<!-- Classe pour le Hightsharr-->
 
-	<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<!-- <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
 
 	
 </head>
@@ -95,7 +95,6 @@
 		</ul>
 	</div>
 </nav>
-<div id="snackbar">Some text some message..</div>
 </body>
 
 <script src="Assets/Js/jquery.min.js"></script>
