@@ -12,7 +12,7 @@
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="TableauHeuresDescendues" class="table-responsive"></div>
+          <div id="TableauHeuresDescendues" class="table-responsive table-striped table-hover"></div>
           
         </div>
       </div>

@@ -32,9 +32,9 @@
 
     <br>
 
-    <div id="TableObjectif" class="table-responsive"></div>
+    <div id="TableObjectif" class="table-responsive table-striped table-hover"></div>
 
-    <div id="TableRetrospective" class="table-responsive"></div>
+    <div id="TableRetrospective" class="table-responsive table-striped table-hover"></div>
 
   </div>
 </body>

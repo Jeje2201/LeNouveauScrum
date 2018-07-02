@@ -22,7 +22,7 @@
 
       <div class="mb-3">
 
-        <div id="TableListHeuresAttribuees" class="table-responsive"></div>
+        <div id="TableListHeuresAttribuees" class="table-responsive table-striped table-hover"></div>
 
       </div>
     </div>
@@ -39,7 +39,7 @@
       <label>Employé</label>
       <select class="form-control" id="employeId" name="employeId">
         <?php
-        $result = $conn->query("select id, prenom, nom from employe where employe.actif = 1 order by prenom");
+        $result = $conn->query("select id, prenom, nom from employe order by prenom");
         while ($row = $result->fetch_assoc()) {
           $id = $row['id'];
           $prenom = $row['prenom']; 
