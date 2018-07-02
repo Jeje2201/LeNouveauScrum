@@ -37,7 +37,7 @@
           </div>
 
         </div>
-        <div id="result" class="table-responsive"> <!-- Data will load under this tag!--></div>
+        <div id="result" class="table-responsive table-striped table-hover"> <!-- Data will load under this tag!--></div>
 
 
   <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
@@ -75,8 +75,8 @@
 
   $(document).ready(function(){
 
-    $('#dateDebut').text(ChoixDate("#dateDebut",0));
-    $('#dateFin').text(ChoixDate("#dateFin",localStorage.getItem('NbJoursParSprint')));
+    $('#dateDebut').val(ChoixDate(0));
+    $('#dateFin').val(ChoixDate(localStorage.getItem('NbJoursParSprint')));
     NumeroSprintMax();
 
     BarreDeRecherche('BarreDeRecherche','result');

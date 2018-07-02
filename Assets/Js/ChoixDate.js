@@ -1,4 +1,4 @@
-function ChoixDate(_id,jours){
+function ChoixDate(jours){
 
       if(jours == null){
         var jours = 14;
@@ -7,7 +7,6 @@ function ChoixDate(_id,jours){
         jours = parseInt(jours);
       }
 
-      var _dat = document.querySelector(_id);
       var Apres = new Date();
       Apres.setDate(Apres.getDate()+jours);
       j = Apres.getDate(),
@@ -21,6 +20,6 @@ function ChoixDate(_id,jours){
         m = "0" + m;
       };
 
-      _dat.value = a + "-" + m + "-" + j;
+      return a + "-" + m + "-" + j;
       
     };

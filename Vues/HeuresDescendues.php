@@ -76,9 +76,7 @@
 
     var audio = document.getElementById("audio");
 
-    $('#DateAujourdhui').text(ChoixDate("#DateAujourdhui",-1));
-    
-
+    $('#DateAujourdhui').val(ChoixDate(-1));
 
     function AfficherCards() 
     {
