@@ -15,6 +15,8 @@
 
 						<br>
 						<h3><u>Informations</u></h3>
+						<div id="DateSprint"></div>
+						<div id="NbJoursRestants"></div>
 						<div id="TotalHAttribues"></div>
 						<div id=Seuil></div>
 						<div id="TotalHResteADescendre"></div>
@@ -60,6 +62,10 @@ $( "#ListSrint" ).change(function() {
 					success:function(Total){
 						Total = JSON.parse(Total);
 
+
+						console.log(Total[2])
+
+
 						CreerLaChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint);
 
 						if(Total[4][0] == null)
@@ -67,9 +73,6 @@ $( "#ListSrint" ).change(function() {
 						else
 							$("#TotalHAttribues").html("Total heures à descendre: <b>"+Total[4]+"h</b>");
 
-						if(Total[2][0] == null)
-							$("#Seuil").html("Seuil: <b>Inconnue</b>");
-						else
 							$("#Seuil").html("Seuil: <b>"+parseInt(Total[2][0])+"h</b>");
 
 						if(typeof Total[0][0] == 'undefined')
@@ -92,7 +95,31 @@ $( "#ListSrint" ).change(function() {
 						}
 					}
 
-				});					
+				});
+
+				idAffiche = parseInt($("#numeroSprint option:selected").text());
+		        var action = "DateMinMax";
+		        $.ajax({
+		         url : "Modele/ActionDescendre2.php", 
+		         method:"POST", 
+		         data:{action:action, idAffiche:idAffiche}, 
+		         success:function(data){
+
+					$("#DateSprint").html("Date: <b>"+data[0] + "</b> > <b>" + data[1]+"</b>")
+
+		         	if(data[1] > ChoixDate(0)){
+
+		         	Fin = new Date(data[1]);
+		         	Aujourdui = new Date();
+		         	$("#NbJoursRestants").html("Nombre de jours restants: <b>"+Math.ceil((Fin - Aujourdui)/(1000*60*60*24))+"</b>");
+		         	
+
+		         	}
+		         else
+		         	$("#NbJoursRestants").html("Nombre de jours restants: <b>date dépassée</b>");
+
+		        }
+		      });	
 
 			};
 

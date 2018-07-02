@@ -38,7 +38,15 @@ require_once ('../Modele/Configs.php');
       foreach ($result as $row) {
        $values[] = $row['value'];
        $hours[] = $row['heure'];
-       $interferences[] = $row['interferances'];
+
+       if( empty($row['interferances'])  || is_null($row['interferances'])  || !isset($row['interferances']) || $row['interferances'] === NULL ){
+        $interferences[] = 0;
+       }
+       else
+       {
+        $interferences[] = $row['interferances'];
+       }
+
        $sprintou[] = $row['sprint'];
      }
 
