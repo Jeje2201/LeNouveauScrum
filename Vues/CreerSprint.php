@@ -123,6 +123,7 @@
       var dateFin = $('#dateFin').val();  
       var id = $('#id').val();
       var action = 'Créer'  
+      if(dateFin > dateDebut){
       if(numero != '' && dateDebut != '' && dateFin != '') 
       {
        $.ajax({
@@ -142,6 +143,10 @@
      else
      {
        alert("Tous les champs doivent être plein."); 
+     }
+     }
+     else{
+       alert("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?"); 
      }
    });
 
