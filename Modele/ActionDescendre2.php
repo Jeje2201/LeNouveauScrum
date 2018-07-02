@@ -88,8 +88,8 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-  $output2.='<div class="card border-success PASTOUCHE" /*style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';*/">
-  <div class="card-header text-center border-success">
+  $output2.='<div class="card PASTOUCHE" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
+  <div class="card-header text-center">
 <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
   </div>
   <div class="card-body text-center EcartPlusPetit">
@@ -152,7 +152,7 @@ if($_POST["action"] == "DateMinMax")
   $idAffiche = $_POST["idAffiche"];
 
   $statement = $connection->prepare(
-   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
+   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.numero = $idAffiche"
  );
   $statement->execute();
   $result = $statement->fetchAll();
