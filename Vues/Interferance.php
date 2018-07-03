@@ -4,6 +4,9 @@
 
         <div class="mb-3">
           <div class="form-row">
+            <div class="col-sm-3">
+              <div id="ListSrint"></div>
+            </div>
             <div class="col-md-3">
               <button type="button" id="modal_button" class="btn btn-info">Créer une interférance</button>
 
@@ -13,7 +16,7 @@
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="result" class="table-responsive table-striped table-hover"> 
+          <div id="result" class="table-responsive table-hover"> 
 
           </div>
         </div>
@@ -30,32 +33,23 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label>Prénom</label>
-          <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Jackouille">
+          <label>Nombre heures</label>
+      <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
         </div>
 
         <div class="form-group">
-          <label>Nom</label>
-          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
+          <label>Employe</label>
+         <div id="ListEmploye"></div>
         </div>
 
         <div class="form-group">
-        <label>Type</label>
-        <select class="form-control" id="TypeEmploye" name="TypeEmploye">
-          <?php
-          $result = $conn->query("select id, nom from typeemploye order by nom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> '.$nom.' </option>';
-          }
-          ?>
-        </select>
+          <label>Projet</label>
+          <div name="ListProjet" id="ListProjet"> </div>
         </div>
 
-        <div>
-          <label>Actif</label>
-          <input id="Actif" type="checkbox" checked>
+        <div class="form-group">
+          <label>Type</label>
+          <div name="ListTypeInterferance" id="ListTypeInterferance"> </div>
         </div>
 
       </div>
@@ -72,57 +66,63 @@
 
   $(document).ready(function(){
 
+    RemplirListSprint('ListSrint');
+
     BarreDeRecherche('BarreDeRecherche','result');
 
-    fetchUser(); 
+    RemplirListEmployeActif('ListEmploye');
 
-    function fetchUser() 
+    RemplirListProjet('ListProjet');
+
+    RemplirListTypeInterferance('ListTypeInterferance')
+
+    RemplirTableau(); 
+
+    function RemplirTableau() 
     {
+
+      var idAffiche = $('#numeroSprint').val();
       var action = "Load";
       $.ajax({
        url : "Modele/ActionInterferance.php", 
        method:"POST", 
-       data:{action:action}, 
+       data:{action:action, idAffiche:idAffiche}, 
        success:function(data){
         $('#result').html(data); 
       }
     });
     }
 
+    $('#ListSrint').change(function(){
+      RemplirTableau();
+    });
+
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
-      $('.modal-title').text("Ajouter un employé"); 
+      $('.modal-title').text("Ajouter une interférance"); 
       $('#action').val('Ajouter'); 
-      $('#Prenom').val('');
-      $('#Nom').val('');
-      $('#Actif').prop( "checked", true ); 
     });
 
     $('#action').click(function(){
-      var Nom_Employe = $('#Nom').val();
-      var Prenom_Employe = $('#Prenom').val();
-      var Type_Employe = $('#TypeEmploye').val();
-      if (document.getElementById("Actif").checked == true){
-        var Actif = 1;
-      } else {
-        var Actif = 0;
-      }
-
-      var Initial = Prenom_Employe.charAt(0)+Nom_Employe.charAt(0);
+      var idAffichee = $("#numeroSprint").val();
+      var NbHeure = $('#nbheure').val();
+      var Employe = $('#employeId').val();
+      var Projet = $('#projetId').val();
+      var TypeInterferance = $('#typeinterference').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
-      if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') 
+      if(NbHeure != '') 
       {
        $.ajax({
         url : "Modele/ActionInterferance.php",    
         method:"POST",     
-        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
+        data:{id:id, NbHeure:NbHeure, Employe:Employe, Projet:Projet, TypeInterferance:TypeInterferance, idAffichee,idAffichee, action:action}, 
         success:function(data){
          BootstrapAlert(data);
          console.log(data);
          $('#customerModal').modal('hide'); 
-         fetchUser();
+         RemplirTableau();
        }
      });
      }
@@ -144,16 +144,12 @@
         $('#customerModal').modal('show');   
         $('.modal-title').text("Mettre à jour"); 
         $('#action').val("Update");  
-
-        if(data.Actif ==1)
-          $('#Actif').prop('checked', true);
-        else
-          $('#Actif').prop('checked', false);
         
         $('#id').val(id); 
-        $('#Prenom').val(data.Prenom);  
-        $('#Nom').val(data.Nom); 
-        $('#TypeEmploye').val(data.TypeEmploye);
+        $('#nbheure').val(data.Heure);  
+        $('#employeId').val(data.Employe); 
+        $('#projetId').val(data.Projet);
+        $('#typeinterference').val(data.TypeInterferance);
 
       }
     });
@@ -170,7 +166,7 @@
         data:{id:id, action:action}, 
         success:function(data)
         {
-         fetchUser();    
+         RemplirTableau();    
          BootstrapAlert(data);
        }
      })
