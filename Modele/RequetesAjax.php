@@ -79,6 +79,30 @@
           
       break;
 
+      case 'ListeDeroulanteEmploye':
+
+        $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe order by prenom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="employeId" name="employeId">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;
+
       case 'ListeDeroulanteEmployeActif':
 
         $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe where employe.actif = 1 order by prenom asc");
@@ -102,6 +126,30 @@
         echo $output2;
             
         break;
+
+      case 'ListeDeroulanteTypeInterferance':
+
+        $statement = $connection->prepare("SELECT id as id, nom as nom from typeinterference order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="typeinterference" name="typeinterference">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;        
 
       }
 }
