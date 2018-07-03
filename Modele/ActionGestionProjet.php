@@ -1,13 +1,5 @@
    <?php
 
-function random_color_part() {
-    return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-}
-
-function random_color() {
-    return random_color_part() . random_color_part() . random_color_part();
-}
-
 require_once ('../Modele/Configs.php');
 
    if(isset($_POST["action"])) 
@@ -15,7 +7,7 @@ require_once ('../Modele/Configs.php');
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
+      $statement = $connection->prepare("SELECT projet.id as id, projet.nom as Nom, projet.cheminIcone as Icone, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom desc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,11 +15,9 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="25%">Prénom</th>
-      <th width="25%">Nom</th>
-      <th width="20%">Job</th>
-      <th width="10%">Couleur</th>
-      <th width="10%">Actif</th>
+      <th width="40%">Nom</th>
+      <th width="40%">Type</th>
+      <th width="10%">Icone</th>
       <th width="10%"><center>Editer</center></th>
       </tr>
       </thead>
@@ -39,11 +29,9 @@ require_once ('../Modele/Configs.php');
        {
         $output .= '
         <tr>
-        <td>'.$row["Prenom"].'</td>
         <td>'.$row["Nom"].'</td>
-        <td>'.$row["TypeJob"].'</td>
-        <td style="background-color:'.$row["Couleur"].'"></td>
-        <td>'.$row["Actif"].'</td>
+        <td>'.$row["TypeProjet"].'</td>
+        <td>'.$row["Icone"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';

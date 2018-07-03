@@ -5,7 +5,7 @@
         <div class="mb-3">
           <div class="form-row">
             <div class="col-md-3">
-              <button type="button" id="modal_button" class="btn btn-info">Créer un(e) employé(e)</button>
+              <button type="button" id="modal_button" class="btn btn-info">Créer un projet</button>
 
             </div>
           </div>
@@ -30,20 +30,20 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label>Prénom</label>
-          <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Jackouille">
+          <label>Nom</label>
+          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="Madame">
         </div>
 
         <div class="form-group">
-          <label>Nom</label>
-          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="LaFripouille">
+          <label>Abréviation</label>
+          <input class="form-control" name="Abreviation" id="Abreviation" type="text"placeholder="Mme">
         </div>
 
         <div class="form-group">
         <label>Type</label>
-        <select class="form-control" id="TypeEmploye" name="TypeEmploye">
+        <select class="form-control" id="TypeProjet" name="TypeProjet">
           <?php
-          $result = $conn->query("select id, nom from typeemploye order by nom");
+          $result = $conn->query("select id, nom from typeprojet order by nom");
           while ($row = $result->fetch_assoc()) {
             $id = $row['id'];
             $nom = $row['nom']; 
@@ -51,6 +51,11 @@
           }
           ?>
         </select>
+        </div>
+
+        <div class="form-group">
+          <label>Icone (50x50)</label>
+          <input class="form-control" name="Icone" id="Icone" type="file" accept=".jpg, .jpeg, .png">
         </div>
 
         <div>
@@ -80,7 +85,7 @@
     {
       var action = "Load";
       $.ajax({
-       url : "Modele/ActionGestionEmploye.php", 
+       url : "Modele/ActionGestionProjet.php", 
        method:"POST", 
        data:{action:action}, 
        success:function(data){
@@ -91,7 +96,7 @@
 
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
-      $('.modal-title').text("Ajouter un employé"); 
+      $('.modal-title').text("Ajouter un projet"); 
       $('#action').val('Ajouter'); 
       $('#Prenom').val('');
       $('#Nom').val('');
@@ -115,7 +120,7 @@
       if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') 
       {
        $.ajax({
-        url : "Modele/ActionGestionEmploye.php",    
+        url : "Modele/ActionGestionProjet.php",    
         method:"POST",     
         data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
         success:function(data){
@@ -136,7 +141,7 @@
       var id = $(this).attr("id"); 
       var action = "Select";
       $.ajax({
-       url : "Modele/ActionGestionEmploye.php",   
+       url : "Modele/ActionGestionProjet.php",   
        method:"POST",    
        data:{id:id, action:action},
        dataType:"json",   
@@ -165,7 +170,7 @@
       {
        var action = "Delete"; 
        $.ajax({
-        url : "Modele/ActionGestionEmploye.php",    
+        url : "Modele/ActionGestionProjet.php",    
         method:"POST",     
         data:{id:id, action:action}, 
         success:function(data)
