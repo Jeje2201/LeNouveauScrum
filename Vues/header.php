@@ -65,6 +65,12 @@
 					<span class="nav-link-text">Rétrospective</span>
 				</a>
 			</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">
+				<a class="nav-link" href="index.php?vue=Interferance">
+					<i class="fa fa-fw fa-sticky-note-o"></i>
+					<span class="nav-link-text">Interférence</span>
+				</a>
+			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Menu Levels">
 				<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion" aria-expanded="false">
 					<i class="fa fa-fw fa-wrench" aria-hidden="true"></i>

@@ -38,8 +38,16 @@ switch($vue)
   require_once("Vues/BurnDownChart.php");
   break;
 
-  case 'GestionSprint':
-  require_once("Vues/Gestion_Sprint.php");
+  case 'Objectifs':
+  require_once("Vues/Objectifs.php");
+  break;
+
+  case 'Parametres':
+  require_once("Vues/Gestion_Parametres.php");
+  break;
+
+  case 'Interferance':
+  require_once("Vues/Interferance.php");
   break;
 
   case 'GestionDescendation':
@@ -53,15 +61,7 @@ switch($vue)
   case 'GestionProjet':
   require_once("Vues/Gestion_Projet.php");
   break;
-
-  case 'Parametres':
-  require_once("Vues/Gestion_Parametres.php");
-  break;
-
-  case 'Objectifs':
-  require_once("Vues/Objectifs.php");
-  break;
-
+  
   default:
   print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
     <div class="container">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
