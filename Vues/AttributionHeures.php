@@ -22,7 +22,7 @@
 
       <div class="mb-3">
 
-        <div id="TableListHeuresAttribuees" class="table-responsive table-striped table-hover"></div>
+        <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
       </div>
     </div>

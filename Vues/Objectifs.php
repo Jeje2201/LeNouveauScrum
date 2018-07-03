@@ -37,7 +37,7 @@
 
     <div id="TableObjectif" class="table-responsive table-hover"></div>
 
-    <div id="TableRetrospective" class="table-responsive table-striped table-hover"></div>
+    <div id="TableRetrospective" class="table-responsive table-hover"></div>
 
   </div>
 </body>
@@ -102,7 +102,7 @@
 
   $(document).ready(function(){
 
-     RemplirListSprint('ListSrint');
+    RemplirListSprint('ListSrint');
 
     RemplirListProjet('ListProjet');
 
@@ -179,7 +179,6 @@ var textFile = null,
 
     $('#numeroSprint').change(function(){
       RemplirTableau();
-      $('td:nth-child(4),th:nth-child(4)').hide();
     });
 
     $('#modal_button').click(function(){

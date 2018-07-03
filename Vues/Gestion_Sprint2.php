@@ -2,7 +2,7 @@
     <div class="content-wrapper">
       <div class="container">
 
-        <div class="table-responsive table-striped table-hover">
+        <div class="table-responsive table-hover">
           <table class="table table-bordered display" id="datatable1" width="100%">
 
             <thead>

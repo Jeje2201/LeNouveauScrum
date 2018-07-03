@@ -37,7 +37,7 @@
           </div>
 
         </div>
-        <div id="result" class="table-responsive table-striped table-hover"> <!-- Data will load under this tag!--></div>
+        <div id="result" class="table-responsive table-hover"> <!-- Data will load under this tag!--></div>
 
 
   <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
