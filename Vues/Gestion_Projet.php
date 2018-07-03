@@ -41,16 +41,7 @@
 
         <div class="form-group">
         <label>Type</label>
-        <select class="form-control" id="TypeProjet" name="TypeProjet">
-          <?php
-          $result = $conn->query("select id, nom from typeprojet order by nom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> '.$nom.' </option>';
-          }
-          ?>
-        </select>
+        <div id="listeTypeProjet"></div>
         </div>
 
         <div class="form-group">
@@ -78,6 +69,8 @@
   $(document).ready(function(){
 
     BarreDeRecherche('BarreDeRecherche','result');
+
+    RemplirListTypeTypeProjet('listeTypeProjet')
 
     fetchUser(); 
 

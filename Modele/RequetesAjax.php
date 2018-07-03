@@ -151,6 +151,78 @@
             
         break;        
 
+      case 'ListeDeroulanteTypeEmploye':
+
+        $statement = $connection->prepare("SELECT id as id, nom as nom from typeemploye order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="TypeEmploye" name="TypeEmploye">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;
+
+      case 'ListeDeroulanteTypeProjet':
+
+        $statement = $connection->prepare("SELECT id as id, nom as nom from typeprojet order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="TypeProjet" name="TypeProjet">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;
+
+        case 'ListeDeroulanteEtatObjectif':
+
+        $statement = $connection->prepare("SELECT id as id, nom as nom from statutobjectif order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<form class="form-control" name="EtatObjectif" id="EtatObjectif">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<input type="radio" name="Etat" id="EtatNum'.$row["id"].'" value="'.$row["id"].'"> '.$row["nom"].'<br>';
+
+            }
+
+          $output2 .= '</form>';
+        }
+
+        echo $output2;
+            
+        break; 
+
       }
 }
 ?>

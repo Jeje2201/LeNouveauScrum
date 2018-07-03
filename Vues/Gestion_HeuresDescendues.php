@@ -32,17 +32,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Employe</span>
         </div>
-        <select class="form-control" id="employeId" name="employeId">
-          <?php
-          $result = $conn->query("select id, prenom, nom from employe where employe.Actif = 1 order by prenom");
-          while ($row = $result->fetch_assoc()) {
-            $id = $row['id'];
-            $prenom = $row['prenom']; 
-            $nom = $row['nom']; 
-            echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-          }
-          ?>
-        </select>
+          <div id="ListEmploye"></div>
       </div>
 
       <div class="input-group mb-3">
@@ -83,6 +73,7 @@
 
     RemplirListSprint('ListSrint');
     RemplirListProjet('ListProjet');
+    RemplirListEmploye('ListEmploye') 
     ChargerTableau(); 
     BarreDeRecherche('BarreDeRecherche','TableauHeuresDescendues');
     

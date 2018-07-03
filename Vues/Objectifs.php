@@ -60,16 +60,7 @@
     <br />
 
     <label>Etat</label>
-    <form class="form-control" name="EtatObjectif" id="EtatObjectif">
-      <?php
-      $result = $conn->query("select id, nom from statutobjectif order by nom");
-      while ($row = $result->fetch_assoc()) {
-        $id = $row['id'];
-        $nom = $row['nom']; 
-        echo '<input type="radio" name="Etat" id="EtatNum'.$id.'" value="'.$id.'"> '.$nom.'<br>';
-      }
-      ?>
-    </form>
+<div id="listEtatObjectif"></div>
 
   </div>
   <div class="modal-footer">
@@ -88,7 +79,7 @@
     <h4 class="modal-title">Remarque</h4>
   </div>
   <div class="modal-body">
-    <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une rétrospective.." >
+    <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une remarque.." >
   </div>
   <div class="modal-footer">
     <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
@@ -105,6 +96,8 @@
     RemplirListSprint('ListSrint');
 
     RemplirListProjet('ListProjet');
+
+    RemplirListEtatObjectif('listEtatObjectif');
 
     RemplirTableau(); 
 

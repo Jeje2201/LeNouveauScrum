@@ -37,20 +37,10 @@
     </div>
     <div class="modal-body">
       <label>Employé</label>
-      <select class="form-control" id="employeId" name="employeId">
-        <?php
-        $result = $conn->query("select id, prenom, nom from employe order by prenom");
-        while ($row = $result->fetch_assoc()) {
-          $id = $row['id'];
-          $prenom = $row['prenom']; 
-          $nom = $row['nom']; 
-          echo '<option value="'.$id.'"> ' .$prenom. ' '.$nom.' </option>';
-        }
-        ?>
-      </select>
+      <div id="ListEmploye"> </div>
       <br />
       <label>Projet</label>
-      <div id="ListProjet"> </div>
+      <div id="ListProjet"></div>
       <br />
       <label>Nombre d'heures</label>
       <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
@@ -70,6 +60,8 @@
   $(document).ready(function(){
 
     RemplirListSprint('ListSrint');
+
+    RemplirListEmploye('ListEmploye') 
     
     RemplirListProjet('ListProjet');
 
