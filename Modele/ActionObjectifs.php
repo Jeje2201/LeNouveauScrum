@@ -53,6 +53,23 @@ require_once ('../Modele/Configs.php');
    echo $output;
  }
 
+      if($_POST["action"] == "Load2") 
+     {
+      $numero = $_POST["idAffiche"];
+      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = 'Objectif(s):'. PHP_EOL;
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+        $output .= $row["projet"].' -> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+      }
+    }
+   echo ($output);
+ }
+
  if($_POST["action"] == "retrospective") 
      {
       $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label

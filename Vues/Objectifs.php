@@ -32,7 +32,10 @@
 
     <br>
 
-    <div id="TableObjectif" class="table-responsive table-striped table-hover"></div>
+    <textarea id="textbox" style="display: none">Type something here</textarea>
+    <a download="RetrospectiveSprint.txt"  id="downloadlink" style="display: none">Download</a>
+
+    <div id="TableObjectif" class="table-responsive table-hover"></div>
 
     <div id="TableRetrospective" class="table-responsive table-striped table-hover"></div>
 
@@ -117,6 +120,50 @@
         $('#TableObjectif').html(data); 
       }
     });
+
+      var action = "Load2";
+      $.ajax({
+       url : "Modele/ActionObjectifs.php", 
+       method:"POST", 
+       data:{action:action, idAffiche:idAffiche}, 
+       success:function(dataa){
+        $('#textbox').html(dataa.trim()); 
+        console.log(dataa.trim());
+
+
+
+(function () {
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([dataa], {type: 'text/plain'});
+
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
+  };
+
+
+  var create = document.getElementById('BouttonImprimmer'),
+    textbox = document.getElementById('textbox');
+
+  create.addEventListener('click', function () {
+    var link = document.getElementById('downloadlink');
+    link.href = makeTextFile(textbox.value);
+    link.style.display = 'block';
+  }, false);
+})();
+
+
+
+      }
+    });
+
 
       var action = "retrospective";
       $.ajax({
@@ -256,34 +303,34 @@
    });
   });
 
-$('#BouttonImprimmer').click(function(){
+// $('#BouttonImprimmer').click(function(){
 
-  $('#TableObjectif th:nth-child(4)').remove();
-  $('#TableObjectif td:nth-child(4)').remove();
+//   $('#TableObjectif th:nth-child(4)').remove();
+//   $('#TableObjectif td:nth-child(4)').remove();
 
-  $('#TableRetrospective th:nth-child(3)').remove();
-  $('#TableRetrospective td:nth-child(3)').remove();
+//   $('#TableRetrospective th:nth-child(3)').remove();
+//   $('#TableRetrospective td:nth-child(3)').remove();
 
-  var doc = new jsPDF('landscape');
+//   var doc = new jsPDF('landscape');
 
-  doc.setFontSize(30);
-  doc.text(20, 20, 'Les objectifs');
+//   doc.setFontSize(30);
+//   doc.text(20, 20, 'Les objectifs');
 
-  doc.fromHTML($('#TableObjectif').get(0),20,20,{
-  });
+//   doc.fromHTML($('#TableObjectif').get(0),20,20,{
+//   });
 
-  doc.addPage();
+//   doc.addPage();
 
-  doc.setFontSize(30);
-  doc.text(20, 20, 'Les retrospectives');
+//   doc.setFontSize(30);
+//   doc.text(20, 20, 'Les retrospectives');
 
-  doc.fromHTML($('#TableRetrospective').get(0),20,20,{
-      // 'width':500
-    });
+//   doc.fromHTML($('#TableRetrospective').get(0),20,20,{
+//       // 'width':500
+//     });
 
-  doc.save('Sprint n°'+$('#numeroSprint option:selected').text() +'.pdf');
+//   doc.save('Sprint n°'+$('#numeroSprint option:selected').text() +'.pdf');
 
-  location.reload();
+//   location.reload();
   
-});
+// });
 </script>
