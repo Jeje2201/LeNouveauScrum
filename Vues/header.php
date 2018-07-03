@@ -78,7 +78,7 @@
 						<a href="index.php?vue=GestionEmploye"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Employés</a>
 					</li>
 					<li>
-						<a href="#"><i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
+						<a href="index.php?vue=GestionProjet"><i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
 					</li>
 					<li>
 						<a href="index.php?vue=GestionDescendation"><i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
