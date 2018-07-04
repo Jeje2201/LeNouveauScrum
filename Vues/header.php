@@ -42,13 +42,13 @@
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 					<a class="nav-link" href="index.php?vue=Attribution">
-						<i class="fa fa-fw fa-arrow-up"></i>
+						<i class="fa fa-fw fa fa-tasks"></i>
 						<span class="nav-link-text">Planification</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeuresDescendues">
 					<a class="nav-link" href="index.php?vue=Descendation">
-						<i class="fa fa-fw fa-arrow-down"></i>
+						<i class="fa fa-fw fa-sticky-note-o"></i>
 						<span class="nav-link-text">Heures Descendues</span>
 					</a>
 				</li>
@@ -61,13 +61,13 @@
 			</li>
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">
 				<a class="nav-link" href="index.php?vue=Objectifs">
-					<i class="fa fa-fw fa-sticky-note-o"></i>
+					<i class="fa fa-fw fa-television"></i>
 					<span class="nav-link-text">Rétrospective</span>
 				</a>
 			</li>
 						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">
 				<a class="nav-link" href="index.php?vue=Interferance">
-					<i class="fa fa-fw fa-sticky-note-o"></i>
+					<i class="fa fa-fw fa-exclamation-triangle"></i>
 					<span class="nav-link-text">Interférence</span>
 				</a>
 			</li>
