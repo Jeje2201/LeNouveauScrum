@@ -152,7 +152,7 @@ if($_POST["action"] == "DateMinMax")
   $idAffiche = $_POST["idAffiche"];
 
   $statement = $connection->prepare(
-   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.numero = $idAffiche"
+   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
  );
   $statement->execute();
   $result = $statement->fetchAll();
