@@ -52,9 +52,9 @@ require_once ('../Modele/Configs.php');
      foreach($result as $row)
      {
       $output1.='
-      <div class="card BOUGEMOI" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';" id="'.$row["id"].'" onclick="DeplaceToi(this)">
+      <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
         
-        <div class="card-header text-center">
+        <div class="card-header text-center" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
 
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
         </div>
