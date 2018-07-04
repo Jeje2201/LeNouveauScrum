@@ -76,6 +76,11 @@
 
     var audio = document.getElementById("audio");
 
+    //Si on est lundi on check pas a hier mais 3j avant soit vendredi
+    d = new Date().getDay()
+    if (d == 1)
+    $('#DateAujourdhui').val(ChoixDate(-3));
+    else
     $('#DateAujourdhui').val(ChoixDate(-1));
 
     function AfficherCards() 
