@@ -42,13 +42,13 @@
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 					<a class="nav-link" href="index.php?vue=Attribution">
-						<i class="fa fa-fw fa-arrow-down"></i>
-						<span class="nav-link-text">Heures Attribuées</span>
+						<i class="fa fa-fw fa-arrow-up"></i>
+						<span class="nav-link-text">Planification</span>
 					</a>
 				</li>
 				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="HeuresDescendues">
 					<a class="nav-link" href="index.php?vue=Descendation">
-						<i class="fa fa-fw fa-arrow-up"></i>
+						<i class="fa fa-fw fa-arrow-down"></i>
 						<span class="nav-link-text">Heures Descendues</span>
 					</a>
 				</li>
