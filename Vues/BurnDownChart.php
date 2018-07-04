@@ -97,7 +97,7 @@ $( "#ListSrint" ).change(function() {
 
 				});
 
-				idAffiche = parseInt($("#numeroSprint option:selected").text());
+				idAffiche = parseInt($("#numeroSprint").val());
 		        var action = "DateMinMax";
 		        $.ajax({
 		         url : "Modele/ActionDescendre2.php", 
