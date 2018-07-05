@@ -53,13 +53,13 @@ require_once ('../Modele/Configs.php');
      {
       $output1.='
       <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
-        
+        <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
         <div class="card-header text-center" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
 
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
         </div>
         <div class="card-body text-center EcartPlusPetit">
-          <p class="card-text"><i>'.$row["NbHeure"].'h</i><img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png"></p>
+          <p class="card-text"><i>'.$row["NbHeure"].'h</i></p>
         </div>
       </div>';
     }
