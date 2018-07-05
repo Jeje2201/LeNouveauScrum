@@ -11,6 +11,15 @@
           </div>
         </div>
 
+<div class="row">
+          <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div id="TotalHattribueDescendue">Hey</div>
+          </div>
+        </div>
+      </div>
+                <div class="col-lg-9">
         <div class="card mb-3">
           <div class="card-body">
 
@@ -20,25 +29,23 @@
                 <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
               </div>
             </center>
-            <div id="HeureDescenduParEmploye"></div>
+           <div id="HeureDescenduParEmploye"></div>
           </div>
         </div>
+      </div>
+    </div>
 
         <div class="row">
-          <div class="col-lg-5">
+          <div class="col-lg-7">
             <!-- Example Bar Chart Card-->
             <div class="card mb-3">
-              <div class="card-header">
-                <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
                 <div class="card-body">
-                  <div class="row">
-                    <p>wow</p>
-                  </div>
+                  <div id="HeureDescenduesParJours"></div>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-7">
+            <div class="col-lg-5">
               <!-- Example Pie Chart Card-->
               <div class="card mb-3">
                 <div class="card-body">
@@ -58,192 +65,26 @@
 
     $( document ).ready(function() {
 
-      RemplirListSprint('ListSrint') 
-      ChargerColumnHeures($('#numeroSprint').val(),1);
-      ChargerPieObjectif($('#numeroSprint').val());
-
+      RemplirListSprint('ListSrint');
+      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(),1,'HeureDescenduParEmploye');
+      ChargerPieObjectif($('#numeroSprint').val(),'PieChartStatueObjectif');
+      GetTotalHeuresAttribueDescendue($('#numeroSprint').val(),'TotalHattribueDescendue');
+      HeuresDescenduesParJours($('#numeroSprint').val(),'HeureDescenduesParJours')
 
       $('#numeroSprint').change(function(){
-       ChargerColumnHeures($('#numeroSprint').val(),1);
-       ChargerPieObjectif($('#numeroSprint').val());
+       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(),1,'HeureDescenduParEmploye');
+       ChargerPieObjectif($('#numeroSprint').val(),'PieChartStatueObjectif');
+       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(),'TotalHattribueDescendue');
+       HeuresDescenduesParJours($('#numeroSprint').val(),'HeureDescenduesParJours')
      });
 
       $('#BoutonEmployes').click(function(){
-        ChargerColumnHeures($('#numeroSprint').val(),1);
+        GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(),1,'HeureDescenduParEmploye');
       });
 
       $('#BoutonProjets').click(function(){
-        ChargerColumnHeures($('#numeroSprint').val(),2);
+        GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(),2,'HeureDescenduParEmploye');
       });
-
-      function ChargerColumnHeures(NumeroduSprint, affichage){
-
-        var action = "GetTotalHeuresDescenduesParEmploye";
-
-        $.ajax({
-          url : "Modele/ActionDashboard.php", 
-          method:"POST", 
-          data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
-
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
-
-            if(affichage == 1){
-
-              Highcharts.chart('HeureDescenduParEmploye', {
-                chart: {
-                  type: 'column'
-                },
-                title: {
-                  text: 'Total heures attribuées et descendues'
-                },
-                xAxis: {
-                  type: 'category',
-                  categories: hDescenduesParEmploye[0],
-                  labels: {
-                    rotation: -45,
-                    style: {
-                      fontSize: '15px',
-                      fontFamily: 'Verdana, sans-serif'
-                    }
-                  }
-                },
-                yAxis: {
-                  min: 0,
-                  title: {
-                    text: 'Total heures attribuées et descendues'
-                  }
-                },
-                tooltip: {
-                  shared: true,
-                },
-                plotOptions: {
-                  column: {
-                    grouping: false,
-                    shadow: true,
-                    borderWidth: 1
-                  },
-                  dataLabels: {
-                    enabled: true,
-                    format: ''
-                  }
-                },
-                series: [{
-                  name: 'Heures attribuées',
-                  data: hDescenduesParEmploye[2],
-                  pointPadding: 0.3,
-                }, {
-                  name: 'Heures descendues',
-                  data: hDescenduesParEmploye[1],
-                  pointPadding: 0.4,
-                }]
-              });
-            }
-            else{
-
-              Highcharts.chart('HeureDescenduParEmploye', {
-                chart: {
-                  type: 'column'
-                },
-                title: {
-                  text: 'Total heures attribuées et descendues'
-                },
-                xAxis: {
-                  type: 'category',
-                  categories: hDescenduesParEmploye[3],
-                  labels: {
-                    rotation: -45,
-                    style: {
-                      fontSize: '15px',
-                      fontFamily: 'Verdana, sans-serif'
-                    }
-                  }
-                },
-                yAxis: {
-                  min: 0,
-                  title: {
-                    text: 'Total heures attribuées et descendues'
-                  }
-                },
-                tooltip: {
-                  shared: true,
-                },
-                plotOptions: {
-                  column: {
-                    grouping: false,
-                    shadow: true,
-                    borderWidth: 1
-                  }
-                },
-                series: [{
-                  name: 'Heures attribuées',
-                  data: hDescenduesParEmploye[5],
-                  pointPadding: 0.3
-                }, {
-                  name: 'Heures descendues',
-                  data: hDescenduesParEmploye[4],
-                  pointPadding: 0.4
-                }]
-              });
-
-            }
-
-          }
-        });
-
-}
-
-      function ChargerPieObjectif(NumeroduSprint){
-
-        var action = "GetTotalHeuresDescenduesParEmploye";
-
-        $.ajax({
-          url : "Modele/ActionDashboard.php", 
-          method:"POST", 
-          data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
-
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
-
-            Highcharts.chart('PieChartStatueObjectif', {
-              chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-              },
-              title: {
-                text: 'Statut objectifs'
-              },
-              tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'         
-              },
-              plotOptions: {
-                pie: {
-
-                  colors: ['#95D972', '#E88648', '#E8514E', '#E8514E', '#222222'],
-                  allowPointSelect: true,
-                  cursor: 'pointer',
-                  dataLabels: {
-                    enabled: true,
-                    format: '{point.name}: {point.y} ({point.percentage:.0f} %)'
-                  }
-                }
-              },
-              series: [{
-                name: 'Effectué',
-                data: hDescenduesParEmploye[6]
-              }]
-            });
-
-        }
-      });
-      }
-
 
 });
 

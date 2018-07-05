@@ -42,16 +42,16 @@
 			$( document ).ready(function() {
 
 				RemplirListSprint('ListSrint');
-				MettreChartAJour($("#numeroSprint option:selected").text());//au lancement de la page, afficher la burndownchart avec le numero de la liste
+				MettreChartAJour($("#numeroSprint option:selected").text(),'EmplacementChart');//au lancement de la page, afficher la burndownchart avec le numero de la liste
 
 			});
 
 			$( "#ListSrint" ).change(function() {
-				MettreChartAJour($("#numeroSprint option:selected").text());
+				MettreChartAJour($("#numeroSprint option:selected").text(),'EmplacementChart');
 			});
 
 
-			function MettreChartAJour(NumeroSprint){
+			function MettreChartAJour(NumeroSprint, div){
 
 				var action = "GetLesInfosDeLaBurnDownChart";
 
@@ -66,7 +66,7 @@
 						console.log(Total[2])
 
 
-						CreerLaChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint);
+						CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
 
 						if(Total[4][0] == null)
 							$("#TotalHAttribues").html("Total heures à descendre: <b>Inconnue</b>");
@@ -121,59 +121,6 @@
 					}
 				});	
 
-			};
-
-			function CreerLaChart(heures, dates, seuils, sprintou, NumeroduSprint){
-				heures = heures.map(function (x) { 
-					return parseInt(x, 10); 
-				});
-
-				seuils = seuils.map(function (x) { 
-					return parseInt(x, 10); 
-				});
-
-				console.log("Les Informations : ",heures, dates, seuils, sprintou);
-
-				new Highcharts.Chart({
-					chart: {
-						renderTo: 'EmplacementChart'
-					},
-					title:{
-						text: 'BurnDownChart du Sprint n°'+NumeroduSprint
-					},
-					subtitle:{
-						text: document.ontouchstart === undefined ?
-						'Déplace ta souris sur les points pour avoir plus de détails': ''
-					},
-					yAxis: {
-						min: 0,
-						title: {
-							text: 'Heures'
-						}
-					},
-					xAxis: {
-						type: 'datetime',
-						categories: dates
-					},
-					plotOptions: {
-						line: {
-							dataLabels: {
-								enabled: true
-							},
-							enableMouseTracking: true
-						}
-					},
-					series: [{
-						name: 'Heures Restantes',
-						data: heures
-					},
-					{
-						name: 'Seuil (Interventions, ...)',
-						data: seuils,
-						color: 'red'
-					}
-					]
-				});
 			};
 
 		</script>
