@@ -57,12 +57,16 @@ However, delay the fade out process for 2.5 seconds */
     margin-top: 12px; /* Add some space below the input */
 }
 
-.card .BOUGEMOI:hover{
-  cursor: url("../Image/SuperCurseur.png") 50 50, auto;
+.card #EnCours .BOUGEMOI:hover{
+  cursor: url("../Image/Right.png") 10 10, auto;
+}
+
+.card #Fini .BOUGEMOI:hover{
+  cursor: url("../Image/Left.png") 10 10, auto;
 }
 
 .card .PASTOUCHE:hover{
-  cursor: url("../Image/SuperCurseur2.png") 50 50, auto;
+  cursor: url("../Image/Deny.png") 50 50, auto;
 }
 
 hr{
