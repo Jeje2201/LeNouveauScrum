@@ -41,7 +41,7 @@
 
         <div class="form-group">
           <label>Icone (50x50)</label>
-          <input id="IconeName" class="form-control" value="inconnue" type="text">
+          <div id='ListImage'></div>
           <br>
           <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="35" height="35">
         </div>
@@ -64,7 +64,9 @@
 
     RemplirListTypeTypeProjet('listeTypeProjet')
 
-    fetchUser(); 
+    RemplirListImages('ListImage');
+
+    fetchUser();
 
     function fetchUser() 
     {
@@ -79,13 +81,23 @@
     });
     }
 
-    $('#IconeName').on('input',function(e){
+    function RemplirListImages(Div)
+    {
+      var action = "LoadPictures";
+      $.ajax({
+       url : "Modele/ActionGestionProjet.php", 
+       method:"POST", 
+       data:{action:action}, 
+       success:function(data){
+        $('#'+Div+'').html(data); 
+      }
+    });
 
- $("#IconPreview").attr("src", 'Assets/Image/Projets/'+$('#IconeName').val()+'.png');
+    }
 
-});
-
-
+    $('#ListImage').change(function(){
+      $("#IconPreview").attr("src", 'Assets/Image/Projets/'+$('#ToutesLesImages').val()+'.png');
+   });
 
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
@@ -98,7 +110,7 @@
 
       var Nom = $('#Nom').val();
       var TypeProjet = $('#TypeProjet').val();
-      var fileName = $('#IconeName').val();
+      var fileName = $('#ToutesLesImages').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
@@ -108,7 +120,7 @@
         url : "Modele/ActionGestionProjet.php",    
         method:"POST", 
         data:{id:id, Nom:Nom, TypeProjet:TypeProjet, fileName:fileName,  action:action},
-  
+
         success:function(data){
          BootstrapAlert(data);
          console.log(data);
@@ -122,7 +134,7 @@
        alert("Tous les champs doivent être plein."); 
      }
    })
-     
+
 
 
     $(document).on('click', '.update', function(){

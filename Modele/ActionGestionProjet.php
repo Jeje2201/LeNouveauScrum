@@ -1,6 +1,6 @@
    <?php
 
-require_once ('../Modele/Configs.php');
+   require_once ('../Modele/Configs.php');
 
    if(isset($_POST["action"])) 
    {
@@ -49,14 +49,35 @@ require_once ('../Modele/Configs.php');
    echo $output;
  }
 
- if($_POST["action"] == "Ajouter")
+ if($_POST["action"] == "LoadPictures")
  {
+  $dir    = '../Assets/Image/Projets/';
+  $files = array_diff(scandir($dir), array('..', '.'));
+
+
+  $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
+
+  foreach($files as $file)
+  {
+
+    $output2.='<option value="'.substr($file, 0, -4).'"> '.substr($file, 0, -4).' </option>';
+
+  }
+
+  $output2 .= '</select>';
+
+  echo $output2;
+}
+
+
+if($_POST["action"] == "Ajouter")
+{
   $statement = $connection->prepare("
    INSERT INTO projet (nom, cheminIcone, id_TypeProjet) 
    VALUES (:Nom, :cheminIcone, :id_TypeProjet)
    ");
 
-     $result = $statement->execute(
+  $result = $statement->execute(
    array(
     ':Nom' => $_POST["Nom"],
     ':cheminIcone' => $_POST["fileName"],
@@ -69,7 +90,7 @@ require_once ('../Modele/Configs.php');
  }
  else{
   echo 'Erreur :c';
- }
+}
 }
 
 if($_POST["action"] == "Select")
@@ -84,10 +105,6 @@ if($_POST["action"] == "Select")
   $result = $statement->fetchAll();
   foreach($result as $row)
   {
-
-
-
-
    $output["Nom"] = $row["nom"];
    $output["cheminIcone"] = $row["cheminIcone"];
    $output["TypeProjet"] = $row["id_TypeProjet"];
