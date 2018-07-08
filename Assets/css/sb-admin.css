@@ -65,17 +65,25 @@ However, delay the fade out process for 2.5 seconds */
   cursor: url("../Image/SuperCurseur2.png") 50 50, auto;
 }
 
-.EcartPlusPetit {
-  padding-top: 5px;
-  padding-bottom: 5px; }
+hr{
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 
-  .LogoProjet{
-    width: 23px;
-    position: absolute;
-    bottom: 5px;
-    right: 0px;
-    transform: rotate(15deg);
-  }
+}
+.LogoProjet{
+  width: 23px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.BarreLateralCard{
+  height:100%;
+  width:5px;
+  position:absolute;
+  top:0px;
+  left:0px;
+}
 
 body {
   overflow-x: hidden; }
