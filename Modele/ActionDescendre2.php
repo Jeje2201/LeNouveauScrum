@@ -1,17 +1,5 @@
    <?php
 
-   function getTextColour($hex){
-    list($red, $green, $blue) = sscanf($hex, "#%02x%02x%02x");
-    $luma = ($red + $green + $blue)/3;
-
-    if ($luma < 128){
-      $textcolour = "white";
-    }else{
-      $textcolour = "black";
-    }
-    return $textcolour;
-  }
-
 require_once ('../Modele/Configs.php');
 
   if(isset($_POST["action"])) 
