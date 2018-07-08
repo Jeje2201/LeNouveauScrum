@@ -236,6 +236,7 @@
 
         new Highcharts.Chart({
           chart: {
+            type: 'area',
             renderTo: div
           },
           title:{
@@ -256,6 +257,9 @@
             categories: dates
           },
           plotOptions: {
+            area: {
+            fillOpacity: 0.2
+        },
             line: {
               dataLabels: {
                 enabled: true
@@ -269,8 +273,7 @@
           },
           {
             name: 'Seuil (Interventions, ...)',
-            data: seuils,
-            color: 'red'
+            data: seuils
           }
           ]
         });
