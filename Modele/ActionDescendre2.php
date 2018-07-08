@@ -54,12 +54,13 @@ require_once ('../Modele/Configs.php');
       $output1.='
       <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
-        <div class="card-header text-center" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
-
-          <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
-        </div>
-        <div class="card-body text-center EcartPlusPetit">
-          <p class="card-text"><i>'.$row["NbHeure"].'h</i></p>
+        <div style="margin:7px;">
+          <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
+          <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
+            <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Initial"].'<hr/>
+            <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
+            <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'
+          </span>
         </div>
       </div>';
     }
@@ -88,14 +89,18 @@ if($statement->rowCount() > 0)
  foreach($result as $row)
  {
 
-  $output2.='<div class="card PASTOUCHE" style="background-color:'.$row["E_Couleur"].'; color:'.getTextColour($row["E_Couleur"]).';">
-  <div class="card-header text-center">
-<span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'"><b>'.$row["E_Initial"].'</b> '.$row["projet"].'</span>
+  $output2.='
+<div class="card PASTOUCHE">
+  <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
+  <div style="margin:7px;">
+    <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
+    <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
+      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Initial"].'<hr/>
+      <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
+      <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'
+    </span>
   </div>
-  <div class="card-body text-center EcartPlusPetit">
-  <p class="card-text"><i>'.$row["NbHeure"].'h</i></p>
-  </div>
-  </div>';
+</div>';
 
 }
 }
