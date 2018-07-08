@@ -31,27 +31,19 @@
 
         <div class="form-group">
           <label>Nom</label>
-          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="Madame">
+          <input class="form-control" name="Nom" id="Nom" type="text"placeholder="Nom..">
         </div>
 
         <div class="form-group">
-          <label>Abréviation</label>
-          <input class="form-control" name="Abreviation" id="Abreviation" type="text"placeholder="Mme">
-        </div>
-
-        <div class="form-group">
-        <label>Type</label>
-        <div id="listeTypeProjet"></div>
+          <label>Type</label>
+          <div id="listeTypeProjet"></div>
         </div>
 
         <div class="form-group">
           <label>Icone (50x50)</label>
-          <input class="form-control" name="Icone" id="Icone" type="file" accept=".jpg, .jpeg, .png">
-        </div>
-
-        <div>
-          <label>Actif</label>
-          <input id="Actif" type="checkbox" checked>
+          <input id="IconeName" class="form-control" value="inconnue" type="text">
+          <br>
+          <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="35" height="35">
         </div>
 
       </div>
@@ -87,35 +79,36 @@
     });
     }
 
+    $('#IconeName').on('input',function(e){
+
+ $("#IconPreview").attr("src", 'Assets/Image/Projets/'+$('#IconeName').val()+'.png');
+
+});
+
+
+
     $('#modal_button').click(function(){
       $('#customerModal').modal('show'); 
       $('.modal-title').text("Ajouter un projet"); 
       $('#action').val('Ajouter'); 
-      $('#Prenom').val('');
       $('#Nom').val('');
-      $('#Actif').prop( "checked", true ); 
     });
 
     $('#action').click(function(){
-      var Nom_Employe = $('#Nom').val();
-      var Prenom_Employe = $('#Prenom').val();
-      var Type_Employe = $('#TypeEmploye').val();
-      if (document.getElementById("Actif").checked == true){
-        var Actif = 1;
-      } else {
-        var Actif = 0;
-      }
 
-      var Initial = Prenom_Employe.charAt(0)+Nom_Employe.charAt(0);
+      var Nom = $('#Nom').val();
+      var TypeProjet = $('#TypeProjet').val();
+      var fileName = $('#IconeName').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
-      if(Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') 
+      if(Nom != '' && TypeProjet != '' && fileName != '') 
       {
        $.ajax({
         url : "Modele/ActionGestionProjet.php",    
-        method:"POST",     
-        data:{id:id, Nom_Employe:Nom_Employe, Prenom_Employe:Prenom_Employe, Actif:Actif, Initial:Initial, Type_Employe:Type_Employe, action:action}, 
+        method:"POST", 
+        data:{id:id, Nom:Nom, TypeProjet:TypeProjet, fileName:fileName,  action:action},
+  
         success:function(data){
          BootstrapAlert(data);
          console.log(data);
@@ -128,7 +121,9 @@
      {
        alert("Tous les champs doivent être plein."); 
      }
-   });
+   })
+     
+
 
     $(document).on('click', '.update', function(){
       var id = $(this).attr("id"); 
@@ -142,17 +137,12 @@
         $('#customerModal').modal('show');   
         $('.modal-title').text("Mettre à jour"); 
         $('#action').val("Update");  
-
-        if(data.Actif ==1)
-          $('#Actif').prop('checked', true);
-        else
-          $('#Actif').prop('checked', false);
         
         $('#id').val(id); 
-        $('#Prenom').val(data.Prenom);  
-        $('#Nom').val(data.Nom); 
-        $('#TypeEmploye').val(data.TypeEmploye);
-
+        $('#Nom').val(data.Nom);
+        $('#TypeProjet').val(data.TypeProjet);
+        $('#IconeName').val(data.cheminIcone);
+        $('#IconPreview').attr('src', 'Assets/Image/Projets/'+data.cheminIcone+'.png');
       }
     });
     });
