@@ -212,7 +212,7 @@
           foreach($result as $row)
             {
 
-              $output2.='<input type="radio" name="Etat" id="EtatNum'.$row["id"].'" value="'.$row["id"].'"> '.$row["nom"].'<br>';
+              $output2.='<label><input type="radio" name="Etat" id="EtatNum'.$row["id"].'" value="'.$row["id"].'">  '.$row["nom"].'</label><br>';
 
             }
 
