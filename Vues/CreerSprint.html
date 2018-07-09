@@ -19,75 +19,71 @@
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <span class="fa fa-calendar"></span>&nbsp;Début</span>
-            </div>
-            <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+              </div>
+              <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
 
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <span class="fa fa-calendar"></span>&nbsp;Fin</span>
-            </div>
-            <input type="text" name="dateFin" id='dateFin' class="form-control" />
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <span class="fa fa-calendar"></span>&nbsp;Fin</span>
+                </div>
+                <input type="text" name="dateFin" id='dateFin' class="form-control" />
 
-            <button type="button" id="modal_button" class="btn btn-info">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
+                <button type="button" id="modal_button" class="btn btn-info">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+
+              </div>
+            </div>
 
           </div>
-        </div>
 
-      </div>
+          <div class="mb-3">
+            <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+          </div>
 
-      <div class="form-row">
-        <div class="col-md-9">
-          <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-        </div>
-
-      </div>
-      <div id="result" class="table-responsive table-hover">
-        <!-- Data will load under this tag!-->
-      </div>
+          <div id="result" class="table-responsive table-hover"> </div>
 
 
-      <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
-      <div id="customerModal" class="modal fade">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Nouveau sprint</h4>
-            </div>
-            <div class="modal-body">
-              <label>Numero</label>
-              <input type="number" name="numero" id='numeroo' class="form-control">
-              <br />
-              <label>Date Debut</label>
-              <input type="text" name="dateDebut" id='dateDebutt' class="form-control" />
-              <br />
-              <label>Date Fin</label>
-              <input type="text" name="dateFin" id='dateFinn' class="form-control" />
-              <br />
-            </div>
-            <div class="modal-footer">
-              <input type="hidden" name="id" id="id" />
-              <input type="submit" name="action" id="action" class="btn btn-success" />
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+          <div id="customerModal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Nouveau sprint</h4>
+                </div>
+                <div class="modal-body">
+                  <label>Numero</label>
+                  <input type="number" name="numero" id='numeroo' class="form-control">
+                  <br />
+                  <label>Date Debut</label>
+                  <input type="text" name="dateDebut" id='dateDebutt' class="form-control" />
+                  <br />
+                  <label>Date Fin</label>
+                  <input type="text" name="dateFin" id='dateFinn' class="form-control" />
+                  <br />
+                </div>
+                <div class="modal-footer">
+                  <input type="hidden" name="id" id="id" />
+                  <input type="submit" name="action" id="action" class="btn btn-success" />
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
-
     </div>
-  </div>
-  </div>
-</body>
-<script>
+  </body>
+  <script>
 
-  $(document).ready(function () {
+    $(document).ready(function () {
 
-    $('#dateDebut').val(ChoixDate(0));
-    $('#dateFin').val(ChoixDate(localStorage.getItem('NbJoursParSprint')));
-    NumeroSprintMax();
+      $('#dateDebut').val(ChoixDate(0));
+      $('#dateFin').val(ChoixDate(localStorage.getItem('NbJoursParSprint')));
+      NumeroSprintMax();
 
-    BarreDeRecherche('BarreDeRecherche', 'result');
+      BarreDeRecherche('BarreDeRecherche', 'result');
 
     fetchUser(); //This function will load all data on web page when page load
 

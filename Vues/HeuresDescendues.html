@@ -49,32 +49,32 @@
 
       </div>
     </div>
-</body>
+  </body>
 
-<div id="customerModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Tâche(s) achevée(s)</h4>
-      </div>
-      <div class="modal-body">
+  <div id="customerModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tâche(s) achevée(s)</h4>
+        </div>
+        <div class="modal-body">
 
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="id" id="id" />
+          <input type="submit" name="action" id="action" class="btn btn-success" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<script>
+  <script>
 
-  $(document).ready(function () {
+    $(document).ready(function () {
 
-    RemplirListSprint('ListSrint')
-    RemplirListeEmploye();
-    AfficherCards();
+      RemplirListSprint('ListSrint')
+      RemplirListeEmploye();
+      AfficherCards();
 
     //Si on est lundi on check pas a hier mais 3j avant soit vendredi
     // d = new Date().getDay()
@@ -166,25 +166,25 @@
     });
   });
 
-  $('#DateAujourdhui').datetimepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true,
-    minView: 2
-  });
+    $('#DateAujourdhui').datetimepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      minView: 2
+    });
 
-  function DeplaceToi(id) {
+    function DeplaceToi(id) {
 
-    if ($(id).parent().attr('id') == 'EnCours') {
-      $(id).prependTo($("#Fini"));
-      $(id).addClass('border-danger')
-      $(id).children().addClass('border-danger')
+      if ($(id).parent().attr('id') == 'EnCours') {
+        $(id).prependTo($("#Fini"));
+        $(id).addClass('border-danger')
+        $(id).children().addClass('border-danger')
 
+      }
+      else {
+        $(id).prependTo($("#EnCours"));
+        $(id).removeClass('border-danger')
+        $(id).children().removeClass('border-danger')
+      }
     }
-    else {
-      $(id).prependTo($("#EnCours"));
-      $(id).removeClass('border-danger')
-      $(id).children().removeClass('border-danger')
-    }
-  }
 
-</script>
+  </script>

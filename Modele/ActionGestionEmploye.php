@@ -80,8 +80,8 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Nouvel(le) employé(e) / Stagiaire ! 😄';
- }
+   echo 'Bienvenue nouvelle ressource ! 😄';
+  }
 }
 
 if($_POST["action"] == "Select")
@@ -124,7 +124,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Employé(e) Modifi(e) ! 😮';
+   echo 'Ressource modifiée ! 😮';
  }
 }
 
@@ -140,7 +140,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Employé(e) supprimé(e) ! 😢';
+   echo 'Ressource supprimée ! 😢';
  }
 }
 
