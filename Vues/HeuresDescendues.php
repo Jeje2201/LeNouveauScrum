@@ -65,7 +65,6 @@
     </div>
   </div>
 </div>
-<audio id="audio" src="Assets\Audio\Woosh.ogg" ></audio>
 <script>
 
   $(document).ready(function(){
@@ -74,14 +73,12 @@
     RemplirListeEmploye();
     AfficherCards();
 
-    var audio = document.getElementById("audio");
-
     //Si on est lundi on check pas a hier mais 3j avant soit vendredi
-    d = new Date().getDay()
-    if (d == 1)
-    $('#DateAujourdhui').val(ChoixDate(-3));
-    else
-    $('#DateAujourdhui').val(ChoixDate(-1));
+    // d = new Date().getDay()
+    // if (d == 1)
+    // $('#DateAujourdhui').val(ChoixDate(-3));
+    // else
+    $('#DateAujourdhui').val(ChoixDate(0));
 
     function AfficherCards() 
     {
@@ -171,8 +168,6 @@
   });
 
   function DeplaceToi(id) { 
-   
-    audio.play();
     
     if($(id).parent().attr('id') == 'EnCours'){
       $(id).prependTo($("#Fini"));

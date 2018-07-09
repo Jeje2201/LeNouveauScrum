@@ -178,8 +178,8 @@
 .datetimepicker table tr td.disabled,
 .datetimepicker table tr td.disabled:hover {
 	background: none;
-	color: #999999;
-	cursor: default;
+	color: lightcoral;
+	cursor: not-allowed;;
 }
 
 .datetimepicker table tr td.today,
