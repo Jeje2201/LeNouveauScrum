@@ -32,8 +32,6 @@
 				<button class="btn btn-primary" id="set">Sauvegarder</button>
 			</div>
 
-			<?php require_once __Dir__ . '/footer.php'; ?>
-
 		</div>
 		<script>
 			$(document).ready(function () {
@@ -53,7 +51,6 @@
 
 					setTimeout(function () { x.className = x.className.replace("show", ""); }, $('#TempsAffichagePopup').val() * 1000);
 				});
-
 
 				$('#set').click(function () {
 					localStorage.setItem("NbJoursParSprint", $('#NbJoursParSprint').val());
