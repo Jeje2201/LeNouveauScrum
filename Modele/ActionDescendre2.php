@@ -42,7 +42,7 @@ require_once ('../Modele/Configs.php');
       $output1.='
       <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
-        <div style="margin:7px;">
+        <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
             <div><i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Prenom"].' ('.$row["E_Initial"].')</div><hr/>
@@ -80,7 +80,7 @@ if($statement->rowCount() > 0)
   $output2.='
 <div class="card PASTOUCHE">
   <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
-  <div style="margin:7px;">
+  <div style="margin-left:7px;">
     <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
     <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
       <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Prenom"].' ('.$row["E_Initial"].')<hr/>

@@ -75,10 +75,10 @@ hr{
 
 }
 .LogoProjet{
-  width: 23px;
+  width: 22px;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 1px;
+  right: 1px;
 }
 
 .BarreLateralCard{
