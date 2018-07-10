@@ -127,6 +127,30 @@
             
         break;
 
+        case 'ListeDeroulanteEmployeActifTrieParType':
+
+        $statement = $connection->prepare("SELECT (select nom from typeemploye where typeemploye.id = employe.id_typeemploye) as type, prenom as Prenom, nom as Nom from employe where employe.actif = 1 order by prenom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="TypeEmployeOk" name="TypeEmployeOk">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["type"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;
+
       case 'ListeDeroulanteTypeInterferance':
 
         $statement = $connection->prepare("SELECT id as id, nom as nom from typeinterference order by nom asc");
