@@ -1,0 +1,32 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="card mb-3">
+            <div class="card-body">
+              <form method="POST" action="Modele/ConnectionLogin.php">
+                <h5 class="card-title">Je suis..</h5>
+                <p class="card-text">Veuillez sélectionner votre identité parmis la liste déroulante. Il se peut que vous n'aparaissiez pas dans la liste. Ceci peut etre dû pour deux raison:
+                  <li>Vous n'êtes pas enregistré dans la base de donnée comme ressource (parce-que vous êtes nouveau)</li>
+                  <li>Vous n'êtes pas défini en tant qu'<i>actif</i> dans la base de donnée (aucun intéret de faire une liste avec des resources qui ne travaillent plus ici).</li>
+
+                </p>
+                <div id="ListeEmploye"></div>
+                <br>
+                <button type="submit" class="btn btn-primary" hid>Se connecter</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    RemplirListTypeEmployeEtType('ListeEmploye')
+  });
+</script>
