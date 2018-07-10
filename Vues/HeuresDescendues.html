@@ -1,21 +1,43 @@
 <body class="fixed-nav sticky-footer" id="page-Result">
   <div class="content-wrapper">
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="card col-md-12">
+
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- Example Bar Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              Trier Sprint/Ressource
+            </div>
+            <div class="card-body">
+              <!-- Selectionner le sprint sur lequel l'on va jouer -->
+
+              <div class="input-group mb-12">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Sprint n°</span>
+                </div>
+
+                <div id="ListSrint"></div>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Employé(e)</span>
+                </div>
+                <div id="ListeEmploye"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <!-- Example Pie Chart Card-->
+          <div class="card mb-3">
+           <div class="card-header">
+            Valider les tâches
+          </div>
           <div class="card-body">
-            <!-- Selectionner le sprint sur lequel l'on va jouer -->
 
             <div class="input-group mb-12">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Sprint n°</span>
-              </div>
 
-              <div id="ListSrint"></div>
-              <div class="input-group-prepend">
-                <span class="input-group-text">Employé(e)</span>
-              </div>
-              <div id="ListeEmploye"></div>
               <div class="input-group-prepend">
                 <span class="input-group-text">Date</span>
               </div>
@@ -25,63 +47,66 @@
 
             </div>
           </div>
-
         </div>
       </div>
 
-      <div class="row">
+    </div>
 
-        <div class="card col-6">
-          <div class="card-header">
-            <center>Tâche(s) en cours</center>
-          </div>
-          <div class="card-body card-columns" id=EnCours>
-          </div>
+    <div class="row">
+<div class="col-lg-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          <center>Tâche(s) en cours</center>
         </div>
-
-        <div class="card col-6">
-          <div class="card-header">
-            <center>Tâche(s) achevée(s)</center>
-          </div>
-          <div class="card-body card-columns" id=Fini>
-          </div>
+        <div class="card-body card-columns" id=EnCours>
         </div>
-
       </div>
     </div>
-  </body>
 
-  <div id="customerModal" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Tâche(s) achevée(s)</h4>
+<div class="col-lg-6">
+      <div class="card mb-3">
+        <div class="card-header">
+          <center>Tâche(s) achevée(s)</center>
         </div>
-        <div class="modal-body">
+        <div class="card-body card-columns" id=Fini>
+        </div>
+      </div>
 
-        </div>
-        <div class="modal-footer">
-          <input type="hidden" name="id" id="id" />
-          <input type="submit" name="action" id="action" class="btn btn-success" />
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+<div id="customerModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tâche(s) achevée(s)</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-  <script>
+</div>
+<script>
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-      RemplirListSprint('ListSrint')
-      RemplirListeEmploye();
-      AfficherCards();
+    $('#DateAujourdhui').datetimepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      minView: 2
+    });
 
-    //Si on est lundi on check pas a hier mais 3j avant soit vendredi
-    // d = new Date().getDay()
-    // if (d == 1)
-    // $('#DateAujourdhui').val(ChoixDate(-3));
-    // else
-
+    RemplirListSprint('ListSrint')
+    RemplirListeEmploye();
+    AfficherCards();
 
     function AfficherCards() {
       var idAffiche = $('#numeroSprint').val();
@@ -104,11 +129,14 @@
               $('#DateAujourdhui').datetimepicker('setStartDate', data[0]);
               $('#DateAujourdhui').datetimepicker('setEndDate', data[1]);
 
-              if (ChoixDate(0) > data[0] && ChoixDate(0) < data[1])
-                console.log('okay')
-              else
-                console.log('mhm non')
-
+              if (ChoixDate(0) > data[0] && ChoixDate(0) < data[1]){
+                console.log('Toujours dans Sprint, touche pas la date')
+                $('#DateAujourdhui').val(ChoixDate(0));
+              }
+              else{
+                console.log('aah plus dans le sprint, met la derniere date possible')
+                $('#DateAujourdhui').val(data[1]);
+              }
             }
           });
         }
@@ -166,25 +194,20 @@
     });
   });
 
-    $('#DateAujourdhui').datetimepicker({
-      format: 'yyyy-mm-dd',
-      autoclose: true,
-      minView: 2
-    });
 
-    function DeplaceToi(id) {
+  function DeplaceToi(id) {
 
-      if ($(id).parent().attr('id') == 'EnCours') {
-        $(id).prependTo($("#Fini"));
-        $(id).addClass('border-danger')
-        $(id).children().addClass('border-danger')
+    if ($(id).parent().attr('id') == 'EnCours') {
+      $(id).prependTo($("#Fini"));
+      $(id).addClass('border-warning')
+      $(id).children().addClass('border-warning')
 
-      }
-      else {
-        $(id).prependTo($("#EnCours"));
-        $(id).removeClass('border-danger')
-        $(id).children().removeClass('border-danger')
-      }
     }
+    else {
+      $(id).prependTo($("#EnCours"));
+      $(id).removeClass('border-warning')
+      $(id).children().removeClass('border-warning')
+    }
+  }
 
-  </script>
+</script>
