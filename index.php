@@ -20,9 +20,13 @@ else{
     require_once("Vues/NavBarLambda.html");
   }
 
-  if(!isset($_REQUEST['vue']))
+  if(!isset($_REQUEST['vue']) && $_SESSION['Utilisateur'] == 'ScrumMaster')
   {
     $_REQUEST['vue'] = 'Dashboard';
+  }
+  else
+  {
+    $_REQUEST['vue'] = 'Descendation';
   }
 
   $vue = $_REQUEST['vue'];
