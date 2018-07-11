@@ -135,7 +135,7 @@
               }
               else{
                 console.log('aah plus dans le sprint, met la derniere date possible')
-                $('#DateAujourdhui').val(data[1]);
+                $('#DateAujourdhui').val(data[0]);
               }
             }
           });
