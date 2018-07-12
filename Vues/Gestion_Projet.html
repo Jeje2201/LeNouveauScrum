@@ -2,11 +2,11 @@
   <div class="content-wrapper">
     <div class="container">
 
-      <div class="mb-3">
+      <div class="mb-5">
         <div class="form-row">
-          <div class="col-md-3">
+          <div class="col-md-9">
             <button type="button" id="modal_button" class="btn btn-info">Créer un projet</button>
-
+            <button type="button" name="add" id="add" class="btn btn-info">Ajouter une image</button>
           </div>
         </div>
 
@@ -41,7 +41,7 @@
             <label>Icone (50x50)</label>
             <div id='ListImage'></div>
             <br>
-            <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="35" height="35">
+            <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="53px">
           </div>
 
         </div>
@@ -53,6 +53,27 @@
       </div>
     </div>
   </div>
+
+
+<div id="imageModal" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header"><h4>Ajouter une image</h4></div>
+   <div class="modal-body">
+    <form id="image_form" method="post" enctype="multipart/form-data">
+     <input type="file" name="image" id="image" /></p><br />
+     <input type="hidden" name="action" id="action" value="insert" />
+     <input type="hidden" name="image_id" id="image_id" />
+     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
+      
+    </form>
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
 
   <script>
 
@@ -92,7 +113,7 @@
       }
 
       $('#ListImage').change(function () {
-        $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val() + '.png');
+        $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
       });
 
       $('#modal_button').click(function () {
@@ -147,8 +168,8 @@
             $('#id').val(id);
             $('#Nom').val(data.Nom);
             $('#TypeProjet').val(data.TypeProjet);
-            $('#IconeName').val(data.cheminIcone);
-            $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.cheminIcone + '.png');
+            $('#ToutesLesImages').val(data.Logo);
+            $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
           }
         });
       });
@@ -171,6 +192,52 @@
           return false;
         }
       });
+
+ $('#add').click(function(){
+  $('#imageModal').modal('show');
+  $('#image_form')[0].reset();
+  $('.modal-title').text("Add Image");
+  $('#image_id').val('');
+  $('#action').val('insert');
+  $('#insert').val("Insert");
+ });
+ $('#image_form').submit(function(event){
+  event.preventDefault();
+  var image_name = $('#image').val();
+  if(image_name == '')
+  {
+   alert("Please Select Image");
+   return false;
+  }
+  else
+  {
+   var extension = $('#image').val().split('.').pop().toLowerCase();
+   if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
+   {
+    alert("Invalid Image File");
+    $('#image').val('');
+    return false;
+   }
+   else
+   {
+    $.ajax({
+     url:"Modele/ActionGestionProjet.php",
+     method:"POST",
+     data:new FormData(this),
+     contentType:false,
+     processData:false,
+     success:function(data)
+     {
+      $('#image_form')[0].reset();
+      $('#imageModal').modal('hide');
+      BootstrapAlert(data);
+      fetchUser();
+
+     }
+    });
+   }
+  }
+ });
 
     });
   </script>
