@@ -18,7 +18,7 @@ require_once ('../Modele/Configs.php');
       $Requete1 = "AND attribution.id_Employe = $idEmploye";
 
     $statement = $connection->prepare("
-      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom
+      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom
       FROM attribution
       inner JOIN employe ON employe.id = attribution.id_Employe
       INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -41,7 +41,7 @@ require_once ('../Modele/Configs.php');
      {
       $output1.='
       <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
-        <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
+        <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
         <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
@@ -60,7 +60,7 @@ require_once ('../Modele/Configs.php');
   $Requete2 = "AND id_Employe = $idEmploye";
 
 $statement = $connection->prepare("
-  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.cheminIcone as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom
+  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom
   FROM heuresdescendues
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
@@ -79,7 +79,7 @@ if($statement->rowCount() > 0)
 
   $output2.='
 <div class="card PASTOUCHE">
-  <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'.png">
+  <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
   <div style="margin-left:7px;">
     <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
     <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
