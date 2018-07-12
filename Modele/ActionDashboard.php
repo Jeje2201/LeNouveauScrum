@@ -13,9 +13,10 @@
       $statement = $connection->prepare(
        $sql = "SELECT (select employe.prenom from employe where employe.id= heuresdescendues.id_Employe) as employe,
        sum(heuresdescendues.heure) as HDescendue,
-       (select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue
+       (select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue,
+       ((select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) - sum(heuresdescendues.heure)) as Difference
        FROM `heuresdescendues` INNER JOIN employe on heuresdescendues.id_Employe = employe.id
-       where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY HDescendue desc"
+       where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY Difference asc, HDescendue desc"
      );
 
       $statement->execute();
