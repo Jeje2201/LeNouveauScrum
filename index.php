@@ -93,7 +93,7 @@ switch($vue)
 
  default:
  print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
-  <div class="container">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
+  <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
  break;
 }
 
