@@ -55,8 +55,7 @@
   $dir    = '../Assets/Image/Projets/';
   $files = array_diff(scandir($dir), array('..', '.'));
 
-
-  $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
+$output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
 
   foreach($files as $file)
   {

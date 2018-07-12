@@ -52,8 +52,7 @@
 				MettreChartAJour($("#numeroSprint option:selected").text(), 'EmplacementChart');
 			});
 
-
-			function MettreChartAJour(NumeroSprint, div) {
+function MettreChartAJour(NumeroSprint, div) {
 
 				var action = "GetLesInfosDeLaBurnDownChart";
 
@@ -64,11 +63,9 @@
 					success: function (Total) {
 						Total = JSON.parse(Total);
 
+console.log(Total[2])
 
-						console.log(Total[2])
-
-
-						CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
+CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
 
 						if (Total[4][0] == null)
 							$("#TotalHAttribues").html("Total heures à descendre: <b>Inconnue</b>");
@@ -115,8 +112,7 @@
 							Aujourdui = new Date();
 							$("#NbJoursRestants").html("Nombre de jours restants: <b>" + Math.ceil((Fin - Aujourdui) / (1000 * 60 * 60 * 24)) + "</b>");
 
-
-						}
+}
 						else
 							$("#NbJoursRestants").html("Nombre de jours restants: <b>date dépassée</b>");
 

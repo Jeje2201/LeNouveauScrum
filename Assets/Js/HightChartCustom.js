@@ -131,9 +131,7 @@
 
             console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
 
-
-
-            Highcharts.chart(div, {
+Highcharts.chart(div, {
               chart: {
                 type: 'column'
               },

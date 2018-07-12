@@ -43,8 +43,7 @@
 
           <div id="result" class="table-responsive table-hover"> </div>
 
-
-          <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+<!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
           <div id="customerModal" class="modal fade">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -150,8 +149,7 @@
       }
     });
 
-
-    //This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
+//This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
       var action = "Select";   //We have define action variable value is equal to select
@@ -218,6 +216,5 @@
       }
     });
 
-
-  });
+});
 </script>

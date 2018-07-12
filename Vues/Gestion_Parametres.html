@@ -39,12 +39,10 @@
 				if (!isNaN(parseInt(localStorage.getItem('TempsAffichagePopup'))))
 					$('#TempsAffichagePopup').val(localStorage.getItem('TempsAffichagePopup') / 1000);
 
-
-				if (!isNaN(parseInt(localStorage.getItem('NbJoursParSprint'))))
+if (!isNaN(parseInt(localStorage.getItem('NbJoursParSprint'))))
 					$('#NbJoursParSprint').val(localStorage.getItem('NbJoursParSprint'))
 
-
-				$('#popup').click(function () {
+$('#popup').click(function () {
 					var x = document.getElementById("snackbar");
 					x.className = "show";
 					x.innerHTML = "Popup de test";

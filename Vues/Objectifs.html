@@ -121,9 +121,7 @@
               $('#textbox').html(dataa.trim());
               console.log(dataa.trim());
 
-
-
-              (function () {
+(function () {
                 var textFile = null,
                 makeTextFile = function (text) {
                   var data = new Blob([dataa], { type: 'text/plain' });
@@ -149,13 +147,10 @@
               }, false);
             })();
 
-
-
-          }
+}
         });
 
-
-          var action = "retrospective";
+var action = "retrospective";
           $.ajax({
             url: "Modele/ActionObjectifs.php",
             method: "POST",

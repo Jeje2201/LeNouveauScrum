@@ -194,8 +194,7 @@
     });
   });
 
-
-  function DeplaceToi(id) {
+function DeplaceToi(id) {
 
     if ($(id).parent().attr('id') == 'EnCours') {
       $(id).prependTo($("#Fini"));

@@ -91,8 +91,7 @@
 
     $array[] = $Total;
 
-
-    $statement = $connection->prepare(
+$statement = $connection->prepare(
       $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint");
     $statement->execute();
     $result = $statement->fetch();
@@ -108,8 +107,7 @@
 
     $array[] = $TotDescendue;
 
-
-       $statement = $connection->prepare(
+$statement = $connection->prepare(
       $sql = "SELECT sum(heure) as heures, DateDescendu as Ladate FROM `heuresdescendues` where heuresdescendues.id_Sprint = $NumeroduSprint GROUP by DateDescendu");
 
      $statement->execute();
