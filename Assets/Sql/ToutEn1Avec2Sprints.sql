@@ -7,6 +7,9 @@
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
+Create Database scrum;
+Use scrum;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
