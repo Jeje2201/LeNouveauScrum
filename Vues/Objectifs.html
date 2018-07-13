@@ -8,19 +8,19 @@
             <!-- Selectionner le sprint sur lequel l'on va jouer -->
             <div class="form-group">
               <div class="form-row">
-                <div class="col-sm-3">
+                <div class="col">
                   <div id="ListSrint"></div>
                 </div>
                 
-                <div class="col-sm-2">
-                  <button type="button" id="modal_button" class="btn btn-info btn-block">Objectif</button>
+                <div class="col">
+                  <button type="button" id="modal_button" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Objectif</button>
                 </div>
 
-                <div class="col-sm-3">
-                  <button type="button" id="Bouttonretrospective" class="btn btn-info btn-block">Remarque</button>
+                <div class="col">
+                  <button type="button" id="Bouttonretrospective" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Commentaire</button>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col">
                   <button type="button" id="BouttonImprimmer" class="btn btn-info btn-block">Imprimer</button>
                 </div>
 
@@ -32,7 +32,7 @@
 
         <br>
 
-        <textarea id="textbox" ></textarea>
+        <textarea id="textbox" style="display: none"></textarea>
         <a download="RetrospectiveSprint.txt" id="downloadlink" style="display: none">Download</a>
 
         <div id="TableObjectif" class="table-responsive table-hover"></div>
