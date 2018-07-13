@@ -60,11 +60,23 @@ require_once ('../Modele/Configs.php');
       $statement->execute();
       $result = $statement->fetchAll();
       $output = 'Objectif(s):'. PHP_EOL;
+
+      $projet = '';
+
       if($statement->rowCount() > 0)
       {
        foreach($result as $row)
        {
-        $output .= $row["projet"].' -> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+
+        if($projet != $row["projet"])
+        {
+          $projet = $row["projet"];
+          $output .= $row["projet"].PHP_EOL.'-> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+        }
+        else
+        {
+          $output .= '-> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+        }
       }
     }
    echo ($output);
