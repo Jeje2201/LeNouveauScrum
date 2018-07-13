@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 12 juil. 2018 à 13:22
+-- Généré le :  ven. 13 juil. 2018 à 12:43
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `attribution` (
   KEY `FK_Attribution_id_Projet` (`id_Projet`),
   KEY `FK_Attribution_id_Caracteristiques` (`id_Caracteristiques`),
   KEY `FK_Attribution_id_TypeTache` (`id_TypeTache`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `attribution`
@@ -387,33 +387,33 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (4, 'AM', 'Antoine', 'Micelli', '#2dfb0e', 0, NULL, NULL),
 (5, 'CR', 'Cecile', 'Robin', '#10367c', 0, NULL, NULL),
 (6, 'CS', 'Cedric', 'Seguin', '#502377', 0, NULL, NULL),
-(7, 'CV', 'Celine', 'Vidal', '#85263d', 0, NULL, NULL),
-(8, 'CK', 'Christelle', 'Khozian', '#2b1e6b', 0, NULL, NULL),
+(7, 'CV', 'Celine', 'Vidal', '#85263d', 1, 6, NULL),
+(8, 'CK', 'Christelle', 'Khozian', '#2b1e6b', 1, 4, NULL),
 (9, 'CG', 'Cyril', 'Gautreau', '#05413f', 0, NULL, NULL),
-(10, 'DL', 'David', 'Lassagne', '#8999b2', 0, NULL, NULL),
+(10, 'DL', 'David', 'Lassagne', '#8999b2', 1, 3, NULL),
 (11, 'EP', 'Eric', 'Pringels', '#2ee96e', 0, NULL, NULL),
 (12, 'FB', 'Fabien', 'Buisson', '#daf1ba', 0, NULL, NULL),
 (13, 'FF', 'Florian', 'Fauchier', '#270eaf', 0, NULL, NULL),
-(14, 'FB', 'Frederic', 'Berton', '#b1a49b', 1, NULL, NULL),
+(14, 'FB', 'Frederic', 'Berton', '#b1a49b', 1, 6, NULL),
 (15, 'GT', 'Gerald', 'Tibi', '#1e97da', 0, NULL, NULL),
 (16, 'GF', 'Ghislain', 'Fortin', '#a68c67', 0, NULL, NULL),
 (17, 'GB', 'Gilles', 'Bassiere', '#627fc5', 0, NULL, NULL),
 (18, 'JT', 'Jerome', 'TenShong', '#31b935', 0, NULL, NULL),
 (19, 'JL', 'Jean Francois', 'Leger', '#c6e62c', 0, NULL, NULL),
-(20, 'JA', 'Jean-Vitus', 'Albertini', '#40e210', 1, NULL, NULL),
+(20, 'JA', 'Jean-Vitus', 'Albertini', '#40e210', 1, 3, NULL),
 (21, 'JD', 'Jeanne', 'Dauvergne', '#b98392', 0, NULL, NULL),
-(22, 'JL', 'Jeremy', 'Leriche', '#ea0166', 1, NULL, NULL),
+(22, 'JL', 'Jeremy', 'Leriche', '#ea0166', 1, 3, NULL),
 (23, 'JC', 'Julie', 'Chabalier', '#6741f7', 0, NULL, NULL),
 (24, 'JB', 'Julien', 'Bono', '#a2435c', 0, NULL, NULL),
 (25, 'KS', 'Kamel', 'Sabri', '#f2d9e0', 0, NULL, NULL),
-(26, 'KT', 'Khaled', 'Talbi', '#ff0f02', 0, NULL, NULL),
+(26, 'KT', 'Khaled', 'Talbi', '#ff0f02', 1, 6, NULL),
 (27, 'LC', 'Lea', 'Charbonnier', '#3c1d47', 0, NULL, NULL),
 (28, 'LP', 'Laura', 'Perez', '#c698ea', 0, NULL, NULL),
 (29, 'MM', 'Marion', 'Marcoux', '#72fda7', 0, NULL, NULL),
 (30, 'MJ', 'Matheo', 'Jaouen', '#2504d2', 0, NULL, NULL),
 (31, 'MT', 'Mathieu', 'Thomazo', '#ec25b3', 0, NULL, NULL),
-(32, 'OR', 'Olivier', 'Rovellotti', '#a16a0b', 0, NULL, NULL),
-(33, 'PD', 'Pierre', 'Delaunay', '#6cdf49', 1, 4, NULL),
+(32, 'OR', 'Olivier', 'Rovellotti', '#a16a0b', 1, 6, NULL),
+(33, 'PD', 'Pierre', 'Delaunay', '#6cdf49', 0, 2, NULL),
 (34, 'RF', 'Romain', 'Fabbro', '#3dbaed', 0, NULL, NULL),
 (35, 'SM', 'Sabine', 'Meneut', '#d45df9', 0, NULL, NULL),
 (36, 'SB', 'Sandra', 'Bonnot', '#340b29', 0, NULL, NULL),
@@ -421,21 +421,21 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id
 (38, 'TA', 'Tamou', 'Amadha', '#a10e64', 0, NULL, NULL),
 (39, 'TR', 'Thibault', 'Rhudel', '#20ba44', 0, NULL, NULL),
 (40, 'TP', 'Thomas', 'Peel', '#10353b', 0, NULL, NULL),
-(41, 'TL', 'Tom', 'Lopez', '#eb34cb', 1, 6, NULL),
-(42, 'VB', 'Vincent', 'Bourgeois', '#a0a0f6', 0, NULL, NULL),
+(41, 'TL', 'Tom', 'Lopez', '#eb34cb', 1, 3, NULL),
+(42, 'VB', 'Vincent', 'Bourgeois', '#a0a0f6', 1, 3, NULL),
 (43, 'VG', 'Vivien', 'Grivaud', '#20604f', 0, NULL, NULL),
 (44, 'YT', 'Yacine', 'Thomazo', '#bbea15', 0, NULL, NULL),
-(45, 'GG', 'Groupe', 'Groupe', '#833e1a', 1, NULL, NULL),
-(46, 'AR', 'Angelique', 'Ries', '#7291fc', 1, 6, NULL),
-(47, 'NH', 'Nabil', 'Hamadou', '#b4644f', 1, NULL, NULL),
+(45, 'GG', 'Groupe', 'Groupe', '#833e1a', 1, 4, NULL),
+(46, 'AR', 'Angelique', 'Ries', '#7291fc', 1, 2, NULL),
+(47, 'NH', 'Nabil', 'Hamadou', '#b4644f', 1, 2, NULL),
 (48, 'RK', 'Romain', 'Knezevitch', '#e6da01', 0, NULL, NULL),
-(49, 'CL', 'Christophe', 'Lavagna', '#bf289e', 1, NULL, NULL),
-(50, 'HA', 'Herve', 'Aymes', '#6e60e1', 0, NULL, NULL),
-(51, 'SP', 'Sebastien', 'Paris', '#5aa2d8', 0, NULL, NULL),
-(52, 'NF', 'Naomi', 'Fischer', '#cfc61c', 1, NULL, NULL),
-(53, 'JD', 'Julien', 'Dejasmin', '#031f43', 1, NULL, NULL),
-(54, 'EV', 'El-Makki', 'Voundy', '#4c2100', 1, NULL, NULL),
-(55, 'RG', 'Remi', 'Guijarro Espinosa', '#1f899d', 1, NULL, NULL);
+(49, 'CL', 'Christophe', 'Lavagna', '#bf289e', 1, 3, NULL),
+(50, 'HA', 'Herve', 'Aymes', '#6e60e1', 1, 3, NULL),
+(51, 'SP', 'Sebastien', 'Paris', '#5aa2d8', 1, 6, NULL),
+(52, 'NF', 'Naomi', 'Fischer', '#cfc61c', 1, 2, NULL),
+(53, 'JD', 'Julien', 'Dejasmin', '#031f43', 1, 3, NULL),
+(54, 'MV', 'El-Makki', 'Voundy', '#4c2100', 1, 3, NULL),
+(55, 'RG', 'Remi', 'Guijarro Espinosa', '#1f899d', 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -653,7 +653,7 @@ CREATE TABLE IF NOT EXISTS `heuresdescendues` (
   KEY `FK_HeuresDescendues_id_Employe` (`id_Employe`),
   KEY `FK_HeuresDescendues_id_Projet` (`id_Projet`),
   KEY `FK_HeuresDescendues_id_Attribution` (`id_Attribution`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `heuresdescendues`
@@ -769,15 +769,15 @@ CREATE TABLE IF NOT EXISTS `objectif` (
 --
 
 INSERT INTO `objectif` (`id`, `id_Sprint`, `id_Projet`, `objectif`, `id_StatutObjectif`) VALUES
-(10, 2, 51, 'fz', 5),
-(11, 2, 61, 'zefz', 4),
-(12, 2, 61, 'zefzef', 5),
-(13, 2, 37, 'zefze', 3),
-(14, 2, 37, 'zefzef', 1),
-(15, 2, 74, 'zeef', 2),
-(16, 2, 74, 'zfzfzef', 2),
-(17, 2, 85, 'zefzef', 2),
-(18, 2, 85, 'zefzef', 1),
+(10, 2, 51, 'CrÃ©er une vue de template', 5),
+(11, 2, 61, 'Compter jusqu\'Ã  10', 4),
+(12, 2, 61, 'Faire un origami en forme de chat', 5),
+(13, 2, 37, 'Remplacer Elon Musk', 3),
+(14, 2, 37, 'DÃ©placer des donnÃ©es', 1),
+(15, 2, 74, 'TÃ©lÃ©charger l\'intÃ©grale d\'amour gloire et beautÃ©', 2),
+(16, 2, 74, 'Dessiner un chat', 2),
+(17, 2, 85, 'Trouver le nord sur une carte', 2),
+(18, 2, 85, 'Hacker la nasa', 1),
 (19, 1, 86, 'htrhtrh', 4),
 (20, 1, 86, 'trhtrh', 2),
 (21, 1, 86, 'rthrth', 2),
@@ -815,101 +815,101 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `id_TypeProjet` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Projet_id_TypeProjet` (`id_TypeProjet`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `projet`
 --
 
 INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `Logo`, `id_TypeProjet`) VALUES
-(1, 'AO', NULL, NULL, 'Inconnue.png', NULL),
-(2, 'PIM-Atlas', NULL, NULL, 'Inconnue.png', NULL),
-(3, 'ecoBalade', NULL, NULL, 'Inconnue.png', NULL),
-(4, 'eCollection', NULL, NULL, 'Inconnue.png', NULL),
-(5, 'iFeedBird', NULL, NULL, 'Inconnue.png', NULL),
-(6, 'Multiprojets', NULL, NULL, 'Inconnue.png', NULL),
-(7, 'Data Centralization', NULL, NULL, 'Inconnue.png', NULL),
-(8, 'Tuyaux (Bonna)', NULL, NULL, 'Inconnue.png', NULL),
-(9, 'Noe', NULL, NULL, 'Inconnue.png', NULL),
-(10, 'ecoReleve Data', NULL, NULL, 'Inconnue.png', NULL),
-(11, 'eReleve', NULL, NULL, 'Inconnue.png', NULL),
-(12, 'Kitizen', NULL, NULL, 'Inconnue.png', NULL),
-(13, 'INPN', NULL, NULL, 'Inconnue.png', NULL),
-(14, 'Collier Loups', NULL, NULL, 'Inconnue.png', NULL),
-(15, 'BioLit', NULL, NULL, 'Inconnue.png', NULL),
-(16, 'FormBuilder', NULL, NULL, 'Inconnue.png', NULL),
-(17, 'Sauvages de ma rue PACA', NULL, NULL, 'Inconnue.png', NULL),
-(18, 'Mycoflore', NULL, NULL, 'Inconnue.png', NULL),
-(19, 'Site Web NS', NULL, NULL, 'Inconnue.png', NULL),
-(20, 'TRACK', NULL, NULL, 'Inconnue.png', NULL),
-(21, 'Photomapping', NULL, NULL, 'Inconnue.png', NULL),
-(22, 'ButterflyId', NULL, NULL, 'Inconnue.png', NULL),
-(23, 'NS Interne', NULL, NULL, 'Inconnue.png', NULL),
-(24, 'Renecore Apps', NULL, NULL, 'Inconnue.png', NULL),
-(25, 'Mon jardin', NULL, NULL, 'Inconnue.png', NULL),
-(26, 'Green citizen', NULL, NULL, 'Inconnue.png', NULL),
-(27, 'Alerting App', NULL, NULL, 'Capel.png', 3),
-(28, 'Futback', NULL, NULL, 'Inconnue.png', NULL),
-(29, 'Sweet', NULL, NULL, 'Inconnue.png', NULL),
-(30, 'Aveyron nature', NULL, NULL, 'Inconnue.png', NULL),
-(31, 'Tout a pied', NULL, NULL, 'Inconnue.png', NULL),
-(32, 'ecoReleve Explorer', NULL, NULL, 'Inconnue.png', NULL),
-(33, 'Footback', NULL, NULL, 'Inconnue.png', NULL),
-(34, 'ecoReleve Core', NULL, NULL, 'Inconnue.png', NULL),
-(35, 'M-EOL', NULL, NULL, 'Inconnue.png', NULL),
-(36, 'Nature en Ville', NULL, NULL, 'Inconnue.png', NULL),
-(37, 'CAU13', NULL, NULL, 'Inconnue.png', NULL),
-(38, 'ecoReleve Glossaire', NULL, NULL, 'Inconnue.png', NULL),
-(39, 'ecoOnto', NULL, NULL, 'Inconnue.png', NULL),
-(40, 'geodiva', NULL, NULL, 'Inconnue.png', NULL),
-(41, 'GR2013 2.0', NULL, NULL, 'Inconnue.png', NULL),
-(42, 'Pocket', NULL, NULL, 'Inconnue.png', NULL),
-(43, 'Site Web Labs', NULL, NULL, 'Inconnue.png', NULL),
-(44, 'Armadillo', NULL, NULL, 'Inconnue.png', NULL),
-(45, 'PIM', NULL, NULL, 'Inconnue.png', NULL),
-(46, 'SIB', NULL, NULL, 'Inconnue.png', NULL),
-(47, 'ecoOnto-med', NULL, NULL, 'Inconnue.png', NULL),
-(48, 'ecoReleve Mobile', NULL, NULL, 'Inconnue.png', NULL),
-(49, 'Mica environnement', NULL, NULL, 'Inconnue.png', NULL),
-(50, 'Valo - LIF', NULL, NULL, 'Inconnue.png', NULL),
-(51, 'AAP FP7 environnement', NULL, NULL, 'Inconnue.png', 4),
-(52, 'Carnet de plongee', NULL, NULL, 'Inconnue.png', NULL),
-(53, 'Curieux2Sciences', NULL, NULL, 'Inconnue.png', NULL),
-(54, 'EcoBalade Bidules', NULL, NULL, 'Inconnue.png', NULL),
-(55, 'ecoReleve', NULL, NULL, 'Inconnue.png', NULL),
-(56, 'ecoReleve Core/GIS', NULL, NULL, 'Inconnue.png', NULL),
-(57, 'eReleve-Release', NULL, NULL, 'Inconnue.png', NULL),
-(58, 'Faro', NULL, NULL, 'Inconnue.png', NULL),
-(59, 'MICA', NULL, NULL, 'Inconnue.png', NULL),
-(60, 'Open Data', NULL, NULL, 'Inconnue.png', NULL),
-(61, 'ANDD', NULL, NULL, 'Inconnue.png', NULL),
-(62, 'Sentiers sous-marins', NULL, NULL, 'Inconnue.png', NULL),
-(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, 'Inconnue.png', NULL),
-(64, 'Marche des collines', NULL, NULL, 'Inconnue.png', NULL),
-(65, 'OCK', NULL, NULL, 'Inconnue.png', NULL),
-(66, 'Scrum', NULL, NULL, 'Inconnue.png', NULL),
-(67, 'Position', NULL, NULL, 'Inconnue.png', NULL),
-(68, 'Biotope', NULL, NULL, 'Inconnue.png', NULL),
-(69, 'Airele', NULL, NULL, 'Inconnue.png', 4),
-(70, 'SECAFI', NULL, NULL, 'Inconnue.png', NULL),
-(71, 'Support', NULL, NULL, 'Inconnue.png', NULL),
-(72, 'Inconnu', NULL, NULL, 'Inconnue.png', NULL),
-(73, 'FEMS', NULL, NULL, 'Inconnue.png', NULL),
-(74, 'Creamontblanc', NULL, NULL, 'Inconnue.png', NULL),
-(75, 'Ouigreens', NULL, NULL, 'Inconnue.png', NULL),
-(76, 'Cistude', NULL, NULL, 'Inconnue.png', NULL),
-(77, 'Espaces verts', NULL, NULL, 'Inconnue.png', NULL),
-(78, 'Reneco devis', NULL, NULL, 'Inconnue.png', NULL),
-(79, 'Panda', NULL, NULL, 'Inconnue.png', NULL),
-(80, 'ONB', NULL, NULL, 'Inconnue.png', NULL),
-(81, 'PeekMotion', NULL, NULL, 'Inconnue.png', NULL),
-(82, 'Balance RFID', NULL, NULL, 'Inconnue.png', NULL),
-(83, 'Vanoise', NULL, NULL, 'Inconnue.png', NULL),
-(84, 'Geonature interopérabilité', NULL, NULL, 'Inconnue.png', NULL),
-(85, 'Capel', NULL, NULL, 'Inconnue.png', NULL),
-(86, 'Alfred', NULL, NULL, 'Ecollection.png', 1),
-(87, 'CITES', NULL, NULL, 'Inconnue.png', NULL),
-(88, 'SINP-Espaces verts', NULL, NULL, 'Inconnue.png', NULL);
+(1, 'AO', NULL, NULL, 'Inconnue.png', 5),
+(2, 'PIM-Atlas', NULL, NULL, 'Inconnue.png', 5),
+(3, 'ecoBalade', NULL, NULL, 'Ecobalade.png', 5),
+(4, 'eCollection', NULL, NULL, 'Ecollection.png', 5),
+(5, 'iFeedBird', NULL, NULL, 'Inconnue.png', 5),
+(6, 'Multiprojets', NULL, NULL, 'Inconnue.png', 5),
+(7, 'Data Centralization', NULL, NULL, 'Inconnue.png', 5),
+(8, 'Tuyaux (Bonna)', NULL, NULL, 'Inconnue.png', 5),
+(9, 'Noe', NULL, NULL, 'Inconnue.png', 5),
+(10, 'ecoReleve Data', NULL, NULL, 'Inconnue.png', 5),
+(11, 'eReleve', NULL, NULL, 'Inconnue.png', 5),
+(12, 'Kitizen', NULL, NULL, 'Kitizen.png', 5),
+(13, 'INPN', NULL, NULL, 'INPN.png', 5),
+(14, 'Collier Loups', NULL, NULL, 'Inconnue.png', 5),
+(15, 'BioLit', NULL, NULL, 'Inconnue.png', 5),
+(16, 'FormBuilder', NULL, NULL, 'Formbuilder.png', 5),
+(17, 'Sauvages de ma rue PACA', NULL, NULL, 'Inconnue.png', 5),
+(18, 'Mycoflore', NULL, NULL, 'Inconnue.png', 5),
+(19, 'Site Web NS', NULL, NULL, 'Inconnue.png', 5),
+(20, 'TRACK', NULL, NULL, 'Inconnue.png', 5),
+(21, 'Photomapping', NULL, NULL, 'Inconnue.png', 5),
+(22, 'ButterflyId', NULL, NULL, 'Inconnue.png', 5),
+(23, 'NS Interne', NULL, NULL, 'NS_interne.png', 5),
+(24, 'Renecore Apps', NULL, NULL, 'Renecore.png', 5),
+(25, 'Mon jardin', NULL, NULL, 'Mon_jardin_en_villle.png', 5),
+(26, 'Green citizen', NULL, NULL, 'Inconnue.png', 5),
+(27, 'Alerting App', NULL, NULL, 'Inconnue.png', 5),
+(28, 'Futback', NULL, NULL, 'Futbak.png', 5),
+(29, 'Sweet', NULL, NULL, 'Inconnue.png', 5),
+(30, 'Aveyron nature', NULL, NULL, 'Inconnue.png', 5),
+(31, 'Tout a pied', NULL, NULL, 'Inconnue.png', 5),
+(32, 'ecoReleve Explorer', NULL, NULL, 'Inconnue.png', 5),
+(33, 'Footback', NULL, NULL, 'Inconnue.png', 5),
+(34, 'ecoReleve Core', NULL, NULL, 'Inconnue.png', 5),
+(35, 'M-EOL', NULL, NULL, 'Inconnue.png', 5),
+(36, 'Nature en Ville', NULL, NULL, 'Inconnue.png', 5),
+(37, 'CAU13', NULL, NULL, 'Inconnue.png', 5),
+(38, 'ecoReleve Glossaire', NULL, NULL, 'Inconnue.png', 5),
+(39, 'ecoOnto', NULL, NULL, 'Inconnue.png', 5),
+(40, 'geodiva', NULL, NULL, 'Inconnue.png', 5),
+(41, 'GR2013 2.0', NULL, NULL, 'Inconnue.png', 5),
+(42, 'Pocket', NULL, NULL, 'Inconnue.png', 5),
+(43, 'Site Web Labs', NULL, NULL, 'Inconnue.png', 5),
+(44, 'Armadillo', NULL, NULL, 'Inconnue.png', 5),
+(45, 'PIM', NULL, NULL, 'Inconnue.png', 5),
+(46, 'SIB', NULL, NULL, 'Inconnue.png', 5),
+(47, 'ecoOnto-med', NULL, NULL, 'Inconnue.png', 5),
+(48, 'ecoReleve Mobile', NULL, NULL, 'Inconnue.png', 5),
+(49, 'Mica environnement', NULL, NULL, 'Inconnue.png', 5),
+(50, 'Valo - LIF', NULL, NULL, 'Inconnue.png', 5),
+(51, 'AAP FP7 environnement', NULL, NULL, 'Inconnue.png', 5),
+(52, 'Carnet de plongee', NULL, NULL, 'Inconnue.png', 5),
+(53, 'Curieux2Sciences', NULL, NULL, 'Inconnue.png', 5),
+(54, 'EcoBalade Bidules', NULL, NULL, 'Inconnue.png', 5),
+(55, 'ecoReleve', NULL, NULL, 'Ecoreleve.png', 5),
+(56, 'ecoReleve Core/GIS', NULL, NULL, 'Inconnue.png', 5),
+(57, 'eReleve-Release', NULL, NULL, 'Inconnue.png', 5),
+(58, 'Faro', NULL, NULL, 'Inconnue.png', 5),
+(59, 'MICA', NULL, NULL, 'Inconnue.png', 5),
+(60, 'Open Data', NULL, NULL, 'Inconnue.png', 5),
+(61, 'ANDD', NULL, NULL, 'Inconnue.png', 5),
+(62, 'Sentiers sous-marins', NULL, NULL, 'Inconnue.png', 5),
+(63, 'TeamBuildingEcoBalade_Bioblitz', NULL, NULL, 'Inconnue.png', 5),
+(64, 'Marche des collines', NULL, NULL, 'Inconnue.png', 5),
+(65, 'OCK', NULL, NULL, 'Inconnue.png', 5),
+(66, 'Scrum', NULL, NULL, 'Scrum.png', 5),
+(67, 'Position', NULL, NULL, 'Position.png', 5),
+(68, 'Biotope', NULL, NULL, 'Inconnue.png', 5),
+(69, 'Airele', NULL, NULL, 'Inconnue.png', 5),
+(70, 'SECAFI', NULL, NULL, 'Inconnue.png', 5),
+(71, 'Support', NULL, NULL, 'Inconnue.png', 5),
+(72, 'Inconnu', NULL, NULL, 'Inconnue.png', 5),
+(73, 'FEMS', NULL, NULL, 'Inconnue.png', 5),
+(74, 'Creamontblanc', NULL, NULL, 'Inconnue.png', 5),
+(75, 'Ouigreens', NULL, NULL, 'Inconnue.png', 5),
+(76, 'Cistude', NULL, NULL, 'Inconnue.png', 5),
+(77, 'Espaces verts', NULL, NULL, 'Inconnue.png', 5),
+(78, 'Reneco devis', NULL, NULL, 'Inconnue.png', 5),
+(79, 'Panda', NULL, NULL, 'Inconnue.png', 5),
+(80, 'ONB', NULL, NULL, 'Inconnue.png', 5),
+(81, 'PeekMotion', NULL, NULL, 'Inconnue.png', 5),
+(82, 'Balance RFID', NULL, NULL, 'Inconnue.png', 5),
+(83, 'Vanoise', NULL, NULL, 'Vanoise.png', 5),
+(84, 'Geonature interopérabilité', NULL, NULL, 'Inconnue.png', 5),
+(85, 'Capel', NULL, NULL, 'Capel.png', 5),
+(86, 'Alfred', NULL, NULL, 'Inconnue.png', 5),
+(87, 'CITES', NULL, NULL, 'Inconnue.png', 5),
+(88, 'SINP-Espaces verts', NULL, NULL, 'Inconnue.png', 5);
 
 -- --------------------------------------------------------
 
@@ -924,14 +924,16 @@ CREATE TABLE IF NOT EXISTS `retrospective` (
   `DateCreation` date NOT NULL,
   `Etat` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `retrospective`
 --
 
 INSERT INTO `retrospective` (`id`, `Label`, `DateCreation`, `Etat`) VALUES
-(1, 'zefz', '2018-07-11', 0);
+(1, 'zefz', '2018-07-11', 1),
+(2, 'Avoir une imprimante fonctionelle', '2018-07-13', 0),
+(3, 'Arroser les plantes', '2018-07-13', 0);
 
 -- --------------------------------------------------------
 
@@ -946,7 +948,7 @@ CREATE TABLE IF NOT EXISTS `sprint` (
   `dateDebut` date DEFAULT NULL,
   `dateFin` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `sprint`
