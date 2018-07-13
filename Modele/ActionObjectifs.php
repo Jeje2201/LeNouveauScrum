@@ -59,7 +59,7 @@ require_once ('../Modele/Configs.php');
       $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
       $statement->execute();
       $result = $statement->fetchAll();
-      $output = 'Objectif(s):'. PHP_EOL;
+      $output = '';
 
       $projet = '';
 
@@ -71,11 +71,11 @@ require_once ('../Modele/Configs.php');
         if($projet != $row["projet"])
         {
           $projet = $row["projet"];
-          $output .= $row["projet"].PHP_EOL.'-> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+          $output .= PHP_EOL.$row["projet"].PHP_EOL.'- '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
         }
         else
         {
-          $output .= '-> '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+          $output .= '- '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
         }
       }
     }
@@ -97,7 +97,7 @@ require_once ('../Modele/Configs.php');
       <thead>
       <tr>
       <th width="10%">Date</th>
-      <th width="85%">Remarque</th>
+      <th width="85%">Commentaire</th>
       <th width="5%%"><center>Editer</center></th>
       </tr>
       </thead>
