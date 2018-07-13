@@ -277,6 +277,75 @@ Highcharts.chart(div, {
         });
       };
 
+          function MettreChartAJour(NumeroSprint, div) {
+
+      var action = "GetLesInfosDeLaBurnDownChart";
+
+      $.ajax({
+        url: "Modele/ActionBurnDownChart.php",
+        method: "POST",
+        data: { action: action, NumeroSprint: NumeroSprint },
+        success: function (Total) {
+          Total = JSON.parse(Total);
+
+          console.log(Total[2])
+
+          CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
+
+          if (Total[4][0] == null)
+            $("#TotalHAttribues").html("Total heures à descendre (h) : <b>Inconnue</b>");
+          else
+            $("#TotalHAttribues").html("Total heures à descendre (h) : <b>" + Total[4] + "</b>");
+
+          $("#Seuil").html("Seuil (h) : <b>" + parseInt(Total[2][0]) + "</b>");
+
+          if (typeof Total[0][0] == 'undefined')
+            $("#TotalHResteADescendre").html("Heures restante à descendre : <b>Inconnue</b>");
+          else
+            $("#TotalHResteADescendre").html("Heures restante à descendre (h) : <b>" + (Total[0][Total[0].length - 1]) + "</b>");
+
+          if ((Total[2][0] == null) || (typeof Total[0][0] == 'undefined'))
+            $("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil) (h) : <b>Inconnue</b>");
+          else
+            $("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil) (h) : <b>" + ((Total[0][Total[0].length - 1]) - (parseInt(Total[2][0]))) + "</b>");
+
+          if ((Total[4][0] == null) || (typeof Total[0][0] == 'undefined')) {
+            $("#TotalHDescendue").html("Heures déjà descendues: <b>Inconnue</b>");
+            $("#BarDePourcentageDheureDescendue").html("");
+          }
+          else {
+            $("#TotalHDescendue").html("Heures déjà descendues (h) : <b>" + (Total[4] - Total[0][Total[0].length - 1]) + "</b>");
+            $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100">' + Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + '%</div></div>');
+          }
+        }
+
+      });
+
+      idAffiche = parseInt($("#numeroSprint").val());
+      var action = "DateMinMax";
+      $.ajax({
+        url: "Modele/ActionDescendre2.php",
+        method: "POST",
+        data: { action: action, idAffiche: idAffiche },
+        success: function (data) {
+
+          $("#DateSprint").html("Date: <b>" + data[0] + "</b> > <b>" + data[1] + "</b>")
+
+          if (data[1] > ChoixDate(0)) {
+
+            Fin = new Date(data[1]);
+            Aujourdui = new Date();
+            $("#NbJoursRestants").html("Nombre de jours restants: <b>" + Math.ceil((Fin - Aujourdui) / (1000 * 60 * 60 * 24)) + "</b>");
+
+          }
+          else
+            $("#NbJoursRestants").html("Nombre de jours restants: <b>date dépassée</b>");
+
+        }
+      });
+
+    };
+
       function HeuresDescenduesParJours(NumeroduSprint, div){
        
         var action = "GetTotalHeuresDescenduesParEmploye";
