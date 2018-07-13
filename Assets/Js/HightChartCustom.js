@@ -293,28 +293,28 @@ Highcharts.chart(div, {
           CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
 
           if (Total[4][0] == null)
-            $("#TotalHAttribues").html("Total heures à descendre (h) : <b>Inconnue</b>");
+            $("#TotalHAttribues").text("Inconnue");
           else
-            $("#TotalHAttribues").html("Total heures à descendre (h) : <b>" + Total[4] + "</b>");
+            $("#TotalHAttribues").text(Total[4]);
 
-          $("#Seuil").html("Seuil (h) : <b>" + parseInt(Total[2][0]) + "</b>");
+          $("#Seuil").text(parseInt(Total[2][0]));
 
           if (typeof Total[0][0] == 'undefined')
-            $("#TotalHResteADescendre").html("Heures restante à descendre : <b>Inconnue</b>");
+            $("#TotalHResteADescendre").text("Inconnue");
           else
-            $("#TotalHResteADescendre").html("Heures restante à descendre (h) : <b>" + (Total[0][Total[0].length - 1]) + "</b>");
+            $("#TotalHResteADescendre").text((Total[0][Total[0].length - 1]));
 
           if ((Total[2][0] == null) || (typeof Total[0][0] == 'undefined'))
-            $("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil) (h) : <b>Inconnue</b>");
+            $("#TotalHDescendueAvecSeuil").text("Inconnue");
           else
-            $("#TotalHDescendueAvecSeuil").html("Heures restante à descendre (seuil) (h) : <b>" + ((Total[0][Total[0].length - 1]) - (parseInt(Total[2][0]))) + "</b>");
+            $("#TotalHDescendueAvecSeuil").text(((Total[0][Total[0].length - 1]) - (parseInt(Total[2][0]))));
 
           if ((Total[4][0] == null) || (typeof Total[0][0] == 'undefined')) {
-            $("#TotalHDescendue").html("Heures déjà descendues: <b>Inconnue</b>");
+            $("#TotalHDescendue").text("Inconnue");
             $("#BarDePourcentageDheureDescendue").html("");
           }
           else {
-            $("#TotalHDescendue").html("Heures déjà descendues (h) : <b>" + (Total[4] - Total[0][Total[0].length - 1]) + "</b>");
+            $("#TotalHDescendue").text((Total[4] - Total[0][Total[0].length - 1]));
             $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100">' + Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + '%</div></div>');
           }
         }
@@ -329,17 +329,17 @@ Highcharts.chart(div, {
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
 
-          $("#DateSprint").html("Date: <b>" + data[0] + "</b> > <b>" + data[1] + "</b>")
+          $("#DateSprint").text(data[0] + " ->" + data[1])
 
           if (data[1] > ChoixDate(0)) {
 
             Fin = new Date(data[1]);
             Aujourdui = new Date();
-            $("#NbJoursRestants").html("Nombre de jours restants: <b>" + Math.ceil((Fin - Aujourdui) / (1000 * 60 * 60 * 24)) + "</b>");
+            $("#NbJoursRestants").html( Math.ceil((Fin - Aujourdui) / (1000 * 60 * 60 * 24)));
 
           }
           else
-            $("#NbJoursRestants").html("Nombre de jours restants: <b>date dépassée</b>");
+            $("#NbJoursRestants").text("date dépassée");
 
         }
       });
