@@ -17,11 +17,11 @@
                   <span class="input-group-text">Sprint n°</span>
                 </div>
                 <div id="ListSrint"></div>
-                
-<!--                 <div class="input-group-prepend">
+
+                 <div class="input-group-prepend PeutetreHide">
                   <span class="input-group-text">Employé(e)</span>
                 </div>
-                <div id="ListeEmploye"></div> -->
+                <div id="ListeEmploye" class="PeutetreHide"></div>
 
               </div>
             </div>
@@ -98,6 +98,12 @@
 
   $(document).ready(function () {
 
+ var EmployeType = "<?php echo $_SESSION['TypeUtilisateur'] ?>";
+
+if(EmployeType != "ScrumMaster"){
+  $( ".PeutetreHide" ).hide();
+}
+
     $('#DateAujourdhui').datetimepicker({
       format: 'yyyy-mm-dd',
       autoclose: true,
@@ -105,12 +111,16 @@
     });
 
     RemplirListSprint('ListSrint')
-    // RemplirListeEmploye();
-    AfficherCards();
+    RemplirListeEmploye();
+    AfficherCards(EmployeType);
 
-    function AfficherCards() {
+    function AfficherCards(EmployeType) {
       var idAffiche = $('#numeroSprint').val();
+      if(EmployeType == "ScrumMaster")
+      var idEmploye = $('#numeroEmploye').val();
+     else
       var idEmploye = <?php echo $_SESSION['IdUtilisateur'] ?>;
+      
       var action = "AfficherCards";
       $.ajax({
         url: "Modele/ActionDescendre2.php",
@@ -143,29 +153,29 @@
       });
     }
 
-    // function RemplirListeEmploye() {
-    //   var idAffiche = $('#numeroSprint').val();
-    //   var action = "LoadListEmployes";
-    //   $.ajax({
-    //     url: "Modele/ActionDescendre2.php",
-    //     method: "POST",
-    //     async: false,
-    //     data: { action: action, idAffiche: idAffiche },
-    //     success: function (data) {
-    //       $('#ListeEmploye').html(data.Attribution);
-    //     }
-    //   });
+    function RemplirListeEmploye() {
+      var idAffiche = $('#numeroSprint').val();
+      var action = "LoadListEmployes";
+      $.ajax({
+        url: "Modele/ActionDescendre2.php",
+        method: "POST",
+        async: false,
+        data: { action: action, idAffiche: idAffiche },
+        success: function (data) {
+          $('#ListeEmploye').html(data.Attribution);
+        }
+      });
 
-    // }
+    }
 
     $('#numeroSprint').change(function () {
-      // RemplirListeEmploye();
+      RemplirListeEmploye();
       AfficherCards();
     });
 
-    // $('#ListeEmploye').change(function () {
-    //   AfficherCards();
-    // });
+    $('#ListeEmploye').change(function () {
+      AfficherCards();
+    });
 
     $('#action').click(function () {
       var action = "Descendre"
