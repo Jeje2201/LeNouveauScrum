@@ -53,6 +53,9 @@ require_once ('../Modele/Configs.php');
       </div>';
     }
   }
+  else{
+    $output1 .='Aucune tâche en cours';
+  }
 
   if($_POST["idEmploye"] == "ToutLeMonde")
    $Requete2 = "AND id_Employe in (select id from employe)";
@@ -92,6 +95,9 @@ if($statement->rowCount() > 0)
 
 }
 }
+  else{
+    $output2 .='Aucune tâche achevé';
+  }
 $Test -> Attribution = $output1;
 $Test -> Descendue = $output2;
 
