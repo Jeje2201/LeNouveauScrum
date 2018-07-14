@@ -1,7 +1,6 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
-      <div class="container-fluid">
 
         <div class="card mb-3">
           <div class="card-header">
@@ -87,7 +86,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
@@ -120,5 +118,9 @@
         GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 2, 'HeureDescenduParEmploye');
       });
     });
+
+    $('.close-icon').on('click',function() {
+  $(this).closest('.card').fadeOut();
+})
 
   </script>
