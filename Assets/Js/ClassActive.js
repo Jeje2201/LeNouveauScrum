@@ -1,7 +1,9 @@
-	var sPageURL = window.location.search.substring(1).split('=');
+function ClassActive(LaPage){
 
 	$( "li" ).each(function() {
 		$( this ).removeClass( "active" );
 	});
 	
-	$('nav a[href^="index.php?vue=' + sPageURL[1] + '"]').closest('li').addClass('active');
+	$('nav a[href^="index.php?vue=' + LaPage + '"]').closest('li').addClass('active');
+}
+
