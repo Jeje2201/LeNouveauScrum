@@ -53,14 +53,7 @@ switch($vue)
   break;
 
   case 'Descendation':
-  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-  {
-    require_once("Vues/HeuresDescenduesAdmin.html");
-  }
-  else
-  {
-   require_once("Vues/HeuresDescendues.php");
- }
+   require_once("Vues/HeuresDescenduesAdmin.html");
  break;
 
  case 'Burndownchart':
