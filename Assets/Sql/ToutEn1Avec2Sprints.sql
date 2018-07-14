@@ -1,14 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 13 juil. 2018 à 12:43
--- Version du serveur :  5.7.21
--- Version de PHP :  5.6.35
-
-Create Database scrum;
-Use scrum;
+-- Généré le :  sam. 14 juil. 2018 à 08:46
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -367,6 +364,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `Initial` varchar(5) DEFAULT NULL,
   `prenom` varchar(50) DEFAULT NULL,
   `nom` varchar(50) DEFAULT NULL,
+  `Pseudo` varchar(250) NOT NULL,
   `Couleur` varchar(7) DEFAULT NULL,
   `actif` tinyint(1) DEFAULT NULL,
   `id_TypeEmploye` int(11) DEFAULT NULL,
@@ -380,62 +378,62 @@ CREATE TABLE IF NOT EXISTS `employe` (
 -- Déchargement des données de la table `employe`
 --
 
-INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Couleur`, `actif`, `id_TypeEmploye`, `id_Poste`) VALUES
-(1, 'AD', 'Abel', 'Delannoy', '#e0d0f1', 0, NULL, NULL),
-(2, 'AS', 'Almudena', 'SanRoman', '#ae4ff3', 0, NULL, NULL),
-(3, 'AS', 'Amandine', 'Sahl', '#316a1c', 0, NULL, NULL),
-(4, 'AM', 'Antoine', 'Micelli', '#2dfb0e', 0, NULL, NULL),
-(5, 'CR', 'Cecile', 'Robin', '#10367c', 0, NULL, NULL),
-(6, 'CS', 'Cedric', 'Seguin', '#502377', 0, NULL, NULL),
-(7, 'CV', 'Celine', 'Vidal', '#85263d', 1, 6, NULL),
-(8, 'CK', 'Christelle', 'Khozian', '#2b1e6b', 1, 4, NULL),
-(9, 'CG', 'Cyril', 'Gautreau', '#05413f', 0, NULL, NULL),
-(10, 'DL', 'David', 'Lassagne', '#8999b2', 1, 3, NULL),
-(11, 'EP', 'Eric', 'Pringels', '#2ee96e', 0, NULL, NULL),
-(12, 'FB', 'Fabien', 'Buisson', '#daf1ba', 0, NULL, NULL),
-(13, 'FF', 'Florian', 'Fauchier', '#270eaf', 0, NULL, NULL),
-(14, 'FB', 'Frederic', 'Berton', '#b1a49b', 1, 6, NULL),
-(15, 'GT', 'Gerald', 'Tibi', '#1e97da', 0, NULL, NULL),
-(16, 'GF', 'Ghislain', 'Fortin', '#a68c67', 0, NULL, NULL),
-(17, 'GB', 'Gilles', 'Bassiere', '#627fc5', 0, NULL, NULL),
-(18, 'JT', 'Jerome', 'TenShong', '#31b935', 0, NULL, NULL),
-(19, 'JL', 'Jean Francois', 'Leger', '#c6e62c', 0, NULL, NULL),
-(20, 'JA', 'Jean-Vitus', 'Albertini', '#40e210', 1, 3, NULL),
-(21, 'JD', 'Jeanne', 'Dauvergne', '#b98392', 0, NULL, NULL),
-(22, 'JL', 'Jeremy', 'Leriche', '#ea0166', 1, 3, NULL),
-(23, 'JC', 'Julie', 'Chabalier', '#6741f7', 0, NULL, NULL),
-(24, 'JB', 'Julien', 'Bono', '#a2435c', 0, NULL, NULL),
-(25, 'KS', 'Kamel', 'Sabri', '#f2d9e0', 0, NULL, NULL),
-(26, 'KT', 'Khaled', 'Talbi', '#ff0f02', 1, 6, NULL),
-(27, 'LC', 'Lea', 'Charbonnier', '#3c1d47', 0, NULL, NULL),
-(28, 'LP', 'Laura', 'Perez', '#c698ea', 0, NULL, NULL),
-(29, 'MM', 'Marion', 'Marcoux', '#72fda7', 0, NULL, NULL),
-(30, 'MJ', 'Matheo', 'Jaouen', '#2504d2', 0, NULL, NULL),
-(31, 'MT', 'Mathieu', 'Thomazo', '#ec25b3', 0, NULL, NULL),
-(32, 'OR', 'Olivier', 'Rovellotti', '#a16a0b', 1, 6, NULL),
-(33, 'PD', 'Pierre', 'Delaunay', '#6cdf49', 0, 2, NULL),
-(34, 'RF', 'Romain', 'Fabbro', '#3dbaed', 0, NULL, NULL),
-(35, 'SM', 'Sabine', 'Meneut', '#d45df9', 0, NULL, NULL),
-(36, 'SB', 'Sandra', 'Bonnot', '#340b29', 0, NULL, NULL),
-(37, 'SR', 'Stephanie', 'Ritz', '#b033b7', 0, NULL, NULL),
-(38, 'TA', 'Tamou', 'Amadha', '#a10e64', 0, NULL, NULL),
-(39, 'TR', 'Thibault', 'Rhudel', '#20ba44', 0, NULL, NULL),
-(40, 'TP', 'Thomas', 'Peel', '#10353b', 0, NULL, NULL),
-(41, 'TL', 'Tom', 'Lopez', '#eb34cb', 1, 3, NULL),
-(42, 'VB', 'Vincent', 'Bourgeois', '#a0a0f6', 1, 3, NULL),
-(43, 'VG', 'Vivien', 'Grivaud', '#20604f', 0, NULL, NULL),
-(44, 'YT', 'Yacine', 'Thomazo', '#bbea15', 0, NULL, NULL),
-(45, 'GG', 'Groupe', 'Groupe', '#833e1a', 1, 4, NULL),
-(46, 'AR', 'Angelique', 'Ries', '#7291fc', 1, 2, NULL),
-(47, 'NH', 'Nabil', 'Hamadou', '#b4644f', 1, 2, NULL),
-(48, 'RK', 'Romain', 'Knezevitch', '#e6da01', 0, NULL, NULL),
-(49, 'CL', 'Christophe', 'Lavagna', '#bf289e', 1, 3, NULL),
-(50, 'HA', 'Herve', 'Aymes', '#6e60e1', 1, 3, NULL),
-(51, 'SP', 'Sebastien', 'Paris', '#5aa2d8', 1, 6, NULL),
-(52, 'NF', 'Naomi', 'Fischer', '#cfc61c', 1, 2, NULL),
-(53, 'JD', 'Julien', 'Dejasmin', '#031f43', 1, 3, NULL),
-(54, 'MV', 'El-Makki', 'Voundy', '#4c2100', 1, 3, NULL),
-(55, 'RG', 'Remi', 'Guijarro Espinosa', '#1f899d', 1, 3, NULL);
+INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Pseudo`, `Couleur`, `actif`, `id_TypeEmploye`, `id_Poste`) VALUES
+(1, 'AD', 'Abel', 'Delannoy', 'Abel', '#e0d0f1', 0, NULL, NULL),
+(2, 'AS', 'Almudena', 'SanRoman', 'Almudena', '#ae4ff3', 0, NULL, NULL),
+(3, 'AS', 'Amandine', 'Sahl', 'Amandine', '#316a1c', 0, NULL, NULL),
+(4, 'AM', 'Antoine', 'Micelli', 'Antoine', '#2dfb0e', 0, NULL, NULL),
+(5, 'CR', 'Cecile', 'Robin', 'Cecile', '#10367c', 0, NULL, NULL),
+(6, 'CS', 'Cedric', 'Seguin', 'Cedric', '#502377', 0, NULL, NULL),
+(7, 'CV', 'Celine', 'Vidal', 'Celine', '#504377', 1, 6, NULL),
+(8, 'CK', 'Christelle', 'Khozian', 'Christelle', '#2b1e6b', 1, 4, NULL),
+(9, 'CG', 'Cyril', 'Gautreau', 'Cyril', '#05413f', 0, NULL, NULL),
+(10, 'DL', 'David', 'Lassagne', 'David', '#8999b2', 1, 3, NULL),
+(11, 'EP', 'Eric', 'Pringels', 'Eric', '#2ee96e', 0, NULL, NULL),
+(12, 'FB', 'Fabien', 'Buisson', 'Fabien', '#daf1ba', 0, NULL, NULL),
+(13, 'FF', 'Florian', 'Fauchier', 'Florian', '#270eaf', 0, NULL, NULL),
+(14, 'FB', 'Frederic', 'Berton', 'Frederic', '#b1a49b', 1, 6, NULL),
+(15, 'GT', 'Gerald', 'Tibi', 'Gerald', '#1e97da', 0, NULL, NULL),
+(16, 'GF', 'Ghislain', 'Fortin', 'Ghislain', '#a68c67', 0, NULL, NULL),
+(17, 'GB', 'Gilles', 'Bassiere', 'Gilles', '#627fc5', 0, NULL, NULL),
+(18, 'JT', 'Jerome', 'TenShong', 'Jerome', '#31b935', 0, NULL, NULL),
+(19, 'JL', 'Jean Francois', 'Leger', 'Jean Francois', '#c6e62c', 0, NULL, NULL),
+(20, 'JA', 'Jean-Vitus', 'Albertini', 'Jean-Vitus', '#40e210', 1, 3, NULL),
+(21, 'JD', 'Jeanne', 'Dauvergne', 'Jeanne', '#b98392', 0, NULL, NULL),
+(22, 'JL', 'Jeremy', 'Leriche', 'Jeremy', '#ea0166', 1, 3, NULL),
+(23, 'JC', 'Julie', 'Chabalier', 'Julie', '#6741f7', 0, NULL, NULL),
+(24, 'JB', 'Julien', 'Bono', 'Julien', '#a2435c', 0, NULL, NULL),
+(25, 'KS', 'Kamel', 'Sabri', 'Kamel', '#f2d9e0', 0, NULL, NULL),
+(26, 'KT', 'Khaled', 'Talbi', 'Khaled', '#ff0f02', 1, 6, NULL),
+(27, 'LC', 'Lea', 'Charbonnier', 'Lea', '#3c1d47', 0, NULL, NULL),
+(28, 'LP', 'Laura', 'Perez', 'Laura', '#c698ea', 0, NULL, NULL),
+(29, 'MM', 'Marion', 'Marcoux', 'Marion', '#72fda7', 0, NULL, NULL),
+(30, 'MJ', 'Matheo', 'Jaouen', 'Matheo', '#2504d2', 0, NULL, NULL),
+(31, 'MT', 'Mathieu', 'Thomazo', 'Mathieu', '#ec25b3', 0, NULL, NULL),
+(32, 'OR', 'Olivier', 'Rovellotti', 'Olivier', '#a16a0b', 1, 6, NULL),
+(33, 'PD', 'Pierre', 'Delaunay', 'Pierre', '#6cdf49', 0, 2, NULL),
+(34, 'RF', 'Romain', 'Fabbro', 'Romain', '#3dbaed', 0, NULL, NULL),
+(35, 'SM', 'Sabine', 'Meneut', 'Sabine', '#d45df9', 0, NULL, NULL),
+(36, 'SB', 'Sandra', 'Bonnot', 'Sandra', '#340b29', 0, NULL, NULL),
+(37, 'SR', 'Stephanie', 'Ritz', 'Stephanie', '#b033b7', 0, NULL, NULL),
+(38, 'TA', 'Tamou', 'Amadha', 'Tamou', '#a10e64', 0, NULL, NULL),
+(39, 'TR', 'Thibault', 'Rhudel', 'Thibault', '#20ba44', 0, NULL, NULL),
+(40, 'TP', 'Thomas', 'Peel', 'Thomas', '#10353b', 0, NULL, NULL),
+(41, 'TL', 'Tom', 'Lopez', 'Tom', '#eb34cb', 1, 3, NULL),
+(42, 'VB', 'Vincent', 'Bourgeois', 'Vincent', '#a0a0f6', 1, 3, NULL),
+(43, 'VG', 'Vivien', 'Grivaud', 'Vivien', '#20604f', 0, NULL, NULL),
+(44, 'YT', 'Yacine', 'Thomazo', 'Yacine', '#bbea15', 0, NULL, NULL),
+(45, 'GG', 'Groupe', 'Groupe', 'Groupe', '#833e1a', 1, 4, NULL),
+(46, 'AR', 'Angelique', 'Ries', 'Angelique', '#ff0000', 1, 2, NULL),
+(47, 'NH', 'Nabil', 'Hamadou', 'Nabil', '#b4644f', 1, 2, NULL),
+(48, 'RK', 'Romain', 'Knezevitch', 'Romain', '#e6da01', 0, NULL, NULL),
+(49, 'CL', 'Christophe', 'Lavagna', 'Christophe', '#bf289e', 1, 3, NULL),
+(50, 'HA', 'Herve', 'Aymes', 'Herve', '#6e60e1', 1, 3, NULL),
+(51, 'SP', 'Sebastien', 'Paris', 'Sebastien', '#5aa2d8', 1, 6, NULL),
+(52, 'NF', 'Naomi', 'Fischer', 'Naomi', '#cfc61c', 1, 2, NULL),
+(53, 'JD', 'Julien', 'Dejasmin', 'Julien', '#031f43', 1, 3, NULL),
+(54, 'MV', 'El-Makki', 'Voundy', 'El-Makki', '#4c2100', 1, 3, NULL),
+(55, 'RG', 'Remi', 'Guijarro Espinosa', 'Remi', '#1f899d', 1, 3, NULL);
 
 -- --------------------------------------------------------
 
