@@ -14,24 +14,25 @@ else{
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
   {
     require_once("Vues/NavBarAdmin.html");
-
-    if(!isset($_REQUEST['vue'])){
-      $_REQUEST['vue'] = 'Dashboard';
-    }
   }
   else
   {
    require_once("Vues/NavBarCommon.html");
-   
-   if(!isset($_REQUEST['vue'])){
-    $_REQUEST['vue'] = 'Descendation';
   }
-}
+
+  if(!isset($_REQUEST['vue'])){
+      $_REQUEST['vue'] = 'Dashboard';
+    }
 
 $vue = $_REQUEST['vue'];
 
 switch($vue)
 {
+
+  case 'News':
+  require_once("Vues/News.html");
+  break;
+
   case 'Dashboard':
   require_once("Vues/Dashboard.html");
   break;
