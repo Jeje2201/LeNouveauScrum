@@ -18,7 +18,7 @@ require_once ('../Modele/Configs.php');
       $Requete1 = "AND attribution.id_Employe = $idEmploye";
 
     $statement = $connection->prepare("
-      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom
+      SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom, employe.Pseudo as E_Pseudo
       FROM attribution
       inner JOIN employe ON employe.id = attribution.id_Employe
       INNER JOIN projet ON projet.id = attribution.id_Projet
@@ -45,9 +45,9 @@ require_once ('../Modele/Configs.php');
         <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
-            <div><i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Prenom"].' ('.$row["E_Initial"].')</div><hr/>
+            <div><i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')</div><hr/>
             <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
-            <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'
+            <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
           </span>
         </div>
       </div>';
@@ -60,7 +60,7 @@ require_once ('../Modele/Configs.php');
   $Requete2 = "AND id_Employe = $idEmploye";
 
 $statement = $connection->prepare("
-  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom
+  SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom, employe.Pseudo as E_Pseudo
   FROM heuresdescendues
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
@@ -83,9 +83,9 @@ if($statement->rowCount() > 0)
   <div style="margin-left:7px;">
     <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
     <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
-      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Prenom"].' ('.$row["E_Initial"].')<hr/>
+      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<hr/>
       <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
-      <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'
+      <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
     </span>
   </div>
 </div>';
@@ -112,7 +112,9 @@ echo json_encode($Test);
 $statement = $connection->prepare("
   SELECT DISTINCT (select employe.prenom from employe where employe.id = attribution.id_Employe) as Prenom, (select employe.nom from employe where employe.id = attribution.id_Employe) as Nom, attribution.id_Employe as id
   FROM attribution
-  where attribution.id_Sprint = $numero");
+  where attribution.id_Sprint = $numero
+  order by (select employe.prenom from employe where employe.id = attribution.id_Employe)
+  ");
 
 $statement->execute();
 $result = $statement->fetchAll();
