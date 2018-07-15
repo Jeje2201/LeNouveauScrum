@@ -33,7 +33,7 @@
         <br>
 
         <textarea id="textbox" style="display: none"></textarea>
-        <a download="RetrospectiveSprint.txt" id="downloadlink" style="display: none">Download</a>
+        <a id="downloadlink" style="display: none">Download</a>
 
         <div id="TableObjectif" class="table-responsive table-hover"></div>
 
@@ -121,31 +121,6 @@
               $('#textbox').html(dataa.trim());
               console.log(dataa.trim());
 
-(function () {
-                var textFile = null,
-                makeTextFile = function (text) {
-                  var data = new Blob([dataa], { type: 'text/plain' });
-
-                // If we are replacing a previously generated file we need to
-                // manually revoke the object URL to avoid memory leaks.
-                if (textFile !== null) {
-                  window.URL.revokeObjectURL(textFile);
-                }
-
-                textFile = window.URL.createObjectURL(data);
-
-                return textFile;
-              };
-
-              var create = document.getElementById('BouttonImprimmer'),
-              textbox = document.getElementById('textbox');
-
-              create.addEventListener('click', function () {
-                var link = document.getElementById('downloadlink');
-                link.href = makeTextFile(textbox.value);
-                link.style.display = 'block';
-              }, false);
-            })();
 
 }
         });
@@ -161,6 +136,10 @@ var action = "retrospective";
           });
 
         }
+
+        $('#BouttonImprimmer').click(function () {
+                window.open('mailto:test@exemple.com?subject=Rétrospective Sprint n°'+ $('#numeroSprint option:selected').text()+'&body='+$('#textbox').val())
+              });
 
         $('#numeroSprint').change(function () {
           RemplirTableau();

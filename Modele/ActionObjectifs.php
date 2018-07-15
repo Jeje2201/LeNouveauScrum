@@ -59,7 +59,7 @@ require_once ('../Modele/Configs.php');
       $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
       $statement->execute();
       $result = $statement->fetchAll();
-      $output = '';
+      $output = 'Rétrospective:';
 
       $projet = '';
 
@@ -71,11 +71,11 @@ require_once ('../Modele/Configs.php');
         if($projet != $row["projet"])
         {
           $projet = $row["projet"];
-          $output .= PHP_EOL.$row["projet"].PHP_EOL.'- '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+          $output .= '%0A'.$row["projet"].'%0A'.'- '.$row["objectif"].' ('.$row["etat"].')'. '%0A';
         }
         else
         {
-          $output .= '- '.$row["objectif"].' ('.$row["etat"].')'. PHP_EOL;
+          $output .= '- '.$row["objectif"].' ('.$row["etat"].')'. '%0A';
         }
       }
     }
