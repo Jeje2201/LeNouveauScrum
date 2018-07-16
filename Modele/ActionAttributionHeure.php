@@ -53,6 +53,72 @@ require_once ('../Modele/Configs.php');
    echo $output;
  }
 
+      if($_POST["action"] == "RemplirTableauRessources") 
+     {
+      $numero = $_POST["idAffiche"];
+      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Employe ORDER BY employeP ASC");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead>
+      <tr>
+      <th width="30%">Ressource</th>
+      <th width="10%">Heure</th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+        $output .= '
+        <tr>
+        <td>'.$row["employeP"].' '.$row["employeN"].'</td>
+        <td>'.$row["NbHeure"].'</td>
+        </tr>
+        ';
+      }
+    }
+   $output .= '</tbody></table>';
+   echo $output;
+ }
+
+       if($_POST["action"] == "RemplirTableauProjets") 
+     {
+      $numero = $_POST["idAffiche"];
+      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, projet.nom as ProjetN FROM attribution inner JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Projet ORDER BY ProjetN ASC");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead>
+      <tr>
+      <th width="30%">Ressource</th>
+      <th width="10%">Heure</th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+        $output .= '
+        <tr>
+        <td>'.$row["ProjetN"].'</td>
+        <td>'.$row["NbHeure"].'</td>
+        </tr>
+        ';
+      }
+    }
+   $output .= '</tbody></table>';
+   echo $output;
+ }
+
  if($_POST["action"] == "Attribuer")
  {
   $statement = $connection->prepare("

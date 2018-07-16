@@ -17,12 +17,21 @@
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
       </div>
-
-      <div class="mb-3">
+<div class="row">
+      <div class="col-lg-9">
 
         <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
       </div>
+
+            <div class="col-lg-3">
+
+        <div id="TableListHeuresAttribueesRessources" class="table-responsive table-hover"></div>
+        <div id="TableauListeHeuresAttrbueesProjets" class="table-responsive table-hover"></div>
+        
+
+      </div>
+    </div>
     </div>
 </body>
 
@@ -63,11 +72,13 @@
 
     RemplirListProjet('ListProjet');
 
-    RemplirTableau();
+    RemplirTableau('TableListHeuresAttribuees');
+    RemplirTableauRessources('TableListHeuresAttribueesRessources');
+    RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
 
     BarreDeRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
 
-    function RemplirTableau() {
+    function RemplirTableau(Div) {
       var idAffiche = $('#numeroSprint').val();
       var action = "RemplirTableau";
       $.ajax({
@@ -75,13 +86,41 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
-          $('#TableListHeuresAttribuees').html(data);
+          $('#'+Div+'').html(data);
+        }
+      });
+    }
+
+        function RemplirTableauRessources(Div) {
+      var idAffiche = $('#numeroSprint').val();
+      var action = "RemplirTableauRessources";
+      $.ajax({
+        url: "Modele/ActionAttributionHeure.php",
+        method: "POST",
+        data: { action: action, idAffiche: idAffiche },
+        success: function (data) {
+          $('#'+Div+'').html(data);
+        }
+      });
+    }
+
+            function RemplirTableauProjets(Div) {
+      var idAffiche = $('#numeroSprint').val();
+      var action = "RemplirTableauProjets";
+      $.ajax({
+        url: "Modele/ActionAttributionHeure.php",
+        method: "POST",
+        data: { action: action, idAffiche: idAffiche },
+        success: function (data) {
+          $('#'+Div+'').html(data);
         }
       });
     }
 
     $('#numeroSprint').change(function () {
-      RemplirTableau();
+      RemplirTableau('TableListHeuresAttribuees');
+      RemplirTableauRessources('TableListHeuresAttribueesRessources');
+      RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
     });
 
     $('#modal_button').click(function () {
@@ -118,7 +157,9 @@
           success: function (data) {
             BootstrapAlert(data);
             // $('#customerModal').modal('hide');
-            RemplirTableau();
+            RemplirTableau('TableListHeuresAttribuees');
+            RemplirTableauRessources('TableListHeuresAttribueesRessources');
+            RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
           }
         });
       });
@@ -160,7 +201,9 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
-            RemplirTableau();
+            RemplirTableau('TableListHeuresAttribuees');
+            RemplirTableauRessources('TableListHeuresAttribueesRessources');
+            RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
             BootstrapAlert(data);
           }
         })
