@@ -68,7 +68,7 @@
 
     RemplirListSprint('ListSrint');
 
-    RemplirListEmploye('ListEmploye')
+    ListEmployeActifPlanification('ListEmploye',$('#numeroSprint').val() )
 
     RemplirListProjet('ListProjet');
 
@@ -121,6 +121,7 @@
       RemplirTableau('TableListHeuresAttribuees');
       RemplirTableauRessources('TableListHeuresAttribueesRessources');
       RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+     ListEmployeActifPlanification('ListEmploye',$('#numeroSprint').val() )
     });
 
     $('#modal_button').click(function () {

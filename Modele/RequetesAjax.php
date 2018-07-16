@@ -5,6 +5,7 @@
    if(isset($_POST["action"]))   {
 
     $action = $_POST["action"];
+   
 
     switch($action)
     {
@@ -82,6 +83,32 @@
       case 'ListeDeroulanteEmploye':
 
         $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe order by prenom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="employeId" name="employeId">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break;
+
+              case 'ListEmployeActifPlanification':
+
+               $IdSprint = $_POST["IdSprint"];
+
+        $statement = $connection->prepare("SELECT employe.id as id, prenom as Prenom, nom as Nom from employe where employe.actif = 1 UNION select employe.id as id, prenom as Prenom, nom as Nom from employe inner join attribution where employe.id = attribution.id_Employe and attribution.id_Sprint = $IdSprint ORDER BY `Prenom` ASC");
 
         $statement->execute();
         $result = $statement->fetchAll();
