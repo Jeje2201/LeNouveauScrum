@@ -41,7 +41,7 @@
         <div id="ListProjet"></div>
         <br />
         <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+        <input class="form-control" name="nbheure" id="nbheure" type="text">
         <br />
       </div>
       <div class="modal-footer">
@@ -94,11 +94,24 @@
       var idSprint = $('#numeroSprint').val();
       var idEmploye = $('#employeId').val();
       var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val();
+      var NombreHeure = $('#nbheure').val().split('+').map(function(item) {
+        return parseInt(item);
+        });
       var id = $('#id').val();
       var action = $('#action').val();
-      if (idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '') {
-        $.ajax({
+      console.log(NombreHeure)
+      var erreur = false
+      NombreHeure.forEach(function(element) {
+        if(isNaN(element))
+         erreur = true
+      });
+      // console.log(erreur)
+      if(erreur == false){
+      if (idSprint != '' && idEmploye != '' && idProjet != '') {
+
+        NombreHeure.forEach(function(element) {
+          NombreHeure = parseInt(element);
+         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
           data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
@@ -108,10 +121,13 @@
             RemplirTableau();
           }
         });
+      });
+       
       }
-      else {
+      else
         alert("Tous les champs doivent être plein.");
       }
+      else alert("Le champs d'heures comporte une erreur")
     });
 
     $(document).on('click', '.update', function () {
