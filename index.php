@@ -3,26 +3,20 @@
 session_start();
 
 require_once ('Modele/Configs.php');
-require_once("Vues/header.html");
+require_once("Vues/Header.html");
 
 if(!isset($_SESSION['TypeUtilisateur']))
-{
   require_once('Vues/Login.html');
-}
+
 else{
 
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-  {
     require_once("Vues/NavBarAdmin.html");
-  }
   else
-  {
-   require_once("Vues/NavBarCommon.html");
-  }
+    require_once("Vues/NavBarCommon.html");
 
-  if(!isset($_REQUEST['vue'])){
-      $_REQUEST['vue'] = 'Dashboard';
-    }
+  if(!isset($_REQUEST['vue']))
+    $_REQUEST['vue'] = 'Dashboard';
 
 $vue = $_REQUEST['vue'];
 
@@ -37,36 +31,26 @@ switch($vue)
   require_once("Vues/Dashboard.html");
   break;
 
-  case 'yolo':
-  require_once("Vues/Gestion_Sprint2.html");
-  break;
-
-  case 'test':
-  require_once("Vues/PageTest.html");
-  break;
-
   case 'Sprint':
-  require_once("Vues/CreerSprint.html");
+   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+  require_once("Vues/Sprints.html");
   break;
 
   case 'Attribution':
-  require_once("Vues/AttributionHeures.html");
+   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+  require_once("Vues/Planification.html");
   break;
 
   case 'Descendation':
    require_once("Vues/HeuresDescenduesAdmin.html");
  break;
 
- case 'Burndownchart':
- require_once("Vues/BurnDownChart.html");
- break;
-
  case 'Objectifs':
- require_once("Vues/Objectifs.html");
+ require_once("Vues/Retrospective.html");
  break;
 
  case 'Parametres':
- require_once("Vues/Gestion_Parametres.html");
+ require_once("Vues/Parametres.html");
  break;
 
  case 'Interferance':
@@ -74,14 +58,17 @@ switch($vue)
  break;
 
  case 'GestionDescendation':
+  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/Gestion_HeuresDescendues.html");
  break;
 
  case 'GestionEmploye':
+ if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/Gestion_Employe.html");
  break;
 
  case 'GestionProjet':
+  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/Gestion_Projet.html");
  break;
 
@@ -93,7 +80,7 @@ switch($vue)
 
 }
 
-require_once("Vues/footer.html");
+require_once("Vues/Footer.html");
 
 ?>
 
