@@ -77,10 +77,10 @@ switch($vue)
   <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
  break;
 }
-
+require_once("Vues/Footer.html");
 }
 
-require_once("Vues/Footer.html");
+
 
 ?>
 
