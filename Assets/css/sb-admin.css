@@ -7,6 +7,14 @@ html {
   position: relative;
   min-height: 100%; }
 
+  .hideElement{
+    display: none;
+  }
+
+  .loginText{
+    color: blue;
+  }
+
   .DonneesBurndownChart{
     color:#f30866;
     display: inline;
