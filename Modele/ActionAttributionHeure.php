@@ -8,7 +8,7 @@ require_once ('../Modele/Configs.php');
      if($_POST["action"] == "RemplirTableau") 
      {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employe FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
+      $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -16,9 +16,9 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Employé(e)</th>
+      <th width="30%">Ressource</th>
       <th width="30%">Projet</th>
-      <th width="30%">Heure(s)</th>
+      <th width="30%">Heure</th>
       <th width="10%"><center>Editer</center></th>
       </tr>
       </thead>
@@ -30,7 +30,7 @@ require_once ('../Modele/Configs.php');
        {
         $output .= '
         <tr>
-        <td>'.$row["employe"].'</td>
+        <td>'.$row["employeP"].' '.$row["employeN"].'</td>
         <td>'.$row["projet"].'</td>
         <td>'.$row["NbHeure"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
