@@ -132,8 +132,10 @@
         var fileName = $('#ToutesLesImages').val();
         var action = $('#action').val();
         var id = $('#id').val();
+        if(fileName == null)
+        fileName = "Inconnue.png"
 
-        if (Nom != '' && TypeProjet != '' && fileName != '') {
+        if (Nom != '' && fileName != '') {
           $.ajax({
             url: "Modele/ActionGestionProjet.php",
             method: "POST",
