@@ -18,7 +18,7 @@ require_once ('../Modele/Configs.php');
       <tr>
       <th width="30%">Ressource</th>
       <th width="30%">Projet</th>
-      <th width="30%">Heure</th>
+      <th width="10%">Heure</th>
       <th width="10%"><center>Editer</center></th>
       </tr>
       </thead>
@@ -97,7 +97,7 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Ressource</th>
+      <th width="30%">Projet</th>
       <th width="10%">Heure</th>
       </tr>
       </thead>
