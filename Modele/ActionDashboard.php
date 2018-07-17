@@ -11,13 +11,19 @@
       $NumeroduSprint = $_POST["NumeroduSprint"];
 
       $statement = $connection->prepare(
-       $sql = "SELECT (select employe.prenom from employe where employe.id= heuresdescendues.id_Employe) as employe,
-       sum(heuresdescendues.heure) as HDescendue,
-       (select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue,
-       ((select sum(attribution.heure) from attribution where attribution.id_Employe= employe.id and attribution.id_Sprint = $NumeroduSprint) - sum(heuresdescendues.heure)) as Difference
-       FROM `heuresdescendues` INNER JOIN employe on heuresdescendues.id_Employe = employe.id
-       where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Employe ORDER BY Difference asc, HDescendue desc"
-     );
+
+      $sql = "SELECT 
+        E.id as empid,
+        E.prenom as prenom,
+        sum(A.heure) as nbheureadescendre,
+        ifnull( sum(HD.heure),0) as nbheuredescendu,
+        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes
+        from Employe as E
+        LEFT JOIN attribution as a ON a.id_employe = e.id and a.id_Sprint = $NumeroduSprint
+        LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint 
+        WHERE
+        A.heure is not null
+        GROUP BY E.id");
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -28,9 +34,9 @@
 
       foreach ($result as $row) {
 
-       $employe[] = $row['employe'];
-       $HDescendue[] = intval($row['HDescendue']);
-       $Hattribue[] = intval($row['Hattribue']);
+       $employe[] = $row['prenom'];
+       $HDescendue[] = intval($row['nbheuredescendu']);
+       $Hattribue[] = intval($row['nbheureadescendre']);
        
      }
 
