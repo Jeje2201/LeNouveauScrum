@@ -15,7 +15,7 @@ require_once ('../Modele/Configs.php');
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -25,6 +25,7 @@ require_once ('../Modele/Configs.php');
       <tr>
       <th width="25%">Prénom</th>
       <th width="25%">Nom</th>
+      <th width="20%">Pseudo</th>
       <th width="20%">Job</th>
       <th width="10%">Couleur</th>
       <th width="10%">Actif</th>
@@ -41,6 +42,7 @@ require_once ('../Modele/Configs.php');
         <tr>
         <td>'.$row["Prenom"].'</td>
         <td>'.$row["Nom"].'</td>
+        <td>'.$row["Pseudo"].'</td>
         <td>'.$row["TypeJob"].'</td>
         <td style="background-color:'.$row["Couleur"].'"></td>
         <td>'.$row["Actif"].'</td>
