@@ -12,7 +12,8 @@
 
       $statement = $connection->prepare(
 
-      $sql = "SELECT 
+      $sql = "
+        SELECT 
         E.id as empid,
         E.prenom as prenom,
         sum(A.heure) as nbheureadescendre,
@@ -23,7 +24,9 @@
         LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint 
         WHERE
         A.heure is not null
-        GROUP BY E.id");
+        GROUP BY E.id
+        order by nbheuredescendu desc, heurerestantes asc
+      ");
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -45,11 +48,21 @@
      $array[] = $Hattribue;
 
      $statement = $connection->prepare(
-       $sql = "SELECT (select projet.nom from projet where projet.id= heuresdescendues.id_Projet) as projet,
-       sum(heuresdescendues.heure) as HDescendue,
-       (select sum(attribution.heure) from attribution where attribution.id_Projet= projet.id and attribution.id_Sprint = $NumeroduSprint) as Hattribue
-       FROM `heuresdescendues` INNER JOIN projet on heuresdescendues.id_Projet = projet.id
-       where id_Sprint = $NumeroduSprint  group by heuresdescendues.id_Projet ORDER BY HDescendue desc"
+       $sql = "
+SELECT 
+        P.id as projid,
+        P.nom as pnom,
+        sum(A.heure) as nbheureadescendre,
+        ifnull( sum(HD.heure),0) as nbheuredescendu,
+        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes
+        from projet as P
+        LEFT JOIN attribution as a ON a.id_Projet = p.id and a.id_Sprint = $NumeroduSprint
+        LEFT JOIN heuresdescendues as hd on hd.id_Projet = p.id and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
+        WHERE
+        A.heure is not null
+        GROUP BY P.id
+        order by nbheuredescendu desc, heurerestantes asc
+       "
      );
 
      $statement->execute();
@@ -61,9 +74,9 @@
 
      foreach ($result as $row) {
 
-       $projet[] = $row['projet'];
-       $HDescendueProjet[] = intval($row['HDescendue']);
-       $HattribueProjet[] = intval($row['Hattribue']);
+       $projet[] = $row['pnom'];
+       $HDescendueProjet[] = intval($row['nbheuredescendu']);
+       $HattribueProjet[] = intval($row['nbheureadescendre']);
        
      }
 
