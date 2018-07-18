@@ -6,7 +6,8 @@
       <form method="POST" action="Modele/ConnectionLogin.php">
         <div id="ListeEmploye"></div>
         <br>
-        <button type="submit" class="btn btn-primary btn-block" hid>Se connecter</button>
+
+        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())" class="btn btn-primary btn-block" id="wow">Se connecter</button>
       </form>
       <div class="text-center">
         <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer"><u>Je n'apparais pas dans la liste..</u></a>
@@ -40,6 +41,12 @@
       $( "#target" ).click(function() {
         $('#customerModal').modal('show');
       });
+
+      if(localStorage.getItem("Connexion") != null){
+        var test = localStorage.getItem("Connexion")
+        console.log(test)
+ $('#TypeEmployeOk option[value="'+test+'"]').attr('selected','selected');
+ }
 
     });
   </script>
