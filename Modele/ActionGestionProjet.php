@@ -59,7 +59,9 @@ $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesIm
 
   foreach($files as $file)
   {
-
+    if($file == "Inconnue.png")
+    $output2.='<option value="'.$file.'" selected> '.substr($file, 0, -4).' </option>';
+  else
     $output2.='<option value="'.$file.'"> '.substr($file, 0, -4).' </option>';
 
   }

@@ -101,19 +101,6 @@
         });
       }
 
-      function RemplirListImages(Div) {
-        var action = "LoadPictures";
-        $.ajax({
-          url: "Modele/ActionGestionProjet.php",
-          method: "POST",
-          data: { action: action },
-          success: function (data) {
-            $('#' + Div + '').html(data);
-          }
-        });
-
-      }
-
       $('#ListImage').change(function () {
         $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
       });
@@ -210,20 +197,12 @@ $(document).on('click', '.update', function () {
   var image_name = $('#image').val();
   if(image_name == '')
   {
-   alert("Please Select Image");
+   alert("Choisie une image d'abord");
    return false;
   }
   else
   {
-   var extension = $('#image').val().split('.').pop().toLowerCase();
-   if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
-   {
-    alert("Invalid Image File");
-    $('#image').val('');
-    return false;
-   }
-   else
-   {
+
     $.ajax({
      url:"Modele/ActionGestionProjet.php",
      method:"POST",
@@ -239,7 +218,6 @@ $(document).on('click', '.update', function () {
 
      }
     });
-   }
   }
  });
 

@@ -147,3 +147,16 @@
           }
         });
         }
+
+              function RemplirListImages(Div) {
+        var action = "LoadPictures";
+        $.ajax({
+          url: "Modele/ActionGestionProjet.php",
+          method: "POST",
+          data: { action: action },
+          success: function (data) {
+            $('#' + Div).html(data);
+          }
+        });
+
+      }
