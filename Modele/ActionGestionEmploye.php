@@ -66,13 +66,14 @@ require_once ('../Modele/Configs.php');
  if($_POST["action"] == "Ajouter")
  {
   $statement = $connection->prepare("
-   INSERT INTO employe (prenom, nom, Couleur, actif, Initial, id_TypeEmploye) 
-   VALUES (:prenom, :nom, :Couleur, :actif, :Initial, :Type_Employe)
+   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye) 
+   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe)
    ");
 
      $result = $statement->execute(
    array(
     ':prenom' => $_POST["Prenom_Employe"],
+    ':pseudo' => $_POST["Prenom_Employe"],
     ':nom' => $_POST["Nom_Employe"],
     ':Couleur' => '#'.random_color(),
     ':actif' => $_POST["Actif"],
