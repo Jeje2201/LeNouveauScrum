@@ -25,7 +25,7 @@
         WHERE
         A.heure is not null
         GROUP BY E.id
-        order by nbheuredescendu desc, heurerestantes asc
+        order by nbheuredescendu desc, heurerestantes desc
       ");
 
       $statement->execute();
@@ -61,7 +61,7 @@ SELECT
         WHERE
         A.heure is not null
         GROUP BY P.id
-        order by nbheuredescendu desc, heurerestantes asc
+        order by nbheuredescendu desc, heurerestantes desc
        "
      );
 

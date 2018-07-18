@@ -19,7 +19,7 @@
                   type: 'column'
                 },
                 title: {
-                  text: 'Total heures attribuées et descendues'
+                  text: 'Total heures attribuées / descendues (triées par ressources)'
                 },
                 xAxis: {
                   type: 'category',
@@ -65,12 +65,12 @@
             }
             else{
 
-              Highcharts.chart('HeureDescenduParEmploye', {
+              Highcharts.chart(div, {
                 chart: {
                   type: 'column'
                 },
                 title: {
-                  text: 'Total heures attribuées et descendues'
+                  text: 'Total heures attribuées / descendues (triées par projet)'
                 },
                 xAxis: {
                   type: 'category',
@@ -136,7 +136,7 @@ Highcharts.chart(div, {
                 type: 'column'
               },
               title: {
-                text: 'Total heures attribuées et descendues'
+                text: 'Total heures attribuées/descendues<br>(toutes ressources comprises)'
               },
               yAxis: {
                 min: 0,
@@ -194,7 +194,7 @@ Highcharts.chart(div, {
                 type: 'pie'
               },
               title: {
-                text: 'Statut objectifs'
+                text: 'Etat des objectifs de la rétrospective'
               },
               tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'         
@@ -207,7 +207,7 @@ Highcharts.chart(div, {
                   cursor: 'pointer',
                   dataLabels: {
                     enabled: true,
-                    format: '{point.name}: {point.y} ({point.percentage:.0f} %)'
+                    format: '{point.name} ({point.y})'
                   }
                 }
               },
@@ -238,7 +238,7 @@ Highcharts.chart(div, {
             renderTo: div
           },
           title:{
-            text: 'BurnDownChart du Sprint n°'+NumeroduSprint
+            text: 'BurnDownChart'
           },
           // subtitle:{
           //   text: document.ontouchstart === undefined ?
@@ -365,7 +365,7 @@ Highcharts.chart(div, {
             renderTo: div
           },
           title:{
-            text: 'Heures descendues par jour'
+            text: 'Heures descendues par jour <br>(toutes ressources comprises)'
           },
           // subtitle:{
           //   text: 'Déplace ta souris sur les points pour avoir plus de détails'

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 14 juil. 2018 à 08:46
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  mer. 18 juil. 2018 à 12:16
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `attribution` (
   KEY `FK_Attribution_id_Projet` (`id_Projet`),
   KEY `FK_Attribution_id_Caracteristiques` (`id_Caracteristiques`),
   KEY `FK_Attribution_id_TypeTache` (`id_TypeTache`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `attribution`
@@ -109,7 +109,223 @@ INSERT INTO `attribution` (`id`, `heure`, `id_Sprint`, `id_Employe`, `id_Projet`
 (57, 17, 2, 43, 30, NULL, NULL),
 (58, 12, 2, 7, 30, NULL, NULL),
 (59, 10, 2, 42, 30, NULL, NULL),
-(60, 10, 2, 33, 30, NULL, NULL);
+(60, 10, 2, 33, 30, NULL, NULL),
+(64, 3, 2, 42, 69, NULL, NULL),
+(65, 5, 2, 42, 69, NULL, NULL),
+(66, 7, 2, 42, 69, NULL, NULL),
+(67, 7, 2, 42, 69, NULL, NULL),
+(68, 8, 2, 42, 69, NULL, NULL),
+(69, 5, 3, 54, 24, NULL, NULL),
+(72, 5, 3, 41, 24, NULL, NULL),
+(73, 2, 3, 54, 89, NULL, NULL),
+(74, 2, 3, 20, 89, NULL, NULL),
+(75, 21, 3, 54, 89, NULL, NULL),
+(76, 7, 3, 54, 89, NULL, NULL),
+(77, 1, 3, 54, 89, NULL, NULL),
+(78, 1, 3, 42, 89, NULL, NULL),
+(79, 16, 3, 42, 89, NULL, NULL),
+(80, 16, 3, 20, 89, NULL, NULL),
+(81, 14, 3, 54, 89, NULL, NULL),
+(82, 3, 3, 42, 89, NULL, NULL),
+(83, 3, 3, 20, 89, NULL, NULL),
+(84, 3, 3, 54, 89, NULL, NULL),
+(85, 5, 3, 54, 89, NULL, NULL),
+(86, 5, 3, 20, 89, NULL, NULL),
+(88, 3, 3, 22, 23, NULL, NULL),
+(89, 2, 3, 22, 23, NULL, NULL),
+(90, 3, 3, 22, 23, NULL, NULL),
+(91, 2, 3, 22, 23, NULL, NULL),
+(92, 1, 3, 22, 23, NULL, NULL),
+(93, 1, 3, 22, 23, NULL, NULL),
+(94, 2, 3, 22, 23, NULL, NULL),
+(95, 8, 3, 22, 23, NULL, NULL),
+(96, 4, 3, 22, 23, NULL, NULL),
+(97, 3, 3, 22, 23, NULL, NULL),
+(98, 3, 3, 22, 23, NULL, NULL),
+(99, 1, 3, 22, 23, NULL, NULL),
+(100, 4, 3, 22, 23, NULL, NULL),
+(101, 3, 3, 22, 23, NULL, NULL),
+(102, 3, 3, 22, 23, NULL, NULL),
+(103, 5, 3, 22, 23, NULL, NULL),
+(104, 5, 3, 22, 23, NULL, NULL),
+(105, 1, 3, 22, 23, NULL, NULL),
+(106, 1, 3, 22, 23, NULL, NULL),
+(107, 2, 3, 50, 20, NULL, NULL),
+(108, 1, 3, 50, 20, NULL, NULL),
+(109, 5, 3, 50, 20, NULL, NULL),
+(110, 3, 3, 50, 20, NULL, NULL),
+(111, 2, 3, 50, 20, NULL, NULL),
+(112, 7, 3, 50, 20, NULL, NULL),
+(113, 1, 3, 50, 20, NULL, NULL),
+(114, 4, 3, 50, 20, NULL, NULL),
+(115, 2, 3, 50, 20, NULL, NULL),
+(116, 2, 3, 50, 82, NULL, NULL),
+(117, 1, 3, 50, 82, NULL, NULL),
+(118, 7, 3, 50, 82, NULL, NULL),
+(119, 1, 3, 50, 82, NULL, NULL),
+(120, 4, 3, 50, 82, NULL, NULL),
+(121, 4, 3, 50, 24, NULL, NULL),
+(122, 7, 3, 50, 24, NULL, NULL),
+(123, 2, 3, 50, 23, NULL, NULL),
+(124, 6, 3, 22, 23, NULL, NULL),
+(125, 7, 3, 53, 23, NULL, NULL),
+(126, 12, 3, 53, 24, NULL, NULL),
+(127, 11, 3, 53, 24, NULL, NULL),
+(128, 8, 3, 53, 24, NULL, NULL),
+(129, 4, 3, 53, 55, NULL, NULL),
+(130, 3, 3, 53, 55, NULL, NULL),
+(131, 8, 3, 20, 69, NULL, NULL),
+(132, 7, 3, 20, 10, NULL, NULL),
+(133, 2, 3, 42, 26, NULL, NULL),
+(134, 13, 3, 42, 26, NULL, NULL),
+(135, 7, 3, 42, 69, NULL, NULL),
+(136, 3, 3, 42, 23, NULL, NULL),
+(137, 4, 3, 57, 88, NULL, NULL),
+(138, 2, 3, 57, 88, NULL, NULL),
+(139, 4, 3, 57, 88, NULL, NULL),
+(140, 7, 3, 57, 88, NULL, NULL),
+(141, 7, 3, 57, 88, NULL, NULL),
+(142, 7, 3, 57, 88, NULL, NULL),
+(143, 7, 3, 57, 88, NULL, NULL),
+(144, 4, 3, 57, 88, NULL, NULL),
+(145, 4, 3, 57, 88, NULL, NULL),
+(146, 3, 3, 57, 88, NULL, NULL),
+(147, 1, 3, 57, 88, NULL, NULL),
+(148, 4, 3, 57, 88, NULL, NULL),
+(149, 2, 3, 58, 84, NULL, NULL),
+(150, 2, 3, 58, 84, NULL, NULL),
+(151, 2, 3, 58, 84, NULL, NULL),
+(152, 2, 3, 58, 84, NULL, NULL),
+(153, 8, 3, 58, 84, NULL, NULL),
+(154, 8, 3, 58, 84, NULL, NULL),
+(155, 8, 3, 58, 84, NULL, NULL),
+(156, 8, 3, 58, 84, NULL, NULL),
+(157, 7, 3, 58, 84, NULL, NULL),
+(158, 7, 3, 58, 84, NULL, NULL),
+(159, 7, 3, 55, 78, NULL, NULL),
+(160, 7, 3, 55, 78, NULL, NULL),
+(161, 5, 3, 55, 78, NULL, NULL),
+(162, 5, 3, 55, 78, NULL, NULL),
+(163, 2, 3, 52, 10, NULL, NULL),
+(164, 14, 3, 52, 4, NULL, NULL),
+(165, 14, 3, 52, 4, NULL, NULL),
+(166, 7, 3, 52, 4, NULL, NULL),
+(167, 7, 3, 52, 4, NULL, NULL),
+(168, 16, 3, 52, 4, NULL, NULL),
+(169, 7, 3, 59, 3, NULL, NULL),
+(170, 5, 3, 59, 3, NULL, NULL),
+(171, 6, 3, 59, 3, NULL, NULL),
+(172, 6, 3, 59, 3, NULL, NULL),
+(173, 10, 3, 26, 23, NULL, NULL),
+(174, 3, 3, 26, 23, NULL, NULL),
+(175, 3, 3, 26, 23, NULL, NULL),
+(176, 2, 3, 26, 23, NULL, NULL),
+(177, 4, 3, 26, 69, NULL, NULL),
+(178, 2, 3, 26, 69, NULL, NULL),
+(179, 2, 3, 26, 69, NULL, NULL),
+(180, 2, 3, 26, 69, NULL, NULL),
+(181, 11, 3, 26, 69, NULL, NULL),
+(182, 3, 3, 59, 3, NULL, NULL),
+(183, 5, 3, 59, 3, NULL, NULL),
+(184, 5, 3, 59, 3, NULL, NULL),
+(185, 5, 3, 59, 3, NULL, NULL),
+(186, 7, 3, 62, 3, NULL, NULL),
+(187, 7, 3, 62, 3, NULL, NULL),
+(188, 7, 3, 62, 3, NULL, NULL),
+(189, 7, 3, 62, 3, NULL, NULL),
+(190, 7, 3, 62, 3, NULL, NULL),
+(191, 7, 3, 62, 3, NULL, NULL),
+(192, 2, 3, 62, 3, NULL, NULL),
+(193, 2, 3, 62, 3, NULL, NULL),
+(194, 3, 3, 62, 3, NULL, NULL),
+(195, 3, 3, 62, 3, NULL, NULL),
+(196, 3, 3, 61, 3, NULL, NULL),
+(197, 3, 3, 61, 3, NULL, NULL),
+(198, 2, 3, 61, 3, NULL, NULL),
+(199, 2, 3, 61, 3, NULL, NULL),
+(200, 7, 3, 61, 3, NULL, NULL),
+(201, 7, 3, 61, 3, NULL, NULL),
+(202, 7, 3, 61, 3, NULL, NULL),
+(203, 7, 3, 61, 3, NULL, NULL),
+(204, 7, 3, 61, 3, NULL, NULL),
+(205, 7, 3, 61, 3, NULL, NULL),
+(206, 2, 3, 60, 83, NULL, NULL),
+(207, 7, 3, 60, 81, NULL, NULL),
+(208, 7, 3, 60, 81, NULL, NULL),
+(209, 7, 3, 60, 81, NULL, NULL),
+(210, 7, 3, 60, 13, NULL, NULL),
+(211, 14, 3, 60, 13, NULL, NULL),
+(212, 4, 3, 60, 13, NULL, NULL),
+(213, 4, 3, 60, 13, NULL, NULL),
+(214, 2, 3, 60, 13, NULL, NULL),
+(215, 1, 3, 60, 13, NULL, NULL),
+(216, 1, 3, 60, 13, NULL, NULL),
+(217, 1, 3, 60, 13, NULL, NULL),
+(218, 3, 3, 60, 13, NULL, NULL),
+(219, 2, 3, 7, 74, NULL, NULL),
+(220, 2, 3, 7, 74, NULL, NULL),
+(221, 2, 3, 7, 74, NULL, NULL),
+(222, 2, 3, 7, 74, NULL, NULL),
+(223, 2, 3, 7, 74, NULL, NULL),
+(224, 2, 3, 7, 74, NULL, NULL),
+(225, 2, 3, 7, 74, NULL, NULL),
+(226, 1, 3, 7, 74, NULL, NULL),
+(227, 1, 3, 7, 74, NULL, NULL),
+(228, 1, 3, 7, 74, NULL, NULL),
+(229, 1, 3, 7, 74, NULL, NULL),
+(230, 1, 3, 7, 74, NULL, NULL),
+(231, 1, 3, 7, 74, NULL, NULL),
+(232, 1, 3, 7, 74, NULL, NULL),
+(233, 3, 3, 7, 74, NULL, NULL),
+(234, 3, 3, 7, 74, NULL, NULL),
+(235, 3, 3, 7, 74, NULL, NULL),
+(236, 1, 3, 7, 13, NULL, NULL),
+(237, 1, 3, 7, 13, NULL, NULL),
+(238, 1, 3, 7, 13, NULL, NULL),
+(239, 1, 3, 7, 13, NULL, NULL),
+(242, 2, 3, 7, 13, NULL, NULL),
+(243, 2, 3, 7, 13, NULL, NULL),
+(244, 2, 3, 7, 13, NULL, NULL),
+(245, 3, 3, 7, 13, NULL, NULL),
+(248, 7, 3, 7, 13, NULL, NULL),
+(249, 7, 3, 7, 13, NULL, NULL),
+(250, 1, 3, 7, 83, NULL, NULL),
+(251, 2, 3, 7, 83, NULL, NULL),
+(252, 7, 3, 46, 81, NULL, NULL),
+(253, 7, 3, 46, 4, NULL, NULL),
+(254, 4, 3, 46, 4, NULL, NULL),
+(255, 3, 3, 46, 4, NULL, NULL),
+(256, 4, 3, 46, 23, NULL, NULL),
+(257, 2, 3, 46, 23, NULL, NULL),
+(258, 1, 3, 46, 23, NULL, NULL),
+(259, 10, 3, 46, 83, NULL, NULL),
+(260, 4, 3, 46, 83, NULL, NULL),
+(261, 18, 3, 46, 1, NULL, NULL),
+(262, 21, 3, 47, 86, NULL, NULL),
+(263, 21, 3, 47, 13, NULL, NULL),
+(264, 3, 3, 47, 23, NULL, NULL),
+(265, 15, 3, 47, 23, NULL, NULL),
+(266, 7, 3, 49, 82, NULL, NULL),
+(267, 7, 3, 49, 82, NULL, NULL),
+(268, 7, 3, 49, 82, NULL, NULL),
+(269, 1, 3, 49, 82, NULL, NULL),
+(270, 1, 3, 49, 82, NULL, NULL),
+(271, 2, 3, 49, 82, NULL, NULL),
+(272, 3, 3, 49, 82, NULL, NULL),
+(273, 3, 3, 49, 82, NULL, NULL),
+(274, 3, 3, 49, 82, NULL, NULL),
+(275, 3, 3, 49, 82, NULL, NULL),
+(276, 10, 3, 49, 82, NULL, NULL),
+(277, 7, 3, 49, 23, NULL, NULL),
+(278, 1, 3, 55, 82, NULL, NULL),
+(279, 1, 3, 54, 89, NULL, NULL),
+(280, 1, 3, 54, 89, NULL, NULL),
+(281, 14, 3, 63, 85, NULL, NULL),
+(282, 14, 3, 63, 85, NULL, NULL),
+(283, 14, 3, 63, 85, NULL, NULL),
+(284, 3, 3, 63, 85, NULL, NULL),
+(285, 7, 3, 63, 85, NULL, NULL),
+(286, 2, 3, 63, 85, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -372,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `employe` (
   PRIMARY KEY (`id`),
   KEY `FK_Employe_id_TypeEmploye` (`id_TypeEmploye`),
   KEY `FK_Employe_id_Poste` (`id_Poste`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `employe`
@@ -385,7 +601,7 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Pseudo`, `Couleur`, `a
 (4, 'AM', 'Antoine', 'Micelli', 'Antoine', '#2dfb0e', 0, NULL, NULL),
 (5, 'CR', 'Cecile', 'Robin', 'Cecile', '#10367c', 0, NULL, NULL),
 (6, 'CS', 'Cedric', 'Seguin', 'Cedric', '#502377', 0, NULL, NULL),
-(7, 'CV', 'Celine', 'Vidal', 'Celine', '#504377', 1, 6, NULL),
+(7, 'CV', 'Celine', 'Vidal', 'Celine', '#85263d', 1, 6, NULL),
 (8, 'CK', 'Christelle', 'Khozian', 'Christelle', '#2b1e6b', 1, 4, NULL),
 (9, 'CG', 'Cyril', 'Gautreau', 'Cyril', '#05413f', 0, NULL, NULL),
 (10, 'DL', 'David', 'Lassagne', 'David', '#8999b2', 1, 3, NULL),
@@ -400,7 +616,7 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Pseudo`, `Couleur`, `a
 (19, 'JL', 'Jean Francois', 'Leger', 'Jean Francois', '#c6e62c', 0, NULL, NULL),
 (20, 'JA', 'Jean-Vitus', 'Albertini', 'Jean-Vitus', '#40e210', 1, 3, NULL),
 (21, 'JD', 'Jeanne', 'Dauvergne', 'Jeanne', '#b98392', 0, NULL, NULL),
-(22, 'JL', 'Jeremy', 'Leriche', 'Jeremy', '#ea0166', 1, 3, NULL),
+(22, 'JL', 'Jeremy', 'Leriche', 'MrJeje_', '#8A2BE2', 1, 3, NULL),
 (23, 'JC', 'Julie', 'Chabalier', 'Julie', '#6741f7', 0, NULL, NULL),
 (24, 'JB', 'Julien', 'Bono', 'Julien', '#a2435c', 0, NULL, NULL),
 (25, 'KS', 'Kamel', 'Sabri', 'Kamel', '#f2d9e0', 0, NULL, NULL),
@@ -419,21 +635,29 @@ INSERT INTO `employe` (`id`, `Initial`, `prenom`, `nom`, `Pseudo`, `Couleur`, `a
 (38, 'TA', 'Tamou', 'Amadha', 'Tamou', '#a10e64', 0, NULL, NULL),
 (39, 'TR', 'Thibault', 'Rhudel', 'Thibault', '#20ba44', 0, NULL, NULL),
 (40, 'TP', 'Thomas', 'Peel', 'Thomas', '#10353b', 0, NULL, NULL),
-(41, 'TL', 'Tom', 'Lopez', 'Tom', '#eb34cb', 1, 3, NULL),
+(41, 'TL', 'Tom', 'Lopez', 'Barbie', '#F9429E', 1, 3, NULL),
 (42, 'VB', 'Vincent', 'Bourgeois', 'Vincent', '#a0a0f6', 1, 3, NULL),
 (43, 'VG', 'Vivien', 'Grivaud', 'Vivien', '#20604f', 0, NULL, NULL),
 (44, 'YT', 'Yacine', 'Thomazo', 'Yacine', '#bbea15', 0, NULL, NULL),
 (45, 'GG', 'Groupe', 'Groupe', 'Groupe', '#833e1a', 1, 4, NULL),
-(46, 'AR', 'Angelique', 'Ries', 'Angelique', '#ff0000', 1, 2, NULL),
+(46, 'AR', 'Angelique', 'Ries', 'Angelique', '#7291fc', 1, 2, NULL),
 (47, 'NH', 'Nabil', 'Hamadou', 'Nabil', '#b4644f', 1, 2, NULL),
 (48, 'RK', 'Romain', 'Knezevitch', 'Romain', '#e6da01', 0, NULL, NULL),
 (49, 'CL', 'Christophe', 'Lavagna', 'Christophe', '#bf289e', 1, 3, NULL),
 (50, 'HA', 'Herve', 'Aymes', 'Herve', '#6e60e1', 1, 3, NULL),
 (51, 'SP', 'Sebastien', 'Paris', 'Sebastien', '#5aa2d8', 1, 6, NULL),
 (52, 'NF', 'Naomi', 'Fischer', 'Naomi', '#cfc61c', 1, 2, NULL),
-(53, 'JD', 'Julien', 'Dejasmin', 'Julien', '#031f43', 1, 3, NULL),
+(53, 'JD', 'Julien', 'Dejasmin', 'Julien', '#fcae21', 1, 3, NULL),
 (54, 'MV', 'El-Makki', 'Voundy', 'El-Makki', '#4c2100', 1, 3, NULL),
-(55, 'RG', 'Remi', 'Guijarro Espinosa', 'Remi', '#1f899d', 1, 3, NULL);
+(55, 'RG', 'Remi', 'Guijarro Espinosa', 'Remi', '#1f899d', 1, 3, NULL),
+(56, 'VP', 'Vincent', 'Pilorge', 'Vincent', '#6833dd', 1, 4, NULL),
+(57, 'JC', 'Julien', 'Corny', 'Julien', '#cdf167', 1, 3, NULL),
+(58, 'PK', 'Patrick', 'Kappeler ', 'Patrick', '#a17a2d', 1, 3, NULL),
+(59, 'AR', 'Adrien', 'Rouleau', 'Adrien', '#9cccd5', 1, 3, NULL),
+(60, 'AH', 'Amine', 'Hamouda', 'Amine', '#e60d56', 1, 3, NULL),
+(61, 'HG', 'Hadrien', 'Grenacs', 'Hadrien', '#0d6e7f', 1, 3, NULL),
+(62, 'GG', 'Gabriel', 'Girard', 'Gabriel', '#FF69B4', 1, 3, NULL),
+(63, NULL, 'Zouhair', 'Et-taousy', 'Zouhair', '#ff2222', 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -651,7 +875,7 @@ CREATE TABLE IF NOT EXISTS `heuresdescendues` (
   KEY `FK_HeuresDescendues_id_Employe` (`id_Employe`),
   KEY `FK_HeuresDescendues_id_Projet` (`id_Projet`),
   KEY `FK_HeuresDescendues_id_Attribution` (`id_Attribution`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `heuresdescendues`
@@ -703,7 +927,25 @@ INSERT INTO `heuresdescendues` (`id`, `heure`, `DateDescendu`, `id_Sprint`, `id_
 (239, 7, '2016-09-01', 2, 26, 23, 50),
 (240, 10, '2016-09-02', 2, 33, 30, 60),
 (241, 12, '2016-09-02', 2, 7, 30, 58),
-(242, 19, '2016-09-02', 2, 14, 20, 42);
+(242, 19, '2016-09-02', 2, 14, 20, 42),
+(244, 3, '2016-09-02', 2, 42, 69, 64),
+(245, 7, '2016-09-02', 2, 42, 69, 66),
+(246, 7, '2016-09-02', 2, 42, 69, 67),
+(247, 8, '2016-09-02', 2, 42, 69, 68),
+(248, 1, '2018-07-17', 3, 22, 23, 106),
+(249, 1, '2018-07-17', 3, 22, 23, 105),
+(250, 4, '2018-07-17', 3, 22, 23, 96),
+(251, 1, '2018-07-17', 3, 22, 23, 93),
+(252, 3, '2018-07-18', 3, 22, 23, 88),
+(253, 3, '2018-07-18', 3, 22, 23, 97),
+(254, 1, '2018-07-18', 3, 22, 23, 99),
+(255, 1, '2018-07-18', 3, 22, 23, 92),
+(256, 2, '2018-07-18', 3, 22, 23, 94),
+(257, 5, '2018-07-18', 3, 59, 3, 184),
+(258, 11, '2018-07-18', 3, 53, 24, 127),
+(259, 1, '2018-07-18', 3, 7, 13, 237),
+(260, 1, '2018-07-18', 3, 7, 13, 236),
+(261, 5, '2018-07-18', 3, 54, 24, 69);
 
 -- --------------------------------------------------------
 
@@ -760,14 +1002,14 @@ CREATE TABLE IF NOT EXISTS `objectif` (
   KEY `FK_Objectif_id_StatutObjectif` (`id_StatutObjectif`),
   KEY `IdDuSprintDepuisObjectif` (`id_Sprint`),
   KEY `IdDuProjetDepuisObjectif` (`id_Projet`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `objectif`
 --
 
 INSERT INTO `objectif` (`id`, `id_Sprint`, `id_Projet`, `objectif`, `id_StatutObjectif`) VALUES
-(10, 2, 51, 'CrÃ©er une vue de template', 5),
+(10, 2, 51, 'CrÃ©er une vue de template', 2),
 (11, 2, 61, 'Compter jusqu\'Ã  10', 4),
 (12, 2, 61, 'Faire un origami en forme de chat', 5),
 (13, 2, 37, 'Remplacer Elon Musk', 3),
@@ -782,7 +1024,9 @@ INSERT INTO `objectif` (`id`, `id_Sprint`, `id_Projet`, `objectif`, `id_StatutOb
 (22, 1, 86, 'trhtrh', 2),
 (23, 1, 86, 'rth', 3),
 (24, 1, 86, 'rthtrh', 5),
-(25, 1, 30, 'rthr', 1);
+(25, 1, 30, 'rthr', 1),
+(26, 3, 24, '- optimisation de script de purge', 5),
+(27, 3, 24, '- faire un premier test de reconnaissance vocale par apprentissage profond', 5);
 
 -- --------------------------------------------------------
 
@@ -813,7 +1057,7 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `id_TypeProjet` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Projet_id_TypeProjet` (`id_TypeProjet`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `projet`
@@ -903,11 +1147,12 @@ INSERT INTO `projet` (`id`, `nom`, `couleur`, `abreviation`, `Logo`, `id_TypePro
 (81, 'PeekMotion', NULL, NULL, 'Inconnue.png', 5),
 (82, 'Balance RFID', NULL, NULL, 'Inconnue.png', 5),
 (83, 'Vanoise', NULL, NULL, 'Vanoise.png', 5),
-(84, 'Geonature interopérabilité', NULL, NULL, 'Inconnue.png', 5),
+(84, 'Geonature interoperabilite', NULL, NULL, 'Inconnue.png', 5),
 (85, 'Capel', NULL, NULL, 'Capel.png', 5),
 (86, 'Alfred', NULL, NULL, 'Inconnue.png', 5),
 (87, 'CITES', NULL, NULL, 'Inconnue.png', 5),
-(88, 'SINP-Espaces verts', NULL, NULL, 'Inconnue.png', 5);
+(88, 'SINP-Espaces verts', NULL, NULL, 'Inconnue.png', 5),
+(89, 'Appli repro', NULL, NULL, 'Inconnue.png', 1);
 
 -- --------------------------------------------------------
 
@@ -930,8 +1175,8 @@ CREATE TABLE IF NOT EXISTS `retrospective` (
 
 INSERT INTO `retrospective` (`id`, `Label`, `DateCreation`, `Etat`) VALUES
 (1, 'zefz', '2018-07-11', 1),
-(2, 'Avoir une imprimante fonctionelle', '2018-07-13', 0),
-(3, 'Arroser les plantes', '2018-07-13', 0);
+(2, 'Avoir une imprimante fonctionelle', '2018-07-13', 1),
+(3, 'Arroser les plantes', '2018-07-13', 1);
 
 -- --------------------------------------------------------
 
@@ -946,7 +1191,7 @@ CREATE TABLE IF NOT EXISTS `sprint` (
   `dateDebut` date DEFAULT NULL,
   `dateFin` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `sprint`
@@ -954,7 +1199,8 @@ CREATE TABLE IF NOT EXISTS `sprint` (
 
 INSERT INTO `sprint` (`id`, `numero`, `dateDebut`, `dateFin`) VALUES
 (1, 96, '2016-07-25', '2016-08-05'),
-(2, 97, '2016-08-22', '2016-09-02');
+(2, 97, '2016-08-22', '2016-09-02'),
+(3, 145, '2018-07-16', '2018-07-27');
 
 -- --------------------------------------------------------
 
