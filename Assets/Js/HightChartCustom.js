@@ -312,10 +312,13 @@ Highcharts.chart(div, {
           if ((Total[4][0] == null) || (typeof Total[0][0] == 'undefined')) {
             $("#TotalHDescendue").text("Inconnue");
             $("#BarDePourcentageDheureDescendue").html("");
+            $("#PourcentageDescendue").text("");
+
           }
           else {
             $("#TotalHDescendue").text((Total[4] - Total[0][Total[0].length - 1]));
-            $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100">' + Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + '%</div></div>');
+            $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          $("#PourcentageDescendue").text( Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + "%");
           }
         }
 

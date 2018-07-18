@@ -153,6 +153,8 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
+          // var test = localStorage.getItem("Connexion").split('|')[1]
+          // $('#numeroEmploye option[value="'+test+'"]').attr('selected','selected');
         }
       });
 
@@ -208,5 +210,7 @@ function DeplaceToi(id) {
       $(id).children().removeClass('border-warning')
     }
   }
+
+
 
 </script>
