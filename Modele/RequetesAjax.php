@@ -215,8 +215,10 @@
           foreach($result as $row)
             {
 
+              if($row["nom"] == "Developpeur")
+              $output2.='<option value="'.$row["id"].'" selected> '.$row["nom"].' </option>';
+            else
               $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
-
             }
 
           $output2 .= '</select>';
