@@ -1,0 +1,77 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+<div class="row">
+  <div class="col-lg-12">
+<div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-area-chart"></i> Sprint</div>
+            <div class="card-body">
+               Numero sprint° <input type="number" placeholder="Numero du sprint" id="idSprint">  <button type="button" id="yolo" class="btn btn-info">Transformer en requête</button>
+            </div>
+          </div>
+        </div>
+
+</div>
+<div class="row">
+<div class="col-lg-6">
+  <div class="card mb-3">
+          <div class="card-header">Texte du mail</div>
+            <div class="card-body">
+               <textarea rows="15" cols="100" id="depart" class="form-control"></textarea>
+            </div>
+          </div>
+  
+</div>
+<div class="col-lg-6">
+
+  <div class="card mb-3">
+          <div class="card-header">Sortie en requete sql</div>
+            <div class="card-body">
+                <textarea rows="15" cols="100" id="arrive"  class="form-control"> </textarea>
+            </div>
+          </div>
+
+
+</div>
+</div>
+</div>
+</body>
+<script>
+
+$('#yolo').click(function(){
+  if(!$('#idSprint').val() || !$('#depart').val())
+    alert('Un des champs est vide')
+else{
+    var lines = $('textarea').val().split('\n');
+    var resultconversion = ''
+    var RegexProjet = /[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].+[a-zA-Z0-9])[\s|\t]*:[ |\t]*/;
+    var RegexEtat = /[\s|\t]*\-[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].*[a-zA-Z0-9])[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é])[\s|\t]*/;
+
+    for(var i = 0;i < lines.length;i++){
+
+      if(lines[i].match(RegexProjet))
+          project = RegexProjet.exec(lines[i])[1]
+          project = project.replace(/'|"/g, ' ');
+        
+
+      if(lines[i].match(RegexEtat)){
+        lines[i] = lines[i].replace(/:/g, '');
+          Etat = RegexEtat.exec(lines[i])[2]
+
+          Label = RegexEtat.exec(lines[i])[1]
+          Label = Label.replace(/"/g, ' ');
+
+          resultconversion += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) '+ '\n' + 'VALUES( '+ '\n\t' +'(SELECT id FROM projet WHERE projet.nom = \''+project+'\'),'+ '\n\t' +'\"' +Label+ '\" ,' + '\n\t' + '(SELECT id FROM statutobjectif WHERE statutobjectif.nom = \''+Etat+'\'),' + '\n\t' + '(SELECT id FROM sprint WHERE sprint.numero = '+document.getElementById('idSprint').value+') );' + '\n';
+          resultconversion += '\n';
+        }
+        
+    }
+
+    $('#arrive').text(resultconversion)
+    }
+  })
+
+
+</script>
