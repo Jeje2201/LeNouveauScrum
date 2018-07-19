@@ -5,7 +5,7 @@
 		aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse" id="navbarResponsive">
+	<div class="collapse navbar-collapse " id="navbarResponsive">
 		<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Accueil">
 				<a class="nav-link" href="index.php?vue=News">
@@ -19,13 +19,13 @@
 					<span class="nav-link-text">Dashboard</span>
 				</a>
 			</li>			
-			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+			<li class="nav-item AdminOnly" data-toggle="tooltip" data-placement="right" title="Dashboard">
 				<a class="nav-link" href="index.php?vue=Sprint">
 					<i class="fa fa-fw fa-rocket"></i>
 					<span class="nav-link-text">Sprints</span>
 				</a>
 			</li>
-			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
+			<li class="nav-item AdminOnly" data-toggle="tooltip" data-placement="right" title="Heures Attribuées">
 				<a class="nav-link" href="index.php?vue=Attribution">
 					<i class="fa fa-fw fa fa-tasks"></i>
 					<span class="nav-link-text">Planification</span>
@@ -60,17 +60,21 @@
 				<a href="index.php?vue=Parametres">
 					<i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Paramètres</a>
 				</li>
-				<li>
+				<li class="AdminOnly">
 					<a href="index.php?vue=GestionEmploye">
 						<i class="fa fa-fw fa-users" aria-hidden="true"></i> Ressources</a>
 					</li>
-					<li>
+					<li class="AdminOnly">
 						<a href="index.php?vue=GestionProjet">
 							<i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
 						</li>
-						<li>
+						<li class="AdminOnly">
 							<a href="index.php?vue=GestionDescendation">
 								<i class="fa fa-fw fa-arrow-up" aria-hidden="true"></i> Heures Descendues</a>
+							</li>
+							<li class="AdminOnly">
+							<a href="index.php?vue=ConversionObjectif">
+								<i class="fa fa-fw fa-recycle" aria-hidden="true"></i> Conversion Objectif</a>
 							</li>
 						</ul>
 						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Objectifs">

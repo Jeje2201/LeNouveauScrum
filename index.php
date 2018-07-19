@@ -10,10 +10,7 @@ if(!isset($_SESSION['TypeUtilisateur']))
 
 else{
 
-  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-    require_once("Vues/NavBarAdmin.html");
-  else
-    require_once("Vues/NavBarCommon.html");
+  require_once("Vues/NavBarAdmin.html");
 
   if(!isset($_REQUEST['vue']))
     $_REQUEST['vue'] = 'Dashboard';
@@ -70,6 +67,11 @@ switch($vue)
  case 'GestionProjet':
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/Gestion_Projet.html");
+ break;
+
+  case 'ConversionObjectif':
+  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+ require_once("Vues/ConversionObjectif.html");
  break;
 
  default:
