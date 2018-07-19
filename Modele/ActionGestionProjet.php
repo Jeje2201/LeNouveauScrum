@@ -178,8 +178,8 @@ if($_POST["action"] == "insert")
   }
 
     //Check si l'image a des espaces ou accent
-  if(preg_match("#[éèàïäüùç\s]#",basename($_FILES["image"]["name"]))){
-    echo "Ton image contient des accents ou espace, enlève moi ça :(";
+  if(preg_match("#[\s]#",basename($_FILES["image"]["name"]))){
+    echo "Ton image contient des espaces, enlève moi ça :(";
     $uploadOk = 0;
   }
 

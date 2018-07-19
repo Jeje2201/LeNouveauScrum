@@ -30,7 +30,6 @@
           <div class="form-group">
             <label>Nom</label>
             <input class="form-control" name="Nom" id="Nom" type="text" placeholder="Nom..">
-            <small class="form-text text-muted">Merci d'éviter les accents (même si un script les enlèvera automatiquement :)).</small>
           </div>
 
           <div class="form-group">
@@ -116,7 +115,7 @@
 
       $('#action').click(function () {
 
-        var Nom = ($('#Nom').val()).normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        var Nom = $('#Nom').val();
         var TypeProjet = $('#TypeProjet').val();
         var fileName = $('#ToutesLesImages').val();
         var action = $('#action').val();
