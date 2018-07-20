@@ -129,7 +129,7 @@ $statement = $connection->prepare("
 $statement->execute();
 $result = $statement->fetchAll();
 $output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
-              <option value="ToutLeMonde">*</option>';
+              <option value="ToutLeMonde">Global</option>';
 if($statement->rowCount() > 0)
 {
  foreach($result as $row)

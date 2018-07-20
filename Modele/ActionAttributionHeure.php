@@ -19,7 +19,7 @@ require_once ('../Modele/Configs.php');
       <th width="30%">Ressource</th>
       <th width="30%">Projet</th>
       <th width="10%">Heure</th>
-      <th width="10%"><center>Editer</center></th>
+      <th width="10%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

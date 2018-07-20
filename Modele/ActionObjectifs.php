@@ -16,11 +16,11 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="10%">Etat</th>
+      <th width="10%">État</th>
       <th width="10%">Projet</th>
       <th width="65%">Objectif</th>
-      <th width="10%">Objectif</th>
-      <th width="5%"><center>Editer</center></th>
+      <th width="10%">Changer État</th>
+      <th width="5%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -122,7 +122,7 @@ require_once ('../Modele/Configs.php');
       <tr>
       <th width="10%">Date</th>
       <th width="85%">Commentaire</th>
-      <th width="5%%"><center>Editer</center></th>
+      <th width="5%%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

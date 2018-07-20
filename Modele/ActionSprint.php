@@ -13,10 +13,10 @@ require_once ('../Modele/Configs.php');
     <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
     <thead>
     <tr>
-    <th width="30%">Numero</th>
-    <th width="30%">Debut</th>
+    <th width="30%">Numéro</th>
+    <th width="30%">Début</th>
     <th width="30%">Fin</th>
-    <th width="10%"><center>Editer</center></th>
+    <th width="10%"><center>Éditer</center></th>
     </tr>
     </thead>
     <tbody id="myTable">

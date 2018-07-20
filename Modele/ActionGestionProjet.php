@@ -17,7 +17,7 @@
       <th width="40%">Nom</th>
       <th width="40%">Type</th>
       <th width="4%">Icone</th>
-      <th width="10%"><center>Editer</center></th>
+      <th width="10%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

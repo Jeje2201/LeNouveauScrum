@@ -45,7 +45,7 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <label>Employé</label>
+        <label>Ressource</label>
         <div id="ListEmploye"> </div>
         <br />
         <label>Projet</label>
@@ -128,7 +128,7 @@
 
     $('#modal_button').click(function () {
       $('#customerModal').modal('show');
-      $('.modal-title').text("Tâche planifiée");
+      $('.modal-title').text("Planification de tâches");
       $('#action').val('Attribuer');
     });
 
@@ -184,7 +184,7 @@
         dataType: "json",
         success: function (data) {
           $('#customerModal').modal('show');
-          $('.modal-title').text("Update Records");
+          $('.modal-title').text("Changer planification");
           $('#action').val("Update");
           $('#id').val(id);
           $('#idSprint').val(data.idSprint);
