@@ -15,6 +15,20 @@ html {
     color: blue;
   }
 
+  .Tom{
+        animation-name: Tom;
+    animation-duration: 1.3s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes Tom {
+    0%   {background-color:red;}
+    25%  {background-color:yellow;}
+    50%  {background-color:blue;}
+    75%  {background-color:green;}
+    100% {background-color:red; }
+}
+
   .DonneesBurndownChart{
     color:#f30866;
     display: inline;

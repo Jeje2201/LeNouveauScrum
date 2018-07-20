@@ -10,7 +10,7 @@ if(!isset($_SESSION['TypeUtilisateur']))
 
 else{
 
-  require_once("Vues/NavBarAdmin.html");
+  require_once("Vues/NavBar.html");
 
   if(!isset($_REQUEST['vue']))
     $_REQUEST['vue'] = 'Dashboard';
@@ -39,7 +39,7 @@ switch($vue)
   break;
 
   case 'Descendation':
-   require_once("Vues/HeuresDescenduesAdmin.html");
+   require_once("Vues/HeuresDescendues.html");
  break;
 
  case 'Objectifs':
