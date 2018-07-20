@@ -15,7 +15,7 @@ function GetLatestVersion(Div) {
             var info = "";
             for (var i = 0; i < data.length; i++) {
 
-               info += '<p><b>'+ data[i].name + ' </b>('+data[i].published_at+')</p>'
+               info += '<p><b>'+ data[i].name + ' </b>( Sortie le: '+data[i].published_at+' )</p>'
                info += data[i].body
                info += ' <hr><br>'
            }

@@ -202,7 +202,6 @@ Highcharts.chart(div, {
               plotOptions: {
                 pie: {
 
-                  colors: ['#95D972', '#E88648', '#E8514E', '#E8514E', '#222222'],
                   allowPointSelect: true,
                   cursor: 'pointer',
                   dataLabels: {
@@ -216,7 +215,6 @@ Highcharts.chart(div, {
                 data: hDescenduesParEmploye[6]
               }]
             });
-
           }
         });
       }
