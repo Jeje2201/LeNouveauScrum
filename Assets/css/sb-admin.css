@@ -7,6 +7,12 @@ html {
   position: relative;
   min-height: 100%; }
 
+  .SpecialHr{
+    height: 1px;
+    width: 25%;
+    background-color: gray;
+  }
+
   .hideElement{
     display: none;
   }
@@ -108,7 +114,7 @@ hr{
 
 }
 .LogoProjet{
-  width: 22px;
+  width: 26px;
   position: absolute;
   bottom: 1px;
   right: 1px;
