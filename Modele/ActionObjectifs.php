@@ -18,7 +18,8 @@ require_once ('../Modele/Configs.php');
       <tr>
       <th width="10%">Etat</th>
       <th width="10%">Projet</th>
-      <th width="75%">Objectif</th>
+      <th width="65%">Objectif</th>
+      <th width="10%">Objectif</th>
       <th width="5%"><center>Editer</center></th>
       </tr>
       </thead>
@@ -33,6 +34,14 @@ require_once ('../Modele/Configs.php');
         <td style="background-color: '.$row["couleur"].'; color: white; font-weight: bold;">'.$row["etat"].'</td>
         <td>'.$row["projet"].'</td>
         <td>'.$row["objectif"].'</td>
+
+        <td><center><div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" id="'.$row["id"].'" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-warning 2"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-danger 3"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-dark 4"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div></center></td>
+
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -214,6 +223,26 @@ if($_POST["action"] == "Changer")
     ':LabelObjectif' => $_POST["LabelObjectif"],
     ':id_Sprint' => $_POST["idSprint"],
     ':id_Projet' => $_POST["idProjet"],
+    ':EtatObjectif'   => $_POST["EtatObjectif"],
+    ':id'   => $_POST["id"]
+  )
+ );
+  if(!empty($result))
+  {
+   echo 'Objectif modifié ! 😮';
+ }
+}
+
+if($_POST["action"] == "ChangerEtat")
+{
+  $statement = $connection->prepare(
+   "UPDATE objectif 
+   SET id_StatutObjectif = :EtatObjectif 
+   WHERE id = :id
+   "
+ );
+  $result = $statement->execute(
+   array(
     ':EtatObjectif'   => $_POST["EtatObjectif"],
     ':id'   => $_POST["id"]
   )

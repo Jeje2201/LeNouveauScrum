@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col">
-                  <button type="button" id="Bouttonretrospective" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Commentaire</button>
+                  <button type="button" id="Bouttonretrospective" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
                 </div>
 
                 <div class="col">
@@ -141,8 +141,27 @@ var action = "retrospective";
                 window.open('mailto:test@exemple.com?subject=Rétrospective Sprint n°'+ $('#numeroSprint option:selected').text()+'&body='+$('#textbox').val())
               });
 
+        $(document).on('click', '.1, .2, .3, .4', function () {
+               console.log(this)
+               console.log(this.id)
+               console.log(this.className.split(" ")[2])
+               var EtatObjectif = this.className.split(" ")[2]
+               var id = this.id
+               var action = 'ChangerEtat'
+               $.ajax({
+              url: "Modele/ActionObjectifs.php",
+              method: "POST",
+              data: { id: id, EtatObjectif:EtatObjectif, action: action },
+              success: function (data) {
+                BootstrapAlert(data);
+                $('#customerModal').modal('hide');
+                RemplirTableau();
+              }
+            });
+              });
+
         $('#BouttonInfo').click(function () {
-                alert('Le bouton de mail utilise "mailto:".\nSi rien ne se passe, veuillez vérifier vos paramètre de mail par défaut.\n- Sur chrome rendez vous ici : chrome://settings/handlers\n- Sur firefox rendez allez dans "application" depuis ce lien : about:preferences ')
+                alert('Le bouton de mail utilise "mailto:".\nSi rien ne se passe, veuillez vérifier vos paramètres de mail par défaut.\n- Sur chrome rendez vous ici : chrome://settings/handlers\n- Sur firefox allez dans "application" depuis ce lien : about:preferences ')
               });
 
         $('#numeroSprint').change(function () {
@@ -159,7 +178,7 @@ var action = "retrospective";
 
         $('#Bouttonretrospective').click(function () {
           $('#Modalretrospective').modal('show');
-          $('.modal-title').text("Créer une rétrospective");
+          $('.modal-title').text("Créer une remarque");
           $('#Labelretrospective').val("");
           $('#EtatNum5').prop("checked", true);
         });
