@@ -71,14 +71,29 @@ require_once ('../Modele/Configs.php');
         if($projet != $row["projet"])
         {
           $projet = $row["projet"];
-          $output .= '%0A'.$row["projet"].'%0A'.'- '.$row["objectif"].' ('.$row["etat"].')'. '%0A';
+          $output .= '%0A %0A'.$row["projet"].': %0A'.'- '.$row["objectif"].' ('.$row["etat"].')';
         }
         else
         {
-          $output .= '- '.$row["objectif"].' ('.$row["etat"].')'. '%0A';
+          $output .= '%0A- '.$row["objectif"].' ('.$row["etat"].')';
         }
       }
     }
+
+    $output .= '%0A %0A Remarques: %0A';
+
+      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat = 1");
+      $statement->execute();
+      $result = $statement->fetchAll();
+
+      if($statement->rowCount() > 0)
+      {
+       foreach($result as $row)
+       {
+          $output .= '- '.$row["label"]. '%0A';
+      }
+    }
+
    echo ($output);
  }
 
