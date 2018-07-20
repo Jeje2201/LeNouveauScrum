@@ -20,7 +20,7 @@ else{
 
 	//Cacher les onglets innutiles pour les non admin
 	console.log(TypeUser)
-	if(TypeUser !== 'ScrumMaster '){
+	if(TypeUser !== 'ScrumMaster'){
 	$( ".AdminOnly" ).each(function() {
   		$( this ).hide();
 	});

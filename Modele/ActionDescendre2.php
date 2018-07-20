@@ -45,8 +45,10 @@ require_once ('../Modele/Configs.php');
         <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
           <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
-            <div><i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')</div><hr/>
-            <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
+            <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<br>
+            <div class="SpecialHr"></div>
+            <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
+            <div class="SpecialHr"></div>
             <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
           </span>
         </div>
@@ -86,8 +88,10 @@ if($statement->rowCount() > 0)
   <div style="margin-left:7px;">
     <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
     <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
-      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<hr/>
-      <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<hr/>
+      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<br>
+      <div class="SpecialHr"></div>
+      <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
+      <div class="SpecialHr"></div>
       <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
     </span>
   </div>
