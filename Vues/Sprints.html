@@ -28,10 +28,15 @@
                 </div>
                 <input type="text" name="dateFin" id='dateFin' class="form-control" />
 
-                <button type="button" id="modal_button" class="btn btn-info">
-                  <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint
-                </button>
+                <div class="input-group-prepend">
+              <span class="input-group-text">Attribuable (h)</span>
+            </div>
+            <input type="number" name="attribuable" id='attribuable' value='60' min='1' class="form-control">
 
+                <div class="btn-group " role="group" aria-label="Basic example">
+                    <button type="button" id="modal_button" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint</button>
+                    <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
+                  </div>
               </div>
             </div>
 
@@ -44,7 +49,27 @@
           <div id="result" class="table-responsive table-hover"> </div>
 
 <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
-          <div id="customerModal" class="modal fade">
+          <div id="ModalInfoAttribuable" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Raison pour laquelle 60 est le nombre d'heures attribuables par défaut</h4>
+                </div>
+                <div class="modal-body">
+                  
+                  <img src="Assets/Image/InfoHeureAttribuable.png" width="100%">
+                  <p>Par jour est attribuable un certain nombre d'heures.<br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h attribuable car 3h sont déjà attribuées pour la planification des tâches.<br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+ <div id="customerModal" class="modal fade">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -60,6 +85,9 @@
                   <label>Date Fin</label>
                   <input type="text" name="dateFin" id='dateFinn' class="form-control" />
                   <br />
+                  <label>Attribuable (h)</label>
+                  <input type="number" name="attribuableEdition" id='attribuableEdition' min="1" class="form-control" />
+                  <br />
                 </div>
                 <div class="modal-footer">
                   <input type="hidden" name="id" id="id" />
@@ -67,12 +95,11 @@
                   <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 </div>
               </div>
-            </div>
-          </div>
 
         </div>
       </div>
     </div>
+  </div>
   </body>
   <script>
 
@@ -80,7 +107,7 @@
 
       $('#dateDebut').val(ChoixDate(0));
       $('#dateFin').val(ChoixDate(localStorage.getItem('NbJoursParSprint')));
-      NumeroSprintMax();
+      GetNumeroSprintMax('numero');
 
       BarreDeRecherche('BarreDeRecherche', 'result');
 
@@ -105,7 +132,11 @@
       minView: 2
     });
 
-    function NumeroSprintMax() {
+           $('#BouttonInfo').click(function () {
+          $('#ModalInfoAttribuable').modal('show');
+        });
+
+    function GetNumeroSprintMax(Div) {
       var action = "SprintMax";
       $.ajax({
         url: "Modele/ActionSprint.php",
@@ -113,7 +144,7 @@
         data: { action: action },
         success: function (data) {
           data = data.replace(/\s+/g, '');
-          $('#numero').val(data);
+          $('#'+Div+'').val(data);
         }
       });
     }
@@ -123,6 +154,7 @@
       var numero = $('#numero').val();
       var dateDebut = $('#dateDebut').val();
       var dateFin = $('#dateFin').val();
+      var Attribuable = $('#attribuable').val();
       var id = $('#id').val();
       var action = 'Créer'
       if (dateFin > dateDebut) {
@@ -130,11 +162,11 @@
           $.ajax({
             url: "Modele/ActionSprint.php",
             method: "POST",
-            data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, action: action },
+            data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, Attribuable:Attribuable, action: action },
             success: function (data) {
 
               BootstrapAlert(data);
-              NumeroSprintMax();
+              GetNumeroSprintMax('numero');
               fetchUser();
 
             }
@@ -166,6 +198,7 @@
           $('#numeroo').val(data.numero);  //It will assign value to modal first name texbox
           $('#dateDebutt').val(data.dateDebut);  //It will assign value of modal last name textbox
           $('#dateFinn').val(data.dateFin);  //It will assign value of modal last name textbox
+          $('#attribuableEdition').val(data.attribuable);
         }
       });
     });
@@ -174,14 +207,15 @@
       var numero = $('#numeroo').val(); //Get the value of first name textbox.
       var dateDebut = $('#dateDebutt').val(); //Get the value of last name textbox
       var dateFin = $('#dateFinn').val();  //Get the value of hidden field customer id
+      var attribuableEdi = $('#attribuableEdition').val();  //Get the value of hidden field customer id
       var id = $('#id').val();
       var action = $('#action').val();  //Get the value of Modal Action button and stored into action variable
-      if (numero != '' && dateDebut != '' && dateFin != '') //This condition will check both variable has some value
+      if (numero != '' && dateDebut != '' && dateFin != '' && attribuableEdi > 0) //This condition will check both variable has some value
       {
         $.ajax({
           url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
           method: "POST",     //Using of Post method for send data
-          data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, action: action }, //Send data to server
+          data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi:attribuableEdi, action: action }, //Send data to server
           success: function (data) {
             BootstrapAlert(data);
             $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
