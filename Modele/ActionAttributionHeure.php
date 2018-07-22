@@ -16,8 +16,8 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Ressource</th>
-      <th width="30%">Projet</th>
+      <th width="40%">Ressource</th>
+      <th width="40%">Projet</th>
       <th width="10%">Heure</th>
       <th width="10%"><center>Éditer</center></th>
       </tr>
@@ -56,7 +56,7 @@ require_once ('../Modele/Configs.php');
       if($_POST["action"] == "RemplirTableauRessources") 
      {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Employe ORDER BY employeP ASC");
+      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, ((SELECT Attribuable from sprint where sprint.id = $numero)- sum(attribution.heure)) as Attribuable, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Employe ORDER BY employeP ASC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -64,8 +64,8 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Ressource</th>
-      <th width="10%">Heure</th>
+      <th width="50%">Ressource</th>
+      <th width="50%">Planifié (Planifiable)</th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -77,7 +77,7 @@ require_once ('../Modele/Configs.php');
         $output .= '
         <tr>
         <td>'.$row["employeP"].' '.$row["employeN"].'</td>
-        <td>'.$row["NbHeure"].'</td>
+        <td>'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>
         </tr>
         ';
       }
@@ -97,7 +97,7 @@ require_once ('../Modele/Configs.php');
       <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="30%">Projet</th>
+      <th width="90%">Projet</th>
       <th width="10%">Heure</th>
       </tr>
       </thead>
