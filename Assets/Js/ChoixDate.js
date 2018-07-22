@@ -20,6 +20,6 @@ function ChoixDate(jours){
         m = "0" + m;
       };
 
-      return a + "-" + m + "-" + j;
+      return j + "-" + m + "-" + a;
       
     };
