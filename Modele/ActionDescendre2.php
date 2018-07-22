@@ -166,12 +166,14 @@ if($_POST["action"] == "DateMinMax")
   $DateMax = [];
 
   foreach ($result as $row) {
-   $DateMin[] = $row['DateMin'];
-   $DateMax[] = $row['DateMax'];
+   $DateMin[] = date("d-m-Y", strtotime($row["DateMin"]));
+   $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
+   $JRestant[] = date("d-m-Y", strtotime($row["DateMax"]))-date("d-m-Y");
  }
 
  $array[] = $DateMin;
  $array[] = $DateMax;
+ $array[] = $JRestant;
 
  header('Cache-Control: no-cache, must-revalidate');
  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');

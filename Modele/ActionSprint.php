@@ -29,8 +29,8 @@ require_once ('../Modele/Configs.php');
        $output .= '
        <tr>
        <td>'.$row["numero"].'</td>
-       <td>'.$row["dateDebut"].'</td>
-       <td>'.$row["dateFin"].'</td>
+       <td>'.date("d-m-Y", strtotime($row["dateDebut"])).'</td>
+       <td>'.date("d-m-Y", strtotime($row["dateFin"])).'</td>
        <td>'.$row["attribuable"].'</td>
        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
        </tr>
@@ -95,8 +95,8 @@ else
   foreach($result as $row)
   {
    $output["numero"] = $row["numero"];
-   $output["dateDebut"] = $row["dateDebut"];
-   $output["dateFin"] = $row["dateFin"];
+   $output["dateDebut"] =date("d-m-Y", strtotime($row["dateDebut"]));
+   $output["dateFin"] = date("d-m-Y", strtotime($row["dateFin"]));
    $output["attribuable"] = $row["attribuable"];
  }
  echo json_encode($output);

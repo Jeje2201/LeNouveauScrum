@@ -33,7 +33,7 @@ require_once ('../Modele/Configs.php');
         <tr>
         <td>'.$row["employe"].'</td>
         <td>'.$row["projet"].'</td>
-        <td>'.$row["Datee"].'</td>
+        <td>'.date("d-m-Y", strtotime($row["Datee"])).'</td>
         <td>'.$row["NbHeure"].'</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -91,7 +91,7 @@ if($_POST["action"] == "Select")
   foreach($result as $row)
   {
    $output["heure"] = $row["heure"];
-   $output["DateAujourdhui"] = $row["DateDescendu"];
+   $output["DateAujourdhui"] = date("d-m-Y", strtotime($row["DateDescendu"]));
    $output["id_Employe"] = $row["id_Employe"];
    $output["id_Projet"] = $row["id_Projet"];
  }

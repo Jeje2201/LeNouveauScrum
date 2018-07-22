@@ -286,8 +286,6 @@ Highcharts.chart(div, {
         success: function (Total) {
           Total = JSON.parse(Total);
 
-          console.log(Total[2])
-
           CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
 
           if (Total[4][0] == null)
@@ -332,11 +330,10 @@ Highcharts.chart(div, {
 
           $("#DateSprint").text(data[0] + " ->" + data[1])
 
-          if (data[1] > ChoixDate(0)) {
+          if (data[2] > 0) {
 
-            Fin = new Date(data[1]);
-            Aujourdui = new Date();
-            $("#NbJoursRestants").html( Math.ceil((Fin - Aujourdui) / (1000 * 60 * 60 * 24)));
+            
+            $("#NbJoursRestants").text(data[2]);
 
           }
           else

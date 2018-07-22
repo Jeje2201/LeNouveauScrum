@@ -96,7 +96,7 @@
         var idEmploye = $('#employeId').val();
         var idProjet = $('#projetId').val();
         var NombreHeure = $('#nbheure').val();
-        var DateAujourdhui = $('#DateAujourdhui').val();
+        var DateAujourdhui = DateFrToEn($('#DateAujourdhui').val());
         var id = $('#id').val();
         var action = $('#action').val();
         if (idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') {
@@ -159,7 +159,7 @@
     });
 
     $('#DateAujourdhui').datetimepicker({
-      format: 'yyyy-mm-dd',
+      format: 'dd-mm-yyyy',
       autoclose: true,
       minView: 2
     });
