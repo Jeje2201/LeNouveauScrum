@@ -129,7 +129,6 @@
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
 
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
 
 Highcharts.chart(div, {
               chart: {
@@ -184,8 +183,6 @@ Highcharts.chart(div, {
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
 
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
-
             Highcharts.chart(div, {
               chart: {
                 plotBackgroundColor: null,
@@ -193,6 +190,7 @@ Highcharts.chart(div, {
                 plotShadow: false,
                 type: 'pie'
               },
+              colors: ['#95D972', '#E88648', '#E8514E', '#424242', '#5e005c'],
               title: {
                 text: 'Etat des objectifs de la rétrospective'
               },
@@ -219,7 +217,7 @@ Highcharts.chart(div, {
         });
       }
 
-      function CreerLaBurnDownChart(heures, dates, seuils, sprintou, NumeroduSprint, div){
+      function CreerLaBurnDownChart(heures, dates, seuils, div){
         heures = heures.map(function (x) { 
           return parseInt(x, 10); 
         });
@@ -228,7 +226,7 @@ Highcharts.chart(div, {
           return parseInt(x, 10); 
         });
 
-        console.log("Les Informations : ",heures, dates, seuils, sprintou);
+        console.log("Données de la Burndownchart : ",heures, dates, seuils);
 
         new Highcharts.Chart({
           chart: {
@@ -286,7 +284,7 @@ Highcharts.chart(div, {
         success: function (Total) {
           Total = JSON.parse(Total);
 
-          CreerLaBurnDownChart(Total[0], Total[1], Total[2], Total[3], NumeroSprint, div);
+          CreerLaBurnDownChart(Total[0], Total[1], Total[2], div);
 
           if (Total[4][0] == null)
             $("#TotalHAttribues").text("Inconnue");
@@ -355,8 +353,6 @@ Highcharts.chart(div, {
           success:function(hDescenduesParEmploye){
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-
-            console.log('wow ',hDescenduesParEmploye);
 
         new Highcharts.Chart({
           chart: {
