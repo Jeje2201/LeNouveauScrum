@@ -1529,7 +1529,7 @@ pre code {
 
 .table th,
 .table td {
-  padding: 0.35rem;
+  padding: 0.75rem;
   vertical-align: middle;
   border-top: 1px solid #dee2e6;
 }

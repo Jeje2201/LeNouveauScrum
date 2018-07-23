@@ -10,7 +10,7 @@ require_once ('../Modele/Configs.php');
     $result = $statement->fetchAll();
     $output = '';
     $output .= '
-    <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+    <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
     <thead>
     <tr>
     <th width="22%">Numéro</th>
