@@ -40,8 +40,8 @@
   else{
       var lines = $('textarea').val().split('\n');
       var resultconversion = ''
-      var RegexProjet = /[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].+[a-zA-Z0-9])[\s|\t]*:[ |\t]*/;
-      var RegexEtat = /[\s|\t]*\-[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].*[a-zA-Z0-9])[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é])[\s|\t]*/;
+      var RegexProjet = /^[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].+[a-zA-Z0-9])[\s|\t]*:[ |\t]*/;
+      var RegexEtat = /[\s|\t]*\-[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].*[a-zA-Z0-9])[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é]|En cours)[\s|\t]*/;
   
       for(var i = 0;i < lines.length;i++){
   
