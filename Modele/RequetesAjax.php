@@ -156,7 +156,7 @@
 
         case 'ListeDeroulanteEmployeActifTrieParType':
 
-        $statement = $connection->prepare("SELECT (select nom from typeemploye where typeemploye.id = employe.id_typeemploye) as type, prenom, nom, id from employe where employe.actif = 1 order by prenom asc");
+        $statement = $connection->prepare("SELECT prenom, nom, id from employe where employe.actif = 1 order by prenom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -167,7 +167,7 @@
           foreach($result as $row)
             {
 
-              $output2.='<option value="'.$row["type"].'|'.$row["id"].'|'.$row["prenom"].'"> '.$row["prenom"].' '.$row["nom"].' </option>';
+              $output2.='<option value="'.$row["id"].'"> '.$row["prenom"].' '.$row["nom"].' </option>';
 
             }
 

@@ -153,9 +153,9 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
-          var test = localStorage.getItem("Connexion").split('|')[1]
-          console.log('yolo: '+test)
-          $('#numeroEmploye option[value="'+test+'"]').attr('selected','selected');
+          var NumEmploye = localStorage.getItem("Connexion")
+          console.log(NumEmploye)
+          $('#numeroEmploye option[value="'+NumEmploye+'"]').attr('selected','selected');
         }
       });
 

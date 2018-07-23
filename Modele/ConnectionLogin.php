@@ -2,11 +2,18 @@
 
 session_start();
 
-$TemporaryString = explode("|",$_POST['TypeEmployeOk']);
-$_SESSION['TypeUtilisateur'] = $TemporaryString[0];
-$_SESSION['IdUtilisateur'] = $TemporaryString[1];
-$_SESSION['PrenomUtilisateur'] =$TemporaryString[2];
+require_once ('../Modele/Configs.php');
 
+$_SESSION['IdUtilisateur'] = $_POST['TypeEmployeOk'];
+$IdUser = $_POST['TypeEmployeOk'];
+
+$statement = $connection->prepare(
+$sql = "SELECT employe.prenom as prenom, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye) as Type from employe where employe.id = $IdUser");
+$statement->execute();
+$result = $statement->fetch();
+
+$_SESSION['PrenomUtilisateur'] = $result["prenom"];
+$_SESSION['TypeUtilisateur'] = $result["Type"];
 
 header('Location: ../index.php');
 
