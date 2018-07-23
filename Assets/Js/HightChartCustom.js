@@ -199,7 +199,6 @@ Highcharts.chart(div, {
               },
               plotOptions: {
                 pie: {
-
                   allowPointSelect: true,
                   cursor: 'pointer',
                   dataLabels: {
