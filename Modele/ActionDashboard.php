@@ -138,7 +138,7 @@ $statement = $connection->prepare(
      foreach ($result as $row) {
 
       $Descendues[] = intval($row['heures']);
-      $Date[] = $row['Ladate'];
+      $Date[] = date("d-m-Y", strtotime($row['Ladate']));
 
     }
 

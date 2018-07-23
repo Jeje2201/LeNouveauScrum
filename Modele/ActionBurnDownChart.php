@@ -37,7 +37,7 @@ require_once ('../Modele/Configs.php');
 
       foreach ($result as $row) {
        $values[] = $row['value'];
-       $hours[] = $row['heure'];
+       $hours[] = date("d-m-Y", strtotime($row['heure']));
 
        if( empty($row['interferances'])  || is_null($row['interferances'])  || !isset($row['interferances']) || $row['interferances'] === NULL ){
         $interferences[] = 0;
