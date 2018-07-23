@@ -27,11 +27,11 @@
 
               </div>
             </div>
+
           </div>
 
         </div>
-
-        <br>
+<input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
         <textarea id="textbox" class="hideElement"></textarea>
 
@@ -99,6 +99,8 @@
         RemplirListEtatObjectif('listEtatObjectif');
 
         RemplirTableau();
+
+        BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
         function RemplirTableau() {
           var idAffiche = $('#numeroSprint').val();
