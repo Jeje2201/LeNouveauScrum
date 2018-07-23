@@ -1,4 +1,4 @@
-   <?php
+    <?php
 
 require_once ('../Modele/Configs.php');
 
@@ -129,7 +129,7 @@ $statement = $connection->prepare("
 $statement->execute();
 $result = $statement->fetchAll();
 $output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
-              <option value="ToutLeMonde">Global</option>';
+              <option value="ToutLeMonde">Tout le monde</option>';
 if($statement->rowCount() > 0)
 {
  foreach($result as $row)
