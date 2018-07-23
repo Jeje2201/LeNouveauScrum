@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="col">
-                  <div class="btn-group btn-block" role="group" aria-label="Basic example"><button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button><button type="button" id="BouttonInfo" class="btn btn-dark">?</button></div>
+                  <div class="btn-group btn-block" role="group" aria-label="Basic example"><button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button><button type="button" id="BouttonInfo" class="btn btn-secondary">?</button></div>
                   
                 </div>
 
@@ -121,7 +121,6 @@
             data: { action: action, idAffiche: idAffiche },
             success: function (dataa) {
               $('#textbox').html(dataa.trim());
-              console.log(dataa.trim());
 
 
 }
@@ -143,10 +142,7 @@ var action = "retrospective";
                 window.open('mailto:test@exemple.com?subject=Rétrospective Sprint n°'+ $('#numeroSprint option:selected').text()+'&body='+$('#textbox').val())
               });
 
-        $(document).on('click', '.1, .2, .3, .4', function () {
-               console.log(this)
-               console.log(this.id)
-               console.log(this.className.split(" ")[2])
+        $(document).on('click', '.1, .2, .3, .4, .5', function () {
                var EtatObjectif = this.className.split(" ")[2]
                var id = this.id
                var action = 'ChangerEtat'
@@ -155,7 +151,6 @@ var action = "retrospective";
               method: "POST",
               data: { id: id, EtatObjectif:EtatObjectif, action: action },
               success: function (data) {
-                BootstrapAlert(data);
                 $('#customerModal').modal('hide');
                 RemplirTableau();
               }

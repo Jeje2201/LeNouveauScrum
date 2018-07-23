@@ -13,14 +13,13 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+      <table class="table table-sm table-bordered" id="datatable" >
       <thead>
       <tr>
       <th width="10%">État</th>
       <th width="10%">Projet</th>
       <th width="65%">Objectif</th>
-      <th width="10%">Changer État</th>
-      <th width="5%"><center>Éditer</center></th>
+      <th width="10%" colspan="2"><center>Changer État</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -40,6 +39,7 @@ require_once ('../Modele/Configs.php');
         <button type="button" id="'.$row["id"].'" class="btn btn-warning 2"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-danger 3"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-dark 4"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-primary 5"><i class="fa fa-question" aria-hidden="true"></i></button>
         </div></center></td>
 
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
@@ -117,7 +117,7 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
       <th width="10%">Date</th>
