@@ -85,8 +85,9 @@ SELECT
      $array[] = $HattribueProjet;
 
      $statement = $connection->prepare(
-      $sql = "SELECT COUNT(id) as Nombre, (SELECT statutobjectif.nom from statutobjectif WHERE statutobjectif.id = objectif.id_StatutObjectif) as Statut
+      $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur
       from objectif
+      join statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
       WHERE objectif.id_Sprint = $NumeroduSprint
       GROUP BY objectif.id_StatutObjectif
       ORDER BY objectif.id_StatutObjectif
@@ -103,6 +104,7 @@ SELECT
 
       $MonTest[] = $row['Statut'];
       $MonTest[] = intval($row['Nombre']);
+      $MonTest[] = $row['Couleur'];
 
       $Total[] = $MonTest;
 

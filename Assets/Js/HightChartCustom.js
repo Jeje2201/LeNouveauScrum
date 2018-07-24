@@ -10,7 +10,7 @@
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
 
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye);
+            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye[6]);
 
             if(affichage == 1){
 
@@ -182,7 +182,7 @@ Highcharts.chart(div, {
           success:function(hDescenduesParEmploye){
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-
+            var finalColors = hDescenduesParEmploye[6].map(o => o[2]);
             Highcharts.chart(div, {
               chart: {
                 plotBackgroundColor: null,
@@ -190,7 +190,7 @@ Highcharts.chart(div, {
                 plotShadow: false,
                 type: 'pie'
               },
-              colors: ['#95D972', '#E88648', '#E8514E', '#424242', '#5e005c'],
+              colors: finalColors,
               title: {
                 text: 'Etat des objectifs de la rétrospective'
               },
