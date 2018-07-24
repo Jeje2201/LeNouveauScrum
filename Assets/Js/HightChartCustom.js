@@ -10,7 +10,17 @@
 
             hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
 
-            console.log('Toutes les infos a mettre dans les charts: ',hDescenduesParEmploye[6]);
+            console.log('Ressources qui ont des heures planifiés/descendues: ',hDescenduesParEmploye[0]);
+            console.log('Total heures descendues par ressources: ',hDescenduesParEmploye[1]);
+            console.log('Total heures planifiées par ressources: ',hDescenduesParEmploye[2]);
+            console.log('Projets qui ont des heures planifiés/descendues: ',hDescenduesParEmploye[3]);
+            console.log('Total heures descendues par projets: ',hDescenduesParEmploye[4]);
+            console.log('Total heures planifiés par projets: ',hDescenduesParEmploye[5]);
+            console.log('Etat et nombre d\'objectif: ',hDescenduesParEmploye[6]);
+            console.log('Total heures planifiées toutes ressources comprises: ',hDescenduesParEmploye[7]);
+            console.log('Total heures descendues toutes ressources comprises: ',hDescenduesParEmploye[8]);
+            console.log('Total heures descendues toutes ressources comprises par jours: ',hDescenduesParEmploye[9]);
+            console.log('Chaques jours qui ont des heures descendues: ',hDescenduesParEmploye[10]);
 
             if(affichage == 1){
 
@@ -281,6 +291,7 @@ Highcharts.chart(div, {
         method: "POST",
         data: { action: action, NumeroSprint: NumeroSprint },
         success: function (Total) {
+          
           Total = JSON.parse(Total);
 
           CreerLaBurnDownChart(Total[0], Total[1], Total[2], div);
