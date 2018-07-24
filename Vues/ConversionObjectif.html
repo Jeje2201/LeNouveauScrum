@@ -45,10 +45,10 @@
   
       for(var i = 0;i < lines.length;i++){
   
-        if(lines[i].match(RegexProjet))
+        if(lines[i].match(RegexProjet)){
             project = RegexProjet.exec(lines[i])[1]
             project = project.replace(/'|"/g, ' ');
-          
+          }
   
         if(lines[i].match(RegexEtat)){
           lines[i] = lines[i].replace(/:/g, '');

@@ -11,7 +11,6 @@ function GetLatestVersion(Div) {
             }
         },
         success: function (data) {
-
             var info = "";
             var liste = []
             for (var i = 0; i < data.length; i++) {
@@ -30,9 +29,8 @@ function GetLatestVersion(Div) {
                for (var a = 0; a < liste.length; a++) {
                   if(tag == parseInt(data[a].tag_name) ){
                     console.log('trouvé: '+data[a].tag_name)
-                  
                 DateSortie = data[a].published_at.split('T')[0].split('-')
-               info += '<p><b>'+ data[a].name + ' </b>( Sortie le: '+DateSortie[2] +'-'+DateSortie[1] +'-'+DateSortie[0] +' )</p>'
+               info += '<p><h3>'+DateSortie[2] +'-'+DateSortie[1] +'-'+DateSortie[0] +' (version '+data[a].tag_name+')</h3></p>'
                info += data[a].body
                info += ' <hr><br>'
                }
