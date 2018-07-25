@@ -3,6 +3,7 @@
     <div class="container-fluid">
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+      <button type="button" class="btn btn-success update"><i class="fa fa-check" aria-hidden="true"></i> Mettre à jour!</button>
 
       <div id="TableObjectif" class="table-responsive table-hover"></div>
 
@@ -32,14 +33,24 @@
         }
 
         $(document).on('click', '.update', function () {
-          var id = $(this).attr("id");
-          var label = $(this).closest('td').prev('td').find('input').val()
-          label = label.replace(/\"/g,"")
+
+var ToReturn = new Array();
+          $( "input[type=text]" ).each(function() {
+            if ($( this ).val()!= ""){
+var UnLabel = new Array();
+UnLabel.push(parseInt($( this ).attr('id')))
+
+UnLabel.push($( this ).val().replace(/\"/g,""))
+ToReturn.push(UnLabel)
+        }
+        
+});
+console.log(ToReturn)
           var action = "Changer";
           $.ajax({
             url: "Modele/ActionLabelTache.php",
             method: "POST",
-            data: { id: id, action: action, label:label },
+            data: {action: action, ToReturn:ToReturn },
             success: function (data) {
               BootstrapAlert(data);
               RemplirTableau();

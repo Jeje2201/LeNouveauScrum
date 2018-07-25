@@ -20,7 +20,6 @@ require_once ('../Modele/Configs.php');
       <th width="5%">Heure</th>
       <th width="15%">Projet</th>
       <th width="75%">Label</th>
-      <th width="5%" colspan="2"><center>Editer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -33,9 +32,7 @@ require_once ('../Modele/Configs.php');
         <tr >
         <td>'.$row["heure"].'</td>
         <td>'.$row["projet"].'</td>
-        <td><input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" value="'.$row["Label"].'"></td>
-
-        <td><center><button type="button" id="'.$row["id"].'" class="btn btn-success update"><i class="fa fa-check" aria-hidden="true"></i></button></center></td>
+        <td><input class="form-control" name="LabelObjectif" id="'.$row["id"].'" type="text" value="'.$row["Label"].'"></td>
         </tr>
         ';
       }
@@ -56,24 +53,28 @@ require_once ('../Modele/Configs.php');
  }
 
 
-if($_POST["action"] == "Changer")
-{
+ if($_POST["action"] == "Changer")
+ {
+
+  $TableauLabelObjectuf = $_POST["ToReturn"];
+
   $statement = $connection->prepare(
    "UPDATE attribution 
    SET Label = :Label 
    WHERE id = :id
    "
  );
-  $result = $statement->execute(
-   array(
-    ':Label'   => $_POST["label"],
-    ':id'   => $_POST["id"]
-  )
- );
-  if(!empty($result))
-  {
-   echo 'Label de tâche modifié ! 😮';
+
+  for($i=0; $i < count($TableauLabelObjectuf);$i++){
+
+    $result = $statement->execute(
+     array(
+      ':id' => $TableauLabelObjectuf[$i][0],
+     ':Label' => $TableauLabelObjectuf[$i][1]
+   )
+  );
  }
+ echo '✓';
 }
 
 }
