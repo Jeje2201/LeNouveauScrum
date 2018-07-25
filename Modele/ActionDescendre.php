@@ -73,7 +73,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Heure(s) Descendue(s) ! 😄';
+   echo '✓';
  }
 
 }
@@ -118,7 +118,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) descendue(s) modifiée(s) ! 😮';
+   echo '✓';
  }
 }
 
@@ -134,7 +134,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) descendue(s) supprimée(s) ! 😢';
+   echo '✓';
  }
 }
 

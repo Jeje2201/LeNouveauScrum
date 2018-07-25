@@ -70,7 +70,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Nouvelle interferance ! 😄';
+   echo '✓';
  }
 }
 
@@ -115,7 +115,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Interférence modifiée ! 😮';
+   echo '✓';
  }
 }
 
@@ -131,7 +131,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Interférence supprimée ! 😢';
+   echo '✓';
  }
 }
 

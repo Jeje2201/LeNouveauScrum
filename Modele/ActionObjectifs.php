@@ -170,7 +170,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Objectif créé! ! 😄';
+   echo '✓';
  }
 }
 
@@ -187,7 +187,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Retrospective créée! ! 😄';
+   echo '✓';
  }
 }
 
@@ -229,7 +229,7 @@ if($_POST["action"] == "Changer")
  );
   if(!empty($result))
   {
-   echo 'Objectif modifié ! 😮';
+   echo '✓';
  }
 }
 
@@ -249,7 +249,7 @@ if($_POST["action"] == "ChangerEtat")
  );
   if(!empty($result))
   {
-   echo 'Objectif modifié ! 😮';
+   echo '✓';
  }
 }
 
@@ -267,7 +267,7 @@ if($_POST["action"] == "retrospectiveFini")
  );
     if(!empty($result))
   {
-   echo 'Remarque validé! ! 😮';
+   echo '✓';
  }
 }
 
@@ -283,7 +283,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Objectif supprimé ! 😢';
+   echo '✓';
  }
 }
 

@@ -88,10 +88,10 @@ if($_POST["action"] == "Ajouter")
  );
   if(!empty($result))
   {
-   echo 'Nouveau projet ! 😄';
+   echo '✓';
  }
  else{
-  echo 'Erreur :c';
+  echo '✘';
 }
 }
 
@@ -132,7 +132,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Projet modifié ! 😮';
+   echo '✓';
  }
 }
 
@@ -148,7 +148,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Projet supprimé ! 😢';
+   echo '✓';
  }
 }
 

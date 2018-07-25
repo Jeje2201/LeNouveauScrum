@@ -83,7 +83,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Bienvenue nouvelle ressource ! 😄';
+   echo '✓';
   }
 }
 
@@ -127,7 +127,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Ressource modifiée ! 😮';
+   echo '✓';
  }
 }
 
@@ -143,7 +143,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Ressource supprimée ! 😢';
+   echo '✓';
  }
 }
 

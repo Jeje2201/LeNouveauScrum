@@ -40,7 +40,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Infos acceptées ! 😮';
+   echo '✓';
  }
 }
 }

@@ -196,11 +196,11 @@ if($_POST["action"] == "Descendre")
   }
   if(!empty($result))
   {
-   echo 'Tâche(s) attribuée(s) bien descendue(s) 😄';
+   echo '✓';
  }
  else
  {
-  echo 'Probleme';
+  echo '✘';
 }
 }
 
@@ -244,7 +244,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) descendue(s) modifiée(s) ! 😮';
+   echo '✓';
  }
 }
 
@@ -260,7 +260,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) descendue(s) supprimée(s) ! 😢';
+   echo '✓';
  }
 }
 

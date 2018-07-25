@@ -65,7 +65,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Sprint créé ! 😄';
+   echo '✓';
  }
 }
  if($_POST["action"] == "SprintMax")
@@ -121,7 +121,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Sprint modifié ! 😮';
+   echo '✓';
  }
 }
 
@@ -137,7 +137,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Sprint supprimé ! 😢';
+   echo '✓';
  }
 }
 

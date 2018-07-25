@@ -135,7 +135,7 @@ require_once ('../Modele/Configs.php');
  );
   if(!empty($result))
   {
-   echo 'Heure(s) Attribuée(s) ! 😄';
+   echo '✓';
  }
 }
 
@@ -177,7 +177,7 @@ if($_POST["action"] == "Update")
  );
   if(!empty($result))
   {
-   echo 'Heure(s) attribuée(s) modifiée(s) ! 😮';
+   echo '✓';
  }
 }
 
@@ -193,7 +193,7 @@ if($_POST["action"] == "Delete")
  );
   if(!empty($result))
   {
-   echo 'Heure attribuée supprimée ! 😢';
+   echo '✓';
  }
 }
 
