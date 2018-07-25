@@ -1,0 +1,51 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+      <div id="TableObjectif" class="table-responsive table-hover"></div>
+
+    </div>
+  </div>
+</body>
+
+    <script>
+
+      $(document).ready(function () {
+
+        BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
+
+        RemplirTableau();
+
+        function RemplirTableau() {
+          var idEmploye = localStorage.getItem("Connexion");
+          var action = "Load";
+          $.ajax({
+            url: "Modele/ActionLabelTache.php",
+            method: "POST",
+            data: { action: action, idEmploye: idEmploye },
+            success: function (data) {
+              $('#TableObjectif').html(data);
+            }
+          });
+        }
+
+        $(document).on('click', '.update', function () {
+          var id = $(this).attr("id");
+          var label = $(this).closest('td').prev('td').find('input').val()
+          label = label.replace(/\"/g,"")
+          var action = "Changer";
+          $.ajax({
+            url: "Modele/ActionLabelTache.php",
+            method: "POST",
+            data: { id: id, action: action, label:label },
+            success: function (data) {
+              BootstrapAlert(data);
+              RemplirTableau();
+            }
+          });
+        });
+
+      });
+</script>
