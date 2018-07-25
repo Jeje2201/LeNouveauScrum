@@ -17,17 +17,9 @@
 					</div> -->
 
 					<div class="form-group">
-						<label>Couleur (car beaucoup trop demandé)</label>
-						<div class="row">
-						<div class="col-lg-5">
-						<input type="text" class="form-control" id="CouleurUser" maxlength="7">
+						<label>Couleur (car beaucoup trop demandé)</label><br>
+						<input type="color" class="" id="CouleurUser">
 					</div>
-						<div class="col-lg-5">
-						<div id="AfficherCouleur"></div>
-					</div>
-					</div>
-					<small class="form-text text-muted">(Exemple: #ff87e9. Correspond à la couleur qui s'affiche à côté de votre card)</small>
-				</div>
 				<div class="form-group">
 						<label>Pseudo</label>
 						<input type="text" class="form-control" id="PseudoUser" maxlength="11">
@@ -44,11 +36,6 @@
 			$(document).ready(function () {
 
 				AfficherInfo(<?php echo $_SESSION['IdUtilisateur'] ?>);
-
-
-				$('#CouleurUser').on('input', function() {
-					$("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
-				});
 
 				function AfficherInfo(idRessource) {
 	              var action = "Load";
@@ -70,17 +57,15 @@
                 var couleur = $('#CouleurUser').val();
                 var Pseudo = $('#PseudoUser').val();
                 var action = "Update"
-                if(Pseudo.length > 11 || couleur.length > 7){
+                if(Pseudo.length > 11){
                 	alert('N\'essaie pas de dépasser la limtite :(')
                 }
                 else{
-                
 		        $.ajax({
 		          url: "Modele/ActionParametre.php",
 		          method: "POST",
 		          data: { action: action, couleur: couleur, Pseudo: Pseudo, idRessource: idRessource },
 		          success: function (data) {
-		            // $('#result').html(data);
 		            BootstrapAlert(data);
 		          }
 		        });
