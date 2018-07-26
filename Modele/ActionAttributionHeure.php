@@ -130,13 +130,17 @@ require_once ('../Modele/Configs.php');
 
  if($_POST["action"] == "Attribuer")
  {
+  $TableauHeurePlanifie = $_POST["NombreHeure"];
   $statement = $connection->prepare("
    INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
    VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet)
    ");
+  for($i=0; $i < count($TableauHeurePlanifie);$i++){
+
+
   $result = $statement->execute(
    array(
-    ':NombreHeure' => intval($_POST["NombreHeure"]),
+    ':NombreHeure' => intval($TableauHeurePlanifie[$i]),
     ':idSprint' => $_POST["idSprint"],
     ':idEmploye' => $_POST["idEmploye"],
     ':idProjet' => $_POST["idProjet"]
@@ -146,6 +150,7 @@ require_once ('../Modele/Configs.php');
    echo '✓';
    else
    echo 'X';
+  }
 }
 
 if($_POST["action"] == "Select")
@@ -185,9 +190,9 @@ if($_POST["action"] == "Update")
   )
  );
   if(!empty($result))
-   echo '✓';
+   echo ' ✓ ';
    else
-   echo 'X';
+   echo 'X ';
 }
 
 if($_POST["action"] == "Delete")

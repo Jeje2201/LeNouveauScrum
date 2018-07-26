@@ -151,8 +151,7 @@
       if(erreur == false){
       if (idSprint != '' && idEmploye != '' && idProjet != '') {
 
-        NombreHeure.forEach(function(element) {
-          NombreHeure = parseInt(element);
+        
          $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
@@ -165,7 +164,6 @@
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
           }
         });
-      });
        
       }
       else
