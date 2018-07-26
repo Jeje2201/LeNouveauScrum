@@ -39,9 +39,9 @@ if($_POST["action"] == "Update")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 }
 

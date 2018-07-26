@@ -72,9 +72,9 @@ require_once ('../Modele/Configs.php');
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 
 }
 
@@ -117,9 +117,9 @@ if($_POST["action"] == "Update")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Delete")
@@ -133,9 +133,9 @@ if($_POST["action"] == "Delete")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 }

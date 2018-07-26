@@ -169,9 +169,9 @@ require_once ('../Modele/Configs.php');
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
  if($_POST["action"] == "CréerRetrospective")
@@ -186,9 +186,9 @@ require_once ('../Modele/Configs.php');
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Select")
@@ -228,9 +228,9 @@ if($_POST["action"] == "Changer")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "ChangerEtat")
@@ -248,9 +248,9 @@ if($_POST["action"] == "ChangerEtat")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "retrospectiveFini")
@@ -266,9 +266,10 @@ if($_POST["action"] == "retrospectiveFini")
   )
  );
     if(!empty($result))
-  {
+  if(!empty($result))
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Delete")
@@ -282,9 +283,9 @@ if($_POST["action"] == "Delete")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 }

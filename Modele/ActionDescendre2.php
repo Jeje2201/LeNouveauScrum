@@ -195,13 +195,9 @@ if($_POST["action"] == "Descendre")
     $result = $statement->execute();
   }
   if(!empty($result))
-  {
    echo '✓';
- }
- else
- {
-  echo '✘';
-}
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Select")
@@ -243,9 +239,9 @@ if($_POST["action"] == "Update")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Delete")
@@ -259,9 +255,9 @@ if($_POST["action"] == "Delete")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 }
