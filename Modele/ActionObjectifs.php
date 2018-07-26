@@ -1,5 +1,5 @@
    <?php
-   
+   session_start();
 require_once ('../Modele/Configs.php');
 
    if(isset($_POST["action"])) 
@@ -18,8 +18,10 @@ require_once ('../Modele/Configs.php');
       <tr>
       <th width="10%">État</th>
       <th width="10%">Projet</th>
-      <th width="65%">Objectif</th>
-      <th width="10%" colspan="2"><center>Changer État</center></th>
+      <th width="65%">Objectif</th>';
+      if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      $output .= '<th width="10%" colspan="2"><center>Changer État</center></th>';
+      $output .= '
       </tr>
       </thead>
       <tbody id="myTable">
@@ -32,8 +34,9 @@ require_once ('../Modele/Configs.php');
         <tr >
         <td style="background-color: '.$row["couleur"].'; color: white; font-weight: bold;">'.$row["etat"].'</td>
         <td>'.$row["projet"].'</td>
-        <td>'.$row["objectif"].'</td>
-
+        <td>'.$row["objectif"].'</td>';
+         if($_SESSION['TypeUtilisateur'] == 'ScrumMaster'){
+          $output .= '
         <td><center><div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" id="'.$row["id"].'" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-warning 2"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i></button>
@@ -41,10 +44,11 @@ require_once ('../Modele/Configs.php');
         <button type="button" id="'.$row["id"].'" class="btn btn-dark 4"><i class="fa fa-times" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-primary 5"><i class="fa fa-question" aria-hidden="true"></i></button>
         </div></center></td>
-
+        
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
+      }
       }
     }
     else
