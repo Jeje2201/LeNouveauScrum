@@ -245,6 +245,7 @@ Highcharts.chart(div, {
           title:{
             text: 'BurnDownChart'
           },
+          
           // subtitle:{
           //   text: document.ontouchstart === undefined ?
           //   'Déplace ta souris sur les points pour avoir plus de détails': ''
