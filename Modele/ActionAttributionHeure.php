@@ -76,10 +76,19 @@ require_once ('../Modele/Configs.php');
        {
         $output .= '
         <tr>
-        <td>'.$row["employeP"].' '.$row["employeN"].'</td>
-        <td>'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>
-        </tr>
-        ';
+        <td>'.$row["employeP"].' '.$row["employeN"].'</td>';
+        if($row["Attribuable"] == 0){
+        $output .= '<td style="background-color:#baffc9">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
+        }
+        if($row["Attribuable"] > 0){
+        $output .= '<td style="background-color:#bae1ff">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
+        }
+        if($row["Attribuable"] < 0){
+        $output .= '<td style="background-color:#ffb3ba">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
+        }
+        // <td>'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>
+        $output .= '</tr>';
+        
       }
     }
    $output .= '</tbody></table>';
@@ -127,16 +136,16 @@ require_once ('../Modele/Configs.php');
    ");
   $result = $statement->execute(
    array(
-    ':NombreHeure' => $_POST["NombreHeure"],
+    ':NombreHeure' => intval($_POST["NombreHeure"]),
     ':idSprint' => $_POST["idSprint"],
     ':idEmploye' => $_POST["idEmploye"],
     ':idProjet' => $_POST["idProjet"]
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Select")
@@ -176,9 +185,9 @@ if($_POST["action"] == "Update")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 if($_POST["action"] == "Delete")
@@ -192,9 +201,9 @@ if($_POST["action"] == "Delete")
   )
  );
   if(!empty($result))
-  {
    echo '✓';
- }
+   else
+   echo 'X';
 }
 
 }
