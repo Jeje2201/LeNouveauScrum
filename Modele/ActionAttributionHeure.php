@@ -81,7 +81,7 @@ require_once ('../Modele/Configs.php');
         $output .= '<td style="background-color:#baffc9">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
         }
         if($row["Attribuable"] > 0){
-        $output .= '<td style="background-color:#bae1ff">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
+        $output .= '<td>'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
         }
         if($row["Attribuable"] < 0){
         $output .= '<td style="background-color:#ffb3ba">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
