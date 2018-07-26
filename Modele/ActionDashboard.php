@@ -16,6 +16,7 @@
         SELECT 
         E.id as empid,
         E.prenom as prenom,
+        E.Initial as Initial,
         sum(A.heure) as nbheureadescendre,
         ifnull( sum(HD.heure),0) as nbheuredescendu,
         sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes
@@ -37,7 +38,7 @@
 
       foreach ($result as $row) {
 
-       $employe[] = $row['prenom'];
+       $employe[] = $row['prenom'].' ('.$row['Initial'].')';
        $HDescendue[] = intval($row['nbheuredescendu']);
        $Hattribue[] = intval($row['nbheureadescendre']);
        
