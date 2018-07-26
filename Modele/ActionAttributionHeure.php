@@ -86,7 +86,6 @@ require_once ('../Modele/Configs.php');
         if($row["Attribuable"] < 0){
         $output .= '<td style="background-color:#ffb3ba">'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>';
         }
-        // <td>'.$row["NbHeure"].' ('.$row["Attribuable"].')</td>
         $output .= '</tr>';
         
       }
@@ -132,8 +131,8 @@ require_once ('../Modele/Configs.php');
  {
   $TableauHeurePlanifie = $_POST["NombreHeure"];
   $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet)
+   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label)
    ");
   for($i=0; $i < count($TableauHeurePlanifie);$i++){
 
@@ -142,6 +141,7 @@ require_once ('../Modele/Configs.php');
    array(
     ':NombreHeure' => intval($TableauHeurePlanifie[$i]),
     ':idSprint' => $_POST["idSprint"],
+    ':Label' => "?",
     ':idEmploye' => $_POST["idEmploye"],
     ':idProjet' => $_POST["idProjet"]
   )
