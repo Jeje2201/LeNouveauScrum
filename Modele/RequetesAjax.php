@@ -305,7 +305,7 @@
 
         $statement->execute();
         $result = $statement->fetchAll();
-        $output2 = '<select class="form-control"  id="TypeProjet" name="TypeProjet">';
+        $output2 = '<select class="form-control"  id="RemplirTypeTache1" name="RemplirTypeTache1">';
 
         if($statement->rowCount() > 0)
         {
