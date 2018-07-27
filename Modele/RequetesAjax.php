@@ -276,6 +276,53 @@
             
         break; 
 
+        case 'ListEmployeCheckBox':
+
+        $statement = $connection->prepare("SELECT id, prenom, nom from employe where employe.actif = 1 order by prenom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '';
+        $output2.='<input type="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="TOUTLEMONDE" value="TOUTLEMONDE"> Tout le monde<hr>';
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+              $output2.='<input type="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="'.$row["id"].'">  '.$row["prenom"].' '.$row["nom"].'</br>';
+
+            }
+
+        }
+
+        echo $output2;
+            
+        break; 
+
+        case 'RemplirTypeTache':
+
+        $statement = $connection->prepare("SELECT id, nom from typetache order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="TypeProjet" name="TypeProjet">';
+
+        if($statement->rowCount() > 0)
+        {
+          foreach($result as $row)
+            {
+
+             $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option></br>';
+
+            }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+            
+        break; 
+
       }
 }
 ?>

@@ -158,5 +158,34 @@
             $('#' + Div).html(data);
           }
         });
-
       }
+
+              function RemplirListeEmployeCheckBox(DivId) 
+        {
+
+          var action = "ListEmployeCheckBox";
+          $.ajax({
+           url : "Modele/RequetesAjax.php", 
+           method:"POST", 
+           async: false,
+           data:{action:action}, 
+           success:function(data){
+            $('#'+DivId+'').html(data); 
+          }
+        });
+        }
+
+                function RemplirTypeTache(DivId) 
+        {
+
+          var action = "RemplirTypeTache";
+          $.ajax({
+           url : "Modele/RequetesAjax.php", 
+           method:"POST", 
+           async: false,
+           data:{action:action}, 
+           success:function(data){
+            $('#'+DivId+'').html(data); 
+          }
+        });
+        }

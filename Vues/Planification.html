@@ -2,14 +2,16 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="input-group mb-12">
-
-        <div class="input-group-prepend">
-          <span class="input-group-text">Sprint n°</span>
-        </div>
+      <div class="row">
+        <div class="col-lg-4">
         <div id="ListSrint"></div>
-
-        <button type="button" id="modal_button" class="btn btn-info"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planifier une tâche </button>
+      </div>
+      <div class="col-lg-4">
+        <button type="button" id="modal_button" class="btn btn-block btn-info"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planifier une tâche </button>
+      </div>
+      <div class="col-lg-4">
+        <button type="button" id="modal_button2" class="btn btn-block btn-info"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planing </button>
+      </div>
 
       </div>
       <div class="mb-3">
@@ -38,7 +40,7 @@
 </body>
 
 
-<div id="customerModal" class="modal fade">
+<div id="ModalTache" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -64,15 +66,50 @@
   </div>
 </div>
 
+<div id="ModalTache2" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Liste des ressources
+  </button>
+  <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox" aria-labelledby="dropdownMenuButton">
+  </div>
+</div>
+        
+        <br />
+        <label>Type de tâche</label>
+        <div id="ListTypeTache"></div>
+        <br />
+        <label>Nombre d'heures</label>
+        <input class="form-control" name="nbheure2" id="nbheure2" type="number" min="1" value="1">
+        <br />
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="aa" id="aa" class="btn btn-success yolo" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
   $(document).ready(function () {
 
     RemplirListSprint('ListSrint');
 
-    ListEmployeActifPlanification('ListEmploye',$('#numeroSprint').val() )
+    ListEmployeActifPlanification('ListEmploye',$('#numeroSprint').val())
 
     RemplirListProjet('ListProjet');
+
+    RemplirTypeTache('ListTypeTache');
+    RemplirListeEmployeCheckBox('ListEmployeCheckBox');
 
     RemplirTableau('TableListHeuresAttribuees');
     RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -127,8 +164,13 @@
     });
 
     $('#modal_button').click(function () {
-      $('#customerModal').modal('show');
+      $('#ModalTache').modal('show');
       $('.modal-title').text("Planification de tâches");
+      $('#action').val('Attribuer');
+    });
+
+        $('#modal_button2').click(function () {
+      $('#ModalTache2').modal('show');
       $('#action').val('Attribuer');
     });
 
@@ -158,7 +200,7 @@
           data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            // $('#customerModal').modal('hide');
+            // $('#ModalTache').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
@@ -172,6 +214,32 @@
       else alert("Le champs d'heures comporte une erreur")
     });
 
+$(document).on('click', '.yolo', function () {
+  var sList = new Array;
+    $('input:checked').each(function () {
+      if($.isNumeric($(this).val()))
+       sList.push($(this).val());
+});
+    console.log(sList)
+
+  });
+
+$('#TOUTLEMONDE').change(function() {
+  if(this.checked){
+    $('input[type=checkbox]').each(function () {
+
+    $(this).prop('checked', true);
+});
+  }
+  else
+        $('input[type=checkbox]').each(function () {
+
+    $(this).prop('checked', false);
+});
+
+});
+
+
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
       var action = "Select";
@@ -181,7 +249,7 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
-          $('#customerModal').modal('show');
+          $('#ModalTache').modal('show');
           $('.modal-title').text("Changer planification");
           $('#action').val("Update");
           $('#id').val(id);
