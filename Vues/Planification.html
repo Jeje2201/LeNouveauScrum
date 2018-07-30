@@ -227,15 +227,36 @@
     });
 
 $(document).on('click', '.yolo', function () {
-  var sList = new Array;
-    $('input:checked').each(function () {
-      if($.isNumeric($(this).val()))
-       sList.push($(this).val());
+
+  var idSprint = $('#numeroSprint').val();
+  var action = "AttributionScrumPlaning";
+
+  var idEmploye = new Array;
+  $('input:checked').each(function () {
+    if($.isNumeric($(this).val()))
+    idEmploye.push($(this).val());
+  });
+
+  var idTypeTache = parseInt($('#RemplirTypeTache1').val());
+  var NombreHeure = $('#nbheure2').val();
+
+    console.log(idSprint + ' - ' + idEmploye + ' - '+idTypeTache + ' - ' + NombreHeure )
+    if(idEmploye.length > 0) {
+         $.ajax({
+      url: "Modele/ActionAttributionHeure.php",
+      method: "POST",
+      data: { idSprint: idSprint, idEmploye: idEmploye, NombreHeure: NombreHeure, idTypeTache:idTypeTache, action: action },
+      success: function (data) {
+        BootstrapAlert(data);
+        // $('#ModalTache').modal('hide');
+        RemplirTableau('TableListHeuresAttribuees');
+        RemplirTableauRessources('TableListHeuresAttribueesRessources');
+        RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+      }
 });
-
-
-    console.log(sList + ' - '+parseInt($('#RemplirTypeTache1').val()) + ' - ' + $('#nbheure2').val() )
-
+    }
+      else
+        alert('nonnon')
   });
 
 $('#TOUTLEMONDE').change(function() {

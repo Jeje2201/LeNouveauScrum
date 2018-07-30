@@ -213,6 +213,32 @@ if($_POST["action"] == "Delete")
    echo 'X';
 }
 
+
+ if($_POST["action"] == "AttributionScrumPlaning")
+ {
+  $TableauEmploye = $_POST["idEmploye"];
+  $statement = $connection->prepare("
+   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache)
+   ");
+  for($i=0; $i < count($TableauEmploye);$i++){
+
+
+  $result = $statement->execute(
+   array(
+    ':NombreHeure' => intval($_POST["NombreHeure"]),
+    ':idSprint' => intval($_POST["idSprint"]),
+    ':idEmploye' => intval($TableauEmploye[$i]),
+    ':TypeTache' => intval($_POST["idTypeTache"])
+  )
+ );
+  if(!empty($result))
+   echo '✓';
+   else
+   echo 'X';
+  }
+}
+
 }
 
 ?>
