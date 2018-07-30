@@ -129,7 +129,7 @@
               $('#DateAujourdhui').datetimepicker('setStartDate', data[0]);
               $('#DateAujourdhui').datetimepicker('setEndDate', data[1]);
 
-              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data[0])) && DateFrToEn(ChoixDate(0)) =< DateFrToEn(String(data[1]))){
+              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data[0])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data[1]))){
                 console.log('Toujours dans Sprint, touche pas la date')
                 $('#DateAujourdhui').val(ChoixDate(0));
               }
