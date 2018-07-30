@@ -1,26 +1,24 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
-    <div class="container">
+    <div class="container-fluid">
 
 <div class="row">
-      <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-    </div>
-    <div class="row">
-      <button type="button" class="btn btn-success btn-block update"><i class="fa fa-check" aria-hidden="true"></i> Mettre à jour!</button>
-    </div>
-<div class="row">
-      <div id="TableObjectif" class="table-responsive table-striped table-hover"></div>
-    </div>
+  <div class="col-lg-10">
+    <div id="TableObjectif" class="table-responsive table-striped table-hover"></div>
+    
+  </div>
 
-    </div>
+  <div class="col-lg-2">
+    <button type="button" class="btn btn-success update superman" ><i class="fa fa-check" aria-hidden="true"></i> Tout mettre à jour!</button>
+  </div>
+
+</div>
   </div>
 </body>
 
     <script>
 
       $(document).ready(function () {
-
-        BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
         RemplirTableau();
 
