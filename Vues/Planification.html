@@ -166,6 +166,7 @@
     $('#modal_button').click(function () {
       $('#ModalTache').modal('show');
       $('.modal-title').text("Planification de tâches");
+      $('#nbheure').get(0).type = 'text';
       $('#action').val('Attribuer');
     });
 
@@ -178,18 +179,25 @@
       var idSprint = $('#numeroSprint').val();
       var idEmploye = $('#employeId').val();
       var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val().split('+').map(function(item) {
-        return parseInt(item);
-        });
+      var erreur = false
+      if($('#nbheure').attr('type') == 'text'){
+          var NombreHeure = $('#nbheure').val().split('+').map(function(item) {
+            return parseInt(item);
+          });
+
+          NombreHeure.forEach(function(element) {
+          if(isNaN(element))
+            erreur = true
+          });
+      }
+      else
+        var NombreHeure = $('#nbheure').val()
+      
+
       var id = $('#id').val();
       var action = $('#action').val();
       console.log(NombreHeure)
-      var erreur = false
-      NombreHeure.forEach(function(element) {
-        if(isNaN(element))
-         erreur = true
-      });
-      // console.log(erreur)
+      
       if(erreur == false){
       if (idSprint != '' && idEmploye != '' && idProjet != '') {
 
@@ -253,6 +261,7 @@ $('#TOUTLEMONDE').change(function() {
         success: function (data) {
           $('#ModalTache').modal('show');
           $('.modal-title').text("Changer planification");
+          $('#nbheure').get(0).type = 'number';
           $('#action').val("Update");
           $('#id').val(id);
           $('#idSprint').val(data.idSprint);
