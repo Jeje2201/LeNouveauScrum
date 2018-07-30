@@ -167,12 +167,14 @@
       $('#ModalTache').modal('show');
       $('.modal-title').text("Planification de tâches");
       $('#nbheure').get(0).type = 'text';
+      $('#nbheure').val('');
       $('#action').val('Attribuer');
     });
 
         $('#modal_button2').click(function () {
       $('#ModalTache2').modal('show');
-      $('#action').val('Attribuer');
+      $('.modal-title').text("yoloo");
+      $('#action').val('Attribuer2');
     });
 
     $('#action').click(function () {
@@ -214,6 +216,8 @@
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
           }
         });
+       
+       $('#nbheure').val('');
        
       }
       else
