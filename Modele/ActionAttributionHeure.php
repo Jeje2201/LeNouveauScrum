@@ -8,7 +8,7 @@ require_once ('../Modele/Configs.php');
      if($_POST["action"] == "RemplirTableau") 
      {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT attribution.id, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
+      $statement = $connection->prepare("SELECT attribution.id, attribution.Label as Label, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -16,9 +16,10 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="40%">Ressource</th>
-      <th width="40%">Projet</th>
-      <th width="10%">Heure</th>
+      <th width="20%">Ressource</th>
+      <th width="25%">Projet</th>
+      <th width="40%">Label</th>
+      <th width="5%"><center>H</center></th>
       <th width="10%"><center>Éditer</center></th>
       </tr>
       </thead>
@@ -32,7 +33,8 @@ require_once ('../Modele/Configs.php');
         <tr>
         <td>'.$row["employeP"].' '.$row["employeN"].'</td>
         <td>'.$row["projet"].'</td>
-        <td>'.$row["NbHeure"].'</td>
+        <td>'.$row["Label"].'</td>
+        <td><center>'.$row["NbHeure"].'</center></td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
