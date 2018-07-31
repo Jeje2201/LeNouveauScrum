@@ -2,6 +2,17 @@
 
 require_once ('../Modele/Configs.php');
 
+
+  function PreviewText($input)
+{
+    $Problem = array("<", ">");
+    $input = str_replace($Problem, " ", $input);
+    $input = mb_substr($input, 0, 33);
+    $input .= '..';
+    return $input;
+}
+
+
   if(isset($_POST["action"])) 
   {
 
@@ -48,9 +59,9 @@ require_once ('../Modele/Configs.php');
             <div class="SpecialHr"></div>
             <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
             <div class="SpecialHr"></div>
-            <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
+            <i class="fa fa-clock-o" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
         </div>
-      </div>';
+      </div><br>';
     }
   }
   else{
@@ -90,7 +101,7 @@ if($statement->rowCount() > 0)
       <div class="SpecialHr"></div>
       <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
       <div class="SpecialHr"></div>
-      <i class="fa fa-clock-o" aria-hidden="true"></i> '.$row["NbHeure"].'(h)
+      <i class="fa fa-clock-o" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
     </span>
   </div>
 </div>';
