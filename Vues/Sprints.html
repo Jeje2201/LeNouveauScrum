@@ -31,7 +31,7 @@
                 <div class="input-group-prepend">
               <span class="input-group-text">Attribuable (h)</span>
             </div>
-            <input type="number" name="attribuable" id='attribuable' value='60' min='1' class="form-control">
+            <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
 
                 <div class="btn-group " role="group" aria-label="Basic example">
                     <button type="button" id="modal_button" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint</button>
@@ -250,6 +250,32 @@
         return false; //No action will perform
       }
     });
+
+    $('#dateFin, #dateDebut').datetimepicker().on('changeDate', function(ev){
+
+    start = $('#dateDebut').val().split('-')
+    start = new Date(start[2]+'-'+start[1]+'-'+start[0])
+
+    end = $('#dateFin').val().split('-')
+    end = new Date(end[2]+'-'+end[1]+'-'+end[0])
+
+    var NbHeureAttribuableMax = 0;
+    while (start <= end) {
+      var day = start.getDay();
+      
+      if (day != 0 && day != 6)
+       NbHeureAttribuableMax += 1
+
+      start.setDate(start.getDate() + 1);
+    }
+
+    $("#attribuable").attr({
+       "max" : (NbHeureAttribuableMax*7)
+    });
+
+});
+
+
 
 });
 </script>
