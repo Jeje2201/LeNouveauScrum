@@ -95,7 +95,7 @@ require_once ('../Modele/Configs.php');
 
     $output .= '%0A %0A Remarques: %0A';
 
-      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat = 1");
+      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat = 0");
       $statement->execute();
       $result = $statement->fetchAll();
 
