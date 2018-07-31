@@ -218,8 +218,8 @@ if($_POST["action"] == "Delete")
  {
   $TableauEmploye = $_POST["idEmploye"];
   $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache)
+   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache, (select nom from typetache where typetache.id = :TypeTache))
    ");
   for($i=0; $i < count($TableauEmploye);$i++){
 
