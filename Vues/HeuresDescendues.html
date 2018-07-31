@@ -204,14 +204,10 @@ function DeplaceToi(id) {
 
     if ($(id).parent().attr('id') == 'EnCours') {
       $(id).prependTo($("#Fini"));
-      $(id).addClass('border-warning')
-      $(id).children().addClass('border-warning')
 
     }
     else {
       $(id).prependTo($("#EnCours"));
-      $(id).removeClass('border-warning')
-      $(id).children().removeClass('border-warning')
     }
   }
 
