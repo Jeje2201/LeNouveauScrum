@@ -10,7 +10,7 @@ require_once ('../Modele/Configs.php');
 
       $NumeroSprint = $_POST["NumeroSprint"];
       $statement = $connection->prepare(
-       "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint)"
+       "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
      );
       $statement->execute();
       $result = $statement->fetch();
@@ -56,7 +56,7 @@ require_once ('../Modele/Configs.php');
      $array[] = $sprintou;
 
       $statement = $connection->prepare(
-       "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint)"
+       "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
      );
       $statement->execute();
       $result = $statement->fetch();

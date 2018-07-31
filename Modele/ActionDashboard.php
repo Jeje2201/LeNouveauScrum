@@ -25,6 +25,7 @@
         LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint 
         WHERE
         A.heure is not null
+        AND A.id_TypeTache IS NULL
         GROUP BY E.id
         order by nbheuredescendu desc, heurerestantes desc
       ");
@@ -61,6 +62,7 @@ SELECT
         LEFT JOIN heuresdescendues as hd on hd.id_Projet = p.id and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
         WHERE
         A.heure is not null
+        AND A.id_TypeTache IS NULL
         GROUP BY P.id
         order by nbheuredescendu desc, heurerestantes desc
        "
@@ -114,7 +116,7 @@ SELECT
     $array[] = $Total;
 
 $statement = $connection->prepare(
-      $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint");
+      $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint AND attribution.id_TypeTache IS NULL");
     $statement->execute();
     $result = $statement->fetch();
     $TotAttribution[] = intval($result["Tot"]);
