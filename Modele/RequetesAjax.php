@@ -289,7 +289,7 @@
           foreach($result as $row)
             {
 
-              $output2.='<input type="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="'.$row["id"].'">  '.$row["prenom"].' '.$row["nom"].'</br>';
+              $output2.='<input type="checkbox" class="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="'.$row["id"].'">  '.$row["prenom"].' '.$row["nom"].'</br>';
 
             }
 
@@ -301,7 +301,7 @@
 
         case 'RemplirTypeTache':
 
-        $statement = $connection->prepare("SELECT id, nom from typetache order by nom asc");
+        $statement = $connection->prepare("SELECT id, nom, couleur from typetache order by nom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -312,7 +312,7 @@
           foreach($result as $row)
             {
 
-             $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option></br>';
+             $output2.='<option style="background-color:'.$row["couleur"].'; color:black" value="'.$row["id"].'"> '.$row["nom"].' </option></br>';
 
             }
 

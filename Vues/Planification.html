@@ -15,9 +15,9 @@
 
       </div>
       <div class="mb-3">
-
+<div class="col-lg-7">
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
+</div>
       </div>
 <div class="row">
       <div class="col-lg-7">
@@ -55,6 +55,7 @@
         <br />
         <label>Nombre d'heures</label>
         <input class="form-control" name="nbheure" id="nbheure" type="text">
+        <small id="smallinfo">Multiple ajout possible: "2+8+3+4+5+6"</small>
         <br />
       </div>
       <div class="modal-footer">
@@ -167,6 +168,7 @@
       $('#ModalTache').modal('show');
       $('.modal-title').text("Planification de tâches");
       $('#nbheure').get(0).type = 'text';
+      $('#smallinfo').show();
       $('#nbheure').val('');
       $('#action').val('Attribuer');
     });
@@ -232,8 +234,7 @@ $(document).on('click', '.yolo', function () {
   var action = "AttributionScrumPlaning";
 
   var idEmploye = new Array;
-  $('input:checked').each(function () {
-    if($.isNumeric($(this).val()))
+  $('.checkbox:checked').each(function () {
     idEmploye.push($(this).val());
   });
 
@@ -256,22 +257,24 @@ $(document).on('click', '.yolo', function () {
 });
     }
       else
-        alert('nonnon')
+        alert('Aucune ressource selectionnée ?')
   });
 
-$('#TOUTLEMONDE').change(function() {
-  if(this.checked){
-    $('input[type=checkbox]').each(function () {
-
-    $(this).prop('checked', true);
-});
-  }
-  else
-        $('input[type=checkbox]').each(function () {
-
-    $(this).prop('checked', false);
+//select all checkboxes
+$("#TOUTLEMONDE").change(function(){  //"select all" change 
+    $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
 });
 
+//".checkbox" change 
+$('.checkbox').change(function(){ 
+    //uncheck "select all", if one of the listed checkbox item is unchecked
+    if(false == $(this).prop("checked")){ //if this item is unchecked
+        $("#TOUTLEMONDE").prop('checked', false); //change "select all" checked status to false
+    }
+    //check "select all" if all checkbox items are checked
+    if ($('.checkbox:checked').length == $('.checkbox').length ){
+        $("#TOUTLEMONDE").prop('checked', true);
+    }
 });
 
 
@@ -287,6 +290,7 @@ $('#TOUTLEMONDE').change(function() {
           $('#ModalTache').modal('show');
           $('.modal-title').text("Changer planification");
           $('#nbheure').get(0).type = 'number';
+          $('#smallinfo').hide();
           $('#action').val("Update");
           $('#id').val(id);
           $('#idSprint').val(data.idSprint);
