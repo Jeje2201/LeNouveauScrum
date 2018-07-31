@@ -106,7 +106,9 @@
     $(document).ready(function () {
 
       $('#dateDebut').val(ChoixDate(0));
-      $('#dateFin').val(ChoixDate(localStorage.getItem('NbJoursParSprint')));
+
+      $('#dateFin').val(ChoixDate(14));
+
       GetNumeroSprintMax('numero');
 
       BarreDeRecherche('BarreDeRecherche', 'result');
@@ -275,7 +277,11 @@
 
 });
 
+    $('#dateFin, #dateDebut').datetimepicker().on('click', function(ev){
 
+      $('#dateFin').datetimepicker('setStartDate', $('#dateDebut').val());
+
+    });
 
 });
 </script>
