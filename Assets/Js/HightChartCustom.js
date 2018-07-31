@@ -322,8 +322,15 @@ Highcharts.chart(div, {
           }
           else {
             $("#TotalHDescendue").text((Total[4] - Total[0][Total[0].length - 1]));
+
+            if((Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])))<50)
+            $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+           if((Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]))) >= 50 && (Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])))<75)
+            $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+          if((Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])))>=75)
             $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '%; aria-valuenow="' + ((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-          $("#PourcentageDescendue").text( Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + "%");
+         
+         $("#PourcentageDescendue").text( Math.round(((Total[4] - Total[0][Total[0].length - 1]) * 100 / Total[4])) + "%");
           }
         }
 
