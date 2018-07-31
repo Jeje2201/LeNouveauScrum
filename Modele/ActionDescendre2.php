@@ -177,7 +177,7 @@ if($_POST["action"] == "DateMinMax")
   foreach ($result as $row) {
    $DateMin[] = date("d-m-Y", strtotime($row["DateMin"]));
    $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
-   $JRestant[] = date("d-m-Y", strtotime($row["DateMax"]))-date("d-m-Y");
+   $JRestant[] = (strtotime($row["DateMax"]) - strtotime("today"))/24/60/60;
  }
 
  $array[] = $DateMin;

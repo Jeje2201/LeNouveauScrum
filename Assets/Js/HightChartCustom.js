@@ -346,7 +346,7 @@ Highcharts.chart(div, {
 
           $("#DateSprint").text(data[0] + " ->" + data[1])
 
-          if (data[2] > 0) {
+          if (data[2] >= 0) {
 
             
             $("#NbJoursRestants").text(data[2]);
