@@ -38,6 +38,11 @@
         </div>
 
         <div class="form-group">
+          <label>Initial</label>
+          <input class="form-control" name="Initial" id="Initial" type="text" maxlength="2" placeholder="...">
+        </div>
+
+        <div class="form-group">
           <label>Type</label>
           <div id="ListTypeEmploye"></div>
         </div>
@@ -85,6 +90,7 @@
       $('#action').val('Ajouter');
       $('#Prenom').val('');
       $('#Nom').val('');
+      $('#Initial').val('');
       $('#Actif').prop("checked", true);
     });
 
@@ -98,7 +104,7 @@
         var Actif = 0;
       }
 
-      var Initial = Prenom_Employe.charAt(0) + Nom_Employe.charAt(0);
+      var Initial = $('#Initial').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
@@ -142,6 +148,7 @@
           $('#Prenom').val(data.Prenom);
           $('#Nom').val(data.Nom);
           $('#TypeEmploye').val(data.TypeEmploye);
+          $('#Initial').val(data.Initial);
 
         }
       });

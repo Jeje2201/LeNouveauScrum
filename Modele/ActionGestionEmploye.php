@@ -15,7 +15,7 @@ require_once ('../Modele/Configs.php');
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,13 +23,14 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="25%">Prénom</th>
-      <th width="25%">Nom</th>
+      <th width="15%">Prénom</th>
+      <th width="15%">Nom</th>
+      <th width="5%">Initial</th>
       <th width="20%">Pseudo</th>
       <th width="20%">Job</th>
-      <th width="10%">Couleur</th>
-      <th width="10%">Actif</th>
-      <th width="10%"><center>Éditer</center></th>
+      <th width="5%">Couleur</th>
+      <th width="5%">Actif</th>
+      <th width="15%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -42,6 +43,7 @@ require_once ('../Modele/Configs.php');
         <tr>
         <td>'.$row["Prenom"].'</td>
         <td>'.$row["Nom"].'</td>
+        <td>'.$row["Initial"].'</td>
         <td>'.$row["Pseudo"].'</td>
         <td>'.$row["TypeJob"].'</td>
         <td style="background-color:'.$row["Couleur"].'"></td>
@@ -103,6 +105,7 @@ if($_POST["action"] == "Select")
    $output["Nom"] = $row["nom"];
    $output["Actif"] = $row["actif"];
    $output["TypeEmploye"] = $row["id_TypeEmploye"];
+   $output["Initial"] = $row["Initial"];
  }
  echo json_encode($output);
 }
