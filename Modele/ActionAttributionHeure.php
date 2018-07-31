@@ -67,7 +67,7 @@ require_once ('../Modele/Configs.php');
       <thead>
       <tr>
       <th width="50%">Ressource</th>
-      <th width="50%">Planifié (Planifiable)</th>
+      <th width="50%">Planifié (Disponible)</th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -108,7 +108,7 @@ require_once ('../Modele/Configs.php');
       <thead>
       <tr>
       <th width="90%">Projet</th>
-      <th width="10%">Heure</th>
+      <th width="10%">H</th>
       </tr>
       </thead>
       <tbody id="myTable">

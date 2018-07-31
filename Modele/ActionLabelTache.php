@@ -17,7 +17,7 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-bordered" id="datatable" >
       <thead>
       <tr>
-      <th width="5%">Heure</th>
+      <th width="5%">H</th>
       <th width="15%">Projet</th>
       <th width="75%">Label</th>
       </tr>

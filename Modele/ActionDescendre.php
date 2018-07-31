@@ -19,7 +19,7 @@ require_once ('../Modele/Configs.php');
       <th width="20%">Ressource</th>
       <th width="20%">Projet</th>
       <th width="20%">Date</th>
-      <th width="20%">Heure(s)</th>
+      <th width="20%">H</th>
       <th width="10%"><center>Éditer</center></th>
       </tr>
       </thead>
