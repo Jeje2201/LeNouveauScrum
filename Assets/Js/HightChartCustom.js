@@ -401,7 +401,7 @@ Highcharts.chart(div, {
             }
           },
           series: [{
-            name: 'Heures Restantes',
+            name: 'Heures descendues par jour',
             data: hDescenduesParEmploye[9]
           }
           ]
