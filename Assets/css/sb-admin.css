@@ -33,6 +33,20 @@ html {
     width: 30px;
   }
 
+  .Tom{
+    animation-name: Tom;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    cursor: url("../Image/Deny.png") 50 50, auto;
+  }
+   @keyframes Tom {
+    0%   {background-color:#FEBFD2;}
+    25%  {background-color:#FF69B4;}
+    50%  {background-color:#FD3F92;}
+    75%  {background-color:#FF007F;}
+    100% {background-color:#E0115F; }
+}
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
     visibility: hidden; /* Hidden by default. Visible on click */
