@@ -40,7 +40,7 @@
           <div id="ListEmploye"></div>
         </div>
 
-        <div class="form-group">
+        <div id="leProjet" class="form-group">
           <label>Projet</label>
           <div name="ListProjet" id="ListProjet"> </div>
         </div>
@@ -94,6 +94,13 @@
       RemplirTableau();
     });
 
+        $('#typeinterference').change(function () {
+          if($('#typeinterference option:selected').text() == 'Absence')
+            $('#leProjet').hide()
+          else
+            $('#leProjet').show()
+    });
+
     $('#modal_button').click(function () {
       $('#customerModal').modal('show');
       $('.modal-title').text("Ajouter une interférence");
@@ -104,8 +111,12 @@
       var idAffichee = $("#numeroSprint").val();
       var NbHeure = $('#nbheure').val();
       var Employe = $('#employeId').val();
-      var Projet = $('#projetId').val();
       var TypeInterferance = $('#typeinterference').val();
+      
+      // if($('#typeinterference option:selected').text() == 'Absence')
+      //      var Projet = 'null';
+      //     else
+            var Projet = $('#projetId').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
@@ -116,7 +127,6 @@
           data: { id: id, NbHeure: NbHeure, Employe: Employe, Projet: Projet, TypeInterferance: TypeInterferance, idAffichee, idAffichee, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            console.log(data);
             $('#customerModal').modal('hide');
             RemplirTableau();
           }

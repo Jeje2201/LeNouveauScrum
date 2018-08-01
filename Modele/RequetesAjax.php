@@ -180,7 +180,7 @@
 
       case 'ListeDeroulanteTypeInterferance':
 
-        $statement = $connection->prepare("SELECT id as id, nom as nom from typeinterference order by nom asc");
+        $statement = $connection->prepare("SELECT id as id, nom as nom from typeinterference order by id asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -191,7 +191,7 @@
           foreach($result as $row)
             {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
+              $output2.='<option value="'.$row["id"].'">'.$row["nom"].'</option>';
 
             }
 
