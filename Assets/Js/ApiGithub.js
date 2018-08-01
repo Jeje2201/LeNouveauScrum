@@ -1,6 +1,6 @@
 function GetAllVersionsInfos(Div) {
 
-    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases?access_token=13deecd98f22e13aa0aa826db460793f28806b7c';
+    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases?access_token=0d5e7ccbc3f3060289ad93eaac70b34cbeeca0a9';
 
     // API request pour obtenir les infos de l'utilisateur et lui hacker sa base de donnée parceque nous bah on est des hackers d'abord
     $.ajax({
@@ -45,7 +45,7 @@ function GetAllVersionsInfos(Div) {
 
 function CheckLatestVersionNumber() {
 
-    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases/latest?access_token=13deecd98f22e13aa0aa826db460793f28806b7c';
+    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases/latest?access_token=0d5e7ccbc3f3060289ad93eaac70b34cbeeca0a9';
     // API request pour obtenir les infos de l'utilisateur et lui hacker sa base de donnée parceque nous bah on est des hackers d'abord
     $.ajax({
         url: url,
@@ -64,7 +64,7 @@ function CheckLatestVersionNumber() {
 
 function SetLastVersion() {
 
-    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases/latest?access_token=13deecd98f22e13aa0aa826db460793f28806b7c';
+    var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases/latest?access_token=0d5e7ccbc3f3060289ad93eaac70b34cbeeca0a9';
     // API request pour obtenir les infos de l'utilisateur et lui hacker sa base de donnée parceque nous bah on est des hackers d'abord
     $.ajax({
         url: url,
