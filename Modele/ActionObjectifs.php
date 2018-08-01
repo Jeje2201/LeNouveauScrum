@@ -35,7 +35,7 @@ require_once ('../Modele/Configs.php');
         <td style="background-color: '.$row["couleur"].'; color: white; font-weight: bold;">'.$row["etat"].'</td>
         <td>'.$row["projet"].'</td>
         <td>'.$row["objectif"].'</td>';
-         if($_SESSION['TypeUtilisateur'] == 'ScrumMaster'){
+         if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
           $output .= '
         <td><center><div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" id="'.$row["id"].'" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
@@ -48,7 +48,7 @@ require_once ('../Modele/Configs.php');
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
-      }
+      
       }
     }
     else
@@ -124,10 +124,12 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead>
       <tr>
-      <th width="10%">Date</th>
-      <th width="85%">Commentaire</th>
-      <th width="5%%"><center>Éditer</center></th>
-      </tr>
+      <th width="10%">Création</th>
+      <th width="85%">Commentaire</th>';
+      if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+          $output .= '<th width="5%%"><center>Éditer</center></th>';
+        
+     $output .= ' </tr>
       </thead>
       <tbody id="myTable">
       ';
@@ -136,11 +138,12 @@ require_once ('../Modele/Configs.php');
        foreach($result as $row)
        {
         $output .= '
-        <tr >
-        <td>'.$row["DateCreation"].'</td>
-        <td>'.$row["Label"].'</td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button></center></td>
-        </tr>
+        <tr>
+        <td>'.date("d-m-Y", strtotime($row["DateCreation"])).'</td>
+        <td>'.$row["Label"].'</td>';
+        if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+          $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button></center></td>';
+        $output .= '</tr>
         ';
       }
     }
