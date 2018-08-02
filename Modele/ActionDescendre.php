@@ -56,7 +56,7 @@ require_once ('../Modele/Configs.php');
      foreach($result as $row)
      {
       $output1.='
-      <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)" data-toggle="tooltip" data-placement="top" title="'.$row["Label"].'">
+      <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
         <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
@@ -97,17 +97,15 @@ if($statement->rowCount() > 0)
  {
 
   $output2.='
-<div class="card PASTOUCHE" data-toggle="tooltip" data-placement="top" title="'.$row["Label"].'">
+<div class="card PASTOUCHE">
   <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
   <div style="margin-left:7px;">
     <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
-    <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
       <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<br>
       <div class="SpecialHr"></div>
-      <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
+      <i class="fa fa-file-o" aria-hidden="true"></i> '.$row["projet"].'<br>
       <div class="SpecialHr"></div>
-      <i class="fa fa-clock-o" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
-    </span>
+      <i class="fa fa-tag" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
   </div>
 </div>';
 
