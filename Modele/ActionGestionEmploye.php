@@ -15,7 +15,7 @@ require_once ('../Modele/Configs.php');
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.actif desc, employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,14 +23,14 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="15%">Prénom</th>
-      <th width="15%">Nom</th>
-      <th width="5%">Initial</th>
-      <th width="20%">Pseudo</th>
-      <th width="20%">Job</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Initial</th>
+      <th>Pseudo</th>
+      <th>Job</th>
       <th width="5%">Couleur</th>
-      <th width="5%">Actif</th>
-      <th width="15%"><center>Éditer</center></th>
+      <th>Actif</th>
+      <th width="5%"><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -46,9 +46,14 @@ require_once ('../Modele/Configs.php');
         <td>'.$row["Initial"].'</td>
         <td>'.$row["Pseudo"].'</td>
         <td>'.$row["TypeJob"].'</td>
-        <td style="background-color:'.$row["Couleur"].'"></td>
-        <td>'.$row["Actif"].'</td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+        <td style="background-color:'.$row["Couleur"].'"></td>';
+
+        if($row["Actif"] == 1)
+        $output .= '<td style="background-color:#6bcc6b"></td>';
+      else
+         $output .= '<td style="background-color:#ca3f3f"></td>';
+
+        $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
       }
