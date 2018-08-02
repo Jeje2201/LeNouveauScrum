@@ -58,7 +58,7 @@
 
       case 'ListeDeroulanteProjet':
 
-        $statement = $connection->prepare("SELECT id as id, nom as Nom from projet order by nom asc");
+        $statement = $connection->prepare("SELECT id as id, nom as Nom from projet where projet.actif = 1 order by nom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
