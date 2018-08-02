@@ -125,9 +125,9 @@ require_once ('../Modele/Configs.php');
       <thead>
       <tr>
       <th width="10%">Création</th>
-      <th width="85%">Commentaire</th>';
+      <th width="80%">Commentaire</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-          $output .= '<th width="5%%"><center>Éditer</center></th>';
+          $output .= '<th width="10%"><center>Changer État</center></th>';
         
      $output .= ' </tr>
       </thead>
@@ -264,7 +264,7 @@ if($_POST["action"] == "retrospectiveFini")
 {
   $statement = $connection->prepare(
    "UPDATE retrospective 
-   SET Etat = 1
+   SET Etat = 1, DateFini = NOW()
    WHERE id = :id
    ");
   $result = $statement->execute(
