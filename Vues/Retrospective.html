@@ -77,7 +77,11 @@
             <h4 class="modal-title">Remarque</h4>
           </div>
           <div class="modal-body">
-            <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une remarque..">
+
+            <div class="ui-widget">
+              <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Je suis une remarque..">
+            </div>
+
           </div>
           <div class="modal-footer">
             <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
@@ -276,5 +280,18 @@ var action = "retrospective";
             return false;
           }
         });
+
+
+
+    var availableTags = [
+      "Fixer Internet",
+      "Ceci est un auto complete qui ne demande que des idées"
+    ];
+
+    $( "#Labelretrospective" ).autocomplete({
+      source: availableTags,
+      appendTo: ".ui-widget"
+    });
+
       });
 </script>
