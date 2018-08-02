@@ -13,8 +13,8 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" >
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" >
+      <thead class="thead-light">
       <tr>
       <th width="10%">État</th>
       <th width="10%">Projet</th>
@@ -121,8 +121,8 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
       <tr>
       <th width="10%">Création</th>
       <th width="80%">Commentaire</th>';

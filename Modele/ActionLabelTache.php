@@ -14,8 +14,8 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" >
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" >
+      <thead class="thead-light">
       <tr>
       <th width="5%">H</th>
       <th width="15%">Projet</th>

@@ -13,8 +13,8 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
       <tr>
       <th width="20%">Ressource</th>
       <th width="25%">Projet</th>
@@ -65,7 +65,7 @@ require_once ('../Modele/Configs.php');
       $output = '';
       $output .= '
       <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
+      <thead class="thead-light">
       <tr>
       <th width="50%">Ressource</th>
       <th width="50%">Planifié (Disponible)</th>
@@ -105,8 +105,8 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
       <tr>
       <th width="90%">Projet</th>
       <th width="10%">H</th>

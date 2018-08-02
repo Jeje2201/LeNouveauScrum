@@ -11,8 +11,8 @@
       $result = $statement->fetchAll();
       $output = '';
       $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
       <tr>
       <th width="40%">Nom</th>
       <th width="40%">Type</th>
