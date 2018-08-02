@@ -339,7 +339,7 @@ Highcharts.chart(div, {
       idAffiche = parseInt($("#numeroSprint").val());
       var action = "DateMinMax";
       $.ajax({
-        url: "Modele/ActionDescendre2.php",
+        url: "Modele/ActionDescendre.php",
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {

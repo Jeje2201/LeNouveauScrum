@@ -76,7 +76,7 @@
         var idAffiche = $('#numeroSprint').val();
         var action = "Load";
         $.ajax({
-          url: "Modele/ActionDescendre.php",
+          url: "Modele/ActionGestionDescendre.php",
           method: "POST",
           data: { action: action, idAffiche: idAffiche },
           success: function (data) {
@@ -99,7 +99,7 @@
         var action = $('#action').val();
         if (idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') {
           $.ajax({
-            url: "Modele/ActionDescendre.php",
+            url: "Modele/ActionGestionDescendre.php",
             method: "POST",
             data: { id: id, DateAujourdhui: DateAujourdhui, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
             success: function (data) {
@@ -118,7 +118,7 @@
         var id = $(this).attr("id");
         var action = "Select";
         $.ajax({
-          url: "Modele/ActionDescendre.php",
+          url: "Modele/ActionGestionDescendre.php",
           method: "POST",
           data: { id: id, action: action },
           dataType: "json",
@@ -141,7 +141,7 @@
         if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) {
           var action = "Delete";
           $.ajax({
-            url: "Modele/ActionDescendre.php",
+            url: "Modele/ActionGestionDescendre.php",
             method: "POST",
             data: { id: id, action: action },
             success: function (data) {
