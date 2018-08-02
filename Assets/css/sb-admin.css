@@ -138,11 +138,11 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 .card #EnCours .BOUGEMOI:hover{
-  cursor: url("../Image/Right.png") 10 10, auto;
+  cursor: pointer;
 }
 
 .card #Fini .BOUGEMOI:hover{
-  cursor: url("../Image/Left.png") 10 10, auto;
+  cursor: pointer;
 }
 
 .card .PASTOUCHE{
@@ -150,7 +150,7 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 .card .PASTOUCHE:hover{
-  cursor: url("../Image/Deny.png") 50 50, auto;
+  cursor:not-allowed;
 }
  
 
