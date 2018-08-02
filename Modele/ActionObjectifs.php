@@ -16,11 +16,12 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" >
       <thead class="thead-light">
       <tr>
-      <th width="10%">État</th>
-      <th width="10%">Projet</th>
-      <th width="65%">Objectif</th>';
+      <th width="6%">État</th>
+      <th >Projet</th>
+      <th width="65%">Objectif</th>
+      <th>N°</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-      $output .= '<th width="10%" colspan="2"><center>Changer État</center></th>';
+      $output .= '<th colspan="2"><center>Changer État</center></th>';
       $output .= '
       </tr>
       </thead>
@@ -28,13 +29,16 @@ require_once ('../Modele/Configs.php');
       ';
       if($statement->rowCount() > 0)
       {
+        $num=0;
        foreach($result as $row)
        {
+        $num +=1;
         $output .= '
         <tr >
         <td style="background-color: '.$row["couleur"].'; color: white; font-weight: bold;">'.$row["etat"].'</td>
         <td>'.$row["projet"].'</td>
-        <td>'.$row["objectif"].'</td>';
+        <td>'.$row["objectif"].'</td>
+        <td>'.$num.'</td>';
          if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
           $output .= '
         <td><center><div class="btn-group" role="group" aria-label="Basic example">
