@@ -1,81 +1,219 @@
-   <?php
+    <?php
 
 require_once ('../Modele/Configs.php');
 
-   if(isset($_POST["action"])) 
-   {
 
-     if($_POST["action"] == "Load") 
-     {
-      $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.prenom as employe FROM heuresdescendues inner JOIN employe ON heuresdescendues.id_Employe = employe.id INNER JOIN projet on projet.id = heuresdescendues.id_Projet INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint WHERE id_sprint= $numero ORDER BY heuresdescendues.id desc");
-      $statement->execute();
-      $result = $statement->fetchAll();
-      $output = '';
-      $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead>
-      <tr>
-      <th width="20%">Ressource</th>
-      <th width="20%">Projet</th>
-      <th width="20%">Date</th>
-      <th width="20%">H</th>
-      <th width="10%"><center>Éditer</center></th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
-      if($statement->rowCount() > 0)
-      {
-       foreach($result as $row)
-       {
-        $output .= '
-        <tr>
-        <td>'.$row["employe"].'</td>
-        <td>'.$row["projet"].'</td>
-        <td>'.date("d-m-Y", strtotime($row["Datee"])).'</td>
-        <td>'.$row["NbHeure"].'</td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
-        </tr>
-        ';
-      }
-    }
+  function PreviewText($input)
+{
+    $Problem = array("<", ">");
+    $input = str_replace($Problem, " ", $input);
+
+    // if(strlen($input)>=50){
+    // $Label = mb_substr($input, 0, 50);
+    // $Label .= '..';
+    // return $Label;
+    // }
+    // else
+    return $input;
+}
+
+
+  if(isset($_POST["action"])) 
+  {
+
+   if($_POST["action"] == "AfficherCards") 
+   {
+    $Test = new stdClass;
+
+    $idEmploye = $_POST["idEmploye"];
+    $numero = $_POST["idAffiche"];
+
+    if($_POST["idEmploye"] == "ToutLeMonde")
+      $Requete1 = "AND attribution.id_Employe in (select id from employe)";
     else
+      $Requete1 = "AND attribution.id_Employe = $idEmploye";
+
+    $statement = $connection->prepare("
+      SELECT attribution.id, attribution.Label, attribution.heure as NbHeure, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom, employe.Pseudo as E_Pseudo
+      FROM attribution
+      inner JOIN employe ON employe.id = attribution.id_Employe
+      INNER JOIN projet ON projet.id = attribution.id_Projet
+      INNER JOIN sprint ON sprint.id = attribution.id_Sprint
+      where attribution.id_Sprint = $numero "
+      .$Requete1.
+      " AND attribution.id not in
+      (SELECT distinct heuresdescendues.id_Attribution
+      from heuresdescendues
+      where heuresdescendues.id_Attribution IS NOT NULL)
+      ORDER BY employe.prenom
+      ");
+
+    $statement->execute();
+    $result = $statement->fetchAll();
+    $output1 = '';
+    if($statement->rowCount() > 0)
     {
-     $output .= '
-     <tr>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     </tr>
-     ';
-   }
-   $output .= '</tbody></table>';
-   echo $output;
+     foreach($result as $row)
+     {
+      $output1.='
+      <div class="card BOUGEMOI" id="'.$row["id"].'" onclick="DeplaceToi(this)" data-toggle="tooltip" data-placement="top" title="'.$row["Label"].'">
+        <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
+        <div style="margin-left:7px;">
+          <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
+            <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<br>
+            <div class="SpecialHr"></div>
+            <i class="fa fa-file-o" aria-hidden="true"></i> '.$row["projet"].'<br>
+            <div class="SpecialHr"></div>
+            <i class="fa fa-tag" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
+        </div>
+      </div><br>';
+    }
+  }
+  else{
+    $output1 .='Aucune tâche en cours';
+  }
+
+  if($_POST["idEmploye"] == "ToutLeMonde")
+   $Requete2 = "AND id_Employe in (select id from employe)";
+ else
+  $Requete2 = "AND id_Employe = $idEmploye";
+
+$statement = $connection->prepare("
+  SELECT (select label from attribution where attribution.id = heuresdescendues.id_Attribution) as Label,heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom, employe.Pseudo as E_Pseudo
+  FROM heuresdescendues
+  INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
+  INNER JOIN projet on projet.id = heuresdescendues.id_Projet
+  INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
+  WHERE id_sprint= $numero "
+  .$Requete2.
+  " ORDER BY employe.prenom");
+
+$statement->execute();
+$result = $statement->fetchAll();
+$output2 = '';
+if($statement->rowCount() > 0)
+{
+ foreach($result as $row)
+ {
+
+  $output2.='
+<div class="card PASTOUCHE" data-toggle="tooltip" data-placement="top" title="'.$row["Label"].'">
+  <img class="LogoProjet" src="Assets/Image/Projets/'.$row["Logo"].'">
+  <div style="margin-left:7px;">
+    <div class="BarreLateralCard" style="background-color:'.$row["E_Couleur"].';"></div>
+    <span title="'.$row["E_Prenom"].' '.$row["E_Nom"].'">
+      <i class="fa fa-user-o" aria-hidden="true"></i> '.$row["E_Pseudo"].' ('.$row["E_Initial"].')<br>
+      <div class="SpecialHr"></div>
+      <i class="fa fa-tag" aria-hidden="true"></i> '.$row["projet"].'<br>
+      <div class="SpecialHr"></div>
+      <i class="fa fa-clock-o" aria-hidden="true"></i> '.PreviewText($row["Label"]).' ('.$row["NbHeure"].')
+    </span>
+  </div>
+</div>';
+
+}
+}
+  else{
+    $output2 .='Aucune tâche achevé';
+  }
+$Test -> Attribution = $output1;
+$Test -> Descendue = $output2;
+
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-type: application/json');
+
+echo json_encode($Test);
+
+}
+
+   if($_POST["action"] == "LoadListEmployes") 
+   {
+    $Test = new stdClass;
+
+    $numero = $_POST["idAffiche"];
+
+$statement = $connection->prepare("
+  SELECT DISTINCT (select employe.prenom from employe where employe.id = attribution.id_Employe) as Prenom, (select employe.nom from employe where employe.id = attribution.id_Employe) as Nom, attribution.id_Employe as id
+  FROM attribution
+  where attribution.id_Sprint = $numero
+  order by (select employe.prenom from employe where employe.id = attribution.id_Employe)
+  ");
+
+$statement->execute();
+$result = $statement->fetchAll();
+$output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
+              <option value="ToutLeMonde">Tout le monde</option>';
+if($statement->rowCount() > 0)
+{
+ foreach($result as $row)
+ {
+
+$output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+
+}
+
+$output2 .= '</select>';
+}
+$Test -> Attribution = $output2;
+
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-type: application/json');
+
+echo json_encode($Test);
+
+}
+
+if($_POST["action"] == "DateMinMax")
+{
+
+  $idAffiche = $_POST["idAffiche"];
+
+  $statement = $connection->prepare(
+   $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
+ );
+  $statement->execute();
+  $result = $statement->fetchAll();
+
+  $DateMin = [];
+  $DateMax = [];
+
+  foreach ($result as $row) {
+   $DateMin[] = date("d-m-Y", strtotime($row["DateMin"]));
+   $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
+   $JRestant[] = (strtotime($row["DateMax"]) - strtotime("today"))/24/60/60;
  }
 
- if($_POST["action"] == "Valider")
- {
-  $statement = $connection->prepare("
-   INSERT INTO heuresdescendues (heure, DateDescendu, id_Sprint, id_Employe, id_Projet) 
-   VALUES (:NombreHeure, :DateDescendu, :idSprint, :idEmploye, :idProjet)
-   ");
-  $result = $statement->execute(
-   array(
-    ':NombreHeure' => $_POST["NombreHeure"],
-    ':DateDescendu' => $_POST["DateAujourdhui"],
-    ':idSprint' => $_POST["idSprint"],
-    ':idEmploye' => $_POST["idEmploye"],
-    ':idProjet' => $_POST["idProjet"]
-  )
- );
+ $array[] = $DateMin;
+ $array[] = $DateMax;
+ $array[] = $JRestant;
+
+ header('Cache-Control: no-cache, must-revalidate');
+ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+ header('Content-type: application/json');
+ echo json_encode($array);
+
+}
+
+if($_POST["action"] == "Descendre")
+{
+
+  $LeJourDeDescente = $_POST["LeJourDeDescente"];
+  $IdAttribue = $_POST["IdAttribue"];
+
+  for($i=0;$i < sizeof($IdAttribue) ;$i++){
+
+    $statement = $connection->prepare("
+      INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)
+      SELECT heure, id_Sprint, id_Employe, id_Projet, id, '$LeJourDeDescente' FROM attribution where attribution.id = $IdAttribue[$i];
+      ");
+    $result = $statement->execute();
+  }
   if(!empty($result))
    echo '✓';
    else
    echo 'X';
-
 }
 
 if($_POST["action"] == "Select")
@@ -91,7 +229,7 @@ if($_POST["action"] == "Select")
   foreach($result as $row)
   {
    $output["heure"] = $row["heure"];
-   $output["DateAujourdhui"] = date("d-m-Y", strtotime($row["DateDescendu"]));
+   $output["DateAujourdhui"] = $row["DateDescendu"];
    $output["id_Employe"] = $row["id_Employe"];
    $output["id_Projet"] = $row["id_Projet"];
  }
