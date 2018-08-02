@@ -6,7 +6,7 @@
 
      if($_POST["action"] == "Load") 
      {
-      $statement = $connection->prepare("SELECT projet.id as id, projet.nom as Nom, Logo, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom asc");
+      $statement = $connection->prepare("SELECT id , nom as Nom, actif, Logo, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -16,6 +16,7 @@
       <tr>
       <th width="40%">Nom</th>
       <th width="40%">Type</th>
+      <th width="5%">Actif</th>
       <th width="4%">Icone</th>
       <th width="10%"><center>Éditer</center></th>
       </tr>
@@ -29,10 +30,14 @@
         $output .= '
         <tr>
         <td>'.$row["Nom"].'</td>
-        <td>'.$row["TypeProjet"].'</td>
-        <td>
-        <img src="Assets/Image/Projets/' .$row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/>
-        </td>
+        <td>'.$row["TypeProjet"].'</td>';
+
+if($row["actif"] == 1)
+        $output .= '<td style="background-color:#6bcc6b"></td>';
+      else
+         $output .= '<td style="background-color:#ca3f3f"></td>';
+
+        $output .= '<td><img src="Assets/Image/Projets/' .$row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -75,14 +80,15 @@ $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesIm
 if($_POST["action"] == "Ajouter")
 {
   $statement = $connection->prepare("
-   INSERT INTO projet (nom, Logo, id_TypeProjet) 
-   VALUES (:Nom, :Logo, :id_TypeProjet)
+   INSERT INTO projet (nom, Logo, id_TypeProjet, actif) 
+   VALUES (:Nom, :Logo, :id_TypeProjet, :actif)
    ");
 
   $result = $statement->execute(
    array(
     ':Nom' => $_POST["Nom"],
     ':Logo' => $_POST["fileName"],
+    ':actif' => $_POST["Actif"],
     ':id_TypeProjet' => $_POST["TypeProjet"]
   )
  );
@@ -107,6 +113,7 @@ if($_POST["action"] == "Select")
    $output["Nom"] = $row["nom"];
    $output["Logo"] = $row["Logo"];
    $output["TypeProjet"] = $row["id_TypeProjet"];
+   $output["actif"] = $row["actif"];
  }
  echo json_encode($output);
 }
@@ -115,7 +122,7 @@ if($_POST["action"] == "Update")
 {
   $statement = $connection->prepare(
    "UPDATE projet 
-   SET nom = :nom, Logo =:Logo, id_TypeProjet = :id_TypeProjet
+   SET nom = :nom, Logo =:Logo, id_TypeProjet = :id_TypeProjet, actif = :actif
    WHERE id = :id
    "
  );
@@ -123,6 +130,7 @@ if($_POST["action"] == "Update")
    array(
     ':nom' => $_POST["Nom"],
     ':Logo'   => $_POST["fileName"],
+    ':actif'   => $_POST["Actif"],
     ':id_TypeProjet'   => $_POST["TypeProjet"],
     ':id'   => $_POST["id"]
   )
