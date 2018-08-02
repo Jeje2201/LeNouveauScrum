@@ -50,6 +50,11 @@
           <div name="ListTypeInterferance" id="ListTypeInterferance"> </div>
         </div>
 
+        <div class="form-group">
+          <label>Infos&nbsp;</label><small>(peut être vide)</small>
+           <input class="form-control" name="labelinterference" id="labelinterference" type="text" placeholder="...">
+        </div>
+
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
@@ -94,29 +99,32 @@
       RemplirTableau();
     });
 
-        $('#typeinterference').change(function () {
-          if($('#typeinterference option:selected').text() == 'Absence')
-            $('#leProjet').hide()
-          else
-            $('#leProjet').show()
+    $('#typeinterference').change(function () {
+      if($('#typeinterference option:selected').text() == 'Absence')
+        $('#leProjet').hide()
+      else
+        $('#leProjet').show()
     });
 
     $('#modal_button').click(function () {
+      $('#labelinterference').val('');
       $('#customerModal').modal('show');
       $('.modal-title').text("Ajouter une interférence");
       $('#action').val('Ajouter');
     });
 
     $('#action').click(function () {
+
       var idAffichee = $("#numeroSprint").val();
       var NbHeure = $('#nbheure').val();
       var Employe = $('#employeId').val();
       var TypeInterferance = $('#typeinterference').val();
-      
+      var labelinterference = $('#labelinterference').val();
+
       // if($('#typeinterference option:selected').text() == 'Absence')
       //      var Projet = 'null';
       //     else
-            var Projet = $('#projetId').val();
+      var Projet = $('#projetId').val();
       var action = $('#action').val();
       var id = $('#id').val();
 
@@ -124,7 +132,7 @@
         $.ajax({
           url: "Modele/ActionInterferance.php",
           method: "POST",
-          data: { id: id, NbHeure: NbHeure, Employe: Employe, Projet: Projet, TypeInterferance: TypeInterferance, idAffichee, idAffichee, action: action },
+          data: { id: id, NbHeure: NbHeure, Employe: Employe, Projet: Projet, TypeInterferance: TypeInterferance, idAffichee, idAffichee, labelinterference:labelinterference, action: action },
           success: function (data) {
             BootstrapAlert(data);
             $('#customerModal').modal('hide');
@@ -155,6 +163,7 @@
           $('#employeId').val(data.Employe);
           $('#projetId').val(data.Projet);
           $('#typeinterference').val(data.TypeInterferance);
+          $('#labelinterference').val(data.labelinterference);
 
         }
       });
