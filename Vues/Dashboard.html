@@ -19,7 +19,8 @@
                     <u>Informations</u>
                   </h3>
                   Date : <div id="DateSprint" class="DonneesBurndownChart"></div><br>
-                  Nombre de jours restants (j) : <div id="NbJoursRestants" class="DonneesBurndownChart"></div><br>
+                  Nombre de jours ouvré (j) : <div id="NbJoursAFaire" class="DonneesBurndownChart"></div><br>
+                  Nombre de jours ouvré restants (j) : <div id="NbJoursRestants" class="DonneesBurndownChart"></div><br>
                   Total heures à descendre (h) : <div id="TotalHAttribues" class="DonneesBurndownChart"></div><br>
                   Seuil (h) : <div id="Seuil" class="DonneesBurndownChart"></div><br>
                   Heures restante à descendre (h) : <div id="TotalHResteADescendre" class="DonneesBurndownChart"></div><br>
@@ -86,11 +87,12 @@
     $(document).ready(function () {
 
       RemplirListSprint('ListSrint');
+      MettreChartAJour($("#numeroSprint option:selected").text(), 'EmplacementChart');
       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
-      MettreChartAJour($("#numeroSprint option:selected").text(), 'EmplacementChart');
+      
 
       $('#numeroSprint').change(function () {
         GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');

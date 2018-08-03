@@ -6,21 +6,24 @@
           url : "Modele/ActionDashboard.php", 
           method:"POST", 
           data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
+          success:function(data){
 
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+            data = JSON.parse(data);
 
-            console.log('Ressources qui ont des heures planifiés/descendues: ',hDescenduesParEmploye[0]);
-            console.log('Total heures descendues par ressources: ',hDescenduesParEmploye[1]);
-            console.log('Total heures planifiées par ressources: ',hDescenduesParEmploye[2]);
-            console.log('Projets qui ont des heures planifiés/descendues: ',hDescenduesParEmploye[3]);
-            console.log('Total heures descendues par projets: ',hDescenduesParEmploye[4]);
-            console.log('Total heures planifiés par projets: ',hDescenduesParEmploye[5]);
-            console.log('Etat et nombre d\'objectif: ',hDescenduesParEmploye[6]);
-            console.log('Total heures planifiées toutes ressources comprises: ',hDescenduesParEmploye[7]);
-            console.log('Total heures descendues toutes ressources comprises: ',hDescenduesParEmploye[8]);
-            console.log('Total heures descendues toutes ressources comprises par jours: ',hDescenduesParEmploye[9]);
-            console.log('Chaques jours qui ont des heures descendues: ',hDescenduesParEmploye[10]);
+            console.log('maki:'+data)
+
+            console.log('Ressources qui ont des heures planifiés/descendues: ',data[0]);
+            console.log('Total heures descendues par ressources: ',data[1]);
+            console.log('Total heures planifiées par ressources: ',data[2]);
+            console.log('Projets qui ont des heures planifiés/descendues: ',data[3]);
+            console.log('Total heures descendues par projets: ',data[4]);
+            console.log('Total heures planifiés par projets: ',data[5]);
+            console.log('Etat et nombre d\'objectif: ',data[6]);
+            console.log('Total heures planifiées toutes ressources comprises: ',data[7]);
+            console.log('Total heures descendues toutes ressources comprises: ',data[8]);
+            console.log('Total heures descendues toutes ressources comprises par jours: ',data[9]);
+            console.log('Chaques jours qui ont des heures descendues: ',data[10]);
+            console.log('Moyenne h descendues par jour: ',data[11]);
 
             if(affichage == 1){
 
@@ -33,7 +36,7 @@
                 },
                 xAxis: {
                   type: 'category',
-                  categories: hDescenduesParEmploye[0],
+                  categories: data[0],
                   labels: {
                     rotation: -45,
                     style: {
@@ -64,11 +67,11 @@
                 },
                 series: [{
                   name: 'Heures attribuées',
-                  data: hDescenduesParEmploye[2],
+                  data: data[2],
                   pointPadding: 0.3,
                 }, {
                   name: 'Heures descendues',
-                  data: hDescenduesParEmploye[1],
+                  data: data[1],
                   pointPadding: 0.4,
                 }]
               });
@@ -84,7 +87,7 @@
                 },
                 xAxis: {
                   type: 'category',
-                  categories: hDescenduesParEmploye[3],
+                  categories: data[3],
                   labels: {
                     rotation: -45,
                     style: {
@@ -111,11 +114,11 @@
                 },
                 series: [{
                   name: 'Heures attribuées',
-                  data: hDescenduesParEmploye[5],
+                  data: data[5],
                   pointPadding: 0.3
                 }, {
                   name: 'Heures descendues',
-                  data: hDescenduesParEmploye[4],
+                  data: data[4],
                   pointPadding: 0.4
                 }]
               });
@@ -135,10 +138,9 @@
           url : "Modele/ActionDashboard.php", 
           method:"POST", 
           data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
+          success:function(data){
 
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-
+            data = JSON.parse(data);
 
 Highcharts.chart(div, {
               chart: {
@@ -169,11 +171,11 @@ Highcharts.chart(div, {
               },
               series: [{
                 name: 'Heures attribuées',
-                data: hDescenduesParEmploye[7],
+                data: data[7],
                 pointPadding: 0.3,
               }, {
                 name: 'Heures descendues',
-                data: hDescenduesParEmploye[8],
+                data: data[8],
                 pointPadding: 0.4,
               }]
             });
@@ -189,10 +191,10 @@ Highcharts.chart(div, {
           url : "Modele/ActionDashboard.php", 
           method:"POST", 
           data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
+          success:function(data){
 
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
-            var finalColors = hDescenduesParEmploye[6].map(o => o[2]);
+            data = JSON.parse(data);
+            var finalColors = data[6].map(o => o[2]);
             Highcharts.chart(div, {
               chart: {
                 plotBackgroundColor: null,
@@ -219,7 +221,7 @@ Highcharts.chart(div, {
               },
               series: [{
                 name: 'Effectué',
-                data: hDescenduesParEmploye[6]
+                data: data[6]
               }]
             });
           }
@@ -346,12 +348,11 @@ Highcharts.chart(div, {
 
           $("#DateSprint").text(data[0] + " ->" + data[1])
 
-          if (data[2] >= 0) {
+          $("#NbJoursAFaire").text(NbJourDeTravail(data[0][0], data[1][0]))
 
-            
-            $("#NbJoursRestants").text(data[2]);
+          if (NbJourDeTravail(new Date().toJSON().slice(0,10), data[1][0]) >= 0) 
+            $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0,10), data[1][0]));
 
-          }
           else
             $("#NbJoursRestants").text("date dépassée");
 
@@ -368,9 +369,23 @@ Highcharts.chart(div, {
           url : "Modele/ActionDashboard.php", 
           method:"POST", 
           data:{action:action, NumeroduSprint:NumeroduSprint}, 
-          success:function(hDescenduesParEmploye){
+          success:function(data){
 
-            hDescenduesParEmploye = JSON.parse(hDescenduesParEmploye);
+            data = JSON.parse(data);
+
+            MoyenneADescendre = new Array
+            for(i=0;i < data[10].length ;i++){
+              MoyenneADescendre.push(Math.round(data[7][0]/parseInt($('#NbJoursAFaire').text())))
+            }
+
+            
+            MoyenneDescendue = Math.round(data[8] / data[10].length)
+
+            MoyenneDescendueTable = new Array
+            for(i=0;i < data[10].length ;i++){
+              MoyenneDescendueTable.push(MoyenneDescendue)
+            }
+
 
         new Highcharts.Chart({
           chart: {
@@ -390,7 +405,7 @@ Highcharts.chart(div, {
           },
           xAxis: {
             type: 'datetime',
-            categories: hDescenduesParEmploye[10]
+            categories: data[10]
           },
           plotOptions: {
             line: {
@@ -400,10 +415,28 @@ Highcharts.chart(div, {
               enableMouseTracking: true
             }
           },
-          series: [{
+          series: [
+          {
+            name: 'Moyenne d\'heures descendues',
+            data: MoyenneDescendueTable,
+            color: '#c1c1c1'
+          },{
+          name: 'Moyenne d\'heures a descendre',
+            data: MoyenneADescendre,
+            color: '#4f4f4f'
+          },{
             name: 'Heures descendues par jour',
-            data: hDescenduesParEmploye[9]
+            data: data[9],
+            zones: [
+            {
+              value: MoyenneADescendre[0],
+              color: '#ff4747'
+            },
+            {
+              color: '#00c652'
+            }]
           }
+
           ]
         });
       }
