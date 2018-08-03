@@ -11,7 +11,6 @@
       $NumeroduSprint = $_POST["NumeroduSprint"];
 
       $statement = $connection->prepare(
-
       $sql = "
         SELECT 
         E.id as empid,
@@ -49,9 +48,10 @@
      $array[] = $HDescendue;
      $array[] = $Hattribue;
 
+
      $statement = $connection->prepare(
        $sql = "
-SELECT 
+        SELECT 
         P.id as projid,
         P.nom as pnom,
         sum(A.heure) as nbheureadescendre,
@@ -139,9 +139,9 @@ $statement = $connection->prepare(
 
       $Descendues = [];
       $Date = [];
+      
 
      foreach ($result as $row) {
-
       $Descendues[] = intval($row['heures']);
       $Date[] = date("d-m-Y", strtotime($row['Ladate']));
 
@@ -149,6 +149,8 @@ $statement = $connection->prepare(
 
     $array[] = $Descendues;
     $array[] = $Date;
+
+
 
   }
 
