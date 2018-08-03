@@ -378,8 +378,7 @@ Highcharts.chart(div, {
               MoyenneADescendre.push(Math.round(data[7][0]/parseInt($('#NbJoursAFaire').text())))
             }
 
-            
-            MoyenneDescendue = Math.round(data[8] / data[10].length)
+            MoyenneDescendue = Math.round(data[8] / NbJourDeTravail(data[10][0],new Date().toJSON().slice(0,10)))
 
             MoyenneDescendueTable = new Array
             for(i=0;i < data[10].length ;i++){
