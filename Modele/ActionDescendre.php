@@ -180,12 +180,10 @@ if($_POST["action"] == "DateMinMax")
   foreach ($result as $row) {
    $DateMin[] = date("d-m-Y", strtotime($row["DateMin"]));
    $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
-   $JRestant[] = (strtotime($row["DateMax"]) - strtotime("today"))/24/60/60;
  }
 
  $array[] = $DateMin;
  $array[] = $DateMax;
- $array[] = $JRestant;
 
  header('Cache-Control: no-cache, must-revalidate');
  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');

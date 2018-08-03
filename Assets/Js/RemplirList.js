@@ -58,36 +58,6 @@
         });
         }
 
-                function ListEmployeActifPlanification(DivId, IdSprint) 
-        {
-
-          var action = "ListEmployeActifPlanification";
-          $.ajax({
-           url : "Modele/RequetesAjax.php", 
-           method:"POST", 
-           async: false,
-           data:{action:action, IdSprint:IdSprint}, 
-           success:function(data){
-            $('#'+DivId+'').html(data); 
-          }
-        });
-        }
-
-        function RemplirListEmployeActif(DivId) 
-        {
-
-          var action = "ListeDeroulanteEmployeActif";
-          $.ajax({
-           url : "Modele/RequetesAjax.php", 
-           method:"POST", 
-           async: false,
-           data:{action:action}, 
-           success:function(data){
-            $('#'+DivId+'').html(data); 
-          }
-        });
-        }
-
         function RemplirListTypeInterferance(DivId) 
         {
 
