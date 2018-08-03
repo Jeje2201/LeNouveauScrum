@@ -73,7 +73,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'result');
 
-    RemplirListEmployeActif('ListEmploye');
+    RemplirListEmploye('ListEmploye');
 
     RemplirListProjet('ListProjet');
 
@@ -187,6 +187,10 @@
         return false;
       }
     });
+
+    $('#employeId, #projetId, #typeinterference').select2({
+  width: '100%'
+});
 
   });
 </script>
