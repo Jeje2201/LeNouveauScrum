@@ -150,6 +150,14 @@ $statement = $connection->prepare(
     $array[] = $Descendues;
     $array[] = $Date;
 
+      $statement = $connection->prepare(
+      $sql = "SELECT dateFin from sprint where sprint.id = $NumeroduSprint");
+    $statement->execute();
+    $result = $statement->fetch();
+    $FinSprint[] = $result["dateFin"];
+
+    $array[] = $FinSprint;
+
 
 
   }

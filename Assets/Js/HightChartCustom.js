@@ -10,8 +10,6 @@
 
             data = JSON.parse(data);
 
-            console.log('maki:'+data)
-
             console.log('Ressources qui ont des heures planifiés/descendues: ',data[0]);
             console.log('Total heures descendues par ressources: ',data[1]);
             console.log('Total heures planifiées par ressources: ',data[2]);
@@ -23,7 +21,7 @@
             console.log('Total heures descendues toutes ressources comprises: ',data[8]);
             console.log('Total heures descendues toutes ressources comprises par jours: ',data[9]);
             console.log('Chaques jours qui ont des heures descendues: ',data[10]);
-            console.log('Moyenne h descendues par jour: ',data[11]);
+            console.log('Date de fin du sprint: ',data[11]);
 
             if(affichage == 1){
 
@@ -207,7 +205,7 @@ Highcharts.chart(div, {
                 text: 'Etat des objectifs de la rétrospective'
               },
               tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'         
+                pointFormat: '<b>{point.percentage:.1f}%</b>'         
               },
               plotOptions: {
                 pie: {
@@ -220,7 +218,7 @@ Highcharts.chart(div, {
                 }
               },
               series: [{
-                name: 'Effectué',
+                name: ' ',
                 data: data[6]
               }]
             });
@@ -245,7 +243,7 @@ Highcharts.chart(div, {
             renderTo: div
           },
           title:{
-            text: 'BurnDownChart'
+            text: 'BurnDown Chart'
           },
           
           // subtitle:{
@@ -375,16 +373,13 @@ Highcharts.chart(div, {
 
             MoyenneADescendre = new Array
             for(i=0;i < data[10].length ;i++){
-              MoyenneADescendre.push(Math.round(data[7][0]/parseInt($('#NbJoursAFaire').text())))
+              MoyenneADescendre.push(Math.round(data[7][0]/ NbJourDeTravail(data[10][0],data[11][0])))
             }
-
-            MoyenneDescendue = Math.round(data[8] / NbJourDeTravail(data[10][0],new Date().toJSON().slice(0,10)))
 
             MoyenneDescendueTable = new Array
             for(i=0;i < data[10].length ;i++){
-              MoyenneDescendueTable.push(MoyenneDescendue)
+              MoyenneDescendueTable.push(Math.round(data[8] / NbJourDeTravail(data[10][0],data[10][data[10].length - 1])))
             }
-
 
         new Highcharts.Chart({
           chart: {
@@ -400,7 +395,8 @@ Highcharts.chart(div, {
             min: 0,
             title: {
               text: 'Heures'
-            }
+            },
+
           },
           xAxis: {
             type: 'datetime',
