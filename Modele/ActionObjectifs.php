@@ -43,7 +43,7 @@ require_once ('../Modele/Configs.php');
           $output .= '
         <td><center><div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" id="'.$row["id"].'" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
-        <button type="button" id="'.$row["id"].'" class="btn btn-warning 2"><i class="fa fa-wheelchair-alt" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-warning 2"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-danger 3"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-dark 4"><i class="fa fa-times" aria-hidden="true"></i></button>
         <button type="button" id="'.$row["id"].'" class="btn btn-primary 5"><i class="fa fa-question" aria-hidden="true"></i></button>
