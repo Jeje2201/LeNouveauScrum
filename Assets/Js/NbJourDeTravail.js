@@ -1,3 +1,50 @@
+function DateFrToEn(date){
+
+      date = date.split("-")
+      NouvelleDate = date[2]+"-"+date[1]+"-"+date[0]
+
+      return NouvelleDate;
+      
+    };
+
+function AjouterJourFrDevantDate(date){
+
+    retourDate = new Array();
+
+  for(i=0; i < date.length; i++){
+
+   dateconnupourcheckday = new Date(DateFrToEn(date[i]))
+
+    switch (dateconnupourcheckday.getDay()) {
+      case 1:
+        retourDate.push("Lun " + date[i])
+        break;
+      case 2:
+        retourDate.push("Mar " + date[i])
+        break;
+      case 3:
+        retourDate.push("Mer " + date[i])
+        break;
+      case 4:
+        retourDate.push("Jeu " + date[i])
+        break;
+      case 5:
+        retourDate.push("Ven " + date[i])
+        break;
+      case 6:
+        retourDate.push("Sam " + date[i])
+        break;
+      case 0:
+        retourDate.push("Dim " + date[i])
+        break;
+      default:
+        retourDate.push("NANI?" + date[i])
+    }
+  }
+
+return retourDate
+      }
+
 function NbJourDeTravail(DateDebut, DateFin){
 
     if(DateDebut.split('-')[0].length != 4)
@@ -37,14 +84,14 @@ function NbJourDeTravail(DateDebut, DateFin){
 function ListeJoursDate(DateDebut, DateFin){
 
     if(DateDebut.split('-')[0].length != 4)
-    start = new Date(DateDebut.split('-')[2]+'-'+DateDebut.split('-')[1]+'-'+DateDebut.split('-')[0])
+      start = new Date(DateDebut.split('-')[2]+'-'+DateDebut.split('-')[1]+'-'+DateDebut.split('-')[0])
     else
-  start = new Date(DateDebut)
+      start = new Date(DateDebut)
 
-  if(DateFin.split('-')[0].length != 4 )
-  end = new Date(DateFin.split('-')[2]+'-'+DateFin.split('-')[1]+'-'+DateFin.split('-')[0])
-  else
-  end = new Date(DateFin)
+    if(DateFin.split('-')[0].length != 4 )
+    end = new Date(DateFin.split('-')[2]+'-'+DateFin.split('-')[1]+'-'+DateFin.split('-')[0])
+    else
+    end = new Date(DateFin)
 
     var EnsembleDeDate = new Array
 

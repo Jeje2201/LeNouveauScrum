@@ -30,14 +30,12 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
 
       $values = [];
-      $hours = [];
       $interferences = [];
       $sprintou = [];
       $ToutADescendre = [];
 
       foreach ($result as $row) {
        $values[] = $row['value'];
-       $hours[] = date("d-m-Y", strtotime($row['heure']));
 
        if( empty($row['interferances'])  || is_null($row['interferances'])  || !isset($row['interferances']) || $row['interferances'] === NULL ){
         $interferences[] = 0;
@@ -51,7 +49,6 @@ require_once ('../Modele/Configs.php');
      }
 
      $array[] = $values;
-     $array[] = $hours;
      $array[] = $interferences;
      $array[] = $sprintou;
 
@@ -61,9 +58,18 @@ require_once ('../Modele/Configs.php');
       $statement->execute();
       $result = $statement->fetch();
       $ToutADescendre[] = $result["Total"];
-    }
 
-$array[] = $ToutADescendre;
+      $array[] = $ToutADescendre;
+
+
+      $statement = $connection->prepare( $sql = "SELECT * from sprint where sprint.numero = $NumeroSprint"     );
+      $statement->execute();
+      $result = $statement->fetch();
+
+      $array[] = $result['dateDebut'];
+      $array[] = $result['dateFin'];
+
+}
 
    echo json_encode($array);
 
