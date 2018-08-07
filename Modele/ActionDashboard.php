@@ -151,12 +151,14 @@ $statement = $connection->prepare(
     $array[] = $Date;
 
       $statement = $connection->prepare(
-      $sql = "SELECT dateFin from sprint where sprint.id = $NumeroduSprint");
+      $sql = "SELECT * from sprint where sprint.id = $NumeroduSprint");
     $statement->execute();
     $result = $statement->fetch();
     $FinSprint[] = $result["dateFin"];
+    $DebutSprint[] = $result["dateDebut"];
 
     $array[] = $FinSprint;
+    $array[] = $DebutSprint;
 
 
 

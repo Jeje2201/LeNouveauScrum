@@ -227,12 +227,16 @@ Highcharts.chart(div, {
       }
 
       function CreerLaBurnDownChart(heures, dates, seuils, div){
+
+        console.log("Heures avant : ",heures);
+
         heures = heures.map(function (x) { 
-          return parseInt(x, 10); 
+          return parseInt(x); 
         });
+        console.log("Heures apres : ",heures);
 
         seuils = seuils.map(function (x) { 
-          return parseInt(x, 10); 
+          return parseInt(x); 
         });
 
         console.log("Données de la Burndownchart : ",heures, dates, seuils);
@@ -346,6 +350,8 @@ Highcharts.chart(div, {
 
           $("#DateSprint").text(data[0] + " ->" + data[1])
 
+          console.log('bonnes infos: '+data[0][0]+ ' -> '+ data[1][0])
+
           $("#NbJoursAFaire").text(NbJourDeTravail(data[0][0], data[1][0]))
 
           if (NbJourDeTravail(new Date().toJSON().slice(0,10), data[1][0]) >= 0) 
@@ -353,7 +359,6 @@ Highcharts.chart(div, {
 
           else
             $("#NbJoursRestants").text("date dépassée");
-
         }
       });
 
@@ -370,16 +375,82 @@ Highcharts.chart(div, {
           success:function(data){
 
             data = JSON.parse(data);
+            
+            var listeJoursDansSprint = ListeJoursDate(data[12][0], data[11][0])
+
+            HeuresDescenduesParJoursSurToutLeSprint = new Array
+            JoursOuvrableDejaPasse = new Array
+            for(i=0;i < listeJoursDansSprint.length ;i++){
+
+              UnJourDeSprint = listeJoursDansSprint[i]
+              JourValide = 0
+
+              for(y=0;y < data[10].length ;y++){
+
+                if(UnJourDeSprint == data[10][y]){
+
+                  var JourValide = 1
+                  HeuresDescenduesParJoursSurToutLeSprint.push(data[9][y])
+                  JoursOuvrableDejaPasse.push(data[9][y])
+                
+                }
+               
+            }
+
+            if(JourValide == 0){
+
+              if(DateFrToEn(UnJourDeSprint) > new Date().toJSON().split('T')[0])
+                HeuresDescenduesParJoursSurToutLeSprint.push(null)
+              
+              else if(new Date(DateFrToEn(UnJourDeSprint)).getDay() == 6 || new Date(DateFrToEn(UnJourDeSprint)).getDay() == 0 )
+                HeuresDescenduesParJoursSurToutLeSprint.push(null)
+
+              else{
+                HeuresDescenduesParJoursSurToutLeSprint.push(0)
+                JoursOuvrableDejaPasse.push(0)
+              
+              }
+              
+            }
+
+            switch (new Date(DateFrToEn(UnJourDeSprint)).getDay()) {
+              case 1:
+                listeJoursDansSprint[i] = "Lun " + listeJoursDansSprint[i]
+              break;
+              case 2:
+                listeJoursDansSprint[i] = "Mar " + listeJoursDansSprint[i]
+              break;
+              case 3:
+                listeJoursDansSprint[i] = "Mer " + listeJoursDansSprint[i]
+              break;
+              case 4:
+                listeJoursDansSprint[i] = "Jeu " + listeJoursDansSprint[i]
+              break;
+              case 5:
+                listeJoursDansSprint[i] = "Ven " + listeJoursDansSprint[i]
+              break;
+              case 6:
+                listeJoursDansSprint[i] = "Sam " + listeJoursDansSprint[i]
+              break;
+              case 0:
+                listeJoursDansSprint[i] = "Dim " + listeJoursDansSprint[i]
+              break;
+              default:
+                listeJoursDansSprint[i] = "NANI?" + listeJoursDansSprint[i]
+            }
+
+          }
 
             MoyenneADescendre = new Array
-            for(i=0;i < data[10].length ;i++){
-              MoyenneADescendre.push(Math.round(data[7][0]/ NbJourDeTravail(data[10][0],data[11][0])))
+            for(i=0;i < listeJoursDansSprint.length ;i++){
+              MoyenneADescendre.push(Math.round(data[7][0]/ NbJourDeTravail(data[12][0], data[11][0])))
             }
 
             MoyenneDescendueTable = new Array
-            for(i=0;i < data[10].length ;i++){
-              MoyenneDescendueTable.push(Math.round(data[8] / NbJourDeTravail(data[10][0],data[10][data[10].length - 1])))
+            for(i=0;i < listeJoursDansSprint.length ;i++){
+              MoyenneDescendueTable.push(Math.round(data[8] / JoursOuvrableDejaPasse.length))
             }
+
 
         new Highcharts.Chart({
           chart: {
@@ -400,28 +471,38 @@ Highcharts.chart(div, {
           },
           xAxis: {
             type: 'datetime',
-            categories: data[10]
+            categories: listeJoursDansSprint
           },
           plotOptions: {
             line: {
               dataLabels: {
                 enabled: true
               },
-              enableMouseTracking: true
+              enableMouseTracking: true,
             }
           },
           series: [
           {
             name: 'Moyenne d\'heures descendues',
             data: MoyenneDescendueTable,
-            color: '#c1c1c1'
-          },{
+            color: '#c1c1c1',
+            marker: false,
+             enableMouseTracking: false,
+            dataLabels: {
+                enabled: false
+              },
+           },{
           name: 'Moyenne d\'heures a descendre',
             data: MoyenneADescendre,
-            color: '#4f4f4f'
+            color: '#4f4f4f',
+            marker: false,
+             enableMouseTracking: false,
+            dataLabels: {
+                enabled: false
+              },
           },{
             name: 'Heures descendues par jour',
-            data: data[9],
+            data: HeuresDescenduesParJoursSurToutLeSprint,
             zones: [
             {
               value: MoyenneADescendre[0],
