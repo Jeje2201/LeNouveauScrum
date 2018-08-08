@@ -243,7 +243,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
     return parseInt(x);
   });
 
-  console.log(heures)
+  // console.log(heures)
 
   seuils = seuils.map(function (x) {
     return parseInt(x);
@@ -301,39 +301,49 @@ function setInformation(idDiv, Information) {
 }
 
 function fillInformation(infosource) {
-  if (infosource[0][0] == null)
-    setInformation('TotalHAttribues', 'Inconnue');
-  else
-    setInformation('TotalHAttribues', infosource[4]);
 
-  setInformation('Seuil', parseInt(infosource[1][0]));
+  console.log(infosource)
 
-  if (typeof infosource[0][0] == 'undefined')
-    setInformation('TotalHResteADescendre', 'Inconnue')
+  if (infosource[3] > 0)
+    setInformation('TotalHAttribues', infosource[3]);
   else
+    setInformation('TotalHAttribues', '?');
+
+  if (infosource[1][0] > 0)
+    setInformation('Seuil', parseInt(infosource[1][0]));
+  else
+    setInformation('Seuil', '?');
+
+  if (infosource[0][0] > 0)
     setInformation('TotalHResteADescendre', (infosource[0][infosource[0].length - 1]))
-
-  if ((infosource[1][0] == null) || (typeof infosource[0][0] == 'undefined'))
-    setInformation('TotalHDescendueAvecSeuil', 'Inconnue')
   else
-    $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
+    setInformation('TotalHResteADescendre', '?')
 
-  if ((infosource[4][0] == null) || (typeof infosource[0][0] == 'undefined')) {
-    $("#TotalHDescendue").text("Inconnue");
-    $("#BarDePourcentageDheureDescendue").html("");
-    $("#PourcentageDescendue").text("");
+  if ((infosource[1][0] > 0) || (infosource[0][0] > 0))
+  $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
+  else
+  setInformation('TotalHDescendueAvecSeuil', '?')    
+
+
+
+
+  if ((infosource[3][0] > 0) && (infosource[0][0] > 0 )) {
+
+    $("#TotalHDescendue").text((infosource[3][0] - infosource[0][infosource[0].length - 1]));
+
+    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) < 50)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) >= 50 && (Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) < 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) >= 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+
+    $("#PourcentageDescendue").text(Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0])) + "%");
 
   } else {
-    $("#TotalHDescendue").text((infosource[4] - infosource[0][infosource[0].length - 1]));
-
-    if ((Math.round(((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]))) < 50)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '%; aria-valuenow="' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]))) >= 50 && (Math.round(((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]))) < 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '%; aria-valuenow="' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]))) >= 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '%; aria-valuenow="' + ((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-
-    $("#PourcentageDescendue").text(Math.round(((infosource[4] - infosource[0][infosource[0].length - 1]) * 100 / infosource[4])) + "%");
+  $("#TotalHDescendue").text("0");
+  $("#BarDePourcentageDheureDescendue").html(" ?");
+  $("#PourcentageDescendue").text("");
   }
 }
 
@@ -350,10 +360,10 @@ function MettreChartAJour(NumeroSprint, div) {
       NumeroSprint: NumeroSprint
     },
     success: function (Total) {
-      // console.log('Infos Burndownchart: ' + Total)
+
       Total = JSON.parse(Total);
 
-      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total[4],Total[5],Total[6], Total[0],Total[3][0]), Total[1], div, AjouterJourFrDevantDate(ListeJoursDate(Total[4], Total[5])));
+      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total[4], Total[5], Total[6], Total[0], Total[3][0]), Total[1], div, AjouterJourFrDevantDate(ListeJoursDate(Total[4], Total[5])));
 
       fillInformation(Total);
 
@@ -378,9 +388,9 @@ function MettreChartAJour(NumeroSprint, div) {
 
       if (NbJourDeTravail(new Date().toJSON().slice(0, 10), data[1][0]) >= 0)
         $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0, 10), data[1][0]));
-
       else
         $("#NbJoursRestants").text("date dépassée");
+
     }
   });
 
