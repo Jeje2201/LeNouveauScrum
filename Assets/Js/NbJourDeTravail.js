@@ -11,7 +11,7 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
 
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
-  console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
+  // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array
   JoursOuvrableDejaPasse = new Array
 
@@ -37,7 +37,7 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
         HeuresDescenduesParJoursSurToutLeSprint.push(null)
 
       else if (new Date(DateFrToEn(listeJoursDansSprint[i])).getDay() == 6 || new Date(DateFrToEn(listeJoursDansSprint[i])).getDay() == 0)
-        HeuresDescenduesParJoursSurToutLeSprint.push(-1)
+        HeuresDescenduesParJoursSurToutLeSprint.push(0)
 
       else {
         HeuresDescenduesParJoursSurToutLeSprint.push(0)
@@ -62,14 +62,14 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 */
 function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, HeuresDesJours, PremiereValeur) {
 
-  console.log('total a descendre pour bd:' + PremiereValeur)
+  // console.log('total a descendre pour bd:' + PremiereValeur)
 
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
-  console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
+  // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array
 
   var HeureActuelle = PremiereValeur
-  console.log('Heure restantes: '+HeureActuelle)
+  // console.log('Heure restantes: '+HeureActuelle)
 
   for (i = 0; i < listeJoursDansSprint.length; i++) {
 
@@ -79,7 +79,7 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
 
       if (listeJoursDansSprint[i] == JoursAvecHeures[y]) {
 
-        console.log('match entre deux dates: '+ listeJoursDansSprint[i] + ' = ' + JoursAvecHeures[y])
+        // console.log('match entre deux dates: '+ listeJoursDansSprint[i] + ' = ' + JoursAvecHeures[y])
 
         var JourValide = 1
         HeureActuelle = HeuresDesJours[y]
