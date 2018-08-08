@@ -1,6 +1,8 @@
+/**
+ * Permet de faire apparaitre une popup plus sympa
+ * @param {string} message Le message a faire apparaitre dans la popup 
+ */
 function BootstrapAlert(message){
-// Get the snackbar DIV
-
    	$('#snackbar').addClass('show');
 
    	$('#snackbar').html(message);

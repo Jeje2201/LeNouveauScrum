@@ -146,7 +146,13 @@ require_once ('../Modele/Configs.php');
         <td>'.date("d-m-Y", strtotime($row["DateCreation"])).'</td>
         <td>'.$row["Label"].'</td>';
         if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-          $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button></center></td>';
+          $output .= '
+          <td>
+          <center>
+          <div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs EditionRemarque">Editer</button>
+          <div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button>
+          </center>
+          </td>';
         $output .= '</tr>
         ';
       }
@@ -185,7 +191,7 @@ require_once ('../Modele/Configs.php');
    echo 'X';
 }
 
- if($_POST["action"] == "CréerRetrospective")
+ if($_POST["action"] == "Créer Retrospective")
  {
   $statement = $connection->prepare("
    INSERT INTO retrospective (Label, Etat, DateCreation) 
@@ -202,7 +208,7 @@ require_once ('../Modele/Configs.php');
    echo 'X';
 }
 
-if($_POST["action"] == "Select")
+if($_POST["action"] == "SelectObjectif")
 {
   $output = array();
   $statement = $connection->prepare(
@@ -221,7 +227,23 @@ if($_POST["action"] == "Select")
  echo json_encode($output);
 }
 
-if($_POST["action"] == "Changer")
+if($_POST["action"] == "SelectRemarque")
+{
+  $output = array();
+  $statement = $connection->prepare(
+   "SELECT * FROM retrospective 
+   WHERE id = '".$_POST["id"]."' 
+   LIMIT 1"
+ );
+  $statement->execute();
+  $result = $statement->fetch();
+
+   $output["labelremarque"] = $result["Label"];
+ 
+ echo json_encode($output);
+}
+
+if($_POST["action"] == "Changer Objectif")
 {
   $statement = $connection->prepare(
    "UPDATE objectif 
@@ -236,6 +258,26 @@ if($_POST["action"] == "Changer")
     ':id_Projet' => $_POST["idProjet"],
     ':EtatObjectif'   => $_POST["EtatObjectif"],
     ':id'   => $_POST["id"]
+  )
+ );
+  if(!empty($result))
+   echo '✓';
+   else
+   echo 'X';
+}
+
+if($_POST["action"] == "Changer Remarque")
+{
+  $statement = $connection->prepare(
+   "UPDATE retrospective
+   SET Label = :LabelRemarque
+   WHERE id = :id
+   "
+ );
+  $result = $statement->execute(
+   array(
+    ':LabelRemarque' => $_POST["Labelretrospective"],
+    ':id' => $_POST["id"]
   )
  );
   if(!empty($result))

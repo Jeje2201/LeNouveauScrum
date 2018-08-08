@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <div id="Modalretrospective" class="modal fade">
+    <div id="ModalRemarque" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -87,7 +87,7 @@
 
           </div>
           <div class="modal-footer">
-            <input type="submit" name="CreerRetrospective" id="CreerRetrospective" class="btn btn-success" />
+            <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -180,10 +180,12 @@ var action = "retrospective";
         });
 
         $('#Bouttonretrospective').click(function () {
-          $('#Modalretrospective').modal('show');
+          $('#ModalRemarque').modal('show');
           $('.modal-title').text("Créer une remarque");
           $('#Labelretrospective').val("");
           $('#EtatNum5').prop("checked", true);
+          $('#ActionRemarque').val("Créer Retrospective")
+
         });
 
         $('#action').click(function () {
@@ -210,18 +212,23 @@ var action = "retrospective";
           }
         });
 
-        $('#CreerRetrospective').click(function () {
+        
+
+        $('#ActionRemarque').click(function () {
 
           var Labelretrospective = $('#Labelretrospective').val();
-          var action = "CréerRetrospective";
+          var id = $('#id').val();
+          var action = $('#ActionRemarque').val();
+          alert(action)
+
           if (Labelretrospective != '') {
             $.ajax({
               url: "Modele/ActionObjectifs.php",
               method: "POST",
-              data: { Labelretrospective: Labelretrospective, action: action },
+              data: { Labelretrospective: Labelretrospective, id:id, action: action },
               success: function (data) {
                 BootstrapAlert(data);
-                $('#Modalretrospective').modal('hide');
+                $('#ModalRemarque').modal('hide');
                 RemplirTableau();
               }
             });
@@ -247,7 +254,7 @@ var action = "retrospective";
 
         $(document).on('click', '.update', function () {
           var id = $(this).attr("id");
-          var action = "Select";
+          var action = "SelectObjectif";
           $.ajax({
             url: "Modele/ActionObjectifs.php",
             method: "POST",
@@ -256,11 +263,29 @@ var action = "retrospective";
             success: function (data) {
               $('#customerModal').modal('show');
               $('.modal-title').text("Éditer objectif");
-              $('#action').val("Changer");
+              $('#action').val("Changer Objectif");
               $('#id').val(id);
               $('#projetId').val(data.id_Projet);
               $('#LabelObjectif').val(data.objectif);
               $('#EtatNum' + data.id_StatutObjectif).prop("checked", true);
+            }
+          });
+        });
+
+                $(document).on('click', '.EditionRemarque', function () {
+          var id = $(this).attr("id");
+          var action = "SelectRemarque";
+          $.ajax({
+            url: "Modele/ActionObjectifs.php",
+            method: "POST",
+            data: { id: id, action: action },
+            dataType: "json",
+            success: function (data) {
+              $('#ModalRemarque').modal('show');
+              $('.modal-title').text("Éditer remarque");
+              $('#ActionRemarque').val("Changer Remarque");
+              $('#id').val(id);
+              $('#Labelretrospective').val(data.labelremarque);
             }
           });
         });
