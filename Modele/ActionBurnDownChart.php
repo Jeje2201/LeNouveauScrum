@@ -23,19 +23,20 @@ require_once ('../Modele/Configs.php');
       $NumeroSprint = $_POST["NumeroSprint"];
 
       $statement = $connection->prepare(
-       $sql = "SELECT $NumeroSprint as sprint, burndownhour as value, date as heure, (SELECT sum(interference.heure)  FROM interference where interference.id_Sprint = ( SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint )) as interferances FROM `vburndown`where id_Sprint = (SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint) order by Date"
+       $sql = "SELECT $NumeroSprint as sprint, burndownhour as Heures, date as Jours, (SELECT sum(interference.heure)  FROM interference where interference.id_Sprint = ( SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint )) as interferances FROM `vburndown`where id_Sprint = (SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint) order by Date"
 
      );
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $values = [];
+      $Heurs = [];
+      $Jours = [];
       $interferences = [];
       $sprintou = [];
       $ToutADescendre = [];
 
       foreach ($result as $row) {
-       $values[] = $row['value'];
+       $Heurs[] = $row['Heures'];
 
        if( empty($row['interferances'])  || is_null($row['interferances'])  || !isset($row['interferances']) || $row['interferances'] === NULL ){
         $interferences[] = 0;
@@ -46,9 +47,10 @@ require_once ('../Modele/Configs.php');
        }
 
        $sprintou[] = $row['sprint'];
+       $Jours[] = date("d-m-Y", strtotime($row['Jours']));
      }
 
-     $array[] = $values;
+     $array[] = $Heurs;
      $array[] = $interferences;
      $array[] = $sprintou;
 
@@ -68,6 +70,8 @@ require_once ('../Modele/Configs.php');
 
       $array[] = $result['dateDebut'];
       $array[] = $result['dateFin'];
+      $array[] = $Jours;
+      
 
 }
 
