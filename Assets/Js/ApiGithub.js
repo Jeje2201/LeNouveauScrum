@@ -37,7 +37,6 @@ function GetAllVersionsInfos(Div) {
                 }
             }
 
-
             $('#' + Div).html(info);
         }
     })

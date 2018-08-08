@@ -7,9 +7,6 @@
  */
 function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
-
-
-
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
   // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array
@@ -205,13 +202,10 @@ function NbJourDeTravail(DateDebut, DateFin) {
         NbHeureAttribuableMax += 1
       }
 
-
       start.setDate(start.getDate() + 1);
     }
     return NbHeureAttribuableMax;
   }
-
-
 
 }
 
@@ -241,7 +235,5 @@ function ListeJoursDate(DateDebut, DateFin) {
     }
     return EnsembleDeDate;
   }
-
-
 
 }

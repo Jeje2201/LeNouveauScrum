@@ -7,7 +7,6 @@ function ClassActive(LaPage, TypeUser, NameUser) {
 	//Puis cherche la nav qui a la page d'affiché et lui donner la class active
 	$('nav a[href^="index.php?vue=' + LaPage + '"]').closest('li').addClass('active');
 
-
 	$("#TitreNavBar").text('Ns Scrum - ' + NameUser);
 
 	if (NameUser == 'Tom ') {

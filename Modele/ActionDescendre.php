@@ -2,8 +2,7 @@
 
 require_once ('../Modele/Configs.php');
 
-
-  function PreviewText($input)
+function PreviewText($input)
 {
     $Problem = array("<", ">");
     $input = str_replace($Problem, " ", $input);
@@ -17,8 +16,7 @@ require_once ('../Modele/Configs.php');
     return $input;
 }
 
-
-  if(isset($_POST["action"])) 
+if(isset($_POST["action"])) 
   {
 
    if($_POST["action"] == "AfficherCards") 

@@ -48,8 +48,7 @@
      $array[] = $HDescendue;
      $array[] = $Hattribue;
 
-
-     $statement = $connection->prepare(
+$statement = $connection->prepare(
        $sql = "
         SELECT 
         P.id as projid,
@@ -160,9 +159,7 @@ $statement = $connection->prepare(
     $array[] = $FinSprint;
     $array[] = $DebutSprint;
 
-
-
-  }
+}
 
   echo json_encode($array);
 

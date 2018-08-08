@@ -254,7 +254,6 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       seuils.push(seuils[0]);
     }
 
-
   new Highcharts.Chart({
     chart: {
       type: 'area',
@@ -323,9 +322,6 @@ function fillInformation(infosource) {
     $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
   else
     setInformation('TotalHDescendueAvecSeuil', '?')
-
-
-
 
   if ((infosource[3][0] > 0) && (infosource[0][0] > 0)) {
 
@@ -421,7 +417,6 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
       for (j = 0; j < ListeJoursDate(data[12][0], data[11][0]).length; j++) {
         MoyenneDescendueTable.push(Math.round(data[8] / (FusionnerJoursEtHeures(data[12][0], data[11][0], data[10], data[9])[1]).length))
       }
-
 
       new Highcharts.Chart({
         chart: {

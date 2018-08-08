@@ -52,8 +52,7 @@ require_once ('../Modele/Configs.php');
    echo $output;
  }
 
-
- if($_POST["action"] == "Changer")
+if($_POST["action"] == "Changer")
  {
 
   $TableauLabelObjectuf = $_POST["ToReturn"];

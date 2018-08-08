@@ -56,8 +56,7 @@ require_once ('../Modele/Configs.php');
 
       $array[] = $ToutADescendre;
 
-
-      $statement = $connection->prepare( $sql = "SELECT * from sprint where sprint.numero = $NumeroSprint"     );
+$statement = $connection->prepare( $sql = "SELECT * from sprint where sprint.numero = $NumeroSprint"     );
       $statement->execute();
       $result = $statement->fetch();
 

@@ -27,16 +27,13 @@
 				<small class="form-text text-muted">(Exemple: ImBatman. Sera affiché sur la card à coté de vos initials)</small>
 			</div>
 
-
-
 			<button class="btn btn-primary" id="set">Sauvegarder</button>
-
 
 		</div>
 		<script>
 			$(document).ready(function () {
 
-				AfficherInfo(<? php echo $_SESSION['IdUtilisateur'] ?>);
+				AfficherInfo(<?php echo $_SESSION['IdUtilisateur'] ?>);
 
 				function AfficherInfo(idRessource) {
 					var action = "Load";

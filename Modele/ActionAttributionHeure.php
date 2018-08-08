@@ -139,8 +139,7 @@ require_once ('../Modele/Configs.php');
    ");
   for($i=0; $i < count($TableauHeurePlanifie);$i++){
 
-
-  $result = $statement->execute(
+$result = $statement->execute(
    array(
     ':NombreHeure' => intval($TableauHeurePlanifie[$i]),
     ':idSprint' => $_POST["idSprint"],
@@ -214,8 +213,7 @@ if($_POST["action"] == "Delete")
    echo 'X';
 }
 
-
- if($_POST["action"] == "AttributionScrumPlaning")
+if($_POST["action"] == "AttributionScrumPlaning")
  {
   $TableauEmploye = $_POST["idEmploye"];
   $statement = $connection->prepare("
@@ -224,8 +222,7 @@ if($_POST["action"] == "Delete")
    ");
   for($i=0; $i < count($TableauEmploye);$i++){
 
-
-  $result = $statement->execute(
+$result = $statement->execute(
    array(
     ':NombreHeure' => intval($_POST["NombreHeure"]),
     ':idSprint' => intval($_POST["idSprint"]),

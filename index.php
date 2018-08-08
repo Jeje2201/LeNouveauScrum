@@ -86,7 +86,5 @@ switch($vue)
 require_once("Vues/Footer.html");
 }
 
-
-
 ?>
 
