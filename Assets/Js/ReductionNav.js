@@ -1,6 +1,5 @@
 
-    $('#SlideNav').click(function() {
-      $('body').toggleClass('sidenav-toggled');
-    });
+$('#SlideNav').click(function () {
+  $('body').toggleClass('sidenav-toggled');
+});
 
-    

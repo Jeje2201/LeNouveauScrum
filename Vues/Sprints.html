@@ -19,99 +19,103 @@
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <span class="fa fa-calendar"></span>&nbsp;Début</span>
-              </div>
-              <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+            </div>
+            <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
 
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <span class="fa fa-calendar"></span>&nbsp;Fin</span>
-                </div>
-                <input type="text" name="dateFin" id='dateFin' class="form-control" />
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <span class="fa fa-calendar"></span>&nbsp;Fin</span>
+            </div>
+            <input type="text" name="dateFin" id='dateFin' class="form-control" />
 
-                <div class="input-group-prepend">
+            <div class="input-group-prepend">
               <span class="input-group-text">Attribuable (h)</span>
             </div>
             <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
 
-                <div class="btn-group " role="group" aria-label="Basic example">
-                    <button type="button" id="modal_button" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint</button>
-                    <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
-                  </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="mb-3">
-            <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-          </div>
-
-          <div id="result" class="table-responsive table-hover"> </div>
-
-<!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
-          <div id="ModalInfoAttribuable" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Raison pour laquelle 60 est le nombre d'heures attribuables par défaut</h4>
-                </div>
-                <div class="modal-body">
-                  
-                  <img src="Assets/Image/InfoHeureAttribuable.png" width="100%">
-                  <p>Par jour est attribuable un certain nombre d'heures.<br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h attribuable car 3h sont déjà attribuées pour la planification des tâches.<br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
+            <div class="btn-group " role="group" aria-label="Basic example">
+              <button type="button" id="modal_button" class="btn btn-info">
+                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint</button>
+              <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
             </div>
           </div>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+      </div>
+
+      <div id="result" class="table-responsive table-hover"> </div>
+
+      <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+      <div id="ModalInfoAttribuable" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Raison pour laquelle 60 est le nombre d'heures attribuables par défaut</h4>
+            </div>
+            <div class="modal-body">
+
+              <img src="Assets/Image/InfoHeureAttribuable.png" width="100%">
+              <p>Par jour est attribuable un certain nombre d'heures.
+                <br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h attribuable
+                car 3h sont déjà attribuées pour la planification des tâches.
+                <br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
- <div id="customerModal" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Nouveau sprint</h4>
-                </div>
-                <div class="modal-body">
-                  <label>Numero</label>
-                  <input type="number" name="numero" id='numeroo' class="form-control">
-                  <br />
-                  <label>Date Debut</label>
-                  <input type="text" name="dateDebut" id='dateDebutt' class="form-control" />
-                  <br />
-                  <label>Date Fin</label>
-                  <input type="text" name="dateFin" id='dateFinn' class="form-control" />
-                  <br />
-                  <label>Attribuable (h)</label>
-                  <input type="number" name="attribuableEdition" id='attribuableEdition' min="1" class="form-control" />
-                  <br />
-                </div>
-                <div class="modal-footer">
-                  <input type="hidden" name="id" id="id" />
-                  <input type="submit" name="action" id="action" class="btn btn-success" />
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                </div>
-              </div>
+      <div id="customerModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Nouveau sprint</h4>
+            </div>
+            <div class="modal-body">
+              <label>Numero</label>
+              <input type="number" name="numero" id='numeroo' class="form-control">
+              <br />
+              <label>Date Debut</label>
+              <input type="text" name="dateDebut" id='dateDebutt' class="form-control" />
+              <br />
+              <label>Date Fin</label>
+              <input type="text" name="dateFin" id='dateFinn' class="form-control" />
+              <br />
+              <label>Attribuable (h)</label>
+              <input type="number" name="attribuableEdition" id='attribuableEdition' min="1" class="form-control" />
+              <br />
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" id="id" />
+              <input type="submit" name="action" id="action" class="btn btn-success" />
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+          </div>
 
         </div>
       </div>
     </div>
   </div>
-  </body>
-  <script>
+</body>
+<script>
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-      $('#dateDebut').val(ChoixDate(0));
+    $('#dateDebut').val(ChoixDate(0));
 
-      $('#dateFin').val(ChoixDate(14));
+    $('#dateFin').val(ChoixDate(14));
 
-      GetNumeroSprintMax('numero');
+    GetNumeroSprintMax('numero');
 
-      BarreDeRecherche('BarreDeRecherche', 'result');
+    BarreDeRecherche('BarreDeRecherche', 'result');
 
     fetchUser(); //This function will load all data on web page when page load
 
@@ -134,9 +138,9 @@
       minView: 2
     });
 
-           $('#BouttonInfo').click(function () {
-          $('#ModalInfoAttribuable').modal('show');
-        });
+    $('#BouttonInfo').click(function () {
+      $('#ModalInfoAttribuable').modal('show');
+    });
 
     function GetNumeroSprintMax(Div) {
       var action = "SprintMax";
@@ -146,7 +150,7 @@
         data: { action: action },
         success: function (data) {
           data = data.replace(/\s+/g, '');
-          $('#'+Div+'').val(data);
+          $('#' + Div + '').val(data);
         }
       });
     }
@@ -159,13 +163,13 @@
       var Attribuable = $('#attribuable').val();
       var id = $('#id').val();
       var action = 'Créer'
-      console.log(dateDebut + " | "+ dateFin)
+      console.log(dateDebut + " | " + dateFin)
       if (dateFin > dateDebut) {
         if (numero != '' && dateDebut != '' && dateFin != '') {
           $.ajax({
             url: "Modele/ActionSprint.php",
             method: "POST",
-            data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, Attribuable:Attribuable, action: action },
+            data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, Attribuable: Attribuable, action: action },
             success: function (data) {
 
               BootstrapAlert(data);
@@ -184,7 +188,7 @@
       }
     });
 
-//This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
+    //This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
       var action = "Select";   //We have define action variable value is equal to select
@@ -218,7 +222,7 @@
         $.ajax({
           url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
           method: "POST",     //Using of Post method for send data
-          data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi:attribuableEdi, action: action }, //Send data to server
+          data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi: attribuableEdi, action: action }, //Send data to server
           success: function (data) {
             BootstrapAlert(data);
             $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
@@ -253,19 +257,19 @@
       }
     });
 
-    $('#dateFin, #dateDebut').datetimepicker().on('changeDate', function(ev){
+    $('#dateFin, #dateDebut').datetimepicker().on('changeDate', function (ev) {
 
-    $("#attribuable").attr({
-       "max" : (NbJourDeTravail($('#dateDebut').val(), $('#dateFin').val())*7)
+      $("#attribuable").attr({
+        "max": (NbJourDeTravail($('#dateDebut').val(), $('#dateFin').val()) * 7)
+      });
+
     });
 
-});
-
-    $('#dateFin, #dateDebut').datetimepicker().on('click', function(ev){
+    $('#dateFin, #dateDebut').datetimepicker().on('click', function (ev) {
 
       $('#dateFin').datetimepicker('setStartDate', $('#dateDebut').val());
 
     });
 
-});
+  });
 </script>

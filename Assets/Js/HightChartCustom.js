@@ -320,14 +320,14 @@ function fillInformation(infosource) {
     setInformation('TotalHResteADescendre', '?')
 
   if ((infosource[1][0] > 0) || (infosource[0][0] > 0))
-  $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
+    $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
   else
-  setInformation('TotalHDescendueAvecSeuil', '?')    
+    setInformation('TotalHDescendueAvecSeuil', '?')
 
 
 
 
-  if ((infosource[3][0] > 0) && (infosource[0][0] > 0 )) {
+  if ((infosource[3][0] > 0) && (infosource[0][0] > 0)) {
 
     $("#TotalHDescendue").text((infosource[3][0] - infosource[0][infosource[0].length - 1]));
 
@@ -341,9 +341,9 @@ function fillInformation(infosource) {
     $("#PourcentageDescendue").text(Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0])) + "%");
 
   } else {
-  $("#TotalHDescendue").text("0");
-  $("#BarDePourcentageDheureDescendue").html(" ?");
-  $("#PourcentageDescendue").text("");
+    $("#TotalHDescendue").text("0");
+    $("#BarDePourcentageDheureDescendue").html(" ?");
+    $("#PourcentageDescendue").text("");
   }
 }
 

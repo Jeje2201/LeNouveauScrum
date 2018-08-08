@@ -31,50 +31,51 @@
         <div class="col-lg-6">
           <!-- Example Pie Chart Card-->
           <div class="card mb-3">
-           <div class="card-header">
-            Valider les tâches
-          </div>
-          <div class="card-body">
+            <div class="card-header">
+              Valider les tâches
+            </div>
+            <div class="card-body">
 
-            <div class="input-group mb-12">
+              <div class="input-group mb-12">
 
-              <div class="input-group-prepend">
-                <span class="input-group-text">Date</span>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Date</span>
+                </div>
+                <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+
+                <button type="button" id="action" class="btn btn-info">
+                  <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Descendre</button>
+
               </div>
-              <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
-
-              <button type="button" id="action" class="btn btn-info"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Descendre</button>
-
             </div>
           </div>
         </div>
+
       </div>
 
-    </div>
-
-    <div class="row">
-<div class="col-lg-6">
-      <div class="card mb-3">
-        <div class="card-header">
-          <center>Tâches en cours</center>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">
+              <center>Tâches en cours</center>
+            </div>
+            <div class="card-body card-columns" id=EnCours>
+            </div>
+          </div>
         </div>
-        <div class="card-body card-columns" id=EnCours>
+
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">
+              <center>Tâches achevées</center>
+            </div>
+            <div class="card-body card-columns" id=Fini>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-
-<div class="col-lg-6">
-      <div class="card mb-3">
-        <div class="card-header">
-          <center>Tâches achevées</center>
-        </div>
-        <div class="card-body card-columns" id=Fini>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  </div>
 </body>
 
 <div id="customerModal" class="modal fade">
@@ -129,11 +130,11 @@
               $('#DateAujourdhui').datetimepicker('setStartDate', data[0]);
               $('#DateAujourdhui').datetimepicker('setEndDate', data[1]);
 
-              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data[0])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data[1]))){
+              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data[0])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data[1]))) {
                 console.log('Toujours dans Sprint, touche pas la date')
                 $('#DateAujourdhui').val(ChoixDate(0));
               }
-              else{
+              else {
                 console.log('aah plus dans le sprint, met la derniere date possible')
                 $('#DateAujourdhui').val(data[1]);
               }
@@ -158,7 +159,7 @@
           $('#ListeEmploye').html(data.Attribution);
           var NumEmploye = localStorage.getItem("Connexion")
           console.log(NumEmploye)
-          $('#numeroEmploye option[value="'+NumEmploye+'"]').attr('selected','selected');
+          $('#numeroEmploye option[value="' + NumEmploye + '"]').attr('selected', 'selected');
         }
       });
 
@@ -200,7 +201,7 @@
     });
   });
 
-function DeplaceToi(id) {
+  function DeplaceToi(id) {
 
     if ($(id).parent().attr('id') == 'EnCours') {
       $(id).prependTo($("#Fini"));

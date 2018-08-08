@@ -4,38 +4,39 @@
 
       <div class="row">
         <div class="col-lg-4">
-        <div id="ListSrint"></div>
-      </div>
-      <div class="col-lg-4">
-        <button type="button" id="modal_button" class="btn btn-block btn-info"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planifier une tâche </button>
-      </div>
-      <div class="col-lg-4">
-        <button type="button" id="modal_button2" class="btn btn-block btn-info"> <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planing </button>
-      </div>
+          <div id="ListSrint"></div>
+        </div>
+        <div class="col-lg-4">
+          <button type="button" id="modal_button" class="btn btn-block btn-info">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planifier une tâche </button>
+        </div>
+        <div class="col-lg-4">
+          <button type="button" id="modal_button2" class="btn btn-block btn-info">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planing </button>
+        </div>
 
       </div>
       <div class="row">
-<div class="col-lg-7">
-        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-</div>
-</div>
-<div class="row">
-      <div class="col-lg-7">
-
-        <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
-
+        <div class="col-lg-7">
+          <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+        </div>
       </div>
+      <div class="row">
+        <div class="col-lg-7">
 
-            <div class="col-lg-3">
+          <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
-        <div id="TableListHeuresAttribueesRessources" class="table-responsive table-hover"></div>
+        </div>
+
+        <div class="col-lg-3">
+
+          <div id="TableListHeuresAttribueesRessources" class="table-responsive table-hover"></div>
+        </div>
+        <div class="col-lg-2">
+          <div id="TableauListeHeuresAttrbueesProjets" class="table-responsive table-hover"></div>
+
+        </div>
       </div>
-      <div class="col-lg-2">
-        <div id="TableauListeHeuresAttrbueesProjets" class="table-responsive table-hover"></div>
-        
-
-      </div>
-    </div>
     </div>
 </body>
 
@@ -74,13 +75,14 @@
       </div>
       <div class="modal-body">
         <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Liste des ressources
-  </button>
-  <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox" aria-labelledby="dropdownMenuButton">
-  </div>
-</div>
-        
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Liste des ressources
+          </button>
+          <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox" aria-labelledby="dropdownMenuButton">
+          </div>
+        </div>
+
         <br />
         <label>Type de tâche</label>
         <div id="ListTypeTache"></div>
@@ -125,12 +127,12 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
-          $('#'+Div+'').html(data);
+          $('#' + Div + '').html(data);
         }
       });
     }
 
-        function RemplirTableauRessources(Div) {
+    function RemplirTableauRessources(Div) {
       var idAffiche = $('#numeroSprint').val();
       var action = "RemplirTableauRessources";
       $.ajax({
@@ -138,12 +140,12 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
-          $('#'+Div+'').html(data);
+          $('#' + Div + '').html(data);
         }
       });
     }
 
-            function RemplirTableauProjets(Div) {
+    function RemplirTableauProjets(Div) {
       var idAffiche = $('#numeroSprint').val();
       var action = "RemplirTableauProjets";
       $.ajax({
@@ -151,7 +153,7 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
-          $('#'+Div+'').html(data);
+          $('#' + Div + '').html(data);
         }
       });
     }
@@ -160,7 +162,7 @@
       RemplirTableau('TableListHeuresAttribuees');
       RemplirTableauRessources('TableListHeuresAttribueesRessources');
       RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-     ListEmployeActifPlanification('ListEmploye',$('#numeroSprint').val() )
+      ListEmployeActifPlanification('ListEmploye', $('#numeroSprint').val())
     });
 
     $('#modal_button').click(function () {
@@ -172,7 +174,7 @@
       $('#action').val('Attribuer');
     });
 
-        $('#modal_button2').click(function () {
+    $('#modal_button2').click(function () {
       $('#ModalTache2').modal('show');
       $('.modal-title').text("Attribuer heure Scrum Planing");
       $('#action').val('Attribuer2');
@@ -183,32 +185,69 @@
       var idEmploye = $('#employeId').val();
       var idProjet = $('#projetId').val();
       var erreur = false
-      if($('#nbheure').attr('type') == 'text'){
-          var NombreHeure = $('#nbheure').val().split('+').map(function(item) {
-            return parseInt(item);
-          });
+      if ($('#nbheure').attr('type') == 'text') {
+        var NombreHeure = $('#nbheure').val().split('+').map(function (item) {
+          return parseInt(item);
+        });
 
-          NombreHeure.forEach(function(element) {
-          if(isNaN(element))
+        NombreHeure.forEach(function (element) {
+          if (isNaN(element))
             erreur = true
-          });
+        });
       }
       else
         var NombreHeure = $('#nbheure').val()
-      
+
 
       var id = $('#id').val();
       var action = $('#action').val();
       console.log(NombreHeure)
-      
-      if(erreur == false){
-      if (idSprint != '' && idEmploye != '' && idProjet != '') {
 
-        
-         $.ajax({
+      if (erreur == false) {
+        if (idSprint != '' && idEmploye != '' && idProjet != '') {
+
+
+          $.ajax({
+            url: "Modele/ActionAttributionHeure.php",
+            method: "POST",
+            data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
+            success: function (data) {
+              BootstrapAlert(data);
+              // $('#ModalTache').modal('hide');
+              RemplirTableau('TableListHeuresAttribuees');
+              RemplirTableauRessources('TableListHeuresAttribueesRessources');
+              RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+            }
+          });
+
+          $('#nbheure').val('');
+
+        }
+        else
+          alert("Tous les champs doivent être plein.");
+      }
+      else alert("Le champs d'heures comporte une erreur")
+    });
+
+    $(document).on('click', '.yolo', function () {
+
+      var idSprint = $('#numeroSprint').val();
+      var action = "AttributionScrumPlaning";
+
+      var idEmploye = new Array;
+      $('.checkbox:checked').each(function () {
+        idEmploye.push($(this).val());
+      });
+
+      var idTypeTache = parseInt($('#RemplirTypeTache1').val());
+      var NombreHeure = $('#nbheure2').val();
+
+      console.log(idSprint + ' - ' + idEmploye + ' - ' + idTypeTache + ' - ' + NombreHeure)
+      if (idEmploye.length > 0) {
+        $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
-          data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
+          data: { idSprint: idSprint, idEmploye: idEmploye, NombreHeure: NombreHeure, idTypeTache: idTypeTache, action: action },
           success: function (data) {
             BootstrapAlert(data);
             // $('#ModalTache').modal('hide');
@@ -217,64 +256,27 @@
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
           }
         });
-       
-       $('#nbheure').val('');
-       
       }
-      else
-        alert("Tous les champs doivent être plein.");
-      }
-      else alert("Le champs d'heures comporte une erreur")
-    });
-
-$(document).on('click', '.yolo', function () {
-
-  var idSprint = $('#numeroSprint').val();
-  var action = "AttributionScrumPlaning";
-
-  var idEmploye = new Array;
-  $('.checkbox:checked').each(function () {
-    idEmploye.push($(this).val());
-  });
-
-  var idTypeTache = parseInt($('#RemplirTypeTache1').val());
-  var NombreHeure = $('#nbheure2').val();
-
-    console.log(idSprint + ' - ' + idEmploye + ' - '+idTypeTache + ' - ' + NombreHeure )
-    if(idEmploye.length > 0) {
-         $.ajax({
-      url: "Modele/ActionAttributionHeure.php",
-      method: "POST",
-      data: { idSprint: idSprint, idEmploye: idEmploye, NombreHeure: NombreHeure, idTypeTache:idTypeTache, action: action },
-      success: function (data) {
-        BootstrapAlert(data);
-        // $('#ModalTache').modal('hide');
-        RemplirTableau('TableListHeuresAttribuees');
-        RemplirTableauRessources('TableListHeuresAttribueesRessources');
-        RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-      }
-});
-    }
       else
         alert('Aucune ressource selectionnée ?')
-  });
+    });
 
-//select all checkboxes
-$("#TOUTLEMONDE").change(function(){  //"select all" change 
-    $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
-});
+    //select all checkboxes
+    $("#TOUTLEMONDE").change(function () {  //"select all" change 
+      $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+    });
 
-//".checkbox" change 
-$('.checkbox').change(function(){ 
-    //uncheck "select all", if one of the listed checkbox item is unchecked
-    if(false == $(this).prop("checked")){ //if this item is unchecked
+    //".checkbox" change 
+    $('.checkbox').change(function () {
+      //uncheck "select all", if one of the listed checkbox item is unchecked
+      if (false == $(this).prop("checked")) { //if this item is unchecked
         $("#TOUTLEMONDE").prop('checked', false); //change "select all" checked status to false
-    }
-    //check "select all" if all checkbox items are checked
-    if ($('.checkbox:checked').length == $('.checkbox').length ){
+      }
+      //check "select all" if all checkbox items are checked
+      if ($('.checkbox:checked').length == $('.checkbox').length) {
         $("#TOUTLEMONDE").prop('checked', true);
-    }
-});
+      }
+    });
 
 
     $(document).on('click', '.update', function () {
@@ -321,9 +323,9 @@ $('.checkbox').change(function(){
       }
     });
 
-$('#employeId, #projetId').select2({
-  width: '100%'
-});
+    $('#employeId, #projetId').select2({
+      width: '100%'
+    });
 
   });
 </script>

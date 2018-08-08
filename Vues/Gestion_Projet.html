@@ -17,228 +17,229 @@
         </div>
       </div>
     </div>
-  </body>
+</body>
 
-  <div id="customerModal" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"></h4>
+<div id="customerModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <input class="form-control" name="Nom" id="Nom" type="text" placeholder="Nom">
         </div>
-        <div class="modal-body">
 
-          <div class="form-group">
-            <input class="form-control" name="Nom" id="Nom" type="text" placeholder="Nom">
-          </div>
+        <div class="form-group">
+          <label>Type</label>
+          <div id="listeTypeProjet"></div>
+        </div>
 
-          <div class="form-group">
-            <label>Type</label>
-            <div id="listeTypeProjet"></div>
-          </div>
-
-          <div>
+        <div>
           <label>Actif</label>
           <input id="Actif" type="checkbox" checked>
         </div>
 
-          <div class="form-group">
-            <label>Icone (50x50)</label>
-            <div class="row">
-              <div class="col">
-            <div id='ListImage'></div>
+        <div class="form-group">
+          <label>Icone (50x50)</label>
+          <div class="row">
+            <div class="col">
+              <div id='ListImage'></div>
             </div>
-             <div class="col">
-            <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="40px">
+            <div class="col">
+              <img id="IconPreview" src='Assets/Image/Projets/inconnue.png' width="40px">
+            </div>
           </div>
         </div>
-          </div>
 
-        </div>
-        <div class="modal-footer">
-          <input type="hidden" name="id" id="id" />
-          <input type="submit" name="action" id="action" class="btn btn-success" />
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
+</div>
 
 
 <div id="imageModal" class="modal fade" role="dialog">
- <div class="modal-dialog">
-  <div class="modal-content">
-   <div class="modal-header"><h4>Ajouter une image</h4></div>
-   <div class="modal-body">
-    <form id="image_form" method="post" enctype="multipart/form-data">
-     <input type="file" name="image" id="image" /></p><br />
-     <small class="form-text text-muted">(Eviter les accents et espaces)</small>
-     <input type="hidden" name="action" id="action" value="insert" />
-     <input type="hidden" name="image_id" id="image_id" />
-     <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
-      
-    </form>
-   </div>
-   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-   </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Ajouter une image</h4>
+      </div>
+      <div class="modal-body">
+        <form id="image_form" method="post" enctype="multipart/form-data">
+          <input type="file" name="image" id="image" />
+          </p>
+          <br />
+          <small class="form-text text-muted">(Eviter les accents et espaces)</small>
+          <input type="hidden" name="action" id="action" value="insert" />
+          <input type="hidden" name="image_id" id="image_id" />
+          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
   </div>
- </div>
 </div>
 
-  <script>
+<script>
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-      BarreDeRecherche('BarreDeRecherche', 'result');
+    BarreDeRecherche('BarreDeRecherche', 'result');
 
-      RemplirListTypeTypeProjet('listeTypeProjet')
+    RemplirListTypeTypeProjet('listeTypeProjet')
 
-      RemplirListImages('ListImage');
+    RemplirListImages('ListImage');
 
-      fetchUser();
+    fetchUser();
 
-      function fetchUser() {
-        var action = "Load";
+    function fetchUser() {
+      var action = "Load";
+      $.ajax({
+        url: "Modele/ActionGestionProjet.php",
+        method: "POST",
+        data: { action: action },
+        success: function (data) {
+          $('#result').html(data);
+        }
+      });
+    }
+
+    $('#ListImage').change(function () {
+      $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
+    });
+
+    $('#modal_button').click(function () {
+      $('#customerModal').modal('show');
+      $('.modal-title').text("Ajouter un projet");
+      $('#action').val('Ajouter');
+      $('#ToutesLesImages').val('Inconnue.png');
+      $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
+      $('#Nom').val('');
+    });
+
+    $('#action').click(function () {
+
+      var Nom = $('#Nom').val();
+      var TypeProjet = $('#TypeProjet').val();
+      var fileName = $('#ToutesLesImages').val();
+      var action = $('#action').val();
+      var id = $('#id').val();
+      if (document.getElementById("Actif").checked == true)
+        var Actif = 1;
+      else
+        var Actif = 0;
+
+
+      if (Nom != '' && fileName != '') {
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
-          data: { action: action },
+          data: { id: id, Nom: Nom, TypeProjet: TypeProjet, fileName: fileName, Actif: Actif, action: action },
+
           success: function (data) {
-            $('#result').html(data);
+            BootstrapAlert(data);
+            console.log(data);
+            $('#customerModal').modal('hide');
+            fetchUser();
           }
         });
       }
+      else {
+        alert("Tous les champs doivent être plein.");
+      }
+    })
 
-      $('#ListImage').change(function () {
-        $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
-      });
+    $(document).on('click', '.update', function () {
+      var id = $(this).attr("id");
+      var action = "Select";
+      $.ajax({
+        url: "Modele/ActionGestionProjet.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
+          $('#customerModal').modal('show');
+          $('.modal-title').text("Mettre à jour");
+          $('#action').val("Update");
 
-      $('#modal_button').click(function () {
-        $('#customerModal').modal('show');
-        $('.modal-title').text("Ajouter un projet");
-        $('#action').val('Ajouter');
-        $('#ToutesLesImages').val('Inconnue.png');
-        $("#IconPreview").attr("src", 'Assets/Image/Projets/'+$('#ToutesLesImages').val());
-        $('#Nom').val('');
-      });
-
-      $('#action').click(function () {
-
-        var Nom = $('#Nom').val();
-        var TypeProjet = $('#TypeProjet').val();
-        var fileName = $('#ToutesLesImages').val();
-        var action = $('#action').val();
-        var id = $('#id').val();
-        if (document.getElementById("Actif").checked == true)
-          var Actif = 1;
-        else 
-          var Actif = 0;
-      
-
-        if (Nom != '' && fileName != '') {
-          $.ajax({
-            url: "Modele/ActionGestionProjet.php",
-            method: "POST",
-            data: { id: id, Nom: Nom, TypeProjet: TypeProjet, fileName: fileName, Actif:Actif, action: action },
-
-            success: function (data) {
-              BootstrapAlert(data);
-              console.log(data);
-              $('#customerModal').modal('hide');
-              fetchUser();
-            }
-          });
+          $('#id').val(id);
+          $('#Nom').val(data.Nom);
+          $('#TypeProjet').val(data.TypeProjet);
+          $('#ToutesLesImages').val(data.Logo);
+          if (data.actif == 1)
+            $('#Actif').prop('checked', true);
+          else
+            $('#Actif').prop('checked', false);
+          $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
         }
-        else {
-          alert("Tous les champs doivent être plein.");
-        }
-      })
+      });
+    });
 
-$(document).on('click', '.update', function () {
-        var id = $(this).attr("id");
-        var action = "Select";
+    $(document).on('click', '.delete', function () {
+      var id = $(this).attr("id");
+      if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?")) {
+        var action = "Delete";
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
           data: { id: id, action: action },
-          dataType: "json",
           success: function (data) {
-            $('#customerModal').modal('show');
-            $('.modal-title').text("Mettre à jour");
-            $('#action').val("Update");
+            fetchUser();
+            BootstrapAlert(data);
+          }
+        })
+      }
+      else {
+        return false;
+      }
+    });
 
-            $('#id').val(id);
-            $('#Nom').val(data.Nom);
-            $('#TypeProjet').val(data.TypeProjet);
-            $('#ToutesLesImages').val(data.Logo);
-            if (data.actif == 1)
-            $('#Actif').prop('checked', true);
-          else
-            $('#Actif').prop('checked', false);
-            $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
+    $('#add').click(function () {
+      $('#imageModal').modal('show');
+      $('#image_form')[0].reset();
+      $('.modal-title').text("Add Image");
+      $('#image_id').val('');
+      $('#action').val('insert');
+      $('#insert').val("Ajouter");
+    });
+    $('#image_form').submit(function (event) {
+      event.preventDefault();
+      var image_name = $('#image').val();
+      if (image_name == '') {
+        alert("Choisie une image d'abord");
+        return false;
+      }
+      else {
+
+        $.ajax({
+          url: "Modele/ActionGestionProjet.php",
+          method: "POST",
+          data: new FormData(this),
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            $('#image_form')[0].reset();
+            $('#imageModal').modal('hide');
+            BootstrapAlert(data);
+            fetchUser();
+
           }
         });
-      });
-
-      $(document).on('click', '.delete', function () {
-        var id = $(this).attr("id");
-        if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?")) {
-          var action = "Delete";
-          $.ajax({
-            url: "Modele/ActionGestionProjet.php",
-            method: "POST",
-            data: { id: id, action: action },
-            success: function (data) {
-              fetchUser();
-              BootstrapAlert(data);
-            }
-          })
-        }
-        else {
-          return false;
-        }
-      });
-
- $('#add').click(function(){
-  $('#imageModal').modal('show');
-  $('#image_form')[0].reset();
-  $('.modal-title').text("Add Image");
-  $('#image_id').val('');
-  $('#action').val('insert');
-  $('#insert').val("Ajouter");
- });
- $('#image_form').submit(function(event){
-  event.preventDefault();
-  var image_name = $('#image').val();
-  if(image_name == '')
-  {
-   alert("Choisie une image d'abord");
-   return false;
-  }
-  else
-  {
-
-    $.ajax({
-     url:"Modele/ActionGestionProjet.php",
-     method:"POST",
-     data:new FormData(this),
-     contentType:false,
-     processData:false,
-     success:function(data)
-     {
-      $('#image_form')[0].reset();
-      $('#imageModal').modal('hide');
-      BootstrapAlert(data);
-      fetchUser();
-
-     }
+      }
     });
-  }
- });
 
-         $('#TypeProjet').select2({
-  width: '100%'
-});
-
+    $('#TypeProjet').select2({
+      width: '100%'
     });
-  </script>
+
+  });
+</script>

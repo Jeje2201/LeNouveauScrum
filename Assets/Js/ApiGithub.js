@@ -14,33 +14,33 @@ function GetAllVersionsInfos(Div) {
             var info = "";
             var liste = []
             for (var i = 0; i < data.length; i++) {
-              tag = parseFloat(data[i].tag_name)
+                tag = parseFloat(data[i].tag_name)
                 liste.push(tag)
 
-           }
-           liste.sort(function(a, b){return b-a})
-           console.log('taille liste version: '+liste.length)
-           console.log(liste)
+            }
+            liste.sort(function (a, b) { return b - a })
+            console.log('taille liste version: ' + liste.length)
+            console.log(liste)
 
-          for (var i = 0; i < liste.length; i++) {
+            for (var i = 0; i < liste.length; i++) {
 
-               tag = liste[i]
+                tag = liste[i]
 
-               for (var a = 0; a < liste.length; a++) {
-                  if(tag == parseFloat(data[a].tag_name) ){
-                    console.log('trouvé: '+data[a].tag_name)
-                DateSortie = data[a].published_at.split('T')[0].split('-')
-               info += '<p><h3>'+DateSortie[2] +'-'+DateSortie[1] +'-'+DateSortie[0] +' (version '+data[a].tag_name+')</h3></p>'
-               info += data[a].body
-               info += ' <hr><br>'
-               }
-               }
-           }
+                for (var a = 0; a < liste.length; a++) {
+                    if (tag == parseFloat(data[a].tag_name)) {
+                        console.log('trouvé: ' + data[a].tag_name)
+                        DateSortie = data[a].published_at.split('T')[0].split('-')
+                        info += '<p><h3>' + DateSortie[2] + '-' + DateSortie[1] + '-' + DateSortie[0] + ' (version ' + data[a].tag_name + ')</h3></p>'
+                        info += data[a].body
+                        info += ' <hr><br>'
+                    }
+                }
+            }
 
 
-           $('#'+Div).html(info);
-       }
-   })
+            $('#' + Div).html(info);
+        }
+    })
 }
 
 function CheckLatestVersionNumber() {
@@ -51,14 +51,14 @@ function CheckLatestVersionNumber() {
         url: url,
         success: function (data) {
 
-          console.log('derniere version enregistré dans le pc: '+localStorage.getItem('DerniereVersionConnu')+ ' | derniere version release sur github: '+data.tag_name)
+            console.log('derniere version enregistré dans le pc: ' + localStorage.getItem('DerniereVersionConnu') + ' | derniere version release sur github: ' + data.tag_name)
 
-          if(localStorage.getItem('DerniereVersionConnu') == data.tag_name)
-            document.getElementById("newsgithub").style.display = "none";
-          else
-            document.getElementById("newsgithub").style.display = "inline-block";
-       }
-   })
+            if (localStorage.getItem('DerniereVersionConnu') == data.tag_name)
+                document.getElementById("newsgithub").style.display = "none";
+            else
+                document.getElementById("newsgithub").style.display = "inline-block";
+        }
+    })
 
 }
 
@@ -69,11 +69,11 @@ function SetLastVersion() {
     $.ajax({
         url: url,
         success: function (data) {
-          if(localStorage.getItem('DerniereVersionConnu') != data.tag_name)
-          localStorage.setItem('DerniereVersionConnu', data.tag_name);
+            if (localStorage.getItem('DerniereVersionConnu') != data.tag_name)
+                localStorage.setItem('DerniereVersionConnu', data.tag_name);
 
-       }
-   })
+        }
+    })
 
 }
 

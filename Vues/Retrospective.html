@@ -4,310 +4,316 @@
       <div class="card col-md-12">
         <div class="card-header">
           <i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
-          <div class="card-body">
-            <!-- Selectionner le sprint sur lequel l'on va jouer -->
-           
-              <div class="form-row">
-                <div class="col">
-                  <div id="ListSrint"></div>
-                </div>
-                
-                <div class="col">
-                  <button type="button" id="modal_button" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Objectif</button>
-                </div>
+        <div class="card-body">
+          <!-- Selectionner le sprint sur lequel l'on va jouer -->
 
-                <!-- <div class="col">
+          <div class="form-row">
+            <div class="col">
+              <div id="ListSrint"></div>
+            </div>
+
+            <div class="col">
+              <button type="button" id="modal_button" class="btn btn-success btn-block">
+                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Objectif</button>
+            </div>
+
+            <!-- <div class="col">
                   <button type="button" id="Bouttonretrospective" class="btn btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
                 </div> -->
 
-                <div class="col">
-                  <div class="btn-group btn-block" role="group" aria-label="Basic example"><button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button><button type="button" id="BouttonInfo" class="btn btn-secondary">?</button></div>
-                  
-                </div>
-
+            <div class="col">
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
+                <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
               </div>
 
-          </div>
-
-        </div>
-<input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
-        <textarea id="textbox" class="hideElement"></textarea>
-
-        <div id="TableObjectif" class="table-responsive table-hover"></div>
-
-              <button type="button" id="Bouttonretrospective" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
-              <p></p>
-
-        <div id="TableRetrospective" class="table-responsive table-hover"></div>
-
-      </div>
-    </body>
-
-    <div id="customerModal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body">
-
-            <label>Projet</label>
-            <div id="ListProjet"> </div>
-            <br />
-
-            <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Objectif">
-            <br />
-
-            <label>Etat</label>
-            <div id="listEtatObjectif"></div>
-
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="id" id="id" />
-            <input type="submit" name="action" id="action" class="btn btn-success" />
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="ModalRemarque" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Remarque</h4>
-          </div>
-          <div class="modal-body">
-
-            <div class="ui-widget">
-              <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Remarque..">
-              <small>Auto-complétion possible (ex: Fixer internet)</small>
             </div>
 
           </div>
-          <div class="modal-footer">
-            <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-          </div>
+
         </div>
+
+      </div>
+      <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+      <textarea id="textbox" class="hideElement"></textarea>
+
+      <div id="TableObjectif" class="table-responsive table-hover"></div>
+
+      <button type="button" id="Bouttonretrospective" class="btn btn-success">
+        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
+      <p></p>
+
+      <div id="TableRetrospective" class="table-responsive table-hover"></div>
+
+    </div>
+</body>
+
+<div id="customerModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+        <label>Projet</label>
+        <div id="ListProjet"> </div>
+        <br />
+
+        <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Objectif">
+        <br />
+
+        <label>Etat</label>
+        <div id="listEtatObjectif"></div>
+
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <script>
+<div id="ModalRemarque" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Remarque</h4>
+      </div>
+      <div class="modal-body">
 
-      $(document).ready(function () {
+        <div class="ui-widget">
+          <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Remarque..">
+          <small>Auto-complétion possible (ex: Fixer internet)</small>
+        </div>
 
-        RemplirListSprint('ListSrint');
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        RemplirListProjet('ListProjet');
+<script>
 
-        RemplirListEtatObjectif('listEtatObjectif');
+  $(document).ready(function () {
 
-        RemplirTableau();
+    RemplirListSprint('ListSrint');
 
-        BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
+    RemplirListProjet('ListProjet');
 
-        function RemplirTableau() {
-          var idAffiche = $('#numeroSprint').val();
-          var action = "Load";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { action: action, idAffiche: idAffiche },
-            success: function (data) {
-              $('#TableObjectif').html(data);
-            }
-          });
+    RemplirListEtatObjectif('listEtatObjectif');
 
-          var action = "Load2";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { action: action, idAffiche: idAffiche },
-            success: function (dataa) {
-              $('#textbox').html(dataa.trim());
+    RemplirTableau();
 
+    BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
-}
-        });
+    function RemplirTableau() {
+      var idAffiche = $('#numeroSprint').val();
+      var action = "Load";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { action: action, idAffiche: idAffiche },
+        success: function (data) {
+          $('#TableObjectif').html(data);
+        }
+      });
 
-var action = "retrospective";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { action: action },
-            success: function (data) {
-              $('#TableRetrospective').html(data);
-            }
-          });
+      var action = "Load2";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { action: action, idAffiche: idAffiche },
+        success: function (dataa) {
+          $('#textbox').html(dataa.trim());
+
 
         }
+      });
 
-        $('#BoutonMail').click(function () {
-                window.open('mailto:natural-solutions@googlegroups.com?subject=Rétrospective Sprint n°'+ $('#numeroSprint option:selected').text()+'&body='+$('#textbox').val())
-              });
+      var action = "retrospective";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { action: action },
+        success: function (data) {
+          $('#TableRetrospective').html(data);
+        }
+      });
 
-        $(document).on('click', '.1, .2, .3, .4, .5', function () {
-               var EtatObjectif = this.className.split(" ")[2]
-               var id = this.id
-               var action = 'ChangerEtat'
-               $.ajax({
-              url: "Modele/ActionObjectifs.php",
-              method: "POST",
-              data: { id: id, EtatObjectif:EtatObjectif, action: action },
-              success: function (data) {
-                $('#customerModal').modal('hide');
-                RemplirTableau();
-              }
-            });
-              });
+    }
 
-        $('#BouttonInfo').click(function () {
-                alert('Le bouton de mail utilise "mailto:".\nSi rien ne se passe, veuillez vérifier vos paramètres de mail par défaut.\n- Sur chrome rendez vous ici : chrome://settings/handlers\n- Sur firefox allez dans "application" depuis ce lien : about:preferences ')
-              });
+    $('#BoutonMail').click(function () {
+      window.open('mailto:natural-solutions@googlegroups.com?subject=Rétrospective Sprint n°' + $('#numeroSprint option:selected').text() + '&body=' + $('#textbox').val())
+    });
 
-        $('#numeroSprint').change(function () {
+    $(document).on('click', '.1, .2, .3, .4, .5', function () {
+      var EtatObjectif = this.className.split(" ")[2]
+      var id = this.id
+      var action = 'ChangerEtat'
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { id: id, EtatObjectif: EtatObjectif, action: action },
+        success: function (data) {
+          $('#customerModal').modal('hide');
           RemplirTableau();
-        });
+        }
+      });
+    });
 
-        $('#modal_button').click(function () {
+    $('#BouttonInfo').click(function () {
+      alert('Le bouton de mail utilise "mailto:".\nSi rien ne se passe, veuillez vérifier vos paramètres de mail par défaut.\n- Sur chrome rendez vous ici : chrome://settings/handlers\n- Sur firefox allez dans "application" depuis ce lien : about:preferences ')
+    });
+
+    $('#numeroSprint').change(function () {
+      RemplirTableau();
+    });
+
+    $('#modal_button').click(function () {
+      $('#customerModal').modal('show');
+      $('.modal-title').text("Créer un objectif");
+      $('#action').val('Créer');
+      $('#LabelObjectif').val("");
+      $('#EtatNum5').prop("checked", true);
+    });
+
+    $('#Bouttonretrospective').click(function () {
+      $('#ModalRemarque').modal('show');
+      $('.modal-title').text("Créer une remarque");
+      $('#Labelretrospective').val("");
+      $('#EtatNum5').prop("checked", true);
+      $('#ActionRemarque').val("Créer Retrospective")
+
+    });
+
+    $('#action').click(function () {
+      var idSprint = $('#numeroSprint').val();
+      var idProjet = $('#projetId').val();
+      var LabelObjectif = $('#LabelObjectif').val();
+      var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
+      var id = $('#id').val();
+      var action = $('#action').val();
+      if (idSprint != '' && LabelObjectif != '' && EtatObjectif != '' && idProjet != '') {
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, EtatObjectif: EtatObjectif, idProjet: idProjet, action: action },
+          success: function (data) {
+            BootstrapAlert(data);
+            $('#customerModal').modal('hide');
+            RemplirTableau();
+          }
+        });
+      }
+      else {
+        alert("Tous les champs doivent être plein.");
+      }
+    });
+
+
+
+    $('#ActionRemarque').click(function () {
+
+      var Labelretrospective = $('#Labelretrospective').val();
+      var id = $('#id').val();
+      var action = $('#ActionRemarque').val();
+      alert(action)
+
+      if (Labelretrospective != '') {
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: { Labelretrospective: Labelretrospective, id: id, action: action },
+          success: function (data) {
+            BootstrapAlert(data);
+            $('#ModalRemarque').modal('hide');
+            RemplirTableau();
+
+          }
+        });
+      }
+      else {
+        alert("Tous les champs doivent être plein.");
+      }
+    });
+
+    $(document).on('click', '.success', function () {
+      var id = $(this).attr("id");
+      var action = "retrospectiveFini";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { id: id, action: action },
+        success: function (data) {
+          BootstrapAlert(data);
+          RemplirTableau();
+        }
+      });
+    });
+
+    $(document).on('click', '.update', function () {
+      var id = $(this).attr("id");
+      var action = "SelectObjectif";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
           $('#customerModal').modal('show');
-          $('.modal-title').text("Créer un objectif");
-          $('#action').val('Créer');
-          $('#LabelObjectif').val("");
-          $('#EtatNum5').prop("checked", true);
-        });
+          $('.modal-title').text("Éditer objectif");
+          $('#action').val("Changer Objectif");
+          $('#id').val(id);
+          $('#projetId').val(data.id_Projet);
+          $('#LabelObjectif').val(data.objectif);
+          $('#EtatNum' + data.id_StatutObjectif).prop("checked", true);
+        }
+      });
+    });
 
-        $('#Bouttonretrospective').click(function () {
+    $(document).on('click', '.EditionRemarque', function () {
+      var id = $(this).attr("id");
+      var action = "SelectRemarque";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
           $('#ModalRemarque').modal('show');
-          $('.modal-title').text("Créer une remarque");
-          $('#Labelretrospective').val("");
-          $('#EtatNum5').prop("checked", true);
-          $('#ActionRemarque').val("Créer Retrospective")
+          $('.modal-title').text("Éditer remarque");
+          $('#ActionRemarque').val("Changer Remarque");
+          $('#id').val(id);
+          $('#Labelretrospective').val(data.labelremarque);
+        }
+      });
+    });
 
-        });
-
-        $('#action').click(function () {
-          var idSprint = $('#numeroSprint').val();
-          var idProjet = $('#projetId').val();
-          var LabelObjectif = $('#LabelObjectif').val();
-          var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
-          var id = $('#id').val();
-          var action = $('#action').val();
-          if (idSprint != '' && LabelObjectif != '' && EtatObjectif != '' && idProjet != '') {
-            $.ajax({
-              url: "Modele/ActionObjectifs.php",
-              method: "POST",
-              data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, EtatObjectif: EtatObjectif, idProjet: idProjet, action: action },
-              success: function (data) {
-                BootstrapAlert(data);
-                $('#customerModal').modal('hide');
-                RemplirTableau();
-              }
-            });
+    $(document).on('click', '.delete', function () {
+      var id = $(this).attr("id");
+      if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) {
+        var action = "Delete";
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: { id: id, action: action },
+          success: function (data) {
+            RemplirTableau();
+            BootstrapAlert(data);
           }
-          else {
-            alert("Tous les champs doivent être plein.");
-          }
-        });
-
-        
-
-        $('#ActionRemarque').click(function () {
-
-          var Labelretrospective = $('#Labelretrospective').val();
-          var id = $('#id').val();
-          var action = $('#ActionRemarque').val();
-          alert(action)
-
-          if (Labelretrospective != '') {
-            $.ajax({
-              url: "Modele/ActionObjectifs.php",
-              method: "POST",
-              data: { Labelretrospective: Labelretrospective, id:id, action: action },
-              success: function (data) {
-                BootstrapAlert(data);
-                $('#ModalRemarque').modal('hide');
-                RemplirTableau();
-              }
-            });
-          }
-          else {
-            alert("Tous les champs doivent être plein.");
-          }
-        });
-
-        $(document).on('click', '.success', function () {
-          var id = $(this).attr("id");
-          var action = "retrospectiveFini";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { id: id, action: action },
-            success: function (data) {
-              BootstrapAlert(data);
-              RemplirTableau();
-            }
-          });
-        });
-
-        $(document).on('click', '.update', function () {
-          var id = $(this).attr("id");
-          var action = "SelectObjectif";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { id: id, action: action },
-            dataType: "json",
-            success: function (data) {
-              $('#customerModal').modal('show');
-              $('.modal-title').text("Éditer objectif");
-              $('#action').val("Changer Objectif");
-              $('#id').val(id);
-              $('#projetId').val(data.id_Projet);
-              $('#LabelObjectif').val(data.objectif);
-              $('#EtatNum' + data.id_StatutObjectif).prop("checked", true);
-            }
-          });
-        });
-
-                $(document).on('click', '.EditionRemarque', function () {
-          var id = $(this).attr("id");
-          var action = "SelectRemarque";
-          $.ajax({
-            url: "Modele/ActionObjectifs.php",
-            method: "POST",
-            data: { id: id, action: action },
-            dataType: "json",
-            success: function (data) {
-              $('#ModalRemarque').modal('show');
-              $('.modal-title').text("Éditer remarque");
-              $('#ActionRemarque').val("Changer Remarque");
-              $('#id').val(id);
-              $('#Labelretrospective').val(data.labelremarque);
-            }
-          });
-        });
-
-        $(document).on('click', '.delete', function () {
-          var id = $(this).attr("id");
-          if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) {
-            var action = "Delete";
-            $.ajax({
-              url: "Modele/ActionObjectifs.php",
-              method: "POST",
-              data: { id: id, action: action },
-              success: function (data) {
-                RemplirTableau();
-                BootstrapAlert(data);
-              }
-            })
-          }
-          else {
-            return false;
-          }
-        });
+        })
+      }
+      else {
+        return false;
+      }
+    });
 
 
 
@@ -316,14 +322,14 @@ var action = "retrospective";
       "Ceci est un auto complete qui ne demande que des idées"
     ];
 
-    $( "#Labelretrospective" ).autocomplete({
+    $("#Labelretrospective").autocomplete({
       source: availableTags,
       appendTo: ".ui-widget"
     });
 
     $('#projetId').select2({
-  width: '100%'
-});
+      width: '100%'
+    });
 
-      });
+  });
 </script>

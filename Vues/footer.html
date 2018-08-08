@@ -2,25 +2,28 @@
 <div id="snackbar">Some text some message..</div>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-	<i class="fa fa-angle-up"></i>
+    <i class="fa fa-angle-up"></i>
 </a>
-<a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up"></i></a>
+<a href="javascript:" id="return-to-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
 </html>
 <script src="Assets/Js/ReductionNav.js"></script>
 <script src="Assets/Js/ClassActive.js"></script>
 <script>
-ClassActive("<?php echo $_REQUEST['vue'] ?>", "<?php echo $_SESSION['TypeUtilisateur'] ?>", "<?php echo $_SESSION['PrenomUtilisateur'] ?> ")
-CheckLatestVersionNumber();
-$(window).scroll(function() {
-    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-        $('#return-to-top').fadeIn(200);    // Fade in the arrow
-    } else {
-        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-    }
-});
-$('#return-to-top').click(function() {      // When arrow is clicked
-    $('body,html').animate({
-        scrollTop : 0                       // Scroll to top of body
-    }, 500);
-});
+    ClassActive("<?php echo $_REQUEST['vue'] ?>", "<?php echo $_SESSION['TypeUtilisateur'] ?>", "<?php echo $_SESSION['PrenomUtilisateur'] ?> ")
+    CheckLatestVersionNumber();
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200);    // Fade in the arrow
+        } else {
+            $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function () {      // When arrow is clicked
+        $('body,html').animate({
+            scrollTop: 0                       // Scroll to top of body
+        }, 500);
+    });
 </script>
