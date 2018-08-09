@@ -176,7 +176,36 @@ function AjouterJourFrDevantDate(date) {
   return retourDate
 }
 
+function JoursFeries() {
+
+  var an = new Date().toJSON().split('T')[0].split('-')[0];
+
+  var JourAn = new Date(an, "00", "01")
+  var FeteTravail = new Date(an, "04", "01")
+  var Victoire1945 = new Date(an, "04", "08")
+  var FeteNationale = new Date(an, "06", "14")
+  var Assomption = new Date(an, "07", "15")
+  var Toussaint = new Date(an, "10", "01")
+  var Armistice = new Date(an, "10", "11")
+  var Noel = new Date(an, "11", "25")
+
+  var G = an % 19
+  var C = Math.floor(an / 100)
+  var H = (C - Math.floor(C / 4) - Math.floor((8 * C + 13) / 25) + 19 * G + 15) % 30
+  var I = H - Math.floor(H / 28) * (1 - Math.floor(H / 28) * Math.floor(29 / (H + 1)) * Math.floor((21 - G) / 11))
+  var J = (an * 1 + Math.floor(an / 4) + I + 2 - C + Math.floor(C / 4)) % 7
+  var L = I - J
+  var MoisPaques = 3 + Math.floor((L + 40) / 44)
+  var JourPaques = L + 28 - 31 * Math.floor(MoisPaques / 4)
+  var LundiPaques = new Date(an, MoisPaques - 1, JourPaques + 1)
+  var Ascension = new Date(an, MoisPaques - 1, JourPaques + 39)
+  var LundiPentecote = new Date(an, MoisPaques - 1, JourPaques + 50)
+
+  return new Array(JourAn, LundiPaques, FeteTravail, Victoire1945, Ascension, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel)
+}
+
 function NbJourDeTravail(DateDebut, DateFin) {
+
 
   if (DateDebut.split('-')[0].length != 4)
     start = new Date(DateDebut.split('-')[2] + '-' + DateDebut.split('-')[1] + '-' + DateDebut.split('-')[0])
@@ -192,14 +221,25 @@ function NbJourDeTravail(DateDebut, DateFin) {
 
   if (start > end)
     return -1
-
   else {
+
+    // alert('nb jours fériés: '+ JoursFeries().length)
 
     while (start <= end) {
       var day = start.getDay();
 
       if (day != 0 && day != 6) {
         NbHeureAttribuableMax += 1
+      }
+
+      // alert('Un jours dans le groupe de jours'+start)
+      console.log('!! ' + start + ' !!')
+
+      for (j = 0; j < JoursFeries().length; j++) {
+
+        if (start.toJSON().split('T')[0] == JoursFeries()[j].toJSON().split('T')[0])
+          NbHeureAttribuableMax -= 1
+
       }
 
       start.setDate(start.getDate() + 1);
