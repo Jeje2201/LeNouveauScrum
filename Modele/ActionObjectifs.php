@@ -49,7 +49,14 @@ require_once ('../Modele/Configs.php');
         <button type="button" id="'.$row["id"].'" class="btn btn-primary 5"><i class="fa fa-question" aria-hidden="true"></i></button>
         </div></center></td>
         
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+        <td>
+        <center>
+        <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" id="'.$row["id"].'" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <button type="button" id="'.$row["id"].'" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+        </center>
+        </td>
         </tr>
         ';
       
@@ -131,7 +138,7 @@ require_once ('../Modele/Configs.php');
       <th width="10%">Création</th>
       <th width="80%">Remarque</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-          $output .= '<th width="10%"><center>Changer État</center></th>';
+          $output .= '<th width=""><center>Changer État</center></th>';
         
      $output .= ' </tr>
       </thead>
@@ -149,8 +156,9 @@ require_once ('../Modele/Configs.php');
           $output .= '
           <td>
           <center>
-          <div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-warning btn-xs EditionRemarque">Editer</button>
-          <div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="'.$row["id"].'" class="btn btn-success btn-xs success">Fini</button>
+          
+          <button type="button" id="'.$row["id"].'" class="btn btn-warning EditionRemarque"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <button type="button" id="'.$row["id"].'" class="btn btn-success success"><i class="fa fa-times" aria-hidden="true"></i></button>
           </center>
           </td>';
         $output .= '</tr>
