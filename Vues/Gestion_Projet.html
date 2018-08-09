@@ -36,11 +36,6 @@
           <div id="listeTypeProjet"></div>
         </div>
 
-        <div>
-          <label>Actif</label>
-          <input id="Actif" type="checkbox" checked>
-        </div>
-
         <div class="form-group">
           <label>Icone (50x50)</label>
           <div class="row">
@@ -133,16 +128,12 @@
       var fileName = $('#ToutesLesImages').val();
       var action = $('#action').val();
       var id = $('#id').val();
-      if (document.getElementById("Actif").checked == true)
-        var Actif = 1;
-      else
-        var Actif = 0;
 
       if (Nom != '' && fileName != '') {
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
-          data: { id: id, Nom: Nom, TypeProjet: TypeProjet, fileName: fileName, Actif: Actif, action: action },
+          data: { id: id, Nom: Nom, TypeProjet: TypeProjet, fileName: fileName, action: action },
 
           success: function (data) {
             BootstrapAlert(data);
@@ -174,10 +165,6 @@
           $('#Nom').val(data.Nom);
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);
-          if (data.actif == 1)
-            $('#Actif').prop('checked', true);
-          else
-            $('#Actif').prop('checked', false);
           $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
         }
       });
