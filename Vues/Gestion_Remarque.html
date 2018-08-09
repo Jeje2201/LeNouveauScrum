@@ -1,0 +1,167 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <h3>Gestion des remarques</h3>
+
+      <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+      <div id="TableauHeuresDescendues" class="table-responsive table-hover"></div>
+
+    </div>
+</body>
+
+<div id="customerModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Label</span>
+          </div>
+          <input class="form-control" name="labelRemarque" id="labelRemarque" type="text">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Début</span>
+          </div>
+          <input type="text" name="DateDebut" id='DateDebut' class="form-control" />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Fin</span>
+          </div>
+          <input type="text" name="DateFin" id='DateFin' class="form-control" />
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+
+    ChargerTableau();
+    BarreDeRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
+
+    function ChargerTableau() {
+      var action = "Load";
+      $.ajax({
+        url: "Modele/ActionGestionRemarques.php",
+        method: "POST",
+        data: { action: action },
+        success: function (data) {
+          $('#TableauHeuresDescendues').html(data);
+        }
+      });
+    }
+
+    $(document).on('click', '.update', function () {
+      var id = $(this).attr("id");
+      var action = "Select";
+      $.ajax({
+        url: "Modele/ActionGestionRemarques.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
+          console.log(data)
+          $('#customerModal').modal('show');
+          $('.modal-title').text("Editer remarque");
+          $('#action').val("Update");
+          $('#id').val(id);
+          $('#labelRemarque').val(data.Label);
+          $('#DateDebut').val(data.Debut);
+          $('#DateFin').val(data.Fin);
+        }
+      });
+    });
+
+    $('#action').click(function () {
+      var Label = $('#labelRemarque').val();
+      var DateDebut = DateFrToEn($('#DateDebut').val());
+      var DateFin = DateFrToEn($('#DateFin').val());
+      var id = $('#id').val();
+
+      if (Label != '' && DateDebut != '') {
+        if ($('#DateFin').val() != '') {
+
+          var action = "UpdateAvecDateFin";
+
+          $.ajax({
+            url: "Modele/ActionGestionRemarques.php",
+            method: "POST",
+            data: { id: id, DateDebut: DateDebut, DateFin: DateFin, Label: Label, action: action },
+            success: function (data) {
+              BootstrapAlert(data);
+              $('#customerModal').modal('hide');
+              ChargerTableau();
+            }
+          });
+
+        }
+
+        else {
+
+          var action = "UpdateSansDateFin";
+
+          $.ajax({
+            url: "Modele/ActionGestionRemarques.php",
+            method: "POST",
+            data: { id: id, DateDebut: DateDebut, Label: Label, action: action },
+            success: function (data) {
+              BootstrapAlert(data);
+              $('#customerModal').modal('hide');
+              ChargerTableau();
+            }
+          });
+
+        }
+
+      }
+      else {
+        alert("Tous les champs doivent être plein.");
+      }
+    });
+
+    $(document).on('click', '.delete', function () {
+      var id = $(this).attr("id");
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+        var action = "Delete";
+        $.ajax({
+          url: "Modele/ActionGestionRemarques.php",
+          method: "POST",
+          data: { id: id, action: action },
+          success: function (data) {
+            ChargerTableau();
+            BootstrapAlert(data);
+          }
+        })
+      }
+      else {
+        return false;
+      }
+    });
+  });
+
+  $('#DateDebut, #DateFin').datetimepicker({
+    format: 'dd-mm-yyyy',
+    autoclose: true,
+    minView: 2
+  });
+
+</script>

@@ -74,13 +74,18 @@ switch($vue)
  require_once("Vues/ConversionObjectif.html");
  break;
 
-  case 'LabelObjectif':
- require_once("Vues/LabelObjectif.html");
- break;
+ case 'LabelObjectif':
+  require_once("Vues/LabelObjectif.html");
+  break;
+  
+  case 'GestionRemarque':
+    if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+    require_once("Vues/Gestion_Remarque.html");
+    break;
 
  default:
  print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
-  <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDE "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
+  <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDES "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
  break;
 }
 require_once("Vues/Footer.html");
