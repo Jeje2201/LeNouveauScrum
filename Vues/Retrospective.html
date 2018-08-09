@@ -294,7 +294,7 @@
 
     $(document).on('click', '.delete', function () {
       var id = $(this).attr("id");
-      if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cet objectif ?")) {
         var action = "Delete";
         $.ajax({
           url: "Modele/ActionObjectifs.php",
