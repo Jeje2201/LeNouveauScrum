@@ -99,7 +99,7 @@ require_once ('../Modele/Configs.php');
 
     $output .= '%0A %0A Remarques: %0A';
 
-      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat = 0");
+      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat IS NULL");
       $statement->execute();
       $result = $statement->fetchAll();
 
@@ -118,7 +118,7 @@ require_once ('../Modele/Configs.php');
      {
       $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label
         FROM retrospective
-        WHERE Etat = 0
+        WHERE DateFini IS NULL
         ORDER BY DateCreation desc
         ");
       $statement->execute();
@@ -194,8 +194,8 @@ require_once ('../Modele/Configs.php');
  if($_POST["action"] == "Créer Retrospective")
  {
   $statement = $connection->prepare("
-   INSERT INTO retrospective (Label, Etat, DateCreation) 
-   VALUES (:Label, 0, NOW())
+   INSERT INTO retrospective (Label, DateCreation) 
+   VALUES (:Label, NOW())
    ");
   $result = $statement->execute(
    array(
