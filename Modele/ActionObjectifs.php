@@ -129,7 +129,7 @@ require_once ('../Modele/Configs.php');
       <thead class="thead-light">
       <tr>
       <th width="10%">Création</th>
-      <th width="80%">Commentaire</th>';
+      <th width="80%">Remarque</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
           $output .= '<th width="10%"><center>Changer État</center></th>';
         
