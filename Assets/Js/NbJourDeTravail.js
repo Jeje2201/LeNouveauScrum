@@ -52,10 +52,11 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
 /**
 * Fonction pour fusionner une tableau de date avec un tableau d'heure et mettre null aux dates sans heures
-* @param {string} Debut a
-* @param {string} Fin b
-* @param {Array} JoursAvecHeures c
-* @param {Array} HeuresDesJours d
+* @param {string} Debut Date de debut du sprint
+* @param {string} Fin Date de fin
+* @param {Array} JoursAvecHeures Tableau de jours qui ont des heures descendues
+* @param {Array} HeuresDesJours Tableau des heures descendues par jours
+* @param {Int} PremiereValeur Nombre d'heures total a descendre pour avoir la premiere valeur
 */
 function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, HeuresDesJours, PremiereValeur) {
 
@@ -129,6 +130,10 @@ function ChoixDate(jours) {
 
 };
 
+/**
+ * Convertie la date dans le format inverse qu'il possède j-m-y <-> y-m-j
+ * @param {string} date date a convertir
+ */
 function DateFrToEn(date) {
 
   date = date.split("-")
@@ -138,6 +143,10 @@ function DateFrToEn(date) {
 
 };
 
+/**
+ * Retourn le tableau de date avec son jour écrit devants
+ * @param {Array} date Tableau de date
+ */
 function AjouterJourFrDevantDate(date) {
 
   retourDate = new Array();
@@ -176,6 +185,9 @@ function AjouterJourFrDevantDate(date) {
   return retourDate
 }
 
+/**
+ * Retourne un array de jours fériés
+ */
 function JoursFeries() {
 
   var an = new Date().toJSON().split('T')[0].split('-')[0];
@@ -204,8 +216,12 @@ function JoursFeries() {
   return new Array(JourAn, LundiPaques, FeteTravail, Victoire1945, Ascension, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel)
 }
 
+/**
+ * Permet de compter le nombre de jours de travail possible entre deux date sans les weekends, j féries, etc..
+ * @param {string} DateDebut Date de debut
+ * @param {string} DateFin Date de fin
+ */
 function NbJourDeTravail(DateDebut, DateFin) {
-
 
   if (DateDebut.split('-')[0].length != 4)
     start = new Date(DateDebut.split('-')[2] + '-' + DateDebut.split('-')[1] + '-' + DateDebut.split('-')[0])
@@ -217,7 +233,7 @@ function NbJourDeTravail(DateDebut, DateFin) {
   else
     end = new Date(DateFin)
 
-  var NbHeureAttribuableMax = 0;
+  var NbJoursDeTravailPossible = 0;
 
   if (start > end)
     return -1
@@ -229,26 +245,28 @@ function NbJourDeTravail(DateDebut, DateFin) {
       var day = start.getDay();
 
       if (day != 0 && day != 6) {
-        NbHeureAttribuableMax += 1
+        NbJoursDeTravailPossible += 1
       }
-
-      // alert('Un jours dans le groupe de jours'+start)
-      console.log('!! ' + start + ' !!')
 
       for (j = 0; j < JoursFeries().length; j++) {
 
         if (start.toJSON().split('T')[0] == JoursFeries()[j].toJSON().split('T')[0])
-          NbHeureAttribuableMax -= 1
+          NbJoursDeTravailPossible -= 1
 
       }
 
       start.setDate(start.getDate() + 1);
     }
-    return NbHeureAttribuableMax;
+    return NbJoursDeTravailPossible;
   }
 
 }
 
+/**
+ * Fonction pour obtenir la liste des jours entre deux date (extrémités comprisent)
+ * @param {string} DateDebut Date de debut
+ * @param {string} DateFin Date de fin
+ */
 function ListeJoursDate(DateDebut, DateFin) {
 
   if (DateDebut.split('-')[0].length != 4)
