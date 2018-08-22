@@ -28,14 +28,8 @@ require_once ('../Modele/Configs.php');
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $Heurs = [];
-      $Jours = [];
-      $interferences = [];
-      $sprintou = [];
-      $ToutADescendre = [];
-
       foreach ($result as $row) {
-       $Heurs[] = $row['Heures'];
+       $Heures[] = $row['Heures'];
 
         $interferences[] = $row['interferances'];
 
@@ -43,9 +37,9 @@ require_once ('../Modele/Configs.php');
        $Jours[] = date("d-m-Y", strtotime($row['Jours']));
      }
 
-     $array[] = $Heurs;
-     $array[] = $interferences;
-     $array[] = $sprintou;
+     $array['HeuresDesJours'] = $Heures;
+     $array['Interference'] = $interferences;
+     $array['NumeroSprint'] = $sprintou;
 
       $statement = $connection->prepare(
        "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
@@ -54,15 +48,15 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetch();
       $ToutADescendre[] = $result["Total"];
 
-      $array[] = $ToutADescendre;
+      $array['TotalADescendre'] = $ToutADescendre;
 
 $statement = $connection->prepare( $sql = "SELECT * from sprint where sprint.numero = $NumeroSprint"     );
       $statement->execute();
       $result = $statement->fetch();
 
-      $array[] = $result['dateDebut'];
-      $array[] = $result['dateFin'];
-      $array[] = $Jours;
+      $array['DateDebut'] = $result['dateDebut'];
+      $array['DateFin'] = $result['dateFin'];
+      $array['JoursAvecDesHeures'] = $Jours;
       
 
 }

@@ -295,6 +295,11 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
   });
 };
 
+/**
+ * Permet de set du text a un div passé en parametre
+ * @param {string} idDiv La div a modifié
+ * @param {string} Information Le texte a mettre dans le div
+ */
 function setInformation(idDiv, Information) {
   $("#" + idDiv).text(Information);
 }
@@ -303,38 +308,38 @@ function fillInformation(infosource) {
 
   console.log(infosource)
 
-  if (infosource[3] > 0)
-    setInformation('TotalHAttribues', infosource[3]);
+  if (infosource['TotalADescendre'] > 0)
+    setInformation('TotalHAttribues', infosource['TotalADescendre']);
   else
     setInformation('TotalHAttribues', '?');
 
-  if (infosource[1][0] > 0)
-    setInformation('Seuil', parseInt(infosource[1][0]));
+  if (infosource['Interference'][0] > 0)
+    setInformation('Seuil', parseInt(infosource['Interference'][0]));
   else
     setInformation('Seuil', '?');
 
-  if (infosource[0][0] > 0)
-    setInformation('TotalHResteADescendre', (infosource[0][infosource[0].length - 1]))
+  if (infosource['HeuresDesJours'][0] > 0)
+    setInformation('TotalHResteADescendre', (infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]))
   else
     setInformation('TotalHResteADescendre', '?')
 
-  if ((infosource[1][0] > 0) || (infosource[0][0] > 0))
-    $("#TotalHDescendueAvecSeuil").text(((infosource[0][infosource[0].length - 1]) - (parseInt(infosource[1][0]))));
+  if ((infosource['Interference'][0] > 0) || (infosource['HeuresDesJours'][0] > 0))
+    $("#TotalHDescendueAvecSeuil").text(((infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) - (parseInt(infosource['Interference'][0]))));
   else
     setInformation('TotalHDescendueAvecSeuil', '?')
 
-  if ((infosource[3][0] > 0) && (infosource[0][0] > 0)) {
+  if ((infosource['TotalADescendre'][0] > 0) && (infosource['HeuresDesJours'][0] > 0)) {
 
-    $("#TotalHDescendue").text((infosource[3][0] - infosource[0][infosource[0].length - 1]));
+    $("#TotalHDescendue").text((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]));
 
-    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) < 50)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) >= 50 && (Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) < 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]))) >= 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '%; aria-valuenow="' + ((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) < 50)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) >= 50 && (Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) < 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) >= 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
 
-    $("#PourcentageDescendue").text(Math.round(((infosource[3][0] - infosource[0][infosource[0].length - 1]) * 100 / infosource[3][0])) + "%");
+    $("#PourcentageDescendue").text(Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0])) + "%");
 
   } else {
     $("#TotalHDescendue").text("0");
@@ -359,7 +364,7 @@ function MettreChartAJour(NumeroSprint, div) {
 
       Total = JSON.parse(Total);
 
-      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total[4], Total[5], Total[6], Total[0], Total[3][0]), Total[1], div, AjouterJourFrDevantDate(ListeJoursDate(Total[4], Total[5])));
+      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre'][0]), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
 
       fillInformation(Total);
 
@@ -378,12 +383,12 @@ function MettreChartAJour(NumeroSprint, div) {
     },
     success: function (data) {
 
-      $("#DateSprint").text(data[0] + " ->" + data[1])
+      $("#DateSprint").text(data['DateMin'] + " ->" + data['DateMax'])
 
-      $("#NbJoursAFaire").text(NbJourDeTravail(data[0][0], data[1][0]))
+      $("#NbJoursAFaire").text(NbJourDeTravail(data['DateMin'][0], data['DateMax'][0]))
 
-      if (NbJourDeTravail(new Date().toJSON().slice(0, 10), data[1][0]) >= 0)
-        $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0, 10), data[1][0]));
+      if (NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]) >= 0)
+        $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]));
       else
         $("#NbJoursRestants").text("date dépassée");
 
