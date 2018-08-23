@@ -1,3 +1,8 @@
+/**
+ * @param {number} NumeroduSprint - Numéro du sprint
+ * @param {number} affichage - Si affichage = 0, afficher ressources, sinon afficher projet
+ * @param {string} div - Nom du div qui va prendre la chart
+ */
 function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage, div) {
 
   var action = "GetTotalHeuresDescenduesParEmploye";
@@ -10,8 +15,6 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-
-      // console.log('InfosPourDashBoard' + data)
 
       data = JSON.parse(data);
 
@@ -236,22 +239,23 @@ function ChargerPieObjectif(NumeroduSprint, div) {
   });
 }
 
-
+/**
+ * Création de la burndownchart, utilisé qu'une fois
+ * @param {object} heures - Tableau représentant les heures descendues
+ * @param {number} seuils - Int représentant le seuil 
+ * @param {string} div - String représentant le nom du div dans lequel va la bundownchart 
+ * @param {object} jours - Array avec les jours qui ont des heures descendues
+ */
 function CreerLaBurnDownChart(heures, seuils, div, jours) {
 
   heures = heures.map(function (x) {
     return parseInt(x);
   });
 
-  // console.log(heures)
 
-  seuils = seuils.map(function (x) {
-    return parseInt(x);
-  });
-
-  if (seuils.length < jours.length)
-    for (i = seuils.length; i < jours.length; i++) {
-      seuils.push(seuils[0]);
+   var tableauSeuil = new Array
+    for (i = 0; i < jours.length; i++) {
+      tableauSeuil.push(seuils);
     }
 
   new Highcharts.Chart({
@@ -289,7 +293,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
     },
     {
       name: 'Seuil (Interventions, ...)',
-      data: seuils
+      data: tableauSeuil
     }
     ]
   });
@@ -297,13 +301,17 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
 
 /**
  * Permet de set du text a un div passé en parametre
- * @param {string} idDiv La div a modifié
- * @param {string} Information Le texte a mettre dans le div
+ * @param {string} idDiv - La div a modifié
+ * @param {string} Information - Le texte a mettre dans le div
  */
 function setInformation(idDiv, Information) {
   $("#" + idDiv).text(Information);
 }
 
+/**
+ * Fonction pour remplir les textes a coté de la burbndown chart
+ * @param {Array} infosource - Tableau avec toutes les valeurs de la burndown chart
+ */
 function fillInformation(infosource) {
 
   console.log(infosource)
@@ -313,8 +321,8 @@ function fillInformation(infosource) {
   else
     setInformation('TotalHAttribues', '?');
 
-  if (infosource['Interference'][0] > 0)
-    setInformation('Seuil', parseInt(infosource['Interference'][0]));
+  if (infosource['Interference'] > 0)
+    setInformation('Seuil', parseInt(infosource['Interference']));
   else
     setInformation('Seuil', '?');
 
@@ -323,23 +331,25 @@ function fillInformation(infosource) {
   else
     setInformation('TotalHResteADescendre', '?')
 
-  if ((infosource['Interference'][0] > 0) || (infosource['HeuresDesJours'][0] > 0))
-    $("#TotalHDescendueAvecSeuil").text(((infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) - (parseInt(infosource['Interference'][0]))));
+  if ((infosource['Interference'] > 0) || (infosource['HeuresDesJours'][0] > 0))
+    $("#TotalHDescendueAvecSeuil").text(((infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) - (parseInt(infosource['Interference']))));
   else
     setInformation('TotalHDescendueAvecSeuil', '?')
 
-  if ((infosource['TotalADescendre'][0] > 0) && (infosource['HeuresDesJours'][0] > 0)) {
+  if ((infosource['TotalADescendre'] > 0) && (infosource['HeuresDesJours'][0] > 0)) {
 
-    $("#TotalHDescendue").text((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]));
+    $("#TotalHDescendue").text((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]));
 
-    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) < 50)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) >= 50 && (Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) < 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-    if ((Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]))) >= 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '%; aria-valuenow="' + ((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0]) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) < 50)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
 
-    $("#PourcentageDescendue").text(Math.round(((infosource['TotalADescendre'][0] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'][0])) + "%");
+    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 50 && (Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) < 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+      
+    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 75)
+      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+
+    $("#PourcentageDescendue").text(Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'])) + "%");
 
   } else {
     $("#TotalHDescendue").text("0");
@@ -348,7 +358,11 @@ function fillInformation(infosource) {
   }
 }
 
-
+/**
+ * Création / mettre a jours les infos de la burndownchart
+ * @param {number} NumeroSprint - Int numéro du sprint en cours
+ * @param {string} div - String div dans lequel mettre la burndownchart
+ */
 function MettreChartAJour(NumeroSprint, div) {
 
   var action = "GetLesInfosDeLaBurnDownChart";
@@ -364,7 +378,7 @@ function MettreChartAJour(NumeroSprint, div) {
 
       Total = JSON.parse(Total);
 
-      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre'][0]), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
+      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
 
       fillInformation(Total);
 
@@ -396,7 +410,6 @@ function MettreChartAJour(NumeroSprint, div) {
   });
 
 };
-
 
 function HeuresDescenduesParJours(NumeroduSprint, div) {
 
