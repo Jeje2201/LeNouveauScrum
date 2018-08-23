@@ -270,6 +270,9 @@
           $('#projetId').val(data.id_Projet);
           $('#LabelObjectif').val(data.objectif);
           $('#EtatNum' + data.id_StatutObjectif).prop("checked", true);
+
+          SetSelect2('#projetId');
+
         }
       });
     });
@@ -321,9 +324,7 @@
       appendTo: ".ui-widget"
     });
 
-    $('#projetId').select2({
-      width: '100%'
-    });
+     SetSelect2('#projetId');
 
   });
 </script>

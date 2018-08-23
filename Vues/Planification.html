@@ -295,6 +295,8 @@
           $('#employeId').val(data.id_Employe);
           $('#projetId').val(data.id_Projet);
           $('#nbheure').val(data.heure);
+
+          SetSelect2('#employeId, #projetId');
         }
       });
     });
@@ -320,9 +322,7 @@
       }
     });
 
-    $('#employeId, #projetId').select2({
-      width: '100%'
-    });
+     SetSelect2('#employeId, #projetId');
 
   });
 </script>

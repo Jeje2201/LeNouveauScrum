@@ -12,7 +12,7 @@
 
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-        <div id="result" class="table-responsive table-hover">
+        <div id="TableauProjetHtml" class="table-responsive table-hover">
 
         </div>
       </div>
@@ -88,11 +88,15 @@
 
   $(document).ready(function () {
 
-    BarreDeRecherche('BarreDeRecherche', 'result');
+
+
+    BarreDeRecherche('BarreDeRecherche', 'TableauProjetHtml');
 
     RemplirListTypeTypeProjet('listeTypeProjet')
 
     RemplirListImages('ListImage');
+
+
 
     fetchUser();
 
@@ -103,7 +107,7 @@
         method: "POST",
         data: { action: action },
         success: function (data) {
-          $('#result').html(data);
+          $('#TableauProjetHtml').html(data);
         }
       });
     }
@@ -166,6 +170,9 @@
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);
           $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
+
+          SetSelect2('#TypeProjet, #ToutesLesImages');
+
         }
       });
     });
@@ -221,10 +228,6 @@
           }
         });
       }
-    });
-
-    $('#TypeProjet').select2({
-      width: '100%'
     });
 
   });

@@ -16,7 +16,7 @@
 
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-        <div id="result" class="table-responsive table-hover">
+        <div id="TableauInterferanceHtml" class="table-responsive table-hover">
 
         </div>
       </div>
@@ -72,7 +72,7 @@
 
     RemplirListSprint('ListSrint');
 
-    BarreDeRecherche('BarreDeRecherche', 'result');
+    BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
     RemplirListEmploye('ListEmploye');
 
@@ -91,7 +91,7 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
-          $('#result').html(data);
+          $('#TableauInterferanceHtml').html(data);
         }
       });
     }
@@ -166,6 +166,8 @@
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
+           SetSelect2('#ListEmploye, #projetId, #typeinterference');
+
         }
       });
     });
@@ -189,9 +191,7 @@
       }
     });
 
-    $('#employeId, #projetId, #typeinterference').select2({
-      width: '100%'
-    });
+ SetSelect2('#ListEmploye, #projetId, #typeinterference');
 
   });
 </script>

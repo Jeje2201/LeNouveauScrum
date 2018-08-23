@@ -7,6 +7,13 @@ html {
   position: relative;
   min-height: 100%; }
 
+  #TableListHeuresAttribuees, #TableauInterferanceHtml, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
+    height: 85%;
+  }
+  #TableObjectif{
+    height: 50%;
+  }
+
   #return-to-top {
     position: fixed;
     bottom: 20px;

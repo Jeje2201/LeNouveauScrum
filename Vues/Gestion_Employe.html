@@ -12,7 +12,7 @@
 
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-        <div id="result" class="table-responsive table-hover">
+        <div id="TableauEmployeHtml" class="table-responsive table-hover">
 
         </div>
       </div>
@@ -63,7 +63,7 @@
 
   $(document).ready(function () {
 
-    BarreDeRecherche('BarreDeRecherche', 'result');
+    BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
     RemplirListTypeEmploye('ListTypeEmploye');
 
@@ -76,7 +76,7 @@
         method: "POST",
         data: { action: action },
         success: function (data) {
-          $('#result').html(data);
+          $('#TableauEmployeHtml').html(data);
         }
       });
     }
@@ -132,6 +132,8 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
+
+          
           $('#customerModal').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
@@ -146,6 +148,9 @@
           $('#Nom').val(data.Nom);
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
+
+          SetSelect2('#TypeEmploye');
+
 
         }
       });
@@ -169,10 +174,7 @@
         return false;
       }
     });
-
-    $('#TypeEmploye').select2({
-      width: '100%'
-    });
+    SetSelect2('#TypeEmploye');
 
   });
 </script>

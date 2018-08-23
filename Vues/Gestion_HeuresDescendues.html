@@ -132,6 +132,9 @@
           $('#projetId').val(data.id_Projet);
           $('#nbheure').val(data.heure);
           $('#DateAujourdhui').val(data.DateAujourdhui);
+
+          SetSelect2('#employeId, #projetId');
+
         }
       });
     });
