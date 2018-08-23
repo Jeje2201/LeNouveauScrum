@@ -29,11 +29,11 @@ require_once ('../Modele/Configs.php');
       $result = $statement->fetchAll();
 
       foreach ($result as $row) {
-       $Heures[] = $row['Heures'];
+       $Heures[] = intval($row['Heures']);
 
-        $interferences[] = $row['interferances'];
+        $interferences = intval($row['interferances']);
 
-       $sprintou[] = $row['sprint'];
+       $sprintou = intval($row['sprint']);
        $Jours[] = date("d-m-Y", strtotime($row['Jours']));
      }
 
@@ -46,7 +46,7 @@ require_once ('../Modele/Configs.php');
      );
       $statement->execute();
       $result = $statement->fetch();
-      $ToutADescendre[] = $result["Total"];
+      $ToutADescendre = intval($result["Total"]);
 
       $array['TotalADescendre'] = $ToutADescendre;
 
