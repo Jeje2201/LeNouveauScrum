@@ -17,9 +17,9 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" >
       <thead class="thead-light">
       <tr>
-      <th width="5%">H</th>
-      <th width="15%">Projet</th>
-      <th width="75%">Label</th>
+      <th>H</th>
+      <th>Projet</th>
+      <th>Label</th>
       </tr>
       </thead>
       <tbody id="myTable">

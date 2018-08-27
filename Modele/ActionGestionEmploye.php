@@ -28,9 +28,9 @@ require_once ('../Modele/Configs.php');
       <th>Initial</th>
       <th>Pseudo</th>
       <th>Job</th>
-      <th width="5%">Couleur</th>
+      <th>Couleur</th>
       <th>Actif</th>
-      <th width="5%"><center>Éditer</center></th>
+      <th><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

@@ -16,12 +16,12 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="5%">Heures</th>
-      <th width="15%">Ressource</th>
-      <th width="20%">Projet</th>
-      <th width="20%">Type</th>
-      <th width="20%">Label</th>
-      <th width="10%"><center>Éditer</center></th>
+      <th>Heures</th>
+      <th>Ressource</th>
+      <th>Projet</th>
+      <th>Type</th>
+      <th>Label</th>
+      <th><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

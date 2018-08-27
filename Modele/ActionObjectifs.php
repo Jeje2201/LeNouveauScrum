@@ -16,9 +16,9 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" >
       <thead class="thead-light">
       <tr>
-      <th width="6%">État</th>
+      <th>État</th>
       <th >Projet</th>
-      <th width="65%">Objectif</th>
+      <th>Objectif</th>
       <th>N°</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
       $output .= '<th colspan="2"><center>Changer État</center></th>';
@@ -135,8 +135,8 @@ require_once ('../Modele/Configs.php');
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="10%">Création</th>
-      <th width="80%">Remarque</th>';
+      <th>Création</th>
+      <th>Remarque</th>';
       if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
           $output .= '<th width=""><center>Changer État</center></th>';
         

@@ -14,10 +14,10 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="40%">Nom</th>
-      <th width="40%">Type</th>
-      <th width="4%">Icone</th>
-      <th width="10%"><center>Éditer</center></th>
+      <th>Nom</th>
+      <th>Type</th>
+      <th>Icone</th>
+      <th><center>Éditer</center></th>
       </tr>
       </thead>
       <tbody id="myTable">

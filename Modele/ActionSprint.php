@@ -13,11 +13,11 @@ require_once ('../Modele/Configs.php');
     <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
     <thead class="thead-light">
     <tr>
-    <th width="22%">Numéro</th>
-    <th width="22%">Début</th>
-    <th width="22%">Fin</th>
-    <th width="22%">Attribuable (h)</th>
-    <th width="10%"><center>Éditer</center></th>
+    <th>Numéro</th>
+    <th>Début</th>
+    <th>Fin</th>
+    <th>Attribuable (h)</th>
+    <th><center>Éditer</center></th>
     </tr>
     </thead>
     <tbody id="myTable">
