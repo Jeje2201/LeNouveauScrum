@@ -127,16 +127,16 @@
             method: "POST",
             data: { action: action, idAffiche: idAffiche },
             success: function (data) {
-              $('#DateAujourdhui').datetimepicker('setStartDate', data[0]);
-              $('#DateAujourdhui').datetimepicker('setEndDate', data[1]);
+              $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
+              $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
 
-              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data[0])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data[1]))) {
+              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
                 console.log('Toujours dans Sprint, touche pas la date')
                 $('#DateAujourdhui').val(ChoixDate(0));
               }
               else {
                 console.log('aah plus dans le sprint, met la derniere date possible')
-                $('#DateAujourdhui').val(data[1]);
+                $('#DateAujourdhui').val(data['DateMax']);
               }
               $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
