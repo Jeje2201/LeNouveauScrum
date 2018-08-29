@@ -43,8 +43,10 @@ if(isset($_POST["action"]))
       (SELECT distinct heuresdescendues.id_Attribution
       from heuresdescendues
       where heuresdescendues.id_Attribution IS NOT NULL)
+      AND attribution.id_TypeTache IS NULL
       ORDER BY employe.prenom
-      ");
+      "
+    );
 
     $statement->execute();
     $result = $statement->fetchAll();
@@ -82,7 +84,8 @@ $statement = $connection->prepare("
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
   INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-  WHERE id_sprint= $numero "
+  WHERE attribution.id_TypeTache IS NULL
+  AND id_sprint= $numero "
   .$Requete2.
   " ORDER BY employe.prenom");
 
