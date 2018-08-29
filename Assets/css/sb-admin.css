@@ -10,9 +10,6 @@ html {
   #TableListHeuresAttribuees, #TableauInterferanceHtml, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
     height: 85%;
   }
-  #TableObjectif, #TableRetrospective{
-    height: 75%;
-  }
 
   #return-to-top {
     position: fixed;
