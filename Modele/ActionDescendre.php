@@ -84,8 +84,7 @@ $statement = $connection->prepare("
   INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
   INNER JOIN projet on projet.id = heuresdescendues.id_Projet
   INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-  WHERE attribution.id_TypeTache IS NULL
-  AND id_sprint= $numero "
+  WHERE id_sprint= $numero "
   .$Requete2.
   " ORDER BY employe.prenom");
 
