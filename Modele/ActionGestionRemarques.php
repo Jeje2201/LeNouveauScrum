@@ -45,11 +45,11 @@ require_once ('../Modele/Configs.php');
     {
      $output .= '
      <tr>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
      </tr>
      ';
    }
@@ -128,7 +128,7 @@ if($_POST["action"] == "UpdateSansDateFin")
 if($_POST["action"] == "Delete")
 {
   $statement = $connection->prepare(
-   "DELETE FROM rettrospective WHERE id = :id"
+   "DELETE FROM retrospective WHERE id = :id"
  );
   $result = $statement->execute(
    array(
