@@ -18,7 +18,9 @@ function GetAllVersionsInfos(Div) {
                 liste.push(tag)
 
             }
-            liste.sort(function (a, b) { return b - a })
+            liste.sort(function (a, b) {
+                return b - a
+            })
             console.log('taille liste version: ' + liste.length)
             console.log(liste)
 
@@ -75,4 +77,3 @@ function SetLastVersion() {
     })
 
 }
-

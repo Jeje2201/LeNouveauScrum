@@ -1,38 +1,35 @@
    <?php
 
-   require_once ('../Modele/Configs.php');
+  require_once('../Modele/Configs.php');
 
-   if(isset($_POST["action"]))   {
+  if (isset($_POST["action"])) {
 
     $action = $_POST["action"];
-   
 
-    switch($action)
-    {
 
-     case 'TableauDeSprint2':
-      $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
-      $statement->execute();
-      $result = $statement->fetchAll();
-      if($statement->rowCount() > 0)
-      {
-       foreach($result as $row)
-       {
+    switch ($action) {
 
-         $test["numero"] = $row["numero"];
-         $test["dateDebut"] = $row["dateDebut"];
-         $test["dateFin"] = $row["dateFin"];
-         $test["id"] = $row["id"];
+      case 'TableauDeSprint2':
+        $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-          echo json_encode($test);
+            $test["numero"] = $row["numero"];
+            $test["dateDebut"] = $row["dateDebut"];
+            $test["dateFin"] = $row["dateFin"];
+            $test["id"] = $row["id"];
 
-       }
+            echo json_encode($test);
 
-     }
-    
-     break;
+          }
 
-     case 'ListeDeroulanteSprint':
+        }
+
+        break;
+
+      case 'ListeDeroulanteSprint':
 
         $statement = $connection->prepare("SELECT id as id, numero as numero from sprint order by numero desc");
 
@@ -40,21 +37,19 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="numeroSprint" name="numeroSprint">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["numero"].' </option>';
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["numero"] . ' </option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-          
-      break;
+
+        break;
 
       case 'ListeDeroulanteProjet':
 
@@ -64,21 +59,19 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="projetId" name="projetId">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["Nom"].' </option>';
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Nom"] . ' </option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-          
-      break;
+
+        break;
 
       case 'ListeDeroulanteEmploye':
 
@@ -88,23 +81,21 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="employeId" name="employeId"';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["Prenom"].' '.$row["Nom"].' </option>';
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Prenom"] . ' ' . $row["Nom"] . ' </option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
+
         break;
 
-        case 'ListeDeroulanteEmployeActifTrieParType':
+      case 'ListeDeroulanteEmployeActifTrieParType':
 
         $statement = $connection->prepare("SELECT prenom, nom, id from employe where employe.actif = 1 order by prenom asc");
 
@@ -112,20 +103,18 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="TypeEmployeOk" name="TypeEmployeOk">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["prenom"].' '.$row["nom"].' </option>';
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
+
         break;
 
       case 'ListeDeroulanteTypeInterferance':
@@ -136,21 +125,19 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="typeinterference" name="typeinterference">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'">'.$row["nom"].'</option>';
+            $output2 .= '<option value="' . $row["id"] . '">' . $row["nom"] . '</option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
-        break;        
+
+        break;
 
       case 'ListeDeroulanteTypeEmploye':
 
@@ -160,22 +147,20 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="TypeEmploye" name="TypeEmploye">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              if($row["nom"] == "Developpeur")
-              $output2.='<option value="'.$row["id"].'" selected> '.$row["nom"].' </option>';
+            if ($row["nom"] == "Developpeur")
+              $output2 .= '<option value="' . $row["id"] . '" selected> ' . $row["nom"] . ' </option>';
             else
-              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
-            }
+              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["nom"] . ' </option>';
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
+
         break;
 
       case 'ListeDeroulanteTypeProjet':
@@ -186,23 +171,21 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="TypeProjet" name="TypeProjet">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<option value="'.$row["id"].'"> '.$row["nom"].' </option>';
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["nom"] . ' </option>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
+
         break;
 
-        case 'ListeDeroulanteEtatObjectif':
+      case 'ListeDeroulanteEtatObjectif':
 
         $statement = $connection->prepare("SELECT id as id, nom as nom from statutobjectif order by nom asc");
 
@@ -210,45 +193,41 @@
         $result = $statement->fetchAll();
         $output2 = '<form class="form-control" name="EtatObjectif" id="EtatObjectif">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<label><input type="radio" name="Etat" id="EtatNum'.$row["id"].'" value="'.$row["id"].'">  '.$row["nom"].'</label><br>';
+            $output2 .= '<label><input type="radio" name="Etat" id="EtatNum' . $row["id"] . '" value="' . $row["id"] . '">  ' . $row["nom"] . '</label><br>';
 
-            }
+          }
 
           $output2 .= '</form>';
         }
 
         echo $output2;
-            
-        break; 
 
-        case 'ListEmployeCheckBox':
+        break;
+
+      case 'ListEmployeCheckBox':
 
         $statement = $connection->prepare("SELECT id, prenom, nom from employe where employe.actif = 1 order by prenom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
         $output2 = '<input type="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="TOUTLEMONDE" value="TOUTLEMONDE"> Tout le monde<hr>';
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-              $output2.='<input type="checkbox" class="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="'.$row["id"].'">  '.$row["prenom"].' '.$row["nom"].'</br>';
+            $output2 .= '<input type="checkbox" class="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="' . $row["id"] . '">  ' . $row["prenom"] . ' ' . $row["nom"] . '</br>';
 
-            }
+          }
 
         }
 
         echo $output2;
-            
-        break; 
 
-        case 'RemplirTypeTache':
+        break;
+
+      case 'RemplirTypeTache':
 
         $statement = $connection->prepare("SELECT id, nom, couleur from typetache order by nom asc");
 
@@ -256,22 +235,20 @@
         $result = $statement->fetchAll();
         $output2 = '<select class="form-control"  id="RemplirTypeTache1" name="RemplirTypeTache1">';
 
-        if($statement->rowCount() > 0)
-        {
-          foreach($result as $row)
-            {
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
 
-             $output2.='<option style="background-color:'.$row["couleur"].'; color:black" value="'.$row["id"].'"> '.$row["nom"].' </option></br>';
+            $output2 .= '<option style="background-color:' . $row["couleur"] . '; color:black" value="' . $row["id"] . '"> ' . $row["nom"] . ' </option></br>';
 
-            }
+          }
 
           $output2 .= '</select>';
         }
 
         echo $output2;
-            
-        break; 
 
-      }
-}
-?>
+        break;
+
+    }
+  }
+  ?>

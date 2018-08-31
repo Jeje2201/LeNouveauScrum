@@ -1,17 +1,15 @@
    <?php
 
-   require_once ('../Modele/Configs.php');
+  require_once('../Modele/Configs.php');
 
-   if(isset($_POST["action"])) 
-   {
+  if (isset($_POST["action"])) {
 
-    if($_POST["action"] == "GetTotalHeuresDescenduesParEmploye")
-    {
+    if ($_POST["action"] == "GetTotalHeuresDescenduesParEmploye") {
 
       $NumeroduSprint = $_POST["NumeroduSprint"];
 
       $statement = $connection->prepare(
-      $sql = "
+        $sql = "
         SELECT 
         E.id as empid,
         E.prenom as prenom,
@@ -27,7 +25,8 @@
         AND A.id_TypeTache IS NULL
         GROUP BY E.id
         order by nbheuredescendu desc, heurerestantes desc
-      ");
+      "
+      );
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -38,18 +37,18 @@
 
       foreach ($result as $row) {
 
-       $employe[] = $row['prenom'].' ('.$row['Initial'].')';
-       $HDescendue[] = intval($row['nbheuredescendu']);
-       $Hattribue[] = intval($row['nbheureadescendre']);
-       
-     }
+        $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
+        $HDescendue[] = intval($row['nbheuredescendu']);
+        $Hattribue[] = intval($row['nbheureadescendre']);
 
-     $array[] = $employe;
-     $array[] = $HDescendue;
-     $array[] = $Hattribue;
+      }
 
-$statement = $connection->prepare(
-       $sql = "
+      $array[] = $employe;
+      $array[] = $HDescendue;
+      $array[] = $Hattribue;
+
+      $statement = $connection->prepare(
+        $sql = "
         SELECT 
         P.id as projid,
         P.nom as pnom,
@@ -65,104 +64,109 @@ $statement = $connection->prepare(
         GROUP BY P.id
         order by nbheuredescendu desc, heurerestantes desc
        "
-     );
+      );
 
-     $statement->execute();
-     $result = $statement->fetchAll();
+      $statement->execute();
+      $result = $statement->fetchAll();
 
-     $projet = [];
-     $HDescendueProjet = [];
-     $HattribueProjet = [];
+      $projet = [];
+      $HDescendueProjet = [];
+      $HattribueProjet = [];
 
-     foreach ($result as $row) {
+      foreach ($result as $row) {
 
-       $projet[] = $row['pnom'];
-       $HDescendueProjet[] = intval($row['nbheuredescendu']);
-       $HattribueProjet[] = intval($row['nbheureadescendre']);
-       
-     }
+        $projet[] = $row['pnom'];
+        $HDescendueProjet[] = intval($row['nbheuredescendu']);
+        $HattribueProjet[] = intval($row['nbheureadescendre']);
 
-     $array[] = $projet;
-     $array[] = $HDescendueProjet;
-     $array[] = $HattribueProjet;
+      }
 
-     $statement = $connection->prepare(
-      $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur
+      $array[] = $projet;
+      $array[] = $HDescendueProjet;
+      $array[] = $HattribueProjet;
+
+      $statement = $connection->prepare(
+        $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur
       from objectif
       join statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
       WHERE objectif.id_Sprint = $NumeroduSprint
       GROUP BY objectif.id_StatutObjectif
       ORDER BY objectif.id_StatutObjectif
-      ");
+      "
+      );
 
-     $statement->execute();
-     $result = $statement->fetchAll();
+      $statement->execute();
+      $result = $statement->fetchAll();
 
-     $Total = [];
+      $Total = [];
 
-     foreach ($result as $row) {
+      foreach ($result as $row) {
 
-      $MonTest = [];
+        $MonTest = [];
 
-      $MonTest[] = $row['Statut'];
-      $MonTest[] = intval($row['Nombre']);
-      $MonTest[] = $row['Couleur'];
+        $MonTest[] = $row['Statut'];
+        $MonTest[] = intval($row['Nombre']);
+        $MonTest[] = $row['Couleur'];
 
-      $Total[] = $MonTest;
+        $Total[] = $MonTest;
 
-    }
+      }
 
-    $array[] = $Total;
+      $array[] = $Total;
 
-$statement = $connection->prepare(
-      $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint AND attribution.id_TypeTache IS NULL");
-    $statement->execute();
-    $result = $statement->fetch();
-    $TotAttribution[] = intval($result["Tot"]);
+      $statement = $connection->prepare(
+        $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint AND attribution.id_TypeTache IS NULL"
+      );
+      $statement->execute();
+      $result = $statement->fetch();
+      $TotAttribution[] = intval($result["Tot"]);
 
-    $array[] = $TotAttribution;
+      $array[] = $TotAttribution;
 
-    $statement = $connection->prepare(
-      $sql = "SELECT sum(heure) as Tot from heuresdescendues where heuresdescendues.id_Sprint = $NumeroduSprint");
-    $statement->execute();
-    $result = $statement->fetch();
-    $TotDescendue[] = intval($result["Tot"]);
+      $statement = $connection->prepare(
+        $sql = "SELECT sum(heure) as Tot from heuresdescendues where heuresdescendues.id_Sprint = $NumeroduSprint"
+      );
+      $statement->execute();
+      $result = $statement->fetch();
+      $TotDescendue[] = intval($result["Tot"]);
 
-    $array[] = $TotDescendue;
+      $array[] = $TotDescendue;
 
-$statement = $connection->prepare(
-      $sql = "SELECT sum(heure) as heures, DateDescendu as Ladate FROM `heuresdescendues` where heuresdescendues.id_Sprint = $NumeroduSprint GROUP by DateDescendu");
+      $statement = $connection->prepare(
+        $sql = "SELECT sum(heure) as heures, DateDescendu as Ladate FROM `heuresdescendues` where heuresdescendues.id_Sprint = $NumeroduSprint GROUP by DateDescendu"
+      );
 
-     $statement->execute();
-     $result = $statement->fetchAll();
+      $statement->execute();
+      $result = $statement->fetchAll();
 
       $Descendues = [];
       $Date = [];
-      
 
-     foreach ($result as $row) {
-      $Descendues[] = intval($row['heures']);
-      $Date[] = date("d-m-Y", strtotime($row['Ladate']));
+
+      foreach ($result as $row) {
+        $Descendues[] = intval($row['heures']);
+        $Date[] = date("d-m-Y", strtotime($row['Ladate']));
+
+      }
+
+      $array[] = $Descendues;
+      $array[] = $Date;
+
+      $statement = $connection->prepare(
+        $sql = "SELECT * from sprint where sprint.id = $NumeroduSprint"
+      );
+      $statement->execute();
+      $result = $statement->fetch();
+      $FinSprint[] = $result["dateFin"];
+      $DebutSprint[] = $result["dateDebut"];
+
+      $array[] = $FinSprint;
+      $array[] = $DebutSprint;
 
     }
 
-    $array[] = $Descendues;
-    $array[] = $Date;
+    echo json_encode($array);
 
-      $statement = $connection->prepare(
-      $sql = "SELECT * from sprint where sprint.id = $NumeroduSprint");
-    $statement->execute();
-    $result = $statement->fetch();
-    $FinSprint[] = $result["dateFin"];
-    $DebutSprint[] = $result["dateDebut"];
+  }
 
-    $array[] = $FinSprint;
-    $array[] = $DebutSprint;
-
-}
-
-  echo json_encode($array);
-
-}
-
-?>
+  ?>

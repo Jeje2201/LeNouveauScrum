@@ -1,4 +1,3 @@
-
 function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
 
   $("#" + IdDivBarreDeRecherche).on("keyup", function () {

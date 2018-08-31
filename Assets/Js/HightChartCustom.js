@@ -253,10 +253,10 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
   });
 
 
-   var tableauSeuil = new Array
-    for (i = 0; i < jours.length; i++) {
-      tableauSeuil.push(seuils);
-    }
+  var tableauSeuil = new Array
+  for (i = 0; i < jours.length; i++) {
+    tableauSeuil.push(seuils);
+  }
 
   new Highcharts.Chart({
     chart: {
@@ -288,13 +288,13 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       }
     },
     series: [{
-      name: 'Heures Restantes',
-      data: heures
-    },
-    {
-      name: 'Seuil (Interventions, ...)',
-      data: tableauSeuil
-    }
+        name: 'Heures Restantes',
+        data: heures
+      },
+      {
+        name: 'Seuil (Interventions, ...)',
+        data: tableauSeuil
+      }
     ]
   });
 };
@@ -345,7 +345,7 @@ function fillInformation(infosource) {
 
     if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 50 && (Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) < 75)
       $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-      
+
     if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 75)
       $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
 
@@ -463,35 +463,35 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
           }
         },
         series: [{
-          name: 'Moyenne d\'heures descendues',
-          data: MoyenneDescendueTable,
-          color: '#c1c1c1',
-          marker: false,
-          enableMouseTracking: false,
-          dataLabels: {
-            enabled: false
-          },
-        }, {
-          name: 'Moyenne d\'heures a descendre',
-          data: MoyenneADescendre,
-          color: '#4f4f4f',
-          marker: false,
-          enableMouseTracking: false,
-          dataLabels: {
-            enabled: false
-          },
-        }, {
-          name: 'Heures descendues par jour',
-          data: FusionnerJoursEtHeures(data[12][0], data[11][0], data[10], data[9])[0],
-          zones: [{
-            value: MoyenneADescendre[0],
-            color: '#ff4747'
-          },
-          {
-            color: '#00c652'
+            name: 'Moyenne d\'heures descendues',
+            data: MoyenneDescendueTable,
+            color: '#c1c1c1',
+            marker: false,
+            enableMouseTracking: false,
+            dataLabels: {
+              enabled: false
+            },
+          }, {
+            name: 'Moyenne d\'heures a descendre',
+            data: MoyenneADescendre,
+            color: '#4f4f4f',
+            marker: false,
+            enableMouseTracking: false,
+            dataLabels: {
+              enabled: false
+            },
+          }, {
+            name: 'Heures descendues par jour',
+            data: FusionnerJoursEtHeures(data[12][0], data[11][0], data[10], data[9])[0],
+            zones: [{
+                value: MoyenneADescendre[0],
+                color: '#ff4747'
+              },
+              {
+                color: '#00c652'
+              }
+            ]
           }
-          ]
-        }
 
         ]
       });

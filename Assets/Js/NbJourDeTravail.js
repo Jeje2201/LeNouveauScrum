@@ -51,13 +51,13 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 }
 
 /**
-* Fonction pour fusionner une tableau de date avec un tableau d'heure et mettre null aux dates sans heures
-* @param {string} Debut Date de debut du sprint
-* @param {string} Fin Date de fin
-* @param {Array} JoursAvecHeures Tableau de jours qui ont des heures descendues
-* @param {Array} HeuresDesJours Tableau des heures descendues par jours
-* @param {Int} PremiereValeur Nombre d'heures total a descendre pour avoir la premiere valeur
-*/
+ * Fonction pour fusionner une tableau de date avec un tableau d'heure et mettre null aux dates sans heures
+ * @param {string} Debut Date de debut du sprint
+ * @param {string} Fin Date de fin
+ * @param {Array} JoursAvecHeures Tableau de jours qui ont des heures descendues
+ * @param {Array} HeuresDesJours Tableau des heures descendues par jours
+ * @param {Int} PremiereValeur Nombre d'heures total a descendre pour avoir la premiere valeur
+ */
 function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, HeuresDesJours, PremiereValeur) {
 
   // console.log('total a descendre pour bd:' + PremiereValeur)
@@ -108,8 +108,7 @@ function ChoixDate(jours) {
 
   if (jours == null) {
     var jours = 14;
-  }
-  else {
+  } else {
     jours = parseInt(jours);
   }
 

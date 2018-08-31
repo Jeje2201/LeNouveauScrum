@@ -5,7 +5,9 @@ function RemplirListEtatObjectif(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -19,7 +21,9 @@ function RemplirListSprint(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -33,7 +37,9 @@ function RemplirListProjet(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -47,7 +53,9 @@ function RemplirListEmploye(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -61,7 +69,9 @@ function RemplirListTypeInterferance(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -75,7 +85,9 @@ function RemplirListTypeEmploye(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -89,7 +101,9 @@ function RemplirListTypeTypeProjet(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -103,7 +117,9 @@ function RemplirListTypeEmployeEtType(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -115,7 +131,9 @@ function RemplirListImages(Div) {
   $.ajax({
     url: "Modele/ActionGestionProjet.php",
     method: "POST",
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + Div).html(data);
     }
@@ -129,7 +147,9 @@ function RemplirListeEmployeCheckBox(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
@@ -143,7 +163,9 @@ function RemplirTypeTache(DivId) {
     url: "Modele/RequetesAjax.php",
     method: "POST",
     async: false,
-    data: { action: action },
+    data: {
+      action: action
+    },
     success: function (data) {
       $('#' + DivId + '').html(data);
     }
