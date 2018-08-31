@@ -50,7 +50,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModalObjectif" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -162,7 +162,7 @@
         method: "POST",
         data: { id: id, EtatObjectif: EtatObjectif, action: action },
         success: function (data) {
-          $('#customerModal').modal('hide');
+          $('#ModalObjectif').modal('hide');
           RemplirTableau();
         }
       });
@@ -177,7 +177,7 @@
     });
 
     $('#modal_button').click(function () {
-      $('#customerModal').modal('show');
+      $('#ModalObjectif').modal('show');
       $('.modal-title').text("Créer un objectif");
       $('#action').val('Créer');
       $('#LabelObjectif').val("");
@@ -207,10 +207,10 @@
           data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, EtatObjectif: EtatObjectif, idProjet: idProjet, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            $('#customerModal').modal('hide');
             RemplirTableau();
           }
         });
+        $('#LabelObjectif').val('');
       }
       else {
         alert("Tous les champs doivent être plein.");
@@ -264,7 +264,7 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
-          $('#customerModal').modal('show');
+          $('#ModalObjectif').modal('show');
           $('.modal-title').text("Éditer objectif");
           $('#action').val("Changer Objectif");
           $('#id').val(id);
