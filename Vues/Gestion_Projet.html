@@ -19,7 +19,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModaleProjet" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -117,7 +117,7 @@
     });
 
     $('#modal_button').click(function () {
-      $('#customerModal').modal('show');
+      $('#ModaleProjet').modal('show');
       $('.modal-title').text("Ajouter un projet");
       $('#action').val('Ajouter');
       $('#ToutesLesImages').val('Inconnue.png');
@@ -142,7 +142,7 @@
           success: function (data) {
             BootstrapAlert(data);
             console.log(data);
-            $('#customerModal').modal('hide');
+            $('#ModaleProjet').modal('hide');
             fetchUser();
           }
         });
@@ -161,7 +161,7 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
-          $('#customerModal').modal('show');
+          $('#ModaleProjet').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 

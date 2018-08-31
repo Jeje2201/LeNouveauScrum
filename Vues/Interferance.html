@@ -23,7 +23,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModalInterference" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,7 +109,7 @@
 
     $('#modal_button').click(function () {
       $('#labelinterference').val('');
-      $('#customerModal').modal('show');
+      $('#ModalInterference').modal('show');
       $('.modal-title').text("Ajouter une interférence");
       $('#action').val('Ajouter');
     });
@@ -136,7 +136,7 @@
           data: { id: id, NbHeure: NbHeure, Employe: Employe, Projet: Projet, TypeInterferance: TypeInterferance, idAffichee, idAffichee, labelinterference: labelinterference, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            $('#customerModal').modal('hide');
+            $('#ModalInterference').modal('hide');
             RemplirTableau();
           }
         });
@@ -155,7 +155,7 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
-          $('#customerModal').modal('show');
+          $('#ModalInterference').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 

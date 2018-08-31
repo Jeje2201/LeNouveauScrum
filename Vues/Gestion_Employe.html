@@ -19,7 +19,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModalEmploye" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,7 +82,7 @@
     }
 
     $('#modal_button').click(function () {
-      $('#customerModal').modal('show');
+      $('#ModalEmploye').modal('show');
       $('.modal-title').text("Ajouter une ressource");
       $('#action').val('Ajouter');
       $('#Prenom').val('');
@@ -113,7 +113,7 @@
           success: function (data) {
             BootstrapAlert(data);
             console.log(data);
-            $('#customerModal').modal('hide');
+            $('#ModalEmploye').modal('hide');
             fetchUser();
           }
         });
@@ -134,7 +134,7 @@
         success: function (data) {
 
           
-          $('#customerModal').modal('show');
+          $('#ModalEmploye').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 
