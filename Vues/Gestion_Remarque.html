@@ -11,7 +11,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModalRemarque" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -80,7 +80,7 @@
         dataType: "json",
         success: function (data) {
           console.log(data)
-          $('#customerModal').modal('show');
+          $('#ModalRemarque').modal('show');
           $('.modal-title').text("Editer remarque");
           $('#action').val("Update");
           $('#id').val(id);
@@ -108,7 +108,7 @@
             data: { id: id, DateDebut: DateDebut, DateFin: DateFin, Label: Label, action: action },
             success: function (data) {
               BootstrapAlert(data);
-              $('#customerModal').modal('hide');
+              $('#ModalRemarque').modal('hide');
               ChargerTableau();
             }
           });
@@ -125,7 +125,7 @@
             data: { id: id, DateDebut: DateDebut, Label: Label, action: action },
             success: function (data) {
               BootstrapAlert(data);
-              $('#customerModal').modal('hide');
+              $('#ModalRemarque').modal('hide');
               ChargerTableau();
             }
           });

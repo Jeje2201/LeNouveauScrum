@@ -15,7 +15,7 @@
     </div>
 </body>
 
-<div id="customerModal" class="modal fade">
+<div id="ModalGestionHeuresDescendues" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -104,7 +104,7 @@
           data: { id: id, DateAujourdhui: DateAujourdhui, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            $('#customerModal').modal('hide');
+            $('#ModalGestionHeuresDescendues').modal('hide');
             ChargerTableau();
           }
         });
@@ -123,7 +123,7 @@
         data: { id: id, action: action },
         dataType: "json",
         success: function (data) {
-          $('#customerModal').modal('show');
+          $('#ModalGestionHeuresDescendues').modal('show');
           $('.modal-title').text("Metre à jour les heures descendues");
           $('#action').val("Update");
           $('#id').val(id);

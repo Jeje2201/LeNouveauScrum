@@ -71,11 +71,11 @@
         </div>
       </div>
 
-      <div id="customerModal" class="modal fade">
+      <div id="ModalSprint" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Nouveau sprint</h4>
+              <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
               <label>Numero</label>
@@ -196,7 +196,7 @@
         data: { id: id, action: action },//Send data to server
         dataType: "json",   //Here we have define json data type, so server will send data in json format.
         success: function (data) {
-          $('#customerModal').modal('show');   //It will display modal on webpage
+          $('#ModalSprint').modal('show');   //It will display modal on webpage
           $('.modal-title').text("Changer infos sprint"); //This code will change this class text to Update records
           $('#action').val("Update");     //This code will change Button value to Update
           $('#id').val(id);     //It will define value of id variable to this customer id hidden field
@@ -223,7 +223,7 @@
           data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi: attribuableEdi, action: action }, //Send data to server
           success: function (data) {
             BootstrapAlert(data);
-            $('#customerModal').modal('hide'); //It will hide Customer Modal from webpage.
+            $('#ModalSprint').modal('hide'); //It will hide Customer Modal from webpage.
             fetchUser();    // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
