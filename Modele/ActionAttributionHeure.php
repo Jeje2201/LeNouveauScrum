@@ -44,10 +44,10 @@ require_once ('../Modele/Configs.php');
     {
      $output .= '
      <tr>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
-     <td align="center">💩</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
      </tr>
      ';
    }
@@ -93,6 +93,15 @@ require_once ('../Modele/Configs.php');
         
       }
     }
+    else
+    {
+     $output .= '
+     <tr>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     </tr>
+     ';
+   }
    $output .= '</tbody></table>';
    echo $output;
  }
@@ -126,6 +135,15 @@ require_once ('../Modele/Configs.php');
         ';
       }
     }
+    else
+    {
+     $output .= '
+     <tr>
+     <td align="center">0 donnée</td>
+     <td align="center">0 donnée</td>
+     </tr>
+     ';
+   }
    $output .= '</tbody></table>';
    echo $output;
  }

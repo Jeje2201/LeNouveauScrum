@@ -46,7 +46,7 @@ require_once ('../Modele/Configs.php');
     {
      $output .= '
      <tr>
-     <td align="center">💩</td>
+     <td align="center">0 donnée</td>
      </tr>
      ';
    }
