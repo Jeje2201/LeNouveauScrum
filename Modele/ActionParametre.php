@@ -37,7 +37,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
   }
 

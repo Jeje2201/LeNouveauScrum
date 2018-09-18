@@ -176,7 +176,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "Créer Retrospective") {
@@ -192,7 +192,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "SelectObjectif") {
@@ -246,7 +246,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "Changer Remarque") {
@@ -265,7 +265,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "ChangerEtat") {
@@ -284,7 +284,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "retrospectiveFini") {
@@ -300,10 +300,9 @@
         )
       );
       if (!empty($result))
-        if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "Delete") {
@@ -318,7 +317,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
   }

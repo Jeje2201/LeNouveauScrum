@@ -152,7 +152,7 @@
         if (!empty($result))
           echo '✓';
         else
-          echo 'X';
+          print_r($statement->errorInfo());
       }
     }
 
@@ -207,7 +207,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "AttributionScrumPlaning") {
@@ -229,7 +229,7 @@
         if (!empty($result))
           echo '✓';
         else
-          echo 'X';
+          print_r($statement->errorInfo());
       }
     }
 

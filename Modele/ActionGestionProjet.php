@@ -80,7 +80,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "Select") {
@@ -118,7 +118,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "Delete") {
@@ -133,7 +133,7 @@
       if (!empty($result))
         echo '✓';
       else
-        echo 'X';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "insert") {
