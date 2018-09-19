@@ -94,7 +94,7 @@
 
       $output .= '%0A %0A Remarques: %0A';
 
-      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.Etat IS NULL");
+      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.DateFini IS NULL");
       $statement->execute();
       $result = $statement->fetchAll();
 
@@ -290,7 +290,7 @@
     if ($_POST["action"] == "retrospectiveFini") {
       $statement = $connection->prepare(
         "UPDATE retrospective 
-   SET Etat = 1, DateFini = NOW()
+   SET DateFini = NOW()
    WHERE id = :id
    "
       );
