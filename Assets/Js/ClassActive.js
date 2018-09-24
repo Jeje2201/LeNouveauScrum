@@ -9,8 +9,6 @@ function ClassActive(LaPage, TypeUser, NameUser) {
 		.closest('li').addClass('active')
 		.closest('ul').addClass('show');
 
-	show
-
 	$("#TitreNavBar").text('Ns Scrum - ' + NameUser);
 
 	//Cacher les onglets innutiles pour les non admin
