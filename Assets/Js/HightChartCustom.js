@@ -24,12 +24,13 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
       // console.log('- Projets qui ont des heures planifiés/descendues: ', data[3]);
       // console.log('- Total heures descendues par projets: ', data[4]);
       // console.log('- Total heures planifiés par projets: ', data[5]);
-      // console.log('- Etat et nombre d\'objectif: ', data[6]);
-      // console.log('- Total heures planifiées toutes ressources comprises: ', data[7]);
-      // console.log('- Total heures descendues toutes ressources comprises: ', data[8]);
-      // console.log('- Total heures descendues toutes ressources comprises par jours: ', data[9]);
-      // console.log('- Chaques jours qui ont des heures descendues: ', data[10]);
-      // console.log('- Date de fin du sprint: ', data[11]);
+      // console.log('- Etat et nombre d\'objectif: ', data['Objectifs']);
+      // console.log('- Total heures planifiées toutes ressources comprises: ', data['TotalHeuresAttribuees']);
+      // console.log('- Total heures descendues toutes ressources comprises: ', data['TotalHeuresDescendues']);
+      // console.log('- Total heures descendues toutes ressources comprises par jours: ', data['HeuresDescenduesParJour']);
+      // console.log('- Chaques jours qui ont des heures descendues: ', data['DateHeuresDescenduesParJour']);
+      // console.log('- Date de fin du sprint: ', data['DateFinSprint']);
+      // console.log('- Date de debut du sprint: ', data['DateDebutSprint']);
 
       if (affichage == 1) {
 
@@ -42,7 +43,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           },
           xAxis: {
             type: 'category',
-            categories: data[0],
+            categories: data['NomRessource'],
             labels: {
               rotation: -45,
               style: {
@@ -73,11 +74,11 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           },
           series: [{
             name: 'Heures attribuées',
-            data: data[2],
+            data: data['RessourceHeureAttribuees'],
             pointPadding: 0.3,
           }, {
             name: 'Heures descendues',
-            data: data[1],
+            data: data['RessourceHeuresDescendues'],
             pointPadding: 0.4,
           }]
         });
@@ -92,7 +93,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           },
           xAxis: {
             type: 'category',
-            categories: data[3],
+            categories: data['NomProjet'],
             labels: {
               rotation: -45,
               style: {
@@ -119,11 +120,11 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           },
           series: [{
             name: 'Heures attribuées',
-            data: data[5],
+            data: data['ProjetHeuresAttribuees'],
             pointPadding: 0.3
           }, {
             name: 'Heures descendues',
-            data: data[4],
+            data: data['ProjetHeuresDescendues'],
             pointPadding: 0.4
           }]
         });
@@ -158,7 +159,6 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
           text: 'Total heures attribuées/descendues<br>(toutes ressources comprises)'
         },
         yAxis: {
-          min: 0,
           title: {
             text: 'Heures'
           }
@@ -168,24 +168,35 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
         },
         plotOptions: {
           column: {
-            grouping: false,
-            shadow: true,
-            borderWidth: 1
-          },
+            stacking: 'normal',
+            grouping: false
+        },
           dataLabels: {
-            enabled: true,
-            format: ''
+            enabled: true
           }
         },
-        series: [{
+        series: [
+          {
           name: 'Heures attribuées',
-          data: data[7],
-          pointPadding: 0.3,
-        }, {
+          data: data['TotalHeuresAttribuees'],
+          stack: 0,
+          pointPadding: 0.3
+        },
+        {
+          name: 'Heures interférence',
+          color: 'rgba(126,86,134,.9)',
+          data: data['TotalHeuresInterference'],
+          stack: 1,
+          pointPadding: 0.4
+        }, 
+        {
           name: 'Heures descendues',
-          data: data[8],
-          pointPadding: 0.4,
-        }]
+          data: data['TotalHeuresDescendues'],
+          stack: 1,
+          pointPadding: 0.4
+        },
+        
+      ]
       });
     }
   })
@@ -205,7 +216,7 @@ function ChargerPieObjectif(NumeroduSprint, div) {
     success: function (data) {
 
       data = JSON.parse(data);
-      var finalColors = data[6].map(o => o[2]);
+      var finalColors = data['Objectifs'].map(o => o[2]);
       Highcharts.chart(div, {
         chart: {
           plotBackgroundColor: null,
@@ -232,7 +243,7 @@ function ChargerPieObjectif(NumeroduSprint, div) {
         },
         series: [{
           name: ' ',
-          data: data[6]
+          data: data['Objectifs']
         }]
       });
     }
@@ -427,13 +438,13 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
       data = JSON.parse(data);
 
       MoyenneADescendre = new Array
-      for (i = 0; i < ListeJoursDate(data[12][0], data[11][0]).length; i++) {
-        MoyenneADescendre.push(Math.round(data[7][0] / NbJourDeTravail(data[12][0], data[11][0])))
+      for (i = 0; i < ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]).length; i++) {
+        MoyenneADescendre.push(Math.round(data['TotalHeuresAttribuees'][0] / NbJourDeTravail(data['DateDebutSprint'][0], data['DateFinSprint'][0])))
       }
 
       MoyenneDescendueTable = new Array
-      for (j = 0; j < ListeJoursDate(data[12][0], data[11][0]).length; j++) {
-        MoyenneDescendueTable.push(Math.round(data[8] / (FusionnerJoursEtHeures(data[12][0], data[11][0], data[10], data[9])[1]).length))
+      for (j = 0; j < ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]).length; j++) {
+        MoyenneDescendueTable.push(Math.round(data['TotalHeuresDescendues'] / (FusionnerJoursEtHeures(data['DateDebutSprint'][0], data['DateFinSprint'][0], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[1]).length))
       }
 
       new Highcharts.Chart({
@@ -452,7 +463,7 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
         },
         xAxis: {
           type: 'datetime',
-          categories: AjouterJourFrDevantDate(ListeJoursDate(data[12][0], data[11][0]))
+          categories: AjouterJourFrDevantDate(ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]))
         },
         plotOptions: {
           line: {
@@ -482,7 +493,7 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
             },
           }, {
             name: 'Heures descendues par jour',
-            data: FusionnerJoursEtHeures(data[12][0], data[11][0], data[10], data[9])[0],
+            data: FusionnerJoursEtHeures(data['DateDebutSprint'][0], data['DateFinSprint'][0], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[0],
             zones: [{
                 value: MoyenneADescendre[0],
                 color: '#ff4747'
