@@ -16,10 +16,11 @@
         E.Initial as Initial,
         sum(A.heure) as nbheureadescendre,
         ifnull( sum(HD.heure),0) as nbheuredescendu,
-        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes
+        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
+        (select ifnull(SUM(interference.heure),0) from interference where interference.id_Employe = E.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from Employe as E
         LEFT JOIN attribution as a ON a.id_employe = e.id and a.id_Sprint = $NumeroduSprint
-        LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint 
+        LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
         WHERE
         A.heure is not null
         AND A.id_TypeTache IS NULL
@@ -36,12 +37,14 @@
         $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
         $HDescendue[] = intval($row['nbheuredescendu']);
         $Hattribue[] = intval($row['nbheureadescendre']);
+        $HInterference[] = intval($row['heuresinterference']);
 
       }
 
       $array['NomRessource'] = $employe;
       $array['RessourceHeuresDescendues'] = $HDescendue;
       $array['RessourceHeureAttribuees'] = $Hattribue;
+      $array['RessourceHeureInterference'] = $HInterference;
 
       $statement = $connection->prepare(
         $sql = "
