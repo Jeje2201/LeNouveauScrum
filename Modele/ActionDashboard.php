@@ -31,10 +31,6 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $employe = [];
-      $HDescendue = [];
-      $Hattribue = [];
-
       foreach ($result as $row) {
 
         $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
@@ -43,9 +39,9 @@
 
       }
 
-      $array[] = $employe;
-      $array[] = $HDescendue;
-      $array[] = $Hattribue;
+      $array['NomRessource'] = $employe;
+      $array['RessourceHeuresDescendues'] = $HDescendue;
+      $array['RessourceHeureAttribuees'] = $Hattribue;
 
       $statement = $connection->prepare(
         $sql = "
@@ -69,10 +65,6 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $projet = [];
-      $HDescendueProjet = [];
-      $HattribueProjet = [];
-
       foreach ($result as $row) {
 
         $projet[] = $row['pnom'];
@@ -81,9 +73,9 @@
 
       }
 
-      $array[] = $projet;
-      $array[] = $HDescendueProjet;
-      $array[] = $HattribueProjet;
+      $array['NomProjet'] = $projet;
+      $array['ProjetHeuresDescendues'] = $HDescendueProjet;
+      $array['ProjetHeuresAttribuees'] = $HattribueProjet;
 
       $statement = $connection->prepare(
         $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur
@@ -112,25 +104,25 @@
 
       }
 
-      $array[] = $Total;
+      $array['Objectifs'] = $Total;
+
 
       $statement = $connection->prepare(
-        $sql = "SELECT sum(heure) as Tot from attribution where attribution.id_Sprint = $NumeroduSprint AND attribution.id_TypeTache IS NULL"
+        $sql = "SELECT (select sum(heure) from attribution WHERE attribution.id_Sprint = 7 and attribution.id_TypeTache IS NULL) as TotalHeuresAttribuees, (select sum(heure) from heuresdescendues WHERE heuresdescendues.id_Sprint = 7) as TotalHeuresDescendues, (select sum(heure) from interference WHERE interference.id_Sprint = 7) as TotalHeuresInterference"
       );
+
       $statement->execute();
-      $result = $statement->fetch();
-      $TotAttribution[] = intval($result["Tot"]);
+      $result = $statement->fetchAll();
 
-      $array[] = $TotAttribution;
+      foreach ($result as $row) {
+        $TotalHeuresAttribuees[] = intval($row['TotalHeuresAttribuees']);
+        $TotalHeuresDescendues[] = intval($row['TotalHeuresDescendues']);
+        $TotalHeuresInterference[] = intval($row['TotalHeuresInterference']);
+      }
 
-      $statement = $connection->prepare(
-        $sql = "SELECT sum(heure) as Tot from heuresdescendues where heuresdescendues.id_Sprint = $NumeroduSprint"
-      );
-      $statement->execute();
-      $result = $statement->fetch();
-      $TotDescendue[] = intval($result["Tot"]);
-
-      $array[] = $TotDescendue;
+      $array['TotalHeuresAttribuees'] = $TotalHeuresAttribuees;
+      $array['TotalHeuresDescendues'] = $TotalHeuresDescendues;
+      $array['TotalHeuresInterference'] = $TotalHeuresInterference;
 
       $statement = $connection->prepare(
         $sql = "SELECT sum(heure) as heures, DateDescendu as Ladate FROM `heuresdescendues` where heuresdescendues.id_Sprint = $NumeroduSprint GROUP by DateDescendu"
@@ -139,18 +131,14 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $Descendues = [];
-      $Date = [];
-
-
       foreach ($result as $row) {
         $Descendues[] = intval($row['heures']);
         $Date[] = date("d-m-Y", strtotime($row['Ladate']));
 
       }
 
-      $array[] = $Descendues;
-      $array[] = $Date;
+      $array['HeuresDescenduesParJour'] = $Descendues;
+      $array['DateHeuresDescenduesParJour'] = $Date;
 
       $statement = $connection->prepare(
         $sql = "SELECT * from sprint where sprint.id = $NumeroduSprint"
@@ -160,8 +148,8 @@
       $FinSprint[] = $result["dateFin"];
       $DebutSprint[] = $result["dateDebut"];
 
-      $array[] = $FinSprint;
-      $array[] = $DebutSprint;
+      $array['DateFinSprint'] = $FinSprint;
+      $array['DateDebutSprint'] = $DebutSprint;
 
     }
 
