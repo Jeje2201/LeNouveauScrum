@@ -24,7 +24,7 @@
         A.heure is not null
         AND A.id_TypeTache IS NULL
         GROUP BY E.id
-        order by nbheuredescendu desc, heurerestantes desc
+        order by nbheuredescendu desc, heurerestantes asc
       "
       );
 
@@ -108,7 +108,7 @@
 
 
       $statement = $connection->prepare(
-        $sql = "SELECT (select sum(heure) from attribution WHERE attribution.id_Sprint = 7 and attribution.id_TypeTache IS NULL) as TotalHeuresAttribuees, (select sum(heure) from heuresdescendues WHERE heuresdescendues.id_Sprint = 7) as TotalHeuresDescendues, (select sum(heure) from interference WHERE interference.id_Sprint = 7) as TotalHeuresInterference"
+        $sql = "SELECT (select sum(heure) from attribution WHERE attribution.id_Sprint = $NumeroduSprint and attribution.id_TypeTache IS NULL) as TotalHeuresAttribuees, (select sum(heure) from heuresdescendues WHERE heuresdescendues.id_Sprint = $NumeroduSprint) as TotalHeuresDescendues, (select sum(heure) from interference WHERE interference.id_Sprint = $NumeroduSprint) as TotalHeuresInterference"
       );
 
       $statement->execute();
