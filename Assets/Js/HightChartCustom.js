@@ -18,20 +18,6 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
 
       data = JSON.parse(data);
 
-      // console.log('- Ressources qui ont des heures planifiés/descendues: ', data[0]);
-      // console.log('- Total heures descendues par ressources: ', data[1]);
-      // console.log('- Total heures planifiées par ressources: ', data[2]);
-      // console.log('- Projets qui ont des heures planifiés/descendues: ', data[3]);
-      // console.log('- Total heures descendues par projets: ', data[4]);
-      // console.log('- Total heures planifiés par projets: ', data[5]);
-      // console.log('- Etat et nombre d\'objectif: ', data['Objectifs']);
-      // console.log('- Total heures planifiées toutes ressources comprises: ', data['TotalHeuresAttribuees']);
-      // console.log('- Total heures descendues toutes ressources comprises: ', data['TotalHeuresDescendues']);
-      // console.log('- Total heures descendues toutes ressources comprises par jours: ', data['HeuresDescenduesParJour']);
-      // console.log('- Chaques jours qui ont des heures descendues: ', data['DateHeuresDescenduesParJour']);
-      // console.log('- Date de fin du sprint: ', data['DateFinSprint']);
-      // console.log('- Date de debut du sprint: ', data['DateDebutSprint']);
-
       if (affichage == 1) {
 
         Highcharts.chart(div, {
