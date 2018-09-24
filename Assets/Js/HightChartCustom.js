@@ -289,7 +289,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
         data: heures
       },
       {
-        name: 'Seuil (Interventions, ...)',
+        name: 'Seuil (interférence, congé, ...)',
         data: tableauSeuil
       }
     ]
