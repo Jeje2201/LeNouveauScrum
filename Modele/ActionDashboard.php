@@ -53,7 +53,8 @@
         P.nom as pnom,
         sum(A.heure) as nbheureadescendre,
         ifnull( sum(HD.heure),0) as nbheuredescendu,
-        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes
+        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
+        (select ifnull(SUM(interference.heure),0) from interference where interference.id_Projet = P.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from projet as P
         LEFT JOIN attribution as a ON a.id_Projet = p.id and a.id_Sprint = $NumeroduSprint
         LEFT JOIN heuresdescendues as hd on hd.id_Projet = p.id and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
@@ -73,12 +74,13 @@
         $projet[] = $row['pnom'];
         $HDescendueProjet[] = intval($row['nbheuredescendu']);
         $HattribueProjet[] = intval($row['nbheureadescendre']);
-
+        $HInterferenceProjet[] = intval($row['heuresinterference']);
       }
 
       $array['NomProjet'] = $projet;
       $array['ProjetHeuresDescendues'] = $HDescendueProjet;
       $array['ProjetHeuresAttribuees'] = $HattribueProjet;
+      $array['ProjetHeuresInterferences'] = $HInterferenceProjet;
 
       $statement = $connection->prepare(
         $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur

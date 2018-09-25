@@ -109,6 +109,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           },
           plotOptions: {
             column: {
+              stacking: 'normal',
               grouping: false,
               shadow: true,
               borderWidth: 1
@@ -117,12 +118,23 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
           series: [{
             name: 'Heures attribuées',
             data: data['ProjetHeuresAttribuees'],
+            stack: 0,
             pointPadding: 0.3
+          },
+          {
+            name: 'Heures interference',
+            data: data['ProjetHeuresInterferences'],
+            stack: 1,
+            color: '#ca2ff9',
+            pointPadding: 0.4
           }, {
             name: 'Heures descendues',
             data: data['ProjetHeuresDescendues'],
+            stack: 1,
+            color: 'black',
             pointPadding: 0.4
-          }]
+          }
+          ]
         });
 
       }
