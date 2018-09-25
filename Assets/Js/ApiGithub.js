@@ -31,14 +31,23 @@ function GetAllVersionsInfos(Div) {
                 for (var a = 0; a < liste.length; a++) {
                     if (tag == parseFloat(data[a].tag_name)) {
                         console.log('trouvé: ' + data[a].tag_name)
-                        DateSortie = data[a].published_at.split('T')[0].split('-')
-                        info += '<p><h3>' + DateSortie[2] + '-' + DateSortie[1] + '-' + DateSortie[0] + ' (version ' + data[a].tag_name + ')</h3></p>'
-                        info += data[a].body
-                        info += ' <hr><br>'
+                        Version = data[a].name + '  ('+ data[a].published_at.split('T')[0].split('-')[2] + '-' + data[a].published_at.split('T')[0].split('-')[1] + '-' + data[a].published_at.split('T')[0].split('-')[0] + ')'
+
+                        info += '   <div class="panel-group" id="faqAccordion">\
+                                        <div class="panel panel-default ">\
+                                            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion"              data-target="#question'+a+'">\
+                                                <h4 class="panel-title"><a href="#" class="ing" style="color:#917a7a">'+ Version +'</a></h4>\
+                                            </div>\
+                                            <div id="question'+a+'" class="panel-collapse collapse" style="height: 0px;">\
+                                                <div class="panel-body">'+data[a].body+'</div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <hr>'
+                        
                     }
                 }
-            }
-
+            }   
             $('#' + Div).html(info);
         }
     })
