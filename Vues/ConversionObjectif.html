@@ -42,13 +42,14 @@
 </body>
 <script>
   $('#yolo').click(function () {
+    console.clear();
     if (!$('#idSprint').val() || !$('#depart').val())
       alert('Un des champs est vide')
     else {
       var lines = $('textarea').val().split('\n');
       var resultconversion = ''
-      var RegexProjet = /^[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].+[a-zA-Z0-9])[\s|\t]*:[ |\t]*/;
-      var RegexEtat = /[\s|\t]*\-[\s|\t]*([a-zA-Z0-9]|[a-zA-Z0-9].*[a-zA-Z0-9])[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é]|En cours)[\s|\t]*/;
+      var RegexProjet = /^[\s|\t]*([A-zÀ-ú0-9].*)[\s|\t]*:[ |\t]*/;
+      var RegexEtat = /[\s|\t]*\-[\s|\t]*([A-zÀ-ú0-9]|[A-zÀ-ú0-9].*[A-zÀ-ú0-9])[\)|\.]*[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é]|En cours|\?)[\s|\t]*/;
 
       for (var i = 0; i < lines.length; i++) {
 
@@ -61,12 +62,14 @@
           lines[i] = lines[i].replace(/:/g, '');
           Etat = RegexEtat.exec(lines[i])[2]
 
-          Label = RegexEtat.exec(lines[i])[1]
-          Label = Label.replace(/"/g, ' ');
+          Label = RegexEtat.exec(lines[i])[1].replace(/"/g, ' ');
 
           resultconversion += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) ' + '\n' + 'VALUES( ' + '\n\t' + '(SELECT id FROM projet WHERE projet.nom = \'' + project + '\'),' + '\n\t' + '\"' + Label + '\" ,' + '\n\t' + '(SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'' + Etat + '\'),' + '\n\t' + '(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('idSprint').value + ') );' + '\n';
           resultconversion += '\n';
         }
+        if(!lines[i].match(RegexProjet) && !lines[i].match(RegexEtat)){
+          console.log(i + ' -> ' + lines[i])
+      }
 
       }
 

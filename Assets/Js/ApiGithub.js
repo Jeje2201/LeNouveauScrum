@@ -2,7 +2,6 @@ function GetAllVersionsInfos(Div) {
 
     var url = 'https://api.github.com/repos/Jeje2201/ScrumManager/releases?access_token=0d5e7ccbc3f3060289ad93eaac70b34cbeeca0a9';
 
-    // API request pour obtenir les infos de l'utilisateur et lui hacker sa base de donnée parceque nous bah on est des hackers d'abord
     $.ajax({
         url: url,
         statusCode: {
@@ -21,8 +20,9 @@ function GetAllVersionsInfos(Div) {
             liste.sort(function (a, b) {
                 return b - a
             })
-            console.log('taille liste version: ' + liste.length)
-            console.log(liste)
+
+            // console.log('taille liste version: ' + liste.length)
+            // console.log(liste)
 
             for (var i = 0; i < liste.length; i++) {
 
