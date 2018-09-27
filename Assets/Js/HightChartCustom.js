@@ -15,8 +15,12 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-
+      try{
       data = JSON.parse(data);
+    } catch (e) {
+      console.log(e)
+      console.log('ya un probleme :', data)
+    }
 
       if (affichage == 1) {
 
@@ -157,7 +161,12 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      data = JSON.parse(data);
+      try{
+        data = JSON.parse(data);
+      } catch (e) {
+        console.log(e)
+        console.log('ya un probleme :', data)
+      }
 
       Highcharts.chart(div, {
         chart: {
@@ -223,7 +232,12 @@ function ChargerPieObjectif(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      data = JSON.parse(data);
+      try{
+        data = JSON.parse(data);
+      } catch (e) {
+        console.log(e)
+        console.log('ya un probleme :', data)
+      }
       var finalColors = data['Objectifs'].map(o => o[2]);
       Highcharts.chart(div, {
         chart: {
@@ -395,7 +409,12 @@ function MettreChartAJour(NumeroSprint, div) {
     },
     success: function (Total) {
 
-      Total = JSON.parse(Total);
+      try{
+        Total = JSON.parse(Total);
+      } catch (e) {
+        console.log(e)
+        console.log('ya un probleme :', Total)
+      }
 
       CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
 
@@ -430,6 +449,11 @@ function MettreChartAJour(NumeroSprint, div) {
 
 };
 
+/**
+ * Permet d'afficher la chart avec les heures descendues par jour par les ressources, la moyenne de combien il aurait fallu descendre et combien en moyenne ils ont descendu
+ * @param {number} NumeroduSprint 
+ * @param {string} div 
+ */
 function HeuresDescenduesParJours(NumeroduSprint, div) {
 
   var action = "GetTotalHeuresDescenduesParEmploye";
@@ -443,7 +467,12 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      data = JSON.parse(data);
+      try{
+        data = JSON.parse(data);
+      } catch (e) {
+        console.log(e)
+        console.log('ya un probleme :', data)
+      }
 
       MoyenneADescendre = new Array
       for (i = 0; i < ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]).length; i++) {
