@@ -36,9 +36,6 @@
         $output .= '
      <tr>
      <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
      </tr>
      ';
       }
