@@ -7,7 +7,7 @@
     if ($_POST["action"] == "Load") {
       $idEmploye = $_POST["idEmploye"];
       $statement = $connection->prepare("
-        SELECT  (select projet.nom from projet where projet.id = attribution.id_Projet) as projet ,attribution.id, attribution.heure, attribution.Label from attribution where id_Employe = $idEmploye and id_sprint = (select id from sprint ORDER BY id desc LIMIT 1) AND attribution.id_TypeTache IS NULL");
+        SELECT  (select projet.nom from projet where projet.id = attribution.id_Projet) as projet ,attribution.id, attribution.heure, attribution.Label from attribution where id_Employe = $idEmploye and id_sprint = (select id from sprint ORDER BY numero desc LIMIT 1) AND attribution.id_TypeTache IS NULL");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
