@@ -19,7 +19,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
       data = JSON.parse(data);
     } catch (e) {
       console.log(e)
-      console.log('ya un probleme :', data)
+    
     }
 
       if (affichage == 1) {
@@ -78,7 +78,6 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
             name: 'Heures descendues',
             data: data['RessourceHeuresDescendues'],
             stack: 1,
-            color: 'black',
             pointPadding: 0.4,
           }]
         });
@@ -135,7 +134,6 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
             name: 'Heures descendues',
             data: data['ProjetHeuresDescendues'],
             stack: 1,
-            color: 'black',
             pointPadding: 0.4
           }
           ]
@@ -165,7 +163,7 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
         data = JSON.parse(data);
       } catch (e) {
         console.log(e)
-        console.log('ya un probleme :', data)
+      
       }
 
       Highcharts.chart(div, {
@@ -201,7 +199,7 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
         },
         {
           name: 'Heures interférence',
-          color: 'rgba(126,86,134,.9)',
+          color: '#ca2ff9',
           data: data['TotalHeuresInterference'],
           stack: 1,
           pointPadding: 0.4
@@ -236,7 +234,7 @@ function ChargerPieObjectif(NumeroduSprint, div) {
         data = JSON.parse(data);
       } catch (e) {
         console.log(e)
-        console.log('ya un probleme :', data)
+      
       }
       var finalColors = data['Objectifs'].map(o => o[2]);
       Highcharts.chart(div, {
@@ -326,7 +324,8 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       },
       {
         name: 'Seuil (interférence, congé, ...)',
-        data: tableauSeuil
+        data: tableauSeuil,
+        color: '#ca2ff9'
       }
     ]
   });
@@ -413,7 +412,7 @@ function MettreChartAJour(NumeroSprint, div) {
         Total = JSON.parse(Total);
       } catch (e) {
         console.log(e)
-        console.log('ya un probleme :', Total)
+      
       }
 
       CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
@@ -471,7 +470,7 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
         data = JSON.parse(data);
       } catch (e) {
         console.log(e)
-        console.log('ya un probleme :', data)
+      
       }
 
       MoyenneADescendre = new Array
