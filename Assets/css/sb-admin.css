@@ -11,6 +11,10 @@ html {
     height: 85%;
   }
 
+  .centered{
+    text-align: center;
+  }
+
   #return-to-top {
     position: fixed;
     bottom: 20px;
