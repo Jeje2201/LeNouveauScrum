@@ -7,22 +7,25 @@ html {
   position: relative;
   min-height: 100%; }
 
+  /* Eviter que les tables sorte de la page */
   #TableListHeuresAttribuees, #TableauInterferanceHtml, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
     height: 85%;
   }
 
-  .non{
+  /* Mettre des couleurs dans les statues de mail */
+  .Mailnon{
     color:red
   }
 
-  .\?{
+  .Mail\?{
     color:blue
   }
 
-  .ok{
+  .Mailok{
     color:#76bf00
   }
-  .En.cours{
+
+  .MailEn.cours{
     color:orange
   }
 

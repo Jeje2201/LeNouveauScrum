@@ -22,9 +22,8 @@
                 </div> -->
 
             <div class="col">
-              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+              <div class="btn-block" role="group" aria-label="Basic example">
                 <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
-                <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
               </div>
 
             </div>
@@ -103,9 +102,6 @@
 <div id="ModalMail" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Remarque</h4>
-      </div>
       <div class="modal-body">
 
         <div id="MailGenerer"></div>
@@ -186,10 +182,6 @@
           RemplirTableau();
         }
       });
-    });
-
-    $('#BouttonInfo').click(function () {
-      alert('Le bouton de mail utilise "mailto:".\nSi rien ne se passe, veuillez vérifier vos paramètres de mail par défaut.\n- Sur chrome rendez vous ici : chrome://settings/handlers\n- Sur firefox allez dans "application" depuis ce lien : about:preferences ')
     });
 
     $('#numeroSprint').change(function () {

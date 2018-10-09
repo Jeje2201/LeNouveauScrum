@@ -85,9 +85,9 @@
 
           if ($projet != $row["projet"]) {
             $projet = $row["projet"];
-            $output .= '<br> <br>' . $row["projet"] . ': <br>' . '- ' . $row["objectif"] . ' (<span class="'.$row["etat"] .'">' . $row["etat"] . '</span>)';
+            $output .= '<br> <br>' . $row["projet"] . ': <br>' . '- ' . $row["objectif"] . ' (<span class="Mail'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           } else {
-            $output .= '<br>- ' . $row["objectif"] . ' (<span class="'.$row["etat"] .'">' . $row["etat"] . '</span>)';
+            $output .= '<br>- ' . $row["objectif"] . ' (<span class="Mail'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           }
         }
       }

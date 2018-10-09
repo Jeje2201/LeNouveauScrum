@@ -419,7 +419,7 @@ function MettreChartAJour(NumeroSprint, div) {
       if(Total['JoursAvecDesHeures'] != null)
       CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
       else
-      $("#EmplacementChart").text('Problème d\'affichage pour la burndown chart, apparaitra surement quand au moins 1h sera descendue');
+      $("#EmplacementChart").text('Problème d\'affichage pour la burndown chart, comming back soon (hopefully)');
 
       fillInformation(Total);
 
