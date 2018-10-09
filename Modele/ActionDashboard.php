@@ -141,7 +141,10 @@
         $Date[] = date("d-m-Y", strtotime($row['Ladate']));
 
       }
-
+      if(empty($Descendues))
+      $Descendues[] = 0;
+      if(empty($Date))
+      $Date[] = 0;
       $array['HeuresDescenduesParJour'] = $Descendues;
       $array['DateHeuresDescenduesParJour'] = $Date;
 
@@ -150,11 +153,8 @@
       );
       $statement->execute();
       $result = $statement->fetch();
-      $FinSprint[] = $result["dateFin"];
-      $DebutSprint[] = $result["dateDebut"];
-
-      $array['DateFinSprint'] = $FinSprint;
-      $array['DateDebutSprint'] = $DebutSprint;
+      $array['DateFinSprint'] = $result["dateFin"];
+      $array['DateDebutSprint'] = $result["dateDebut"];
 
     }
 

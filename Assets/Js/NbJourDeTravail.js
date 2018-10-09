@@ -61,7 +61,8 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, HeuresDesJours, PremiereValeur) {
 
   // console.log('total a descendre pour bd:' + PremiereValeur)
-
+console.log('MODR' + Debut)
+console.log('pODR' + Fin)
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
   // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array

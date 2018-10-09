@@ -1,3 +1,12 @@
+function IsJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
+
 /**
  * @param {number} NumeroduSprint - Numéro du sprint
  * @param {number} affichage - Si affichage = 0, afficher ressources, sinon afficher projet
@@ -15,12 +24,9 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-      try{
+
+      if(IsJsonString(data))
       data = JSON.parse(data);
-    } catch (e) {
-      console.log(e)
-    
-    }
 
       if (affichage == 1) {
 
@@ -159,12 +165,8 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      try{
-        data = JSON.parse(data);
-      } catch (e) {
-        console.log(e)
-      
-      }
+      if(IsJsonString(data))
+      data = JSON.parse(data);
 
       Highcharts.chart(div, {
         chart: {
@@ -230,12 +232,9 @@ function ChargerPieObjectif(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      try{
-        data = JSON.parse(data);
-      } catch (e) {
-        console.log(e)
-      
-      }
+      if(IsJsonString(data))
+      data = JSON.parse(data);
+
       var finalColors = data['Objectifs'].map(o => o[2]);
       Highcharts.chart(div, {
         chart: {
@@ -408,14 +407,19 @@ function MettreChartAJour(NumeroSprint, div) {
     },
     success: function (Total) {
 
-      try{
-        Total = JSON.parse(Total);
-      } catch (e) {
-        console.log(e)
-      
-      }
+      if(IsJsonString(Total))
+      Total = JSON.parse(Total);
 
-      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])));
+      console.log('du coup ? '+Total['JoursAvecDesHeures'])
+
+      console.log('AVANT PROBLEME')
+      console.log('LIS MOI '+ Total)
+      console.log(Total)
+
+      if(Total['JoursAvecDesHeures'] != null)
+      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
+      else
+      $("#EmplacementChart").text('Problème d\'affichage pour la burndown chart, apparaitra surement quand au moins 1h sera descendue');
 
       fillInformation(Total);
 
@@ -466,21 +470,23 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      try{
-        data = JSON.parse(data);
-      } catch (e) {
-        console.log(e)
-      
-      }
+      console.log(data)
+
+      if(IsJsonString(data))
+      data = JSON.parse(data);
+      else
+      alert('wow')
+
+      console.log(data['DateDebutSprint'])
 
       MoyenneADescendre = new Array
-      for (i = 0; i < ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]).length; i++) {
-        MoyenneADescendre.push(Math.round(data['TotalHeuresAttribuees'][0] / NbJourDeTravail(data['DateDebutSprint'][0], data['DateFinSprint'][0])))
+      for (i = 0; i < ListeJoursDate(data['DateDebutSprint'], data['DateFinSprint']).length; i++) {
+        MoyenneADescendre.push(Math.round(data['TotalHeuresAttribuees'][0] / NbJourDeTravail(data['DateDebutSprint'], data['DateFinSprint'])))
       }
 
       MoyenneDescendueTable = new Array
-      for (j = 0; j < ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]).length; j++) {
-        MoyenneDescendueTable.push(Math.round(data['TotalHeuresDescendues'] / (FusionnerJoursEtHeures(data['DateDebutSprint'][0], data['DateFinSprint'][0], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[1]).length))
+      for (j = 0; j < ListeJoursDate(data['DateDebutSprint'], data['DateFinSprint']).length; j++) {
+        MoyenneDescendueTable.push(Math.round(data['TotalHeuresDescendues'] / (FusionnerJoursEtHeures(data['DateDebutSprint'], data['DateFinSprint'], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[1]).length))
       }
 
       new Highcharts.Chart({
@@ -499,7 +505,7 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
         },
         xAxis: {
           type: 'datetime',
-          categories: AjouterJourFrDevantDate(ListeJoursDate(data['DateDebutSprint'][0], data['DateFinSprint'][0]))
+          categories: AjouterJourFrDevantDate(ListeJoursDate(data['DateDebutSprint'], data['DateFinSprint']))
         },
         plotOptions: {
           line: {
@@ -529,7 +535,7 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
             },
           }, {
             name: 'Heures descendues par jour',
-            data: FusionnerJoursEtHeures(data['DateDebutSprint'][0], data['DateFinSprint'][0], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[0],
+            data: FusionnerJoursEtHeures(data['DateDebutSprint'], data['DateFinSprint'], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[0],
             zones: [{
                 value: MoyenneADescendre[0],
                 color: '#ff4747'

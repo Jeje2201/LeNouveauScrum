@@ -30,13 +30,27 @@
 
         $interferences = intval($row['interferances']);
 
-        $sprintou = intval($row['sprint']);
+        // $sprintou = intval($row['sprint']);
         $Jours[] = date("d-m-Y", strtotime($row['Jours']));
       }
 
+      if(empty($Jours))
+      $Jours[] = 0;
+      else
+      $array['JoursAvecDesHeures'] = $Jours;
+
+      if(empty($Heures))
+      $Heures[] = 0;
+      else
       $array['HeuresDesJours'] = $Heures;
+
+      if(empty($interferences))
+      $interferences[] = 0;
+      else
       $array['Interference'] = $interferences;
-      $array['NumeroSprint'] = $sprintou;
+
+
+      $array['NumeroSprint'] = intval($NumeroSprint);
 
       $statement = $connection->prepare(
         "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
@@ -47,13 +61,12 @@
 
       $array['TotalADescendre'] = $ToutADescendre;
 
-      $statement = $connection->prepare($sql = "SELECT * from sprint where sprint.numero = $NumeroSprint");
+      $statement = $connection->prepare($sql = "SELECT dateDebut, dateFin from sprint where sprint.numero = $NumeroSprint");
       $statement->execute();
       $result = $statement->fetch();
 
-      $array['DateDebut'] = $result['dateDebut'];
-      $array['DateFin'] = $result['dateFin'];
-      $array['JoursAvecDesHeures'] = $Jours;
+      $array['DateDebut'] = $result["dateDebut"];
+      $array['DateFin'] = $result["dateFin"];
 
 
     }
