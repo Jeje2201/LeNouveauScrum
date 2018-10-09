@@ -100,6 +100,21 @@
   </div>
 </div>
 
+<div id="ModalMail" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Remarque</h4>
+      </div>
+      <div class="modal-body">
+
+        <div id="MailGenerer"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
   $(document).ready(function () {
@@ -134,7 +149,9 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (dataa) {
-          $('#textbox').html(dataa.trim());
+          console.log('test1' + dataa.trim())
+          // $('#textbox').html(dataa.trim());
+          $('#MailGenerer').html(dataa.trim());
 
         }
       });
@@ -152,7 +169,8 @@
     }
 
     $('#BoutonMail').click(function () {
-      window.open('mailto:natural-solutions@googlegroups.com?subject=Rétrospective Sprint n°' + $('#numeroSprint option:selected').text() + '&body=' + $('#textbox').val())
+      // window.open('mailto:natural-solutions@googlegroups.com?subject=Rétrospective Sprint n°' + $('#numeroSprint option:selected').text() + '&body=' + $('#textbox').val())
+      $('#ModalMail').modal('show');
     });
 
     $(document).on('click', '.1, .2, .3, .4, .5', function () {

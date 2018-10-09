@@ -85,14 +85,14 @@
 
           if ($projet != $row["projet"]) {
             $projet = $row["projet"];
-            $output .= '%0A %0A' . $row["projet"] . ': %0A' . '- ' . $row["objectif"] . ' (' . $row["etat"] . ')';
+            $output .= '<br> <br>' . $row["projet"] . ': <br>' . '- ' . $row["objectif"] . ' (<span class="'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           } else {
-            $output .= '%0A- ' . $row["objectif"] . ' (' . $row["etat"] . ')';
+            $output .= '<br>- ' . $row["objectif"] . ' (<span class="'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           }
         }
       }
 
-      $output .= '%0A %0A Remarques: %0A';
+      $output .= '<br> <br> Remarques: <br>';
 
       $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.DateFini IS NULL");
       $statement->execute();
@@ -100,7 +100,7 @@
 
       if ($statement->rowCount() > 0) {
         foreach ($result as $row) {
-          $output .= '- ' . $row["label"] . '%0A';
+          $output .= '- ' . $row["label"] . '<br>';
         }
       }
 

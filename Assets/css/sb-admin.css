@@ -11,6 +11,21 @@ html {
     height: 85%;
   }
 
+  .non{
+    color:red
+  }
+
+  .\?{
+    color:blue
+  }
+
+  .ok{
+    color:#76bf00
+  }
+  .En.cours{
+    color:orange
+  }
+
   .centered{
     text-align: center;
   }
