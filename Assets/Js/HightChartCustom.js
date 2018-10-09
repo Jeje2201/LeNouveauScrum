@@ -345,8 +345,6 @@ function setInformation(idDiv, Information) {
  */
 function fillInformation(infosource) {
 
-  console.log(infosource)
-
   if (infosource['TotalADescendre'] > 0)
     setInformation('TotalHAttribues', infosource['TotalADescendre']);
   else
@@ -394,7 +392,7 @@ function fillInformation(infosource) {
  * @param {number} NumeroSprint - Int numéro du sprint en cours
  * @param {string} div - String div dans lequel mettre la burndownchart
  */
-function MettreChartAJour(NumeroSprint, div) {
+function UpdateBurndownchart(NumeroSprint, div) {
 
   var action = "GetLesInfosDeLaBurnDownChart";
 
@@ -410,16 +408,15 @@ function MettreChartAJour(NumeroSprint, div) {
       if(IsJsonString(Total))
       Total = JSON.parse(Total);
 
-      console.log('du coup ? '+Total['JoursAvecDesHeures'])
+      console.log('Jours avec des heures '+Total['JoursAvecDesHeures'])
 
-      console.log('AVANT PROBLEME')
-      console.log('LIS MOI '+ Total)
+      console.log('Contenu du json de la burndownchart: ')
       console.log(Total)
 
       if(Total['JoursAvecDesHeures'] != null)
       CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
       else
-      $("#EmplacementChart").text('Problème d\'affichage pour la burndown chart, comming back soon (hopefully)');
+      $("#EmplacementChart").text('Mhm.. La burndownchart ne veut pas s\'afficher. Y\'a surement une raison');
 
       fillInformation(Total);
 
@@ -470,14 +467,8 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      console.log(data)
-
       if(IsJsonString(data))
       data = JSON.parse(data);
-      else
-      alert('wow')
-
-      console.log(data['DateDebutSprint'])
 
       MoyenneADescendre = new Array
       for (i = 0; i < ListeJoursDate(data['DateDebutSprint'], data['DateFinSprint']).length; i++) {

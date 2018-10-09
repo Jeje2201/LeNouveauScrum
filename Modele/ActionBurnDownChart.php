@@ -30,12 +30,11 @@
 
         $interferences = intval($row['interferances']);
 
-        // $sprintou = intval($row['sprint']);
         $Jours[] = date("d-m-Y", strtotime($row['Jours']));
       }
 
       if(empty($Jours))
-      $Jours[] = 0;
+      $Jours[] = '00-00-0000';
       else
       $array['JoursAvecDesHeures'] = $Jours;
 
@@ -44,11 +43,7 @@
       else
       $array['HeuresDesJours'] = $Heures;
 
-      if(empty($interferences))
-      $interferences[] = 0;
-      else
       $array['Interference'] = $interferences;
-
 
       $array['NumeroSprint'] = intval($NumeroSprint);
 

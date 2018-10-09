@@ -105,7 +105,7 @@
   $(document).ready(function () {
 
     RemplirListSprint('ListSrint');
-    MettreChartAJour($("#numeroSprint option:selected").text(), 'EmplacementChart');
+    UpdateBurndownchart($("#numeroSprint option:selected").text(), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');
     ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
     GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
@@ -116,7 +116,7 @@
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
-      MettreChartAJour($("#numeroSprint option:selected").text(), 'EmplacementChart');
+      UpdateBurndownchart($("#numeroSprint option:selected").text(), 'EmplacementChart');
     });
 
     $('#BoutonEmployes').click(function () {
