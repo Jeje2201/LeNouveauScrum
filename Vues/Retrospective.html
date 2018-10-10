@@ -146,7 +146,6 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (dataa) {
           console.log('test1' + dataa.trim())
-          // $('#textbox').html(dataa.trim());
           $('#MailGenerer').html(dataa.trim());
 
         }
@@ -165,7 +164,6 @@
     }
 
     $('#BoutonMail').click(function () {
-      // window.open('mailto:natural-solutions@googlegroups.com?subject=Rétrospective Sprint n°' + $('#numeroSprint option:selected').text() + '&body=' + $('#textbox').val())
       $('#ModalMail').modal('show');
     });
 
@@ -253,7 +251,7 @@
       }
     });
 
-    $(document).on('click', '.success', function () {
+    $(document).on('click', '.ValiderRemarque', function () {
       var id = $(this).attr("id");
       var action = "retrospectiveFini";
       $.ajax({
@@ -265,6 +263,25 @@
           RemplirTableau();
         }
       });
+    });
+
+        $(document).on('click', '.SuppressionRemarque', function () {
+          var id = $(this).attr("id");
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+        var action = "Delete";
+        $.ajax({
+          url: "Modele/ActionGestionRemarques.php",
+          method: "POST",
+          data: { id: id, action: action },
+          success: function (data) {
+            RemplirTableau();
+            BootstrapAlert(data);
+          }
+        })
+      }
+      else {
+        return false;
+      }
     });
 
     $(document).on('click', '.update', function () {
@@ -328,7 +345,11 @@
     });
 
     var availableTags = [
-      "Fixer Internet",
+      "Réparer Internet",
+      "Penser à éteindre la lumière",
+      "Appeler électricien",
+      "Réparer l'imprimante",
+      "Mettre à jour ses tâches",
       "Ceci est un auto complete qui ne demande que des idées"
     ];
 

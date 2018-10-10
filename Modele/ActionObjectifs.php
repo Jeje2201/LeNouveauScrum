@@ -141,7 +141,8 @@
           <center>
           
           <button type="button" id="' . $row["id"] . '" class="btn btn-warning EditionRemarque"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-          <button type="button" id="' . $row["id"] . '" class="btn btn-success success"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <button type="button" id="' . $row["id"] . '" class="btn btn-success ValiderRemarque"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <button type="button" id="' . $row["id"] . '" class="btn btn-danger SuppressionRemarque"><i class="fa fa-times" aria-hidden="true"></i></button>
           </center>
           </td>';
           $output .= '</tr>
