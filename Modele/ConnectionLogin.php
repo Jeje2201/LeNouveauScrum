@@ -30,7 +30,7 @@ $_SESSION['TypeUtilisateur'] = $result["Type"];
 header('Location: ../index.php');
 }
 else{
-    echo "<script type='text/javascript'>alert('Wrong Username or Password');
+    echo "<script type='text/javascript'>alert('Mhm.. Jérémy a pourtant bien codé l\'application, et ce mot de passe semble ne pas correspondre. Se référer à un ScrumMaster qui pourrait le re-définir semble être la meilleur solution :\)');
     window.location=' ../index.php';
     </script>";
 }
