@@ -2,20 +2,6 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 
-			<!-- Selectionner le sprint sur lequel l'on va jouer -->
-
-			<!-- 					<div class="form-group">
-						<label>Nombre de jours pour 1 sprint</label>
-						<input type="number" class="form-control" name="NbJoursParSprint" id="NbJoursParSprint" value="14" min="1">
-						<small class="form-text text-muted">Exemple; "14" veut dire que lors de la création d'un sprint, la différence entre les deux date sera de 14 jours.</small>
-					</div>
-
-					<div class="form-group">
-						<label>Nombre d'heures disponibles pour un Sprint par employé(e)</label>
-						<input type="number" class="form-control" id="NbHeureDisponibleParSprint" value="60" min="1">
-						<small class="form-text text-muted">Exemple; "60" veut dire que chaque employé pourra travailler un maximum de 60 heures pour un sprint</small>
-					</div> -->
-
 			<div class="form-group">
 				<label>Couleur (car beaucoup trop demandé)</label>
 				<br>
@@ -25,6 +11,10 @@
 				<label>Pseudo</label>
 				<input type="text" class="form-control" id="PseudoUser" maxlength="11">
 				<small class="form-text text-muted">(Exemple: ImBatman. Sera affiché sur la card à coté de vos initials)</small>
+			</div>
+			<div class="form-group">
+					<label>Mot de passe</label>
+					<input type="password" class="form-control" id="mdp" maxlength="11" required="required">
 			</div>
 
 			<button class="btn btn-primary" id="set">Sauvegarder</button>
@@ -54,6 +44,7 @@
 					var idRessource = <?php echo $_SESSION['IdUtilisateur'] ?>;
 					var couleur = $('#CouleurUser').val();
 					var Pseudo = $('#PseudoUser').val();
+					var mdp = $('#mdp').val();
 					var action = "Update"
 					if (Pseudo.length > 11) {
 						alert('N\'essaie pas de dépasser la limtite :(')
@@ -62,7 +53,7 @@
 						$.ajax({
 							url: "Modele/ActionParametre.php",
 							method: "POST",
-							data: { action: action, couleur: couleur, Pseudo: Pseudo, idRessource: idRessource },
+							data: { action: action, couleur: couleur, Pseudo: Pseudo, idRessource: idRessource, mdp: mdp },
 							success: function (data) {
 								BootstrapAlert(data);
 							}

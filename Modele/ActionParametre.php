@@ -23,7 +23,7 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET Pseudo = :Pseudo, Couleur = :Couleur
+   SET Pseudo = :Pseudo, Couleur = :Couleur, mdp = :mdp
    WHERE id = :id
    "
       );
@@ -31,6 +31,7 @@
         array(
           ':Pseudo' => $_POST["Pseudo"],
           ':Couleur' => $_POST["couleur"],
+          ':mdp' => password_hash($_POST["mdp"],PASSWORD_BCRYPT),
           ':id' => $_POST["idRessource"]
         )
       );

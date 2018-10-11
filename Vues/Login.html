@@ -5,11 +5,17 @@
     </div>
     <div class="card-body">
       <form method="POST" action="Modele/ConnectionLogin.php">
+
         <div id="ListeEmploye"></div>
         <br>
+        <div class="form-label-group">
+          <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required="required">
+          <small id="smallinfo">Mot de passe par defaut ("Minecraft!")..</small>
+        </div>
 
-        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())" class="btn btn-primary btn-block"
-          id="wow">Se connecter</button>
+        <br>
+
+        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())" class="btn btn-primary btn-block">Se connecter</button>
       </form>
       <div class="text-center">
         <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
@@ -40,16 +46,20 @@
 
 <script>
   $(document).ready(function () {
-    RemplirListTypeEmployeEtType('ListeEmploye');
 
+    //Load all employes
+    RemplirListTypeEmployeEtType('ListeEmploye');
+    
+    //Show modal if click on text
     $("#target").click(function () {
       $('#ModalLogin').modal('show');
     });
-
+    
+    //Preload users if ID is save in the local storage
     if (localStorage.getItem("Connexion") != null) {
-      var test = localStorage.getItem("Connexion")
-      console.log(test)
-      $('#TypeEmployeOk option[value="' + test + '"]').attr('selected', 'selected');
+      var idUser = localStorage.getItem("Connexion")
+      console.log(idUser)
+      $('#TypeEmployeOk option[value="' + idUser + '"]').attr('selected', 'selected');
     }
 
   });

@@ -15,7 +15,7 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, '***' as mdp, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -27,6 +27,7 @@
       <th>Nom</th>
       <th>Initial</th>
       <th>Pseudo</th>
+      <th>Mdp</th>
       <th>Job</th>
       <th>Couleur</th>
       <th>Actif</th>
@@ -43,6 +44,7 @@
         <td>' . $row["Nom"] . '</td>
         <td>' . $row["Initial"] . '</td>
         <td>' . $row["Pseudo"] . '</td>
+        <td>' . $row["mdp"] . '</td>
         <td>' . $row["TypeJob"] . '</td>
         <td style="background-color:' . $row["Couleur"] . '"></td>';
 
@@ -68,8 +70,8 @@
 
     if ($_POST["action"] == "Ajouter") {
       $statement = $connection->prepare("
-   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye) 
-   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe)
+   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp) 
+   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp)
    ");
 
       $result = $statement->execute(
@@ -80,7 +82,8 @@
           ':Couleur' => '#' . random_color(),
           ':actif' => $_POST["Actif"],
           ':Initial' => $_POST["Initial"],
-          ':Type_Employe' => $_POST["Type_Employe"]
+          ':Type_Employe' => $_POST["Type_Employe"],
+          ':mdp' => password_hash("Minecraft!",PASSWORD_BCRYPT)
         )
       );
       if (!empty($result))
@@ -111,7 +114,7 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
+   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe, mdp = :mdp
    WHERE id = :id
    "
       );
@@ -122,6 +125,7 @@
           ':actif' => $_POST["Actif"],
           ':Initial' => $_POST["Initial"],
           ':Type_Employe' => $_POST["Type_Employe"],
+          ':mdp' => password_hash($_POST["mdp"],PASSWORD_BCRYPT),
           ':id' => $_POST["id"]
         )
       );

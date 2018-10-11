@@ -40,6 +40,10 @@
         </div>
 
         <div class="form-group">
+          <input class="form-control" name="mdp" id="mdp" type="password" maxlength="12" placeholder="Mot de passe" required="required">
+        </div>
+
+        <div class="form-group">
           <label>Type</label>
           <div id="ListTypeEmploye"></div>
         </div>
@@ -67,9 +71,9 @@
 
     RemplirListTypeEmploye('ListTypeEmploye');
 
-    fetchUser();
+    RechargerLesDonnes();
 
-    function fetchUser() {
+    function RechargerLesDonnes() {
       var action = "Load";
       $.ajax({
         url: "Modele/ActionGestionEmploye.php",
@@ -104,17 +108,18 @@
       var Initial = $('#Initial').val();
       var action = $('#action').val();
       var id = $('#id').val();
+      var mdp = $('#mdp').val();
 
       if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') {
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
-          data: { id: id, Nom_Employe: Nom_Employe, Prenom_Employe: Prenom_Employe, Actif: Actif, Initial: Initial, Type_Employe: Type_Employe, action: action },
+          data: { id: id, Nom_Employe: Nom_Employe, mdp: mdp, Prenom_Employe: Prenom_Employe, Actif: Actif, Initial: Initial, Type_Employe: Type_Employe, action: action },
           success: function (data) {
             BootstrapAlert(data);
             console.log(data);
             $('#ModalEmploye').modal('hide');
-            fetchUser();
+            RechargerLesDonnes();
           }
         });
       }
@@ -123,6 +128,7 @@
       }
     });
 
+    //Recuperer les infos de la personne a update et les pré-ecrire dans les différents champs
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
       var action = "Select";
@@ -133,7 +139,6 @@
         dataType: "json",
         success: function (data) {
 
-          
           $('#ModalEmploye').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
@@ -151,7 +156,6 @@
 
           SetSelect2('#TypeEmploye');
 
-
         }
       });
     });
@@ -165,7 +169,7 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
-            fetchUser();
+            RechargerLesDonnes();
             BootstrapAlert(data);
           }
         })
