@@ -104,7 +104,7 @@
 
   $(document).ready(function () {
 
-    RemplirListSprint('ListSrint');
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart($("#numeroSprint option:selected").text(), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');
     ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');

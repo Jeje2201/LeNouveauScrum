@@ -69,21 +69,9 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
-    RemplirListTypeEmploye('ListTypeEmploye');
+    RequeteAjax('ListTypeEmploye', 'ListeDeroulanteTypeEmploye', 'Modele/RequetesAjax.php');
 
-    RechargerLesDonnes();
-
-    function RechargerLesDonnes() {
-      var action = "Load";
-      $.ajax({
-        url: "Modele/ActionGestionEmploye.php",
-        method: "POST",
-        data: { action: action },
-        success: function (data) {
-          $('#TableauEmployeHtml').html(data);
-        }
-      });
-    }
+    RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
 
     $('#modal_button').click(function () {
       $('#ModalEmploye').modal('show');
@@ -119,7 +107,7 @@
             BootstrapAlert(data);
             console.log(data);
             $('#ModalEmploye').modal('hide');
-            RechargerLesDonnes();
+            RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
           }
         });
       }
@@ -169,7 +157,7 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
-            RechargerLesDonnes();
+            RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
             BootstrapAlert(data);
           }
         })

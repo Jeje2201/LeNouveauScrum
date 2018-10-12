@@ -115,20 +115,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'result');
 
-    fetchUser(); //This function will load all data on web page when page load
-
-    function fetchUser() // This function will fetch data from table and display under <div id="result">
-    {
-      var action = "Load";
-      $.ajax({
-        url: "Modele/ActionSprint.php", //Request send to "ActionSprint.php page"
-        method: "POST", //Using of Post method for send data
-        data: { action: action }, //action variable data has been send to server
-        success: function (data) {
-          $('#result').html(data); //It will display data under div tag with id result
-        }
-      });
-    }
+    RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')
 
     $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({
       format: 'dd-mm-yyyy',
@@ -172,7 +159,7 @@
 
               BootstrapAlert(data);
               GetNumeroSprintMax('numero');
-              fetchUser();
+              RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')
 
             }
           });
@@ -224,7 +211,7 @@
           success: function (data) {
             BootstrapAlert(data);
             $('#ModalSprint').modal('hide'); //It will hide Customer Modal from webpage.
-            fetchUser();    // Fetch User function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
       }
@@ -244,7 +231,7 @@
           method: "POST",     //Using of Post method for send data
           data: { id: id, action: action }, //Data send to server from ajax method
           success: function (data) {
-            fetchUser();    // fetchUser() function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
             BootstrapAlert(data);
           }
         })

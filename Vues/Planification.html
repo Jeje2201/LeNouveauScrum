@@ -104,14 +104,11 @@
 
   $(document).ready(function () {
 
-    RemplirListSprint('ListSrint');
-
-    RemplirListEmploye('ListEmploye')
-
-    RemplirListProjet('ListProjet');
-
-    RemplirTypeTache('ListTypeTache');
-    RemplirListeEmployeCheckBox('ListEmployeCheckBox');
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
 
     RemplirTableau('TableListHeuresAttribuees');
     RemplirTableauRessources('TableListHeuresAttribueesRessources');

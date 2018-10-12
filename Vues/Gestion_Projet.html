@@ -88,29 +88,15 @@
 
   $(document).ready(function () {
 
-
-
     BarreDeRecherche('BarreDeRecherche', 'TableauProjetHtml');
 
-    RemplirListTypeTypeProjet('listeTypeProjet')
+    RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
 
-    RemplirListImages('ListImage');
+    RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
 
+    RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
 
-
-    fetchUser();
-
-    function fetchUser() {
-      var action = "Load";
-      $.ajax({
-        url: "Modele/ActionGestionProjet.php",
-        method: "POST",
-        data: { action: action },
-        success: function (data) {
-          $('#TableauProjetHtml').html(data);
-        }
-      });
-    }
+    RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php')
 
     $('#ListImage').change(function () {
       $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
@@ -143,7 +129,7 @@
             BootstrapAlert(data);
             console.log(data);
             $('#ModaleProjet').modal('hide');
-            fetchUser();
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
           }
         });
       }
@@ -186,7 +172,7 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
-            fetchUser();
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
             BootstrapAlert(data);
           }
         })
@@ -223,7 +209,7 @@
             $('#image_form')[0].reset();
             $('#imageModal').modal('hide');
             BootstrapAlert(data);
-            fetchUser();
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
 
           }
         });

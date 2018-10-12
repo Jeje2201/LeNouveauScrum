@@ -70,15 +70,15 @@
 
   $(document).ready(function () {
 
-    RemplirListSprint('ListSrint');
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
-    RemplirListEmploye('ListEmploye');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
 
-    RemplirListProjet('ListProjet');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
 
-    RemplirListTypeInterferance('ListTypeInterferance')
+    RequeteAjax('ListTypeInterferance', 'ListeDeroulanteTypeInterferance', 'Modele/RequetesAjax.php');
 
     RemplirTableau();
 

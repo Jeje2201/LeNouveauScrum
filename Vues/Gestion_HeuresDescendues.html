@@ -66,13 +66,13 @@
 
   $(document).ready(function () {
 
-    RemplirListSprint('ListSrint');
-    RemplirListProjet('ListProjet');
-    RemplirListEmploye('ListEmploye')
-    ChargerTableau();
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    ChargerGestionHeuresDescendues();
     BarreDeRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
 
-    function ChargerTableau() {
+    function ChargerGestionHeuresDescendues() {
       var idAffiche = $('#numeroSprint').val();
       var action = "Load";
       $.ajax({
@@ -86,7 +86,7 @@
     }
 
     $('#numeroSprint').change(function () {
-      ChargerTableau();
+      ChargerGestionHeuresDescendues();
     });
 
     $('#action').click(function () {
@@ -105,7 +105,7 @@
           success: function (data) {
             BootstrapAlert(data);
             $('#ModalGestionHeuresDescendues').modal('hide');
-            ChargerTableau();
+            ChargerGestionHeuresDescendues();
           }
         });
       }
@@ -148,7 +148,7 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
-            ChargerTableau();
+            ChargerGestionHeuresDescendues();
             BootstrapAlert(data);
           }
         })

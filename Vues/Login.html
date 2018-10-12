@@ -48,7 +48,7 @@
   $(document).ready(function () {
 
     //Load all employes
-    RemplirListTypeEmployeEtType('ListeEmploye');
+    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php') 
     
     //Show modal if click on text
     $("#target").click(function () {
