@@ -16,7 +16,7 @@ function RequeteAjax(DivId, action, path) {
       action: action
     },
     success: function (data) {
-      $('#' + DivId + '').html(data);
+      $('#' + DivId).html(data);
     }
   });
 }

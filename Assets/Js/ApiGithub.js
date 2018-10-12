@@ -6,7 +6,7 @@ function GetAllVersionsInfos(Div) {
         url: url,
         statusCode: {
             403: function () {
-                alert("Mhm.. problème de connexion à l'api de Github..");
+                alert("Mhm.. Manque internet ? Car problème de connexion à l'api de Github..");
             }
         },
         success: function (data) {
