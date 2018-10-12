@@ -6,7 +6,7 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT interference.id as id, interference.heure as Heure,interference.label as Label, (select Prenom from employe where employe.id = interference.id_Employe) as Employe, (select nom from projet where projet.id = interference.id_Projet) as Projet, (select nom from typeinterference where typeinterference.id = interference.id_TypeInterference) as Type FROM interference Where id_Sprint = $numero ORDER BY interference.id_Projet asc");
+      $statement = $connection->prepare("SELECT interference.id as id, interference.heure as Heure,interference.label as Label, (select Initial from employe where employe.id = interference.id_Employe) as Employe, (select nom from projet where projet.id = interference.id_Projet) as Projet, (select nom from typeinterference where typeinterference.id = interference.id_TypeInterference) as Type FROM interference Where id_Sprint = $numero ORDER BY interference.id_Projet asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
