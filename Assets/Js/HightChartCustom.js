@@ -416,7 +416,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
       if(Total['JoursAvecDesHeures'] != null)
       CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
       else
-      $("#EmplacementChart").text('Mhm.. La burndownchart ne veut pas s\'afficher. Y\'a surement une raison');
+      $("#EmplacementChart").text('Aucune heure n\'est descendue. Il est donc impossible d\'afficher la burndown chart.');
 
       fillInformation(Total);
 

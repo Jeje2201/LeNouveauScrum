@@ -19,6 +19,7 @@
 
       $NumeroSprint = $_POST["NumeroSprint"];
 
+      //requete sql périmé si 0 sprint
       $statement = $connection->prepare(
         $sql = "SELECT $NumeroSprint as sprint, burndownhour as Heures, date as Jours, (SELECT sum(interference.heure)  FROM interference where interference.id_Sprint = ( SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint )) as interferances FROM `vburndown`where id_Sprint = (SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint) order by Date"
       );
@@ -33,14 +34,8 @@
         $Jours[] = date("d-m-Y", strtotime($row['Jours']));
       }
 
-      if(empty($Jours))
-      $Jours[] = '00-00-0000';
-      else
       $array['JoursAvecDesHeures'] = $Jours;
 
-      if(empty($Heures))
-      $Heures[] = 0;
-      else
       $array['HeuresDesJours'] = $Heures;
 
       $array['Interference'] = $interferences;
