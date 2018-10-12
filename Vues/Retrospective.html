@@ -62,10 +62,6 @@
         <br />
 
         <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Objectif">
-        <br />
-
-        <label>Etat</label>
-        <div id="listEtatObjectif"></div>
 
       </div>
       <div class="modal-footer">
@@ -117,11 +113,9 @@
 
     $('body').toggleClass('sidenav-toggled');
 
-    RemplirListSprint('ListSrint');
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
-    RemplirListProjet('ListProjet');
-
-    RemplirListEtatObjectif('listEtatObjectif');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
 
     RemplirTableau();
 
@@ -207,14 +201,14 @@
       var idSprint = $('#numeroSprint').val();
       var idProjet = $('#projetId').val();
       var LabelObjectif = $('#LabelObjectif').val();
-      var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
+      // var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       var id = $('#id').val();
       var action = $('#action').val();
-      if (idSprint != '' && LabelObjectif != '' && EtatObjectif != '' && idProjet != '') {
+      if (idSprint != '' && LabelObjectif != '' && idProjet != '') {
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, EtatObjectif: EtatObjectif, idProjet: idProjet, action: action },
+          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idProjet: idProjet, action: action },
           success: function (data) {
             BootstrapAlert(data);
             RemplirTableau();

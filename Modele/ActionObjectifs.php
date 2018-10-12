@@ -171,7 +171,7 @@
           ':id_Sprint' => $_POST["idSprint"],
           ':id_Projet' => $_POST["idProjet"],
           ':objectif' => $_POST["LabelObjectif"],
-          ':id_StatutObjectif' => $_POST["EtatObjectif"]
+          ':id_StatutObjectif' => 5
         )
       );
       if (!empty($result))
