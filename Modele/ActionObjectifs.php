@@ -6,7 +6,7 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
+      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (Select Initial from employe where employe.id = objectif.id_Employe) as employe, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -15,7 +15,8 @@
       <thead class="thead-light">
       <tr>
       <th>État</th>
-      <th >Projet</th>
+      <th>Projet</th>
+      <th>Ressource</th>
       <th>Objectif</th>
       <th>N°</th>';
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
@@ -33,6 +34,7 @@
         <tr >
         <td style="background-color: ' . $row["couleur"] . '; color: white; font-weight: bold;">' . $row["etat"] . '</td>
         <td>' . $row["projet"] . '</td>
+        <td>' . $row["employe"] . '</td>
         <td>' . $row["objectif"] . '</td>
         <td>' . $num . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
@@ -163,13 +165,14 @@
 
     if ($_POST["action"] == "Créer") {
       $statement = $connection->prepare("
-   INSERT INTO objectif (id_Sprint, id_Projet, objectif, id_StatutObjectif) 
-   VALUES (:id_Sprint, :id_Projet, :objectif, :id_StatutObjectif)
+   INSERT INTO objectif (id_Sprint, id_Projet, id_Employe, objectif, id_StatutObjectif) 
+   VALUES (:id_Sprint, :id_Projet, :id_Employe, :objectif, :id_StatutObjectif)
    ");
       $result = $statement->execute(
         array(
           ':id_Sprint' => $_POST["idSprint"],
           ':id_Projet' => $_POST["idProjet"],
+          ':id_Employe' => $_POST["idEmploye"],
           ':objectif' => $_POST["LabelObjectif"],
           ':id_StatutObjectif' => 5
         )
@@ -207,6 +210,7 @@
       $result = $statement->fetchAll();
       foreach ($result as $row) {
         $output["id_Projet"] = $row["id_Projet"];
+        $output["id_Employe"] = $row["id_Employe"];
         $output["objectif"] = $row["objectif"];
         $output["id_StatutObjectif"] = $row["id_StatutObjectif"];
       }
@@ -231,7 +235,7 @@
     if ($_POST["action"] == "Changer Objectif") {
       $statement = $connection->prepare(
         "UPDATE objectif 
-   SET objectif = :LabelObjectif, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_StatutObjectif = :EtatObjectif 
+   SET objectif = :LabelObjectif, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe
    WHERE id = :id
    "
       );
@@ -240,7 +244,7 @@
           ':LabelObjectif' => $_POST["LabelObjectif"],
           ':id_Sprint' => $_POST["idSprint"],
           ':id_Projet' => $_POST["idProjet"],
-          ':EtatObjectif' => $_POST["EtatObjectif"],
+          ':id_Employe' => $_POST["idEmploye"],
           ':id' => $_POST["id"]
         )
       );

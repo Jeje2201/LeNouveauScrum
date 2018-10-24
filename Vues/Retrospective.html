@@ -39,7 +39,6 @@
 
       <div id="TableObjectif" class="table-responsive table-hover"></div>
 
-      <p></p>
       <button type="button" id="Bouttonretrospective" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
       <p></p>
@@ -59,6 +58,10 @@
 
         <label>Projet</label>
         <div id="ListProjet"> </div>
+        <br />
+
+        <label>Employé</label>
+        <div id="ListEmploye"> </div>
         <br />
 
         <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Objectif">
@@ -117,6 +120,8 @@
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
 
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+
     RemplirTableau();
 
     BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
@@ -139,9 +144,7 @@
         method: "POST",
         data: { action: action, idAffiche: idAffiche },
         success: function (dataa) {
-          console.log('test1' + dataa.trim())
           $('#MailGenerer').html(dataa.trim());
-
         }
       });
 
@@ -185,14 +188,12 @@
       $('.modal-title').text("Créer un objectif");
       $('#action').val('Créer');
       $('#LabelObjectif').val("");
-      $('#EtatNum5').prop("checked", true);
     });
 
     $('#Bouttonretrospective').click(function () {
       $('#ModalRemarque').modal('show');
       $('.modal-title').text("Créer une remarque");
       $('#Labelretrospective').val("");
-      $('#EtatNum5').prop("checked", true);
       $('#ActionRemarque').val("Créer Retrospective")
 
     });
@@ -200,15 +201,16 @@
     $('#action').click(function () {
       var idSprint = $('#numeroSprint').val();
       var idProjet = $('#projetId').val();
+      var idEmploye = $('#employeId').val();
       var LabelObjectif = $('#LabelObjectif').val();
       // var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       var id = $('#id').val();
       var action = $('#action').val();
-      if (idSprint != '' && LabelObjectif != '' && idProjet != '') {
+      if (idSprint != '' && LabelObjectif != '' && idEmploye != '' && idProjet != '') {
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idProjet: idProjet, action: action },
+          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: action },
           success: function (data) {
             BootstrapAlert(data);
             RemplirTableau();
@@ -292,8 +294,8 @@
           $('#action').val("Changer Objectif");
           $('#id').val(id);
           $('#projetId').val(data.id_Projet);
+          $('#employeId').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
-          $('#EtatNum' + data.id_StatutObjectif).prop("checked", true);
 
           SetSelect2('#projetId');
 
@@ -352,7 +354,7 @@
       appendTo: ".ui-widget"
     });
 
-     SetSelect2('#projetId');
+     SetSelect2('#projetId, #employeId');
 
   });
 </script>
