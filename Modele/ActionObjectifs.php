@@ -16,7 +16,7 @@
       <tr>
       <th>État</th>
       <th>Projet</th>
-      <th>Ressource</th>
+      <th>Res</th>
       <th>Objectif</th>
       <th>N°</th>';
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
