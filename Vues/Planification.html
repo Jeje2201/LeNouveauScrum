@@ -125,6 +125,8 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#' + Div + '').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
+
         }
       });
     }

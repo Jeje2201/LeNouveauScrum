@@ -81,6 +81,8 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#TableauHeuresDescendues').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
+
         }
       });
     }

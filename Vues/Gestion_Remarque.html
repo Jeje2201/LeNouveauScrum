@@ -66,6 +66,7 @@
         data: { action: action },
         success: function (data) {
           $('#TableauHeuresDescendues').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
         }
       });
     }

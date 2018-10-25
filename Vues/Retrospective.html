@@ -135,6 +135,7 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#TableObjectif').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableObjectif');
         }
       });
 

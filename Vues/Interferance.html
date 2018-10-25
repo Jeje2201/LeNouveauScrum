@@ -92,6 +92,9 @@
         data: { action: action, idAffiche: idAffiche },
         success: function (data) {
           $('#TableauInterferanceHtml').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
+
+          
         }
       });
     }
