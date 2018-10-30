@@ -40,7 +40,8 @@
         </div>
 
         <div class="form-group">
-          <input class="form-control" name="mdp" id="mdp" type="password" minlength="5" maxlength="12" placeholder="Mot de passe" required="required">
+          <input class="form-control" name="mdp" id="mdp" type="password" minlength="5" maxlength="12" placeholder="Mot de passe"
+            required="required">
         </div>
 
         <div class="form-group">
@@ -105,9 +106,10 @@
           data: { id: id, Nom_Employe: Nom_Employe, mdp: mdp, Prenom_Employe: Prenom_Employe, Actif: Actif, Initial: Initial, Type_Employe: Type_Employe, action: action },
           success: function (data) {
             BootstrapAlert(data);
-            console.log(data);
             $('#ModalEmploye').modal('hide');
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
+            GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
+
           }
         });
       }
@@ -159,6 +161,8 @@
           success: function (data) {
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
             BootstrapAlert(data);
+            GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
+
           }
         })
       }
