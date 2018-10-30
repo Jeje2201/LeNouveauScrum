@@ -14,11 +14,11 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" >
       <thead class="thead-light">
       <tr>
+      <th>N°</th>
       <th>État</th>
       <th>Projet</th>
       <th>Res</th>
-      <th>Objectif</th>
-      <th>N°</th>';
+      <th>Objectif</th>';
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
         $output .= '<th colspan="2"><center>Changer État</center></th>';
       $output .= '
@@ -32,11 +32,12 @@
           $num += 1;
           $output .= '
         <tr >
+        
+        <td>' . $num . '</td>
         <td style="background-color: ' . $row["couleur"] . '; color: white; font-weight: bold;">' . $row["etat"] . '</td>
         <td>' . $row["projet"] . '</td>
         <td>' . $row["employe"] . '</td>
-        <td>' . $row["objectif"] . '</td>
-        <td>' . $num . '</td>';
+        <td>' . $row["objectif"] . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
             $output .= '
         <td><center><div class="btn-group" role="group" aria-label="Basic example">
