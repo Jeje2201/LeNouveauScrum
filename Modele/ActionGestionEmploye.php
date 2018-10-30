@@ -150,6 +150,24 @@
         print_r($statement->errorInfo());
     }
 
+    if ($_POST["action"] == "Checkpswd") {
+
+//Recuperer le mdp chiffré du user qui essaie de se connecter
+$statement = $connection->prepare(
+  $sql = "SELECT employe.mdp as mdp from employe where employe.id =".$_POST["idRessource"]
+);
+$statement->execute();
+$result = $statement->fetch();
+
+//Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
+if(password_verify($_POST['ancienmdp'],$result['mdp'])){
+  print("JeValide");
+    }
+  else {
+    print('non');
   }
+
+  }
+}
 
   ?>
