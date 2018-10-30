@@ -83,7 +83,7 @@
           ':actif' => $_POST["Actif"],
           ':Initial' => $_POST["Initial"],
           ':Type_Employe' => $_POST["Type_Employe"],
-          ':mdp' => password_hash("Minecraft!",PASSWORD_BCRYPT)
+          ':mdp' => password_hash($_POST["mdp"],PASSWORD_BCRYPT)
         )
       );
       if (!empty($result))

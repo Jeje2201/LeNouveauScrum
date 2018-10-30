@@ -42,7 +42,9 @@
         <div class="form-group">
           <input class="form-control" name="mdp" id="mdp" type="password" minlength="5" maxlength="12" placeholder="Mot de passe"
             required="required">
+            <small id="smallinfo">5 charactères minimum</small>
         </div>
+        
 
         <div class="form-group">
           <label>Type</label>
@@ -99,7 +101,7 @@
       var id = $('#id').val();
       var mdp = $('#mdp').val();
 
-      if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '') {
+      if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '' && mdp >=5 ) {
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
@@ -114,7 +116,7 @@
         });
       }
       else {
-        alert("Tous les champs doivent être plein.");
+        alert("Erreur dans les champs.");
       }
     });
 
