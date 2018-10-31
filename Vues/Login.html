@@ -9,13 +9,15 @@
         <div id="ListeEmploye"></div>
         <br>
         <div class="form-label-group">
-          <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" minlength="5" required="required">
+          <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password"
+            minlength="5" required="required">
           <small id="smallinfo">Mot de passe par defaut ("Minecraft!")..</small>
         </div>
 
         <br>
 
-        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())" class="btn btn-primary btn-block">Se connecter</button>
+        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())" class="btn btn-primary btn-block">Se
+          connecter</button>
       </form>
       <div class="text-center">
         <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
@@ -35,7 +37,8 @@
         <p>N'apparait dans la liste que les ressources qui:
           <li>Sont enregistrées dans la base de données</li>
           <li>Sont définies en tant qu'actifs.</li>
-          Si ce n'est pas ton cas, prend le temps de te plaindre à un Scrum Master</p>
+          Si ce n'est pas ton cas, prend le temps de te plaindre à un Scrum Master
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -48,17 +51,16 @@
   $(document).ready(function () {
 
     //Load all employes
-    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php') 
-    
+    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php')
+
     //Show modal if click on text
     $("#target").click(function () {
       $('#ModalLogin').modal('show');
     });
-    
+
     //Preload users if ID is save in the local storage
     if (localStorage.getItem("Connexion") != null) {
       var idUser = localStorage.getItem("Connexion")
-      console.log(idUser)
       $('#TypeEmployeOk option[value="' + idUser + '"]').attr('selected', 'selected');
     }
 

@@ -40,16 +40,15 @@
         </div>
 
         <div class="form-group">
-          <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe"
-            required="required">
-            <small id="smallinfo">5 charactères minimum</small>
+          <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe" required="required">
+          <small id="smallinfo">5 charactères minimum</small>
         </div>
 
         <div class="form-group">
           <input class="form-control" name="confirmmdp" id="confirmmdp" type="password" placeholder="Confirmer mot de passe"
             required="required">
         </div>
-        
+
 
         <div class="form-group">
           <label>Type</label>
@@ -107,7 +106,7 @@
       var mdp = $('#mdp').val();
       var confirmmdp = $('#confirmmdp').val();
 
-      if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '' && mdp.length >=5 && mdp == confirmmdp ) {
+      if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '' && mdp.length >= 5 && mdp == confirmmdp) {
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",

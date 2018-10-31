@@ -7,7 +7,7 @@ function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   });
 }
 
-function GarderLaRecherche(IdDivBarreDeRecherche, IdTableRecherche){
+function GarderLaRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   $("#" + IdTableRecherche + " tr:not(thead tr)").filter(function () {
     $(this).toggle($(this).text().toLowerCase().indexOf($("#" + IdDivBarreDeRecherche).val().toLowerCase()) > -1)
   });

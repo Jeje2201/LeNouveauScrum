@@ -257,8 +257,8 @@
       });
     });
 
-        $(document).on('click', '.SuppressionRemarque', function () {
-          var id = $(this).attr("id");
+    $(document).on('click', '.SuppressionRemarque', function () {
+      var id = $(this).attr("id");
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
         var action = "Delete";
         $.ajax({
@@ -350,7 +350,7 @@
       appendTo: ".ui-widget"
     });
 
-     SetSelect2('#projetId, #employeId');
+    SetSelect2('#projetId, #employeId');
 
   });
 </script>

@@ -1,8 +1,8 @@
 function IsJsonString(str) {
   try {
-      JSON.parse(str);
+    JSON.parse(str);
   } catch (e) {
-      return false;
+    return false;
   }
   return true;
 }
@@ -25,8 +25,8 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
     },
     success: function (data) {
 
-      if(IsJsonString(data))
-      data = JSON.parse(data);
+      if (IsJsonString(data))
+        data = JSON.parse(data);
 
       if (affichage == 1) {
 
@@ -74,7 +74,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
             data: data['RessourceHeureAttribuees'],
             stack: 0,
             pointPadding: 0.3,
-          },{
+          }, {
             name: 'Heures Interférences',
             data: data['RessourceHeureInterference'],
             stack: 1,
@@ -165,8 +165,8 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      if(IsJsonString(data))
-      data = JSON.parse(data);
+      if (IsJsonString(data))
+        data = JSON.parse(data);
 
       Highcharts.chart(div, {
         chart: {
@@ -187,33 +187,33 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
           column: {
             stacking: 'normal',
             grouping: false
-        },
+          },
           dataLabels: {
             enabled: true
           }
         },
         series: [
           {
-          name: 'Heures attribuées',
-          data: data['TotalHeuresAttribuees'],
-          stack: 0,
-          pointPadding: 0.3
-        },
-        {
-          name: 'Heures interférence',
-          color: '#ca2ff9',
-          data: data['TotalHeuresInterference'],
-          stack: 1,
-          pointPadding: 0.4
-        }, 
-        {
-          name: 'Heures descendues',
-          data: data['TotalHeuresDescendues'],
-          stack: 1,
-          pointPadding: 0.4
-        },
-        
-      ]
+            name: 'Heures attribuées',
+            data: data['TotalHeuresAttribuees'],
+            stack: 0,
+            pointPadding: 0.3
+          },
+          {
+            name: 'Heures interférence',
+            color: '#ca2ff9',
+            data: data['TotalHeuresInterference'],
+            stack: 1,
+            pointPadding: 0.4
+          },
+          {
+            name: 'Heures descendues',
+            data: data['TotalHeuresDescendues'],
+            stack: 1,
+            pointPadding: 0.4
+          },
+
+        ]
       });
     }
   })
@@ -232,8 +232,8 @@ function ChargerPieObjectif(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      if(IsJsonString(data))
-      data = JSON.parse(data);
+      if (IsJsonString(data))
+        data = JSON.parse(data);
 
       var finalColors = data['Objectifs'].map(o => o[2]);
       Highcharts.chart(div, {
@@ -318,14 +318,14 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       }
     },
     series: [{
-        name: 'Heures Restantes',
-        data: heures
-      },
-      {
-        name: 'Seuil (interférence, congé, ...)',
-        data: tableauSeuil,
-        color: '#ca2ff9'
-      }
+      name: 'Heures Restantes',
+      data: heures
+    },
+    {
+      name: 'Seuil (interférence, congé, ...)',
+      data: tableauSeuil,
+      color: '#ca2ff9'
+    }
     ]
   });
 };
@@ -405,18 +405,15 @@ function UpdateBurndownchart(NumeroSprint, div) {
     },
     success: function (Total) {
 
-      if(IsJsonString(Total))
-      Total = JSON.parse(Total);
-
-      console.log('Jours avec des heures '+Total['JoursAvecDesHeures'])
-
-      console.log('Contenu du json de la burndownchart: ')
+      if (IsJsonString(Total))
+        Total = JSON.parse(Total);
+        
       console.log(Total)
 
-      if(Total['JoursAvecDesHeures'] != null)
-      CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
+      if (Total['JoursAvecDesHeures'] != null)
+        CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
       else
-      $("#EmplacementChart").text('Aucune heure n\'est descendue. Il est donc impossible d\'afficher la burndown chart.');
+        $("#EmplacementChart").text('Aucune heure n\'est descendue. Il est donc impossible d\'afficher la burndown chart.');
 
       fillInformation(Total);
 
@@ -467,8 +464,8 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
     },
     success: function (data) {
 
-      if(IsJsonString(data))
-      data = JSON.parse(data);
+      if (IsJsonString(data))
+        data = JSON.parse(data);
 
       MoyenneADescendre = new Array
       for (i = 0; i < ListeJoursDate(data['DateDebutSprint'], data['DateFinSprint']).length; i++) {
@@ -507,35 +504,35 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
           }
         },
         series: [{
-            name: 'Moyenne d\'heures descendues',
-            data: MoyenneDescendueTable,
-            color: '#c1c1c1',
-            marker: false,
-            enableMouseTracking: false,
-            dataLabels: {
-              enabled: false
-            },
-          }, {
-            name: 'Moyenne d\'heures a descendre',
-            data: MoyenneADescendre,
-            color: '#4f4f4f',
-            marker: false,
-            enableMouseTracking: false,
-            dataLabels: {
-              enabled: false
-            },
-          }, {
-            name: 'Heures descendues par jour',
-            data: FusionnerJoursEtHeures(data['DateDebutSprint'], data['DateFinSprint'], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[0],
-            zones: [{
-                value: MoyenneADescendre[0],
-                color: '#ff4747'
-              },
-              {
-                color: '#00c652'
-              }
-            ]
+          name: 'Moyenne d\'heures descendues',
+          data: MoyenneDescendueTable,
+          color: '#c1c1c1',
+          marker: false,
+          enableMouseTracking: false,
+          dataLabels: {
+            enabled: false
+          },
+        }, {
+          name: 'Moyenne d\'heures a descendre',
+          data: MoyenneADescendre,
+          color: '#4f4f4f',
+          marker: false,
+          enableMouseTracking: false,
+          dataLabels: {
+            enabled: false
+          },
+        }, {
+          name: 'Heures descendues par jour',
+          data: FusionnerJoursEtHeures(data['DateDebutSprint'], data['DateFinSprint'], data['DateHeuresDescenduesParJour'], data['HeuresDescenduesParJour'])[0],
+          zones: [{
+            value: MoyenneADescendre[0],
+            color: '#ff4747'
+          },
+          {
+            color: '#00c652'
           }
+          ]
+        }
 
         ]
       });

@@ -58,12 +58,12 @@
               <input type="text" placeholder="projet" id="LeProjet">
               <input type="text" placeholder="Objectif" id="LeObjectif">
               <select id="LeEtat">
-                  <option value="?">?</option>
-                  <option value="Ok">Ok</option>
-                  <option value="En cours">En cours</option>
-                  <option value="Non">Non</option>
-                  <option value="Annulé">Annule</option>
-                </select>
+                <option value="?">?</option>
+                <option value="Ok">Ok</option>
+                <option value="En cours">En cours</option>
+                <option value="Non">Non</option>
+                <option value="Annulé">Annule</option>
+              </select>
               <button type="button" id="LeBouton" class="btn btn-info">Ajouter</button>
               <textarea rows="15" cols="100" id="LeTextArea" class="form-control"> </textarea>
 
@@ -75,60 +75,57 @@
     </div>
 </body>
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
 
-var resultatDeTout = ''
+    var resultatDeTout = ''
 
     $('#LeBouton').click(function () {
 
 
-      resultatDeTout += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) VALUES( (SELECT id FROM projet WHERE projet.nom = \'' + document.getElementById('LeProjet').value + '\'),\"' + document.getElementById('LeObjectif').value.replace('"','') + '\",  (SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'' + document.getElementById('LeEtat').value + '\'),(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('LeIdSprint').value + ') );' + '\n \n';
+      resultatDeTout += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) VALUES( (SELECT id FROM projet WHERE projet.nom = \'' + document.getElementById('LeProjet').value + '\'),\"' + document.getElementById('LeObjectif').value.replace('"', '') + '\",  (SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'' + document.getElementById('LeEtat').value + '\'),(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('LeIdSprint').value + ') );' + '\n \n';
 
       document.getElementById('LeObjectif').value = ""
 
       $('#LeTextArea').text(resultatDeTout)
-      
-    
-  })
 
 
-  $('#yolo').click(function () {
-    console.clear();
-    if (!$('#idSprint').val() || !$('#depart').val())
-      alert('Un des champs est vide')
-    else {
-      var lines = $('textarea').val().split('\n');
-      var resultconversion = ''
-      var Erreur = ''
-      var RegexProjet = /^[\s|\t]*([A-zÀ-ú0-9].*)[\s|\t]*:[ |\t]*/;
-      var RegexEtat = /[\s|\t]*\-[\s|\t]*([A-zÀ-ú0-9]|[A-zÀ-ú0-9].*[A-zÀ-ú0-9])[\)|\.]*[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é]|En cours|\?)[\s|\t]*/;
+    })
 
-      for (var i = 0; i < lines.length; i++) {
 
-        if (lines[i].match(RegexProjet)) {
-          project = RegexProjet.exec(lines[i])[1]
-          project = project.replace(/'|"/g, ' ');
+    $('#yolo').click(function () {
+      console.clear();
+      if (!$('#idSprint').val() || !$('#depart').val())
+        alert('Un des champs est vide')
+      else {
+        var lines = $('textarea').val().split('\n');
+        var resultconversion = ''
+        var Erreur = ''
+        var RegexProjet = /^[\s|\t]*([A-zÀ-ú0-9].*)[\s|\t]*:[ |\t]*/;
+        var RegexEtat = /[\s|\t]*\-[\s|\t]*([A-zÀ-ú0-9]|[A-zÀ-ú0-9].*[A-zÀ-ú0-9])[\)|\.]*[\s|\t]*([n|N]on|[o|O]k|[a|A]nnul[e|é]|En cours|\?)[\s|\t]*/;
+
+        for (var i = 0; i < lines.length; i++) {
+
+          if (lines[i].match(RegexProjet)) {
+            project = RegexProjet.exec(lines[i])[1]
+            project = project.replace(/'|"/g, ' ');
+          }
+
+          if (lines[i].match(RegexEtat)) {
+            lines[i] = lines[i].replace(/:/g, '');
+            Etat = RegexEtat.exec(lines[i])[2]
+
+            Label = RegexEtat.exec(lines[i])[1].replace(/"/g, ' ');
+
+            resultconversion += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) ' + '\n' + 'VALUES( ' + '\n\t' + '(SELECT id FROM projet WHERE projet.nom = \'' + project + '\'),' + '\n\t' + '\"' + Label + '\" ,' + '\n\t' + '(SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'' + Etat + '\'),' + '\n\t' + '(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('idSprint').value + ') );' + '\n';
+            resultconversion += '\n';
+          }
+
         }
-
-        if (lines[i].match(RegexEtat)) {
-          lines[i] = lines[i].replace(/:/g, '');
-          Etat = RegexEtat.exec(lines[i])[2]
-
-          Label = RegexEtat.exec(lines[i])[1].replace(/"/g, ' ');
-
-          resultconversion += 'INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) ' + '\n' + 'VALUES( ' + '\n\t' + '(SELECT id FROM projet WHERE projet.nom = \'' + project + '\'),' + '\n\t' + '\"' + Label + '\" ,' + '\n\t' + '(SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'' + Etat + '\'),' + '\n\t' + '(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('idSprint').value + ') );' + '\n';
-          resultconversion += '\n';
-        }
-      //   if(!lines[i].match(RegexProjet) && !lines[i].match(RegexEtat) && lines[i] != ''){
-      //     Erreur += ('INSERT INTO objectif (id_Projet,Objectif,id_StatutObjectif, id_Sprint) ' + '\n' + 'VALUES( ' + '\n\t' + '(SELECT id FROM projet WHERE projet.nom = \'' + project + '\'),' + '\n\t' + '\"' + lines[i] + '\" ,' + '\n\t' + '(SELECT id FROM statutobjectif WHERE statutobjectif.nom = \'?\'),' + '\n\t' + '(SELECT id FROM sprint WHERE sprint.numero = ' + document.getElementById('idSprint').value + ') );')
-      // }
-
+        $('#arrive').text(resultconversion)
+        $('#LesErreurs').text(Erreur)
       }
-      $('#arrive').text(resultconversion)
-      $('#LesErreurs').text(Erreur)
-    }
+    })
   })
-})
 
 
 </script>

@@ -15,15 +15,15 @@
 			<div class="form-group">
 				<label>Ancien mot de passe</label>
 				<input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
-		</div>
+			</div>
 			<div class="form-group">
-					<label>Mot de passe</label>
-					<input type="password" class="form-control" id="mdp" minlength="5" required="required">
+				<label>Mot de passe</label>
+				<input type="password" class="form-control" id="mdp" minlength="5" required="required">
 			</div>
 			<div class="form-group">
 				<label>Confirmez le mot de passe</label>
 				<input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
-		</div>
+			</div>
 
 			<button class="btn btn-primary" id="set">Sauvegarder</button>
 
@@ -31,7 +31,7 @@
 		<script>
 			$(document).ready(function () {
 
-				AfficherInfo(<?php echo $_SESSION['IdUtilisateur'] ?>);
+				AfficherInfo(<? php echo $_SESSION['IdUtilisateur'] ?>);
 
 				function AfficherInfo(idRessource) {
 					var action = "Load";
@@ -49,7 +49,7 @@
 
 				$('#set').click(function () {
 
-					var idRessource = <?php echo $_SESSION['IdUtilisateur'] ?>;
+					var idRessource = <? php echo $_SESSION['IdUtilisateur'] ?>;
 					var couleur = $('#CouleurUser').val();
 					var Pseudo = $('#PseudoUser').val();
 					var mdp = $('#mdp').val();
@@ -60,16 +60,16 @@
 					$.ajax({
 						url: "Modele/ActionGestionEmploye.php",
 						method: "POST",
-						data: {ancienmdp: ancienmdp, idRessource: idRessource, action: "Checkpswd" },
+						data: { ancienmdp: ancienmdp, idRessource: idRessource, action: "Checkpswd" },
 						success: function (ancienmdpOk) {
 							// debugger;
 							if (mdp != confirmmdp) {
 								BootstrapAlert('Les mots de passe ne correspondent pas.')
 							}
-							else if( mdp.length < 5) {
+							else if (mdp.length < 5) {
 								alert('Un mot de passe est composé de 5 caractères minimuim')
 							}
-							else if( ancienmdpOk.trim() == "non") {
+							else if (ancienmdpOk.trim() == "non") {
 								alert('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
 							}
 							else {
@@ -84,10 +84,10 @@
 							}
 						}
 					});
-					
 
 
-					
+
+
 				});
 
 			});

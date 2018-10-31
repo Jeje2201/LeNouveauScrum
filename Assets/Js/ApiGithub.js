@@ -21,33 +21,29 @@ function GetAllVersionsInfos(Div) {
                 return b - a
             })
 
-            // console.log('taille liste version: ' + liste.length)
-            // console.log(liste)
-
             for (var i = 0; i < liste.length; i++) {
 
                 tag = liste[i]
 
                 for (var a = 0; a < liste.length; a++) {
                     if (tag == parseFloat(data[a].tag_name)) {
-                        console.log('trouvé: ' + data[a].tag_name)
-                        Version = data[a].name + '  ('+ data[a].published_at.split('T')[0].split('-')[2] + '-' + data[a].published_at.split('T')[0].split('-')[1] + '-' + data[a].published_at.split('T')[0].split('-')[0] + ')'
+                        Version = data[a].name + '  (' + data[a].published_at.split('T')[0].split('-')[2] + '-' + data[a].published_at.split('T')[0].split('-')[1] + '-' + data[a].published_at.split('T')[0].split('-')[0] + ')'
 
                         info += '   <div class="panel-group" id="faqAccordion">\
                                         <div class="panel panel-default ">\
-                                            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion"              data-target="#question'+a+'">\
-                                                <h4 class="panel-title"><a href="#" class="ing" style="color:#917a7a">'+ Version +'</a></h4>\
+                                            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion"              data-target="#question'+ a + '">\
+                                                <h4 class="panel-title"><a href="#" class="ing" style="color:#917a7a">'+ Version + '</a></h4>\
                                             </div>\
-                                            <div id="question'+a+'" class="panel-collapse collapse" style="height: 0px;">\
-                                                <div class="panel-body">'+data[a].body+'</div>\
+                                            <div id="question'+ a + '" class="panel-collapse collapse" style="height: 0px;">\
+                                                <div class="panel-body">'+ data[a].body + '</div>\
                                             </div>\
                                         </div>\
                                     </div>\
                                     <hr>'
-                        
+
                     }
                 }
-            }   
+            }
             $('#' + Div).html(info);
         }
     })
@@ -61,7 +57,7 @@ function CheckLatestVersionNumber() {
         url: url,
         success: function (data) {
 
-            console.log('derniere version enregistré dans le pc: ' + localStorage.getItem('DerniereVersionConnu') + ' | derniere version release sur github: ' + data.tag_name)
+            console.log('Current version: ' + localStorage.getItem('DerniereVersionConnu') + ' | Last version found: ' + data.tag_name)
 
             if (localStorage.getItem('DerniereVersionConnu') == data.tag_name)
                 document.getElementById("newsgithub").style.display = "none";

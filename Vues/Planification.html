@@ -75,11 +75,12 @@
       </div>
       <div class="modal-body">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Liste des ressources
           </button>
-          <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox"
+            aria-labelledby="dropdownMenuButton">
           </div>
         </div>
 
@@ -199,7 +200,6 @@
 
       var id = $('#id').val();
       var action = $('#action').val();
-      console.log(NombreHeure)
 
       if (erreur == false) {
         if (idSprint != '' && idEmploye != '' && idProjet != '') {
@@ -238,8 +238,7 @@
 
       var idTypeTache = parseInt($('#RemplirTypeTache1').val());
       var NombreHeure = $('#nbheure2').val();
-
-      console.log(idSprint + ' - ' + idEmploye + ' - ' + idTypeTache + ' - ' + NombreHeure)
+      
       if (idEmploye.length > 0) {
         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
@@ -321,7 +320,7 @@
       }
     });
 
-     SetSelect2('#employeId, #projetId');
+    SetSelect2('#employeId, #projetId');
 
   });
 </script>

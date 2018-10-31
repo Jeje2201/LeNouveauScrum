@@ -60,7 +60,8 @@
 
               <img src="Assets/Image/InfoHeureAttribuable.png" width="100%">
               <p>Par jour est attribuable un certain nombre d'heures.
-                <br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h attribuable
+                <br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h
+                attribuable
                 car 3h sont déjà attribuées pour la planification des tâches.
                 <br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
             </div>
@@ -148,7 +149,6 @@
       var Attribuable = $('#attribuable').val();
       var id = $('#id').val();
       var action = 'Créer'
-      console.log(dateDebut + " | " + dateFin)
       if (dateFin > dateDebut) {
         if (numero != '' && dateDebut != '' && dateFin != '') {
           $.ajax({

@@ -113,11 +113,9 @@
               $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
 
               if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
-                console.log('Toujours dans Sprint, touche pas la date')
                 $('#DateAujourdhui').val(ChoixDate(0));
               }
               else {
-                console.log('aah plus dans le sprint, met la derniere date possible')
                 $('#DateAujourdhui').val(data['DateMax']);
               }
               $(function () {
@@ -140,7 +138,6 @@
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
           var NumEmploye = localStorage.getItem("Connexion")
-          console.log(NumEmploye)
           $('#numeroEmploye option[value="' + NumEmploye + '"]').attr('selected', 'selected');
         }
       });

@@ -8,7 +8,6 @@
 function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
-  // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array
   JoursOuvrableDejaPasse = new Array
 
@@ -60,15 +59,10 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
  */
 function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, HeuresDesJours, PremiereValeur) {
 
-  // console.log('total a descendre pour bd:' + PremiereValeur)
-console.log('MODR' + Debut)
-console.log('pODR' + Fin)
   listeJoursDansSprint = ListeJoursDate(Debut, Fin)
-  // console.log('tous les jours entre debyt et fin: ' + listeJoursDansSprint)
   HeuresDescenduesParJoursSurToutLeSprint = new Array
 
   var HeureActuelle = PremiereValeur
-  // console.log('Heure restantes: '+HeureActuelle)
 
   for (i = 0; i < listeJoursDansSprint.length; i++) {
 
@@ -77,8 +71,6 @@ console.log('pODR' + Fin)
     for (y = 0; y < JoursAvecHeures.length; y++) {
 
       if (listeJoursDansSprint[i] == JoursAvecHeures[y]) {
-
-        // console.log('match entre deux dates: '+ listeJoursDansSprint[i] + ' = ' + JoursAvecHeures[y])
 
         var JourValide = 1
         HeureActuelle = HeuresDesJours[y]

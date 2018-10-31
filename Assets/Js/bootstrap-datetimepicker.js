@@ -1551,30 +1551,30 @@
 
   var DPGlobal = {
     modes: [{
-        clsName: 'minutes',
-        navFnc: 'Hours',
-        navStep: 1
-      },
-      {
-        clsName: 'hours',
-        navFnc: 'Date',
-        navStep: 1
-      },
-      {
-        clsName: 'days',
-        navFnc: 'Month',
-        navStep: 1
-      },
-      {
-        clsName: 'months',
-        navFnc: 'FullYear',
-        navStep: 1
-      },
-      {
-        clsName: 'years',
-        navFnc: 'FullYear',
-        navStep: 10
-      }
+      clsName: 'minutes',
+      navFnc: 'Hours',
+      navStep: 1
+    },
+    {
+      clsName: 'hours',
+      navFnc: 'Date',
+      navStep: 1
+    },
+    {
+      clsName: 'days',
+      navFnc: 'Month',
+      navStep: 1
+    },
+    {
+      clsName: 'months',
+      navFnc: 'FullYear',
+      navStep: 1
+    },
+    {
+      clsName: 'years',
+      navFnc: 'FullYear',
+      navStep: 10
+    }
     ],
     isLeapYear: function (year) {
       return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0))

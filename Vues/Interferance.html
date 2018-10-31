@@ -94,7 +94,6 @@
           $('#TableauInterferanceHtml').html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
-          
         }
       });
     }
@@ -102,13 +101,6 @@
     $('#ListSrint').change(function () {
       RemplirTableau();
     });
-
-    // $('#typeinterference').change(function () {
-    //   if ($('#typeinterference option:selected').text() == 'Absence')
-    //     $('#leProjet').hide()
-    //   else
-    //     $('#leProjet').show()
-    // });
 
     $('#modal_button').click(function () {
       $('#labelinterference').val('');
@@ -125,9 +117,6 @@
       var TypeInterferance = $('#typeinterference').val();
       var labelinterference = $('#labelinterference').val();
 
-      // if($('#typeinterference option:selected').text() == 'Absence')
-      //      var Projet = 'null';
-      //     else
       var Projet = $('#projetId').val();
       var action = $('#action').val();
       var id = $('#id').val();
@@ -169,7 +158,7 @@
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
-           SetSelect2('#employeId, #projetId, #typeinterference');
+          SetSelect2('#employeId, #projetId, #typeinterference');
 
         }
       });
@@ -194,7 +183,7 @@
       }
     });
 
- SetSelect2('#employeId, #projetId, #typeinterference');
+    SetSelect2('#employeId, #projetId, #typeinterference');
 
   });
 </script>
