@@ -27,7 +27,6 @@
       <th>Nom</th>
       <th>Initial</th>
       <th>Pseudo</th>
-      <th>Mdp</th>
       <th>Job</th>
       <th>Couleur</th>
       <th>Actif</th>
@@ -44,7 +43,6 @@
         <td>' . $row["Nom"] . '</td>
         <td>' . $row["Initial"] . '</td>
         <td>' . $row["Pseudo"] . '</td>
-        <td>' . $row["mdp"] . '</td>
         <td>' . $row["TypeJob"] . '</td>
         <td style="background-color:' . $row["Couleur"] . '"></td>';
 
