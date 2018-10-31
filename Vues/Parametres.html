@@ -64,13 +64,13 @@
 						success: function (ancienmdpOk) {
 							// debugger;
 							if (mdp != confirmmdp) {
-								alert('Ce n\'est pas le même mot de passe, non non non.')
+								BootstrapAlert('Les mots de passe ne correspondent pas.')
 							}
 							else if( mdp.length < 5) {
-								alert('Minimum 5 characteres !')
+								alert('Un mot de passe est composé de 5 caractères minimuim')
 							}
 							else if( ancienmdpOk.trim() == "non") {
-								alert('Ancien mdp pas ok!')
+								alert('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
 							}
 							else {
 								$.ajax({
