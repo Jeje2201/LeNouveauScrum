@@ -6,7 +6,7 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (Select Initial from employe where employe.id = objectif.id_Employe) as employe, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
+      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (Select prenom from employe where employe.id = objectif.id_Employe) as Prenom, (Select nom from employe where employe.id = objectif.id_Employe) as Nom, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -17,7 +17,7 @@
       <th>N°</th>
       <th>État</th>
       <th>Projet</th>
-      <th>Res</th>
+      <th>Ressource</th>
       <th>Objectif</th>';
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
         $output .= '<th colspan="2"><center>Changer État</center></th>';
@@ -36,7 +36,7 @@
         <td>' . $num . '</td>
         <td style="background-color: ' . $row["couleur"] . '; color: white; font-weight: bold;">' . $row["etat"] . '</td>
         <td>' . $row["projet"] . '</td>
-        <td>' . $row["employe"] . '</td>
+        <td>' . $row["Prenom"] . '</td>
         <td>' . $row["objectif"] . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
             $output .= '
