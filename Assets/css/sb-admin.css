@@ -12,6 +12,36 @@ html {
     height: 85%;
   }
 
+  /* Pour avoir la connnexion centrée */
+  .PageConnexion{
+    top: 30%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    margin-left: -15em;
+    position: fixed;
+  }
+  .ImageLogin{
+  position: fixed;
+  /* left: 0;
+  right: 0;
+  top: 0; bottom: 0;
+  z-index: -1; */
+  display: block;
+  background-color: white;
+  background-image: url('https://i.imgur.com/95ubGuY.jpg');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
   /* Mettre des couleurs dans les statues de mail */
   .Mailnon{
     color:red
