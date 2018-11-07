@@ -3,7 +3,7 @@
 session_start();
 
 require_once ('Modele/Configs.php');
-require_once("Vues/Header.html");
+require_once("Vues/header.html");
 
 if(!isset($_SESSION['TypeUtilisateur']))
   require_once('Vues/Login.html');
@@ -88,7 +88,7 @@ switch($vue)
   <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDES "'. $vue .'" MAIS C\'EST QUOI AU JUSTE :((');
  break;
 }
-require_once("Vues/Footer.html");
+require_once("Vues/footer.html");
 }
 
 ?>
