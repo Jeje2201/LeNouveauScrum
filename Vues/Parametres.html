@@ -31,7 +31,7 @@
 		<script>
 			$(document).ready(function () {
 
-				AfficherInfo(<? php echo $_SESSION['IdUtilisateur'] ?>);
+				AfficherInfo(localStorage.getItem('Connexion'));
 
 				function AfficherInfo(idRessource) {
 					var action = "Load";
@@ -49,7 +49,7 @@
 
 				$('#set').click(function () {
 
-					var idRessource = <? php echo $_SESSION['IdUtilisateur'] ?>;
+					var idRessource = localStorage.getItem('Connexion');
 					var couleur = $('#CouleurUser').val();
 					var Pseudo = $('#PseudoUser').val();
 					var mdp = $('#mdp').val();
