@@ -14,6 +14,10 @@ function IsJsonString(str) {
  */
 function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage, div) {
 
+  console.log('numero sprint : ', NumeroduSprint)
+  console.log('affichage : ', affichage)
+  console.log('numero sprint : ', div)
+
   var action = "GetTotalHeuresDescenduesParEmploye";
 
   $.ajax({
@@ -408,7 +412,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
       if (IsJsonString(Total))
         Total = JSON.parse(Total);
         
-      console.log(Total)
+      console.log('yoyo' , Total)
 
       if (Total['JoursAvecDesHeures'] != null)
         CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
