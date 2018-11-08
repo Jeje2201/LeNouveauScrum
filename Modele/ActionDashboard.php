@@ -19,8 +19,8 @@
         sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
         (select ifnull(SUM(interference.heure),0) from interference where interference.id_Employe = E.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from Employe as E
-        LEFT JOIN attribution as a ON a.id_employe = e.id and a.id_Sprint = $NumeroduSprint
-        LEFT JOIN heuresdescendues as hd on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
+        LEFT JOIN attribution as A ON a.id_employe = e.id and a.id_Sprint = $NumeroduSprint
+        LEFT JOIN heuresdescendues as HD on e.id = hd.id_Employe and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
         WHERE
         A.heure is not null
         AND A.id_TypeTache IS NULL
@@ -49,18 +49,18 @@
       $statement = $connection->prepare(
         $sql = "
         SELECT 
-        P.id as projid,
-        P.nom as pnom,
-        sum(A.heure) as nbheureadescendre,
-        ifnull( sum(HD.heure),0) as nbheuredescendu,
-        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
-        (select ifnull(SUM(interference.heure),0) from interference where interference.id_Projet = P.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
+        P.[id] AS [projid],
+        P.[nom] AS [pnom],
+        sum(A.[heure]) as [nbheureadescendre],
+        ifnull( sum(HD.[heure]),0) as [nbheuredescendu],
+        sum(A.[heure]) - ifnull( sum(HD.[heure]),0) as [heurerestantes],
+        (select ifnull(SUM(interference.[heure]),0) from interference where interference.id_Projet = P.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from projet as P
-        LEFT JOIN attribution as a ON a.id_Projet = p.id and a.id_Sprint = $NumeroduSprint
-        LEFT JOIN heuresdescendues as hd on hd.id_Projet = p.id and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
+        LEFT JOIN attribution AS A ON a.id_Projet = p.id and a.id_Sprint = $NumeroduSprint
+        LEFT JOIN heuresdescendues as HD on hd.id_Projet = p.id and hd.id_Attribution = a.id and hd.id_Sprint = $NumeroduSprint
         WHERE
-        A.heure is not null
-        AND A.id_TypeTache IS NULL
+        A.[heure] is not null
+        AND A.[id_TypeTache] IS NULL
         GROUP BY P.id
         order by nbheuredescendu desc, heurerestantes desc
        "
