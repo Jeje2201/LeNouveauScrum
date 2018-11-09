@@ -106,7 +106,13 @@
       var mdp = $('#mdp').val();
       var confirmmdp = $('#confirmmdp').val();
 
-      if (Nom_Employe != '' && Prenom_Employe != '' && Type_Employe != '' && mdp.length >= 5 && mdp == confirmmdp) {
+      if (Nom_Employe == '' || Prenom_Employe == '' || Type_Employe == '' )
+      alert('Tous les champs ne sont pas remplis')
+      else if(mdp.length < 5 )
+      alert('Le mot de passe doit faire au minimum 5 caractères')
+      else if(mdp != confirmmdp)
+      alert('Les mot de passes ne sont pas les mêmes')
+      else {
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
@@ -118,9 +124,6 @@
             GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
           }
         });
-      }
-      else {
-        alert("Erreur dans les champs.");
       }
     });
 
