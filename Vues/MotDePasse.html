@@ -1,0 +1,73 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+	<div class="content-wrapper">
+		<div class="container-fluid">
+
+			<div class="form-group">
+				<label>Ressource</label>
+				<div id="ListEmploye"></div>
+			  </div>
+			<div class="form-group">
+				<label>Ancien mot de passe</label>
+				<input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+			</div>
+			<div class="form-group">
+				<label>Mot de passe</label>
+				<input type="password" class="form-control" id="mdp" minlength="5" required="required">
+			</div>
+			<div class="form-group">
+				<label>Confirmez le mot de passe</label>
+				<input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
+			</div>
+
+			<button class="btn btn-primary" id="set">Sauvegarder</button>
+
+		</div>
+		<script>
+			$(document).ready(function () {
+
+				RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+				SetSelect2('#employeId');
+
+				$('#set').click(function () {
+
+					var idRessource = $('#employeId').val();
+					var mdp = $('#mdp').val();
+					var ancienmdp = $('#ancienmdp').val();
+					var confirmmdp = $('#confirmmdp').val();
+					var action = "Update";
+
+					$.ajax({
+						url: "Modele/ActionGestionEmploye.php",
+						method: "POST",
+						data: { ancienmdp: ancienmdp, idRessource: idRessource, action: "Checkpswd" },
+						success: function (ancienmdpOk) {
+							// debugger;
+							if (mdp != confirmmdp) {
+								BootstrapAlert('Les mots de passe ne correspondent pas.')
+							}
+							else if (mdp.length < 5) {
+								BootstrapAlert('Un mot de passe est composé de 5 caractères minimuim')
+							}
+							else if (ancienmdpOk.trim() == "non") {
+								BootstrapAlert('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
+							}
+							else {
+								$.ajax({
+									url: "Modele/ActionParametre.php",
+									method: "POST",
+									data: { action: action, idRessource: idRessource, mdp: mdp },
+									success: function (data) {
+										BootstrapAlert(data);
+									}
+								});
+							}
+						}
+					});
+
+
+
+
+				});
+
+			});
+		</script>

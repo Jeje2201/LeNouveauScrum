@@ -112,7 +112,7 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe, mdp = :mdp
+   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
    WHERE id = :id
    "
       );
@@ -123,7 +123,6 @@
           ':actif' => $_POST["Actif"],
           ':Initial' => $_POST["Initial"],
           ':Type_Employe' => $_POST["Type_Employe"],
-          ':mdp' => password_hash($_POST["mdp"],PASSWORD_BCRYPT),
           ':id' => $_POST["id"]
         )
       );

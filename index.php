@@ -46,8 +46,15 @@ switch($vue)
  require_once("Vues/Retrospective.html");
  break;
 
- case 'Parametres':
- require_once("Vues/Parametres.html");
+ case 'Personnalisation':
+ require_once("Vues/Personnalisation.html");
+ break;
+
+ case 'MotDePasse':
+ if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+ require_once("Vues/MotDePasseAdmin.html");
+ else
+ require_once("Vues/MotDePasse.html");
  break;
 
  case 'Interferance':
