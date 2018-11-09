@@ -1,0 +1,58 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+	<div class="content-wrapper">
+		<div class="container-fluid">
+
+			<div class="form-group">
+				<label>Couleur (<i>car beaucoup trop demandé</i>)</label>
+				<br>
+				<input type="color" class="" id="CouleurUser">
+			</div>
+			<div class="form-group">
+				<label>Pseudo</label>
+				<input type="text" class="form-control" id="PseudoUser" maxlength="11">
+			</div>
+
+			<button class="btn btn-primary" id="set">Sauvegarder</button>
+
+		</div>
+		<script>
+			$(document).ready(function () {
+
+				AfficherInfo(localStorage.getItem('Connexion'));
+
+				function AfficherInfo(idRessource) {
+					var action = "Load";
+					$.ajax({
+						url: "Modele/ActionParametre.php",
+						method: "POST",
+						data: { action: action, idRessource: idRessource },
+						success: function (data) {
+							$('#CouleurUser').val(data.split(' ')[4]);
+							$('#PseudoUser').val(data.split(' ')[5]);
+							$("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
+						}
+					});
+				}
+
+				$('#set').click(function () {
+
+					var idRessource = localStorage.getItem('Connexion');
+					var couleur = $('#CouleurUser').val();
+					var Pseudo = $('#PseudoUser').val();
+					var action = "CustomColorName";
+								$.ajax({
+									url: "Modele/ActionParametre.php",
+									method: "POST",
+									data: { action: action, couleur: couleur, Pseudo: Pseudo, idRessource: idRessource },
+									success: function (data) {
+										BootstrapAlert(data);
+									}
+								});
+
+
+
+
+				});
+
+			});
+		</script>
