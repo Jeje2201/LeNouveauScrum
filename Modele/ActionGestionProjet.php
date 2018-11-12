@@ -162,10 +162,11 @@
       }
 
   //Si l'image convient et passe toutes les regles, alors on peut l'ajouter dans le dossier serveur
-      else {
-        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-        echo "Image bien ajoutée ! " . $target_file ;
+      else if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+        echo "oui";
       }
+      else
+      echo "non";
     }
   }
 
