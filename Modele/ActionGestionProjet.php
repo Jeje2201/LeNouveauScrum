@@ -140,7 +140,6 @@
       $target_dir = "../Assets/Image/Projets/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-      $moved = move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
   //Je check si l'image n'a pas déjà le meme nom dans le dossier
       if (file_exists($target_file)) {
@@ -163,12 +162,12 @@
       }
 
   //Si l'image convient et passe toutes les regles, alors on peut l'ajouter dans le dossier serveur
-      else if($moved){
-        echo "Successfully uploaded";  
-        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);       
-      } else {
-        echo "Not uploaded because of error #".$_FILES["image"]["error"];
+      else if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+        echo "oui";
       }
+      else
+      echo "non";
     }
   }
 
