@@ -170,7 +170,7 @@
       else if($moved){
         echo "Successfully uploaded";         
       } else {
-        echo "Not uploaded because of error #".$_FILES["file"]["error"];
+        echo "Not uploaded because of error #".$_FILES["image"]["error"];
       }
     }
   }
