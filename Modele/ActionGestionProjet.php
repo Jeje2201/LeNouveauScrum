@@ -137,7 +137,7 @@
     }
 
     if ($_POST["action"] == "insert") {
-      $target_dir = "../Asseuihiuhts/Image/Projets/";
+      $target_dir = "../Assets/Image/Projets/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -163,6 +163,7 @@
 
   //Si l'image convient et passe toutes les regles, alors on peut l'ajouter dans le dossier serveur
       else if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
         echo "oui";
       }
       else
