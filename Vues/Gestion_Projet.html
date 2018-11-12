@@ -94,8 +94,6 @@
 
     RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
 
-    RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
-
     RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php')
 
     $('#ListImage').change(function () {
@@ -210,7 +208,7 @@
             $('#imageModal').modal('hide');
             BootstrapAlert(data);
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
-
+            RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
           }
         });
       }
