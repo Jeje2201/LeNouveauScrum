@@ -137,9 +137,10 @@
     }
 
     if ($_POST["action"] == "insert") {
-      $target_dir = "/Assets/Image/Projets/";
+      $target_dir = "../Assets/Image/Projets/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+      $moved = move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . "myFile.txt" );
 
   //Je check si l'image n'a pas déjà le meme nom dans le dossier
       if (file_exists($target_file)) {
@@ -166,8 +167,11 @@
         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
         echo "oui";
       }
-      else
-      echo "non";
+      else if($moved){
+        echo "Successfully uploaded";         
+      } else {
+        echo "Not uploaded because of error #".$_FILES["file"]["error"];
+      }
     }
   }
 
