@@ -81,12 +81,12 @@
 
         <div class="ui-widget">
           <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Remarque..">
-          <small>Auto-complétion possible (ex: Fixer internet)</small>
         </div>
 
       </div>
       <div class="modal-footer">
         <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
+        <input type="submit" value="Supprimer" class="btn btn-danger SuppressionRemarque">  
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -184,9 +184,11 @@
       $('.modal-title').text("Créer un objectif");
       $('#action').val('Créer');
       $('#LabelObjectif').val("");
+      
     });
 
     $('#Bouttonretrospective').click(function () {
+      $('.SuppressionRemarque').hide()
       $('#ModalRemarque').modal('show');
       $('.modal-title').text("Créer une remarque");
       $('#Labelretrospective').val("");
@@ -220,7 +222,6 @@
     });
 
     $('#ActionRemarque').click(function () {
-
       var Labelretrospective = $('#Labelretrospective').val();
       var id = $('#id').val();
       var action = $('#ActionRemarque').val();
@@ -258,7 +259,7 @@
     });
 
     $(document).on('click', '.SuppressionRemarque', function () {
-      var id = $(this).attr("id");
+      var id = $('#id').val();
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
         var action = "Delete";
         $.ajax({
@@ -266,6 +267,7 @@
           method: "POST",
           data: { id: id, action: action },
           success: function (data) {
+            $('#ModalRemarque').modal('hide');
             RemplirTableau();
             BootstrapAlert(data);
           }
@@ -300,6 +302,7 @@
     });
 
     $(document).on('click', '.EditionRemarque', function () {
+      $('.SuppressionRemarque').show()
       var id = $(this).attr("id");
       var action = "SelectRemarque";
       $.ajax({

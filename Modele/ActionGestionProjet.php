@@ -164,10 +164,10 @@
   //Si l'image convient et passe toutes les regles, alors on peut l'ajouter dans le dossier serveur
       else if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
         move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-        echo "oui";
+        echo "Photo ajouté avec succès !";
       }
       else
-      echo "non";
+      echo "Une erreur dont je ne suis pas capable d'identifier est intervenue :/";
     }
   }
 
