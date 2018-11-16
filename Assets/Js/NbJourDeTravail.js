@@ -96,7 +96,10 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
   return HeuresDescenduesParJoursSurToutLeSprint;
 
 }
-
+/**
+ * Fonction pour sortir une date en fonction du nombre de jours a ajouter a aujourd'hui, exemple ChoixDate(0) ressort la date d'aujourd'hui
+ * @param {integer} jours Nombre de jours a ajouter depuis la date d'aujourdhui 
+ */
 function ChoixDate(jours) {
 
   if (jours == null) {
@@ -108,8 +111,8 @@ function ChoixDate(jours) {
   var Apres = new Date();
   Apres.setDate(Apres.getDate() + jours);
   j = Apres.getDate(),
-    m = Apres.getMonth() + 1,
-    a = Apres.getFullYear();
+  m = Apres.getMonth() + 1,
+  a = Apres.getFullYear();
 
   if (j < 10) {
     j = "0" + j;
@@ -136,7 +139,7 @@ function DateFrToEn(date) {
 };
 
 /**
- * Retourn le tableau de date avec son jour écrit devants
+ * Retourn le tableau de date entré en paramettre avec son jour écrit devants chaque date exemple "Lun 05/10/18"
  * @param {Array} date Tableau de date
  */
 function AjouterJourFrDevantDate(date) {
@@ -209,7 +212,7 @@ function JoursFeries() {
 }
 
 /**
- * Permet de compter le nombre de jours de travail possible entre deux date sans les weekends, j féries, etc..
+ * Permet de compter le nombre de jours de travail qui sont seulement "ouvré" entre deux dates données
  * @param {string} DateDebut Date de debut
  * @param {string} DateFin Date de fin
  */
@@ -230,8 +233,6 @@ function NbJourDeTravail(DateDebut, DateFin) {
   if (start > end)
     return -1
   else {
-
-    // alert('nb jours fériés: '+ JoursFeries().length)
 
     while (start <= end) {
       var day = start.getDay();

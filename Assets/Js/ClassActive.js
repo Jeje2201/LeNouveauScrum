@@ -1,3 +1,9 @@
+/**
+ * Quelques js esthétiques			
+ * @param {string} LaPage Affecter la classe active dans la navbar a la page active, en cours 
+ * @param {*} TypeUser Cacher les onglets qui sont de toutes façon innaccessibles en fonction des droits 
+ * @param {string} NameUser Permet d'afficher le nom du user connecté en haut de l'appli
+ */
 function ClassActive(LaPage, TypeUser, NameUser) {
 
 	//Enlever actif a toutes les class
