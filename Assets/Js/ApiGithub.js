@@ -46,7 +46,7 @@ function GetAllVersionsInfos(Div) {
                                                 <h4 class="panel-title"><a href="#" class="ing" style="color:#917a7a">'+ Version + '</a></h4>\
                                             </div>\
                                             <div id="question'+ a + '" class="panel-collapse collapse" style="height: 0px;">\
-                                                <div class="panel-body">'+ data[a].body + '</div>\
+                                                <div class="panel-body">'+  data[a].body.replace(/\*/g,'</li><li>') + '</div>\
                                             </div>\
                                         </div>\
                                     </div>\
