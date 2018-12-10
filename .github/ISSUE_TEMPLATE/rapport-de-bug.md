@@ -1,6 +1,9 @@
 ---
 name: Rapport de bug
 about: Créer un rapport pour m'aider à améliorer
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
