@@ -1,6 +1,9 @@
 ---
 name: Demande de fonctionnalités
 about: Suggérer une idée
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
