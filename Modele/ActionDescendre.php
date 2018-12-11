@@ -61,7 +61,7 @@
             <div class="SpecialHr"></div>
             <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["NbHeure"] . ')
         </div>
-      </div><br>';
+      </div>';
           }
         } else {
           $output1 .= 'Aucune tâche en cours';
