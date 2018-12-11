@@ -555,7 +555,7 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   -ms-transform: rotate(15deg);
   transform: rotate(15deg); }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .card-columns {
     column-count: 1; } }
 
@@ -565,7 +565,10 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 @media (min-width: 1200px) {
   .card-columns {
-    column-count: 4; } }
+    column-count: 4; } } */
+  
+    .card-columns {
+      column-count: 1; }
 
 .card-login {
   max-width: 25rem; }
