@@ -115,7 +115,7 @@
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php');
 
     RemplirTableau();
 
@@ -353,7 +353,7 @@
       appendTo: ".ui-widget"
     });
 
-    SetSelect2('#projetId, #employeId');
+    SetSelect2('#projetId, #TypeEmployeOk');
 
   });
 </script>

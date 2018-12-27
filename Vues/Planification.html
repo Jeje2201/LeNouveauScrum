@@ -105,7 +105,7 @@
   $(document).ready(function () {
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
@@ -319,7 +319,7 @@
       }
     });
 
-    SetSelect2('#employeId, #projetId');
+    SetSelect2('#TypeEmployeOk, #projetId');
 
   });
 </script>

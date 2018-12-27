@@ -75,7 +75,7 @@
 
       case 'ListeDeroulanteEmploye':
 
-        $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe order by prenom asc");
+        $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe where NOM not like 'Rouleau' order by prenom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
