@@ -199,7 +199,7 @@
     $('#action').click(function () {
       var idSprint = $('#numeroSprint').val();
       var idProjet = $('#projetId').val();
-      var idEmploye = $('#employeId').val();
+      var idEmploye = $('#TypeEmployeOk').val();
       var LabelObjectif = $('#LabelObjectif').val();
       // var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       var id = $('#id').val();
@@ -292,10 +292,10 @@
           $('#action').val("Changer Objectif");
           $('#id').val(id);
           $('#projetId').val(data.id_Projet);
-          $('#employeId').val(data.id_Employe);
+          $('#TypeEmployeOk').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
 
-          SetSelect2('#projetId, #employeId');
+          SetSelect2('#projetId, #TypeEmployeOk');
 
         }
       });
