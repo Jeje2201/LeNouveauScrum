@@ -38,10 +38,7 @@
       } else {
         $output .= '
      <tr>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
+     <td align="center" colspan="10">0 donnée</td>
      </tr>
      ';
       }
@@ -86,8 +83,7 @@
       } else {
         $output .= '
      <tr>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
+     <td align="center" colspan="10">0 donnée</td>
      </tr>
      ';
       }
@@ -123,8 +119,7 @@
       } else {
         $output .= '
      <tr>
-     <td align="center">0 donnée</td>
-     <td align="center">0 donnée</td>
+     <td align="center" colspan="10">0 donnée</td>
      </tr>
      ';
       }
