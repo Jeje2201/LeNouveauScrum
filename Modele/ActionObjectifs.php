@@ -6,7 +6,18 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (Select prenom from employe where employe.id = objectif.id_Employe) as Prenom, (Select nom from employe where employe.id = objectif.id_Employe) as Nom, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
+      $statement = $connection->prepare("SELECT objectif.id as id,
+      objectif.objectif as objectif,
+      statutobjectif.couleur as couleur,
+      projet.nom as projet,
+      CONCAT(employe.prenom,' ', employe.initial) as Employe,
+      statutobjectif.nom as etat
+      FROM objectif
+      INNER JOIN statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
+      INNER JOIN projet on projet.id = objectif.id_Projet
+      INNER JOIN employe on employe.id = objectif.id_Employe
+      Where objectif.id_Sprint = $numero
+      ORDER BY projet.nom");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -36,7 +47,7 @@
         <td>' . $num . '</td>
         <td style="background-color: ' . $row["couleur"] . '; color: white; font-weight: bold;">' . $row["etat"] . '</td>
         <td>' . $row["projet"] . '</td>
-        <td>' . $row["Prenom"] . '</td>
+        <td>' . $row["Employe"] . '</td>
         <td>' . $row["objectif"] . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
             $output .= '
@@ -73,7 +84,16 @@
 
     if ($_POST["action"] == "Load2") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT id as id, objectif as objectif, (SELECT couleur from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as couleur, (Select nom from projet where projet.id = objectif.id_Projet) as projet, (SELECT nom from statutobjectif where statutobjectif.id = objectif.id_StatutObjectif) as etat FROM objectif Where id_Sprint = $numero ORDER BY (Select nom from projet where projet.id = objectif.id_Projet)");
+      $statement = $connection->prepare("SELECT objectif.id as id,
+      objectif.objectif as objectif,
+      statutobjectif.couleur as couleur,
+      projet.nom as projet,
+      statutobjectif.nom as etat
+      FROM objectif
+      INNER JOIN statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
+      INNER JOIN projet on projet.id = objectif.id_Projet
+      Where objectif.id_Sprint = $numero
+      ORDER BY projet.nom");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = 'Rétrospective:';
@@ -85,7 +105,7 @@
 
           if ($projet != $row["projet"]) {
             $projet = $row["projet"];
-            $output .= '<br> <br>' . $row["projet"] . ': <br>' . '- ' . $row["objectif"] . ' (<span class="Mail'.$row["etat"] .'">' . $row["etat"] . '</span>)';
+            $output .= '<br> <br><u>' . $row["projet"] . '</u>: <br>' . '- ' . $row["objectif"] . ' (<span class="Mail'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           } else {
             $output .= '<br>- ' . $row["objectif"] . ' (<span class="Mail'.$row["etat"] .'">' . $row["etat"] . '</span>)';
           }
