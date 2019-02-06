@@ -24,6 +24,8 @@
 
       <textarea id="textbox" class="hideElement"></textarea>
 
+      <div id="TableDemo" class="table-responsive table-hover"></div>
+
       <div id="TableObjectif" class="table-responsive table-hover"></div>
 
       <button type="button" id="Bouttonretrospective" class="btn btn-success">
@@ -129,8 +131,18 @@
         url: "Modele/ActionObjectifs.php",
         method: "POST",
         data: { action: "LoadMail", idAffiche: $('#numeroSprint').val() },
-        success: function (dataa) {
-          $('#MailGenerer').html(dataa.trim());
+        success: function (data) {
+          $('#MailGenerer').html(data.trim());
+        }
+      });
+
+      // Remplir la liste des objectifs dans un modal caché pour les mails
+      $.ajax({
+        url: "Modele/ActionDemo.php",
+        method: "POST",
+        data: { action: "LoadDemo" },
+        success: function (data) {
+          $('#TableDemo').html(data.trim());
         }
       });
 
@@ -271,6 +283,36 @@
       else {
         return false;
       }
+    });
+
+    //////////////////////////////////////////// Valider une démo
+    $(document).on('click', '.ValiderDemo', function () {
+      $.ajax({
+        url: "Modele/ActionDemo.php",
+        method: "POST",
+        data: { id: $(this).attr("id"), action: "ValiderDemo" },
+        success: function (data) {
+          BootstrapAlert(data);
+          RemplirTableau();
+        }
+      });
+    });
+
+    //////////////////////////////////////////// Supprimer une démo
+    $(document).on('click', '.SupprimerDemo', function () {
+    if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+      $.ajax({
+        url: "Modele/ActionDemo.php",
+        method: "POST",
+        data: { id: $(this).attr("id"), action: "SupprimerDemo" },
+        success: function (data) {
+          BootstrapAlert(data);
+          RemplirTableau();
+        }
+      });
+    }
+    else
+      return false;
     });
 
     $(document).on('click', '.update', function () {
