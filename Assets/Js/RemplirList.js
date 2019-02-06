@@ -7,7 +7,6 @@ encodeURIComponent
  * @param {string} path Path du fichier php
  */
 function RequeteAjax(DivId, action, path) {
-  var action = action;
   $.ajax({
     url: path,
     method: "POST",

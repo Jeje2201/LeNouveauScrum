@@ -73,12 +73,10 @@
     BarreDeRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
 
     function ChargerGestionHeuresDescendues() {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "Load";
       $.ajax({
         url: "Modele/ActionGestionDescendre.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: { action: "Load", idAffiche: $('#numeroSprint').val() },
         success: function (data) {
           $('#TableauHeuresDescendues').html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
@@ -92,18 +90,13 @@
     });
 
     $('#action').click(function () {
-      var idSprint = $('#numeroSprint').val();
       var idEmploye = $('#employeId').val();
-      var idProjet = $('#projetId').val();
-      var NombreHeure = $('#nbheure').val();
       var DateAujourdhui = DateFrToEn($('#DateAujourdhui').val());
-      var id = $('#id').val();
-      var action = $('#action').val();
-      if (idSprint != '' && idEmploye != '' && idProjet != '' && NombreHeure != '' && DateAujourdhui != '') {
+      if ($('#numeroSprint').val() != '' && idEmploye != '' && $('#projetId').val() != '' && $('#nbheure').val() != '' && DateAujourdhui != '') {
         $.ajax({
           url: "Modele/ActionGestionDescendre.php",
           method: "POST",
-          data: { id: id, DateAujourdhui: DateAujourdhui, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
+          data: { id: $('#id').val(), DateAujourdhui: DateAujourdhui, idSprint: $('#numeroSprint').val(), idEmploye: idEmploye, idProjet: $('#projetId').val(), NombreHeure: $('#nbheure').val(), action: $('#action').val() },
           success: function (data) {
             BootstrapAlert(data);
             $('#ModalGestionHeuresDescendues').modal('hide');

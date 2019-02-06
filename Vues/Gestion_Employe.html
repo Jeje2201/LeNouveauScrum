@@ -101,23 +101,20 @@
         var Actif = 0;
       }
 
-      var Initial = $('#Initial').val();
-      var action = $('#action').val();
-      var id = $('#id').val();
       var mdp = $('#mdp').val();
       var confirmmdp = $('#confirmmdp').val();
 
       if (Nom_Employe == '' || Prenom_Employe == '' || Type_Employe == '' )
       alert('Tous les champs ne sont pas remplis')
-      else if(mdp.length < 5 )
+      else if(($('#mdp').val()).length < 5 )
       alert('Le mot de passe doit faire au minimum 5 caractères')
-      else if(mdp != confirmmdp)
+      else if($('#mdp').val() != confirmmdp)
       alert('Les mot de passes ne sont pas les mêmes')
       else {
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
-          data: { id: id, Nom_Employe: Nom_Employe, mdp: mdp, Prenom_Employe: Prenom_Employe, Actif: Actif, Initial: Initial, Type_Employe: Type_Employe, action: action },
+          data: { id: $('#id').val(), Nom_Employe: Nom_Employe, mdp: $('#mdp').val(), Prenom_Employe: Prenom_Employe, Actif: Actif, Initial: $('#Initial').val(), Type_Employe: Type_Employe, action: $('#action').val() },
           success: function (data) {
             BootstrapAlert(data);
             $('#ModalEmploye').modal('hide');
@@ -130,12 +127,11 @@
 
     //Recuperer les infos de la personne a update et les pré-ecrire dans les différents champs
     $(document).on('click', '.update', function () {
-      var id = $(this).attr("id");
-      var action = "Select";
+
       $.ajax({
         url: "Modele/ActionGestionEmploye.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: { id: $(this).attr("id"), action: "Select" },
         dataType: "json",
         success: function (data) {
 
@@ -148,7 +144,7 @@
           else
             $('#Actif').prop('checked', false);
 
-          $('#id').val(id);
+          $('#id').val($(this).attr("id"));
           $('#Prenom').val(data.Prenom);
           $('#Nom').val(data.Nom);
           $('#TypeEmploye').val(data.TypeEmploye);
@@ -163,13 +159,11 @@
     });
 
     $(document).on('click', '.delete', function () {
-      var id = $(this).attr("id");
       if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?")) {
-        var action = "Delete";
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
-          data: { id: id, action: action },
+          data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
             BootstrapAlert(data);
