@@ -4,7 +4,7 @@
 
   if (isset($_POST["action"])) {
 
-    if ($_POST["action"] == "Load") {
+    if ($_POST["action"] == "LoadObjectif") {
       $numero = $_POST["idAffiche"];
       $statement = $connection->prepare("SELECT objectif.id as id,
       objectif.objectif as objectif,
@@ -17,7 +17,7 @@
       INNER JOIN projet on projet.id = objectif.id_Projet
       INNER JOIN employe on employe.id = objectif.id_Employe
       Where objectif.id_Sprint = $numero
-      ORDER BY projet.nom");
+      ORDER BY projet.nom, employe.prenom, objectif.id");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -82,7 +82,7 @@
       echo $output;
     }
 
-    if ($_POST["action"] == "Load2") {
+    if ($_POST["action"] == "LoadMail") {
       $numero = $_POST["idAffiche"];
       $statement = $connection->prepare("SELECT objectif.id as id,
       objectif.objectif as objectif,
@@ -127,7 +127,7 @@
       echo ($output);
     }
 
-    if ($_POST["action"] == "retrospective") {
+    if ($_POST["action"] == "LoadRemarque") {
       $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label
         FROM retrospective
         WHERE DateFini IS NULL
