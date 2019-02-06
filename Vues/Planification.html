@@ -3,16 +3,16 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <div id="ListSrint"></div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <button type="button" id="modal_button" class="btn btn-block btn-info">
-            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planifier une tâche </button>
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planification</button>
         </div>
-        <div class="col-lg-4">
-          <button type="button" id="modal_button2" class="btn btn-block btn-info">
-            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planing </button>
+        <div class="col-lg-3">
+          <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planning </button>
         </div>
 
       </div>
@@ -44,29 +44,62 @@
 <div id="ModalTache" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
+          <u><h5>Sélection</h5></u>
         <label>Ressource</label>
         <div id="ListEmploye"> </div>
-        <br />
+        <p></p>
         <label>Projet</label>
         <div id="ListProjet"></div>
-        <br />
-        <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="Nombre d'heures">
-        <br />
+
+        <p></p>
+        <hr>
+        <p></p>
+
+        <u><h5>Heures tâches</h5></u>
+        <div class="row">
+            <div class="col-lg-9">
+              <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="x+x+x">
+            </div>
+  
+            <div class="col-lg-3">
+              <input type="hidden" name="id" id="id" />
+              <input type="submit" name="action" id="action" class="btn btn-success" />
+            </div>
+        </div>
+      
+        <p></p>
+
+        <u><h5>Objectifs</h5></u>
+        <div class="row">
+            <div class="col-lg-9">
+                <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Label objectif">
+            </div>
+  
+            <div class="col-lg-3">
+                <input type="submit" class="btn btn-success EnvoyerObjectif" />
+            </div>
+        </div>
+
+        <p></p>
+
+        <u><h5>Démo</h5></u>
+        <div class="row">
+  
+            <div class="col-lg-3">
+                <input type="submit" class="btn btn-success EnvoyerDemo" />
+            </div>
+        </div>
+
       </div>
       <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
 </div>
 
-<div id="ModalTache2" class="modal fade">
+<div id="ModalScrumPlaning" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -93,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="aa" id="aa" class="btn btn-success yolo" />
+        <input type="submit" name="aa" id="aa" class="btn btn-success AttribuerHeureScrumPlaning" />
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -166,17 +199,21 @@
 
     $('#modal_button').click(function () {
       $('#ModalTache').modal('show');
-      $('.modal-title').text("Planification de tâches");
       $('#nbheure').get(0).type = 'text';
       $('#smallinfo').show();
       $('#nbheure').val('');
       $('#action').val('Attribuer');
     });
 
-    $('#modal_button2').click(function () {
-      $('#ModalTache2').modal('show');
-      $('.modal-title').text("Attribuer heure Scrum Planing");
+    $('#ButtonScrumPlaning').click(function () {
+      $('#ModalScrumPlaning').modal('show');
+      $('.modal-title').text("Attribuer heure Scrum Planning");
       $('#action').val('Attribuer2');
+    });
+
+    $('#ButtonObjectif').click(function () {
+      $('#ModalObjectif').modal('show');
+      $('#action').val('NouvvelObjectif');
     });
 
     $('#action').click(function () {
@@ -222,10 +259,10 @@
         else
           alert("Tous les champs doivent être plein.");
       }
-      else alert("Le champs d'heures comporte une erreur")
+      else alert("Le champ d'heure comporte une erreur")
     });
 
-    $(document).on('click', '.yolo', function () {
+    $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
       var idSprint = $('#numeroSprint').val();
       var action = "AttributionScrumPlaning";
@@ -254,6 +291,38 @@
       }
       else
         alert('Aucune ressource selectionnée ?')
+    });
+
+    // Partie demo //
+
+    $(document).on('click', '.EnvoyerDemo', function () {
+     
+        $.ajax({
+          url: "Modele/ActionDemo.php",
+          method: "POST",
+          data: {idEmploye: $('#TypeEmployeOk').val(), idProjet: $('#projetId').val(), action: "CréerDemo" },
+          success: function (data) {
+            BootstrapAlert(data);
+          }
+        });
+        $('#LabelDemo').val('');
+    });
+
+    $(document).on('click', '.EnvoyerObjectif', function () {
+      var idSprint = $('#numeroSprint').val();
+      var idProjet = $('#projetId').val();
+      var idEmploye = $('#TypeEmployeOk').val();
+      var LabelObjectif = $('#LabelObjectif').val();
+     
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: {idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: "Créer" },
+          success: function (data) {
+            BootstrapAlert(data);
+          }
+        });
+        $('#LabelObjectif').val('');
     });
 
     //select all checkboxes

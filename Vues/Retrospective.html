@@ -3,27 +3,19 @@
     <div class="container-fluid">
       <div class="card col-md-12">
         <div class="card-header">
+            <!-- <audio id="audio2" src="Assets/Audio/Correct.mp3" autostart="false" ></audio> -->
           <i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
         <div class="card-body">
 
-          <div class="form-row">
-            <div class="col">
-              <div id="ListSrint"></div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div id="ListSrint"></div>
+                </div>
+      
+                <div class="col-lg-3">
+                    <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
+                </div>
             </div>
-
-            <div class="col">
-              <button type="button" id="modal_button" class="btn btn-success btn-block">
-                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Objectif</button>
-            </div>
-
-            <div class="col">
-              <div class="btn-block" role="group" aria-label="Basic example">
-                <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
-              </div>
-
-            </div>
-
-          </div>
 
         </div>
 
@@ -173,6 +165,8 @@
           RemplirTableau();
         }
       });
+          // var sound = document.getElementById("audio"+EtatObjectif);
+          // sound.play()
     });
 
     $('#numeroSprint').change(function () {
