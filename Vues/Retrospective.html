@@ -30,7 +30,7 @@
         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
       <p></p>
 
-      <div id="TableRetrospective" class="table-responsive table-hover"></div>
+      <div id="TableRemarque" class="table-responsive table-hover"></div>
 
     </div>
 </body>
@@ -72,7 +72,7 @@
       <div class="modal-body">
 
         <div class="ui-widget">
-          <input class="form-control" name="Labelretrospective" id="Labelretrospective" type="text" placeholder="Remarque..">
+          <input class="form-control" name="LabelRemarque" id="LabelRemarque" type="text" placeholder="Remarque..">
         </div>
 
       </div>
@@ -91,7 +91,6 @@
       <div class="modal-body">
         <input type="button" onclick="window.getSelection().selectAllChildren( document.getElementById( 'MailGenerer' ) )" value="Sélectionner" class="btn btn-info"></br></br>
         <div id="MailGenerer"></div>
-
       </div>
     </div>
   </div>
@@ -113,55 +112,51 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
+    //////////////////////////////////////////// Remplir la liste des objectifs dans une table
     function RemplirTableau() {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "Load";
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: { action: "LoadObjectif", idAffiche: $('#numeroSprint').val() },
         success: function (data) {
           $('#TableObjectif').html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableObjectif');
         }
       });
 
-      var action = "Load2";
+      // Remplir la liste des objectifs dans un modal caché pour les mails
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: { action: "LoadMail", idAffiche: $('#numeroSprint').val() },
         success: function (dataa) {
           $('#MailGenerer').html(dataa.trim());
         }
       });
 
-      var action = "retrospective";
+      // Remplir la liste des remarques
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: action },
+        data: { action: "LoadRemarque" },
         success: function (data) {
-          $('#TableRetrospective').html(data);
+          $('#TableRemarque').html(data);
         }
       });
-
     }
 
+    //////////////////////////////////////////// Afficher le modal de mail quand clic sur bouton de mail    
     $('#BoutonMail').click(function () {
       $('#ModalMail').modal('show');
     });
 
+    //////////////////////////////////////////// Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
     $(document).on('click', '.1, .2, .3, .4, .5', function () {
-      var EtatObjectif = this.className.split(" ")[2]
-      var id = this.id
-      var action = 'ChangerEtat'
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: id, EtatObjectif: EtatObjectif, action: action },
+        data: { id: this.id, EtatObjectif: this.className.split(" ")[2], action: "ChangerEtat" },
         success: function (data) {
-          $('#ModalObjectif').modal('hide');
           RemplirTableau();
         }
       });
@@ -169,25 +164,17 @@
           // sound.play()
     });
 
+    //////////////////////////////////////////// Si le numéro de sprint change, raffraichir les tables
     $('#numeroSprint').change(function () {
       RemplirTableau();
-    });
-
-    $('#modal_button').click(function () {
-      $('#ModalObjectif').modal('show');
-      $('.modal-title').text("Créer un objectif");
-      $('#action').val('Créer');
-      $('#LabelObjectif').val("");
-      
     });
 
     $('#Bouttonretrospective').click(function () {
       $('.SuppressionRemarque').hide()
       $('#ModalRemarque').modal('show');
       $('.modal-title').text("Créer une remarque");
-      $('#Labelretrospective').val("");
+      $('#LabelRemarque').val("");
       $('#ActionRemarque').val("Créer Retrospective")
-
     });
 
     $('#action').click(function () {
@@ -204,6 +191,7 @@
           method: "POST",
           data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: action },
           success: function (data) {
+            $('#ModalObjectif').modal('hide');
             BootstrapAlert(data);
             RemplirTableau();
           }
@@ -216,20 +204,15 @@
     });
 
     $('#ActionRemarque').click(function () {
-      var Labelretrospective = $('#Labelretrospective').val();
-      var id = $('#id').val();
-      var action = $('#ActionRemarque').val();
-
-      if (Labelretrospective != '') {
+      if ($('#LabelRemarque').val() != '') {
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { Labelretrospective: Labelretrospective, id: id, action: action },
+          data: { Labelretrospective: $('#LabelRemarque').val(), id: $('#id').val(), action: $('#ActionRemarque').val() },
           success: function (data) {
             BootstrapAlert(data);
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
-
           }
         });
       }
@@ -238,13 +221,12 @@
       }
     });
 
+    //////////////////////////////////////////// Valider une remarque qui ne s'affichera donc plus
     $(document).on('click', '.ValiderRemarque', function () {
-      var id = $(this).attr("id");
-      var action = "retrospectiveFini";
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: { id: $(this).attr("id"), action: "retrospectiveFini" },
         success: function (data) {
           BootstrapAlert(data);
           RemplirTableau();
@@ -252,14 +234,33 @@
       });
     });
 
+    //////////////////////////////////////////// Editer une remarque
+    $(document).on('click', '.EditionRemarque', function () {
+      $('.SuppressionRemarque').show()
+      var id = $(this).attr("id");
+      var action = "SelectRemarque";
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
+          $('#ModalRemarque').modal('show');
+          $('.modal-title').text("Éditer remarque");
+          $('#ActionRemarque').val("Changer Remarque");
+          $('#id').val(id);
+          $('#LabelRemarque').val(data.labelremarque);
+        }
+      });
+    });
+
+    //////////////////////////////////////////// Supprimer une remarque
     $(document).on('click', '.SuppressionRemarque', function () {
-      var id = $('#id').val();
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
-        var action = "Delete";
         $.ajax({
           url: "Modele/ActionGestionRemarques.php",
           method: "POST",
-          data: { id: id, action: action },
+          data: { id: $('#id').val(), action: "Delete" },
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
@@ -288,28 +289,7 @@
           $('#projetId').val(data.id_Projet);
           $('#TypeEmployeOk').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
-
           SetSelect2('#projetId, #TypeEmployeOk');
-
-        }
-      });
-    });
-
-    $(document).on('click', '.EditionRemarque', function () {
-      $('.SuppressionRemarque').show()
-      var id = $(this).attr("id");
-      var action = "SelectRemarque";
-      $.ajax({
-        url: "Modele/ActionObjectifs.php",
-        method: "POST",
-        data: { id: id, action: action },
-        dataType: "json",
-        success: function (data) {
-          $('#ModalRemarque').modal('show');
-          $('.modal-title').text("Éditer remarque");
-          $('#ActionRemarque').val("Changer Remarque");
-          $('#id').val(id);
-          $('#Labelretrospective').val(data.labelremarque);
         }
       });
     });
@@ -342,11 +322,12 @@
       "Ceci est un auto complete qui ne demande que des idées"
     ];
 
-    $("#Labelretrospective").autocomplete({
+    $("#LabelRemarque").autocomplete({
       source: availableTags,
       appendTo: ".ui-widget"
     });
 
+    //////////////////////////////////////////// Rendre les input de type Select2
     SetSelect2('#projetId, #TypeEmployeOk');
 
   });
