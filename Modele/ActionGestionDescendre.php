@@ -6,7 +6,19 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, employe.prenom as employe FROM heuresdescendues inner JOIN employe ON heuresdescendues.id_Employe = employe.id INNER JOIN projet on projet.id = heuresdescendues.id_Projet INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint WHERE id_sprint= $numero ORDER BY heuresdescendues.id desc");
+      $statement = $connection->prepare("SELECT heuresdescendues.id as id,
+      heuresdescendues.heure as NbHeure,
+      heuresdescendues.DateDescendu as Datee,
+      attribution.Label as Label,
+      projet.nom as projet,
+      CONCAT(employe.prenom,' ', employe.initial) as employe
+      FROM heuresdescendues
+      inner JOIN employe ON heuresdescendues.id_Employe = employe.id
+      INNER JOIN projet on projet.id = heuresdescendues.id_Projet
+      INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
+      INNER JOIN attribution on attribution.id = heuresdescendues.id_Attribution
+      WHERE heuresdescendues.id_sprint= $numero
+      ORDER BY heuresdescendues.id desc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -17,6 +29,7 @@
       <th>Ressource</th>
       <th>Projet</th>
       <th>Date</th>
+      <th>Label</th>
       <th>H</th>
       <th><center>Éditer</center></th>
       </tr>
@@ -30,6 +43,7 @@
         <td>' . $row["employe"] . '</td>
         <td>' . $row["projet"] . '</td>
         <td>' . date("d-m-Y", strtotime($row["Datee"])) . '</td>
+        <td>' . $row["Label"] . '</td>
         <td>' . $row["NbHeure"] . '</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
