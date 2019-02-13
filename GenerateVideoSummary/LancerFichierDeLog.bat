@@ -1,1 +1,0 @@
-gource --default-user-image D:\Documents\JeuxGDevelop\Image\Github.jpg --camera-mode overview --seconds-per-day 1 --title "Scrum Manager" --hide bloom,date,mouse,progress
