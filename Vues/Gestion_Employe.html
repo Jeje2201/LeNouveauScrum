@@ -136,7 +136,7 @@
           action: $('#action').val() },
           
           success: function (data) {
-            BootstrapAlertError(data);
+            BootstrapAlertDefaut(data);
             $('#ModalEmploye').modal('hide');
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
             GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
