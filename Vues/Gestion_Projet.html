@@ -37,6 +37,10 @@
         </div>
 
         <div class="form-group">
+          <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number" placeholder="Id Pivotal Tracker">
+        </div>
+
+        <div class="form-group">
           <label>Icone (50x50)</label>
           <div class="row">
             <div class="col">
@@ -107,21 +111,22 @@
       $('#ToutesLesImages').val('Inconnue.png');
       $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
       $('#Nom').val('');
+      $('#ApiPivotal').val('');
     });
 
     $('#action').click(function () {
 
-      var Nom = $('#Nom').val();
-      var TypeProjet = $('#TypeProjet').val();
-      var fileName = $('#ToutesLesImages').val();
-      var action = $('#action').val();
-      var id = $('#id').val();
-
-      if (Nom != '' && fileName != '') {
+      if ($('#Nom').val() != '' && $('#ToutesLesImages').val() != '') {
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
-          data: { id: id, Nom: Nom, TypeProjet: TypeProjet, fileName: fileName, action: action },
+          data: { id: $('#id').val(),
+                  Nom: $('#Nom').val(),
+                  ApiPivotal: $('#ApiPivotal').val(),
+                  TypeProjet: $('#TypeProjet').val(),
+                  fileName: $('#ToutesLesImages').val(),
+                  action: $('#action').val()
+          },
 
           success: function (data) {
             BootstrapAlert(data);
@@ -150,6 +155,7 @@
           $('#action').val("Update");
 
           $('#id').val(id);
+          $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);

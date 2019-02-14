@@ -73,13 +73,58 @@
 
         break;
 
+        case 'ProjetPivotal':
+
+        $statement = $connection->prepare("SELECT id as id, ApiPivotal as Api, nom as Nom from projet where ApiPivotal is not null order by nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="ProjetApi" name="ProjetApi">';
+
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+
+            $output2 .= '<option value="' . $row["id"] . '|' . $row["Api"] . '"> ' . $row["Nom"] . ' </option>';
+
+          }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+
+        break;
+
+        case 'RessourcePivotal':
+
+        $statement = $connection->prepare("SELECT id as id, ApiPivotal as Api, prenom as Prenom, nom as Nom from employe where actif = 1 and ApiPivotal is not null order by prenom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="RessourceApi" name="RessourceApi">';
+
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+
+            $output2 .= '<option value="' . $row["id"] . '|' . $row["Api"] . '"> ' . $row["Prenom"] . ' ' . $row["Nom"] . ' </option>';
+
+          }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+
+        break;
+
+
       case 'ListeDeroulanteEmploye':
 
         $statement = $connection->prepare("SELECT id as id, prenom as Prenom, nom as Nom from employe where NOM not like 'Rouleau' order by prenom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
-        $output2 = '<select class="form-control"  id="employeId" name="employeId"';
+        $output2 = '<select class="form-control"  id="employeId" name="employeId">';
 
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {

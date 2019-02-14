@@ -205,6 +205,30 @@
         print_r($statement->errorInfo());
     }
 
+      if ($_POST["action"] == "CreerTacheApi") {
+        $ListeTache = $_POST["ListeTaches"];
+        $statement = $connection->prepare("
+     INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label) 
+     VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label)
+     ");
+        for ($i = 2; $i < count($ListeTache); $i++) {
+  
+          $result = $statement->execute(
+            array(
+              ':NombreHeure' => intval($ListeTache[$i]['heure']),
+              ':idSprint' => $_POST["Sprint"],
+              ':Label' => $ListeTache[$i]['label'],
+              ':idEmploye' => $_POST["Employe"],
+              ':idProjet' => $_POST["Projet"]
+            )
+          );
+          if (!empty($result))
+            echo '✓';
+          else
+            print_r($statement->errorInfo());
+        }
+      }
+
     if ($_POST["action"] == "AttributionScrumPlaning") {
       $TableauEmploye = $_POST["idEmploye"];
       $statement = $connection->prepare("

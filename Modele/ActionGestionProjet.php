@@ -4,7 +4,7 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT id , nom as Nom, Logo, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom asc");
+      $statement = $connection->prepare("SELECT id, ApiPivotal, nom as Nom, Logo, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -14,6 +14,7 @@
       <tr>
       <th>Nom</th>
       <th>Type</th>
+      <th>ID Pivotal</th>
       <th>Icone</th>
       <th><center>Éditer</center></th>
       </tr>
@@ -25,7 +26,8 @@
           $output .= '
         <tr>
         <td>' . $row["Nom"] . '</td>
-        <td>' . $row["TypeProjet"] . '</td>';
+        <td>' . $row["TypeProjet"] . '</td>
+        <td>' . $row["ApiPivotal"] . '</td>';
           $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -66,15 +68,16 @@
 
     if ($_POST["action"] == "Ajouter") {
       $statement = $connection->prepare("
-   INSERT INTO projet (nom, Logo, id_TypeProjet) 
-   VALUES (:Nom, :Logo, :id_TypeProjet)
+   INSERT INTO projet (nom, Logo, id_TypeProjet, ApiPivotal) 
+   VALUES (:Nom, :Logo, :id_TypeProjet, :ApiPivotal)
    ");
 
       $result = $statement->execute(
         array(
           ':Nom' => $_POST["Nom"],
           ':Logo' => $_POST["fileName"],
-          ':id_TypeProjet' => $_POST["TypeProjet"]
+          ':id_TypeProjet' => $_POST["TypeProjet"],
+          ':ApiPivotal' => $_POST["ApiPivotal"]
         )
       );
       if (!empty($result))
@@ -95,6 +98,7 @@
       foreach ($result as $row) {
         $output["Nom"] = $row["nom"];
         $output["Logo"] = $row["Logo"];
+        $output["ApiPivotal"] = $row["ApiPivotal"];
         $output["TypeProjet"] = $row["id_TypeProjet"];
       }
       echo json_encode($output);
@@ -103,13 +107,14 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE projet 
-   SET nom = :nom, Logo =:Logo, id_TypeProjet = :id_TypeProjet
+   SET nom = :nom, Logo = :Logo, id_TypeProjet = :id_TypeProjet, ApiPivotal = :ApiPivotal
    WHERE id = :id
    "
       );
       $result = $statement->execute(
         array(
           ':nom' => $_POST["Nom"],
+          ':ApiPivotal' => $_POST["ApiPivotal"],
           ':Logo' => $_POST["fileName"],
           ':id_TypeProjet' => $_POST["TypeProjet"],
           ':id' => $_POST["id"]
