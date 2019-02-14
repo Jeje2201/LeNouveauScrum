@@ -95,7 +95,7 @@
     $('#yolo').click(function () {
       console.clear();
       if (!$('#idSprint').val() || !$('#depart').val())
-        alert('Un des champs est vide')
+      BootstrapAlertError('Un des champs est vide')
       else {
         var lines = $('textarea').val().split('\n');
         var resultconversion = ''

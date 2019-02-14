@@ -98,7 +98,7 @@
           method: "POST",
           data: { id: $('#id').val(), DateAujourdhui: DateAujourdhui, idSprint: $('#numeroSprint').val(), idEmploye: idEmploye, idProjet: $('#projetId').val(), NombreHeure: $('#nbheure').val(), action: $('#action').val() },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             $('#ModalGestionHeuresDescendues').modal('hide');
             ChargerGestionHeuresDescendues();
           }
@@ -144,7 +144,7 @@
           data: { id: id, action: action },
           success: function (data) {
             ChargerGestionHeuresDescendues();
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }

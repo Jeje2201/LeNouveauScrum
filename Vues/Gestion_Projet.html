@@ -129,7 +129,7 @@
           },
 
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             console.log(data);
             $('#ModaleProjet').modal('hide');
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
@@ -177,7 +177,7 @@
           data: { id: id, action: action },
           success: function (data) {
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }
@@ -212,7 +212,7 @@
           success: function (data) {
             $('#image_form')[0].reset();
             $('#imageModal').modal('hide');
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
             RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
           }

@@ -127,7 +127,7 @@
           method: "POST",
           data: { id: id, NbHeure: NbHeure, Employe: Employe, Projet: Projet, TypeInterferance: TypeInterferance, idAffichee, idAffichee, labelinterference: labelinterference, action: action },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             $('#ModalInterference').modal('hide');
             RemplirTableau();
           }
@@ -174,7 +174,7 @@
           data: { id: id, action: action },
           success: function (data) {
             RemplirTableau();
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }

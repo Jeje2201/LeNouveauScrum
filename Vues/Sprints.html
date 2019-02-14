@@ -157,7 +157,7 @@
             data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, Attribuable: Attribuable, action: action },
             success: function (data) {
 
-              BootstrapAlert(data);
+              BootstrapAlertDefaut(data);
               GetNumeroSprintMax('numero');
               RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')
 
@@ -209,7 +209,7 @@
           method: "POST",     //Using of Post method for send data
           data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi: attribuableEdi, action: action }, //Send data to server
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             $('#ModalSprint').modal('hide'); //It will hide Customer Modal from webpage.
             RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
           }
@@ -232,7 +232,7 @@
           data: { id: id, action: action }, //Data send to server from ajax method
           success: function (data) {
             RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }

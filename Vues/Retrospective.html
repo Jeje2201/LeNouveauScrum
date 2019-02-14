@@ -206,7 +206,7 @@
           data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: action },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             RemplirTableau();
           }
         });
@@ -224,7 +224,7 @@
           method: "POST",
           data: { Labelretrospective: $('#LabelRemarque').val(), id: $('#id').val(), action: $('#ActionRemarque').val() },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
           }
@@ -242,7 +242,7 @@
         method: "POST",
         data: { id: $(this).attr("id"), action: "retrospectiveFini" },
         success: function (data) {
-          BootstrapAlert(data);
+          BootstrapAlertDefaut(data);
           RemplirTableau();
         }
       });
@@ -278,7 +278,7 @@
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }
@@ -294,7 +294,7 @@
         method: "POST",
         data: { id: $(this).attr("id"), action: "ValiderDemo" },
         success: function (data) {
-          BootstrapAlert(data);
+          BootstrapAlertDefaut(data);
           RemplirTableau();
         }
       });
@@ -308,7 +308,7 @@
         method: "POST",
         data: { id: $(this).attr("id"), action: "SupprimerDemo" },
         success: function (data) {
-          BootstrapAlert(data);
+          BootstrapAlertDefaut(data);
           RemplirTableau();
         }
       });
@@ -348,7 +348,7 @@
           data: { id: id, action: action },
           success: function (data) {
             RemplirTableau();
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }

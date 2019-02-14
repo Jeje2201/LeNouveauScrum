@@ -43,13 +43,13 @@
 						success: function (ancienmdpOk) {
 							// debugger;
 							if (mdp != confirmmdp) {
-								BootstrapAlert('Les mots de passe ne correspondent pas.')
+								BootstrapAlertError('Les mots de passe ne correspondent pas.')
 							}
 							else if (mdp.length < 5) {
-								BootstrapAlert('Un mot de passe est composé de 5 caractères minimuim')
+								BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
 							}
 							else if (ancienmdpOk.trim() == "non") {
-								BootstrapAlert('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
+								BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
 							}
 							else {
 								$.ajax({
@@ -57,7 +57,7 @@
 									method: "POST",
 									data: { action: action, idRessource: idRessource, mdp: mdp },
 									success: function (data) {
-										BootstrapAlert(data);
+										BootstrapAlertDefaut(data);
 									}
 								});
 							}

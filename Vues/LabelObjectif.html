@@ -57,7 +57,7 @@
         method: "POST",
         data: { action: action, ToReturn: ToReturn },
         success: function (data) {
-          BootstrapAlert(data);
+          BootstrapAlertDefaut(data);
           RemplirTableau();
         }
       });

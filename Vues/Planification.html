@@ -309,7 +309,7 @@
             method: "POST",
             data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
             success: function (data) {
-              BootstrapAlert(data);
+              BootstrapAlertDefaut(data);
               // $('#ModalTache').modal('hide');
               RemplirTableau('TableListHeuresAttribuees');
               RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -345,7 +345,7 @@
           method: "POST",
           data: { idSprint: idSprint, idEmploye: idEmploye, NombreHeure: NombreHeure, idTypeTache: idTypeTache, action: action },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             // $('#ModalTache').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -354,7 +354,7 @@
         });
       }
       else
-        alert('Aucune ressource selectionnée ?')
+      BootstrapAlertError('Aucune ressource selectionnée ?')
     });
 
     // Partie demo //
@@ -366,7 +366,7 @@
           method: "POST",
           data: {idEmploye: $('#TypeEmployeOk').val(), idProjet: $('#projetId').val(), action: "CréerDemo" },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         });
         $('#LabelDemo').val('');
@@ -383,7 +383,7 @@
           method: "POST",
           data: {idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: "Créer" },
           success: function (data) {
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         });
         $('#LabelObjectif').val('');
@@ -443,7 +443,7 @@
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }
@@ -572,14 +572,14 @@ $.ajax({
             RemplirTableau('TableListHeuresAttribuees');
     RemplirTableauRessources('TableListHeuresAttribueesRessources');
     RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
             document.getElementById("ListeTachesApi").innerHTML = ""
             document.getElementById("totalheure").innerHTML = ""
           }
         });
       
       else
-        alert('0 données choisies');
+      BootstrapAlertError('0 données choisies');
     })
 
 

@@ -108,7 +108,7 @@
             method: "POST",
             data: { id: id, DateDebut: DateDebut, DateFin: DateFin, Label: Label, action: action },
             success: function (data) {
-              BootstrapAlert(data);
+              BootstrapAlertDefaut(data);
               $('#ModalRemarque').modal('hide');
               ChargerTableau();
             }
@@ -125,7 +125,7 @@
             method: "POST",
             data: { id: id, DateDebut: DateDebut, Label: Label, action: action },
             success: function (data) {
-              BootstrapAlert(data);
+              BootstrapAlertDefaut(data);
               $('#ModalRemarque').modal('hide');
               ChargerTableau();
             }
@@ -149,7 +149,7 @@
           data: { id: id, action: action },
           success: function (data) {
             ChargerTableau();
-            BootstrapAlert(data);
+            BootstrapAlertDefaut(data);
           }
         })
       }
