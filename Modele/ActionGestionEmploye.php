@@ -15,7 +15,7 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, '***' as mdp, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
+      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, ApiPivotal as IdPivotal, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -28,6 +28,7 @@
       <th>Initial</th>
       <th>Pseudo</th>
       <th>Job</th>
+      <th>ID Pivotal</th>
       <th>Couleur</th>
       <th>Actif</th>
       <th><center>Éditer</center></th>
@@ -44,12 +45,13 @@
         <td>' . $row["Initial"] . '</td>
         <td>' . $row["Pseudo"] . '</td>
         <td>' . $row["TypeJob"] . '</td>
+        <td>' . $row["IdPivotal"] . '</td>
         <td style="background-color:' . $row["Couleur"] . '"></td>';
 
           if ($row["Actif"] == 1)
-            $output .= '<td style="background-color:#6bcc6b"></td>';
+            $output .= '<td style="background-color:#31a031; text-align: center; color: white">OUI</td>';
           else
-            $output .= '<td style="background-color:#ca3f3f"></td>';
+            $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white">NON</td>';
 
           $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -103,6 +105,7 @@
         $output["Prenom"] = $row["prenom"];
         $output["Nom"] = $row["nom"];
         $output["Actif"] = $row["actif"];
+        $output["ApiPivotal"] = $row["ApiPivotal"];
         $output["TypeEmploye"] = $row["id_TypeEmploye"];
         $output["Initial"] = $row["Initial"];
       }
@@ -112,7 +115,7 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, id_TypeEmploye = :Type_Employe
+   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe
    WHERE id = :id
    "
       );
@@ -121,6 +124,7 @@
           ':prenom' => $_POST["Prenom_Employe"],
           ':nom' => $_POST["Nom_Employe"],
           ':actif' => $_POST["Actif"],
+          ':ApiPivotal' => $_POST["ApiPivotal"],
           ':Initial' => $_POST["Initial"],
           ':Type_Employe' => $_POST["Type_Employe"],
           ':id' => $_POST["id"]
@@ -146,6 +150,8 @@
       else
         print_r($statement->errorInfo());
     }
+
+    //fonction utilisée dans la page spécialisé au mdps
 
     if ($_POST["action"] == "Checkpswd") {
 
