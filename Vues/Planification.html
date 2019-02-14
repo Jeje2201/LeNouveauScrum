@@ -3,12 +3,16 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-3">
           <div id="ListSrint"></div>
         </div>
         <div class="col-lg-3">
           <button type="button" id="modal_button" class="btn btn-block btn-info">
             <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planification</button>
+        </div>
+        <div class="col-lg-3">
+          <button type="button" id="Boutton_Modal_ApiPivotal" class="btn btn-block btn-info">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Api Planif</button>
         </div>
         <div class="col-lg-3">
           <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">
@@ -42,15 +46,21 @@
 
 
 <div id="ModalTache" class="modal fade">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-          <u><h5>Sélection</h5></u>
-        <label>Ressource</label>
-        <div id="ListEmploye"> </div>
-        <p></p>
-        <label>Projet</label>
-        <div id="ListProjet"></div>
+
+        <div class="row">
+          <div class="col-lg-6">
+              <label>Ressource</label>
+            <div id="ListEmploye"> </div>
+          </div>
+
+          <div class="col-lg-6">
+              <label>Projet</label>
+            <div id="ListProjet"></div>
+          </div>
+      </div>
 
         <p></p>
         <hr>
@@ -90,6 +100,54 @@
                 <input type="submit" class="btn btn-success EnvoyerDemo" />
             </div>
         </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ModalApi" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <label>Ressource</label>
+              <div id="ListEmployePivotal"> </div>
+            </div>
+  
+            <div class="col-lg-4">
+                <label>Projet</label>
+              <div id="ListProjetPivotal"></div>
+            </div>
+
+            <div class="col-lg-2">
+                <label>&nbsp;</label>
+                <div>
+                    <button id="ChercherApiPivotal" class="btn btn-info">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Chercher
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <label>&nbsp;</label>
+                <div>
+                  <button type="submit" id="EnvoyerApiPivotal" class="btn btn-success">
+                      <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Envoyer
+                  </button>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 10px" id="totalheure"></div>
+        <p></p>
+        <hr>
+        <p></p>
+      
+        <div id="ListeTachesApi"></div>
 
       </div>
       <div class="modal-footer">
@@ -140,6 +198,8 @@
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActifTrieParType', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmployePivotal', 'RessourcePivotal', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
 
@@ -214,6 +274,10 @@
     $('#ButtonObjectif').click(function () {
       $('#ModalObjectif').modal('show');
       $('#action').val('NouvvelObjectif');
+    });
+
+    $('#Boutton_Modal_ApiPivotal').click(function () {
+      $('#ModalApi').modal('show');
     });
 
     $('#action').click(function () {
@@ -388,7 +452,168 @@
       }
     });
 
+
+
+    $('#ChercherApiPivotal').click(function () {
+
+var htmlDeFin = ""
+var ListeErreur = ""
+
+document.getElementById('ListeTachesApi').innerHTML = ""
+
+var projetPivotalId = $('#ProjetApi').val().split('|')[1];
+var ressourcePivotalId = $('#RessourceApi').val().split('|')[1];
+
+var myStories
+
+console.log('🎁 Projet: ' + $("#ProjetApi option:selected").text())
+
+////////////////////////////////// Requette qui récupère toutes les stories d'une ressource sur le projet sélectionné
+$.ajax({
+  url: "https://www.pivotaltracker.com/services/v5/projects/" + projetPivotalId + "/stories",
+  beforeSend: function (xhr) {
+    xhr.setRequestHeader('X-TrackerToken', '404fd04a04b800e6a9de45b044327cbd');
+  },
+  type: 'GET',
+  dataType: 'json',
+  contentType: 'application/json',
+  processData: false,
+  data: 'filter=mywork:' + ressourcePivotalId,
+  success: function (data) {
+
+    //Liste des stories trouvées
+    myStories = data;
+
+    ////////////////////////////////////////// Pour chaques stories trouvé, sortir chaque taches
+    $.each(myStories, function () {
+
+      Storyname = this.name
+      StoryId = this.id
+
+      $.ajax({
+        url: "https://www.pivotaltracker.com/services/v5/projects/" + projetPivotalId + "/stories/" + this.id + "/tasks",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-TrackerToken', '404fd04a04b800e6a9de45b044327cbd');
+        },
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        processData: false,
+        success: function (LesTaches) {
+
+          var ToutFait = true
+
+          $.each(LesTaches, function () {
+            if (!this.complete) {
+              ToutFait = false
+            }
+          })
+
+          if (LesTaches.length != 0 && ToutFait == false) {
+            console.log('   📙 Storie: ' + Storyname)
+            htmlDeFin += '<div  style="margin-bottom: 30px;"> <h3>' + Storyname + '</h3>'
+
+            $.each(LesTaches, function () {
+
+              if (this.complete == true) 
+                htmlDeFin += ''
+
+              else {
+                
+                try {
+                  var ListeHeures = /.-(.+)/.exec(this.description)[1];
+                  console.log('       📃 Une tache à faire : ' + this.description)
+                } catch  {
+                  console.log("       🔴🔴🔴🔴" + this.description)
+                  ListeErreur = this.description
+                }
+
+                var RegexGroupeHeure = /([0-9]+)/g
+                var InputHeure = '<select onchange="TotalHoursChecked()"><option value="NON">NON</option>'
+
+                match = RegexGroupeHeure.exec(ListeHeures);
+                while (match != null) {
+                  InputHeure += '<option value=' + match[0] + '>' + match[0] + '</option>'
+                  match = RegexGroupeHeure.exec(ListeHeures);
+                }
+                InputHeure += '</select>'
+
+                htmlDeFin += '<span>' + InputHeure + ' ' + this.description + '</span></br>'
+              }
+            })
+            htmlDeFin += "</div>"
+          }
+          document.getElementById("ListeTachesApi").innerHTML = htmlDeFin
+        }
+      });
+    })
+
+    //si pas de stories
+    if(myStories.length === 0)
+      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes stories pour ce projet</h3>"
+    
+  }
+});
+
+    })
+
+
+    $('#EnvoyerApiPivotal').click(function () {
+      if(TotalHoursChecked().length > 2)
+        $.ajax({
+          url: "Modele/ActionAttributionHeure.php",
+          method: "POST",
+          data: { action: "CreerTacheApi", ListeTaches: TotalHoursChecked(), Sprint: $('#numeroSprint').val(), Employe: $('#RessourceApi').val().split('|')[0], Projet: $('#ProjetApi').val().split('|')[0]},
+          success: function (data) {
+            RemplirTableau('TableListHeuresAttribuees');
+    RemplirTableauRessources('TableListHeuresAttribueesRessources');
+    RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+            BootstrapAlert(data);
+            document.getElementById("ListeTachesApi").innerHTML = ""
+            document.getElementById("totalheure").innerHTML = ""
+          }
+        });
+      
+      else
+        alert('0 données choisies');
+    })
+
+
+
     SetSelect2('#TypeEmployeOk, #projetId');
 
   });
+
+  function TotalHoursChecked() {
+
+var cart = [];
+var TotalHeures = 0;
+
+cart.push({
+  'User': $('#RessourceApi').val().split('|')[0]
+});
+
+cart.push({
+  'Project': $('#ProjetApi').val().split('|')[0]
+});
+
+$('span select').each(function () {
+
+  if (this.value != "NON") {
+    TotalHeures = TotalHeures + parseInt(this.value);
+
+    element = {}
+    element.heure = parseInt(this.value);
+    element.label = /(.+)\.-/.exec($(this).parent()[0].innerText)[1].trim();
+    cart.push(element)
+  }
+
+})
+
+document.getElementById("totalheure").innerHTML = "Total heures sélectionnées : " + TotalHeures
+
+return cart
+
+}
 </script>
