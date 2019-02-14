@@ -64,7 +64,7 @@
       </div>';
           }
         } else {
-          $output1 .= 'Aucune tâche en cours';
+          $output1 .= 'Pas de tâche';
         }
 
         if ($_POST["idEmploye"] == "ToutLeMonde")
@@ -103,7 +103,7 @@
 
           }
         } else {
-          $output2 .= 'Aucune tâche achevé';
+          $output2 .= 'Pas de tâche';
         }
         $Test->Attribution = $output1;
         $Test->Descendue = $output2;

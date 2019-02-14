@@ -38,7 +38,7 @@
 
         $output .= '
      <tr>
-     <td align="center" colspan="10">0 donnée</td>
+     <td align="center" colspan="10">Pas de données</td>
      </tr>
      ';
       }
