@@ -69,9 +69,13 @@
     }
 
     if ($_POST["action"] == "Ajouter") {
+
+      if($_POST["ApiPivotal"] == "")
+        $_POST["ApiPivotal"] = NULL;
+
       $statement = $connection->prepare("
-   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp) 
-   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp)
+   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp, ApiPivotal) 
+   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp, :ApiPivotal)
    ");
 
       $result = $statement->execute(
@@ -82,6 +86,7 @@
           ':Couleur' => '#' . random_color(),
           ':actif' => $_POST["Actif"],
           ':Initial' => $_POST["Initial"],
+          ':ApiPivotal' => $_POST["ApiPivotal"],
           ':Type_Employe' => $_POST["Type_Employe"],
           ':mdp' => password_hash($_POST["mdp"],PASSWORD_BCRYPT)
         )
@@ -113,6 +118,10 @@
     }
 
     if ($_POST["action"] == "Update") {
+
+      if($_POST["ApiPivotal"] == "")
+        $_POST["ApiPivotal"] = NULL;
+
       $statement = $connection->prepare(
         "UPDATE employe 
    SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe

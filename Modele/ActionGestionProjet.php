@@ -67,6 +67,10 @@
 
 
     if ($_POST["action"] == "Ajouter") {
+
+      if($_POST["ApiPivotal"] == "")
+        $_POST["ApiPivotal"] = NULL;
+
       $statement = $connection->prepare("
    INSERT INTO projet (nom, Logo, id_TypeProjet, ApiPivotal) 
    VALUES (:Nom, :Logo, :id_TypeProjet, :ApiPivotal)
@@ -105,6 +109,10 @@
     }
 
     if ($_POST["action"] == "Update") {
+
+      if($_POST["ApiPivotal"] == "")
+        $_POST["ApiPivotal"] = NULL;
+
       $statement = $connection->prepare(
         "UPDATE projet 
    SET nom = :nom, Logo = :Logo, id_TypeProjet = :id_TypeProjet, ApiPivotal = :ApiPivotal
