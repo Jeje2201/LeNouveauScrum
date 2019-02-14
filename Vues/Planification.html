@@ -479,6 +479,9 @@ $.ajax({
   contentType: 'application/json',
   processData: false,
   data: 'filter=mywork:' + ressourcePivotalId,
+  error: function(XMLHttpRequest, textStatus, errorThrown) {
+     alert("some error");
+  },
   success: function (data) {
 
     //Liste des stories trouvées
@@ -551,7 +554,7 @@ $.ajax({
 
     //si pas de stories
     if(myStories.length === 0)
-      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes stories pour ce projet</h3>"
+      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes stories pour ce projet</h3><label>(si vous êtes sûr du contraire, le problème vient sûrement de l'ID de pivotal tracker renseigné pour le projet ou la ressource en question)</label>"
     
   }
 });
