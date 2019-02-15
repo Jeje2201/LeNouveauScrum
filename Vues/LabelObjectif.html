@@ -26,16 +26,20 @@
     RemplirTableau();
 
     function RemplirTableau() {
-      var idEmploye = localStorage.getItem("Connexion");
-      var action = "Load";
+
+      if(localStorage.getItem("Connexion"))
       $.ajax({
         url: "Modele/ActionLabelTache.php",
         method: "POST",
-        data: { action: action, idEmploye: idEmploye },
+        data: {
+          action: "Load", 
+          idEmploye: localStorage.getItem("Connexion") },
         success: function (data) {
           $('#TableObjectif').html(data);
         }
       });
+      else 
+        BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
     }
 
     $(document).on('click', '.btn', function () {
@@ -45,17 +49,19 @@
         if ($(this).val() != "") {
           var UnLabel = new Array();
           UnLabel.push(parseInt($(this).attr('id')))
-
           UnLabel.push($(this).val().replace(/\"/g, ""))
           ToReturn.push(UnLabel)
         }
 
       });
-      var action = "Changer";
+      
       $.ajax({
         url: "Modele/ActionLabelTache.php",
         method: "POST",
-        data: { action: action, ToReturn: ToReturn },
+        data: {
+          action: "Changer",
+          ToReturn: ToReturn
+        },
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();

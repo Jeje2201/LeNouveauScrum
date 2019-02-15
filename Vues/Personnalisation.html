@@ -18,40 +18,34 @@
 		<script>
 			$(document).ready(function () {
 
-				AfficherInfo(localStorage.getItem('Connexion'));
-
-				function AfficherInfo(idRessource) {
-					var action = "Load";
 					$.ajax({
 						url: "Modele/ActionParametre.php",
 						method: "POST",
-						data: { action: action, idRessource: idRessource },
+						data: {
+							action: "Load",
+							idRessource: localStorage.getItem('Connexion')
+						},
 						success: function (data) {
 							$('#CouleurUser').val(data.split(' ')[4]);
 							$('#PseudoUser').val(data.split(' ')[5]);
 							$("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
 						}
 					});
-				}
 
 				$('#set').click(function () {
-
-					var idRessource = localStorage.getItem('Connexion');
-					var couleur = $('#CouleurUser').val();
-					var Pseudo = $('#PseudoUser').val();
-					var action = "CustomColorName";
 								$.ajax({
 									url: "Modele/ActionParametre.php",
 									method: "POST",
-									data: { action: action, couleur: couleur, Pseudo: Pseudo, idRessource: idRessource },
+									data: {
+										action: "CustomColorName",
+										couleur: $('#CouleurUser').val(),
+										Pseudo: $('#PseudoUser').val(),
+										idRessource: localStorage.getItem('Connexion')
+									},
 									success: function (data) {
-										BootstrapAlertDefaut(data);
+										BootstrapAlert(data);
 									}
 								});
-
-
-
-
 				});
 
 			});

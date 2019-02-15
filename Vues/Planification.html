@@ -103,7 +103,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -185,7 +185,7 @@
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
         <input type="submit" name="aa" id="aa" class="btn btn-success AttribuerHeureScrumPlaning" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -210,42 +210,44 @@
     BarreDeRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
 
     function RemplirTableau(Div) {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "RemplirTableau";
       $.ajax({
         url: "Modele/ActionAttributionHeure.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: {
+          action: "RemplirTableau",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
-          $('#' + Div + '').html(data);
+          $('#' + Div).html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
-
         }
       });
     }
 
     function RemplirTableauRessources(Div) {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "RemplirTableauRessources";
       $.ajax({
         url: "Modele/ActionAttributionHeure.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: {
+          action: "RemplirTableauRessources",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
-          $('#' + Div + '').html(data);
+          $('#'+Div).html(data);
         }
       });
     }
 
     function RemplirTableauProjets(Div) {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "RemplirTableauProjets";
       $.ajax({
         url: "Modele/ActionAttributionHeure.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche },
+        data: {
+          action: "RemplirTableauProjets",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
-          $('#' + Div + '').html(data);
+          $('#' + Div).html(data);
         }
       });
     }
@@ -281,10 +283,8 @@
     });
 
     $('#action').click(function () {
-      var idSprint = $('#numeroSprint').val();
-      var idEmploye = $('#TypeEmployeOk').val();
-      var idProjet = $('#projetId').val();
       var erreur = false
+
       if ($('#nbheure').attr('type') == 'text') {
         var NombreHeure = $('#nbheure').val().split('+').map(function (item) {
           return parseInt(item);
@@ -293,21 +293,25 @@
         NombreHeure.forEach(function (element) {
           if (isNaN(element))
             erreur = true
-        });
+          });
       }
       else
         var NombreHeure = $('#nbheure').val()
 
-      var id = $('#id').val();
-      var action = $('#action').val();
-
       if (erreur == false) {
-        if (idSprint != '' && idEmploye != '' && idProjet != '') {
+        if ($('#numeroSprint').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
 
           $.ajax({
             url: "Modele/ActionAttributionHeure.php",
             method: "POST",
-            data: { id: id, idSprint: idSprint, idEmploye: idEmploye, idProjet: idProjet, NombreHeure: NombreHeure, action: action },
+            data: {
+              id: $('#id').val(),
+              idSprint: $('#numeroSprint').val(),
+              idEmploye: $('#TypeEmployeOk').val(),
+              idProjet: $('#projetId').val(),
+              NombreHeure: NombreHeure,
+              action: $('#action').val()
+            },
             success: function (data) {
               BootstrapAlertDefaut(data);
               // $('#ModalTache').modal('hide');
@@ -321,29 +325,29 @@
 
         }
         else
-          alert("Tous les champs doivent être plein.");
+        BootstrapAlertError("Tous les champs doivent être plein.");
       }
-      else alert("Le champ d'heure comporte une erreur")
+      else BootstrapAlertError("Le champ d'heure comporte une erreur")
     });
 
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
-
-      var idSprint = $('#numeroSprint').val();
-      var action = "AttributionScrumPlaning";
 
       var idEmploye = new Array;
       $('.checkbox:checked').each(function () {
         idEmploye.push($(this).val());
       });
-
-      var idTypeTache = parseInt($('#RemplirTypeTache1').val());
-      var NombreHeure = $('#nbheure2').val();
       
       if (idEmploye.length > 0) {
         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
-          data: { idSprint: idSprint, idEmploye: idEmploye, NombreHeure: NombreHeure, idTypeTache: idTypeTache, action: action },
+          data: {
+            idSprint: $('#numeroSprint').val(),
+            idEmploye: idEmploye,
+            NombreHeure: $('#nbheure2').val(),
+            idTypeTache: parseInt($('#RemplirTypeTache1').val()),
+            action: "AttributionScrumPlaning"
+          },
           success: function (data) {
             BootstrapAlertDefaut(data);
             // $('#ModalTache').modal('hide');
@@ -364,7 +368,11 @@
         $.ajax({
           url: "Modele/ActionDemo.php",
           method: "POST",
-          data: {idEmploye: $('#TypeEmployeOk').val(), idProjet: $('#projetId').val(), action: "CréerDemo" },
+          data: {
+            idEmploye: $('#TypeEmployeOk').val(),
+            idProjet: $('#projetId').val(),
+            action: "CréerDemo"
+          },
           success: function (data) {
             BootstrapAlertDefaut(data);
           }
@@ -373,15 +381,16 @@
     });
 
     $(document).on('click', '.EnvoyerObjectif', function () {
-      var idSprint = $('#numeroSprint').val();
-      var idProjet = $('#projetId').val();
-      var idEmploye = $('#TypeEmployeOk').val();
-      var LabelObjectif = $('#LabelObjectif').val();
      
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: {idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: "Créer" },
+          data: {
+            idSprint: $('#numeroSprint').val(),
+            LabelObjectif: $('#LabelObjectif').val(),
+            idEmploye: $('#TypeEmployeOk').val(),
+            idProjet: $('#projetId').val(),
+            action: "Créer" },
           success: function (data) {
             BootstrapAlertDefaut(data);
           }
@@ -408,11 +417,13 @@
 
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-      var action = "Select";
       $.ajax({
         url: "Modele/ActionAttributionHeure.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: {
+          id: $(this).attr("id"),
+          action: "Select"
+        },
         dataType: "json",
         success: function (data) {
           $('#ModalTache').modal('show');
@@ -432,13 +443,14 @@
     });
 
     $(document).on('click', '.delete', function () {
-      var id = $(this).attr("id");
       if (confirm("Es-tu sûr de vouloir supprimer cette attribution ?")) {
-        var action = "Delete";
         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
-          data: { id: id, action: action },
+          data: {
+            id: $(this).attr("id"),
+            action: "Delete"
+          },
           success: function (data) {
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -447,12 +459,7 @@
           }
         })
       }
-      else {
-        return false;
-      }
     });
-
-
 
     $('#ChercherApiPivotal').click(function () {
 
@@ -461,16 +468,13 @@ var ListeErreur = ""
 
 document.getElementById('ListeTachesApi').innerHTML = ""
 
-var projetPivotalId = $('#ProjetApi').val().split('|')[1];
-var ressourcePivotalId = $('#RessourceApi').val().split('|')[1];
-
 var myStories
 
 console.log('🎁 Projet: ' + $("#ProjetApi option:selected").text())
 
 ////////////////////////////////// Requette qui récupère toutes les stories d'une ressource sur le projet sélectionné
 $.ajax({
-  url: "https://www.pivotaltracker.com/services/v5/projects/" + projetPivotalId + "/stories",
+  url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] + "/stories",
   beforeSend: function (xhr) {
     xhr.setRequestHeader('X-TrackerToken', '404fd04a04b800e6a9de45b044327cbd');
   },
@@ -478,9 +482,9 @@ $.ajax({
   dataType: 'json',
   contentType: 'application/json',
   processData: false,
-  data: 'filter=mywork:' + ressourcePivotalId,
+  data: 'filter=mywork:' + $('#RessourceApi').val().split('|')[1],
   error: function(XMLHttpRequest, textStatus, errorThrown) {
-     alert("some error");
+    BootstrapAlertError("some error");
   },
   success: function (data) {
 
@@ -494,7 +498,7 @@ $.ajax({
       StoryId = this.id
 
       $.ajax({
-        url: "https://www.pivotaltracker.com/services/v5/projects/" + projetPivotalId + "/stories/" + this.id + "/tasks",
+        url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] + "/stories/" + this.id + "/tasks",
         beforeSend: function (xhr) {
           xhr.setRequestHeader('X-TrackerToken', '404fd04a04b800e6a9de45b044327cbd');
         },
@@ -567,11 +571,16 @@ $.ajax({
         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
-          data: { action: "CreerTacheApi", ListeTaches: TotalHoursChecked(), Sprint: $('#numeroSprint').val(), Employe: $('#RessourceApi').val().split('|')[0], Projet: $('#ProjetApi').val().split('|')[0]},
+          data: {
+            action: "CreerTacheApi",
+            ListeTaches: TotalHoursChecked(),
+            Sprint: $('#numeroSprint').val(),
+            Employe: $('#RessourceApi').val().split('|')[0],
+            Projet: $('#ProjetApi').val().split('|')[0]},
           success: function (data) {
             RemplirTableau('TableListHeuresAttribuees');
-    RemplirTableauRessources('TableListHeuresAttribueesRessources');
-    RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+            RemplirTableauRessources('TableListHeuresAttribueesRessources');
+            RemplirTableauProjets('TableauListeHeuresAttrbueesProjets');
             BootstrapAlertDefaut(data);
             document.getElementById("ListeTachesApi").innerHTML = ""
             document.getElementById("totalheure").innerHTML = ""
@@ -581,8 +590,6 @@ $.ajax({
       else
       BootstrapAlertError('Pas de donnéess choisies');
     })
-
-
 
     SetSelect2('#TypeEmployeOk, #projetId');
 
@@ -604,7 +611,7 @@ cart.push({
 $('span select').each(function () {
 
   if (this.value != "NON") {
-    TotalHeures = TotalHeures + parseInt(this.value);
+    TotalHeures += parseInt(this.value);
 
     element = {}
     element.heure = parseInt(this.value);
@@ -617,6 +624,5 @@ $('span select').each(function () {
 document.getElementById("totalheure").innerHTML = "Total heures sélectionnées : " + TotalHeures
 
 return cart
-
 }
 </script>

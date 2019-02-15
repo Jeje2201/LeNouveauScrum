@@ -30,32 +30,34 @@
 
 				$('#set').click(function () {
 
-					var idRessource = $('#employeId').val();
-					var mdp = $('#mdp').val();
-					var ancienmdp = $('#ancienmdp').val();
-					var confirmmdp = $('#confirmmdp').val();
-					var action = "Update";
-
 					$.ajax({
 						url: "Modele/ActionGestionEmploye.php",
 						method: "POST",
-						data: { ancienmdp: ancienmdp, idRessource: idRessource, action: "Checkpswd" },
+						data: {
+							ancienmdp: $('#ancienmdp').val(),
+							idRessource: $('#employeId').val(),
+							action: "Checkpswd"
+						},
 						success: function (ancienmdpOk) {
 							// debugger;
-							if (mdp != confirmmdp) {
+							if ($('#mdp').val() != $('#confirmmdp').val()) {
 								BootstrapAlertError('Les mots de passe ne correspondent pas.')
 							}
-							else if (mdp.length < 5) {
+							else if ($('#mdp').val().length < 5) {
 								BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
 							}
 							else if (ancienmdpOk.trim() == "non") {
-								BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais.. 🤔')
+								BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais..')
 							}
 							else {
 								$.ajax({
 									url: "Modele/ActionParametre.php",
 									method: "POST",
-									data: { action: action, idRessource: idRessource, mdp: mdp },
+									data: {
+										action: "Update",
+										idRessource: $('#employeId').val(),
+										mdp: $('#mdp').val()
+									},
 									success: function (data) {
 										BootstrapAlertDefaut(data);
 									}

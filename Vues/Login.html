@@ -39,11 +39,11 @@
         <p>N'apparait dans la liste que les ressources qui:
           <li>Sont enregistrées dans la base de données</li>
           <li>Sont définies en tant qu'actifs.</li>
-          Si ce n'est pas ton cas, prend le temps de te plaindre à un Scrum Master
+          Si ce n'est pas ton cas, il serait temps d'en parler à un Scrum Master
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -61,9 +61,8 @@
     });
 
     //Preload users if ID is save in the local storage
-    if (localStorage.getItem("Connexion") != null) {
-      var idUser = localStorage.getItem("Connexion")
-      $('#TypeEmployeOk option[value="' + idUser + '"]').attr('selected', 'selected');
+    if (localStorage.getItem("Connexion")) {
+      $('#TypeEmployeOk option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
     }
 
   });

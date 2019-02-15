@@ -49,7 +49,7 @@
 
       <div id="result" class="table-responsive table-hover"> </div>
 
-      <!-- This is Customer Modal. It will be use for Create new Records and Update Existing Records!-->
+      <!-- This is sprint Modal. It will be use for Create new Records and Update Existing Records!-->
       <div id="ModalInfoAttribuable" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -66,7 +66,7 @@
                 <br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
             <div class="modal-footer">
               <input type="hidden" name="id" id="id" />
               <input type="submit" name="action" id="action" class="btn btn-success" />
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
             </div>
           </div>
 
@@ -129,32 +129,33 @@
     });
 
     function GetNumeroSprintMax(Div) {
-      var action = "SprintMax";
       $.ajax({
         url: "Modele/ActionSprint.php",
         method: "POST",
-        data: { action: action },
+        data: {
+          action: "SprintMax"
+        },
         success: function (data) {
-          data = data.replace(/\s+/g, '');
-          $('#' + Div + '').val(data);
+          $('#' + Div).val(data.replace(/\s+/g, ''));
         }
       });
     }
 
     $('#modal_button').click(function () {
 
-      var numero = $('#numero').val();
-      var dateDebut = DateFrToEn($('#dateDebut').val())
-      var dateFin = DateFrToEn($('#dateFin').val())
-      var Attribuable = $('#attribuable').val();
-      var id = $('#id').val();
-      var action = 'Créer'
-      if (dateFin > dateDebut) {
-        if (numero != '' && dateDebut != '' && dateFin != '') {
+      if (DateFrToEn($('#dateFin').val()) > DateFrToEn($('#dateDebut').val())) {
+        if ($('#numero').val() != '' && DateFrToEn($('#dateDebut').val()) != '' && DateFrToEn($('#dateFin').val()) != '') {
           $.ajax({
             url: "Modele/ActionSprint.php",
             method: "POST",
-            data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, Attribuable: Attribuable, action: action },
+            data: {
+              numero: $('#numero').val(),
+              dateDebut: DateFrToEn($('#dateDebut').val()),
+              id: $('#id').val(),
+              dateFin: DateFrToEn($('#dateFin').val()),
+              Attribuable: $('#attribuable').val(),
+              action: 'Créer'
+            },
             success: function (data) {
 
               BootstrapAlertDefaut(data);
@@ -165,28 +166,30 @@
           });
         }
         else {
-          alert("Tous les champs doivent être plein.");
+          BootstrapAlertError("Tous les champs doivent être plein.");
         }
       }
       else {
-        alert("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?");
+        BootstrapAlertError("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?");
       }
     });
 
-    //This JQuery code is for Update customer data. If we have click on any customer row update button then this code will execute
+    //This JQuery code is for Update sprint data. If we have click on any sprint row update button then this code will execute
     $(document).on('click', '.update', function () {
-      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
-      var action = "Select";   //We have define action variable value is equal to select
+      var id = $(this).attr("id"); //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
       $.ajax({
         url: "Modele/ActionSprint.php",   //Request send to "ActionSprint.php page"
         method: "POST",    //Using of Post method for send data
-        data: { id: id, action: action },//Send data to server
+        data: {
+          id: id,
+          action: "Select" //We have define action variable value is equal to select
+        },//Send data to server
         dataType: "json",   //Here we have define json data type, so server will send data in json format.
         success: function (data) {
           $('#ModalSprint').modal('show');   //It will display modal on webpage
           $('.modal-title').text("Changer infos sprint"); //This code will change this class text to Update records
           $('#action').val("Update");     //This code will change Button value to Update
-          $('#id').val(id);     //It will define value of id variable to this customer id hidden field
+          $('#id').val(id);     //It will define value of id variable to this sprint id hidden field
           $('#numeroo').val(data.numero);  //It will assign value to modal first name texbox
           $('#dateDebutt').val(data.dateDebut);  //It will assign value of modal last name textbox
           $('#dateFinn').val(data.dateFin);  //It will assign value of modal last name textbox
@@ -196,40 +199,42 @@
     });
 
     $('#action').click(function () {
-      var numero = $('#numeroo').val(); //Get the value of first name textbox.
-      var dateDebut = DateFrToEn($('#dateDebutt').val()); //Get the value of last name textbox
-      var dateFin = DateFrToEn($('#dateFinn').val());  //Get the value of hidden field customer id
-      var attribuableEdi = $('#attribuableEdition').val();  //Get the value of hidden field customer id
-      var id = $('#id').val();
-      var action = $('#action').val();  //Get the value of Modal Action button and stored into action variable
-      if (numero != '' && dateDebut != '' && dateFin != '' && attribuableEdi > 0) //This condition will check both variable has some value
+      if($('#numeroo').val() != '' && DateFrToEn($('#dateDebutt').val()) != '' && DateFrToEn($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) //This condition will check both variable has some value
       {
         $.ajax({
           url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
           method: "POST",     //Using of Post method for send data
-          data: { numero: numero, dateDebut: dateDebut, id: id, dateFin: dateFin, attribuableEdi: attribuableEdi, action: action }, //Send data to server
+          data: {
+            numero: $('#numeroo').val(),
+            dateDebut: DateFrToEn($('#dateDebutt').val()),
+            id: $('#id').val(),
+            dateFin: DateFrToEn($('#dateFinn').val()),
+            attribuableEdi: $('#attribuableEdition').val(),
+            action: $('#action').val()//Get the value of Modal Action button and stored into action variable
+          }, //Send data to server
           success: function (data) {
             BootstrapAlertDefaut(data);
-            $('#ModalSprint').modal('hide'); //It will hide Customer Modal from webpage.
+            $('#ModalSprint').modal('hide'); //It will hide sprint Modal from webpage.
             RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
       }
       else {
-        alert("Tous les champs doivent être plein."); //If both or any one of the variable has no value them it will display this message
+        BootstrapAlertError("Tous les champs doivent être plein."); //If both or any one of the variable has no value them it will display this message
       }
     });
 
-    //This JQuery code is for Delete customer data. If we have click on any customer row delete button then this code will execute
+    //This JQuery code is for Delete sprint data. If we have click on any sprint row delete button then this code will execute
     $(document).on('click', '.delete', function () {
-      var id = $(this).attr("id"); //This code will fetch any customer id from attribute id with help of attr() JQuery method
       if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) //Confim Box if OK then
       {
-        var action = "Delete"; //Define action variable value Delete
         $.ajax({
           url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
           method: "POST",     //Using of Post method for send data
-          data: { id: id, action: action }, //Data send to server from ajax method
+          data: {
+            id: $(this).attr("id"), //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
+            action: "Delete" //Define action variable value Delete
+          }, //Data send to server from ajax method
           success: function (data) {
             RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
             BootstrapAlertDefaut(data);

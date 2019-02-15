@@ -61,7 +61,7 @@
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
       <div class="modal-footer">
         <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
         <input type="submit" value="Supprimer" class="btn btn-danger SuppressionRemarque">  
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -121,7 +121,10 @@
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: "LoadObjectif", idAffiche: $('#numeroSprint').val() },
+        data: {
+          action: "LoadObjectif",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
           $('#TableObjectif').html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableObjectif');
@@ -132,7 +135,10 @@
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: "LoadMail", idAffiche: $('#numeroSprint').val() },
+        data: {
+          action: "LoadMail",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
           $('#MailGenerer').html(data.trim());
         }
@@ -142,7 +148,9 @@
       $.ajax({
         url: "Modele/ActionDemo.php",
         method: "POST",
-        data: { action: "LoadDemo" },
+        data: {
+          action: "LoadDemo"
+        },
         success: function (data) {
           $('#TableDemo').html(data.trim());
         }
@@ -152,7 +160,9 @@
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { action: "LoadRemarque" },
+        data: {
+          action: "LoadRemarque"
+        },
         success: function (data) {
           $('#TableRemarque').html(data);
         }
@@ -169,7 +179,11 @@
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: this.id, EtatObjectif: this.className.split(" ")[2], action: "ChangerEtat" },
+        data: {
+          id: this.id,
+          EtatObjectif: this.className.split(" ")[2],
+          action: "ChangerEtat"
+        },
         success: function (data) {
           RemplirTableau();
         }
@@ -192,18 +206,19 @@
     });
 
     $('#action').click(function () {
-      var idSprint = $('#numeroSprint').val();
-      var idProjet = $('#projetId').val();
-      var idEmploye = $('#TypeEmployeOk').val();
-      var LabelObjectif = $('#LabelObjectif').val();
       // var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
-      var id = $('#id').val();
-      var action = $('#action').val();
-      if (idSprint != '' && LabelObjectif != '' && idEmploye != '' && idProjet != '') {
+      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { id: id, idSprint: idSprint, LabelObjectif: LabelObjectif, idEmploye: idEmploye, idProjet: idProjet, action: action },
+          data: {
+            id: $('#id').val(),
+            idSprint: $('#numeroSprint').val(),
+            LabelObjectif: $('#LabelObjectif').val(),
+            idEmploye: $('#TypeEmployeOk').val(),
+            idProjet: $('#projetId').val(),
+            action: $('#action').val()
+          },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
             BootstrapAlertDefaut(data);
@@ -213,7 +228,7 @@
         $('#LabelObjectif').val('');
       }
       else {
-        alert("Tous les champs doivent être plein.");
+        BootstrapAlertError("Tous les champs doivent être plein.");
       }
     });
 
@@ -222,7 +237,11 @@
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { Labelretrospective: $('#LabelRemarque').val(), id: $('#id').val(), action: $('#ActionRemarque').val() },
+          data: {
+            Labelretrospective: $('#LabelRemarque').val(),
+            id: $('#id').val(),
+            action: $('#ActionRemarque').val()
+          },
           success: function (data) {
             BootstrapAlertDefaut(data);
             $('#ModalRemarque').modal('hide');
@@ -231,7 +250,7 @@
         });
       }
       else {
-        alert("Tous les champs doivent être plein.");
+        BootstrapAlertError("Tous les champs doivent être plein.");
       }
     });
 
@@ -240,7 +259,10 @@
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: $(this).attr("id"), action: "retrospectiveFini" },
+        data: {
+          id: $(this).attr("id"),
+          action: "retrospectiveFini"
+        },
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();
@@ -252,11 +274,12 @@
     $(document).on('click', '.EditionRemarque', function () {
       $('.SuppressionRemarque').show()
       var id = $(this).attr("id");
-      var action = "SelectRemarque";
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: {
+          id: id,
+          action: "SelectRemarque" },
         dataType: "json",
         success: function (data) {
           $('#ModalRemarque').modal('show');
@@ -274,16 +297,15 @@
         $.ajax({
           url: "Modele/ActionGestionRemarques.php",
           method: "POST",
-          data: { id: $('#id').val(), action: "Delete" },
+          data: {
+            id: $('#id').val(),
+            action: "Delete" },
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
             BootstrapAlertDefaut(data);
           }
         })
-      }
-      else {
-        return false;
       }
     });
 
@@ -292,7 +314,9 @@
       $.ajax({
         url: "Modele/ActionDemo.php",
         method: "POST",
-        data: { id: $(this).attr("id"), action: "ValiderDemo" },
+        data: {
+          id: $(this).attr("id"),
+          action: "ValiderDemo" },
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();
@@ -306,24 +330,27 @@
       $.ajax({
         url: "Modele/ActionDemo.php",
         method: "POST",
-        data: { id: $(this).attr("id"), action: "SupprimerDemo" },
+        data: {
+          id: $(this).attr("id"),
+          action: "SupprimerDemo"
+        },
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();
         }
       });
     }
-    else
-      return false;
     });
 
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-      var action = "SelectObjectif";
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: {
+          id: id,
+          action: "SelectObjectif"
+        },
         dataType: "json",
         success: function (data) {
           $('#ModalObjectif').modal('show');
@@ -339,37 +366,36 @@
     });
 
     $(document).on('click', '.delete', function () {
-      var id = $(this).attr("id");
       if (confirm("Es-tu sûr de vouloir supprimer cet objectif ?")) {
         var action = "Delete";
         $.ajax({
           url: "Modele/ActionObjectifs.php",
           method: "POST",
-          data: { id: id, action: action },
+          data: {
+            id: $(this).attr("id"),
+            action: "Delete"
+          },
           success: function (data) {
             RemplirTableau();
             BootstrapAlertDefaut(data);
           }
         })
       }
-      else {
-        return false;
-      }
     });
 
-    var availableTags = [
-      "Réparer Internet",
-      "Penser à éteindre la lumière",
-      "Appeler électricien",
-      "Réparer l'imprimante",
-      "Mettre à jour ses tâches",
-      "Ceci est un auto complete qui ne demande que des idées"
-    ];
+    // var availableTags = [
+    //   "Réparer Internet",
+    //   "Penser à éteindre la lumière",
+    //   "Appeler électricien",
+    //   "Réparer l'imprimante",
+    //   "Mettre à jour ses tâches",
+    //   "Ceci est un auto complete qui ne demande que des idées"
+    // ];
 
-    $("#LabelRemarque").autocomplete({
-      source: availableTags,
-      appendTo: ".ui-widget"
-    });
+    // $("#LabelRemarque").autocomplete({
+    //   source: availableTags,
+    //   appendTo: ".ui-widget"
+    // });
 
     //////////////////////////////////////////// Rendre les input de type Select2
     SetSelect2('#projetId, #TypeEmployeOk');

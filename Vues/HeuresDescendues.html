@@ -55,9 +55,9 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <div class="card mb-3">
-            <div class="card-header">
-              <center>Tâches en cours</center>
+          <div class="card">
+            <div class="card-header" style="text-align: center">
+              Tâches en cours
             </div>
             <div class="card-body card-columns" id=EnCours>
             </div>
@@ -65,9 +65,9 @@
         </div>
 
         <div class="col-lg-6">
-          <div class="card mb-3">
-            <div class="card-header">
-              <center>Tâches achevées</center>
+          <div class="card">
+            <div class="card-header" style="text-align: center">
+              Tâches achevées
             </div>
             <div class="card-body card-columns" id=Fini>
             </div>
@@ -92,22 +92,25 @@
     AfficherCards();
 
     function AfficherCards() {
-      var idAffiche = $('#numeroSprint').val();
-      var idEmploye = $('#numeroEmploye').val();
-      var action = "AfficherCards";
       $.ajax({
         url: "Modele/ActionDescendre.php",
         method: "POST",
-        data: { action: action, idAffiche: idAffiche, idEmploye: idEmploye },
+        data: {
+          action: "AfficherCards",
+          idAffiche: $('#numeroSprint').val(),
+          idEmploye: $('#numeroEmploye').val()
+        },
         success: function (data) {
           $('#EnCours').html(data.Attribution);
           $('#Fini').html(data.Descendue);
 
-          var action = "DateMinMax";
           $.ajax({
             url: "Modele/ActionDescendre.php",
             method: "POST",
-            data: { action: action, idAffiche: idAffiche },
+            data: {
+              action: "DateMinMax",
+              idAffiche: $('#numeroSprint').val()
+            },
             success: function (data) {
               $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
               $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
@@ -128,13 +131,14 @@
     }
 
     function RemplirListeEmploye() {
-      var idAffiche = $('#numeroSprint').val();
-      var action = "LoadListEmployes";
       $.ajax({
         url: "Modele/ActionDescendre.php",
         method: "POST",
         async: false,
-        data: { action: action, idAffiche: idAffiche },
+        data: {
+          action: "LoadListEmployes",
+          idAffiche: $('#numeroSprint').val()
+        },
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
           var NumEmploye = localStorage.getItem("Connexion")
@@ -154,9 +158,7 @@
     });
 
     $('#action').click(function () {
-      var action = "Descendre"
       var IdAttribue = [];
-      var LeJourDeDescente = DateFrToEn($('#DateAujourdhui').val())
 
       $('#Fini').find(".BOUGEMOI").each(function () {
         IdAttribue.push($(this).attr('id'));
@@ -166,7 +168,11 @@
         $.ajax({
           url: "Modele/ActionDescendre.php",
           method: "POST",
-          data: { IdAttribue: IdAttribue, action: action, LeJourDeDescente: LeJourDeDescente },
+          data: {
+            IdAttribue: IdAttribue,
+            action: "Descendre",
+            LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
+          },
           success: function (data) {
             BootstrapAlertDefaut(data);
             AfficherCards();
@@ -174,7 +180,7 @@
         });
       }
       else {
-        alert("Tu dois d'abord déplacer au moins une tâche de son emplacement \"en cours\" -> \"terminée.\"");
+        BootstrapAlertError("Tu dois d'abord déplacer au moins une tâche de son emplacement \"en cours\" -> \"terminée.\"");
       }
 
     });

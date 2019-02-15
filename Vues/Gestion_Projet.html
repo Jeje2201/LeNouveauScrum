@@ -58,7 +58,7 @@
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@
         });
       }
       else {
-        alert("Tous les champs doivent être plein.");
+        BootstrapAlertError("Tous les champs doivent être plein.");
       }
     })
 
@@ -170,13 +170,11 @@
     });
 
     $(document).on('click', '.delete', function () {
-      var id = $(this).attr("id");
       if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?")) {
-        var action = "Delete";
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
-          data: { id: id, action: action },
+          data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
             BootstrapAlertDefaut(data);
@@ -198,9 +196,8 @@
     });
     $('#image_form').submit(function (event) {
       event.preventDefault();
-      var image_name = $('#image').val();
-      if (image_name == '') {
-        alert("Choisie une image d'abord");
+      if ($('#image').val() == '') {
+        BootstrapAlertError("Choisie une image d'abord");
         return false;
       }
       else {
