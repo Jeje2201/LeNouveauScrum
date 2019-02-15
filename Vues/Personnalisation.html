@@ -18,6 +18,7 @@
 		<script>
 			$(document).ready(function () {
 
+				if(localStorage.getItem('Connexion'))
 					$.ajax({
 						url: "Modele/ActionParametre.php",
 						method: "POST",
@@ -31,21 +32,23 @@
 							$("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
 						}
 					});
+				else 
+					BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
 
 				$('#set').click(function () {
-								$.ajax({
-									url: "Modele/ActionParametre.php",
-									method: "POST",
-									data: {
-										action: "CustomColorName",
-										couleur: $('#CouleurUser').val(),
-										Pseudo: $('#PseudoUser').val(),
-										idRessource: localStorage.getItem('Connexion')
-									},
-									success: function (data) {
-										BootstrapAlert(data);
-									}
-								});
+					$.ajax({
+						url: "Modele/ActionParametre.php",
+						method: "POST",
+						data: {
+							action: "CustomColorName",
+							couleur: $('#CouleurUser').val(),
+							Pseudo: $('#PseudoUser').val(),
+							idRessource: localStorage.getItem('Connexion')
+						},
+						success: function (data) {
+							BootstrapAlert(data);
+						}
+					});
 				});
 
 			});
