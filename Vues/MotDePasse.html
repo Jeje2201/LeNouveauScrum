@@ -2,10 +2,10 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label>Ressource</label>
 				<div id="ListEmploye"></div>
-			  </div>
+			  </div> -->
 			<div class="form-group">
 				<label>Ancien mot de passe</label>
 				<input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
@@ -25,9 +25,11 @@
 		<script>
 			$(document).ready(function () {
 
-				RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
-				SetSelect2('#employeId');
+				// RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+				// SetSelect2('#employeId');
 
+				
+			if(localStorage.getItem('Connexion'))
 				$('#set').click(function () {
 
 					$.ajax({
@@ -35,7 +37,7 @@
 						method: "POST",
 						data: {
 							ancienmdp: $('#ancienmdp').val(),
-							idRessource: $('#employeId').val(),
+							idRessource: localStorage.getItem('Connexion'),
 							action: "Checkpswd"
 						},
 						success: function (ancienmdpOk) {
@@ -55,7 +57,7 @@
 									method: "POST",
 									data: {
 										action: "Update",
-										idRessource: $('#employeId').val(),
+										idRessource: localStorage.getItem('Connexion'),
 										mdp: $('#mdp').val()
 									},
 									success: function (data) {
@@ -65,11 +67,8 @@
 							}
 						}
 					});
-
-
-
-
 				});
-
+			else 
+				BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
 			});
 		</script>
