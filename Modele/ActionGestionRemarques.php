@@ -68,11 +68,14 @@
     }
 
     if ($_POST["action"] == "UpdateAvecDateFin") {
+
+      if($_POST["DateFin"] == "undefined-undefined-")
+        $_POST["DateFin"] = NULL;
+
       $statement = $connection->prepare(
         "UPDATE retrospective
-   SET Label = :Label, DateCreation = :DateDebut, DateFini = :DateFin 
-   WHERE id = :id
-   "
+        SET Label = :Label, DateCreation = :DateDebut, DateFini = :DateFin 
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(
@@ -80,28 +83,6 @@
           ':DateDebut' => $_POST["DateDebut"],
           ':Label' => $_POST["Label"],
           ':DateFin' => $_POST["DateFin"],
-          ':id' => $_POST["id"]
-        )
-      );
-      if (!empty($result))
-        echo '✓';
-      else {
-        print_r($statement->errorInfo());
-      }
-    }
-
-    if ($_POST["action"] == "UpdateSansDateFin") {
-      $statement = $connection->prepare(
-        "UPDATE retrospective
-   SET Label = :Label, DateCreation = :DateDebut 
-   WHERE id = :id
-   "
-      );
-      $result = $statement->execute(
-        array(
-
-          ':DateDebut' => $_POST["DateDebut"],
-          ':Label' => $_POST["Label"],
           ':id' => $_POST["id"]
         )
       );
