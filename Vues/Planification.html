@@ -525,7 +525,7 @@ $.ajax({
               else {
                 
                 try {
-                  var ListeHeures = /.-(.+)/.exec(this.description)[1];
+                  var ListeHeures = /\.-(.+)/.exec(this.description)[1];
                   console.log('       📃 Une tache à faire : ' + this.description)
                 } catch  {
                   console.log("       🔴🔴🔴🔴" + this.description)
