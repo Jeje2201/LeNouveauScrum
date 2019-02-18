@@ -3,9 +3,6 @@
     <div class="container-fluid">
       <div class="card col-md-12">
         <div class="card-header">
-            <audio id="audio1" src="Assets/Audio/Oui.mp3" autostart="false" ></audio>
-            <audio id="audio2" src="Assets/Audio/Moyen.mp3" autostart="false" ></audio>
-            <audio id="audio3" src="Assets/Audio/Non.mp3" autostart="false" ></audio>
           <i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
         <div class="card-body">
 
@@ -188,8 +185,6 @@
           RemplirTableau();
         }
       });
-          var sound = document.getElementById("audio"+this.className.split(" ")[2]);
-          sound.play()
     });
 
     //////////////////////////////////////////// Si le numéro de sprint change, raffraichir les tables
