@@ -128,7 +128,7 @@
                 <label>&nbsp;</label>
                 <div>
                     <button id="ChercherApiPivotal" class="btn btn-info">
-                        <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Chercher
+                        Chercher
                     </button>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                 <label>&nbsp;</label>
                 <div>
                   <button type="submit" id="EnvoyerApiPivotal" class="btn btn-success">
-                      <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Envoyer
+                      Envoyer
                   </button>
                 </div>
             </div>
@@ -555,11 +555,17 @@ $.ajax({
         }
       });
     })
-
     //si pas de stories
-    if(myStories.length === 0)
-      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes stories pour ce projet</h3><label>(si vous êtes sûr du contraire, le problème vient sûrement de l'ID de pivotal tracker renseigné pour le projet ou la ressource en question)</label>"
-    
+    if(htmlDeFin === '')
+      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut venir de différentes raisons\
+        <ul>\
+          <li>L'ID pivotal tracker du projet n'est pas le bon ?</li>\
+          <li>L'ID pivotal tracker de la ressource n'est pas le bon ?</li>\
+          <li>La ressource n'est pas owner du projet ?</li>\
+          <li>Toutes les tâches de toutes ses stories sont validées ?</li>\
+        </ul>\
+      </label>"
+
   }
 });
 
@@ -591,8 +597,7 @@ $.ajax({
       BootstrapAlertError('Pas de donnéess choisies');
     })
 
-    SetSelect2('#TypeEmployeOk, #projetId');
-
+    SetSelect2('#TypeEmployeOk, #projetId, #RessourceApi, #ProjetApi');
   });
 
   function TotalHoursChecked() {
