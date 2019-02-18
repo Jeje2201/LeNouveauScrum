@@ -2,8 +2,21 @@ html {
   position: relative;
   min-height: 100%; }
 
-  /* afficher la main sur la liste de toutes les ressources dans attribuer heure scrum planing pour aider a pas se rater */
+  .select2-container .select2-selection--single{
+    height: 39px !important;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 35px !important;
+}
 
+/* Overwrite de la taille des lignes dans les tableau en les mettant plus petit */
+.table-sm th,
+.table-sm td {
+  padding: 0.2rem;
+  vertical-align: middle;
+}
+
+  /* afficher la main sur la liste de toutes les ressources dans attribuer heure scrum planing pour aider a pas se rater */
   #ListEmployeCheckBox1:hover{
 cursor: pointer;
   }

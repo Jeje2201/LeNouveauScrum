@@ -49,9 +49,9 @@
         <td style="background-color:' . $row["Couleur"] . '"></td>';
 
           if ($row["Actif"] == 1)
-            $output .= '<td style="background-color:#31a031; text-align: center; color: white">OUI</td>';
+            $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
           else
-            $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white">NON</td>';
+            $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
 
           $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
