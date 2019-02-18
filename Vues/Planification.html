@@ -279,6 +279,7 @@
     });
 
     $('#Boutton_Modal_ApiPivotal').click(function () {
+      document.getElementById("ListeTachesApi").innerHTML = ""
       $('#ModalApi').modal('show');
     });
 
@@ -509,24 +510,25 @@ $.ajax({
         processData: false,
         success: function (LesTaches) {
 
-          var ToutFait = true
+          // var ToutFait = true
 
-          $.each(LesTaches, function () {
-            if (!this.complete) {
-              ToutFait = false
-            }
-          })
+          // $.each(LesTaches, function () {
+          //   if (!this.complete) {
+          //     ToutFait = false
+          //   }
+          // })
 
-          if (LesTaches.length != 0 && ToutFait == false) {
+          // if (LesTaches.length != 0 && ToutFait == false) {
+          if (LesTaches.length != 0) {
             console.log('   📙 Storie: ' + Storyname)
             htmlDeFin += '<div  style="margin-bottom: 30px;"> <h3>' + Storyname + '</h3>'
 
             $.each(LesTaches, function () {
 
-              if (this.complete == true) 
-                htmlDeFin += ''
+              // if (this.complete == true) 
+              //   htmlDeFin += ''
 
-              else {
+              // else {
                 
                 try {
                   var ListeHeures = /\.-(.+)/.exec(this.description)[1];
@@ -546,8 +548,8 @@ $.ajax({
                 }
                 InputHeure += '</select>'
 
-                htmlDeFin += '<span>' + InputHeure + ' ' + this.description + '</span></br>'
-              }
+                htmlDeFin += '<span class=Tache'+this.complete+'>' + InputHeure + ' ' + this.description + '</span></br>'
+              // }
             })
             htmlDeFin += "</div>"
           }
