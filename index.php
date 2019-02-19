@@ -71,6 +71,11 @@ switch($vue)
  require_once("Vues/Gestion_Employe.html");
  break;
 
+ case 'GestionDemo':
+ if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+ require_once("Vues/Gestion_Demo.html");
+ break;
+
  case 'GestionProjet':
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/Gestion_Projet.html");
