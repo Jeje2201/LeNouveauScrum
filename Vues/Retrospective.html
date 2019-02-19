@@ -114,7 +114,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
-    //////////////////////////////////////////// Remplir la liste des objectifs dans une table
+    // Remplir la liste des objectifs dans une table
     function RemplirTableau() {
       $.ajax({
         url: "Modele/ActionObjectifs.php",
@@ -167,12 +167,12 @@
       });
     }
 
-    //////////////////////////////////////////// Afficher le modal de mail quand clic sur bouton de mail    
+    // Afficher le modal de mail quand clic sur bouton de mail    
     $('#BoutonMail').click(function () {
       $('#ModalMail').modal('show');
     });
 
-    //////////////////////////////////////////// Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
+    // Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
     $(document).on('click', '.1, .2, .3, .4, .5', function () {
       $.ajax({
         url: "Modele/ActionObjectifs.php",
@@ -188,7 +188,7 @@
       });
     });
 
-    //////////////////////////////////////////// Si le numéro de sprint change, raffraichir les tables
+    // Si le numéro de sprint change, raffraichir les tables
     $('#numeroSprint').change(function () {
       RemplirTableau();
     });
@@ -233,7 +233,7 @@
       }
     });
 
-    ///////////// Supprimer objectif
+    // Supprimer objectif
     $(document).on('click', '.SupprimerObjectif', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette objectif ?"))
         $.ajax({
@@ -251,32 +251,9 @@
         });
     });
 
+    //+-+-+-+-+-+-+-+-+-+-+  Remarques +-+-+-+-+-+-+-+-+-+-+
 
-    //// Faire une action avec les remarques
-
-    $('#ActionRemarque').click(function () {
-      if ($('#LabelRemarque').val() != '') {
-        $.ajax({
-          url: "Modele/ActionObjectifs.php",
-          method: "POST",
-          data: {
-            Labelretrospective: $('#LabelRemarque').val(),
-            id: $('#id').val(),
-            action: $('#ActionRemarque').val()
-          },
-          success: function (data) {
-            BootstrapAlertDefaut(data);
-            $('#ModalRemarque').modal('hide');
-            RemplirTableau();
-          }
-        });
-      }
-      else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
-      }
-    });
-
-    //////////////////////////////////////////// Valider une remarque qui ne s'affichera donc plus
+    // Valider une remarque qui ne s'affichera donc plus
     $(document).on('click', '.ValiderRemarque', function () {
       $.ajax({
         url: "Modele/ActionObjectifs.php",
@@ -292,8 +269,8 @@
       });
     });
 
-    //////////////////////////////////////////// Editer une remarque
-    $(document).on('click', '.EditionRemarque', function () {
+    // Obtenir les infos d'une remarque pour l'éditer apres
+    $(document).on('click', '.GetRemarque', function () {
       $('.SuppressionRemarque').show()
       var id = $(this).attr("id");
       $.ajax({
@@ -313,7 +290,26 @@
       });
     });
 
-    //////////////////////////////////////////// Supprimer une remarque
+
+    // Créer ou éditer une remarque
+    $('#ActionRemarque').click(function () {
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: {
+            Labelretrospective: $('#LabelRemarque').val(),
+            id: $('#id').val(),
+            action: $('#ActionRemarque').val()
+          },
+          success: function (data) {
+            BootstrapAlertDefaut(data);
+            $('#ModalRemarque').modal('hide');
+            RemplirTableau();
+          }
+        });
+    });
+
+    // Supprimer une remarque
     $(document).on('click', '.SuppressionRemarque', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
@@ -330,7 +326,9 @@
         })
     });
 
-    //////////////////////////////////////////// Valider une démo
+    //+-+-+-+-+-+-+-+-+-+-+  Démos +-+-+-+-+-+-+-+-+-+-+
+
+    // Valider une démo
     $(document).on('click', '.ValiderDemo', function () {
       $.ajax({
         url: "Modele/ActionDemo.php",
@@ -345,7 +343,7 @@
       });
     });
 
-    //////////////////////////////////////////// Supprimer une démo
+    // Supprimer une démo
     $(document).on('click', '.SupprimerDemo', function () {
     if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
       $.ajax({
@@ -385,7 +383,6 @@
       });
     });
 
-    //////////////////////////////////////////// Rendre les input de type Select2
     SetSelect2('#projetId, #TypeEmployeOk');
 
   });
