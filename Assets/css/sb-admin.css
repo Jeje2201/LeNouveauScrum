@@ -1,11 +1,19 @@
 html {
   position: relative;
-  min-height: 100%; }
+  min-height: 100%;
+}
 
+  /* Cache la bar de haut en bas pour la navbar, histoire de pas manger sur la page */
+  #exampleAccordion::-webkit-scrollbar {
+    width: 0px; 
+    }
+
+    /* Si la tache est déjà faite, la mettre en verte quand api pivotal l'affiche*/
   .TacheTrue{
     color:#0c7d00
   }
 
+  /* Faire en sorte que les select 2 prenne une taille plus dans la normalité */
   .select2-container .select2-selection--single{
     height: 39px !important;
   }
