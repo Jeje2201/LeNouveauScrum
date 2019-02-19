@@ -27,7 +27,7 @@
 
       <div id="TableObjectif" class="table-responsive table-hover"></div>
 
-      <button type="button" id="Bouttonretrospective" class="btn btn-success">
+      <button type="button" id="BouttonRemarque" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
       <p></p>
 
@@ -58,6 +58,7 @@
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
         <input type="submit" name="action" id="action" class="btn btn-success" />
+        <input type="submit" value="Supprimer" class="btn btn-danger SupprimerObjectif"></input>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -141,7 +142,7 @@
         }
       });
 
-      // Remplir la liste des objectifs dans un modal caché pour les mails
+      // Remplir la liste des démos
       $.ajax({
         url: "Modele/ActionDemo.php",
         method: "POST",
@@ -192,7 +193,9 @@
       RemplirTableau();
     });
 
-    $('#Bouttonretrospective').click(function () {
+// Afficher le modal pour éditer une remarque
+
+    $('#BouttonRemarque').click(function () {
       $('.SuppressionRemarque').hide()
       $('#ModalRemarque').modal('show');
       $('.modal-title').text("Créer une remarque");
@@ -200,8 +203,11 @@
       $('#ActionRemarque').val("Créer Retrospective")
     });
 
+
+
+    //Bouton pour editer un objectif
+
     $('#action').click(function () {
-      // var EtatObjectif = $('input[name=Etat]:checked', '#EtatObjectif').val()
       if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
         $.ajax({
           url: "Modele/ActionObjectifs.php",
@@ -226,6 +232,27 @@
         BootstrapAlertError("Tous les champs doivent être plein.");
       }
     });
+
+    ///////////// Supprimer objectif
+    $(document).on('click', '.SupprimerObjectif', function () {
+      if (confirm("Es-tu sûr de vouloir supprimer cette objectif ?"))
+        $.ajax({
+          url: "Modele/ActionObjectifs.php",
+          method: "POST",
+          data: {
+            id: $('#id').val(),
+            action: "Delete"
+          },
+          success: function (data) {
+            $('#ModalObjectif').modal('hide');
+            BootstrapAlertDefaut(data);
+            RemplirTableau();
+          }
+        });
+    });
+
+
+    //// Faire une action avec les remarques
 
     $('#ActionRemarque').click(function () {
       if ($('#LabelRemarque').val() != '') {
@@ -288,7 +315,7 @@
 
     //////////////////////////////////////////// Supprimer une remarque
     $(document).on('click', '.SuppressionRemarque', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
           url: "Modele/ActionGestionRemarques.php",
           method: "POST",
@@ -301,7 +328,6 @@
             BootstrapAlertDefaut(data);
           }
         })
-      }
     });
 
     //////////////////////////////////////////// Valider une démo
@@ -321,7 +347,7 @@
 
     //////////////////////////////////////////// Supprimer une démo
     $(document).on('click', '.SupprimerDemo', function () {
-    if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+    if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
       $.ajax({
         url: "Modele/ActionDemo.php",
         method: "POST",
@@ -334,7 +360,6 @@
           RemplirTableau();
         }
       });
-    }
     });
 
     $(document).on('click', '.update', function () {
@@ -359,38 +384,6 @@
         }
       });
     });
-
-    $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cet objectif ?")) {
-        var action = "Delete";
-        $.ajax({
-          url: "Modele/ActionObjectifs.php",
-          method: "POST",
-          data: {
-            id: $(this).attr("id"),
-            action: "Delete"
-          },
-          success: function (data) {
-            RemplirTableau();
-            BootstrapAlertDefaut(data);
-          }
-        })
-      }
-    });
-
-    // var availableTags = [
-    //   "Réparer Internet",
-    //   "Penser à éteindre la lumière",
-    //   "Appeler électricien",
-    //   "Réparer l'imprimante",
-    //   "Mettre à jour ses tâches",
-    //   "Ceci est un auto complete qui ne demande que des idées"
-    // ];
-
-    // $("#LabelRemarque").autocomplete({
-    //   source: availableTags,
-    //   appendTo: ".ui-widget"
-    // });
 
     //////////////////////////////////////////// Rendre les input de type Select2
     SetSelect2('#projetId, #TypeEmployeOk');
