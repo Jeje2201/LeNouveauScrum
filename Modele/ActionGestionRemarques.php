@@ -5,7 +5,8 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT * from retrospective order by DateCreation desc ");
+      $statement = $connection->prepare("SELECT * from retrospective ORDER BY (CASE WHEN DateFini IS NULL THEN 1 ELSE 0 END) desc,
+        DateFini desc, DateCreation desc ");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
