@@ -61,7 +61,7 @@
         
         <td>
         <center>
-        <button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+        <button type="button" id="' . $row["id"] . '" class="btn btn-warning GetObjectif"><i class="fa fa-pencil" aria-hidden="true"></i></button>
         </center>
         </td>
         </tr>

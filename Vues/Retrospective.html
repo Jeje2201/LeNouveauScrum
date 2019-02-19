@@ -154,7 +154,7 @@
         }
       });
 
-      // Remplir la liste des remarques
+      //Remplir la liste des remarques
       $.ajax({
         url: "Modele/ActionObjectifs.php",
         method: "POST",
@@ -172,29 +172,12 @@
       $('#ModalMail').modal('show');
     });
 
-    // Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
-    $(document).on('click', '.1, .2, .3, .4, .5', function () {
-      $.ajax({
-        url: "Modele/ActionObjectifs.php",
-        method: "POST",
-        data: {
-          id: this.id,
-          EtatObjectif: this.className.split(" ")[2],
-          action: "ChangerEtat"
-        },
-        success: function (data) {
-          RemplirTableau();
-        }
-      });
-    });
-
     // Si le numéro de sprint change, raffraichir les tables
     $('#numeroSprint').change(function () {
       RemplirTableau();
     });
 
-// Afficher le modal pour éditer une remarque
-
+    // Afficher le modal pour éditer une remarque
     $('#BouttonRemarque').click(function () {
       $('.SuppressionRemarque').hide()
       $('#ModalRemarque').modal('show');
@@ -203,9 +186,33 @@
       $('#ActionRemarque').val("Créer Retrospective")
     });
 
+    //+-+-+-+-+-+-+-+-+-+-+  Objectifs +-+-+-+-+-+-+-+-+-+-+
 
+    //Get les infos d'un objectif et afficher le modal pour edition
+    $(document).on('click', '.GetObjectif', function () {
+      var id = $(this).attr("id");
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: {
+          id: id,
+          action: "SelectObjectif"
+        },
+        dataType: "json",
+        success: function (data) {
+          $('#ModalObjectif').modal('show');
+          $('.modal-title').text("Éditer objectif");
+          $('#action').val("Changer Objectif");
+          $('#id').val(id);
+          $('#projetId').val(data.id_Projet);
+          $('#TypeEmployeOk').val(data.id_Employe);
+          $('#LabelObjectif').val(data.objectif);
+          SetSelect2('#projetId, #TypeEmployeOk');
+        }
+      });
+    });
 
-    //Bouton pour editer un objectif
+    //Editer ou créer pour editer un objectif
 
     $('#action').click(function () {
       if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
@@ -231,6 +238,22 @@
       else {
         BootstrapAlertError("Tous les champs doivent être plein.");
       }
+    });
+
+    // Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
+    $(document).on('click', '.1, .2, .3, .4, .5', function () {
+      $.ajax({
+        url: "Modele/ActionObjectifs.php",
+        method: "POST",
+        data: {
+          id: this.id,
+          EtatObjectif: this.className.split(" ")[2],
+          action: "ChangerEtat"
+        },
+        success: function (data) {
+          RemplirTableau();
+        }
+      });
     });
 
     // Supprimer objectif
@@ -356,29 +379,6 @@
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();
-        }
-      });
-    });
-
-    $(document).on('click', '.update', function () {
-      var id = $(this).attr("id");
-      $.ajax({
-        url: "Modele/ActionObjectifs.php",
-        method: "POST",
-        data: {
-          id: id,
-          action: "SelectObjectif"
-        },
-        dataType: "json",
-        success: function (data) {
-          $('#ModalObjectif').modal('show');
-          $('.modal-title').text("Éditer objectif");
-          $('#action').val("Changer Objectif");
-          $('#id').val(id);
-          $('#projetId').val(data.id_Projet);
-          $('#TypeEmployeOk').val(data.id_Employe);
-          $('#LabelObjectif').val(data.objectif);
-          SetSelect2('#projetId, #TypeEmployeOk');
         }
       });
     });
