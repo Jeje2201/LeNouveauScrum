@@ -433,7 +433,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
       if (NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]) >= 0)
         $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]));
       else
-        $("#NbJoursRestants").text("date dépassée");
+        $("#NbJoursRestants").text("0");
 
     }
   });
