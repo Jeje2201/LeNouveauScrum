@@ -53,8 +53,6 @@ switch($vue)
  case 'MotDePasse':
  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
  require_once("Vues/MotDePasseAdmin.html");
- else
- require_once("Vues/MotDePasse.html");
  break;
 
  case 'Interferance':

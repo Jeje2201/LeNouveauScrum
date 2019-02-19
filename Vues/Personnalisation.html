@@ -1,55 +1,115 @@
 <body class="fixed-nav sticky-footer" id="page-top">
-	<div class="content-wrapper">
-		<div class="container-fluid">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+		
 
-			<div class="form-group">
-				<label>Couleur (<i>car beaucoup trop demandé</i>)</label>
-				<br>
-				<input type="color" class="" id="CouleurUser">
-			</div>
-			<div class="form-group">
-				<label>Pseudo</label>
-				<input type="text" class="form-control" id="PseudoUser" maxlength="11">
-			</div>
+        <h3>Personnalisation</h3>
 
-			<button class="btn btn-primary" id="set">Sauvegarder</button>
+        <div class="form-group">
+          <label>Couleur (<i>car beaucoup trop demandé</i>)</label>
+          <br>
+          <input type="color" class="" id="CouleurUser">
+        </div>
 
-		</div>
-		<script>
-			$(document).ready(function () {
+        <div class="form-group">
+          <label>Pseudo</label>
+          <input type="text" class="form-control" id="PseudoUser" maxlength="11">
+        </div>
 
-				if(localStorage.getItem('Connexion'))
-					$.ajax({
-						url: "Modele/ActionParametre.php",
-						method: "POST",
-						data: {
-							action: "Load",
-							idRessource: localStorage.getItem('Connexion')
-						},
-						success: function (data) {
-							$('#CouleurUser').val(data.split(' ')[4]);
-							$('#PseudoUser').val(data.split(' ')[5]);
-							$("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
-						}
-					});
-				else 
-					BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
+        <button class="btn btn-primary" id="SetPerso">Sauvegarder</button>
+<p></p>
+<hr>
+<p></p>
+        <h3>Mot de passe</h3>
+        <div class="form-group">
+          <label>Ancien mot de passe</label>
+          <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" class="form-control" id="mdp" minlength="5" required="required">
+        </div>
+        <div class="form-group">
+          <label>Confirmez le mot de passe</label>
+          <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
+        </div>
 
-				$('#set').click(function () {
-					$.ajax({
-						url: "Modele/ActionParametre.php",
-						method: "POST",
-						data: {
-							action: "CustomColorName",
-							couleur: $('#CouleurUser').val(),
-							Pseudo: $('#PseudoUser').val(),
-							idRessource: localStorage.getItem('Connexion')
-						},
-						success: function (data) {
-							BootstrapAlert(data);
-						}
-					});
-				});
+        <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
+	  
+    </div>
+  </div>
 
-			});
-		</script>
+  <script>
+    $(document).ready(function () {
+
+      if (localStorage.getItem('Connexion')) 
+        $.ajax({
+          url: "Modele/ActionParametre.php",
+          method: "POST",
+          data: {
+            action: "Load",
+            idRessource: localStorage.getItem('Connexion')
+          },
+          success: function (data) {
+            $('#CouleurUser').val(data.split(' ')[4]);
+            $('#PseudoUser').val(data.split(' ')[5]);
+            $("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
+          }
+        });
+      else 
+        BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
+
+      $('#SetPerso').click(function () {
+        $.ajax({
+          url: "Modele/ActionParametre.php",
+          method: "POST",
+          data: {
+            action: "CustomColorName",
+            couleur: $('#CouleurUser').val(),
+            Pseudo: $('#PseudoUser').val(),
+            idRessource: localStorage.getItem('Connexion')
+          },
+          success: function (data) {
+            BootstrapAlertDefaut(data);
+          }
+        });
+      });
+
+      $('#SetMdp').click(function () {
+
+        $.ajax({
+          url: "Modele/ActionGestionEmploye.php",
+          method: "POST",
+          data: {
+            ancienmdp: $('#ancienmdp').val(),
+            idRessource: localStorage.getItem('Connexion'),
+            action: "Checkpswd"
+          },
+          success: function (ancienmdpOk) {
+            // debugger;
+            if ($('#mdp').val() != $('#confirmmdp').val()) {
+              BootstrapAlertError('Les mots de passe ne correspondent pas.')
+            } else if ($('#mdp').val().length < 5) {
+              BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
+            } else if (ancienmdpOk.trim() == "non") {
+              BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais..')
+            } else {
+              $.ajax({
+                url: "Modele/ActionParametre.php",
+                method: "POST",
+                data: {
+                  action: "Update",
+                  idRessource: localStorage.getItem('Connexion'),
+                  mdp: $('#mdp').val()
+                },
+                success: function (data) {
+                  BootstrapAlertDefaut(data);
+                }
+              });
+            }
+          }
+        });
+      });
+
+    });
+  </script>
