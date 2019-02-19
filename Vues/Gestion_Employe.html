@@ -180,7 +180,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?")) 
         $.ajax({
           url: "Modele/ActionGestionEmploye.php",
           method: "POST",
@@ -189,13 +189,8 @@
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/ActionGestionEmploye.php');
             BootstrapAlertDefaut(data);
             GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
-
           }
         })
-      }
-      else {
-        return false;
-      }
     });
     SetSelect2('#TypeEmploye');
 

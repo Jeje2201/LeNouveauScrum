@@ -444,7 +444,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette attribution ?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cette attribution ?"))
         $.ajax({
           url: "Modele/ActionAttributionHeure.php",
           method: "POST",
@@ -459,7 +459,6 @@
             BootstrapAlertDefaut(data);
           }
         })
-      }
     });
 
     $('#ChercherApiPivotal').click(function () {

@@ -141,7 +141,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette heure descendue?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cette heure descendue?"))
         $.ajax({
           url: "Modele/ActionGestionDescendre.php",
           method: "POST",
@@ -154,10 +154,6 @@
             BootstrapAlertDefaut(data);
           }
         })
-      }
-      else {
-        return false;
-      }
     });
   });
 

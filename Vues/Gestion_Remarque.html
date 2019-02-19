@@ -119,7 +119,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
           url: "Modele/ActionGestionRemarques.php",
           method: "POST",
@@ -132,7 +132,6 @@
             BootstrapAlertDefaut(data);
           }
         })
-      }
     });
   });
 

@@ -170,7 +170,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?")) {
+      if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?"))
         $.ajax({
           url: "Modele/ActionGestionProjet.php",
           method: "POST",
@@ -180,10 +180,6 @@
             BootstrapAlertDefaut(data);
           }
         })
-      }
-      else {
-        return false;
-      }
     });
 
     $('#add').click(function () {
