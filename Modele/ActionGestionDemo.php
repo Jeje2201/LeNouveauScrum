@@ -34,7 +34,7 @@
           if ($row["DateEffectue"] == null)
             $output .= '<td></td>';
           else
-            $output .= '<td>' . date("d-m-Y", strtotime($row["DateEffectue"])) . '</td>';
+            $output .= '<td>' . date("d/m/Y", strtotime($row["DateEffectue"])) . '</td>';
           $output .= '
         <td>' . $row["prenom"] . '</td>
         <td>' . $row["nom"] . '</td>

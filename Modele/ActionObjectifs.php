@@ -150,7 +150,7 @@
         foreach ($result as $row) {
           $output .= '
         <tr>
-        <td>' . date("d-m-Y", strtotime($row["DateCreation"])) . '</td>
+        <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>
         <td>' . $row["Label"] . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
             $output .= '

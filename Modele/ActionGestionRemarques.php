@@ -26,11 +26,11 @@
         foreach ($result as $row) {
           $output .= '
         <tr>
-        <td>' . date("d-m-Y", strtotime($row["DateCreation"])) . '</td>';
+        <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>';
           if ($row["DateFini"] == null)
             $output .= '<td></td>';
           else
-            $output .= '<td>' . date("d-m-Y", strtotime($row["DateFini"])) . '</td>';
+            $output .= '<td>' . date("d/m/Y", strtotime($row["DateFini"])) . '</td>';
           $output .= '
         <td>' . $row["Label"] . '</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
