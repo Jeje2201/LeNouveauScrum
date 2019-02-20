@@ -343,46 +343,29 @@ function setInformation(idDiv, Information) {
  */
 function fillInformation(infosource) {
 
-  if (infosource['TotalADescendre'] > 0)
     setInformation('TotalHAttribues', infosource['TotalADescendre']);
-  else
-    setInformation('TotalHAttribues', '?');
 
-  if (infosource['Interference'] > 0)
     setInformation('Seuil', parseInt(infosource['Interference']));
-  else
-    setInformation('Seuil', '?');
 
-  if (infosource['HeuresDesJours'][0] > 0)
     setInformation('TotalHResteADescendre', (infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]))
-  else
-    setInformation('TotalHResteADescendre', '?')
 
-  if ((infosource['Interference'] > 0) || (infosource['HeuresDesJours'][0] > 0))
     $("#TotalHDescendueAvecSeuil").text(((infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) - (parseInt(infosource['Interference']))));
-  else
-    setInformation('TotalHDescendueAvecSeuil', '?')
-
-  if ((infosource['TotalADescendre'] > 0) && (infosource['HeuresDesJours'][0] > 0)) {
 
     $("#TotalHDescendue").text((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]));
 
-    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) < 50)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    var moyenne = (Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'])))
 
-    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 50 && (Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) < 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    if(moyenne < 50)
+    var couleurBar = "danger"
+    else if (moyenne >= 50 && moyenne < 75)
+    var couleurBar = "warning"
+    else
+    var couleurBar = "success"
 
-    if ((Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']))) >= 75)
-      $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '%; aria-valuenow="' + ((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre']) + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+    $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-'+couleurBar+'" role="progressbar" style="width: ' + moyenne + '%; aria-valuenow="' + moyenne + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
 
-    $("#PourcentageDescendue").text(Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'])) + "%");
+    $("#PourcentageDescendue").text(Math.round(moyenne) + "%");
 
-  } else {
-    $("#TotalHDescendue").text("0");
-    $("#BarDePourcentageDheureDescendue").html(" ?");
-    $("#PourcentageDescendue").text("");
-  }
 }
 
 /**
@@ -406,10 +389,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
         
       console.log('yoyo' , Total)
 
-      if (Total['JoursAvecDesHeures'] != null)
         CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
-      else
-        $("#EmplacementChart").text('Aucune heure n\'est descendue. Il est donc impossible d\'afficher la burndown chart.');
 
       fillInformation(Total);
 
