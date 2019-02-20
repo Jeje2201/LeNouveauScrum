@@ -8,22 +8,20 @@
 
       $NumeroduSprint = $_POST["NumeroduSprint"];
 
+      //Requete pour obtenir la liste des heures attribués / descendues / interferances par ressource (soit le graphe tout en bas)
       $statement = $connection->prepare(
-        $sql = "
-        SELECT 
+        $sql = "SELECT 
         E.id as empid,
         E.prenom as prenom,
         E.Initial as Initial,
         sum(A.heure) as nbheureadescendre,
-        ifnull( sum(HD.heure),0) as nbheuredescendu,
-        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
+        ( SELECT ifnull( sum(attribution.heure),0) from attribution where attribution.id_Employe = E.id and attribution.id_Sprint = $NumeroduSprint and attribution.Done is not null) as nbheuredescendu,
+        ( SELECT ifnull( sum(attribution.heure),0) from attribution where attribution.id_Employe = E.id and attribution.id_Sprint = $NumeroduSprint and attribution.Done is null) as heurerestantes,
         (select ifnull(SUM(interference.heure),0) from interference where interference.id_Employe = E.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from employe as E
         LEFT JOIN attribution as A ON A.id_employe = E.id and A.id_Sprint = $NumeroduSprint
-        LEFT JOIN heuresdescendues as HD on E.id = HD.id_Employe and HD.id_Attribution = A.id and HD.id_Sprint = $NumeroduSprint
         WHERE
         A.heure is not null
-        AND A.id_TypeTache IS NULL
         GROUP BY E.id
         order by nbheuredescendu desc, heurerestantes asc
       "
@@ -47,17 +45,15 @@
       $array['RessourceHeureInterference'] = $HInterference;
 
       $statement = $connection->prepare(
-        $sql = "
-        SELECT 
+        $sql = "SELECT 
         P.id AS projid,
         P.nom AS pnom,
         sum(A.heure) as nbheureadescendre,
-        ifnull( sum(HD.heure),0) as nbheuredescendu,
-        sum(A.heure) - ifnull( sum(HD.heure),0) as heurerestantes,
+        ( SELECT ifnull( sum(attribution.heure),0) from attribution where attribution.id_Projet = P.id and attribution.id_Sprint = $NumeroduSprint and attribution.Done is not null) as nbheuredescendu,
+        ( SELECT ifnull( sum(attribution.heure),0) from attribution where attribution.id_Projet = P.id and attribution.id_Sprint = $NumeroduSprint and attribution.Done is null) as heurerestantes,
         (select ifnull(SUM(interference.heure),0) from interference where interference.id_Projet = P.id and interference.id_Sprint = $NumeroduSprint) as heuresinterference
         from projet as P
         LEFT JOIN attribution AS A ON A.id_Projet = P.id and A.id_Sprint = $NumeroduSprint
-        LEFT JOIN heuresdescendues as HD on HD.id_Projet = P.id and HD.id_Attribution = A.id and HD.id_Sprint = $NumeroduSprint
         WHERE
         A.heure is not null
         AND A.id_TypeTache IS NULL
@@ -82,6 +78,7 @@
       $array['ProjetHeuresAttribuees'] = $HattribueProjet;
       $array['ProjetHeuresInterferences'] = $HInterferenceProjet;
 
+      //Requete pour la charte des objectifs
       $statement = $connection->prepare(
         $sql = "SELECT COUNT(objectif.id) as Nombre, statutobjectif.nom as Statut, statutobjectif.couleur as Couleur
       from objectif
@@ -111,9 +108,12 @@
 
       $array['Objectifs'] = $Total;
 
-
+      //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
       $statement = $connection->prepare(
-        $sql = "SELECT (select sum(heure) from attribution WHERE attribution.id_Sprint = $NumeroduSprint and attribution.id_TypeTache IS NULL) as TotalHeuresAttribuees, (select sum(heure) from heuresdescendues WHERE heuresdescendues.id_Sprint = $NumeroduSprint) as TotalHeuresDescendues, (select sum(heure) from interference WHERE interference.id_Sprint = $NumeroduSprint) as TotalHeuresInterference"
+        $sql = "SELECT
+        (select sum(heure) from attribution A WHERE A.id_Sprint = $NumeroduSprint) as TotalHeuresAttribuees,
+        (select sum(heure) from attribution A WHERE A.id_Sprint = $NumeroduSprint AND A.Done is not NULL) as TotalHeuresDescendues,
+        (select sum(heure) from interference I WHERE I.id_Sprint = $NumeroduSprint) as TotalHeuresInterference"
       );
 
       $statement->execute();
@@ -129,8 +129,14 @@
       $array['TotalHeuresDescendues'] = $TotalHeuresDescendues;
       $array['TotalHeuresInterference'] = $TotalHeuresInterference;
 
+      //Combiens d'heures descendues par jour pour remplir la charte "Heures descendues par jour (toutes ressources comprises)"
       $statement = $connection->prepare(
-        $sql = "SELECT sum(heure) as heures, DateDescendu as Ladate FROM `heuresdescendues` where heuresdescendues.id_Sprint = $NumeroduSprint GROUP by DateDescendu"
+        $sql = "SELECT
+        sum(heure) as heures, done as Ladate
+        FROM attribution A
+        where A.id_Sprint = $NumeroduSprint
+        AND A.Done is not null
+        GROUP by Done"
       );
 
       $statement->execute();
@@ -149,7 +155,7 @@
       $array['DateHeuresDescenduesParJour'] = $Date;
 
       $statement = $connection->prepare(
-        $sql = "SELECT * from sprint where sprint.id = $NumeroduSprint"
+        $sql = "SELECT * from sprint S where S.id = $NumeroduSprint"
       );
       $statement->execute();
       $result = $statement->fetch();
