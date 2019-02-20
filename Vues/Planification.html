@@ -331,6 +331,7 @@
       else BootstrapAlertError("Le champ d'heure comporte une erreur")
     });
 
+    //Créer des heures spéciales scrum planing
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
       var idEmploye = new Array;
@@ -362,8 +363,7 @@
       BootstrapAlertError('Aucune ressource selectionnée ?')
     });
 
-    // Partie demo //
-
+    //Créer démo
     $(document).on('click', '.EnvoyerDemo', function () {
      
         $.ajax({
@@ -381,6 +381,7 @@
         $('#LabelDemo').val('');
     });
 
+    //Créer objectif
     $(document).on('click', '.EnvoyerObjectif', function () {
      
         $.ajax({

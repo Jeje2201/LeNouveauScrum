@@ -2,22 +2,18 @@
 
     require_once('../Modele/Configs.php');
 
+    //Si jamais le texte d'une tache risque de casser l'html qui ressort
     function PreviewText($input)
     {
       $Problem = array("<", ">");
       $input = str_replace($Problem, " ", $input);
 
-    // if(strlen($input)>=50){
-    // $Label = mb_substr($input, 0, 50);
-    // $Label .= '..';
-    // return $Label;
-    // }
-    // else
       return $input;
     }
 
     if (isset($_POST["action"])) {
 
+      //Fonction pour afficher les cards a descendre et descendues
       if ($_POST["action"] == "AfficherCards") {
         $Test = new stdClass;
 
@@ -25,25 +21,19 @@
         $numero = $_POST["idAffiche"];
 
         if ($_POST["idEmploye"] == "ToutLeMonde")
-          $Requete1 = "AND attribution.id_Employe in (select id from employe)";
+          $Requete1 = "AND A.id_Employe in (select id from employe)";
         else
-          $Requete1 = "AND attribution.id_Employe = $idEmploye";
+          $Requete1 = "AND A.id_Employe = $idEmploye";
 
         $statement = $connection->prepare("
-      SELECT attribution.id, attribution.Label, attribution.heure as NbHeure, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.prenom as E_Prenom, employe.nom as E_Nom, employe.Pseudo as E_Pseudo
-      FROM attribution
-      inner JOIN employe ON employe.id = attribution.id_Employe
-      INNER JOIN projet ON projet.id = attribution.id_Projet
-      INNER JOIN sprint ON sprint.id = attribution.id_Sprint
-      where attribution.id_Sprint = $numero "
-          . $Requete1 .
-          " AND attribution.id not in
-      (SELECT distinct heuresdescendues.id_Attribution
-      from heuresdescendues
-      where heuresdescendues.id_Attribution IS NOT NULL)
-      AND attribution.id_TypeTache IS NULL
-      ORDER BY employe.prenom
-      ");
+          SELECT A.id, A.Label, A.heure, P.nom as projet, P.Logo, E.Initial, E.couleur, E.prenom as E_Prenom, E.nom as E_Nom, E.Pseudo as E_Pseudo
+          FROM attribution A
+          INNER JOIN employe E ON E.id = A.id_Employe
+          INNER JOIN projet P ON P.id = A.id_Projet
+          INNER JOIN sprint S ON S.id = A.id_Sprint
+          where A.id_Sprint =  $numero
+          and A.Done is null "  . $Requete1 .
+          " ORDER BY E.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -54,12 +44,12 @@
       <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">
         <div style="margin-left:7px;">
-          <div class="BarreLateralCard" style="background-color:' . $row["E_Couleur"] . ';"></div>
-            <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["E_Pseudo"] . ' (' . $row["E_Initial"] . ')<br>
+          <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
+            <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["E_Pseudo"] . ' (' . $row["Initial"] . ')<br>
             <div class="SpecialHr"></div>
             <i class="fa fa-file-o" aria-hidden="true"></i> ' . $row["projet"] . '<br>
             <div class="SpecialHr"></div>
-            <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["NbHeure"] . ')
+            <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
         </div>
       </div>';
           }
@@ -67,20 +57,14 @@
           $output1 .= 'Pas de tâche';
         }
 
-        if ($_POST["idEmploye"] == "ToutLeMonde")
-          $Requete2 = "AND id_Employe in (select id from employe)";
-        else
-          $Requete2 = "AND id_Employe = $idEmploye";
-
-        $statement = $connection->prepare("
-  SELECT (select label from attribution where attribution.id = heuresdescendues.id_Attribution) as Label,heuresdescendues.id as id, heuresdescendues.heure as NbHeure, heuresdescendues.DateDescendu as Datee, projet.nom as projet, projet.Logo as Logo, employe.Initial as E_Initial, employe.couleur as E_Couleur, employe.nom as E_Nom, employe.prenom as E_Prenom, employe.Pseudo as E_Pseudo
-  FROM heuresdescendues
-  INNER JOIN employe ON heuresdescendues.id_Employe = employe.id
-  INNER JOIN projet on projet.id = heuresdescendues.id_Projet
-  INNER JOIN sprint on sprint.id = heuresdescendues.id_Sprint
-  WHERE id_sprint= $numero "
-          . $Requete2 .
-          " ORDER BY employe.prenom");
+        $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, P.nom as projet, P.Logo, E.Initial, E.couleur, E.prenom, E.nom as E_Nom, E.Pseudo
+        FROM attribution A
+        INNER JOIN employe E ON E.id = A.id_Employe
+        INNER JOIN projet P ON P.id = A.id_Projet
+        INNER JOIN sprint S ON S.id = A.id_Sprint
+        where A.id_Sprint =  $numero
+        and A.Done is not null "  . $Requete1 .
+          " ORDER BY E.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -92,12 +76,12 @@
 <div class="card PASTOUCHE">
   <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">
   <div style="margin-left:7px;">
-    <div class="BarreLateralCard" style="background-color:' . $row["E_Couleur"] . ';"></div>
-      <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["E_Pseudo"] . ' (' . $row["E_Initial"] . ')<br>
+    <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
+      <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["Pseudo"] . ' (' . $row["Initial"] . ')<br>
       <div class="SpecialHr"></div>
       <i class="fa fa-file-o" aria-hidden="true"></i> ' . $row["projet"] . '<br>
       <div class="SpecialHr"></div>
-      <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["NbHeure"] . ')
+      <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';
 
@@ -116,6 +100,7 @@
 
       }
 
+      //Afficher la liste d'employes qui ont des taches
       if ($_POST["action"] == "LoadListEmployes") {
         $Test = new stdClass;
 
@@ -151,6 +136,7 @@
 
       }
 
+      //Ressortir la date min et max du sprint
       if ($_POST["action"] == "DateMinMax") {
 
         $idAffiche = $_POST["idAffiche"];
@@ -176,75 +162,24 @@
 
       }
 
+      //Valider une tache, soit lui donner une date de validation
       if ($_POST["action"] == "Descendre") {
 
-        $LeJourDeDescente = $_POST["LeJourDeDescente"];
         $IdAttribue = $_POST["IdAttribue"];
 
         for ($i = 0; $i < sizeof($IdAttribue); $i++) {
 
-          $statement = $connection->prepare("
-      INSERT INTO heuresdescendues (heure, id_Sprint, id_Employe, id_Projet, id_Attribution, DateDescendu)
-      SELECT heure, id_Sprint, id_Employe, id_Projet, id, '$LeJourDeDescente' FROM attribution where attribution.id = $IdAttribue[$i];
-      ");
-          $result = $statement->execute();
+          $statement = $connection->prepare("UPDATE attribution
+          set done = :done
+          where id = :id");
+
+          $result = $statement->execute(
+            array(
+              ':done' => $_POST["LeJourDeDescente"],
+              ':id' => $IdAttribue[$i]
+            )
+          );
         }
-        if (!empty($result))
-          echo '✓';
-        else
-          print_r($statement->errorInfo());
-      }
-
-      if ($_POST["action"] == "Select") {
-        $output = array();
-        $statement = $connection->prepare(
-          "SELECT * FROM heuresdescendues 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
-        );
-        $statement->execute();
-        $result = $statement->fetchAll();
-        foreach ($result as $row) {
-          $output["heure"] = $row["heure"];
-          $output["DateAujourdhui"] = $row["DateDescendu"];
-          $output["id_Employe"] = $row["id_Employe"];
-          $output["id_Projet"] = $row["id_Projet"];
-        }
-        echo json_encode($output);
-      }
-
-      if ($_POST["action"] == "Update") {
-        $statement = $connection->prepare(
-          "UPDATE heuresdescendues
-   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, DateDescendu = :DateDescendu, id_Employe = :id_Employe 
-   WHERE id = :id
-   "
-        );
-        $result = $statement->execute(
-          array(
-            ':heure' => $_POST["NombreHeure"],
-            ':DateDescendu' => $_POST["DateAujourdhui"],
-            ':id_Sprint' => $_POST["idSprint"],
-            ':id_Projet' => $_POST["idProjet"],
-            ':id_Employe' => $_POST["idEmploye"],
-            ':id' => $_POST["id"]
-          )
-        );
-        if (!empty($result))
-          echo '✓';
-        else
-          print_r($statement->errorInfo());
-      }
-
-      if ($_POST["action"] == "Delete") {
-        $statement = $connection->prepare(
-          "DELETE FROM heuresdescendues WHERE id = :id"
-        );
-        $result = $statement->execute(
-          array(
-            ':id' => $_POST["id"]
-          )
-        );
         if (!empty($result))
           echo '✓';
         else

@@ -6,7 +6,13 @@
 
     if ($_POST["action"] == "RemplirTableau") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT attribution.id, attribution.Label as Label, attribution.heure as NbHeure, projet.nom as projet, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero ORDER BY attribution.id DESC");
+      $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, A.Done, P.nom as projet, E.prenom as employeP, E.nom as employeN
+      FROM attribution A
+      inner JOIN employe E ON E.id = A.id_Employe
+      INNER JOIN projet  P ON P.id = A.id_Projet
+      INNER JOIN sprint  S ON S.id = A.id_Sprint
+      where A.id_Sprint = $numero
+      ORDER BY A.id DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -17,8 +23,8 @@
       <th>Ressource</th>
       <th>Projet</th>
       <th>Label</th>
-      <th><center>H</center></th>
-      <th><center>Éditer</center></th>
+      <th>Heures</th>
+      <th>Fini</th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -30,10 +36,11 @@
         <td>' . $row["employeP"] . ' ' . $row["employeN"] . '</td>
         <td>' . $row["projet"] . '</td>
         <td>' . $row["Label"] . '</td>
-        <td><center>' . $row["NbHeure"] . '</center></td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
-        </tr>
-        ';
+        <td>' . $row["heure"] . '</td>';
+        if ($row["Done"] == null)
+            $output .= '<td></td>';
+        else
+          $output .= '<td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>';
         }
       } else {
         $output .= '
@@ -127,6 +134,7 @@
       echo $output;
     }
 
+    //Créer une tache depuis la méthode x+x+x
     if ($_POST["action"] == "Attribuer") {
       $TableauHeurePlanifie = $_POST["NombreHeure"];
       $statement = $connection->prepare("
@@ -164,6 +172,7 @@
         $output["heure"] = $row["heure"];
         $output["id_Employe"] = $row["id_Employe"];
         $output["id_Projet"] = $row["id_Projet"];
+        $output["Done"] = $row["Done"];
       }
       echo json_encode($output);
     }
@@ -190,6 +199,7 @@
         echo 'X ';
     }
 
+    //Supprimer une tache
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
         "DELETE FROM attribution WHERE id = :id"
@@ -205,6 +215,7 @@
         print_r($statement->errorInfo());
     }
 
+    //Créer une tache depuis l'api
       if ($_POST["action"] == "CreerTacheApi") {
         $ListeTache = $_POST["ListeTaches"];
         $statement = $connection->prepare("
@@ -229,11 +240,12 @@
         }
       }
 
+    //Creer des taches de type scrum planing 
     if ($_POST["action"] == "AttributionScrumPlaning") {
       $TableauEmploye = $_POST["idEmploye"];
       $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache, (select nom from typetache where typetache.id = :TypeTache))
+   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache, (select nom from typetache where typetache.id = :TypeTache),NOW())
    ");
       for ($i = 0; $i < count($TableauEmploye); $i++) {
 

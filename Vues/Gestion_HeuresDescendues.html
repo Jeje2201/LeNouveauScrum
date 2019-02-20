@@ -1,7 +1,7 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h3>Gestion des heures descendues</h3>
+      <h3>Gestion des tâches</h3>
       <div class="row">
         <div class="col-md-2">
           <div id="ListSrint"></div>
@@ -48,7 +48,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Date</span>
           </div>
-          <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+          <input type="text" name="Done" id='Done' class="form-control" />
         </div>
 
       </div>
@@ -90,13 +90,13 @@
     });
 
     $('#action').click(function () {
-      if (DateFrToEn($('#DateAujourdhui').val()) != '') {
+      if (DateFrToEn($('#Done').val()) != '') {
         $.ajax({
           url: "Modele/ActionGestionDescendre.php",
           method: "POST",
           data: {
             id: $('#id').val(), 
-            DateAujourdhui: DateFrToEn($('#DateAujourdhui').val()),
+            Done: DateFrToEn($('#Done').val()),
             idSprint: $('#numeroSprint').val(),
             idEmploye: $('#employeId').val(),
             idProjet: $('#projetId').val(), 
@@ -132,7 +132,7 @@
           $('#employeId').val(data.id_Employe);
           $('#projetId').val(data.id_Projet);
           $('#nbheure').val(data.heure);
-          $('#DateAujourdhui').val(data.DateAujourdhui);
+          $('#Done').val(data.Done);
 
           SetSelect2('#employeId, #projetId');
 
@@ -141,7 +141,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette heure descendue?"))
+      if (confirm("Es-tu sûr de vouloir supprimer cette tâche ?"))
         $.ajax({
           url: "Modele/ActionGestionDescendre.php",
           method: "POST",
@@ -157,7 +157,7 @@
     });
   });
 
-  $('#DateAujourdhui').datetimepicker({
+  $('#Done').datetimepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
     minView: 2
