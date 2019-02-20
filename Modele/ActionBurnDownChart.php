@@ -4,16 +4,6 @@
 
   if (isset($_POST["action"])) {
 
-    if ($_POST["action"] == "GetTotalADescendre") {
-
-      $NumeroSprint = $_POST["NumeroSprint"];
-      $statement = $connection->prepare(
-        "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
-      );
-      $statement->execute();
-      $result = $statement->fetch();
-      echo $result["Total"];
-    }
 
     if ($_POST["action"] == "GetLesInfosDeLaBurnDownChart") {
 
@@ -21,10 +11,17 @@
 
       //requete sql périmé si 0 sprint
       $statement = $connection->prepare(
-        $sql = "SELECT $NumeroSprint as sprint, burndownhour as Heures, date as Jours, (SELECT sum(interference.heure)  FROM interference where interference.id_Sprint = ( SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint )) as interferances FROM `vburndown`where id_Sprint = (SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint) order by Date"
+        $sql = "SELECT $NumeroSprint as sprint, burndownhour as Heures, date as Jours, (SELECT sum(interference.heure)
+        FROM interference
+        where interference.id_Sprint = ( SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint )) as interferances
+        FROM `vburndown` where id_Sprint = (SELECT sprint.id FROM sprint WHERE sprint.numero = $NumeroSprint)order by Date"
       );
       $statement->execute();
       $result = $statement->fetchAll();
+
+      $Jours = [];
+      $Heures = [];
+      $interferences = [];
 
       foreach ($result as $row) {
         $Heures[] = intval($row['Heures']);
@@ -42,16 +39,19 @@
 
       $array['NumeroSprint'] = intval($NumeroSprint);
 
+      //Total d'heures a descendres (pour les infos a droite de la bdc)
       $statement = $connection->prepare(
-        "SELECT sum(attribution.heure) as Total from attribution where attribution.id_Sprint = (Select sprint.id from sprint where sprint.numero = $NumeroSprint) AND attribution.id_TypeTache IS NULL"
+        "SELECT sum(A.heure) as Total from attribution A where A.id_Sprint = (Select S.id from sprint S where S.numero = $NumeroSprint)"
       );
       $statement->execute();
       $result = $statement->fetch();
+      $ToutADescendre = [];
       $ToutADescendre = intval($result["Total"]);
 
       $array['TotalADescendre'] = $ToutADescendre;
 
-      $statement = $connection->prepare($sql = "SELECT dateDebut, dateFin from sprint where sprint.numero = $NumeroSprint");
+      //Obtenir date de début et de fin
+      $statement = $connection->prepare($sql = "SELECT dateDebut, dateFin from sprint S where S.numero = $NumeroSprint");
       $statement->execute();
       $result = $statement->fetch();
 
