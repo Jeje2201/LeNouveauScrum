@@ -147,7 +147,7 @@
         where A.id_Sprint = $NumeroduSprint
         AND A.Done is not null
         GROUP by Done
-        GROUP by Done"
+        ORDER by Done"
       );
 
       $statement->execute();
