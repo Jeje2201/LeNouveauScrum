@@ -7,18 +7,18 @@
     //Afficher toutes les taches pour un sprint selectionné
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT A.id as id,
+      $statement = $connection->prepare("SELECT A.id AS id,
       A.heure,
       A.Done,
       A.Label,
-      P.nom as projet,
-      CONCAT(E.prenom,' ', E.initial) as employe
+      P.nom AS projet,
+      CONCAT(E.prenom,' ', E.initial) AS employe
       FROM attribution A
       inner JOIN employe E ON A.id_Employe = E.id
       INNER JOIN projet P on P.id = A.id_Projet
       INNER JOIN sprint S on S.id = A.id_Sprint
       WHERE A.id_sprint = $numero
-      ORDER BY A.id desc");
+      ORDER BY A.id DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -37,7 +37,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . $row["employe"] . '</td>
@@ -69,8 +69,8 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM attribution 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+         WHERE id = '" . $_POST["id"] . "' 
+         LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetch();      

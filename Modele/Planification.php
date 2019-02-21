@@ -6,12 +6,21 @@
 
     if ($_POST["action"] == "RemplirTableau") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, A.Done, P.nom as projet, E.prenom as employeP, E.nom as employeN
+      $statement = $connection->prepare("SELECT A.id,
+      A.Label,
+      A.heure,
+      A.Done,
+      P.nom AS projet,
+      E.prenom AS employeP,
+      E.nom AS employeN
       FROM attribution A
-      inner JOIN employe E ON E.id = A.id_Employe
-      INNER JOIN projet  P ON P.id = A.id_Projet
-      INNER JOIN sprint  S ON S.id = A.id_Sprint
-      where A.id_Sprint = $numero
+      inner JOIN employe E
+        ON E.id = A.id_Employe
+      INNER JOIN projet  P
+        ON P.id = A.id_Projet
+      INNER JOIN sprint  S
+        ON S.id = A.id_Sprint
+      WHERE A.id_Sprint = $numero
       ORDER BY A.id DESC");
       $statement->execute();
       $result = $statement->fetchAll();
@@ -30,7 +39,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . $row["employeP"] . ' ' . $row["employeN"] . '</td>
@@ -56,7 +65,22 @@
     if ($_POST["action"] == "RemplirTableauRessources") {
       $numero = $_POST["idAffiche"];
 
-      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, ((SELECT Attribuable from sprint where sprint.id = $numero)- sum(attribution.heure)) as Attribuable, employe.prenom as employeP, employe.nom as employeN FROM attribution inner JOIN employe ON employe.id = attribution.id_Employe INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Employe ORDER BY employeP ASC");
+      $statement = $connection->prepare("SELECT sum(A.heure) AS NbHeure,
+      (
+        (
+          SELECT Attribuable
+          FROM sprint S
+          WHERE S.id = $numero
+        )- sum(A.heure)
+      ) AS Attribuable,
+      E.prenom AS employeP,
+      E.nom AS employeN
+      FROM attribution A
+      inner JOIN employe E
+        ON E.id = A.id_Employe
+      WHERE A.id_Sprint = $numero
+      GROUP BY A.id_Employe
+      ORDER BY employeP ASC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -71,7 +95,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . $row["employeP"] . ' ' . $row["employeN"] . '</td>';
@@ -100,7 +124,14 @@
 
     if ($_POST["action"] == "RemplirTableauProjets") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT  sum(attribution.heure) as NbHeure, projet.nom as ProjetN FROM attribution inner JOIN projet ON projet.id = attribution.id_Projet INNER JOIN sprint ON sprint.id = attribution.id_Sprint where attribution.id_Sprint = $numero group by attribution.id_Projet ORDER BY ProjetN ASC");
+      $statement = $connection->prepare("SELECT sum(A.heure) AS NbHeure,
+      P.nom AS ProjetN
+      FROM attribution A
+      inner JOIN projet P
+        ON P.id = A.id_Projet
+      WHERE A.id_Sprint = $numero
+      GROUP BY A.id_Projet
+      ORDER BY ProjetN ASC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -115,7 +146,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . $row["ProjetN"] . '</td>
@@ -163,12 +194,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM attribution 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["heure"] = $row["heure"];
         $output["id_Employe"] = $row["id_Employe"];
         $output["id_Projet"] = $row["id_Projet"];
@@ -202,7 +233,8 @@
     //Supprimer une tache
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM attribution WHERE id = :id"
+        "DELETE FROM attribution
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(
@@ -243,9 +275,8 @@
     //Creer des taches de type scrum planing 
     if ($_POST["action"] == "AttributionScrumPlaning") {
       $TableauEmploye = $_POST["idEmploye"];
-      $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id from projet where projet.nom = 'ScrumPlaning'), :TypeTache, (select nom from typetache where typetache.id = :TypeTache),NOW())
+      $statement = $connection->prepare("INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
+   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),NOW())
    ");
       for ($i = 0; $i < count($TableauEmploye); $i++) {
 

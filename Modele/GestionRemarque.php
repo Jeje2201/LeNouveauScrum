@@ -5,8 +5,14 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT * from retrospective ORDER BY (CASE WHEN DateFini IS NULL THEN 1 ELSE 0 END) desc,
-        DateFini desc, DateCreation desc ");
+      $statement = $connection->prepare("SELECT * FROM retrospective
+      ORDER BY (
+        CASE
+          WHEN DateFini IS NULL
+            THEN 1
+            ELSE 0
+        END) DESC,
+        DateFini DESC, DateCreation DESC ");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,7 +29,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>';
@@ -52,8 +58,8 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM retrospective 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+         WHERE id = '" . $_POST["id"] . "' 
+         LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetch();
@@ -96,7 +102,8 @@
 
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM retrospective WHERE id = :id"
+        "DELETE FROM retrospective
+         WHERE id = :id"
       );
       $result = $statement->execute(
         array(

@@ -10,7 +10,10 @@ $PasswordInput = $_POST['inputPassword'];
 
 //Recuperer le mdp chiffré du user qui essaie de se connecter
 $statement = $connection->prepare(
-    $sql = "SELECT employe.mdp as mdp from employe where employe.id = $IdUser"
+    $sql = "SELECT E.mdp
+    AS mdp
+    FROM employe E
+    WHERE E.id = $IdUser"
 );
 $statement->execute();
 $result = $statement->fetch();
@@ -19,13 +22,18 @@ $result = $statement->fetch();
 if(password_verify($PasswordInput,$result['mdp'])){
 
 $statement = $connection->prepare(
-    $sql = "SELECT employe.prenom as prenom, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye) as Type from employe where employe.id = $IdUser"
+    $sql = "SELECT E.prenom AS prenom,
+    (
+        select T.nom FROM typeemploye T
+        WHERE T.id = E.id_TypeEmploye
+    ) AS LeType
+    FROM employe E WHERE E.id = $IdUser"
 );
 $statement->execute();
 $result = $statement->fetch();
 
 $_SESSION['PrenomUtilisateur'] = $result["prenom"];
-$_SESSION['TypeUtilisateur'] = $result["Type"];
+$_SESSION['TypeUtilisateur'] = $result["LeType"];
 
 header('Location: ../index.php');
 }

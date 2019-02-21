@@ -6,14 +6,14 @@
 
     //////////////////////////////////// Charger les démos
     if ($_POST["action"] == "LoadDemo") {
-      $statement = $connection->prepare("SELECT demo.id as id,
-        CONCAT(employe.prenom,' ', employe.initial) as Employe,
-        projet.Nom as Projet
-        FROM demo
-        INNER JOIN projet on projet.id = demo.id_Projet
-        INNER JOIN employe on employe.id = demo.id_Employe
-        WHERE DateEffectue IS NULL
-        ORDER BY id_Employe desc
+      $statement = $connection->prepare("SELECT demo.id AS id,
+        CONCAT(E.prenom,' ', E.initial) AS Employe,
+        P.Nom AS Projet
+        FROM demo D
+        INNER JOIN projet P on P.id = demo.id_Projet
+        INNER JOIN employe E on E.id = demo.id_Employe
+        WHERE DateEffectue  IS NULL
+        ORDER BY id_Employe DESC
         ");
       $statement->execute();
       $result = $statement->fetchAll();
@@ -32,7 +32,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . $row["Employe"] . '</td>
@@ -100,7 +100,8 @@
     //////////////////////////////////// Supprimer une démo
     if ($_POST["action"] == "SupprimerDemo") {
       $statement = $connection->prepare(
-        "DELETE FROM demo WHERE id = :id"
+        "DELETE FROM demo
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(

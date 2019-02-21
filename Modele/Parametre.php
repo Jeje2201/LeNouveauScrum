@@ -9,7 +9,10 @@
       $idRessource = $_POST["idRessource"];
 
       $statement = $connection->prepare(
-        $sql = "SELECT Couleur, Pseudo FROM employe where employe.id = $idRessource"
+        $sql = "SELECT Couleur,
+        Pseudo
+        FROM employe E
+        WHERE E.id = $idRessource"
       );
       $statement->execute();
       $result = $statement->fetch();
@@ -23,9 +26,8 @@
     if ($_POST["action"] == "CustomColorName") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET Pseudo = :Pseudo, Couleur = :Couleur
-   WHERE id = :id
-   "
+        SET Pseudo = :Pseudo, Couleur = :Couleur
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(
@@ -43,9 +45,8 @@
     if ($_POST["action"] == "Update") {
       $statement = $connection->prepare(
         "UPDATE employe 
-   SET mdp = :mdp
-   WHERE id = :id
-   "
+        SET mdp = :mdp
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(

@@ -5,12 +5,20 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT D.id, E.prenom, P.nom, D.DateEffectue
-      from demo D
+      $statement = $connection->prepare("SELECT D.id, E.prenom,
+      P.nom,
+      D.DateEffectue
+      FROM demo D
       inner join employe E on D.id_Employe = E.id
       inner join projet P on D.id_Projet = P.id
-      ORDER BY (CASE WHEN D.DateEffectue IS NULL THEN 1 ELSE 0 END) DESC, 
-        D.DateEffectue DESC");
+      ORDER BY (
+        CASE
+          WHEN D.DateEffectue IS NULL
+            THEN 1
+            ELSE 0
+        END
+      )DESC, 
+      D.DateEffectue DESC");
         // trier par date avec null en premier trouvé sur https://stackoverflow.com/questions/821798/order-by-date-showing-nulls-first-then-most-recent-dates
       $statement->execute();
       $result = $statement->fetchAll();
@@ -28,7 +36,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>';
           if ($row["DateEffectue"] == null)
@@ -57,8 +65,8 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM demo 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetch();

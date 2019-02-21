@@ -4,7 +4,8 @@
 
   if (isset($_POST["action"])) {
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT * FROM sprint ORDER BY numero desc");
+      $statement = $connection->prepare("SELECT * FROM sprint
+      ORDER BY numero DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -22,7 +23,7 @@
     <tbody id="myTable">
     ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
        <tr>
        <td>' . $row["numero"] . '</td>
@@ -65,7 +66,8 @@
     if ($_POST["action"] == "SprintMax") {
       $output = '';
       $statement = $connection->prepare(
-        "SELECT Max(numero)+1 as numero FROM sprint"
+        "SELECT Max(numero)+1 AS numero
+        FROM sprint"
       );
       $statement->execute();
       $result = $statement->fetch();
@@ -79,12 +81,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM sprint 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["numero"] = $row["numero"];
         $output["dateDebut"] = date("d-m-Y", strtotime($row["dateDebut"]));
         $output["dateFin"] = date("d-m-Y", strtotime($row["dateFin"]));
@@ -117,7 +119,8 @@
 
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM sprint WHERE id = :id"
+        "DELETE FROM sprint
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(

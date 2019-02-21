@@ -15,7 +15,21 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT employe.id as id, employe.prenom as Prenom,  employe.Initial as Initial, employe.nom as Nom, Pseudo, employe.actif as Actif, (select nom from typeemploye where typeemploye.id = employe.id_TypeEmploye ) as TypeJob, ApiPivotal as IdPivotal, employe.Couleur as Couleur FROM employe ORDER BY employe.prenom asc");
+      $statement = $connection->prepare("SELECT E.id,
+      E.prenom,
+      E.Initial,
+      E.nom,
+      Pseudo,
+      E.actif,
+      (
+        select T.nom
+        FROM typeemploye T
+        WHERE T.id = E.id_TypeEmploye
+        ) AS TypeJob,
+        ApiPivotal AS IdPivotal,
+        E.Couleur AS Couleur
+        FROM employe E
+        ORDER BY E.prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -37,18 +51,18 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
-        <td>' . $row["Prenom"] . '</td>
-        <td>' . $row["Nom"] . '</td>
+        <td>' . $row["prenom"] . '</td>
+        <td>' . $row["nom"] . '</td>
         <td>' . $row["Initial"] . '</td>
         <td>' . $row["Pseudo"] . '</td>
         <td>' . $row["TypeJob"] . '</td>
         <td>' . $row["IdPivotal"] . '</td>
         <td style="background-color:' . $row["Couleur"] . '"></td>';
 
-          if ($row["Actif"] == 1)
+          if ($row["actif"] == 1)
             $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
           else
             $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
@@ -101,12 +115,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM employe 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+         WHERE id = '" . $_POST["id"] . "' 
+         LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["Prenom"] = $row["prenom"];
         $output["Nom"] = $row["nom"];
         $output["Actif"] = $row["actif"];
@@ -166,7 +180,9 @@
 
 //Recuperer le mdp chiffré du user qui essaie de se connecter
 $statement = $connection->prepare(
-  $sql = "SELECT employe.mdp as mdp from employe where employe.id =".$_POST["idRessource"]
+  $sql = "SELECT E.mdp AS mdp
+          FROM employe E
+          WHERE E.id = " . $_POST["idRessource"]
 );
 $statement->execute();
 $result = $statement->fetch();

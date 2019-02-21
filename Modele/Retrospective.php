@@ -6,18 +6,21 @@
 
     if ($_POST["action"] == "LoadObjectif") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT objectif.id as id,
-      objectif.objectif as objectif,
-      statutobjectif.couleur as couleur,
-      projet.nom as projet,
-      CONCAT(employe.prenom,' ', employe.initial) as Employe,
-      statutobjectif.nom as etat
-      FROM objectif
-      INNER JOIN statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
-      INNER JOIN projet on projet.id = objectif.id_Projet
-      INNER JOIN employe on employe.id = objectif.id_Employe
-      Where objectif.id_Sprint = $numero
-      ORDER BY projet.nom, employe.prenom, objectif.id");
+      $statement = $connection->prepare("SELECT O.id,
+      O.objectif,
+      S.couleur,
+      P.nom AS projet,
+      CONCAT(employe.prenom,' ', employe.initial) AS Employe,
+      S.nom AS etat
+      FROM objectif O
+      INNER JOIN statutobjectif S
+        ON S.id = O.id_StatutObjectif
+      INNER JOIN projet P
+        ON P.id = O.id_Projet
+      INNER JOIN employe
+        ON employe.id = O.id_Employe
+      WHERE O.id_Sprint = $numero
+      ORDER BY P.nom, employe.prenom, O.id");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -39,7 +42,7 @@
       ';
       if ($statement->rowCount() > 0) {
         $num = 0;
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $num += 1;
           $output .= '
         <tr >
@@ -81,15 +84,17 @@
 
     if ($_POST["action"] == "LoadMail") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT objectif.id as id,
-      objectif.objectif as objectif,
-      statutobjectif.couleur as couleur,
-      projet.nom as projet,
-      statutobjectif.nom as etat
-      FROM objectif
-      INNER JOIN statutobjectif on statutobjectif.id = objectif.id_StatutObjectif
-      INNER JOIN projet on projet.id = objectif.id_Projet
-      Where objectif.id_Sprint = $numero
+      $statement = $connection->prepare("SELECT O.id,
+      O.objectif,
+      S.couleur,
+      projet.nom AS projet,
+      S.nom AS etat
+      FROM objectif O
+      INNER JOIN statutobjectif S
+        ON S.id = O.id_StatutObjectif
+      INNER JOIN projet
+        ON projet.id = O.id_Projet
+      WHERE O.id_Sprint = $numero
       ORDER BY projet.nom");
       $statement->execute();
       $result = $statement->fetchAll();
@@ -98,7 +103,7 @@
       $projet = '';
 
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
 
           if ($projet != $row["projet"]) {
             $projet = $row["projet"];
@@ -111,12 +116,14 @@
 
       $output .= '<br> <br> Remarques: <br>';
 
-      $statement = $connection->prepare("SELECT label as label FROM `retrospective` where retrospective.DateFini IS NULL");
+      $statement = $connection->prepare("SELECT label
+      FROM retrospective R
+      WHERE R.DateFini IS NULL");
       $statement->execute();
       $result = $statement->fetchAll();
 
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '- ' . $row["label"] . '<br>';
         }
       }
@@ -125,11 +132,12 @@
     }
 
     if ($_POST["action"] == "LoadRemarque") {
-      $statement = $connection->prepare("SELECT id as id, DateCreation as DateCreation, Label as Label
-        FROM retrospective
-        WHERE DateFini IS NULL
-        ORDER BY DateCreation desc
-        ");
+      $statement = $connection->prepare("SELECT id,
+      DateCreation,
+      Label
+      FROM retrospective
+      WHERE DateFini  IS NULL
+      ORDER BY DateCreation DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -147,7 +155,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
         <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>
@@ -215,12 +223,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM objectif 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["id_Projet"] = $row["id_Projet"];
         $output["id_Employe"] = $row["id_Employe"];
         $output["objectif"] = $row["objectif"];
@@ -233,8 +241,8 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM retrospective 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetch();
@@ -324,7 +332,8 @@
 
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM objectif WHERE id = :id"
+        "DELETE FROM objectif
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(

@@ -4,7 +4,17 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT id, ApiPivotal, nom as Nom, Logo, (select nom from typeprojet where typeprojet.id = projet.id_TypeProjet ) as TypeProjet FROM projet ORDER BY projet.nom asc");
+      $statement = $connection->prepare("SELECT id,
+      ApiPivotal,
+      nom,
+      Logo,
+      (
+        SELECT nom
+        FROM typeprojet T
+        WHERE T.id = P.id_TypeProjet
+      ) AS TypeProjet
+      FROM projet P
+      ORDER BY P.nom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -22,10 +32,10 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
-        <td>' . $row["Nom"] . '</td>
+        <td>' . $row["nom"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
           $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
@@ -52,7 +62,7 @@
 
       $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
 
-      foreach ($files as $file) {
+      foreach ($files AS $file) {
         if ($file == "Inconnue.png")
           $output2 .= '<option value="' . $file . '" selected> ' . substr($file, 0, -4) . ' </option>';
         else
@@ -94,12 +104,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM projet 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+         WHERE id = '" . $_POST["id"] . "' 
+         LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["Nom"] = $row["nom"];
         $output["Logo"] = $row["Logo"];
         $output["ApiPivotal"] = $row["ApiPivotal"];
@@ -136,7 +146,8 @@
 
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM projet WHERE id = :id"
+        "DELETE FROM projet
+         WHERE id = :id"
       );
       $result = $statement->execute(
         array(

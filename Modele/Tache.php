@@ -13,7 +13,7 @@
 
     if (isset($_POST["action"])) {
 
-      //Fonction pour afficher les cards a descendre et descendues
+      //Fonction pour afficher les cards a DESCendre et DESCendues
       if ($_POST["action"] == "AfficherCards") {
         $Test = new stdClass;
 
@@ -21,25 +21,36 @@
         $numero = $_POST["idAffiche"];
 
         if ($_POST["idEmploye"] == "ToutLeMonde")
-          $Requete1 = "AND A.id_Employe in (select id from employe)";
+          $Requete1 = "AND A.id_Employe in (select id FROM employe)";
         else
           $Requete1 = "AND A.id_Employe = $idEmploye";
 
-        $statement = $connection->prepare("
-          SELECT A.id, A.Label, A.heure, P.nom as projet, P.Logo, E.Initial, E.couleur, E.prenom as E_Prenom, E.nom as E_Nom, E.Pseudo as E_Pseudo
+        $statement = $connection->prepare("SELECT A.id,
+          A.Label,
+          A.heure,
+          P.nom AS projet,
+          P.Logo,
+          E.Initial,
+          E.couleur,
+          E.prenom AS E_Prenom,
+          E.nom AS E_Nom,
+          E.Pseudo AS E_Pseudo
           FROM attribution A
-          INNER JOIN employe E ON E.id = A.id_Employe
-          INNER JOIN projet P ON P.id = A.id_Projet
-          INNER JOIN sprint S ON S.id = A.id_Sprint
-          where A.id_Sprint =  $numero
-          and A.Done is null "  . $Requete1 .
+          INNER JOIN employe E
+            ON E.id = A.id_Employe
+          INNER JOIN projet P
+            ON P.id = A.id_Projet
+          INNER JOIN sprint S
+            ON S.id = A.id_Sprint
+          WHERE A.id_Sprint =  $numero
+          AND A.Done IS NULL " . $Requete1 .
           " ORDER BY E.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
         $output1 = '';
         if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
+          foreach ($result AS $row) {
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">
@@ -57,20 +68,20 @@
           $output1 .= 'Pas de tâche';
         }
 
-        $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, P.nom as projet, P.Logo, E.Initial, E.couleur, E.prenom, E.nom as E_Nom, E.Pseudo
+        $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, P.nom AS projet, P.Logo, E.Initial, E.couleur, E.prenom, E.nom AS E_Nom, E.Pseudo
         FROM attribution A
         INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
         INNER JOIN sprint S ON S.id = A.id_Sprint
-        where A.id_Sprint =  $numero
-        and A.Done is not null "  . $Requete1 .
+        WHERE A.id_Sprint =  $numero
+        AND A.Done IS NOT NULL "  . $Requete1 .
           " ORDER BY E.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
         $output2 = '';
         if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
+          foreach ($result AS $row) {
 
             $output2 .= '
 <div class="card PASTOUCHE">
@@ -106,11 +117,25 @@
 
         $numero = $_POST["idAffiche"];
 
-        $statement = $connection->prepare("
-  SELECT DISTINCT (select employe.prenom from employe where employe.id = attribution.id_Employe) as Prenom, (select employe.nom from employe where employe.id = attribution.id_Employe) as Nom, attribution.id_Employe as id
-  FROM attribution
-  where attribution.id_Sprint = $numero
-  order by (select employe.prenom from employe where employe.id = attribution.id_Employe)
+        $statement = $connection->prepare("SELECT DISTINCT
+        (
+          select E.prenom
+          FROM employe E
+          WHERE E.id = A.id_Employe
+        ) AS Prenom,
+        (
+          select E.nom
+          FROM employe E
+          WHERE E.id = A.id_Employe
+        ) AS Nom,
+        A.id_Employe AS id
+        FROM attribution A
+        WHERE A.id_Sprint = $numero
+        ORDER BY (
+          select E.prenom
+          FROM employe
+          WHERE E.id = A.id_Employe
+        )
   ");
 
         $statement->execute();
@@ -118,7 +143,7 @@
         $output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
               <option value="ToutLeMonde">Tout le monde</option>';
         if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
+          foreach ($result AS $row) {
 
             $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Prenom"] . ' ' . $row["Nom"] . ' </option>';
 
@@ -142,13 +167,16 @@
         $idAffiche = $_POST["idAffiche"];
 
         $statement = $connection->prepare(
-          $sql = "SELECT `dateDebut` as DateMin, `dateFin` as DateMax from sprint where sprint.id = $idAffiche"
+          $sql = "SELECT dateDebut,
+          dateFin
+          FROM sprint S
+          WHERE S.id = $idAffiche"
         );
         $statement->execute();
         $result = $statement->fetchAll();
 
-        foreach ($result as $row) {
-          $DateMin[] = date("d-m-Y", strtotime($row["DateMin"]));
+        foreach ($result AS $row) {
+          $DateMin[] = date("d-m-Y", strtotime($row["dateDebut"]));
           $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
         }
 
@@ -171,7 +199,7 @@
 
           $statement = $connection->prepare("UPDATE attribution
           set Done = :done
-          where id = :id");
+          WHERE id = :id");
 
           $result = $statement->execute(
             array(

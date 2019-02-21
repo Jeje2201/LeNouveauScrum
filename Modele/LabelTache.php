@@ -6,8 +6,24 @@
 
     if ($_POST["action"] == "Load") {
       $idEmploye = $_POST["idEmploye"];
-      $statement = $connection->prepare("
-        SELECT  (select projet.nom from projet where projet.id = attribution.id_Projet) as projet ,attribution.id, attribution.heure, attribution.Label from attribution where id_Employe = $idEmploye and id_sprint = (select id from sprint ORDER BY numero desc LIMIT 1) AND attribution.id_TypeTache IS NULL");
+      $statement = $connection->prepare("SELECT
+      (
+        select P.nom
+        FROM projet P
+        WHERE P.id = A.id_Projet
+      ) AS projet,
+      A.id,
+      A.heure,
+      A.Label
+      FROM attribution A
+      WHERE id_Employe = $idEmploye
+      AND id_sprint = (
+        select id
+        FROM sprint
+        ORDER BY numero DESC
+        LIMIT 1
+      )
+      AND A.id_TypeTache IS NULL");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,7 +39,7 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr >
         <td>' . $row["heure"] . '</td>
@@ -49,9 +65,8 @@
 
       $statement = $connection->prepare(
         "UPDATE attribution 
-   SET Label = :Label 
-   WHERE id = :id
-   "
+        SET Label = :Label 
+        WHERE id = :id"
       );
 
       for ($i = 0; $i < count($TableauLabelObjectuf); $i++) {

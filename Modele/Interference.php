@@ -6,18 +6,20 @@
 
     if ($_POST["action"] == "Load") {
       $numero = $_POST["idAffiche"];
-      $statement = $connection->prepare("SELECT interference.id as id,
-      interference.heure as Heure,
-      interference.label as Label,
-      CONCAT(employe.prenom,' ', employe.initial) as Employe,
-      projet.nom as Projet,
-      typeinterference.nom as Type
-      
-      FROM interference
-      INNER join employe on employe.id = interference.id_Employe
-      INNER JOIN projet on projet.id = interference.id_Projet
-      INNER JOIN typeinterference on typeinterference.id = interference.id_TypeInterference
-      Where interference.id_Sprint = $numero ORDER BY interference.id_Projet asc");
+      $statement = $connection->prepare("SELECT I.id,
+      I.heure,
+      I.label,
+      CONCAT(E.prenom,' ', E.initial) AS Employe,
+      projet.nom,
+      T.nom AS TypeInterference
+      FROM interference I
+      INNER join employe E
+        ON E.id = I.id_Employe
+      INNER JOIN projet
+        ON projet.id = I.id_Projet
+      INNER JOIN typeinterference T
+        ON T.id = I.id_TypeInterference
+      WHERE I.id_Sprint = $numero ORDER BY I.id_Projet asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -36,14 +38,14 @@
       <tbody id="myTable">
       ';
       if ($statement->rowCount() > 0) {
-        foreach ($result as $row) {
+        foreach ($result AS $row) {
           $output .= '
         <tr>
-        <td>' . $row["Heure"] . '</td>
+        <td>' . $row["heure"] . '</td>
         <td>' . $row["Employe"] . '</td>
-        <td>' . $row["Projet"] . '</td>
-        <td>' . $row["Type"] . '</td>
-        <td>' . $row["Label"] . '</td>
+        <td>' . $row["nom"] . '</td>
+        <td>' . $row["TypeInterference"] . '</td>
+        <td>' . $row["label"] . '</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -85,12 +87,12 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT * FROM interference 
-   WHERE id = '" . $_POST["id"] . "' 
-   LIMIT 1"
+        WHERE id = '" . $_POST["id"] . "' 
+        LIMIT 1"
       );
       $statement->execute();
       $result = $statement->fetchAll();
-      foreach ($result as $row) {
+      foreach ($result AS $row) {
         $output["Heure"] = $row["heure"];
         $output["TypeInterferance"] = $row["id_TypeInterference"];
         $output["Sprint"] = $row["id_Sprint"];
@@ -127,7 +129,8 @@
 
     if ($_POST["action"] == "Delete") {
       $statement = $connection->prepare(
-        "DELETE FROM interference WHERE id = :id"
+        "DELETE FROM interference
+        WHERE id = :id"
       );
       $result = $statement->execute(
         array(
