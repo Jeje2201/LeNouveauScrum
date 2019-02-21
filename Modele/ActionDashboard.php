@@ -142,7 +142,7 @@
       //Combiens d'heures descendues par jour pour remplir la charte "Heures descendues par jour (toutes ressources comprises)"
       $statement = $connection->prepare(
         $sql = "SELECT
-        sum(heure) as heures, done as Ladate
+        sum(heure) as heures, Done
         FROM attribution A
         where A.id_Sprint = $NumeroduSprint
         AND A.Done is not null
@@ -162,7 +162,7 @@
         $BurndownchartHeures -= intval($row['heures']);
         $BurndownchartHeuresTable[] = $BurndownchartHeures;
         $Descendues[] = intval($row['heures']);
-        $Date[] = date("d-m-Y", strtotime($row['Ladate']));
+        $Date[] = date("d-m-Y", strtotime($row['Done']));
       }
 
       $array['HeuresDescenduesParJour'] = $Descendues;

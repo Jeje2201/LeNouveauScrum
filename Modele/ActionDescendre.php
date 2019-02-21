@@ -170,7 +170,7 @@
         for ($i = 0; $i < sizeof($IdAttribue); $i++) {
 
           $statement = $connection->prepare("UPDATE attribution
-          set done = :done
+          set Done = :done
           where id = :id");
 
           $result = $statement->execute(
