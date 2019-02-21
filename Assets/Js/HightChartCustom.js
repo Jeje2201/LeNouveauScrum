@@ -329,31 +329,27 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
 };
 
 /**
- * Permet de set du text a un div passé en parametre
- * @param {string} idDiv - La div a modifié
- * @param {string} Information - Le texte a mettre dans le div
- */
-function setInformation(idDiv, Information) {
-  $("#" + idDiv).text(Information);
-}
-
-/**
  * Fonction pour remplir les textes a coté de la burbndown chart
  * @param {Array} infosource - Tableau avec toutes les valeurs de la burndown chart
  */
 function fillInformation(infosource) {
 
-    setInformation('TotalHAttribues', infosource['TotalADescendre']);
+    $("#TotalHAttribues").text( infosource['TotalHeuresAttribuees'][0] )
 
-    setInformation('Seuil', parseInt(infosource['Interference']));
+    $("#Seuil").text( parseInt(infosource['TotalHeuresInterference'][0]) )
 
-    setInformation('TotalHResteADescendre', (infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]))
+    $("#TotalHResteADescendre").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0])
 
-    $("#TotalHDescendueAvecSeuil").text(((infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) - (parseInt(infosource['Interference']))));
+    $("#TotalHDescendueAvecSeuil").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0] - infosource['TotalHeuresInterference'][0] );
 
-    $("#TotalHDescendue").text((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]));
-
-    var moyenne = (Math.round(((infosource['TotalADescendre'] - infosource['HeuresDesJours'][infosource['HeuresDesJours'].length - 1]) * 100 / infosource['TotalADescendre'])))
+    $("#TotalHDescendue").text(infosource['TotalHeuresDescendues'][0]);
+    var moyenne = (
+      Math.round(
+        (
+          (infosource['TotalHeuresDescendues'][0] + infosource['TotalHeuresInterference'][0]) / infosource['TotalHeuresAttribuees'][0] * 100
+        )
+      )
+    )
 
     if(moyenne < 50)
     var couleurBar = "danger"
@@ -374,25 +370,38 @@ function fillInformation(infosource) {
  * @param {string} div - String div dans lequel mettre la burndownchart
  */
 function UpdateBurndownchart(NumeroSprint, div) {
-
   $.ajax({
-    url: "Modele/ActionBurnDownChart.php",
+    url: "Modele/ActionDashboard.php",
     method: "POST",
     data: {
-      action: "GetLesInfosDeLaBurnDownChart",
-      NumeroSprint: NumeroSprint
+      action: "GetTotalHeuresDescenduesParEmploye",
+      NumeroduSprint: NumeroSprint
     },
     success: function (Total) {
-
       if (IsJsonString(Total))
         Total = JSON.parse(Total);
-        
-      console.log('yoyo' , Total)
-
-        CreerLaBurnDownChart(FusionnerJoursEtHeuresBurndDownChart(Total['DateDebut'], Total['DateFin'], Total['JoursAvecDesHeures'], Total['HeuresDesJours'], Total['TotalADescendre']), Total['Interference'], div, AjouterJourFrDevantDate(ListeJoursDate(Total['DateDebut'], Total['DateFin'])))
 
       fillInformation(Total);
 
+      console.log('yoyo' , Total)
+
+        CreerLaBurnDownChart(
+          FusionnerJoursEtHeuresBurndDownChart(
+            Total['DateDebutSprint'],
+            Total['DateFinSprint'],
+            Total['DateHeuresDescenduesParJour'],
+            Total['BurndownchartHeuresTable'],
+            Total['TotalHeuresAttribuees'][0]
+          ),
+          Total['TotalHeuresInterference'][0],
+          div,
+          AjouterJourFrDevantDate(
+            ListeJoursDate(
+              Total['DateDebutSprint'],
+              Total['DateFinSprint']
+            )
+          )
+        )
     }
 
   });

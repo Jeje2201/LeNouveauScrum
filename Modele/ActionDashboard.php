@@ -30,6 +30,11 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
+      $employe = [];
+      $HDescendue = [];
+      $Hattribue = [];
+      $HInterference = [];
+
       foreach ($result as $row) {
 
         $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
@@ -64,6 +69,11 @@
 
       $statement->execute();
       $result = $statement->fetchAll();
+
+      $projet = [];
+      $HDescendueProjet = [];
+      $HattribueProjet = [];
+      $HInterferenceProjet = [];
 
       foreach ($result as $row) {
 
@@ -142,17 +152,21 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
+      $Descendues = [];
+      $Date = [];
+      $BurndownchartHeures = $array['TotalHeuresAttribuees'][0];
+      $BurndownchartHeuresTable = [];
+
       foreach ($result as $row) {
+        $BurndownchartHeures -= intval($row['heures']);
+        $BurndownchartHeuresTable[] = $BurndownchartHeures;
         $Descendues[] = intval($row['heures']);
         $Date[] = date("d-m-Y", strtotime($row['Ladate']));
-
       }
-      if(empty($Descendues))
-      $Descendues[] = 0;
-      if(empty($Date))
-      $Date[] = 0;
+
       $array['HeuresDescenduesParJour'] = $Descendues;
       $array['DateHeuresDescenduesParJour'] = $Date;
+      $array['BurndownchartHeuresTable'] = $BurndownchartHeuresTable;
 
       $statement = $connection->prepare(
         $sql = "SELECT * from sprint S where S.id = $NumeroduSprint"

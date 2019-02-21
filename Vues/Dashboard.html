@@ -13,7 +13,7 @@
       <div class="row">
         <div class="card col-lg-12">
           <div class="card-body centered">
-            Avancement du sprint :
+            Avancement du sprint ( TotalHeuresDescendues + TotalHeuresInterference ) * 100 :
             <div id="BarDePourcentageDheureDescendue" class="DonneesBurndownChart"></div>
             <div id="PourcentageDescendue" class="DonneesBurndownChart"></div>
           </div>
@@ -100,7 +100,7 @@
   $(document).ready(function () {
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    UpdateBurndownchart($("#numeroSprint option:selected").text(), 'EmplacementChart');
+    UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), 1, 'HeureDescenduParEmploye');
     ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
     GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
@@ -111,7 +111,7 @@
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
-      UpdateBurndownchart($("#numeroSprint option:selected").text(), 'EmplacementChart');
+      UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     });
 
     $('#BoutonEmployes').click(function () {

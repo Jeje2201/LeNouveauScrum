@@ -86,7 +86,6 @@
             action: "Checkpswd"
           },
           success: function (ancienmdpOk) {
-            // debugger;
             if ($('#mdp').val() != $('#confirmmdp').val()) {
               BootstrapAlertError('Les mots de passe ne correspondent pas.')
             } else if ($('#mdp').val().length < 5) {
