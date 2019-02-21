@@ -44,7 +44,7 @@
 
       if (localStorage.getItem('Connexion')) 
         $.ajax({
-          url: "Modele/ActionParametre.php",
+          url: "Modele/Parametre.php",
           method: "POST",
           data: {
             action: "Load",
@@ -61,7 +61,7 @@
 
       $('#SetPerso').click(function () {
         $.ajax({
-          url: "Modele/ActionParametre.php",
+          url: "Modele/Parametre.php",
           method: "POST",
           data: {
             action: "CustomColorName",
@@ -78,7 +78,7 @@
       $('#SetMdp').click(function () {
 
         $.ajax({
-          url: "Modele/ActionGestionEmploye.php",
+          url: "Modele/GestionTache.php",
           method: "POST",
           data: {
             ancienmdp: $('#ancienmdp').val(),
@@ -94,7 +94,7 @@
               BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais..')
             } else {
               $.ajax({
-                url: "Modele/ActionParametre.php",
+                url: "Modele/Parametre.php",
                 method: "POST",
                 data: {
                   action: "Update",

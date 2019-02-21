@@ -60,7 +60,7 @@
 
     function ChargerTableau() {
       $.ajax({
-        url: "Modele/ActionGestionRemarques.php",
+        url: "Modele/GestionRemarque.php",
         method: "POST",
         data: {
           action: "Load"
@@ -75,7 +75,7 @@
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/ActionGestionRemarques.php",
+        url: "Modele/GestionRemarque.php",
         method: "POST",
         data: {
           id: $(this).attr("id"),
@@ -97,7 +97,7 @@
     $('#action').click(function () {
       if ($('#labelRemarque').val() != '' && DateFrToEn($('#DateDebut').val()) != '') {
           $.ajax({
-            url: "Modele/ActionGestionRemarques.php",
+            url: "Modele/GestionRemarque.php",
             method: "POST",
             data: {
               id: $('#id').val(),
@@ -121,7 +121,7 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
-          url: "Modele/ActionGestionRemarques.php",
+          url: "Modele/GestionRemarque.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),

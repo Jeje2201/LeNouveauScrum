@@ -29,7 +29,7 @@
 
       if(localStorage.getItem("Connexion"))
       $.ajax({
-        url: "Modele/ActionLabelTache.php",
+        url: "Modele/LabelTache.php",
         method: "POST",
         data: {
           action: "Load", 
@@ -56,7 +56,7 @@
       });
       
       $.ajax({
-        url: "Modele/ActionLabelTache.php",
+        url: "Modele/LabelTache.php",
         method: "POST",
         data: {
           action: "Changer",

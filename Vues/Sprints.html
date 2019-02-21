@@ -116,7 +116,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'result');
 
-    RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')
+    RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
     $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({
       format: 'dd-mm-yyyy',
@@ -130,7 +130,7 @@
 
     function GetNumeroSprintMax(Div) {
       $.ajax({
-        url: "Modele/ActionSprint.php",
+        url: "Modele/Sprint.php",
         method: "POST",
         data: {
           action: "SprintMax"
@@ -146,7 +146,7 @@
       if (DateFrToEn($('#dateFin').val()) > DateFrToEn($('#dateDebut').val())) {
         if ($('#numero').val() != '' && DateFrToEn($('#dateDebut').val()) != '' && DateFrToEn($('#dateFin').val()) != '') {
           $.ajax({
-            url: "Modele/ActionSprint.php",
+            url: "Modele/Sprint.php",
             method: "POST",
             data: {
               numero: $('#numero').val(),
@@ -160,7 +160,7 @@
 
               BootstrapAlertDefaut(data);
               GetNumeroSprintMax('numero');
-              RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')
+              RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
             }
           });
@@ -178,7 +178,7 @@
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id"); //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
       $.ajax({
-        url: "Modele/ActionSprint.php",   //Request send to "ActionSprint.php page"
+        url: "Modele/Sprint.php",   //Request send to "Sprint.php page"
         method: "POST",    //Using of Post method for send data
         data: {
           id: id,
@@ -202,7 +202,7 @@
       if($('#numeroo').val() != '' && DateFrToEn($('#dateDebutt').val()) != '' && DateFrToEn($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) //This condition will check both variable has some value
       {
         $.ajax({
-          url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
+          url: "Modele/Sprint.php",    //Request send to "Sprint.php page"
           method: "POST",     //Using of Post method for send data
           data: {
             numero: $('#numeroo').val(),
@@ -215,7 +215,7 @@
           success: function (data) {
             BootstrapAlertDefaut(data);
             $('#ModalSprint').modal('hide'); //It will hide sprint Modal from webpage.
-            RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/Sprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
       }
@@ -229,14 +229,14 @@
       if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) //Confim Box if OK then
       {
         $.ajax({
-          url: "Modele/ActionSprint.php",    //Request send to "ActionSprint.php page"
+          url: "Modele/Sprint.php",    //Request send to "Sprint.php page"
           method: "POST",     //Using of Post method for send data
           data: {
             id: $(this).attr("id"), //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
             action: "Delete" //Define action variable value Delete
           }, //Data send to server from ajax method
           success: function (data) {
-            RequeteAjax('result', 'Load', 'Modele/ActionSprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/Sprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
             BootstrapAlertDefaut(data);
           }
         })

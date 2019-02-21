@@ -74,7 +74,7 @@
 
     function ChargerGestionHeuresDescendues() {
       $.ajax({
-        url: "Modele/ActionGestionDescendre.php",
+        url: "Modele/GestionTache.php",
         method: "POST",
         data: { action: "Load", idAffiche: $('#numeroSprint').val() },
         success: function (data) {
@@ -92,7 +92,7 @@
     $('#action').click(function () {
       if (DateFrToEn($('#Done').val()) != '') {
         $.ajax({
-          url: "Modele/ActionGestionDescendre.php",
+          url: "Modele/GestionTache.php",
           method: "POST",
           data: {
             id: $('#id').val(), 
@@ -119,7 +119,7 @@
       var id = $(this).attr("id");
       var action = "Select";
       $.ajax({
-        url: "Modele/ActionGestionDescendre.php",
+        url: "Modele/GestionTache.php",
         method: "POST",
         data: { id: id, action: action },
         dataType: "json",
@@ -143,7 +143,7 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette tâche ?"))
         $.ajax({
-          url: "Modele/ActionGestionDescendre.php",
+          url: "Modele/GestionTache.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),

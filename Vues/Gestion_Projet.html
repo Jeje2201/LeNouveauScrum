@@ -98,9 +98,9 @@
 
     RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
 
-    RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
+    RequeteAjax('ListImage', 'LoadPictures', 'Modele/GestionProjet.php')
 
-    RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php')
+    RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php')
 
     $('#ListImage').change(function () {
       $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
@@ -120,7 +120,7 @@
 
       if ($('#Nom').val() != '' && $('#ToutesLesImages').val() != '') {
         $.ajax({
-          url: "Modele/ActionGestionProjet.php",
+          url: "Modele/GestionProjet.php",
           method: "POST",
           data: { id: $('#id').val(),
                   Nom: $('#Nom').val(),
@@ -134,7 +134,7 @@
             BootstrapAlertDefaut(data);
             console.log(data);
             $('#ModaleProjet').modal('hide');
-            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
           }
         });
       }
@@ -147,7 +147,7 @@
       var id = $(this).attr("id");
       var action = "Select";
       $.ajax({
-        url: "Modele/ActionGestionProjet.php",
+        url: "Modele/GestionProjet.php",
         method: "POST",
         data: { id: id, action: action },
         dataType: "json",
@@ -172,11 +172,11 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?"))
         $.ajax({
-          url: "Modele/ActionGestionProjet.php",
+          url: "Modele/GestionProjet.php",
           method: "POST",
           data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
-            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
             BootstrapAlertDefaut(data);
           }
         })
@@ -199,7 +199,7 @@
       else {
 
         $.ajax({
-          url: "Modele/ActionGestionProjet.php",
+          url: "Modele/GestionProjet.php",
           method: "POST",
           data: new FormData(this),
           contentType: false,
@@ -208,8 +208,8 @@
             $('#image_form')[0].reset();
             $('#imageModal').modal('hide');
             BootstrapAlertDefaut(data);
-            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/ActionGestionProjet.php');
-            RequeteAjax('ListImage', 'LoadPictures', 'Modele/ActionGestionProjet.php')
+            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
+            RequeteAjax('ListImage', 'LoadPictures', 'Modele/GestionProjet.php')
           }
         });
       }

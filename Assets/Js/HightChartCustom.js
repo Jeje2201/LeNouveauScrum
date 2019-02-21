@@ -19,7 +19,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
   console.log('numero sprint : ', div)
 
   $.ajax({
-    url: "Modele/ActionDashboard.php",
+    url: "Modele/Accueil.php",
     method: "POST",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
@@ -157,7 +157,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
 function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
 
   $.ajax({
-    url: "Modele/ActionDashboard.php",
+    url: "Modele/Accueil.php",
     method: "POST",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
@@ -222,7 +222,7 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
 function ChargerPieObjectif(NumeroduSprint, div) {
 
   $.ajax({
-    url: "Modele/ActionDashboard.php",
+    url: "Modele/Accueil.php",
     method: "POST",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
@@ -371,7 +371,7 @@ function fillInformation(infosource) {
  */
 function UpdateBurndownchart(NumeroSprint, div) {
   $.ajax({
-    url: "Modele/ActionDashboard.php",
+    url: "Modele/Accueil.php",
     method: "POST",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
@@ -407,7 +407,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
   });
 
   $.ajax({
-    url: "Modele/ActionDescendre.php",
+    url: "Modele/Tache.php",
     method: "POST",
     data: {
       action: "DateMinMax",
@@ -437,7 +437,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
 function HeuresDescenduesParJours(NumeroduSprint, div) {
 
   $.ajax({
-    url: "Modele/ActionDashboard.php",
+    url: "Modele/Accueil.php",
     method: "POST",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",

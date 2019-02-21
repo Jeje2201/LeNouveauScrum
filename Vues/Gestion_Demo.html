@@ -55,7 +55,7 @@
 
       function ChargerTableau() {
         $.ajax({
-          url: "Modele/ActionGestionDemo.php",
+          url: "Modele/GestionDemo.php",
           method: "POST",
           data: {
             action: "Load"
@@ -70,7 +70,7 @@
       $(document).on('click', '.Get', function () {
         var id = $(this).attr("id");
         $.ajax({
-          url: "Modele/ActionGestionDemo.php",
+          url: "Modele/GestionDemo.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),
@@ -93,7 +93,7 @@
 
       $(document).on('click', '.Set', function () {      
           $.ajax({
-            url: "Modele/ActionGestionDemo.php",
+            url: "Modele/GestionDemo.php",
             method: "POST",
             data: {
               id:$('#id').val(),
@@ -113,7 +113,7 @@
       $(document).on('click', '.delete', function () {
         if (confirm("Es-tu sûr de vouloir supprimer cette démo ?"))
           $.ajax({
-            url: "Modele/ActionGestionDemo.php",
+            url: "Modele/GestionDemo.php",
             method: "POST",
             data: {
               id: $(this).attr("id"),

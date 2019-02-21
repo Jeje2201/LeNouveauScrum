@@ -43,7 +43,7 @@
                 </div>
                 <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
 
-                <button type="button" id="action" class="btn btn-info">
+                <button type="button" id="Descendre" class="btn btn-info">
                   <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Descendre</button>
 
               </div>
@@ -93,7 +93,7 @@
 
     function AfficherCards() {
       $.ajax({
-        url: "Modele/ActionDescendre.php",
+        url: "Modele/Tache.php",
         method: "POST",
         data: {
           action: "AfficherCards",
@@ -105,7 +105,7 @@
           $('#Fini').html(data.Descendue);
 
           $.ajax({
-            url: "Modele/ActionDescendre.php",
+            url: "Modele/Tache.php",
             method: "POST",
             data: {
               action: "DateMinMax",
@@ -132,7 +132,7 @@
 
     function RemplirListeEmploye() {
       $.ajax({
-        url: "Modele/ActionDescendre.php",
+        url: "Modele/Tache.php",
         method: "POST",
         async: false,
         data: {
@@ -157,7 +157,7 @@
       AfficherCards();
     });
 
-    $('#action').click(function () {
+    $('#Descendre').click(function () {
       var IdAttribue = [];
 
       $('#Fini').find(".BOUGEMOI").each(function () {
@@ -166,7 +166,7 @@
 
       if (IdAttribue != '') {
         $.ajax({
-          url: "Modele/ActionDescendre.php",
+          url: "Modele/Tache.php",
           method: "POST",
           data: {
             IdAttribue: IdAttribue,

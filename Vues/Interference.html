@@ -85,7 +85,7 @@
     function RemplirTableau() {
 
       $.ajax({
-        url: "Modele/ActionInterferance.php",
+        url: "Modele/Interference.php",
         method: "POST",
         data: {
           action: "Load",
@@ -114,7 +114,7 @@
 
       if ($('#nbheure').val() != '') {
         $.ajax({
-          url: "Modele/ActionInterferance.php",
+          url: "Modele/Interference.php",
           method: "POST",
           data: {
             id:$('#id').val(),
@@ -141,7 +141,7 @@
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/ActionInterferance.php",
+        url: "Modele/Interference.php",
         method: "POST",
         data: {
           id: id,
@@ -169,7 +169,7 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cet(te) employé(e) ?"))
         $.ajax({
-          url: "Modele/ActionInterferance.php",
+          url: "Modele/Interference.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),

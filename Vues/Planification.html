@@ -211,7 +211,7 @@
 
     function RemplirTableau(Div) {
       $.ajax({
-        url: "Modele/ActionAttributionHeure.php",
+        url: "Modele/planification.php",
         method: "POST",
         data: {
           action: "RemplirTableau",
@@ -226,7 +226,7 @@
 
     function RemplirTableauRessources(Div) {
       $.ajax({
-        url: "Modele/ActionAttributionHeure.php",
+        url: "Modele/planification.php",
         method: "POST",
         data: {
           action: "RemplirTableauRessources",
@@ -240,7 +240,7 @@
 
     function RemplirTableauProjets(Div) {
       $.ajax({
-        url: "Modele/ActionAttributionHeure.php",
+        url: "Modele/planification.php",
         method: "POST",
         data: {
           action: "RemplirTableauProjets",
@@ -303,7 +303,7 @@
         if ($('#numeroSprint').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
 
           $.ajax({
-            url: "Modele/ActionAttributionHeure.php",
+            url: "Modele/planification.php",
             method: "POST",
             data: {
               id: $('#id').val(),
@@ -341,7 +341,7 @@
       
       if (idEmploye.length > 0) {
         $.ajax({
-          url: "Modele/ActionAttributionHeure.php",
+          url: "Modele/planification.php",
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
@@ -367,7 +367,7 @@
     $(document).on('click', '.EnvoyerDemo', function () {
      
         $.ajax({
-          url: "Modele/ActionDemo.php",
+          url: "Modele/Demo.php",
           method: "POST",
           data: {
             idEmploye: $('#TypeEmployeOk').val(),
@@ -385,7 +385,7 @@
     $(document).on('click', '.EnvoyerObjectif', function () {
      
         $.ajax({
-          url: "Modele/ActionObjectifs.php",
+          url: "Modele/Retrospective.php",
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
@@ -420,7 +420,7 @@
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/ActionAttributionHeure.php",
+        url: "Modele/planification.php",
         method: "POST",
         data: {
           id: $(this).attr("id"),
@@ -447,7 +447,7 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette attribution ?"))
         $.ajax({
-          url: "Modele/ActionAttributionHeure.php",
+          url: "Modele/planification.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),
@@ -577,7 +577,7 @@ $.ajax({
     $('#EnvoyerApiPivotal').click(function () {
       if(TotalHoursChecked().length > 2)
         $.ajax({
-          url: "Modele/ActionAttributionHeure.php",
+          url: "Modele/planification.php",
           method: "POST",
           data: {
             action: "CreerTacheApi",

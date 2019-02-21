@@ -117,7 +117,7 @@
     // Remplir la liste des objectifs dans une table
     function RemplirTableau() {
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           action: "LoadObjectif",
@@ -131,7 +131,7 @@
 
       // Remplir la liste des objectifs dans un modal caché pour les mails
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           action: "LoadMail",
@@ -144,7 +144,7 @@
 
       // Remplir la liste des démos
       $.ajax({
-        url: "Modele/ActionDemo.php",
+        url: "Modele/Demo.php",
         method: "POST",
         data: {
           action: "LoadDemo"
@@ -156,7 +156,7 @@
 
       //Remplir la liste des remarques
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           action: "LoadRemarque"
@@ -192,7 +192,7 @@
     $(document).on('click', '.GetObjectif', function () {
       var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           id: id,
@@ -217,7 +217,7 @@
     $('#action').click(function () {
       if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
         $.ajax({
-          url: "Modele/ActionObjectifs.php",
+          url: "Modele/Retrospective.php",
           method: "POST",
           data: {
             id: $('#id').val(),
@@ -243,7 +243,7 @@
     // Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
     $(document).on('click', '.1, .2, .3, .4, .5', function () {
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           id: this.id,
@@ -260,7 +260,7 @@
     $(document).on('click', '.SupprimerObjectif', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette objectif ?"))
         $.ajax({
-          url: "Modele/ActionObjectifs.php",
+          url: "Modele/Retrospective.php",
           method: "POST",
           data: {
             id: $('#id').val(),
@@ -279,7 +279,7 @@
     // Valider une remarque qui ne s'affichera donc plus
     $(document).on('click', '.ValiderRemarque', function () {
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           id: $(this).attr("id"),
@@ -297,7 +297,7 @@
       $('.SuppressionRemarque').show()
       var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/ActionObjectifs.php",
+        url: "Modele/Retrospective.php",
         method: "POST",
         data: {
           id: id,
@@ -317,7 +317,7 @@
     // Créer ou éditer une remarque
     $('#ActionRemarque').click(function () {
         $.ajax({
-          url: "Modele/ActionObjectifs.php",
+          url: "Modele/Retrospective.php",
           method: "POST",
           data: {
             Labelretrospective: $('#LabelRemarque').val(),
@@ -336,7 +336,7 @@
     $(document).on('click', '.SuppressionRemarque', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
-          url: "Modele/ActionGestionRemarques.php",
+          url: "Modele/GestionRemarque.php",
           method: "POST",
           data: {
             id: $('#id').val(),
@@ -354,7 +354,7 @@
     // Valider une démo
     $(document).on('click', '.ValiderDemo', function () {
       $.ajax({
-        url: "Modele/ActionDemo.php",
+        url: "Modele/Demo.php",
         method: "POST",
         data: {
           id: $(this).attr("id"),
@@ -370,7 +370,7 @@
     $(document).on('click', '.SupprimerDemo', function () {
     if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
       $.ajax({
-        url: "Modele/ActionDemo.php",
+        url: "Modele/Demo.php",
         method: "POST",
         data: {
           id: $(this).attr("id"),
