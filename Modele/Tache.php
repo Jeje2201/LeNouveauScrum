@@ -133,7 +133,7 @@
         WHERE A.id_Sprint = $numero
         ORDER BY (
           select E.prenom
-          FROM employe
+          FROM employe E
           WHERE E.id = A.id_Employe
         )
   ");
@@ -176,7 +176,7 @@
         $result = $statement->fetch();
 
           $DateMin[] = date("d-m-Y", strtotime($result["dateDebut"]));
-          $DateMax[] = date("d-m-Y", strtotime($result["DateMax"]));
+          $DateMax[] = date("d-m-Y", strtotime($result["dateFin"]));
 
         $array['DateMin'] = $DateMin;
         $array['DateMax'] = $DateMax;
