@@ -91,15 +91,15 @@
         LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["Heure"] = $row["heure"];
-        $output["TypeInterferance"] = $row["id_TypeInterference"];
-        $output["Sprint"] = $row["id_Sprint"];
-        $output["Projet"] = $row["id_Projet"];
-        $output["Employe"] = $row["id_Employe"];
-        $output["labelinterference"] = $row["label"];
-      }
+      $result = $statement->fetch();
+
+        $output["Heure"] = $result["heure"];
+        $output["TypeInterferance"] = $result["id_TypeInterference"];
+        $output["Sprint"] = $result["id_Sprint"];
+        $output["Projet"] = $result["id_Projet"];
+        $output["Employe"] = $result["id_Employe"];
+        $output["labelinterference"] = $result["label"];
+
       echo json_encode($output);
     }
 

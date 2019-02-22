@@ -173,12 +173,10 @@
           WHERE S.id = $idAffiche"
         );
         $statement->execute();
-        $result = $statement->fetchAll();
+        $result = $statement->fetch();
 
-        foreach ($result AS $row) {
-          $DateMin[] = date("d-m-Y", strtotime($row["dateDebut"]));
-          $DateMax[] = date("d-m-Y", strtotime($row["DateMax"]));
-        }
+          $DateMin[] = date("d-m-Y", strtotime($result["dateDebut"]));
+          $DateMax[] = date("d-m-Y", strtotime($result["DateMax"]));
 
         $array['DateMin'] = $DateMin;
         $array['DateMax'] = $DateMax;

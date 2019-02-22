@@ -198,13 +198,13 @@
         LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["heure"] = $row["heure"];
-        $output["id_Employe"] = $row["id_Employe"];
-        $output["id_Projet"] = $row["id_Projet"];
-        $output["Done"] = $row["Done"];
-      }
+      $result = $statement->fetch();
+
+        $output["heure"] = $result["heure"];
+        $output["id_Employe"] = $result["id_Employe"];
+        $output["id_Projet"] = $result["id_Projet"];
+        $output["Done"] = $result["Done"];
+
       echo json_encode($output);
     }
 

@@ -119,15 +119,15 @@
          LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["Prenom"] = $row["prenom"];
-        $output["Nom"] = $row["nom"];
-        $output["Actif"] = $row["actif"];
-        $output["ApiPivotal"] = $row["ApiPivotal"];
-        $output["TypeEmploye"] = $row["id_TypeEmploye"];
-        $output["Initial"] = $row["Initial"];
-      }
+      $result = $statement->fetch();
+
+        $output["Prenom"] = $result["prenom"];
+        $output["Nom"] = $result["nom"];
+        $output["Actif"] = $result["actif"];
+        $output["ApiPivotal"] = $result["ApiPivotal"];
+        $output["TypeEmploye"] = $result["id_TypeEmploye"];
+        $output["Initial"] = $result["Initial"];
+
       echo json_encode($output);
     }
 

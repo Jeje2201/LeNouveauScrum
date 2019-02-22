@@ -159,20 +159,17 @@
       //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
       $statement = $connection->prepare(
         $sql = "SELECT
-        (
-          select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
+        (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
         (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint AND A.Done IS NOT NULL) AS TotalHeuresDescendues,
         (select sum(heure) FROM interference I WHERE I.id_Sprint = $NumeroduSprint) AS TotalHeuresInterference"
       );
 
       $statement->execute();
-      $result = $statement->fetchAll();
+      $result = $statement->fetch();
 
-      foreach ($result AS $row) {
-        $TotalHeuresAttribuees[] = intval($row['TotalHeuresAttribuees']);
-        $TotalHeuresDescendues[] = intval($row['TotalHeuresDescendues']);
-        $TotalHeuresInterference[] = intval($row['TotalHeuresInterference']);
-      }
+        $TotalHeuresAttribuees[] = intval($result['TotalHeuresAttribuees']);
+        $TotalHeuresDescendues[] = intval($result['TotalHeuresDescendues']);
+        $TotalHeuresInterference[] = intval($result['TotalHeuresInterference']);
 
       $array['TotalHeuresAttribuees'] = $TotalHeuresAttribuees;
       $array['TotalHeuresDescendues'] = $TotalHeuresDescendues;

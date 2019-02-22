@@ -85,13 +85,13 @@
         LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["numero"] = $row["numero"];
-        $output["dateDebut"] = date("d-m-Y", strtotime($row["dateDebut"]));
-        $output["dateFin"] = date("d-m-Y", strtotime($row["dateFin"]));
-        $output["attribuable"] = $row["attribuable"];
-      }
+      $result = $statement->fetch();
+
+        $output["numero"] = $result["numero"];
+        $output["dateDebut"] = date("d-m-Y", strtotime($result["dateDebut"]));
+        $output["dateFin"] = date("d-m-Y", strtotime($result["dateFin"]));
+        $output["attribuable"] = $result["attribuable"];
+
       echo json_encode($output);
     }
 

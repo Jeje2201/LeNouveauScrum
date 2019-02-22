@@ -227,13 +227,13 @@
         LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["id_Projet"] = $row["id_Projet"];
-        $output["id_Employe"] = $row["id_Employe"];
-        $output["objectif"] = $row["objectif"];
-        $output["id_StatutObjectif"] = $row["id_StatutObjectif"];
-      }
+      $result = $statement->fetch();
+
+        $output["id_Projet"] = $result["id_Projet"];
+        $output["id_Employe"] = $result["id_Employe"];
+        $output["objectif"] = $result["objectif"];
+        $output["id_StatutObjectif"] = $result["id_StatutObjectif"];
+
       echo json_encode($output);
     }
 

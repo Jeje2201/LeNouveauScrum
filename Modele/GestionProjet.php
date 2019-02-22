@@ -108,13 +108,13 @@
          LIMIT 1"
       );
       $statement->execute();
-      $result = $statement->fetchAll();
-      foreach ($result AS $row) {
-        $output["Nom"] = $row["nom"];
-        $output["Logo"] = $row["Logo"];
-        $output["ApiPivotal"] = $row["ApiPivotal"];
-        $output["TypeProjet"] = $row["id_TypeProjet"];
-      }
+      $result = $statement->fetch();
+
+        $output["Nom"] = $result["nom"];
+        $output["Logo"] = $result["Logo"];
+        $output["ApiPivotal"] = $result["ApiPivotal"];
+        $output["TypeProjet"] = $result["id_TypeProjet"];
+
       echo json_encode($output);
     }
 
