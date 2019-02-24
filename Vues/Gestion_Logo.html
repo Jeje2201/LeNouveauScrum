@@ -126,14 +126,13 @@
 
     //Supprimer une image
     $(document).on('click', '.delete', function () {
-      console.log('le path : ', (document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/')[(document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/').length-1])
       if (confirm("Es-tu sûr de vouloir supprimer ce logo ?"))
         $.ajax({
           url: "Modele/GestionLogo.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),
-            path: (document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/')[(document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/').length-1],
+            path: (($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/')[($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/').length-1]),
             action: "Delete" },
           success: function (data) {
             RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')

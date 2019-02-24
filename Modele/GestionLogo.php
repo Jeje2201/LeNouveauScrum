@@ -125,13 +125,19 @@
       );
       if (!empty($result)){
 
-        $myFile = "../Assets/Image/Projets/" . $_POST["path"];
-        if(unlink($myFile)){
-          unlink($myFile)
-          echo '✓';
+        $Path = "../Assets/Image/Projets/" . $_POST["path"];
+
+
+        if (file_exists($Path)){
+          if (unlink($Path)) {   
+              echo "✓";
+          } else {
+              echo "Impossible de supprimer ?";    
+          }   
         }
-        else
-          echo 'Une erreur dur a comprendre..'
+        else {
+            echo "Le fichier n'existe pas";
+        }
       }
       else
         print_r($statement->errorInfo());
