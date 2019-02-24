@@ -4,16 +4,14 @@
   if (isset($_POST["action"])) {
 
     if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT id,
-      ApiPivotal,
-      nom,
-      Logo,
-      (
-        SELECT nom
-        FROM typeprojet T
-        WHERE T.id = P.id_TypeProjet
-      ) AS TypeProjet
+      $statement = $connection->prepare("SELECT P.id,
+      P.nom as Projet,
+      P.ApiPivotal,
+      L.path as Logo,
+      T.nom as TypeProjet
       FROM projet P
+      INNER JOIN logo L on L.id = P.Id_Logo
+      INNER JOIN typeprojet T on T.id = P.id_TypeProjet
       ORDER BY P.nom asc");
       $statement->execute();
       $result = $statement->fetchAll();
@@ -35,7 +33,7 @@
         foreach ($result AS $row) {
           $output .= '
         <tr>
-        <td>' . $row["nom"] . '</td>
+        <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
           $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
@@ -56,40 +54,20 @@
       echo $output;
     }
 
-    if ($_POST["action"] == "LoadPictures") {
-      $dir = '../Assets/Image/Projets/';
-      $files = array_diff(scandir($dir), array('..', '.'));
-
-      $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
-
-      foreach ($files AS $file) {
-        if ($file == "Inconnue.png")
-          $output2 .= '<option value="' . $file . '" selected> ' . substr($file, 0, -4) . ' </option>';
-        else
-          $output2 .= '<option value="' . $file . '"> ' . substr($file, 0, -4) . ' </option>';
-
-      }
-
-      $output2 .= '</select>';
-
-      echo $output2;
-    }
-
-
     if ($_POST["action"] == "Ajouter") {
 
       if($_POST["ApiPivotal"] == "")
         $_POST["ApiPivotal"] = NULL;
 
       $statement = $connection->prepare("
-   INSERT INTO projet (nom, Logo, id_TypeProjet, ApiPivotal) 
-   VALUES (:Nom, :Logo, :id_TypeProjet, :ApiPivotal)
+   INSERT INTO projet (nom, Id_Logo, id_TypeProjet, ApiPivotal) 
+   VALUES (:Nom, :Id_Logo, :id_TypeProjet, :ApiPivotal)
    ");
 
       $result = $statement->execute(
         array(
           ':Nom' => $_POST["Nom"],
-          ':Logo' => $_POST["fileName"],
+          ':Id_Logo' => $_POST["fileName"],
           ':id_TypeProjet' => $_POST["TypeProjet"],
           ':ApiPivotal' => $_POST["ApiPivotal"]
         )
@@ -111,7 +89,7 @@
       $result = $statement->fetch();
 
         $output["Nom"] = $result["nom"];
-        $output["Logo"] = $result["Logo"];
+        $output["Logo"] = $result["Id_Logo"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeProjet"] = $result["id_TypeProjet"];
 
@@ -125,7 +103,7 @@
 
       $statement = $connection->prepare(
         "UPDATE projet 
-   SET nom = :nom, Logo = :Logo, id_TypeProjet = :id_TypeProjet, ApiPivotal = :ApiPivotal
+   SET nom = :nom, Id_Logo = :Id_Logo, id_TypeProjet = :id_TypeProjet, ApiPivotal = :ApiPivotal
    WHERE id = :id
    "
       );
@@ -133,7 +111,7 @@
         array(
           ':nom' => $_POST["Nom"],
           ':ApiPivotal' => $_POST["ApiPivotal"],
-          ':Logo' => $_POST["fileName"],
+          ':Id_Logo' => $_POST["fileName"],
           ':id_TypeProjet' => $_POST["TypeProjet"],
           ':id' => $_POST["id"]
         )

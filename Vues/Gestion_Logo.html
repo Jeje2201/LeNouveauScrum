@@ -53,7 +53,6 @@
           <input type="file" name="image" id="image" />
           </p>
           <br />
-          <small class="form-text text-muted">(Eviter les accents et espaces)</small>
           <input type="hidden" name="action" id="action" value="insert" />
           <input type="hidden" name="image_id" id="image_id" />
           <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
@@ -72,8 +71,6 @@
   $(document).ready(function () {
 
     BarreDeRecherche('BarreDeRecherche', 'TableauLogo');
-
-    RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
 
     RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
 
@@ -104,16 +101,16 @@
     //Get les infos d'un logo selectionné
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-      var action = "Select";
       $.ajax({
         url: "Modele/GestionLogo.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: {
+          id: id,
+          action: "Select"
+        },
         dataType: "json",
         success: function (data) {
           $('#ModaleLogo').modal('show');
-          $('.modal-title').text("Mettre à jour");
-          $('#action').val("Update");
 
           $('#id').val(id);
           $('#Nom').val(data.Nom);

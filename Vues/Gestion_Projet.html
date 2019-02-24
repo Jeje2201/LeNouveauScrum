@@ -6,7 +6,6 @@
         <div class="form-row">
           <div class="col-md-9">
             <button type="button" id="modal_button" class="btn btn-info">Créer un projet</button>
-            <button type="button" name="add" id="add" class="btn btn-info">Ajouter une image</button>
           </div>
         </div>
 
@@ -48,9 +47,6 @@
             <div class="col">
               <div id='ListImage'></div>
             </div>
-            <div class="col">
-              <img id="IconPreview" src='Assets/Image/Projets/Inconnue.png' width="40px">
-            </div>
           </div>
         </div>
 
@@ -72,20 +68,14 @@
 
     RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
 
-    RequeteAjax('ListImage', 'LoadPictures', 'Modele/GestionProjet.php')
+    RequeteAjax('ListImage', 'LoadPictures', 'Modele/RequetesAjax.php')
 
     RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php')
-
-    $('#ListImage').change(function () {
-      $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
-    });
 
     $('#modal_button').click(function () {
       $('#ModaleProjet').modal('show');
       $('.modal-title').text("Ajouter un projet");
       $('#action').val('Ajouter');
-      $('#ToutesLesImages').val('Inconnue.png');
-      $("#IconPreview").attr("src", 'Assets/Image/Projets/' + $('#ToutesLesImages').val());
       $('#Nom').val('');
       $('#ApiPivotal').val('');
     });
@@ -100,7 +90,7 @@
                   Nom: $('#Nom').val(),
                   ApiPivotal: $('#ApiPivotal').val(),
                   TypeProjet: $('#TypeProjet').val(),
-                  fileName: $('#ToutesLesImages').val(),
+                  fileName: parseInt($('#ToutesLesImages').val()),
                   action: $('#action').val()
           },
 
@@ -135,7 +125,6 @@
           $('#Nom').val(data.Nom);
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);
-          $('#IconPreview').attr('src', 'Assets/Image/Projets/' + data.Logo);
 
           SetSelect2('#TypeProjet, #ToutesLesImages');
 
