@@ -75,6 +75,11 @@ switch($vue)
   require_once("Vues/Gestion_Projet.html");
   break;
 
+  case 'GestionLogo':
+  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+  require_once("Vues/Gestion_Logo.html");
+  break;
+
   case 'LabelObjectif':
   require_once("Vues/LabelObjectif.html");
   break;

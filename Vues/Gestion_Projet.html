@@ -64,32 +64,6 @@
   </div>
 </div>
 
-
-<div id="imageModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4>Ajouter une image</h4>
-      </div>
-      <div class="modal-body">
-        <form id="image_form" method="post" enctype="multipart/form-data">
-          <input type="file" name="image" id="image" />
-          </p>
-          <br />
-          <small class="form-text text-muted">(Eviter les accents et espaces)</small>
-          <input type="hidden" name="action" id="action" value="insert" />
-          <input type="hidden" name="image_id" id="image_id" />
-          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
 
   $(document).ready(function () {
@@ -181,39 +155,5 @@
           }
         })
     });
-
-    $('#add').click(function () {
-      $('#imageModal').modal('show');
-      $('#image_form')[0].reset();
-      $('.modal-title').text("Add Image");
-      $('#image_id').val('');
-      $('#action').val('insert');
-      $('#insert').val("Ajouter");
-    });
-    $('#image_form').submit(function (event) {
-      event.preventDefault();
-      if ($('#image').val() == '') {
-        BootstrapAlertError("Choisie une image d'abord");
-        return false;
-      }
-      else {
-
-        $.ajax({
-          url: "Modele/GestionProjet.php",
-          method: "POST",
-          data: new FormData(this),
-          contentType: false,
-          processData: false,
-          success: function (data) {
-            $('#image_form')[0].reset();
-            $('#imageModal').modal('hide');
-            BootstrapAlertDefaut(data);
-            RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
-            RequeteAjax('ListImage', 'LoadPictures', 'Modele/GestionProjet.php')
-          }
-        });
-      }
-    });
-
   });
 </script>

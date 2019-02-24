@@ -1,0 +1,177 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="mb-5">
+        <div class="form-row">
+          <div class="col-md-9">
+            <button type="button" name="add" id="add" class="btn btn-info">Ajouter une image</button>
+          </div>
+        </div>
+
+        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+
+        <div id="TableauLogo" class="table-responsive table-hover">
+
+        </div>
+      </div>
+    </div>
+</body>
+
+<div id="ModaleLogo" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+            <label>Nom</label>
+          <input class="form-control" name="Nom" id="Nom" type="text">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="imageModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Ajouter une image</h4>
+      </div>
+      <div class="modal-body">
+        <form id="image_form" method="post" enctype="multipart/form-data">
+          <input type="file" name="image" id="image" />
+          </p>
+          <br />
+          <small class="form-text text-muted">(Eviter les accents et espaces)</small>
+          <input type="hidden" name="action" id="action" value="insert" />
+          <input type="hidden" name="image_id" id="image_id" />
+          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+
+    BarreDeRecherche('BarreDeRecherche', 'TableauLogo');
+
+    RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
+
+    RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
+
+    $('#action').click(function () {
+
+      if ($('#Nom').val() != '') {
+        $.ajax({
+          url: "Modele/GestionLogo.php",
+          method: "POST",
+          data: {
+            id: $('#id').val(),
+            Nom: $('#Nom').val(),
+            action: "Update"
+          },
+          success: function (data) {
+            BootstrapAlertDefaut(data);
+            console.log(data);
+            $('#ModaleLogo').modal('hide');
+            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php') 
+          }
+        });
+      }
+      else {
+        BootstrapAlertError("Tous les champs doivent être plein.");
+      }
+    })
+
+    //Get les infos d'un logo selectionné
+    $(document).on('click', '.update', function () {
+      var id = $(this).attr("id");
+      var action = "Select";
+      $.ajax({
+        url: "Modele/GestionLogo.php",
+        method: "POST",
+        data: { id: id, action: action },
+        dataType: "json",
+        success: function (data) {
+          $('#ModaleLogo').modal('show');
+          $('.modal-title').text("Mettre à jour");
+          $('#action').val("Update");
+
+          $('#id').val(id);
+          $('#Nom').val(data.Nom);
+
+          SetSelect2('#TypeProjet, #ToutesLesImages');
+
+        }
+      });
+    });
+
+    //Supprimer une image
+    $(document).on('click', '.delete', function () {
+      console.log('le path : ', (document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/')[(document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/').length-1])
+      if (confirm("Es-tu sûr de vouloir supprimer ce logo ?"))
+        $.ajax({
+          url: "Modele/GestionLogo.php",
+          method: "POST",
+          data: {
+            id: $(this).attr("id"),
+            path: (document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/')[(document.getElementsByClassName('btn btn-danger delete')[0].parentElement.parentElement.parentElement.parentElement.childNodes[3].childNodes[1].src).split('/').length-1],
+            action: "Delete" },
+          success: function (data) {
+            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
+            BootstrapAlertDefaut(data);
+          }
+        })
+    });
+
+    $('#add').click(function () {
+      $('#imageModal').modal('show');
+      $('#image_form')[0].reset();
+      $('.modal-title').text("Add Image");
+      $('#image_id').val('');
+      $('#action').val('insert');
+      $('#insert').val("Ajouter");
+    });
+    $('#image_form').submit(function (event) {
+      event.preventDefault();
+      if ($('#image').val() == '') {
+        BootstrapAlertError("Choisie une image d'abord");
+        return false;
+      }
+      else {
+        $.ajax({
+          url: "Modele/GestionLogo.php",
+          method: "POST",
+          data: new FormData(this),
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            $('#image_form')[0].reset();
+            $('#imageModal').modal('hide');
+            BootstrapAlertDefaut(data);
+            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
+          }
+        });
+      }
+    });
+
+  });
+</script>
