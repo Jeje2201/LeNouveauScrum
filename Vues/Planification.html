@@ -211,7 +211,7 @@
 
     function RemplirTableau(Div) {
       $.ajax({
-        url: "Modele/planification.php",
+        url: "Modele/Planification.php",
         method: "POST",
         data: {
           action: "RemplirTableau",
@@ -226,7 +226,7 @@
 
     function RemplirTableauRessources(Div) {
       $.ajax({
-        url: "Modele/planification.php",
+        url: "Modele/Planification.php",
         method: "POST",
         data: {
           action: "RemplirTableauRessources",
@@ -240,7 +240,7 @@
 
     function RemplirTableauProjets(Div) {
       $.ajax({
-        url: "Modele/planification.php",
+        url: "Modele/Planification.php",
         method: "POST",
         data: {
           action: "RemplirTableauProjets",
@@ -303,7 +303,7 @@
         if ($('#numeroSprint').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
 
           $.ajax({
-            url: "Modele/planification.php",
+            url: "Modele/Planification.php",
             method: "POST",
             data: {
               id: $('#id').val(),
@@ -341,7 +341,7 @@
       
       if (idEmploye.length > 0) {
         $.ajax({
-          url: "Modele/planification.php",
+          url: "Modele/Planification.php",
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
@@ -532,7 +532,7 @@ $.ajax({
     $('#EnvoyerApiPivotal').click(function () {
       if(TotalHoursChecked().length > 2)
         $.ajax({
-          url: "Modele/planification.php",
+          url: "Modele/Planification.php",
           method: "POST",
           data: {
             action: "CreerTacheApi",
