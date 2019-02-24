@@ -74,7 +74,7 @@
         P.nom AS pnom,
         sum(A.heure) AS nbheureadescendre,
         (
-          SELECT IFNULL( sum(attribution.heure),0)
+          SELECT IFNULL( sum(A.heure),0)
           FROM attribution A
           WHERE A.id_Projet = P.id
           AND A.id_Sprint = $NumeroduSprint
