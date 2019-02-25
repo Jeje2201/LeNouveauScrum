@@ -6,15 +6,16 @@
 
     //////////////////////////////////// Charger les démos
     if ($_POST["action"] == "LoadDemo") {
-      $statement = $connection->prepare("SELECT D.id AS id,
+      $statement = $connection->prepare("SELECT
+        D.id AS id,
+        D.label,
         CONCAT(E.prenom,' ', E.initial) AS Employe,
         P.Nom AS Projet
         FROM demo D
         INNER JOIN projet P on P.id = D.id_Projet
         INNER JOIN employe E on E.id = D.id_Employe
         WHERE DateEffectue  IS NULL
-        ORDER BY id_Employe DESC
-        ");
+        ORDER BY id_Employe DESC");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -23,7 +24,8 @@
       <thead class="thead-light">
       <tr>
       <th>Ressource</th>
-      <th>Démo</th>';
+      <th>Démo</th>
+      <th>Label</th>';
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
         $output .= '<th width=""><center>Changer État</center></th>';
 
@@ -36,7 +38,8 @@
           $output .= '
         <tr>
         <td>' . $row["Employe"] . '</td>
-        <td>' . $row["Projet"] . '</td>';
+        <td>' . $row["Projet"] . '</td>
+        <td>' . $row["label"] . '</td>';
           if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
             $output .= '
             <td width=10%>
@@ -63,12 +66,13 @@
     //////////////////////////////////// Créer une démo
     if ($_POST["action"] == "CréerDemo") {
       $statement = $connection->prepare("
-   INSERT INTO demo (id_Projet, id_Employe) 
-   VALUES (:id_Projet, :id_Employe)
+   INSERT INTO demo (id_Projet, id_Employe, Label) 
+   VALUES (:id_Projet, :id_Employe, :Label)
    ");
       $result = $statement->execute(
         array(
           ':id_Projet' => $_POST["idProjet"],
+          ':Label' => $_POST["LabelDemo"],
           ':id_Employe' => $_POST["idEmploye"]
         )
       );

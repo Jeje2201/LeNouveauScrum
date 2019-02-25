@@ -7,6 +7,7 @@
     if ($_POST["action"] == "Load") {
       $statement = $connection->prepare("SELECT D.id, E.prenom,
       P.nom,
+      D.label,
       D.DateEffectue
       FROM demo D
       inner join employe E on D.id_Employe = E.id
@@ -30,6 +31,7 @@
       <th width="">Date</th>
       <th width="">Ressource</th>
       <th width="">Projet</th>
+      <th width="">Label</th>
       <th width=""><center>Éditer</center></th>
       </tr>
       </thead>
@@ -46,6 +48,7 @@
           $output .= '
         <td>' . $row["prenom"] . '</td>
         <td>' . $row["nom"] . '</td>
+        <td>' . $row["label"] . '</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -76,6 +79,7 @@
       else
         $output["DateEffectue"] = date("d-m-Y", strtotime($result["DateEffectue"]));
 
+      $output["LabelDemo"] = $result["label"];
       $output["Ressource"] = $result["id_Employe"];
       $output["Projet"] = $result["id_Projet"];
 
@@ -89,7 +93,7 @@
 
       $statement = $connection->prepare(
         "UPDATE demo
-        SET id_Employe = :id_Employe, id_Projet= :id_Projet, DateEffectue = :DateEffectue 
+        SET id_Employe = :id_Employe, id_Projet= :id_Projet, DateEffectue = :DateEffectue, label = :Label 
         WHERE id = :id"
       );
       $result = $statement->execute(
@@ -97,6 +101,7 @@
           ':id_Employe' => $_POST["Employe"],
           ':id_Projet' => $_POST["Projet"],
           ':DateEffectue' => $_POST["DateEffectue"],
+          ':Label' => $_POST["LabelDemo"],
           ':id' => $_POST["id"]
         )
       );

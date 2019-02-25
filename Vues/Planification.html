@@ -95,7 +95,11 @@
 
         <u><h5>Démo</h5></u>
         <div class="row">
-  
+            <div class="col-lg-9">
+            <input class="form-control" name="LabelDemo" id="LabelDemo" type="text" placeholder="Label objectif">
+            </div>
+
+
             <div class="col-lg-3">
                 <input type="submit" value="Créer démo" class="btn btn-success EnvoyerDemo" />
             </div>
@@ -372,6 +376,7 @@
           data: {
             idEmploye: $('#TypeEmployeOk').val(),
             idProjet: $('#projetId').val(),
+            LabelDemo: $('#LabelDemo').val(),
             action: "CréerDemo"
           },
           success: function (data) {
