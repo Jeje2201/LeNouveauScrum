@@ -96,9 +96,9 @@
 
           success: function (data) {
             BootstrapAlertDefaut(data);
-            console.log(data);
             $('#ModaleProjet').modal('hide');
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
+            GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
           }
         });
       }
@@ -109,11 +109,12 @@
 
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-      var action = "Select";
       $.ajax({
         url: "Modele/GestionProjet.php",
         method: "POST",
-        data: { id: id, action: action },
+        data: {
+          id: id,
+          action: "Select" },
         dataType: "json",
         success: function (data) {
           $('#ModaleProjet').modal('show');
@@ -141,6 +142,7 @@
           success: function (data) {
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
             BootstrapAlertDefaut(data);
+            GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
           }
         })
     });

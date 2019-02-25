@@ -90,6 +90,7 @@
             console.log(data);
             $('#ModaleLogo').modal('hide');
             RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php') 
+            GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
           }
         });
       }
@@ -134,6 +135,7 @@
           success: function (data) {
             RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
             BootstrapAlertDefaut(data);
+            GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
           }
         })
     });
@@ -164,6 +166,7 @@
             $('#imageModal').modal('hide');
             BootstrapAlertDefaut(data);
             RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
+            GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
           }
         });
       }
