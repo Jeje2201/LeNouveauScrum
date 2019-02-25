@@ -29,7 +29,7 @@
           A.Label,
           A.heure,
           P.nom AS projet,
-          P.Logo,
+          L.Path,
           E.Initial,
           E.couleur,
           E.prenom AS E_Prenom,
@@ -40,6 +40,8 @@
             ON E.id = A.id_Employe
           INNER JOIN projet P
             ON P.id = A.id_Projet
+          INNER JOIN logo L
+            ON P.Id_Logo = L.id
           INNER JOIN sprint S
             ON S.id = A.id_Sprint
           WHERE A.id_Sprint =  $numero
@@ -53,7 +55,7 @@
           foreach ($result AS $row) {
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
-        <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">
+        <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">
         <div style="margin-left:7px;">
           <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
             <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["E_Pseudo"] . ' (' . $row["Initial"] . ')<br>
@@ -68,10 +70,20 @@
           $output1 .= 'Pas de tâche';
         }
 
-        $statement = $connection->prepare("SELECT A.id, A.Label, A.heure, P.nom AS projet, P.Logo, E.Initial, E.couleur, E.prenom, E.nom AS E_Nom, E.Pseudo
+        $statement = $connection->prepare("SELECT
+        A.id,
+        A.Label,
+        A.heure,
+        P.nom AS projet,
+        L.path as Logo,
+        E.Initial,
+        E.couleur,
+        E.prenom,
+        E.nom AS E_Nom, E.Pseudo
         FROM attribution A
         INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
+        INNER JOIN logo L ON P.Id_Logo = L.id
         INNER JOIN sprint S ON S.id = A.id_Sprint
         WHERE A.id_Sprint =  $numero
         AND A.Done IS NOT NULL "  . $Requete1 .
