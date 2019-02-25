@@ -6,12 +6,12 @@
 
     //////////////////////////////////// Charger les démos
     if ($_POST["action"] == "LoadDemo") {
-      $statement = $connection->prepare("SELECT demo.id AS id,
+      $statement = $connection->prepare("SELECT D.id AS id,
         CONCAT(E.prenom,' ', E.initial) AS Employe,
         P.Nom AS Projet
         FROM demo D
-        INNER JOIN projet P on P.id = demo.id_Projet
-        INNER JOIN employe E on E.id = demo.id_Employe
+        INNER JOIN projet P on P.id = D.id_Projet
+        INNER JOIN employe E on E.id = D.id_Employe
         WHERE DateEffectue  IS NULL
         ORDER BY id_Employe DESC
         ");
