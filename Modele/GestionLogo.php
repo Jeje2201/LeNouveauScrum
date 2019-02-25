@@ -8,7 +8,7 @@
     //Charger la liste des images
     if ($_POST["action"] == "Load") {
       $statement = $connection->prepare("SELECT *
-        FROM Logo L
+        FROM logo L
         ORDER BY L.nom asc");
       $statement->execute();
       $result = $statement->fetchAll();
