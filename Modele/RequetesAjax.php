@@ -29,6 +29,8 @@
         }
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteSprint':
 
@@ -54,6 +56,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteProjet':
 
@@ -79,6 +83,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
         case 'ProjetPivotal':
 
@@ -106,6 +112,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
         case 'RessourcePivotal':
 
@@ -135,6 +143,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
 
       case 'ListeDeroulanteEmploye':
@@ -163,8 +173,10 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
-      case 'ListeDeroulanteEmployeActifTrieParType':
+      case 'ListeDeroulanteEmployeActif':
 
         $statement = $connection->prepare("SELECT prenom,
         nom,
@@ -190,6 +202,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteTypeInterferance':
 
@@ -215,6 +229,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteTypeEmploye':
 
@@ -242,6 +258,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteTypeProjet':
 
@@ -267,6 +285,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'ListeDeroulanteEtatObjectif':
 
@@ -292,6 +312,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
         case 'LoadPictures':
 
@@ -317,6 +339,8 @@
           echo $output2;
   
           break;
+ 
+ /////////////////////////////////////
           
       case 'ListEmployeCheckBox':
 
@@ -342,6 +366,8 @@
         echo $output2;
 
         break;
+ 
+ /////////////////////////////////////
 
       case 'RemplirTypeTache':
 

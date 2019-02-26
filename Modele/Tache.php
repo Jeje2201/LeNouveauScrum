@@ -130,24 +130,13 @@
         $numero = $_POST["idAffiche"];
 
         $statement = $connection->prepare("SELECT DISTINCT
-        (
-          select E.prenom
-          FROM employe E
-          WHERE E.id = A.id_Employe
-        ) AS Prenom,
-        (
-          select E.nom
-          FROM employe E
-          WHERE E.id = A.id_Employe
-        ) AS Nom,
-        A.id_Employe AS id
+        E.prenom,
+        E.nom,
+        A.id_Employe
         FROM attribution A
+        INNER JOIN employe E ON A.id_Employe = E.id
         WHERE A.id_Sprint = $numero
-        ORDER BY (
-          select E.prenom
-          FROM employe E
-          WHERE E.id = A.id_Employe
-        )
+        ORDER BY E.prenom
   ");
 
         $statement->execute();
@@ -157,7 +146,7 @@
         if ($statement->rowCount() > 0) {
           foreach ($result AS $row) {
 
-            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Prenom"] . ' ' . $row["Nom"] . ' </option>';
+            $output2 .= '<option value="' . $row["id_Employe"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
 
           }
 

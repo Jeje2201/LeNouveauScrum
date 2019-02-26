@@ -74,7 +74,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
 
@@ -119,7 +119,7 @@
           data: {
             id:$('#id').val(),
             NbHeure: $('#nbheure').val(),
-            Employe: $('#employeId').val(),
+            Employe: $('#TypeEmployeOk').val(),
             Projet: $('#projetId').val(),
             TypeInterferance: $('#typeinterference').val(),
             idAffichee : $("#numeroSprint").val(),
@@ -155,12 +155,12 @@
 
           $('#id').val(id);
           $('#nbheure').val(data.Heure);
-          $('#employeId').val(data.Employe);
+          $('#TypeEmployeOk').val(data.Employe);
           $('#projetId').val(data.Projet);
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
-          SetSelect2('#employeId, #projetId, #typeinterference');
+          SetSelect2('#TypeEmployeOk, #projetId, #typeinterference');
 
         }
       });
@@ -182,7 +182,7 @@
         })
     });
 
-    SetSelect2('#employeId, #projetId, #typeinterference');
+    SetSelect2('#TypeEmployeOk, #projetId, #typeinterference');
 
   });
 </script>
