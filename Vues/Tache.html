@@ -141,8 +141,7 @@
         },
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
-          var NumEmploye = localStorage.getItem("Connexion")
-          $('#numeroEmploye option[value="' + NumEmploye + '"]').attr('selected', 'selected');
+          $('#numeroEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
         }
       });
 
