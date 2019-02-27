@@ -46,10 +46,6 @@ switch($vue)
   require_once("Vues/Personnalisation.html");
   break;
 
-  case 'AideErreur':
-  require_once("Vues/Aide.html");
-  break;
-
   case 'MotDePasse':
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
   require_once("Vues/MotDePasseAdmin.html");

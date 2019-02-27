@@ -519,12 +519,10 @@ $.ajax({
     })
     //si pas de stories
     if(htmlDeFin === '')
-      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut venir de différentes raisons\
+      document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons\
         <ul>\
-          <li>L'ID pivotal tracker du projet n'est pas le bon ?</li>\
-          <li>L'ID pivotal tracker de la ressource n'est pas le bon ?</li>\
-          <li>La ressource n'est pas owner du projet ?</li>\
-          <li>Toutes les tâches de toutes ses stories sont validées ?</li>\
+          <li>La ressource n'est pas owner des stories ? </li>\
+          <li>L'ID pivotal tracker du projet ou de la ressource n'est pas le bon ?</li>\
         </ul>\
       </label>"
 
@@ -532,7 +530,6 @@ $.ajax({
 });
 
     })
-
 
     $('#EnvoyerApiPivotal').click(function () {
       if(TotalHoursChecked().length > 2)
