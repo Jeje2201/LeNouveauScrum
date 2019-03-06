@@ -13,7 +13,7 @@
       <div class="row">
         <div class="card col-lg-12">
           <div class="card-body centered">
-            Avancement du sprint = ( TotalHeuresDescendues + TotalHeuresInterference ) / TotalHeuresAttribuées * 100 :
+            <div style="padding-bottom: 10px;">Avancement du sprint : Il reste <b><span id="TotalHDescendueAvecSeuil"></span>h</b> à descendre</div>
             <div id="BarDePourcentageDheureDescendue" class="DonneesBurndownChart"></div>
             <div id="PourcentageDescendue" class="DonneesBurndownChart"></div>
           </div>
@@ -27,32 +27,9 @@
           </div>
         </div>
 
-        <div class="card col-lg-6">
+        <div class="card col-lg-9">
           <div class="card-body">
-            <div id="EmplacementChart">
-            </div>
-          </div>
-        </div>
-
-        <div class="card col-lg-3">
-          <div class="card-body">
-            <h3>
-              <u>Informations</u>
-            </h3>
-            <div id="DateSprint" class="DonneesBurndownChart"></div>
-            <br>
-            <div id="NbJoursAFaire" class="DonneesBurndownChart"></div> jours ouvré dont 
-            <div id="NbJoursRestants" class="DonneesBurndownChart"></div> restants
-            <br>
-            <div id="TotalHAttribues" class="DonneesBurndownChart"></div> heures à descendre en tout
-            <br>
-            <div id="Seuil" class="DonneesBurndownChart"></div> heures de seuil
-            <br>
-            <div id="TotalHResteADescendre" class="DonneesBurndownChart"></div> heures restante à descendre
-            <br> 
-            <div id="TotalHDescendueAvecSeuil" class="DonneesBurndownChart"></div> heures restante à descendre (seuil)
-            <br>
-            <div id="TotalHDescendue" class="DonneesBurndownChart"></div> heures déjà descendues
+            <div id="EmplacementChart"></div>
           </div>
         </div>
 

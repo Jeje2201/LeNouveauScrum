@@ -334,15 +334,8 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
  */
 function fillInformation(infosource) {
 
-    $("#TotalHAttribues").text( infosource['TotalHeuresAttribuees'][0] )
-
-    $("#Seuil").text( parseInt(infosource['TotalHeuresInterference'][0]) )
-
-    $("#TotalHResteADescendre").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0])
-
     $("#TotalHDescendueAvecSeuil").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0] - infosource['TotalHeuresInterference'][0] );
 
-    $("#TotalHDescendue").text(infosource['TotalHeuresDescendues'][0]);
     var moyenne = (
       Math.round(
         (
@@ -404,27 +397,6 @@ function UpdateBurndownchart(NumeroSprint, div) {
         )
     }
 
-  });
-
-  $.ajax({
-    url: "Modele/Tache.php",
-    method: "POST",
-    data: {
-      action: "DateMinMax",
-      idAffiche: parseInt($("#numeroSprint").val())
-    },
-    success: function (data) {
-
-      $("#DateSprint").text(data['DateMin'] + " ->" + data['DateMax'])
-
-      $("#NbJoursAFaire").text(NbJourDeTravail(data['DateMin'][0], data['DateMax'][0]))
-
-      if (NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]) >= 0)
-        $("#NbJoursRestants").text(NbJourDeTravail(new Date().toJSON().slice(0, 10), data['DateMax'][0]));
-      else
-        $("#NbJoursRestants").text("0");
-
-    }
   });
 
 };
