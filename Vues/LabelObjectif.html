@@ -23,11 +23,13 @@
 
   $(document).ready(function () {
 
+    if(!localStorage.getItem("Connexion")){
+      $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
+        }
+
     RemplirTableau();
 
     function RemplirTableau() {
-
-      if(localStorage.getItem("Connexion"))
       $.ajax({
         url: "Modele/LabelTache.php",
         method: "POST",
@@ -38,8 +40,6 @@
           $('#TableObjectif').html(data);
         }
       });
-      else 
-        BootstrapAlertError('Je ne trouve pas qui tu es. Connecte toi à nouveau..')
     }
 
     $(document).on('click', '.btn', function () {
