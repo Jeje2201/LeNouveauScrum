@@ -46,6 +46,10 @@ switch($vue)
   require_once("Vues/Personnalisation.html");
   break;
 
+  case 'FicheDeTemps':
+  require_once("Vues/FicheDeTemps.html");
+  break;
+
   case 'MotDePasse':
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
   require_once("Vues/MotDePasseAdmin.html");
@@ -78,6 +82,11 @@ switch($vue)
   case 'GestionLogo':
   if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
   require_once("Vues/Gestion_Logo.html");
+  break;
+
+  case 'GestionFicheDeTemps':
+  if($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+  require_once("Vues/Gestion_FicheDeTemps.html");
   break;
 
   case 'LabelObjectif':
