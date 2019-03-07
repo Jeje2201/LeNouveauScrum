@@ -10,7 +10,10 @@ html {
   display: inline-block;
   position: fixed;
   padding: 4px;
-  border-radius: 3px;
+  border-style: solid;
+  border-width: 1.5px;
+  border-radius: 5px;
+  border-color: #282828;
 }
 
   /* Cache la bar de haut en bas pour la navbar, histoire de pas manger sur la page */
