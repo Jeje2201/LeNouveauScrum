@@ -3,6 +3,16 @@ html {
   min-height: 100%;
 }
 
+/*Div qui permet de follow le screen meme si scroll, appartient au div quand planif avec l'api*/
+.FollowAttribuable{
+  margin-left: 52%;
+  background: white;
+  display: inline-block;
+  position: fixed;
+  padding: 4px;
+  border-radius: 3px;
+}
+
   /* Cache la bar de haut en bas pour la navbar, histoire de pas manger sur la page */
   #exampleAccordion::-webkit-scrollbar {
     width: 0px; 

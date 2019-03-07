@@ -300,6 +300,27 @@
       }
     }
 
+
+    if ($_POST["action"] == "NbHeureRestantePlanifiable") {
+      $output = array();
+      $idSprint = $_POST["Sprint"];
+      $idRessource = $_POST["Employe"];
+      $statement = $connection->prepare(
+        "SELECT
+        S.attribuable - IFNULL( sum(A.heure),0) as Attribuable
+        FROM attribution A
+        INNER JOIN sprint S on S.id = A.id_Sprint
+        where A.id_Sprint = $idSprint
+        and A.id_Employe = $idRessource"
+      );
+      $statement->execute();
+      $result = $statement->fetch();
+
+        $output["Attribuable"] = $result["Attribuable"];
+
+      echo json_encode($output);
+    }
+
   }
 
   ?>

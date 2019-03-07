@@ -145,8 +145,9 @@
                   </button>
                 </div>
             </div>
+            <input type="hidden" name="TotalHeureAttribuable" id="TotalHeureAttribuable" />
         </div>
-        <div style="margin-top: 10px" id="totalheure"></div>
+        <div class="FollowAttribuable" id="totalheure"></div>
         <p></p>
         <hr>
         <p></p>
@@ -256,11 +257,32 @@
       });
     }
 
+    function HeureAttribuable1Ressource(){
+      $.ajax({
+          url: "Modele/Planification.php",
+          method: "POST",
+          data: {
+            action: "NbHeureRestantePlanifiable",
+            Sprint: $('#numeroSprint').val(),
+            Employe: $('#RessourceApi').val().split('|')[0]
+          },
+          dataType: "json",
+          success: function (data) {
+            $('#TotalHeureAttribuable').val(data.Attribuable);
+            document.getElementById("totalheure").innerHTML = "Heures planifiables : " + data.Attribuable + "h"            
+          }
+        });
+    }
+
     $('#numeroSprint').change(function () {
       RemplirTableau('TableListHeuresAttribuees');
       RemplirTableauRessources('TableListHeuresAttribueesRessources');
       RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
       ListEmployeActifPlanification('ListEmploye', $('#numeroSprint').val())
+    });
+
+    $('#RessourceApi').change(function () {
+      HeureAttribuable1Ressource();
     });
 
     $('#modal_button').click(function () {
@@ -283,6 +305,7 @@
     });
 
     $('#Boutton_Modal_ApiPivotal').click(function () {
+      HeureAttribuable1Ressource();
       document.getElementById("ListeTachesApi").innerHTML = ""
       $('#ModalApi').modal('show');
     });
@@ -470,26 +493,11 @@ $.ajax({
         processData: false,
         success: function (LesTaches) {
 
-          // var ToutFait = true
-
-          // $.each(LesTaches, function () {
-          //   if (!this.complete) {
-          //     ToutFait = false
-          //   }
-          // })
-
-          // if (LesTaches.length != 0 && ToutFait == false) {
           if (LesTaches.length != 0) {
             console.log('   📙 Storie: ' + Storyname)
             htmlDeFin += '<div  style="margin-bottom: 30px;"> <h3>' + Storyname + '</h3>'
 
             $.each(LesTaches, function () {
-
-              // if (this.complete == true) 
-              //   htmlDeFin += ''
-
-              // else {
-                
                 try {
                   var ListeHeures = /\.-(.+)/.exec(this.description)[1];
                   console.log('       📃 Une tache à faire : ' + this.description)
@@ -509,7 +517,6 @@ $.ajax({
                 InputHeure += '</select>'
 
                 htmlDeFin += '<span class=Tache'+this.complete+'>' + InputHeure + ' ' + this.description + '</span></br>'
-              // }
             })
             htmlDeFin += "</div>"
           }
@@ -589,7 +596,7 @@ $('span select').each(function () {
 
 })
 
-document.getElementById("totalheure").innerHTML = "Total heures sélectionnées : " + TotalHeures
+document.getElementById("totalheure").innerHTML = "Heures planifiables : " +  ($('#TotalHeureAttribuable').val() - TotalHeures) + "h"
 
 return cart
 }
