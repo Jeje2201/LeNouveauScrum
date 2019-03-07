@@ -279,8 +279,9 @@
     //Creer des taches de type scrum planing 
     if ($_POST["action"] == "AttributionScrumPlaning") {
       $TableauEmploye = $_POST["idEmploye"];
+      $numero = $_POST["idSprint"];
       $statement = $connection->prepare("INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),NOW())
+   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),(select dateDebut FROM sprint S WHERE S.id = $numero))
    ");
       for ($i = 0; $i < count($TableauEmploye); $i++) {
 
