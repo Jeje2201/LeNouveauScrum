@@ -161,6 +161,39 @@
         print_r($statement->errorInfo());
     }
 
+    if ($_POST["action"] == "DiffFiche") {
+
+      $array = [];
+      //Requete liste pour chart fiche de temps pas a jour
+      $statement = $connection->prepare(
+        $sql = 
+        "SELECT count(C.Done) as Nombre,
+        CONCAT(E.prenom,' ', E.initial) AS User
+        From cir C
+        inner join employe E on C.Fk_User = E.id
+        where Done not like Log
+        group by Fk_User"
+      );
+
+      $statement->execute();
+      $result = $statement->fetchAll();
+
+      $Ressource = [];
+      $NombreDiff = [];
+
+      foreach ($result AS $row) {
+
+        $Ressource[] = $row['User'];
+        $NombreDiff[] = intval($row['Nombre']);
+
+      }
+
+      $array['LaRessourceFeuille'] = $Ressource;
+      $array['LaDiffFeuil'] = $NombreDiff;
+    
+      echo json_encode($array);
+    }
+
   }
 
   ?>

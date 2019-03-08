@@ -8,6 +8,8 @@
 
       <div id="TableauDemo" class="table-responsive table-hover"></div>
 
+      <div id="FicheDeTempsRetard"></div>
+
     </div>
   </body>
 
@@ -139,6 +141,70 @@
           })
       });
     });
+
+    $.ajax({
+        url: "Modele/FicheDeTemps.php",
+        method: "POST",
+        data: {
+          action: "DiffFiche"
+        },
+        success: function (data) {
+
+          if (IsJsonString(data))
+            data = JSON.parse(data);
+            
+            console.log('dam: ',data)
+
+            Highcharts.chart('FicheDeTempsRetard', {
+              chart: {
+                type: 'column'
+              },
+              title: {
+                text: 'Fiches de temps descendues en retard'
+              },
+              xAxis: {
+                type: 'category',
+                categories: data['LaRessourceFeuille'],
+                labels: {
+                  rotation: -45,
+                  style: {
+                    fontSize: '15px',
+                    fontFamily: 'Verdana, sans-serif'
+                  }
+                }
+              },
+              yAxis: {
+                min: 0,
+                title: {
+                  text: 'Heures'
+                }
+              },
+              tooltip: {
+                shared: true,
+              },
+              plotOptions: {
+                column: {
+                  stacking: 'normal',
+                  grouping: false,
+                  shadow: true,
+                  borderWidth: 1
+                },
+                dataLabels: {
+                  enabled: true,
+                  format: ''
+                }
+              },
+              series: [
+                {
+                name: 'Heures attribuées',
+                data: data['LaDiffFeuil'],
+                stack: 0,
+                pointPadding: 0.3,
+                }
+              ]
+            });
+        }
+      });
 
     $('#Done, #Log').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
   </script>
