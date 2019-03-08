@@ -61,25 +61,44 @@
 
     //Create une fiche de temps
     if ($_POST["action"] == "Create") {
-      $statement = $connection->prepare("
-   INSERT INTO Cir (Fk_User, Fk_Project, Time, Done, Log) 
-   VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)
-   ");
 
-      $result = $statement->execute(
-        array(
-          ':Fk_User' => $_POST["Ressource"],
-          ':Fk_Project' => $_POST["Projet"],
-          ':Time' => $_POST["Time"],
-          ':Done' => $_POST["Done"],
-          ':Log' => $_POST["Log"]
-        )
-      );
-      if (!empty($result))
-        echo '✓';
-      else
-        print_r($statement->errorInfo());
-    }
+      $Ressource = $_POST["Ressource"];
+      $Date = $_POST["Done"];
+      $Time = $_POST["Time"];
+
+      $statement = $connection->prepare(
+        "SELECT
+        IFNULL(sum(Time)+$Time,0) as Depasse
+        from CIR
+        where Fk_User = $Ressource
+        and Done = '$Date'");
+
+      $statement->execute();
+      $result = $statement->fetch();
+
+      If($result["Depasse"] <= 1){
+
+        $statement = $connection->prepare("
+        INSERT INTO Cir (Fk_User, Fk_Project, Time, Done, Log) 
+        VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
+
+        $result = $statement->execute(
+          array(
+            ':Fk_User' => $_POST["Ressource"],
+            ':Fk_Project' => $_POST["Projet"],
+            ':Time' => $_POST["Time"],
+            ':Done' => $_POST["Done"],
+            ':Log' => $_POST["Log"]
+          )
+        );
+        if (!empty($result))
+          echo '✓';
+        else
+          print_r($statement->errorInfo());
+      }
+      else echo 'Dépasse de ' , $result["Depasse"] - 1;
+    };
+
 
     //Select une fiche de temps
     if ($_POST["action"] == "Select") {

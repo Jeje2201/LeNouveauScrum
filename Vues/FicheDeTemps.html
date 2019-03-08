@@ -11,8 +11,8 @@
         </div>
 
         <div class="form-group">
-          <label>Jours de travail ( 0 ou 0,5 ou 1 )</label>
-          <input type="number" class="form-control" id="Time" value="0" step="0.5" max="1" min="0">
+          <label>Jours de travail (de 0,25 à 1 par step de 0,25)</label>
+          <input type="number" class="form-control" id="Time" value="0.25" step="0.25" max="1" min="0">
         </div>
 
         <div class="form-group">
@@ -41,7 +41,7 @@
 
         $('#SetFicheDeTemps').click(function () {
           
-            if($('#Time').val() == 0 || $('#Time').val() == 0.5 || $('#Time').val() == 1)
+            if($('#Time').val() >= 0.25 && $('#Time').val() <= 1)
               $.ajax({
                 url: "Modele/FicheDeTemps.php",
                 method: "POST",
@@ -58,7 +58,7 @@
                 }
               });
           else
-            BootstrapAlertError('Il est pourtant bien indiqué que le nombre d\'heure est soit 0 soit 0,5 soit 1')
+            BootstrapAlertError('Il est pourtant bien indiqué que le nombre d\'heure est soit 0,25 soit 0,5 soit 0,75 soit 1')
       });
     });
     
