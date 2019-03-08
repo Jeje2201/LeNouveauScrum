@@ -23,31 +23,28 @@
       </div>
       <div class="modal-body">
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Ressource</span>
-          </div>
+        <div class="form-group">
+          <label>Ressource</label>
           <div id="ListEmploye"></div>
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Projet</span>
-          </div>
-          <div id="ListProjet"> </div>
+        <div class="form-group">
+          <label>Projet</label>
+          <div id="ListProjet"></div>
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Nombre d'heures</span>
-          </div>
+        <div class="form-group">
+          <label>Nombre heures</label>
           <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
         </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Date</span>
-          </div>
+        <div class="form-group">
+          <label>Label</label>
+          <input class="form-control" name="LabelTache" id="LabelTache" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Date</label>
           <input type="text" name="Done" id='Done' class="form-control" />
         </div>
 
@@ -55,7 +52,7 @@
 
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <input type="submit" name="action" id="action" class="btn btn-success" value="Mettre à jours" /> 
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -101,7 +98,8 @@
             idEmploye: $('#employeId').val(),
             idProjet: $('#projetId').val(), 
             NombreHeure: $('#nbheure').val(),
-            action: $('#action').val()
+            Label: $('#LabelTache').val(),
+            action: "Update"
           },
           success: function (data) {
             BootstrapAlertDefaut(data);
@@ -126,12 +124,12 @@
         success: function (data) {
           $('#ModalGestionHeuresDescendues').modal('show');
           $('.modal-title').text("Metre à jour les heures descendues");
-          $('#action').val("Update");
           $('#id').val(id);
           $('#idSprint').val(data.id_Sprint);
           $('#employeId').val(data.id_Employe);
           $('#projetId').val(data.id_Projet);
           $('#nbheure').val(data.heure);
+          $('#LabelTache').val(data.Label);
           $('#Done').val(data.Done);
 
           SetSelect2('#employeId, #projetId');

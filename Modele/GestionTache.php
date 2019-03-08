@@ -82,6 +82,7 @@
         else
           $output["Done"] = date("d-m-Y", strtotime($result["Done"]));
 
+        $output["Label"] = $result["Label"];
         $output["id_Employe"] = $result["id_Employe"];
         $output["id_Projet"] = $result["id_Projet"];
 
@@ -96,14 +97,14 @@
 
       $statement = $connection->prepare(
         "UPDATE attribution
-          SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, Done = :Done, id_Employe = :id_Employe 
-          WHERE id = :id
-          "
+          SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, Done = :Done, Label = :Label, id_Employe = :id_Employe 
+          WHERE id = :id"
       );
       $result = $statement->execute(
         array(
           ':heure' => $_POST["NombreHeure"],
           ':Done' => $_POST["Done"],
+          ':Label' => $_POST["Label"],
           ':id_Sprint' => $_POST["idSprint"],
           ':id_Projet' => $_POST["idProjet"],
           ':id_Employe' => $_POST["idEmploye"],
