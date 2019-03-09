@@ -16,11 +16,11 @@ Simple page to log into the web app.
 
 ## Dashboard
 Dashboard that show you all infos with graphs in one page. The burndownchart, the total hours allocated & done for all, the total hours done per day per resource, the total hours allocated & dones per resources and per project, a pie chart about the states of the objectives.
-<img src="https://i.imgur.com/LX8pJXu.png"/> 
+![Dashboard](https://user-images.githubusercontent.com/19387127/54074891-8f690f00-4298-11e9-8384-641efb4fb5ad.gif)
 
 ## Sprint
 Where you can create new sprints, edit and delete them.
-<img src="https://i.imgur.com/ZLlIUUV.png"/> 
+![Sprint](https://user-images.githubusercontent.com/19387127/54072490-b5cc8180-427b-11e9-96ad-9f1aec2e8930.gif)
 
 ## Planification
 Where you can allocate hours for your resources per project per sprint, objectives per resource per project per sprint and demo per resource per project .
