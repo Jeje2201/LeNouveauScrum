@@ -1,4 +1,4 @@
-# ScrumManager 📃📌 
+<h1> ScrumManager 📃📌</h1> 
 
 Web application designed for NaturalSolutions. Used to manage the Scrum of the company. 
 
@@ -6,7 +6,7 @@ Web application designed for NaturalSolutions. Used to manage the Scrum of the c
  
 <h5>Scrum is a simple set of roles, responsibilities, and meetings that never change. By removing unnecessary unpredictability, we’re better able to cope with the necessary unpredictability of continuous discovery and learning.</h5>
 
-## Overview
+<h2> Overview </h2>
 
 A quick overview of the different interfaces offered by the web app ScrumManager
 
