@@ -12,7 +12,6 @@
 A quick overview of the different interfaces offered by the web app ScrumManager
 
 <h2>Login </h2>
-<hr>
 <p>Simple page to log into the web app. </p>
 <img src="https://i.imgur.com/qvCh774.jpg"/> 
 
