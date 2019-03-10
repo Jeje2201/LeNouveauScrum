@@ -9,7 +9,7 @@
 <h2> Overview </h2>
 <hr>
 
-A quick overview of the different interfaces offered by the web app ScrumManager
+<p>A quick overview of the different interfaces offered by the web app ScrumManager</p>
 
 <h2>Login </h2>
 <p>Simple page to log into the web app. </p>
