@@ -275,7 +275,6 @@
           dataType: "json",
           success: function (data) {
             $('#TotalHeureAttribuable').val(data.Attribuable);
-            console.log("$('#TotalHeureAttribuable').val()" + $('#TotalHeureAttribuable').val())
             document.getElementById("totalheure").innerHTML = "Heures planifiables : " + data.Attribuable + "h"            
           }
         });
@@ -355,6 +354,7 @@
               RemplirTableau('TableListHeuresAttribuees');
               RemplirTableauRessources('TableListHeuresAttribueesRessources');
               RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+              HeureAttribuable1Ressource()
             }
           });
 
@@ -366,13 +366,6 @@
     //Créer des heures spéciales scrum planing
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
-      console.log($('#TOUTLEMONDE').val())
-
-      // var idEmploye = new Array;
-      // $('.checkbox:checked').each(function () {
-      //   idEmploye.push($(this).val());
-      // });
-      
       if ($('#TOUTLEMONDE').length > 0) {
         $.ajax({
           url: "Modele/Planification.php",
@@ -566,7 +559,7 @@ $.ajax({
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets');
             BootstrapAlertDefaut(data);
             document.getElementById("ListeTachesApi").innerHTML = ""
-            document.getElementById("totalheure").innerHTML = "Heures planifiables : " + $('#TotalHeureAttribuable').val() + "h"
+            HeureAttribuable1Ressource();
             $('#EnvoyerApiPivotal').hide()
           }
         });
@@ -607,8 +600,6 @@ $('span select').each(function () {
   }
 
 })
-console.log("$('#TotalHeureAttribuable').val()" , $('#TotalHeureAttribuable').val())
-console.log("TotalHeures" + TotalHeures)
 document.getElementById("totalheure").innerHTML = "Heures planifiables : " +  ($('#TotalHeureAttribuable').val() - TotalHeures) + "h"
 
 return cart

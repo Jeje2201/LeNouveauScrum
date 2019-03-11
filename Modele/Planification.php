@@ -307,7 +307,8 @@
       $idRessource = $_POST["Employe"];
       $statement = $connection->prepare(
         "SELECT
-        S.attribuable - IFNULL( sum(A.heure),0) as Attribuable
+        S.attribuable - sum(A.heure) as Attribuable,
+        S.attribuable as AttribuablePD
         FROM attribution A
         INNER JOIN sprint S on S.id = A.id_Sprint
         where A.id_Sprint = $idSprint
@@ -316,7 +317,10 @@
       $statement->execute();
       $result = $statement->fetch();
 
-        $output["Attribuable"] = $result["Attribuable"];
+        if($result["Attribuable"] == null)
+          $output["Attribuable"] = intval($result["AttribuablePD"]);
+        else
+          $output["Attribuable"] = intval($result["Attribuable"]);
 
       echo json_encode($output);
     }
