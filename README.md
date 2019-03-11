@@ -11,7 +11,7 @@
 <h2>Login</h2>
 <hr>
 <p>Simple page to log into the web app. </p>
-<img style="width: 100%;" src="https://i.imgur.com/qvCh774.jpg"/> 
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/54074816-8a579000-4297-11e9-9e54-9e576dae2945.gif"/> 
 
 <h2>Dashboard</h2>
 <hr>
