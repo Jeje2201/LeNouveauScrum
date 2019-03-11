@@ -41,11 +41,6 @@ html {
   vertical-align: middle;
 }
 
-  /* afficher la main sur la liste de toutes les ressources dans attribuer heure scrum planing pour aider a pas se rater */
-  #ListEmployeCheckBox1:hover{
-cursor: pointer;
-  }
-
   /* Eviter que les tables sorte de la page */
   #TableListHeuresAttribuees, #TableauInterferanceHtml, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
     height: 85%;

@@ -170,13 +170,8 @@
       </div>
       <div class="modal-body">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Liste des ressources
-          </button>
-          <div class="dropdown-menu" style="padding-right: 10px; height: 300px; overflow-y: scroll;" id="ListEmployeCheckBox"
-            aria-labelledby="dropdownMenuButton">
-          </div>
+          <label>Ressources</label>
+          <div id="ListEmployeCheckBox"></div><input type="checkbox" id="CheckAll" >Tout le monde
         </div>
 
         <br />
@@ -269,6 +264,7 @@
           dataType: "json",
           success: function (data) {
             $('#TotalHeureAttribuable').val(data.Attribuable);
+            console.log("$('#TotalHeureAttribuable').val()" + $('#TotalHeureAttribuable').val())
             document.getElementById("totalheure").innerHTML = "Heures planifiables : " + data.Attribuable + "h"            
           }
         });
@@ -361,18 +357,20 @@
     //Créer des heures spéciales scrum planing
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
-      var idEmploye = new Array;
-      $('.checkbox:checked').each(function () {
-        idEmploye.push($(this).val());
-      });
+      console.log($('#TOUTLEMONDE').val())
+
+      // var idEmploye = new Array;
+      // $('.checkbox:checked').each(function () {
+      //   idEmploye.push($(this).val());
+      // });
       
-      if (idEmploye.length > 0) {
+      if ($('#TOUTLEMONDE').length > 0) {
         $.ajax({
           url: "Modele/Planification.php",
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
-            idEmploye: idEmploye,
+            idEmploye: $('#TOUTLEMONDE').val(),
             NombreHeure: $('#nbheure2').val(),
             idTypeTache: parseInt($('#RemplirTypeTache1').val()),
             action: "AttributionScrumPlaning"
@@ -428,20 +426,14 @@
         $('#LabelObjectif').val('');
     });
 
-    //select all checkboxes
-    $("#TOUTLEMONDE").change(function () {  //"select all" change 
-      $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
-    });
-
-    //".checkbox" change 
-    $('.checkbox').change(function () {
-      //uncheck "select all", if one of the listed checkbox item is unchecked
-      if (false == $(this).prop("checked")) { //if this item is unchecked
-        $("#TOUTLEMONDE").prop('checked', false); //change "select all" checked status to false
-      }
-      //check "select all" if all checkbox items are checked
-      if ($('.checkbox:checked').length == $('.checkbox').length) {
-        $("#TOUTLEMONDE").prop('checked', true);
+    // Selectionner ou déselectionner tout le monde
+    $("#CheckAll").click(function(){
+      if($("#CheckAll").is(':checked') ){
+          $("#TOUTLEMONDE > option").prop("selected","selected");
+          $("#TOUTLEMONDE").trigger("change");
+      }else{
+          $("#TOUTLEMONDE > option").prop("selected","");
+          $("#TOUTLEMONDE").trigger("change");
       }
     });
 
@@ -563,7 +555,7 @@ $.ajax({
       BootstrapAlertError('Pas de donnéess choisies');
     })
 
-    SetSelect2('#TypeEmployeOk, #projetId, #RessourceApi, #ProjetApi');
+    SetSelect2('#TypeEmployeOk, #projetId, #RessourceApi, #ProjetApi, #TOUTLEMONDE');
   });
 
   function TotalHoursChecked() {
@@ -595,7 +587,8 @@ $('span select').each(function () {
   }
 
 })
-
+console.log("$('#TotalHeureAttribuable').val()" , $('#TotalHeureAttribuable').val())
+console.log("TotalHeures" + TotalHeures)
 document.getElementById("totalheure").innerHTML = "Heures planifiables : " +  ($('#TotalHeureAttribuable').val() - TotalHeures) + "h"
 
 return cart

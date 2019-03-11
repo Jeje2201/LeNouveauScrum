@@ -353,18 +353,15 @@
 
         $statement->execute();
         $result = $statement->fetchAll();
-        $output2 = '<input type="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="TOUTLEMONDE" value="TOUTLEMONDE"> Tout le monde<hr>';
+        $output2 = '<select name="states[]" multiple="multiple" id="TOUTLEMONDE" value="TOUTLEMONDE">';
         if ($statement->rowCount() > 0) {
           foreach ($result AS $row) {
-
-            $output2 .= '<input type="checkbox" class="checkbox" style="margin-left: 9px;" name="ListEmployeCheckBox1" id="ListEmployeCheckBox1" value="' . $row["id"] . '">  ' . $row["prenom"] . ' ' . $row["nom"] . '</br>';
-
+            $output2 .= '<option value="' . $row["id"] . '">  ' . $row["prenom"] . ' ' . $row["nom"] . '</br>';
           }
-
         }
+        $output2 .= '</select>';
 
         echo $output2;
-
         break;
  
  /////////////////////////////////////
