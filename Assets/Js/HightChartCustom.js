@@ -334,7 +334,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
  */
 function fillInformation(infosource) {
 
-    $("#TotalHDescendueAvecSeuil").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0] - infosource['TotalHeuresInterference'][0] );
+    $("#TotADescendre").text( infosource['TotalHeuresAttribuees'][0] - infosource['TotalHeuresDescendues'][0]/* - infosource['TotalHeuresInterference'][0]*/ );
 
     var moyenne = (
       Math.round(
