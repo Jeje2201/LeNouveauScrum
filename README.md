@@ -8,13 +8,15 @@
 <hr>
 <p>A quick overview of the different interfaces offered by the web app ScrumManager</p>
 
-<h2>Login </h2>
+<h2>Login</h2>
+<hr>
 <p>Simple page to log into the web app. </p>
-<img src="https://i.imgur.com/qvCh774.jpg"/> 
+<img style="width: 100%;" src="https://i.imgur.com/qvCh774.jpg"/> 
 
-## Dashboard
-Dashboard that show you all infos with graphs in one page. The burndownchart, the total hours allocated & done for all, the total hours done per day per resource, the total hours allocated & dones per resources and per project, a pie chart about the states of the objectives.
-![Dashboard](https://user-images.githubusercontent.com/19387127/54074891-8f690f00-4298-11e9-8384-641efb4fb5ad.gif)
+<h2>Dashboard</h2>
+<hr>
+<p>Dashboard that show you all infos with graphs in one page. The burndownchart, the total hours allocated & done for all, the total hours done per day per resource, the total hours allocated & dones per resources and per project, a pie chart about the states of the objectives.</p>
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/54074891-8f690f00-4298-11e9-8384-641efb4fb5ad.gif"/> 
 
 ## Sprint
 Where you can create new sprints, edit and delete them.
