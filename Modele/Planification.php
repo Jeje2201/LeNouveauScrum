@@ -308,7 +308,7 @@
       $statement = $connection->prepare(
         "SELECT
         S.attribuable - sum(A.heure) as Attribuable,
-        S.attribuable as AttribuablePD
+        (select sprint.attribuable from sprint where id = $idSprint) as AttribuablePD
         FROM attribution A
         INNER JOIN sprint S on S.id = A.id_Sprint
         where A.id_Sprint = $idSprint
