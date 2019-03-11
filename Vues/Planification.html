@@ -3,20 +3,23 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-12">
           <div id="ListSrint"></div>
         </div>
+      </div>
+      <p></p>
+      <div class="row">
         <div class="col-lg-3">
-          <button type="button" id="modal_button" class="btn btn-block btn-info">
-            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Planification</button>
+          <button type="button" id="Boutton_Modal_ApiPivotal" class="btn btn-block btn-info">Planification</button>
         </div>
         <div class="col-lg-3">
-          <button type="button" id="Boutton_Modal_ApiPivotal" class="btn btn-block btn-info">
-            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Api Planif</button>
+          <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">Scrum planning </button>
         </div>
         <div class="col-lg-3">
-          <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">
-            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Scrum planning </button>
+            <button type="button" id="Modal_Objectif" class="btn btn-block btn-info">Objectif</button>
+        </div>
+        <div class="col-lg-3">
+            <button type="button" id="Modal_Demo" class="btn btn-block btn-info">Démo</button>
         </div>
 
       </div>
@@ -66,22 +69,11 @@
         <hr>
         <p></p>
 
-        <u><h5>Heures tâches</h5></u>
-        <div class="row">
-            <div class="col-lg-9">
-              <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="x+x+x">
-            </div>
-  
-            <div class="col-lg-3">
-              <input type="hidden" name="id" id="id" />
-              <input type="submit" name="action" id="action" class="btn btn-success" />
-            </div>
-        </div>
-      
-        <p></p>
-
-        <u><h5>Objectifs</h5></u>
-        <div class="row">
+        <div class="row" id="PartieObjectif">
+          
+          <div class="row col-lg-12">
+              <h5>&nbsp; Objectifs</h5>
+          </div>
             <div class="col-lg-9">
                 <input class="form-control" name="LabelObjectif" id="LabelObjectif" type="text" placeholder="Label objectif">
             </div>
@@ -92,13 +84,14 @@
         </div>
 
         <p></p>
-
-        <u><h5>Démo</h5></u>
-        <div class="row">
+        
+        <div class="row" id="PartieDemo">
+            <div class="row col-lg-12">
+                <h5>&nbsp; Démo</h5>
+            </div>
             <div class="col-lg-9">
             <input class="form-control" name="LabelDemo" id="LabelDemo" type="text" placeholder="Label objectif">
             </div>
-
 
             <div class="col-lg-3">
                 <input type="submit" value="Créer démo" class="btn btn-success EnvoyerDemo" />
@@ -118,41 +111,57 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <label>Ressource</label>
               <div id="ListEmployePivotal"> </div>
             </div>
   
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <label>Projet</label>
               <div id="ListProjetPivotal"></div>
             </div>
-
-            <div class="col-lg-2">
-                <label>&nbsp;</label>
-                <div>
-                    <button id="ChercherApiPivotal" class="btn btn-info">
-                        Chercher
-                    </button>
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <label>&nbsp;</label>
-                <div>
-                  <button type="submit" id="EnvoyerApiPivotal" class="btn btn-success">
-                      Envoyer
-                  </button>
-                </div>
-            </div>
-            <input type="hidden" name="TotalHeureAttribuable" id="TotalHeureAttribuable" />
         </div>
-        <div class="FollowAttribuable" id="totalheure"></div>
         <p></p>
-        <hr>
+
+        <div class="row">
+            <div class="row col-lg-12">
+                <h5>&nbsp;&nbsp; Planification manuelle</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+              <input class="form-control" name="nbheure" id="nbheure" type="text" placeholder="x+x+x">
+            </div>
+  
+            <div class="col-lg-3">
+              <input type="hidden" name="id" id="id" />
+              <input type="submit" name="action" id="action" class="btn btn-success" value="Attribuer"/>
+            </div>
+        </div>
+
+        <p></p>
+
+        <div class="row">
+            <div class="row col-lg-12">
+                <h5>&nbsp;&nbsp; Pivotal Tracker</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <button id="ChercherApiPivotal" class="btn btn-block btn-info">Chercher</button>
+            </div>
+        </div>
+
+          <input  type="hidden" name="TotalHeureAttribuable" id="TotalHeureAttribuable" />
+       
+        <div class="FollowAttribuable" id="totalheure"></div>
         <p></p>
       
         <div id="ListeTachesApi"></div>
+
+        <div class="col-lg-12">
+          <button type="submit" id="EnvoyerApiPivotal" class="btn btn-block btn-success">Attribuer</button>
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -165,22 +174,24 @@
 <div id="ModalScrumPlaning" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
-        <div class="dropdown">
-          <label>Ressources</label>
-          <div id="ListEmployeCheckBox"></div><input type="checkbox" id="CheckAll" >Tout le monde
+
+        <div class="form-group">
+            <label>Ressources</label>
+            <div id="ListEmployeCheckBox"></div>
+            <input type="checkbox" id="CheckAll" >Tout le monde
+          </div>
+
+        <div class="form-group">
+          <label>Type de tâche</label>
+          <div id="ListTypeTache"></div>
         </div>
 
-        <br />
-        <label>Type de tâche</label>
-        <div id="ListTypeTache"></div>
-        <br />
-        <label>Nombre d'heures</label>
-        <input class="form-control" name="nbheure2" id="nbheure2" type="number" min="1" value="1">
-        <br />
+        <div class="form-group">
+          <label>Nombre d'heures</label>
+          <input class="form-control" name="nbheure2" id="nbheure2" type="number" min="1" value="1">
+        </div>
+
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
@@ -281,18 +292,20 @@
       HeureAttribuable1Ressource();
     });
 
-    $('#modal_button').click(function () {
+    $('#Modal_Objectif').click(function () {
       $('#ModalTache').modal('show');
-      $('#nbheure').get(0).type = 'text';
-      $('#smallinfo').show();
-      $('#nbheure').val('');
-      $('#action').val('Attribuer');
+      $('#PartieObjectif').show()
+      $('#PartieDemo').hide()
+    });
+
+    $('#Modal_Demo').click(function () {
+      $('#ModalTache').modal('show');
+      $('#PartieDemo').show()
+      $('#PartieObjectif').hide()
     });
 
     $('#ButtonScrumPlaning').click(function () {
       $('#ModalScrumPlaning').modal('show');
-      $('.modal-title').text("Attribuer heure Scrum Planning");
-      $('#action').val('Attribuer2');
     });
 
     $('#ButtonObjectif').click(function () {
@@ -304,6 +317,7 @@
       HeureAttribuable1Ressource();
       document.getElementById("ListeTachesApi").innerHTML = ""
       $('#ModalApi').modal('show');
+      $('#EnvoyerApiPivotal').hide()
     });
 
     $('#action').click(function () {
@@ -323,7 +337,6 @@
         var NombreHeure = $('#nbheure').val()
 
       if (erreur == false) {
-        if ($('#numeroSprint').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
 
           $.ajax({
             url: "Modele/Planification.php",
@@ -331,10 +344,10 @@
             data: {
               id: $('#id').val(),
               idSprint: $('#numeroSprint').val(),
-              idEmploye: $('#TypeEmployeOk').val(),
-              idProjet: $('#projetId').val(),
+              idEmploye: $('#RessourceApi').val().split('|')[0],
+              idProjet: $('#ProjetApi').val().split('|')[0],
               NombreHeure: NombreHeure,
-              action: $('#action').val()
+              action: "Attribuer"
             },
             success: function (data) {
               BootstrapAlertDefaut(data);
@@ -346,10 +359,6 @@
           });
 
           $('#nbheure').val('');
-
-        }
-        else
-        BootstrapAlertError("Tous les champs doivent être plein.");
       }
       else BootstrapAlertError("Le champ d'heure comporte une erreur")
     });
@@ -439,6 +448,8 @@
 
     $('#ChercherApiPivotal').click(function () {
 
+      $('#EnvoyerApiPivotal').hide()
+
 var htmlDeFin = ""
 var ListeErreur = ""
 
@@ -516,15 +527,23 @@ $.ajax({
         }
       });
     })
+
+    
+
     //si pas de stories
-    if(htmlDeFin === '')
+    if(htmlDeFin === ''){
       document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons\
         <ul>\
           <li>La ressource n'est pas owner des stories ? </li>\
           <li>L'ID pivotal tracker du projet ou de la ressource n'est pas le bon ?</li>\
         </ul>\
       </label>"
+    }
+    else{
+      $('#EnvoyerApiPivotal').show()
+    }
 
+      
   }
 });
 
@@ -547,12 +566,13 @@ $.ajax({
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets');
             BootstrapAlertDefaut(data);
             document.getElementById("ListeTachesApi").innerHTML = ""
-            document.getElementById("totalheure").innerHTML = ""
+            document.getElementById("totalheure").innerHTML = "Heures planifiables : " + $('#TotalHeureAttribuable').val() + "h"
+            $('#EnvoyerApiPivotal').hide()
           }
         });
       
       else
-      BootstrapAlertError('Pas de donnéess choisies');
+      BootstrapAlertError('Aucune tâche sélectionnée');
     })
 
     SetSelect2('#TypeEmployeOk, #projetId, #RessourceApi, #ProjetApi, #TOUTLEMONDE');
