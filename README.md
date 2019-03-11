@@ -1,5 +1,5 @@
 <h1> ScrumManager 📃📌</h1> 
-<p></p>
+<hr>
 <p>Web application designed for NaturalSolutions. Used to manage the Scrum of the company.</p>
 <h5><i>Reminder how the scrum methodology work:</i> Time is divided into short work cadences, known as sprints, typically one week or two weeks long. The product is kept in a potentially shippable (properly integrated and tested) state at all times. At the end of each sprint, stakeholders and team members meet to see a demonstrated potentially shippable product increment and plan its next steps know as retrospective.</h5>
 <h5>Scrum is a simple set of roles, responsibilities, and meetings that never change. By removing unnecessary unpredictability, we’re better able to cope with the necessary unpredictability of continuous discovery and learning.</h5>
