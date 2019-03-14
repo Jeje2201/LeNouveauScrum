@@ -59,6 +59,54 @@
       echo $output;
     }
 
+
+
+    if ($_POST["action"] == "LoadSelonDate") {
+
+      $LaDate = $_POST["LaDate"];
+
+      $statement = $connection->prepare("SELECT CONCAT(X.prenom,' ', X.initial) as Ressource
+      from Employe X
+      where X.id not in (SELECT
+            E.id as Id
+            FROM Cir C
+            inner join employe E on C.Fk_User = E.id
+            inner join projet P on C.Fk_Project = P.id
+            where Done = '$LaDate'
+            group by C.Done, E.id)");
+
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
+      <tr>
+      <th>Ressource</th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if ($statement->rowCount() > 0) {
+        foreach ($result AS $row) {
+          $output .= '
+        <tr>
+        <td>' . $row["Ressource"] . '</td>
+        </tr>
+        ';
+        }
+      } else {
+        $output .= '
+     <tr>
+     <td align="center" colspan="10">Pas de données</td>
+     </tr>
+     ';
+      }
+      $output .= '</tbody></table>';
+      echo $output;
+    }
+
+
     //Create une fiche de temps
     if ($_POST["action"] == "Create") {
 

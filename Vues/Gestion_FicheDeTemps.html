@@ -6,9 +6,14 @@
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-      <div id="TableauDemo" class="table-responsive table-hover"></div>
+      <div id="TableauDemo" style="max-height: 50%;" class="table-responsive table-hover"></div>
+      
+      </br><h3>Oublie sur une date donnée</h3>
+      <input type="text" name="DateACheck" id='DateACheck' class="form-control" />
+      <div id="RetardPourUneDate" style="max-height: 50%;" class="table-responsive table-hover"></div>
 
-      <div id="FicheDeTempsRetard"></div>
+      </br><h3>Liste total retard</h3>
+      <div id="RetardEnGeneral"></div>
 
     </div>
   </body>
@@ -60,12 +65,17 @@
   <script>
     $(document).ready(function () {
 
+      $('#Done, #Log, #DateACheck').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
+
       RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
       RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
-      ChargerTableau();
+      ChargerTableauEdition();
+      ChargerTableauOnDate();
       BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
-      function ChargerTableau() {
+      $('#DateACheck').val(ChoixDate(0));
+
+      function ChargerTableauEdition() {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
@@ -79,6 +89,27 @@
         });
       }
 
+      function ChargerTableauOnDate() {
+
+        var LaDate = DateFrToEn($('#DateACheck').val())
+
+        if($('#DateACheck').val() == "")
+          LaDate = DateFrToEn(ChoixDate(0))
+
+        $.ajax({
+          url: "Modele/FicheDeTemps.php",
+          method: "POST",
+          data: {
+            action: "LoadSelonDate",
+            LaDate: LaDate
+          },
+          success: function (data) {
+            $('#RetardPourUneDate').html(data);
+          }
+        });
+      }
+
+      //Obtenir les infos de sur quoi on click a modifier
       $(document).on('click', '.Get', function () {
         var id = $(this).attr("id");
         $.ajax({
@@ -104,6 +135,7 @@
         });
       });
 
+      //Modifier les infos
       $(document).on('click', '.Set', function () {      
           $.ajax({
             url: "Modele/FicheDeTemps.php",
@@ -120,11 +152,12 @@
             success: function (data) {
               BootstrapAlertDefaut(data);
               $('#ModaleFicheDeTemps').modal('hide');
-              ChargerTableau();
+              ChargerTableauEdition();
             }
           }); 
       });
 
+      //Supprimer une fiche de temps
       $(document).on('click', '.delete', function () {
         if (confirm("Es-tu sûr de vouloir supprimer cette donnée ?"))
           $.ajax({
@@ -135,76 +168,81 @@
               action: "Delete"
             },
             success: function (data) {
-              ChargerTableau();
+              ChargerTableauEdition();
               BootstrapAlertDefaut(data);
             }
           })
       });
+
+      //Check si la date a check a changé et si oui load a nouveau
+    $('#DateACheck').change(function () {
+      ChargerTableauOnDate()
+    });
     });
 
-    // $.ajax({
-    //     url: "Modele/FicheDeTemps.php",
-    //     method: "POST",
-    //     data: {
-    //       action: "DiffFiche"
-    //     },
-    //     success: function (data) {
+    
 
-    //       if (IsJsonString(data))
-    //         data = JSON.parse(data);
-            
-    //         console.log('dam: ',data)
+    $.ajax({
+        url: "Modele/FicheDeTemps.php",
+        method: "POST",
+        data: {
+          action: "DiffFiche"
+        },
+        success: function (data) {
 
-    //         Highcharts.chart('FicheDeTempsRetard', {
-    //           chart: {
-    //             type: 'column'
-    //           },
-    //           title: {
-    //             text: 'Fiches de temps descendues en retard'
-    //           },
-    //           xAxis: {
-    //             type: 'category',
-    //             categories: data['LaRessourceFeuille'],
-    //             labels: {
-    //               rotation: -45,
-    //               style: {
-    //                 fontSize: '15px',
-    //                 fontFamily: 'Verdana, sans-serif'
-    //               }
-    //             }
-    //           },
-    //           yAxis: {
-    //             min: 0,
-    //             title: {
-    //               text: 'Heures'
-    //             }
-    //           },
-    //           tooltip: {
-    //             shared: true,
-    //           },
-    //           plotOptions: {
-    //             column: {
-    //               stacking: 'normal',
-    //               grouping: false,
-    //               shadow: true,
-    //               borderWidth: 1
-    //             },
-    //             dataLabels: {
-    //               enabled: true,
-    //               format: ''
-    //             }
-    //           },
-    //           series: [
-    //             {
-    //             name: 'Heures attribuées',
-    //             data: data['LaDiffFeuil'],
-    //             stack: 0,
-    //             pointPadding: 0.3,
-    //             }
-    //           ]
-    //         });
-    //     }
-    //   });
+          if (IsJsonString(data))
+            data = JSON.parse(data);
 
-    $('#Done, #Log').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
+            Highcharts.chart('RetardEnGeneral', {
+              chart: {
+                type: 'column'
+              },
+              title: {
+                text: 'Fiches de temps descendues en retard'
+              },
+              xAxis: {
+                type: 'category',
+                categories: data['LaRessourceFeuille'],
+                labels: {
+                  rotation: -45,
+                  style: {
+                    fontSize: '15px',
+                    fontFamily: 'Verdana, sans-serif'
+                  }
+                }
+              },
+              yAxis: {
+                min: 0,
+                title: {
+                  text: 'Heures'
+                }
+              },
+              tooltip: {
+                shared: true,
+              },
+              plotOptions: {
+                column: {
+                  stacking: 'normal',
+                  grouping: false,
+                  shadow: true,
+                  borderWidth: 1
+                },
+                dataLabels: {
+                  enabled: true,
+                  format: ''
+                }
+              },
+              series: [
+                {
+                name: 'Heures attribuées',
+                data: [1],
+                stack: 0,
+                pointPadding: 0.3,
+                }
+              ]
+            });
+        }
+      });
+
+    
   </script>
