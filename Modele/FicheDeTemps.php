@@ -13,7 +13,7 @@
       C.Time,
       C.Done,
       C.Log
-      FROM Cir C
+      FROM cir C
       inner join employe E on C.Fk_User = E.id
       inner join projet P on C.Fk_Project = P.id
       ORDER BY C.Done DESC");
@@ -69,7 +69,7 @@
       from Employe X
       where X.id not in (SELECT
             E.id as Id
-            FROM Cir C
+            FROM cir C
             inner join employe E on C.Fk_User = E.id
             inner join projet P on C.Fk_Project = P.id
             where Done = '$LaDate'
@@ -117,7 +117,7 @@
       $statement = $connection->prepare(
         "SELECT
         IFNULL(sum(Time)+$Time,0) as Depasse
-        from CIR
+        from cir
         where Fk_User = $Ressource
         and Done = '$Date'");
 
@@ -127,7 +127,7 @@
       If($result["Depasse"] <= 1){
 
         $statement = $connection->prepare("
-        INSERT INTO Cir (Fk_User, Fk_Project, Time, Done, Log) 
+        INSERT INTO cir (Fk_User, Fk_Project, Time, Done, Log) 
         VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
 
         $result = $statement->execute(
