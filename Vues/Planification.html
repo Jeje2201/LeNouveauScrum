@@ -464,7 +464,7 @@ $.ajax({
   processData: false,
   data: 'filter=mywork:' + $('#RessourceApi').val().split('|')[1],
   error: function(XMLHttpRequest, textStatus, errorThrown) {
-    BootstrapAlertError("some error");
+    BootstrapAlertError("Le projet n'a pas d'API Pivotal Tracker enregistré");
   },
   success: function (data) {
 

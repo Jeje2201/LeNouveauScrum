@@ -92,7 +92,6 @@
         ApiPivotal,
         nom
         FROM projet
-        WHERE ApiPivotal IS NOT NULL
         ORDER BY nom asc");
 
         $statement->execute();
