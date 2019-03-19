@@ -2,18 +2,28 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
+      <div class="row">
+        <div class="col-lg-8">
+
       <h3>Gestion des fiches de temps</h3>
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-      <div id="TableauDemo" style="max-height: 50%;" class="table-responsive table-hover"></div>
+      <div id="TableauDemo" style="max-height: 75%;" class="table-responsive table-hover"></div>
       
-      </br><h3>Oublie sur une date donnée</h3>
-      <input type="text" name="DateACheck" id='DateACheck' class="form-control" />
-      <div id="RetardPourUneDate" style="max-height: 50%;" class="table-responsive table-hover"></div>
+    </div>
+    
+    <div class="col-lg-4">
+      <h3>Oublie sur une date</h3>
+      <input type="text" name="DateACheck" id='DateACheck' class="form-control">
 
-      </br><h3>Liste total retard</h3>
-      <div id="RetardEnGeneral"></div>
+      <div id="RetardPourUneDate" style="max-height: 75%;" class="table-responsive table-hover"></div>
+      
+    </div>
+  </div>
+
+      <!-- <h3>Liste total retard</h3>
+      <div id="RetardEnGeneral"></div> -->
 
     </div>
   </body>
