@@ -73,7 +73,8 @@
             inner join employe E on C.Fk_User = E.id
             inner join projet P on C.Fk_Project = P.id
             where Done = '$LaDate'
-            group by C.Done, E.id)");
+            group by C.Done, E.id)
+      and X.actif = 1");
 
       $statement->execute();
       $result = $statement->fetchAll();
@@ -106,6 +107,99 @@
       echo $output;
     }
 
+    if ($_POST["action"] == "LoadHeuresRempli1Jour1Ressource") {
+      $output = array();
+      $statement = $connection->prepare(
+        "SELECT C.Time, C.id, P.Nom as Projet
+        FROM cir C
+        inner join Projet P on C.Fk_Project = P.id 
+        WHERE Fk_User = '" . $_POST["LaRessource"] . "'
+        AND Done = '" . $_POST["Done"] . "'"
+      );
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
+      <tr>
+      <th width="">Projet</th>
+      <th width="">Journée</th>
+      <th width="10%"><center>Supprimer</center></th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if ($statement->rowCount() > 0) {
+        foreach ($result AS $row) {
+          $output .= '
+        <tr>
+        <td>' . $row["Projet"] . '</td>
+        <td>' . $row["Time"] . '</td>
+        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+        </tr>
+        ';
+        }
+      } else {
+        $output .= '
+     <tr>
+     <td align="center" colspan="10">Pas de données</td>
+     </tr>
+     ';
+      }
+      $output .= '</tbody></table>';
+      echo $output;
+    }
+
+
+    if ($_POST["action"] == "TableTotJoursNonPlein") {
+      $output = array();
+      $statement = $connection->prepare(
+        "    select * from 
+        (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
+         (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+         (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+         (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+         (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+         (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+        where selected_date between '2019-03-17' and now()
+        and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
+        and selected_date not in (SELECT distinct C.Done
+        From Cir C
+        where C.Fk_User = '" . $_POST["LaRessource"] . "'
+        group by C.Done, C.Fk_User
+        having sum(C.Time)=1)"
+      );
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
+      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <thead class="thead-light">
+      <tr>
+      <th width="">Date</th>
+      </tr>
+      </thead>
+      <tbody id="myTable">
+      ';
+      if ($statement->rowCount() > 0) {
+        foreach ($result AS $row) {
+          $output .= '
+        <tr>
+        <td>' . $row["selected_date"] . '</td>
+        </tr>
+        ';
+        }
+      } else {
+        $output .= '
+     <tr>
+     <td align="center" colspan="10">Pas de données</td>
+     </tr>
+     ';
+      }
+      $output .= '</tbody></table>';
+      echo $output;
+    }
 
     //Create une fiche de temps
     if ($_POST["action"] == "Create") {

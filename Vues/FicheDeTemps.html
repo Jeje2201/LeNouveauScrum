@@ -3,63 +3,150 @@
     <div class="container-fluid">
 		
         <h3>Fiche De Temps</h3>
-        <p>Vous avez le sentiment qu'avec les fiches de temps vous êtes surveillé et contrôlé ? Voici pour vous <a href="https://www.planzone.fr/blog/raisons-aimer-feuilles-de-temps">3 raisons d'aimer les feuilles de temps</a>.</p>
 
         <div class="form-group">
           <label>Projet</label>
           <div name="ListProjet" id="ListProjet"> </div>
         </div>
-
-        <div class="form-group">
-          <label>Jours de travail (de 0,25 à 1 par step de 0,25)</label>
-          <input type="number" class="form-control" id="Time" value="0.25" step="0.25" max="1" min="0">
-        </div>
-
+        
         <div class="form-group">
           <label>Date</label>
           <input type="text" class="form-control" id="Done">
         </div>
-        
-        <button class="btn btn-primary" id="SetFicheDeTemps">Envoyer</button>
 
+        <div class="form-group">
+            <label>Jour de travail</label>
+            <br>
+            <div class="btn-group" role="group">
+                <button type="button" id="SetFicheDeTemps1" class="btn btn-danger">0.25</button>
+                <button type="button" id="SetFicheDeTemps2" class="btn btn-warning">0.5</button>
+                <button type="button" id="SetFicheDeTemps3" class="btn btn-success">0.75</button>
+                <button type="button" id="SetFicheDeTemps4" class="btn btn-primary">1</button>
+                </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <h3>Total pour la date sélectionnée</h3>
+              <div id="TableTotAujourdhui"></div>
+            </div>
+            <div class="col-lg-6">
+                <h3>Date de feuille de temps non remplis</h3>
+                <div id="TableTotJoursNonPlein"></div>
+              </div>
+          </div>
     </div>
   </div>
 
   <script>
     $(document).ready(function () {
 
-      RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+      //Date d'aujourd'hui
+      $('#Done').val(ChoixDate(0));
+      $('#Done').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
 
+      //Charger liste projets
+      RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+      SetSelect2('#projetId');
+
+      //Charger liste 
+      ChargerListeHeures1Jour1Ressource()
+
+      TableTotJoursNonPlein()
+
+      //Si ne reconnait pas l'utilisateur, le rediriger vers la connexion
       if(!localStorage.getItem("Connexion")){
         $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
         }
 
-      $('#Done').val(ChoixDate(0));
-      $('#Done').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
-
-      SetSelect2('#projetId');
-
-        $('#SetFicheDeTemps').click(function () {
-          
-            if($('#Time').val() >= 0.25 && $('#Time').val() <= 1)
-              $.ajax({
-                url: "Modele/FicheDeTemps.php",
-                method: "POST",
-                data: {
-                  action: "Create",
-                  Ressource: localStorage.getItem("Connexion"),
-                  Projet: $('#projetId').val(),
-                  Time: $('#Time').val(),
-                  Done: DateFrToEn($('#Done').val()),
-                  Log: DateFrToEn(ChoixDate(0))           
-                },
-                success: function (data) {
-                  BootstrapAlertDefaut(data);
-                }
-              });
-          else
-            BootstrapAlertError('Il est pourtant bien indiqué que le nombre d\'heure est soit 0,25 soit 0,5 soit 0,75 soit 1')
+      $('#Done').change(function () {
+        ChargerListeHeures1Jour1Ressource()
       });
+
+      //Add les infos
+      $('#SetFicheDeTemps1, #SetFicheDeTemps2, #SetFicheDeTemps3, #SetFicheDeTemps4').click(function () {
+
+        var NbJours = parseFloat($(this).text())
+
+        console.log(NbJours)
+        
+          if(NbJours >= 0.25 && NbJours <= 1)
+            $.ajax({
+              url: "Modele/FicheDeTemps.php",
+              method: "POST",
+              data: {
+                action: "Create",
+                Ressource: localStorage.getItem("Connexion"),
+                Projet: $('#projetId').val(),
+                Time: NbJours,
+                Done: DateFrToEn($('#Done').val()),
+                Log: DateFrToEn(ChoixDate(0))           
+              },
+              success: function (data) {
+                BootstrapAlertDefaut(data);
+                ChargerListeHeures1Jour1Ressource()
+                TableTotJoursNonPlein()
+              }
+            });
+        else
+          BootstrapAlertError('Il est pourtant bien indiqué que le nombre d\'heure est soit 0,25 soit 0,5 soit 0,75 soit 1')
+      });
+
+      //Charger les infos
+      function ChargerListeHeures1Jour1Ressource() {
+
+        var LaDate = DateFrToEn($('#Done').val())
+
+        if($('#Done').val() == "")
+          LaDate = DateFrToEn(ChoixDate(0))
+
+        $.ajax({
+          url: "Modele/FicheDeTemps.php",
+          method: "POST",
+          data: {
+            action: "LoadHeuresRempli1Jour1Ressource",
+            Done: LaDate,
+            LaRessource: localStorage.getItem("Connexion")
+          },
+          success: function (data) {
+            $('#TableTotAujourdhui').html(data);
+          }
+        });
+      }
+
+      //Supprimer une fiche de temps
+      $(document).on('click', '.delete', function () {
+        if (confirm("Es-tu sûr de vouloir supprimer cette donnée ?"))
+          $.ajax({
+            url: "Modele/FicheDeTemps.php",
+            method: "POST",
+            data: {
+              id: $(this).attr("id"),
+              action: "Delete"
+            },
+            success: function (data) {
+              ChargerListeHeures1Jour1Ressource()
+              TableTotJoursNonPlein()
+              BootstrapAlertDefaut(data);
+            }
+          })
+      });
+
+      //Supprimer une fiche de temps
+      function TableTotJoursNonPlein() {
+          $.ajax({
+            url: "Modele/FicheDeTemps.php",
+            method: "POST",
+            data: {
+              LaRessource: localStorage.getItem("Connexion"),
+              action: "TableTotJoursNonPlein"
+            },
+            success: function (data) {
+              $('#TableTotJoursNonPlein').html(data);
+            }
+          })
+      }
+
+
     });
     
   </script>
