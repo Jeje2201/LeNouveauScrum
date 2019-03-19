@@ -66,7 +66,7 @@
       $LaDate = $_POST["LaDate"];
 
       $statement = $connection->prepare("SELECT CONCAT(X.prenom,' ', X.initial) as Ressource
-      from Employe X
+      from employe X
       where X.id not in (SELECT
             E.id as Id
             FROM cir C
