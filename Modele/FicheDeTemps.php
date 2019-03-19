@@ -74,7 +74,8 @@
             inner join projet P on C.Fk_Project = P.id
             where Done = '$LaDate'
             group by C.Done, E.id)
-      and X.actif = 1");
+      and X.actif = 1
+      order by X.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
