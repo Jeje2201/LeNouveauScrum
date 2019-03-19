@@ -40,16 +40,17 @@
         </div>
 
         <div class="form-group">
-            <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number" placeholder="Id Pivotal Tracker">
-          </div>
-
-        <div class="form-group">
-          <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe" required="required">
+          <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number" placeholder="Id Pivotal Tracker">
         </div>
 
         <div class="form-group">
-          <input class="form-control" name="confirmmdp" id="confirmmdp" type="password" placeholder="Confirmer mot de passe"
+          <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe"
             required="required">
+        </div>
+
+        <div class="form-group">
+          <input class="form-control" name="confirmmdp" id="confirmmdp" type="password"
+            placeholder="Confirmer mot de passe" required="required">
         </div>
 
 
@@ -104,28 +105,29 @@
         var Actif = 0;
       }
 
-      if ($('#Nom').val() == '' || $('#Prenom').val() == '' || $('#TypeEmploye').val() == '' ){
+      if ($('#Nom').val() == '' || $('#Prenom').val() == '' || $('#TypeEmploye').val() == '') {
         BootstrapAlertError('Tous les champs ne sont pas remplis')
         return 1;
       }
 
-      if($('#action').val() != "Update"){
+      if ($('#action').val() != "Update") {
 
-        if(($('#mdp').val()).length < 5 ){
+        if (($('#mdp').val()).length < 5) {
           BootstrapAlertError('Le mot de passe doit faire au minimum 5 caractères')
           return 1;
         }
-        if($('#mdp').val() != $('#confirmmdp').val()){
+        if ($('#mdp').val() != $('#confirmmdp').val()) {
           BootstrapAlertError('Les mot de passes ne sont pas les mêmes')
           return 1;
         }
-        
+
       }
 
-        $.ajax({
-          url: "Modele/GestionEmploye.php",
-          method: "POST",
-          data: { id: $('#id').val(),
+      $.ajax({
+        url: "Modele/GestionEmploye.php",
+        method: "POST",
+        data: {
+          id: $('#id').val(),
           Nom_Employe: $('#Nom').val(),
           mdp: $('#mdp').val(),
           Prenom_Employe: $('#Prenom').val(),
@@ -133,15 +135,16 @@
           Actif: Actif,
           Initial: $('#Initial').val(),
           Type_Employe: $('#TypeEmploye').val(),
-          action: $('#action').val() },
-          
-          success: function (data) {
-            BootstrapAlertDefaut(data);
-            $('#ModalEmploye').modal('hide');
-            RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
-            GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
-          }
-        });
+          action: $('#action').val()
+        },
+
+        success: function (data) {
+          BootstrapAlertDefaut(data);
+          $('#ModalEmploye').modal('hide');
+          RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
+          GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
+        }
+      });
     });
 
     //Recuperer les infos de la personne a update et les pré-ecrire dans les différents champs
@@ -180,7 +183,7 @@
     });
 
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?")) 
+      if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?"))
         $.ajax({
           url: "Modele/GestionEmploye.php",
           method: "POST",

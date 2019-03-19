@@ -6,17 +6,17 @@
           <i class="fa fa-search" aria-hidden="true"></i> Sélection</div>
         <div class="card-body">
 
-            <div class="row">
-                <div class="col-lg-9">
-                    <div id="ListSrint"></div>
-                </div>
-      
-                <div class="col-lg-3">
-                    <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
-                </div>
-
-                <textarea id="textbox" class="hideElement"></textarea>
+          <div class="row">
+            <div class="col-lg-9">
+              <div id="ListSrint"></div>
             </div>
+
+            <div class="col-lg-3">
+              <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
+            </div>
+
+            <textarea id="textbox" class="hideElement"></textarea>
+          </div>
 
         </div>
 
@@ -83,7 +83,7 @@
       </div>
       <div class="modal-footer">
         <input type="submit" name="ActionRemarque" id="ActionRemarque" class="btn btn-success" />
-        <input type="submit" value="Supprimer" class="btn btn-danger SuppressionRemarque">  
+        <input type="submit" value="Supprimer" class="btn btn-danger SuppressionRemarque">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -94,7 +94,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <input type="button" onclick="window.getSelection().selectAllChildren( document.getElementById( 'MailGenerer' ) )" value="Sélectionner" class="btn btn-info"></br></br>
+        <input type="button"
+          onclick="window.getSelection().selectAllChildren( document.getElementById( 'MailGenerer' ) )"
+          value="Sélectionner" class="btn btn-info"></br></br>
         <div id="MailGenerer"></div>
       </div>
     </div>
@@ -304,7 +306,8 @@
         method: "POST",
         data: {
           id: id,
-          action: "SelectRemarque" },
+          action: "SelectRemarque"
+        },
         dataType: "json",
         success: function (data) {
           $('#ModalRemarque').modal('show');
@@ -319,20 +322,20 @@
 
     // Créer ou éditer une remarque
     $('#ActionRemarque').click(function () {
-        $.ajax({
-          url: "Modele/Retrospective.php",
-          method: "POST",
-          data: {
-            Labelretrospective: $('#LabelRemarque').val(),
-            id: $('#id').val(),
-            action: $('#ActionRemarque').val()
-          },
-          success: function (data) {
-            BootstrapAlertDefaut(data);
-            $('#ModalRemarque').modal('hide');
-            RemplirTableau();
-          }
-        });
+      $.ajax({
+        url: "Modele/Retrospective.php",
+        method: "POST",
+        data: {
+          Labelretrospective: $('#LabelRemarque').val(),
+          id: $('#id').val(),
+          action: $('#ActionRemarque').val()
+        },
+        success: function (data) {
+          BootstrapAlertDefaut(data);
+          $('#ModalRemarque').modal('hide');
+          RemplirTableau();
+        }
+      });
     });
 
     // Supprimer une remarque
@@ -343,7 +346,8 @@
           method: "POST",
           data: {
             id: $('#id').val(),
-            action: "Delete" },
+            action: "Delete"
+          },
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
@@ -361,7 +365,8 @@
         method: "POST",
         data: {
           id: $(this).attr("id"),
-          action: "ValiderDemo" },
+          action: "ValiderDemo"
+        },
         success: function (data) {
           BootstrapAlertDefaut(data);
           RemplirTableau();
@@ -371,19 +376,19 @@
 
     // Supprimer une démo
     $(document).on('click', '.SupprimerDemo', function () {
-    if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
-      $.ajax({
-        url: "Modele/Demo.php",
-        method: "POST",
-        data: {
-          id: $(this).attr("id"),
-          action: "SupprimerDemo"
-        },
-        success: function (data) {
-          BootstrapAlertDefaut(data);
-          RemplirTableau();
-        }
-      });
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
+        $.ajax({
+          url: "Modele/Demo.php",
+          method: "POST",
+          data: {
+            id: $(this).attr("id"),
+            action: "SupprimerDemo"
+          },
+          success: function (data) {
+            BootstrapAlertDefaut(data);
+            RemplirTableau();
+          }
+        });
     });
 
     SetSelect2('#projetId, #TypeEmployeOk');

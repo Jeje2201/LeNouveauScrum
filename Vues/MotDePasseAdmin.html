@@ -5,7 +5,7 @@
 			<div class="form-group">
 				<label>Ressource</label>
 				<div id="ListEmploye"></div>
-			  </div>
+			</div>
 			<div class="form-group">
 				<label>Mot de passe</label>
 				<input type="password" class="form-control" id="mdp" minlength="5" required="required">
@@ -26,26 +26,26 @@
 
 				$('#set').click(function () {
 
-							if ($('#mdp').val() != $('#confirmmdp').val()) {
-								BootstrapAlertError('Les mots de passe ne correspondent pas.')
+					if ($('#mdp').val() != $('#confirmmdp').val()) {
+						BootstrapAlertError('Les mots de passe ne correspondent pas.')
+					}
+					else if ($('#mdp').val().length < 5) {
+						BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
+					}
+					else {
+						$.ajax({
+							url: "Modele/Parametre.php",
+							method: "POST",
+							data: {
+								action: "Update",
+								idRessource: $('#employeId').val(),
+								mdp: $('#mdp').val()
+							},
+							success: function (data) {
+								BootstrapAlertDefaut(data);
 							}
-							else if ($('#mdp').val().length < 5) {
-								BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
-							}
-							else {
-								$.ajax({
-									url: "Modele/Parametre.php",
-									method: "POST",
-									data: {
-										action: "Update",
-										idRessource: $('#employeId').val(),
-										mdp: $('#mdp').val()
-									},
-									success: function (data) {
-										BootstrapAlertDefaut(data);
-									}
-								});
-							}
+						});
+					}
 				});
 
 			});

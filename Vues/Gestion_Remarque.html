@@ -96,22 +96,22 @@
 
     $('#action').click(function () {
       if ($('#labelRemarque').val() != '' && DateFrToEn($('#DateDebut').val()) != '') {
-          $.ajax({
-            url: "Modele/GestionRemarque.php",
-            method: "POST",
-            data: {
-              id: $('#id').val(),
-              DateDebut: DateFrToEn($('#DateDebut').val()),
-              DateFin: DateFrToEn($('#DateFin').val()),
-              Label: $('#labelRemarque').val(),
-              action: "UpdateAvecDateFin"
-            },
-            success: function (data) {
-              BootstrapAlertDefaut(data);
-              $('#ModalRemarque').modal('hide');
-              ChargerTableau();
-            }
-          });
+        $.ajax({
+          url: "Modele/GestionRemarque.php",
+          method: "POST",
+          data: {
+            id: $('#id').val(),
+            DateDebut: DateFrToEn($('#DateDebut').val()),
+            DateFin: DateFrToEn($('#DateFin').val()),
+            Label: $('#labelRemarque').val(),
+            action: "UpdateAvecDateFin"
+          },
+          success: function (data) {
+            BootstrapAlertDefaut(data);
+            $('#ModalRemarque').modal('hide');
+            ChargerTableau();
+          }
+        });
       }
       else {
         BootstrapAlertError("Tous les champs doivent être plein.");

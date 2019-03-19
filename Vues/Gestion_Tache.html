@@ -52,7 +52,7 @@
 
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" value="Mettre à jours" /> 
+        <input type="submit" name="action" id="action" class="btn btn-success" value="Mettre à jours" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -92,11 +92,11 @@
           url: "Modele/GestionTache.php",
           method: "POST",
           data: {
-            id: $('#id').val(), 
+            id: $('#id').val(),
             Done: DateFrToEn($('#Done').val()),
             idSprint: $('#numeroSprint').val(),
             idEmploye: $('#employeId').val(),
-            idProjet: $('#projetId').val(), 
+            idProjet: $('#projetId').val(),
             NombreHeure: $('#nbheure').val(),
             Label: $('#LabelTache').val(),
             action: "Update"

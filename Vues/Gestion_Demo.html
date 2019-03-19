@@ -9,130 +9,130 @@
       <div id="TableauDemo" class="table-responsive table-hover"></div>
 
     </div>
-  </body>
+</body>
 
-  <div id="ModalRemarque" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"></h4>
-        </div>
-        <div class="modal-body">
+<div id="ModalRemarque" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
 
-          <div class="form-group">
-            <label>DateEffectue</label>
-            <input type="text" name="DateEffectue" id='DateEffectue' class="form-control"/>
-          </div>
-
-          <div class="form-group">
-            <label>Ressource</label>
-            <div id="ListEmploye"></div>
-          </div>
-
-          <div id="leProjet" class="form-group">
-            <label>Projet</label>
-            <div name="ListProjet" id="ListProjet"></div>
-          </div>
-
-          <div class="form-group">
-              <label>Label démo</label>
-              <input type="text" name="LabelDemo" id="LabelDemo" class="form-control"/>
-            </div>
-
+        <div class="form-group">
+          <label>DateEffectue</label>
+          <input type="text" name="DateEffectue" id='DateEffectue' class="form-control" />
         </div>
 
-        <div class="modal-footer">
-          <input type="hidden" name="id" id="id"/>
-          <input type="submit" name="action" id="action" class="btn btn-success Set"/>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <div class="form-group">
+          <label>Ressource</label>
+          <div id="ListEmploye"></div>
         </div>
+
+        <div id="leProjet" class="form-group">
+          <label>Projet</label>
+          <div name="ListProjet" id="ListProjet"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Label démo</label>
+          <input type="text" name="LabelDemo" id="LabelDemo" class="form-control" />
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" name="action" id="action" class="btn btn-success Set" />
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    $(document).ready(function () {
+<script>
+  $(document).ready(function () {
 
-      RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
-      RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
-      ChargerTableau();
-      BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    ChargerTableau();
+    BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
-      function ChargerTableau() {
-        $.ajax({
-          url: "Modele/GestionDemo.php",
-          method: "POST",
-          data: {
-            action: "Load"
-          },
-          success: function (data) {
-            $('#TableauDemo').html(data);
-            GarderLaRecherche('BarreDeRecherche', 'TableauDemo');
-          }
-        });
-      }
+    function ChargerTableau() {
+      $.ajax({
+        url: "Modele/GestionDemo.php",
+        method: "POST",
+        data: {
+          action: "Load"
+        },
+        success: function (data) {
+          $('#TableauDemo').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauDemo');
+        }
+      });
+    }
 
-      $(document).on('click', '.Get', function () {
-        var id = $(this).attr("id");
+    $(document).on('click', '.Get', function () {
+      var id = $(this).attr("id");
+      $.ajax({
+        url: "Modele/GestionDemo.php",
+        method: "POST",
+        data: {
+          id: $(this).attr("id"),
+          action: "Select"
+        },
+        dataType: "json",
+        success: function (data) {
+          $('#ModalRemarque').modal('show');
+          $('.modal-title').text("Editer remarque");
+          $('#id').val(id);
+          $('#employeId').val(data.Ressource);
+          $('#projetId').val(data.Projet);
+          $('#LabelDemo').val(data.LabelDemo);
+          $('#DateEffectue').val(data.DateEffectue);
+
+          SetSelect2('#employeId, #projetId');
+
+        }
+      });
+    });
+
+    $(document).on('click', '.Set', function () {
+      $.ajax({
+        url: "Modele/GestionDemo.php",
+        method: "POST",
+        data: {
+          id: $('#id').val(),
+          Employe: $('#employeId').val(),
+          Projet: $('#projetId').val(),
+          LabelDemo: $('#LabelDemo').val(),
+          DateEffectue: DateFrToEn($('#DateEffectue').val()),
+          action: "Update"
+        },
+        success: function (data) {
+          BootstrapAlertDefaut(data);
+          $('#ModalRemarque').modal('hide');
+          ChargerTableau();
+        }
+      });
+    });
+
+    $(document).on('click', '.delete', function () {
+      if (confirm("Es-tu sûr de vouloir supprimer cette démo ?"))
         $.ajax({
           url: "Modele/GestionDemo.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),
-            action: "Select"
+            action: "Delete"
           },
-          dataType: "json",
           success: function (data) {
-            $('#ModalRemarque').modal('show');
-            $('.modal-title').text("Editer remarque");
-            $('#id').val(id);
-            $('#employeId').val(data.Ressource);
-            $('#projetId').val(data.Projet);
-            $('#LabelDemo').val(data.LabelDemo);
-            $('#DateEffectue').val(data.DateEffectue);
-
-            SetSelect2('#employeId, #projetId');
-
+            ChargerTableau();
+            BootstrapAlertDefaut(data);
           }
-        });
-      });
-
-      $(document).on('click', '.Set', function () {      
-          $.ajax({
-            url: "Modele/GestionDemo.php",
-            method: "POST",
-            data: {
-              id:$('#id').val(),
-              Employe: $('#employeId').val(),
-              Projet: $('#projetId').val(),
-              LabelDemo: $('#LabelDemo').val(),
-              DateEffectue: DateFrToEn($('#DateEffectue').val()),
-              action: "Update"
-            },
-            success: function (data) {
-              BootstrapAlertDefaut(data);
-              $('#ModalRemarque').modal('hide');
-              ChargerTableau();
-            }
-          }); 
-      });
-
-      $(document).on('click', '.delete', function () {
-        if (confirm("Es-tu sûr de vouloir supprimer cette démo ?"))
-          $.ajax({
-            url: "Modele/GestionDemo.php",
-            method: "POST",
-            data: {
-              id: $(this).attr("id"),
-              action: "Delete"
-            },
-            success: function (data) {
-              ChargerTableau();
-              BootstrapAlertDefaut(data);
-            }
-          })
-      });
+        })
     });
+  });
 
-    $('#DateEffectue').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
-  </script>
+  $('#DateEffectue').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2 });
+</script>

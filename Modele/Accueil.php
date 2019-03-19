@@ -1,16 +1,16 @@
    <?php
 
-  require_once('../Modele/Configs.php');
+    require_once('../Modele/Configs.php');
 
-  if (isset($_POST["action"])) {
+    if (isset($_POST["action"])) {
 
-    if ($_POST["action"] == "GetTotalHeuresDescenduesParEmploye") {
+      if ($_POST["action"] == "GetTotalHeuresDescenduesParEmploye") {
 
-      $NumeroduSprint = $_POST["NumeroduSprint"];
+        $NumeroduSprint = $_POST["NumeroduSprint"];
 
-      //Requete pour obtenir la liste des heures attribués / DESCendues / interferances par ressource (soit le graphe tout en bas)
-      $statement = $connection->prepare(
-        $sql = "SELECT 
+        //Requete pour obtenir la liste des heures attribués / DESCendues / interferances par ressource (soit le graphe tout en bas)
+        $statement = $connection->prepare(
+          $sql = "SELECT 
         E.id AS empid,
         E.prenom AS prenom,
         E.Initial AS Initial,
@@ -44,32 +44,31 @@
         GROUP BY E.id
         ORDER BY nbheuredescendu DESC, heurerestantes asc
       "
-      );
+        );
 
-      $statement->execute();
-      $result = $statement->fetchAll();
+        $statement->execute();
+        $result = $statement->fetchAll();
 
-      $employe = [];
-      $HDescendue = [];
-      $Hattribue = [];
-      $HInterference = [];
+        $employe = [];
+        $HDescendue = [];
+        $Hattribue = [];
+        $HInterference = [];
 
-      foreach ($result AS $row) {
+        foreach ($result as $row) {
 
-        $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
-        $HDescendue[] = intval($row['nbheuredescendu']);
-        $Hattribue[] = intval($row['nbheureadescendre']);
-        $HInterference[] = intval($row['heuresinterference']);
+          $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
+          $HDescendue[] = intval($row['nbheuredescendu']);
+          $Hattribue[] = intval($row['nbheureadescendre']);
+          $HInterference[] = intval($row['heuresinterference']);
+        }
 
-      }
+        $array['NomRessource'] = $employe;
+        $array['RessourceHeuresDescendues'] = $HDescendue;
+        $array['RessourceHeureAttribuees'] = $Hattribue;
+        $array['RessourceHeureInterference'] = $HInterference;
 
-      $array['NomRessource'] = $employe;
-      $array['RessourceHeuresDescendues'] = $HDescendue;
-      $array['RessourceHeureAttribuees'] = $Hattribue;
-      $array['RessourceHeureInterference'] = $HInterference;
-
-      $statement = $connection->prepare(
-        $sql = "SELECT 
+        $statement = $connection->prepare(
+          $sql = "SELECT 
         P.id AS projid,
         P.nom AS pnom,
         sum(A.heure) AS nbheureadescendre,
@@ -100,32 +99,32 @@
         GROUP BY P.id
         ORDER BY nbheuredescendu DESC, heurerestantes DESC
        "
-      );
+        );
 
-      $statement->execute();
-      $result = $statement->fetchAll();
+        $statement->execute();
+        $result = $statement->fetchAll();
 
-      $projet = [];
-      $HDescendueProjet = [];
-      $HattribueProjet = [];
-      $HInterferenceProjet = [];
+        $projet = [];
+        $HDescendueProjet = [];
+        $HattribueProjet = [];
+        $HInterferenceProjet = [];
 
-      foreach ($result AS $row) {
+        foreach ($result as $row) {
 
-        $projet[] = $row['pnom'];
-        $HDescendueProjet[] = intval($row['nbheuredescendu']);
-        $HattribueProjet[] = intval($row['nbheureadescendre']);
-        $HInterferenceProjet[] = intval($row['heuresinterference']);
-      }
+          $projet[] = $row['pnom'];
+          $HDescendueProjet[] = intval($row['nbheuredescendu']);
+          $HattribueProjet[] = intval($row['nbheureadescendre']);
+          $HInterferenceProjet[] = intval($row['heuresinterference']);
+        }
 
-      $array['NomProjet'] = $projet;
-      $array['ProjetHeuresDescendues'] = $HDescendueProjet;
-      $array['ProjetHeuresAttribuees'] = $HattribueProjet;
-      $array['ProjetHeuresInterferences'] = $HInterferenceProjet;
+        $array['NomProjet'] = $projet;
+        $array['ProjetHeuresDescendues'] = $HDescendueProjet;
+        $array['ProjetHeuresAttribuees'] = $HattribueProjet;
+        $array['ProjetHeuresInterferences'] = $HInterferenceProjet;
 
-      //Requete pour la charte des objectifs
-      $statement = $connection->prepare(
-        $sql = "SELECT COUNT(O.id) AS Nombre,
+        //Requete pour la charte des objectifs
+        $statement = $connection->prepare(
+          $sql = "SELECT COUNT(O.id) AS Nombre,
         S.nom AS Statut,
         S.couleur AS Couleur
       FROM objectif O
@@ -135,90 +134,87 @@
       GROUP BY O.id_StatutObjectif
       ORDER BY O.id_StatutObjectif
       "
-      );
+        );
 
-      $statement->execute();
-      $result = $statement->fetchAll();
+        $statement->execute();
+        $result = $statement->fetchAll();
 
-      $Total = [];
+        $Total = [];
 
-      foreach ($result AS $row) {
+        foreach ($result as $row) {
 
-        $MonTest = [];
+          $MonTest = [];
 
-        $MonTest[] = $row['Statut'];
-        $MonTest[] = intval($row['Nombre']);
-        $MonTest[] = $row['Couleur'];
+          $MonTest[] = $row['Statut'];
+          $MonTest[] = intval($row['Nombre']);
+          $MonTest[] = $row['Couleur'];
 
-        $Total[] = $MonTest;
+          $Total[] = $MonTest;
+        }
 
-      }
+        $array['Objectifs'] = $Total;
 
-      $array['Objectifs'] = $Total;
-
-      //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
-      $statement = $connection->prepare(
-        $sql = "SELECT
+        //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
+        $statement = $connection->prepare(
+          $sql = "SELECT
         (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
         (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint AND A.Done IS NOT NULL) AS TotalHeuresDescendues,
         (select sum(heure) FROM interference I WHERE I.id_Sprint = $NumeroduSprint) AS TotalHeuresInterference"
-      );
+        );
 
-      $statement->execute();
-      $result = $statement->fetch();
+        $statement->execute();
+        $result = $statement->fetch();
 
         $TotalHeuresAttribuees[] = intval($result['TotalHeuresAttribuees']);
         $TotalHeuresDescendues[] = intval($result['TotalHeuresDescendues']);
         $TotalHeuresInterference[] = intval($result['TotalHeuresInterference']);
 
-      $array['TotalHeuresAttribuees'] = $TotalHeuresAttribuees;
-      $array['TotalHeuresDescendues'] = $TotalHeuresDescendues;
-      $array['TotalHeuresInterference'] = $TotalHeuresInterference;
+        $array['TotalHeuresAttribuees'] = $TotalHeuresAttribuees;
+        $array['TotalHeuresDescendues'] = $TotalHeuresDescendues;
+        $array['TotalHeuresInterference'] = $TotalHeuresInterference;
 
-      //Combiens d'heures DESCendues par jour pour remplir la charte "Heures DESCendues par jour (toutes ressources comprises)"
-      $statement = $connection->prepare(
-        $sql = "SELECT
+        //Combiens d'heures DESCendues par jour pour remplir la charte "Heures DESCendues par jour (toutes ressources comprises)"
+        $statement = $connection->prepare(
+          $sql = "SELECT
         sum(heure) AS heures, Done
         FROM attribution A
         WHERE A.id_Sprint = $NumeroduSprint
         AND A.Done IS NOT NULL
         GROUP by Done
         ORDER BY Done"
-      );
+        );
 
-      $statement->execute();
-      $result = $statement->fetchAll();
+        $statement->execute();
+        $result = $statement->fetchAll();
 
-      $Descendues = [];
-      $Date = [];
-      $BurndownchartHeures = $array['TotalHeuresAttribuees'][0];
-      $BurndownchartHeuresTable = [];
+        $Descendues = [];
+        $Date = [];
+        $BurndownchartHeures = $array['TotalHeuresAttribuees'][0];
+        $BurndownchartHeuresTable = [];
 
-      foreach ($result AS $row) {
-        $BurndownchartHeures -= intval($row['heures']);
-        $BurndownchartHeuresTable[] = $BurndownchartHeures;
-        $Descendues[] = intval($row['heures']);
-        $Date[] = date("d-m-Y", strtotime($row['Done']));
-      }
+        foreach ($result as $row) {
+          $BurndownchartHeures -= intval($row['heures']);
+          $BurndownchartHeuresTable[] = $BurndownchartHeures;
+          $Descendues[] = intval($row['heures']);
+          $Date[] = date("d-m-Y", strtotime($row['Done']));
+        }
 
-      $array['HeuresDescenduesParJour'] = $Descendues;
-      $array['DateHeuresDescenduesParJour'] = $Date;
-      $array['BurndownchartHeuresTable'] = $BurndownchartHeuresTable;
+        $array['HeuresDescenduesParJour'] = $Descendues;
+        $array['DateHeuresDescenduesParJour'] = $Date;
+        $array['BurndownchartHeuresTable'] = $BurndownchartHeuresTable;
 
-      $statement = $connection->prepare(
-        $sql = "SELECT *
+        $statement = $connection->prepare(
+          $sql = "SELECT *
         FROM sprint S
         WHERE S.id = $NumeroduSprint"
-      );
-      $statement->execute();
-      $result = $statement->fetch();
-      $array['DateFinSprint'] = $result["dateFin"];
-      $array['DateDebutSprint'] = $result["dateDebut"];
+        );
+        $statement->execute();
+        $result = $statement->fetch();
+        $array['DateFinSprint'] = $result["dateFin"];
+        $array['DateDebutSprint'] = $result["dateDebut"];
+      }
 
+      echo json_encode($array);
     }
 
-    echo json_encode($array);
-
-  }
-
-  ?>
+    ?> 

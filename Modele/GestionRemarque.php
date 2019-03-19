@@ -1,11 +1,11 @@
    <?php
 
-  require_once('../Modele/Configs.php');
+    require_once('../Modele/Configs.php');
 
-  if (isset($_POST["action"])) {
+    if (isset($_POST["action"])) {
 
-    if ($_POST["action"] == "Load") {
-      $statement = $connection->prepare("SELECT * FROM retrospective
+      if ($_POST["action"] == "Load") {
+        $statement = $connection->prepare("SELECT * FROM retrospective
       ORDER BY (
         CASE
           WHEN DateFini IS NULL
@@ -13,10 +13,10 @@
             ELSE 0
         END) DESC,
         DateFini DESC, DateCreation DESC ");
-      $statement->execute();
-      $result = $statement->fetchAll();
-      $output = '';
-      $output .= '
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
@@ -28,94 +28,93 @@
       </thead>
       <tbody id="myTable">
       ';
-      if ($statement->rowCount() > 0) {
-        foreach ($result AS $row) {
-          $output .= '
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+            $output .= '
         <tr>
         <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>';
-          if ($row["DateFini"] == null)
-            $output .= '<td></td>';
-          else
-            $output .= '<td>' . date("d/m/Y", strtotime($row["DateFini"])) . '</td>';
-          $output .= '
+            if ($row["DateFini"] == null)
+              $output .= '<td></td>';
+            else
+              $output .= '<td>' . date("d/m/Y", strtotime($row["DateFini"])) . '</td>';
+            $output .= '
         <td>' . $row["Label"] . '</td>
         <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
-        }
-      } else {
-        $output .= '
+          }
+        } else {
+          $output .= '
      <tr>
      <td align="center" colspan="10">Pas de données</td>
      </tr>
      ';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
       }
-      $output .= '</tbody></table>';
-      echo $output;
-    }
 
-    if ($_POST["action"] == "Select") {
-      $output = array();
-      $statement = $connection->prepare(
-        "SELECT * FROM retrospective 
+      if ($_POST["action"] == "Select") {
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT * FROM retrospective 
          WHERE id = '" . $_POST["id"] . "' 
          LIMIT 1"
-      );
-      $statement->execute();
-      $result = $statement->fetch();
+        );
+        $statement->execute();
+        $result = $statement->fetch();
 
-      $output["Debut"] = date("d-m-Y", strtotime($result["DateCreation"]));
-      if ($result["DateFini"] == null)
-        $output["Fin"] = "";
-      else
-        $output["Fin"] = date("d-m-Y", strtotime($result["DateFini"]));
-      $output["Label"] = $result["Label"];
+        $output["Debut"] = date("d-m-Y", strtotime($result["DateCreation"]));
+        if ($result["DateFini"] == null)
+          $output["Fin"] = "";
+        else
+          $output["Fin"] = date("d-m-Y", strtotime($result["DateFini"]));
+        $output["Label"] = $result["Label"];
 
-      echo json_encode($output);
-    }
+        echo json_encode($output);
+      }
 
-    if ($_POST["action"] == "UpdateAvecDateFin") {
+      if ($_POST["action"] == "UpdateAvecDateFin") {
 
-      if($_POST["DateFin"] == "undefined-undefined-")
-        $_POST["DateFin"] = NULL;
+        if ($_POST["DateFin"] == "undefined-undefined-")
+          $_POST["DateFin"] = null;
 
-      $statement = $connection->prepare(
-        "UPDATE retrospective
+        $statement = $connection->prepare(
+          "UPDATE retrospective
         SET Label = :Label, DateCreation = :DateDebut, DateFini = :DateFin 
         WHERE id = :id"
-      );
-      $result = $statement->execute(
-        array(
+        );
+        $result = $statement->execute(
+          array(
 
-          ':DateDebut' => $_POST["DateDebut"],
-          ':Label' => $_POST["Label"],
-          ':DateFin' => $_POST["DateFin"],
-          ':id' => $_POST["id"]
-        )
-      );
-      if (!empty($result))
-        echo '✓';
-      else {
-        print_r($statement->errorInfo());
+            ':DateDebut' => $_POST["DateDebut"],
+            ':Label' => $_POST["Label"],
+            ':DateFin' => $_POST["DateFin"],
+            ':id' => $_POST["id"]
+          )
+        );
+        if (!empty($result))
+          echo '✓';
+        else {
+          print_r($statement->errorInfo());
+        }
+      }
+
+      if ($_POST["action"] == "Delete") {
+        $statement = $connection->prepare(
+          "DELETE FROM retrospective
+         WHERE id = :id"
+        );
+        $result = $statement->execute(
+          array(
+            ':id' => $_POST["id"]
+          )
+        );
+        if (!empty($result))
+          echo '✓';
+        else
+          print_r($statement->errorInfo());
       }
     }
 
-    if ($_POST["action"] == "Delete") {
-      $statement = $connection->prepare(
-        "DELETE FROM retrospective
-         WHERE id = :id"
-      );
-      $result = $statement->execute(
-        array(
-          ':id' => $_POST["id"]
-        )
-      );
-      if (!empty($result))
-        echo '✓';
-      else
-        print_r($statement->errorInfo());
-    }
-
-  }
-
-  ?>
+    ?> 

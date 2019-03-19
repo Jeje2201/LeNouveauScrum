@@ -1,6 +1,5 @@
-node_modules
 Configs.php
 .vscode/
-Assets/Image/Projets
+Assets/Image/Projets/
 *.bat
 TokenPivotal.js

@@ -52,7 +52,7 @@
         $result = $statement->fetchAll();
         $output1 = '';
         if ($statement->rowCount() > 0) {
-          foreach ($result AS $row) {
+          foreach ($result as $row) {
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
         <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">
@@ -93,7 +93,7 @@
         $result = $statement->fetchAll();
         $output2 = '';
         if ($statement->rowCount() > 0) {
-          foreach ($result AS $row) {
+          foreach ($result as $row) {
 
             $output2 .= '
 <div class="card PASTOUCHE">
@@ -107,7 +107,6 @@
       <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';
-
           }
         } else {
           $output2 .= 'Pas de tâche';
@@ -120,7 +119,6 @@
         header('Content-type: application/json');
 
         echo json_encode($Test);
-
       }
 
       //Afficher la liste d'employes qui ont des taches
@@ -144,10 +142,9 @@
         $output2 = '<select class="form-control"  id="numeroEmploye" name="numeroEmploye">
               <option value="ToutLeMonde">Tout le monde</option>';
         if ($statement->rowCount() > 0) {
-          foreach ($result AS $row) {
+          foreach ($result as $row) {
 
             $output2 .= '<option value="' . $row["id_Employe"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
-
           }
 
           $output2 .= '</select>';
@@ -159,7 +156,6 @@
         header('Content-type: application/json');
 
         echo json_encode($Test);
-
       }
 
       //Ressortir la date min et max du sprint
@@ -176,8 +172,8 @@
         $statement->execute();
         $result = $statement->fetch();
 
-          $DateMin[] = date("d-m-Y", strtotime($result["dateDebut"]));
-          $DateMax[] = date("d-m-Y", strtotime($result["dateFin"]));
+        $DateMin[] = date("d-m-Y", strtotime($result["dateDebut"]));
+        $DateMax[] = date("d-m-Y", strtotime($result["dateFin"]));
 
         $array['DateMin'] = $DateMin;
         $array['DateMax'] = $DateMax;
@@ -186,7 +182,6 @@
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
         header('Content-type: application/json');
         echo json_encode($array);
-
       }
 
       //Valider une tache, soit lui donner une date de validation
@@ -212,7 +207,6 @@
         else
           print_r($statement->errorInfo());
       }
-
     }
 
-    ?>
+    ?> 

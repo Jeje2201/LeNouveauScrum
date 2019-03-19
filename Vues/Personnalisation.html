@@ -1,64 +1,64 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
-		
 
-        <h3>Personnalisation</h3>
 
-        <div class="form-group">
-          <label>Couleur (<i>car beaucoup trop demandé</i>)</label>
-          <br>
-          <input type="color" class="" id="CouleurUser">
-        </div>
+      <h3>Personnalisation</h3>
 
-        <div class="form-group">
-          <label>Pseudo</label>
-          <input type="text" class="form-control" id="PseudoUser" maxlength="11">
-        </div>
+      <div class="form-group">
+        <label>Couleur (<i>car beaucoup trop demandé</i>)</label>
+        <br>
+        <input type="color" class="" id="CouleurUser">
+      </div>
 
-        <button class="btn btn-primary" id="SetPerso">Sauvegarder</button>
-<p></p>
-<hr>
-<p></p>
-        <h3>Mot de passe</h3>
-        <div class="form-group">
-          <label>Ancien mot de passe</label>
-          <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
-        </div>
-        <div class="form-group">
-          <label>Mot de passe</label>
-          <input type="password" class="form-control" id="mdp" minlength="5" required="required">
-        </div>
-        <div class="form-group">
-          <label>Confirmez le mot de passe</label>
-          <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
-        </div>
+      <div class="form-group">
+        <label>Pseudo</label>
+        <input type="text" class="form-control" id="PseudoUser" maxlength="11">
+      </div>
 
-        <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
-	  
+      <button class="btn btn-primary" id="SetPerso">Sauvegarder</button>
+      <p></p>
+      <hr>
+      <p></p>
+      <h3>Mot de passe</h3>
+      <div class="form-group">
+        <label>Ancien mot de passe</label>
+        <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" class="form-control" id="mdp" minlength="5" required="required">
+      </div>
+      <div class="form-group">
+        <label>Confirmez le mot de passe</label>
+        <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
+      </div>
+
+      <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
+
     </div>
   </div>
 
   <script>
     $(document).ready(function () {
 
-      if(!localStorage.getItem("Connexion")){
-          $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
+      if (!localStorage.getItem("Connexion")) {
+        $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
+      }
+
+      $.ajax({
+        url: "Modele/Parametre.php",
+        method: "POST",
+        data: {
+          action: "Load",
+          idRessource: localStorage.getItem('Connexion')
+        },
+        success: function (data) {
+          $('#CouleurUser').val(data.split(' ')[4]);
+          $('#PseudoUser').val(data.split(' ')[5]);
+          $("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
         }
-      
-        $.ajax({
-          url: "Modele/Parametre.php",
-          method: "POST",
-          data: {
-            action: "Load",
-            idRessource: localStorage.getItem('Connexion')
-          },
-          success: function (data) {
-            $('#CouleurUser').val(data.split(' ')[4]);
-            $('#PseudoUser').val(data.split(' ')[5]);
-            $("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
-          }
-        });
+      });
 
       $('#SetPerso').click(function () {
         $.ajax({

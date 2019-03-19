@@ -27,7 +27,7 @@
       <div class="modal-body">
 
         <div class="form-group">
-            <label>Nom</label>
+          <label>Nom</label>
           <input class="form-control" name="Nom" id="Nom" type="text">
         </div>
 
@@ -89,7 +89,7 @@
             BootstrapAlertDefaut(data);
             console.log(data);
             $('#ModaleLogo').modal('hide');
-            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php') 
+            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
             GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
           }
         });
@@ -130,8 +130,9 @@
           method: "POST",
           data: {
             id: $(this).attr("id"),
-            path: (($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/')[($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/').length-1]),
-            action: "Delete" },
+            path: (($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/')[($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/').length - 1]),
+            action: "Delete"
+          },
           success: function (data) {
             RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
             BootstrapAlertDefaut(data);
