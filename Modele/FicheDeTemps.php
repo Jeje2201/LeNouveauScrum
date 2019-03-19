@@ -165,7 +165,7 @@
         where selected_date between '2019-03-17' and now()
         and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
         and selected_date not in (SELECT distinct C.Done
-        From Cir C
+        From cir C
         where C.Fk_User = '" . $_POST["LaRessource"] . "'
         group by C.Done, C.Fk_User
         having sum(C.Time)=1)"
