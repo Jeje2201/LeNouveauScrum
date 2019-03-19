@@ -112,7 +112,7 @@
       $statement = $connection->prepare(
         "SELECT C.Time, C.id, P.Nom as Projet
         FROM cir C
-        inner join Projet P on C.Fk_Project = P.id 
+        inner join projet P on C.Fk_Project = P.id 
         WHERE Fk_User = '" . $_POST["LaRessource"] . "'
         AND Done = '" . $_POST["Done"] . "'"
       );
