@@ -186,7 +186,8 @@
         foreach ($result AS $row) {
           $output .= '
         <tr>
-        <td>' . $row["selected_date"] . '</td>
+        
+        <td>' . date("d/m/Y", strtotime($row["selected_date"])) . '</td>
         </tr>
         ';
         }
