@@ -80,11 +80,15 @@
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
+        $TotLol = 0;
+        foreach ($result as $row) {
+          $TotLol +=1;
+        }
         $output .= '
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th>Ressource</th>
+      <th>Ressource ('.$TotLol.')</th>
       </tr>
       </thead>
       <tbody id="myTable">
