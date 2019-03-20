@@ -2,41 +2,51 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <h3>Fiche De Temps</h3>
-
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label>Projet</label>
-            <div name="ListProjet" id="ListProjet"></div>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <b>Remplir feuille de temps</b>
         </div>
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label>Date</label>
-            <input type="text" class="form-control" id="Done">
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label>Jour de travail</label>
-            <br>
-            <div class="btn-group" role="group">
-              <button type="button" id="SetFicheDeTemps1" class="btn btn-danger">0.25</button>
-              <button type="button" id="SetFicheDeTemps2" class="btn btn-warning">0.5</button>
-              <button type="button" id="SetFicheDeTemps3" class="btn btn-success">0.75</button>
-              <button type="button" id="SetFicheDeTemps4" class="btn btn-primary">1</button>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>Projet</label>
+                <div name="ListProjet" id="ListProjet"></div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label>Date début</label>
+                <input type="text" class="form-control" id="Done">
+              </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                  <label>Date Fin</label>
+                  <input type="text" class="form-control" id="DoneFin">
+                </div>
+              </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label>Jour de travail</label>
+                <br>
+                <div class="btn-group" role="group">
+                  <button type="button" id="SetFicheDeTemps1" class="btn btn-danger">0.25</button>
+                  <button type="button" id="SetFicheDeTemps2" class="btn btn-warning">0.5</button>
+                  <button type="button" id="SetFicheDeTemps3" class="btn btn-success">0.75</button>
+                  <button type="button" id="SetFicheDeTemps4" class="btn btn-primary">1</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <br>
       <div class="row">
         <div class="col-lg-6">
-          <h3>Total pour la date sélectionnée</h3>
           <div id="TableTotAujourdhui"></div>
         </div>
         <div class="col-lg-6">
-          <h3>Date de feuille de temps non remplis</h3>
           <div id="TableTotJoursNonPlein"></div>
         </div>
       </div>
@@ -47,8 +57,8 @@
     $(document).ready(function () {
 
       //Date d'aujourd'hui
-      $('#Done').val(ChoixDate(0));
-      $('#Done').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
+      $('#Done, #DoneFin').val(ChoixDate(0));
+      $('#Done, #DoneFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
 
       //Charger liste projets
       RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');

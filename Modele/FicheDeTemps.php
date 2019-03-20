@@ -178,7 +178,7 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="">Date</th>
+      <th width="">Feuilles de temps non remplis</th>
       </tr>
       </thead>
       <tbody id="myTable">
