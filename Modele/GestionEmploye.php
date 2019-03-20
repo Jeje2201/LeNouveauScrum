@@ -82,15 +82,16 @@
         echo $output;
       }
 
+      //Créer une ressource
       if ($_POST["action"] == "Ajouter") {
 
         if ($_POST["ApiPivotal"] == "")
           $_POST["ApiPivotal"] = null;
 
-        $statement = $connection->prepare("
-   INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp, ApiPivotal) 
-   VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp, :ApiPivotal)
-   ");
+        $statement = $connection->prepare(
+          "INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
+          VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
+        ");
 
         $result = $statement->execute(
           array(
@@ -99,10 +100,11 @@
             ':nom' => $_POST["Nom_Employe"],
             ':Couleur' => '#' . random_color(),
             ':actif' => $_POST["Actif"],
+            ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Type_Employe' => $_POST["Type_Employe"],
-            ':mdp' => password_hash($_POST["mdp"], PASSWORD_BCRYPT)
+            ':mdp' => password_hash('123naturalsolutions456', PASSWORD_BCRYPT)
           )
         );
         if (!empty($result))
@@ -126,11 +128,13 @@
         $output["Actif"] = $result["actif"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeEmploye"] = $result["id_TypeEmploye"];
+        $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
         $output["Initial"] = $result["Initial"];
 
         echo json_encode($output);
       }
 
+      //Update employe
       if ($_POST["action"] == "Update") {
 
         if ($_POST["ApiPivotal"] == "")
@@ -138,15 +142,15 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-   SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe
-   WHERE id = :id
-   "
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate
+          WHERE id = :id"
         );
         $result = $statement->execute(
           array(
             ':prenom' => $_POST["Prenom_Employe"],
             ':nom' => $_POST["Nom_Employe"],
             ':actif' => $_POST["Actif"],
+            ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],
             ':Type_Employe' => $_POST["Type_Employe"],
@@ -159,6 +163,7 @@
           print_r($statement->errorInfo());
       }
 
+      //Delete un employe
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
           "DELETE FROM employe WHERE id = :id"
@@ -175,7 +180,6 @@
       }
 
       //fonction utilisée dans la page spécialisé au mdps
-
       if ($_POST["action"] == "Checkpswd") {
 
         //Recuperer le mdp chiffré du user qui essaie de se connecter
@@ -184,6 +188,7 @@
           FROM employe E
           WHERE E.id = " . $_POST["idRessource"]
         );
+
         $statement->execute();
         $result = $statement->fetch();
 

@@ -44,6 +44,10 @@
         </div>
 
         <div class="form-group">
+          <input class="form-control" name="RegisterDate" id="RegisterDate" type="text">
+        </div>
+
+        <!-- <div class="form-group">
           <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe"
             required="required">
         </div>
@@ -51,12 +55,15 @@
         <div class="form-group">
           <input class="form-control" name="confirmmdp" id="confirmmdp" type="password"
             placeholder="Confirmer mot de passe" required="required">
-        </div>
-
+        </div> -->
 
         <div class="form-group">
           <label>Type</label>
           <div id="ListTypeEmploye"></div>
+        </div>
+
+        <div class="form-group">
+          <label id="InfoMdp">Mot de passe par défaut : 123naturalsolutions456</label>
         </div>
 
         <div>
@@ -78,6 +85,9 @@
 
   $(document).ready(function () {
 
+    //Date d'aujourd'hui
+    $('#RegisterDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
+
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
     RequeteAjax('ListTypeEmploye', 'ListeDeroulanteTypeEmploye', 'Modele/RequetesAjax.php');
@@ -85,16 +95,16 @@
     RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
 
     $('#modal_button').click(function () {
+      $('#InfoMdp').show()
       $('#ModalEmploye').modal('show');
       $('.modal-title').text("Ajouter une ressource");
+      $('#RegisterDate').val(ChoixDate(0));
       $('#action').val('Ajouter');
       $('#Prenom').val('');
       $('#ApiPivotal').val('');
       $('#Nom').val('');
       $('#Initial').val('');
       $('#Actif').prop("checked", true);
-      $('#mdp').show();
-      $('#confirmmdp').show();
     });
 
     $('#action').click(function () {
@@ -110,28 +120,15 @@
         return 1;
       }
 
-      if ($('#action').val() != "Update") {
-
-        if (($('#mdp').val()).length < 5) {
-          BootstrapAlertError('Le mot de passe doit faire au minimum 5 caractères')
-          return 1;
-        }
-        if ($('#mdp').val() != $('#confirmmdp').val()) {
-          BootstrapAlertError('Les mot de passes ne sont pas les mêmes')
-          return 1;
-        }
-
-      }
-
       $.ajax({
         url: "Modele/GestionEmploye.php",
         method: "POST",
         data: {
           id: $('#id').val(),
           Nom_Employe: $('#Nom').val(),
-          mdp: $('#mdp').val(),
           Prenom_Employe: $('#Prenom').val(),
           ApiPivotal: $('#ApiPivotal').val(),
+          RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
           Initial: $('#Initial').val(),
           Type_Employe: $('#TypeEmploye').val(),
@@ -150,7 +147,7 @@
     //Recuperer les infos de la personne a update et les pré-ecrire dans les différents champs
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-
+      $('#InfoMdp').hide()
       $.ajax({
         url: "Modele/GestionEmploye.php",
         method: "POST",
@@ -171,6 +168,7 @@
           $('#Prenom').val(data.Prenom);
           $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
+          $('#RegisterDate').val(data.RegisterDate);
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
           $('#mdp').hide();
