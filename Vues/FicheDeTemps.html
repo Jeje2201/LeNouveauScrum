@@ -10,23 +10,23 @@
           <div class="row">
             <div class="col-lg-3">
               <div class="form-group">
-                <label>Projet</label>
+                <label>Projets / Activités</label>
                 <div name="ListProjet" id="ListProjet"></div>
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label>Date début</label>
                 <input type="text" class="form-control" id="Done">
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <div class="form-group">
                   <label>Date Fin</label>
                   <input type="text" class="form-control" id="DoneFin">
                 </div>
               </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <div class="form-group">
                 <label>Jour de travail</label>
                 <br>
@@ -76,16 +76,14 @@
 
       $('#Done').change(function () {
         ChargerListeHeures1Jour1Ressource()
+        $('#DoneFin').val($('#Done').val())
       });
 
       //Add les infos
       $('#SetFicheDeTemps1, #SetFicheDeTemps2, #SetFicheDeTemps3, #SetFicheDeTemps4').click(function () {
 
-        var NbJours = parseFloat($(this).text())
+        console.log(ListeJoursDate($('#Done').val(), $('#DoneFin').val()))
 
-        console.log(NbJours)
-
-        if (NbJours >= 0.25 && NbJours <= 1) 
           $.ajax({
             url: "Modele/FicheDeTemps.php",
             method: "POST",
@@ -93,8 +91,8 @@
               action: "Create",
               Ressource: localStorage.getItem("Connexion"),
               Projet: $('#projetId').val(),
-              Time: NbJours,
-              Done: DateFrToEn($('#Done').val()),
+              Time: parseFloat($(this).text()),
+              Done: ListeJoursDate($('#Done').val(), $('#DoneFin').val()),
               Log: DateFrToEn(ChoixDate(0))
             },
             success: function (data) {
@@ -103,8 +101,6 @@
               TableTotJoursNonPlein()
             }
           });
-        else 
-          BootstrapAlertError('Il est pourtant bien indiqué que le nombre d\'heure est soit 0,25 soit 0,5 soit 0,75 soit 1')
       });
 
       //Charger les infos

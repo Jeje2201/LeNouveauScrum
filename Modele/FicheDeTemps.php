@@ -156,14 +156,14 @@
       if ($_POST["action"] == "TableTotJoursNonPlein") {
         $output = array();
         $statement = $connection->prepare(
-          "    select * from 
+        "SELECT * from 
         (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
          (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
          (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
          (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
          (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
          (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
-        where selected_date between '2019-03-17' and now()
+        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_POST["LaRessource"] . "') and now()
         and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
         and selected_date not in (SELECT distinct C.Done
         From cir C
@@ -207,41 +207,60 @@
       if ($_POST["action"] == "Create") {
 
         $Ressource = $_POST["Ressource"];
-        $Date = $_POST["Done"];
+        $LesDates = $_POST["Done"];
         $Time = $_POST["Time"];
+        $DatesOk = true;
 
-        $statement = $connection->prepare(
-          "SELECT
-        IFNULL(sum(Time)+$Time,0) as Depasse
-        from cir
-        where Fk_User = $Ressource
-        and Done = '$Date'"
-        );
+        //pour chaque date
+        for ($i = 0; $i < sizeof($LesDates); $i++) {
 
-        $statement->execute();
-        $result = $statement->fetch();
-
-        if ($result["Depasse"] <= 1) {
-
-          $statement = $connection->prepare("
-        INSERT INTO cir (Fk_User, Fk_Project, Time, Done, Log) 
-        VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
-
-          $result = $statement->execute(
-            array(
-              ':Fk_User' => $_POST["Ressource"],
-              ':Fk_Project' => $_POST["Projet"],
-              ':Time' => $_POST["Time"],
-              ':Done' => $_POST["Done"],
-              ':Log' => $_POST["Log"]
-            )
+          $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
+          //on check
+          $statement = $connection->prepare(
+            "SELECT
+          IFNULL(sum(Time)+$Time,0) as Depasse
+          from cir
+          where Fk_User = $Ressource
+          and Done = '$LaDate'"
           );
-          if (!empty($result))
-            echo '✓';
-          else
-            print_r($statement->errorInfo());
-        } else echo 'Dépasse de ', $result["Depasse"] - 1;
-      };
+
+          $statement->execute();
+          $result = $statement->fetch();
+
+          //si on dépase
+          if($result["Depasse"] > 1){
+            echo "Total sur la feuille de temps > 1 pour la date : ".$LesDates[$i];
+            $DatesOk = false;
+            break;
+          }
+        }
+
+        if($DatesOk){
+          for ($i = 0; $i < sizeof($LesDates); $i++) {
+
+            $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
+
+            $statement = $connection->prepare("
+            INSERT INTO cir (Fk_User, Fk_Project, Time, Done, Log) 
+            VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
+    
+              $result = $statement->execute(
+                array(
+                  ':Fk_User' => $_POST["Ressource"],
+                  ':Fk_Project' => $_POST["Projet"],
+                  ':Time' => $_POST["Time"],
+                  ':Done' => $LaDate,
+                  ':Log' => $_POST["Log"]
+                )
+              );
+              if (!empty($result))
+                echo '✓';
+              else
+                print_r($statement->errorInfo());
+
+          }
+        }
+      }
 
 
       //Select une fiche de temps
@@ -305,6 +324,7 @@
           print_r($statement->errorInfo());
       }
 
+      //Pas sur de garder
       if ($_POST["action"] == "DiffFiche") {
 
         $array = [];
