@@ -75,6 +75,7 @@
             where Done = '$LaDate'
             group by C.Done, E.id)
       and X.actif = 1
+      and X.RegisterDate <= '$LaDate'
       order by X.prenom");
 
         $statement->execute();
