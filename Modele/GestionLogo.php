@@ -116,6 +116,23 @@
 
       //Supprimer une image
       if ($_POST["action"] == "Delete") {
+
+        $statement = $connection->prepare(
+          "UPDATE projet P
+        SET Id_Logo = (select id from logo where logo.nom like 'Inconnue')
+        WHERE P.Id_Logo = :id
+        "
+        );
+        $result = $statement->execute(
+          array(
+            ':id' => $_POST["id"]
+          )
+        );
+        if (!empty($result))
+          echo '✓';
+        else
+          print_r($statement->errorInfo());
+
         $statement = $connection->prepare(
           "DELETE FROM logo WHERE id = :id"
         );
