@@ -130,7 +130,7 @@
       <thead class="thead-light">
       <tr>
       <th width="">Projet</th>
-      <th width="">Journée</th>
+      <th width="">Journée du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
       <th width="10%"><center>Supprimer</center></th>
       </tr>
       </thead>
