@@ -129,22 +129,22 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Le projet à maintenant la miniature Inconnue.';
         else
           print_r($statement->errorInfo());
 
         $statement = $connection->prepare(
-          "DELETE FROM logo WHERE id = :id"
+          "DELETE FROM logo WHERE id = :id and logo.nom not like 'Inconnue'"
         );
         $result = $statement->execute(
           array(
             ':id' => $_POST["id"]
           )
         );
-        if (!empty($result)) {
+        if (!empty($result) && $_POST["path"] != "Inconnue.png") {
 
           $Path = "../Assets/Image/Projets/" . $_POST["path"];
-
+          echo $_POST["path"];
 
           if (file_exists($Path)) {
             if (unlink($Path)) {
@@ -156,7 +156,7 @@
             echo "Le fichier n'existe pas";
           }
         } else
-          print_r($statement->errorInfo());
+          print_r('Erreur lors de la suppression');
       }
 
       if ($_POST["action"] == "insert") {
