@@ -75,7 +75,7 @@
 <script>
   $(document).ready(function () {
 
-    $('#Done, #Log, #DateACheck').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2 });
+    $('#Done, #Log, #DateACheck').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1 });
 
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');

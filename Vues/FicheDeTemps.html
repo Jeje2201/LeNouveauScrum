@@ -8,36 +8,41 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col">
               <div class="form-group">
                 <label>Projets / Activités</label>
                 <div name="ListProjet" id="ListProjet"></div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col">
               <div class="form-group">
                 <label>Date début</label>
                 <input type="text" class="form-control" id="Done">
               </div>
             </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                  <label>Date Fin</label>
-                  <input type="text" class="form-control" id="DoneFin">
-                </div>
-              </div>
-            <div class="col-lg-3">
+            <div class="col">
               <div class="form-group">
-                <label>Jour de travail</label>
-                <br>
-                <div class="btn-group" role="group">
-                  <button type="button" id="SetFicheDeTemps1" class="btn btn-danger">0.25</button>
-                  <button type="button" id="SetFicheDeTemps2" class="btn btn-warning">0.5</button>
-                  <button type="button" id="SetFicheDeTemps3" class="btn btn-success">0.75</button>
-                  <button type="button" id="SetFicheDeTemps4" class="btn btn-primary">1</button>
-                </div>
+                <label>Date Fin</label>
+                <input type="text" class="form-control" id="DoneFin">
               </div>
             </div>
+            <div class="col">
+                <div class="form-group">
+                  <label>Jour</label>
+                  <select class="form-control" id="TotalHeures">
+                      <option value="0.25">0,25</option>
+                      <option value="0.5">0,5</option>
+                      <option value="0.75">0,75</option>
+                      <option value="1">1</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col">
+                  <div class="form-group">
+                    <label>Valider</label>
+                    <button type="button" id="SetFicheDeTemps" class="btn btn-success btn-block">Envoyer</button>
+                  </div>
+                </div>
           </div>
         </div>
       </div>
@@ -58,7 +63,7 @@
 
       //Date d'aujourd'hui
       $('#Done, #DoneFin').val(ChoixDate(0));
-      $('#Done, #DoneFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2});
+      $('#Done, #DoneFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2 , weekStart: 1,startDate: "2019-03-17",});
 
       //Charger liste projets
       RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
@@ -80,7 +85,7 @@
       });
 
       //Add les infos
-      $('#SetFicheDeTemps1, #SetFicheDeTemps2, #SetFicheDeTemps3, #SetFicheDeTemps4').click(function () {
+      $('#SetFicheDeTemps').click(function () {
 
         console.log(ListeJoursDate($('#Done').val(), $('#DoneFin').val()))
 
@@ -91,7 +96,7 @@
               action: "Create",
               Ressource: localStorage.getItem("Connexion"),
               Projet: $('#projetId').val(),
-              Time: parseFloat($(this).text()),
+              Time: parseFloat($('#TotalHeures').val()),
               Done: ListeJoursDate($('#Done').val(), $('#DoneFin').val()),
               Log: DateFrToEn(ChoixDate(0))
             },

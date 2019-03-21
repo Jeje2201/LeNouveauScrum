@@ -118,11 +118,7 @@
 
     RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
-    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true,
-      minView: 2
-    });
+    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     $('#BouttonInfo').click(function () {
       $('#ModalInfoAttribuable').modal('show');

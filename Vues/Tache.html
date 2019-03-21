@@ -81,11 +81,7 @@
 
   $(document).ready(function () {
 
-    $('#DateAujourdhui').datetimepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true,
-      minView: 2
-    });
+    $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     RemplirListeEmploye();
