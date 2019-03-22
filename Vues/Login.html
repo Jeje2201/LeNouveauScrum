@@ -1,4 +1,4 @@
-<div class="ImageLogin">
+<div id="BackGround" class="ImageLogin">
 </div>
 <div class="PageConnexion">
 
@@ -51,6 +51,7 @@
 </div>
 
 <script>
+  $('#BackGround').css('background-image', 'url(/Assets/Image/'+Math.floor(Math.random() * 7)+'.jpg)')
   $(document).ready(function () {
 
     //Load all employes

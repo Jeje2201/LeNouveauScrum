@@ -89,7 +89,7 @@
       <thead class="thead-light">
       <tr>
       <th>Ressource</th>
-      <th>Planifié (Disponible)</th>
+      <th>Planifié (Dispo)</th>
       </tr>
       </thead>
       <tbody id="myTable">
