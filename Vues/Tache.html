@@ -7,22 +7,17 @@
           <!-- Example Bar Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              Trier Sprint/Ressource
+              Trier par sprint / ressource
             </div>
             <div class="card-body">
               <!-- Selectionner le sprint sur lequel l'on va jouer -->
-
-              <div class="input-group mb-12">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Sprint n°</span>
-                </div>
-
+              <div class="row">
+                <div class="col-lg-4">
                 <div id="ListSrint"></div>
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Ressource</span>
-                </div>
+              </div>
+              <div class="col-lg-7">
                 <div id="ListeEmploye"></div>
-
+              </div>
               </div>
             </div>
           </div>
@@ -35,12 +30,8 @@
               Valider les tâches
             </div>
             <div class="card-body">
-
               <div class="input-group mb-12">
 
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Date</span>
-                </div>
                 <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
 
                 <button type="button" id="Descendre" class="btn btn-info">

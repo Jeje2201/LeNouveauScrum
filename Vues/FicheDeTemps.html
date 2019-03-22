@@ -26,7 +26,7 @@
                 <input type="text" class="form-control" id="DoneFin">
               </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
                 <div class="form-group">
                   <label>Jour</label>
                   <select class="form-control" id="TotalHeures">
@@ -36,7 +36,27 @@
                       <option value="1">1</option>
                     </select>
                 </div>
+              </div> -->
+              <div class="col">
+                <div class="form-group">
+                  <label>Jour</label>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-info active">
+                      <input type="radio" name="options" value="0.25" id="options" autocomplete="off" checked>0,25
+                    </label>
+                    <label class="btn btn-info">
+                      <input type="radio" name="options" value="0.5" id="options" autocomplete="off">0,5
+                    </label>
+                    <label class="btn btn-info">
+                      <input type="radio" name="options" value="0.75" id="options" autocomplete="off">0,75
+                    </label>
+                    <label class="btn btn-info">
+                      <input type="radio" name="options" value="1" id="options" autocomplete="off">1
+                    </label>
+                  </div>
+                </div>
               </div>
+              
               <div class="col">
                   <div class="form-group">
                     <label>Valider</label>
@@ -86,6 +106,8 @@
 
       //Add les infos
       $('#SetFicheDeTemps').click(function () {
+
+        alert($("input[name=options]:checked").val());
 
         console.log(ListeJoursDate($('#Done').val(), $('#DoneFin').val()))
 
