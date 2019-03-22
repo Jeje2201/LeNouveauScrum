@@ -107,8 +107,6 @@
       //Add les infos
       $('#SetFicheDeTemps').click(function () {
 
-        alert($("input[name=options]:checked").val());
-
         console.log(ListeJoursDate($('#Done').val(), $('#DoneFin').val()))
 
           $.ajax({
@@ -118,7 +116,7 @@
               action: "Create",
               Ressource: localStorage.getItem("Connexion"),
               Projet: $('#projetId').val(),
-              Time: parseFloat($('#TotalHeures').val()),
+              Time: $("input[name=options]:checked").val(),
               Done: ListeJoursDate($('#Done').val(), $('#DoneFin').val()),
               Log: DateFrToEn(ChoixDate(0))
             },
