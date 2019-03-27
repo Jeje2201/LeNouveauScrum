@@ -47,16 +47,6 @@
           <input class="form-control" name="RegisterDate" id="RegisterDate" type="text">
         </div>
 
-        <!-- <div class="form-group">
-          <input class="form-control" name="mdp" id="mdp" type="password" placeholder="Mot de passe"
-            required="required">
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" name="confirmmdp" id="confirmmdp" type="password"
-            placeholder="Confirmer mot de passe" required="required">
-        </div> -->
-
         <div class="form-group">
           <label>Type</label>
           <div id="ListTypeEmploye"></div>
@@ -67,8 +57,13 @@
         </div>
 
         <div>
-          <label>Actif</label>
           <input id="Actif" type="checkbox" checked>
+          <label for="Actif">Actif</label>
+        </div>
+
+        <div>
+          <input id="MailCir" type="checkbox" checked>
+          <label for="MailCir">Reçoit un mail si ne remplie pas sa feuille de temps</label>
         </div>
 
       </div>
@@ -105,6 +100,7 @@
       $('#Nom').val('');
       $('#Initial').val('');
       $('#Actif').prop("checked", true);
+      $('#MailCir').prop("checked", true);
     });
 
     $('#action').click(function () {
@@ -113,6 +109,12 @@
         var Actif = 1;
       } else {
         var Actif = 0;
+      }
+
+      if (document.getElementById("MailCir").checked == true) {
+        var MailCir = 1;
+      } else {
+        var MailCir = 0;
       }
 
       if ($('#Nom').val() == '' || $('#Prenom').val() == '' || $('#TypeEmploye').val() == '') {
@@ -130,6 +132,7 @@
           ApiPivotal: $('#ApiPivotal').val(),
           RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
+          MailCir: MailCir,
           Initial: $('#Initial').val(),
           Type_Employe: $('#TypeEmploye').val(),
           action: $('#action').val()
@@ -163,6 +166,11 @@
             $('#Actif').prop('checked', true);
           else
             $('#Actif').prop('checked', false);
+
+          if (data.MailCir == 1)
+            $('#MailCir').prop('checked', true);
+          else
+            $('#MailCir').prop('checked', false);
 
           $('#id').val(id);
           $('#Prenom').val(data.Prenom);

@@ -19,7 +19,8 @@
       E.prenom,
       E.Initial,
       E.nom,
-      Pseudo,
+      E.Pseudo,
+      E.MailCir,
       E.actif,
       (
         select T.nom
@@ -45,6 +46,7 @@
       <th>ID Pivotal</th>
       <th>Couleur</th>
       <th>Actif</th>
+      <th>Mail FdT</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -53,19 +55,24 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr>
-        <td>' . $row["prenom"] . '</td>
-        <td>' . $row["nom"] . '</td>
-        <td>' . $row["Initial"] . '</td>
-        <td>' . $row["Pseudo"] . '</td>
-        <td>' . $row["TypeJob"] . '</td>
-        <td>' . $row["IdPivotal"] . '</td>
-        <td style="background-color:' . $row["Couleur"] . '"></td>';
+              <tr>
+              <td>' . $row["prenom"] . '</td>
+              <td>' . $row["nom"] . '</td>
+              <td>' . $row["Initial"] . '</td>
+              <td>' . $row["Pseudo"] . '</td>
+              <td>' . $row["TypeJob"] . '</td>
+              <td>' . $row["IdPivotal"] . '</td>
+              <td style="background-color:' . $row["Couleur"] . '"></td>';
 
             if ($row["actif"] == 1)
               $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
             else
               $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
+
+            if ($row["MailCir"] == 1)
+            $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
+          else
+            $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -89,8 +96,8 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
-          VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
+          "INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
+          VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
         ");
 
         $result = $statement->execute(
@@ -100,6 +107,7 @@
             ':nom' => $_POST["Nom_Employe"],
             ':Couleur' => '#' . random_color(),
             ':actif' => $_POST["Actif"],
+            ':MailCir' => $_POST["MailCir"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
@@ -126,6 +134,7 @@
         $output["Prenom"] = $result["prenom"];
         $output["Nom"] = $result["nom"];
         $output["Actif"] = $result["actif"];
+        $output["MailCir"] = $result["MailCir"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeEmploye"] = $result["id_TypeEmploye"];
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
@@ -142,7 +151,7 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate
           WHERE id = :id"
         );
         $result = $statement->execute(
@@ -150,6 +159,7 @@
             ':prenom' => $_POST["Prenom_Employe"],
             ':nom' => $_POST["Nom_Employe"],
             ':actif' => $_POST["Actif"],
+            ':MailCir' => $_POST["MailCir"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],
