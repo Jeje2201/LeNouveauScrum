@@ -45,8 +45,8 @@
       <th>Job</th>
       <th>ID Pivotal</th>
       <th>Couleur</th>
-      <th>Actif</th>
-      <th>Mail FdT</th>
+      <th style="text-align: center;">Actif</th>
+      <th style="text-align: center;">Mail</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -65,14 +65,14 @@
               <td style="background-color:' . $row["Couleur"] . '"></td>';
 
             if ($row["actif"] == 1)
-              $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle;">🙋‍</td>';
             else
-              $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle;">😈</td>';
 
             if ($row["MailCir"] == 1)
-            $output .= '<td style="background-color:#31a031; text-align: center; color: white;    vertical-align: middle;">OUI</td>';
-          else
-            $output .= '<td style="background-color:#ca3f3f; text-align: center; color: white;    vertical-align: middle;">NON</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle;">📥</td>';
+            else
+            $output .= '<td style="text-align: center; vertical-align: middle;">🗑</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
