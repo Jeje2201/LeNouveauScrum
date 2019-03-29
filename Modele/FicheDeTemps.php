@@ -68,13 +68,13 @@
         $statement = $connection->prepare("SELECT CONCAT(X.prenom,' ', X.nom) as Ressource
       from employe X
       where X.id not in (SELECT
-            E.id as Id
-            FROM cir C
-            inner join employe E on C.Fk_User = E.id
-            inner join projet P on C.Fk_Project = P.id
-            where Done = '$LaDate'
-            group by C.Done, E.id)
+        C.Fk_User
+        FROM cir C
+        where C.Done = '$LaDate'
+        group by C.Done, C.Fk_User
+        having sum(C.Time) = 1)
       and X.actif = 1
+      and X.MailCir = 1
       and X.RegisterDate <= '$LaDate'
       order by X.prenom");
 
