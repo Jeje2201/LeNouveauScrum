@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
 
           <h3>Gestion des fiches de temps</h3>
 
@@ -13,8 +13,8 @@
 
         </div>
 
-        <div class="col-lg-4">
-          <h3>Oublie sur une date</h3>
+        <div class="col-lg-2">
+          <h3>Oublie</h3>
           <input type="text" name="DateACheck" id='DateACheck' class="form-control" style="margin-bottom: 12px; margin-top: 12px;">
 
           <div id="RetardPourUneDate" style="max-height: 75%;" class="table-responsive table-hover"></div>
@@ -22,8 +22,8 @@
         </div>
       </div>
 
-      <!-- <h3>Liste total retard</h3>
-      <div id="RetardEnGeneral"></div> -->
+      <h3>Liste total retard</h3>
+      <div id="RetardEnGeneral"></div>
 
     </div>
 </body>
@@ -84,6 +84,22 @@
     BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
     $('#DateACheck').val(ChoixDate(0));
+
+
+
+      // $.ajax({
+      //   url: "Modele/FicheDeTemps.php",
+      //   method: "POST",
+      //   data: {
+      //     action: "LetsGo"
+      //   },
+      //   success: function (data) {
+      //     console.log(data);
+      //   }
+      // });
+
+
+
 
     function ChargerTableauEdition() {
       $.ajax({
@@ -190,69 +206,67 @@
     });
   });
 
+  $.ajax({
+    url: "Modele/FicheDeTemps.php",
+    method: "POST",
+    data: {
+      action: "LetsGo"
+    },
+    success: function (data) {
 
+      if (IsJsonString(data))
+        data = JSON.parse(data);
 
-  // $.ajax({
-  //   url: "Modele/FicheDeTemps.php",
-  //   method: "POST",
-  //   data: {
-  //     action: "DiffFiche"
-  //   },
-  //   success: function (data) {
-
-  //     if (IsJsonString(data))
-  //       data = JSON.parse(data);
-
-  //     Highcharts.chart('RetardEnGeneral', {
-  //       chart: {
-  //         type: 'column'
-  //       },
-  //       title: {
-  //         text: 'Fiches de temps descendues en retard'
-  //       },
-  //       xAxis: {
-  //         type: 'category',
-  //         categories: data['LaRessourceFeuille'],
-  //         labels: {
-  //           rotation: -45,
-  //           style: {
-  //             fontSize: '15px',
-  //             fontFamily: 'Verdana, sans-serif'
-  //           }
-  //         }
-  //       },
-  //       yAxis: {
-  //         min: 0,
-  //         title: {
-  //           text: 'Heures'
-  //         }
-  //       },
-  //       tooltip: {
-  //         shared: true,
-  //       },
-  //       plotOptions: {
-  //         column: {
-  //           stacking: 'normal',
-  //           grouping: false,
-  //           shadow: true,
-  //           borderWidth: 1
-  //         },
-  //         dataLabels: {
-  //           enabled: true,
-  //           format: ''
-  //         }
-  //       },
-  //       series: [
-  //         {
-  //           name: 'Heures attribuées',
-  //           data: [1],
-  //           stack: 0,
-  //           pointPadding: 0.3,
-  //         }
-  //       ]
-  //     });
-  //   }
-  // });
+      Highcharts.chart('RetardEnGeneral', {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Nombre de fiches de temps non descendues'
+        },
+        xAxis: {
+          type: 'category',
+          categories: data['NomUser'],
+          labels: {
+            rotation: -45,
+            style: {
+              fontSize: '15px',
+              fontFamily: 'Verdana, sans-serif'
+            }
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Heures'
+          }
+        },
+        tooltip: {
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            grouping: false,
+            shadow: true,
+            borderWidth: 1
+          },
+          dataLabels: {
+            enabled: true,
+            format: ''
+          }
+        },
+        series: [
+          {
+            name: 'Heures attribuées',
+            data:  data['NbDatePerUser'],
+            stack: 0,
+            pointPadding: 0.3,
+          }
+        ]
+      });
+    }
+  });
 
 
 </script>

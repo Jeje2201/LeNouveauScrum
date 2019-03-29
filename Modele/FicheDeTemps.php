@@ -4,7 +4,7 @@
 
     if (isset($_POST["action"])) {
 
-      //Load les fiches de temps
+      //Load les fiches de temps de tout le monde dans la gestion des fiches de temps
       if ($_POST["action"] == "Load") {
         $statement = $connection->prepare("SELECT
       C.id,
@@ -59,8 +59,7 @@
         echo $output;
       }
 
-
-
+      // Pour la liste "Oublie sur une date" dans la gestion des fiches de temps 
       if ($_POST["action"] == "LoadSelonDate") {
 
         $LaDate = $_POST["LaDate"];
@@ -113,6 +112,7 @@
         echo $output;
       }
 
+      // Pour la liste d'heures validé sur une journée selectionné dans la page de fiche de temps
       if ($_POST["action"] == "LoadHeuresRempli1Jour1Ressource") {
         $output = array();
         $statement = $connection->prepare(
@@ -157,7 +157,7 @@
         echo $output;
       }
 
-
+      //Afficher la liste des dates où il manque des fiche de temps non remplies
       if ($_POST["action"] == "TableTotJoursNonPlein") {
         $output = array();
         $statement = $connection->prepare(
@@ -329,37 +329,68 @@
           print_r($statement->errorInfo());
       }
 
-      //Pas sur de garder
-      if ($_POST["action"] == "DiffFiche") {
+      //Liste pour généré la chart des nb de feuilles de temps non remplies par ressource dans gestion
+      if ($_POST["action"] == "LetsGo") {
 
         $array = [];
-        //Requete liste pour chart fiche de temps pas a jour
+
+        //Liste les users qui devraient remplir la feuille de temps
         $statement = $connection->prepare(
-          $sql =
-            "SELECT count(C.Done) as Nombre,
-        CONCAT(E.prenom,' ', E.initial) AS User
-        From cir C
-        inner join employe E on C.Fk_User = E.id
-        where Done not like Log
-        group by Fk_User"
+            "SELECT E.id AS id, CONCAT(E.prenom,' ', E.initial) AS User
+               FROM employe E
+              WHERE E.MailCir = 1 
+                AND E.Actif = 1"
         );
 
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $Ressource = [];
-        $NombreDiff = [];
+        $id = [];
+        $NomUser = [];
 
         foreach ($result as $row) {
-
-          $Ressource[] = $row['User'];
-          $NombreDiff[] = intval($row['Nombre']);
+          $id[] = $row['id'];
+          $NomUser[] = $row['User'];
         }
 
-        $array['LaRessourceFeuille'] = $Ressource;
-        $array['LaDiffFeuil'] = $NombreDiff;
+        $array['ListId'] = $id;
+        $array['NomUser'] = $NomUser;
 
-        echo json_encode($array);
+        $NbDate = [];
+
+        foreach ($array['ListId'] as $UnId) {
+
+        $statement = $connection->prepare(
+          "SELECT * from 
+          (
+              select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
+           (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+           (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+           (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+           (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+           (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4
+          ) as test
+          where selected_date between (
+              SELECT E.RegisterDate from employe E where E.id = $UnId
+          ) and now()
+          and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
+          and selected_date not in (
+              SELECT distinct C.Done
+              From cir C
+              where C.Fk_User = $UnId
+              group by C.Done, C.Fk_User
+              having sum(C.Time)=1
+          )"
+      );
+
+      $statement->execute();
+
+      $NbDate[] = $statement->rowCount();
+    }
+
+      $array['NbDatePerUser'] = $NbDate;
+
+      echo json_encode($array);
       }
     }
 
