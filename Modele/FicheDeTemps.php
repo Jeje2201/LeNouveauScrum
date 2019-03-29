@@ -339,7 +339,8 @@
             "SELECT E.id AS id, CONCAT(E.prenom,' ', E.initial) AS User
                FROM employe E
               WHERE E.MailCir = 1 
-                AND E.Actif = 1"
+                AND E.Actif = 1
+                order by E.prenom"
         );
 
         $statement->execute();

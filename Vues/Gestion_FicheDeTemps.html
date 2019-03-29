@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-10">
 
-          <h3>Gestion des fiches de temps</h3>
+          <h3>Gestion des feuilles de temps</h3>
 
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
@@ -84,22 +84,6 @@
     BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
     $('#DateACheck').val(ChoixDate(0));
-
-
-
-      // $.ajax({
-      //   url: "Modele/FicheDeTemps.php",
-      //   method: "POST",
-      //   data: {
-      //     action: "LetsGo"
-      //   },
-      //   success: function (data) {
-      //     console.log(data);
-      //   }
-      // });
-
-
-
 
     function ChargerTableauEdition() {
       $.ajax({
@@ -222,7 +206,7 @@
           type: 'column'
         },
         title: {
-          text: 'Nombre de fiches de temps non descendues'
+          text: 'Nombre de feuilles de temps non remplies par ressources'
         },
         xAxis: {
           type: 'category',
@@ -238,7 +222,7 @@
         yAxis: {
           min: 0,
           title: {
-            text: 'Heures'
+            text: 'feuilles de temps non remplies'
           }
         },
         tooltip: {
@@ -258,7 +242,7 @@
         },
         series: [
           {
-            name: 'Heures attribuées',
+            name: 'feuilles de temps non remplies',
             data:  data['NbDatePerUser'],
             stack: 0,
             pointPadding: 0.3,
