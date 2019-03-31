@@ -330,7 +330,7 @@
       }
 
       //Liste pour généré la chart des nb de feuilles de temps non remplies par ressource dans gestion
-      if ($_POST["action"] == "LetsGo") {
+      if ($_POST["action"] == "RetardEnGeneral") {
 
         $array = [];
 

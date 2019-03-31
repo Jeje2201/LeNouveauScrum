@@ -65,6 +65,9 @@
           <div id="TableTotJoursNonPlein"></div>
         </div>
       </div>
+
+      <div id="RetardEnGeneral"></div>
+
     </div>
   </div>
 
@@ -172,6 +175,68 @@
           }
         })
       }
+
+      $.ajax({
+    url: "Modele/FicheDeTemps.php",
+    method: "POST",
+    data: {
+      action: "RetardEnGeneral"
+    },
+    success: function (data) {
+
+      if (IsJsonString(data))
+        data = JSON.parse(data);
+
+      Highcharts.chart('RetardEnGeneral', {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Nombre de feuilles de temps non remplies par ressources'
+        },
+        xAxis: {
+          type: 'category',
+          categories: data['NomUser'],
+          labels: {
+            rotation: -45,
+            style: {
+              fontSize: '15px',
+              fontFamily: 'Verdana, sans-serif'
+            }
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'feuilles de temps non remplies'
+          }
+        },
+        tooltip: {
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: 'normal',
+            grouping: false,
+            shadow: true,
+            borderWidth: 1
+          },
+          dataLabels: {
+            enabled: true,
+            format: ''
+          }
+        },
+        series: [
+          {
+            name: 'feuilles de temps non remplies',
+            data:  data['NbDatePerUser'],
+            stack: 0,
+            pointPadding: 0.3,
+          }
+        ]
+      });
+    }
+  });
 
     });
   </script>
