@@ -3,22 +3,24 @@
     <div class="container-fluid">
 
       <div class="mb-3">
-        <div class="form-row">
-          <div class="col-sm-3">
-            <div id="ListSrint"></div>
-          </div>
-          <div class="col-md-3">
-            <button type="button" id="modal_button" class="btn btn-info">
-              <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer une interférence</button>
+        <div class="row">
+            <div class="col-lg-1">
+              <div id="ListSrint"></div>
+            </div>
 
-          </div>
+            <div class="col-lg-9">
+              <input class="form-control" style="margin-top: 0px" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+            </div>
+
+            <div class="col-lg-2">
+              <button type="button" id="modal_button" class="btn btn-block btn-info">
+                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer une interférence
+              </button>
+            </div>
+
         </div>
 
-        <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
-        <div id="TableauInterferanceHtml" class="table-responsive table-hover">
-
-        </div>
+        <div id="TableauInterferanceHtml" class="table-responsive table-hover"></div>
       </div>
     </div>
 </body>
