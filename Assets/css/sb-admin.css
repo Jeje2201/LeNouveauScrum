@@ -23,7 +23,7 @@ html {
 
     /* Si la tache est déjà faite, la mettre en verte quand api pivotal l'affiche*/
   .TacheTrue{
-    color:#0c7d00
+    background-color:#a3e49c;
   }
 
   /* Faire en sorte que les select 2 prenne une taille plus dans la normalité */

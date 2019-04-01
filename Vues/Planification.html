@@ -494,7 +494,7 @@
                 if (LesTaches.length != 0) {
                   console.log('   📙 Storie: ' + Storyname)
                   // htmlDeFin += '<div  style="margin-bottom: 30px;"> <h3>' + Storyname + '</h3>'
-                  htmlDeFin += '<table class="table table-sm thead-dark table-bordered"><tr><th colspan="10">'+ Storyname + '</th></tr>';
+                  htmlDeFin += '<table class="table table-sm thead-dark table-bordered"><tbody class="thead-dark"><tr><th colspan="10">'+ Storyname + '</th></tr>';
 
                   $.each(LesTaches, function () {
                     try {
@@ -506,7 +506,7 @@
                     }
 
                     var RegexGroupeHeure = /([0-9]+)/g
-                    var InputHeure = '<tr><td><select onchange="TotalHoursChecked()"><option value="NON">NON</option>'
+                    var InputHeure = '<tr><td class=Tache' + this.complete + '><select onchange="TotalHoursChecked()"><option value="NON">NON</option>'
 
                     match = RegexGroupeHeure.exec(ListeHeures);
                     while (match != null) {
@@ -515,9 +515,9 @@
                     }
                     InputHeure += '</select>'
 
-                    htmlDeFin += '<span class=Tache' + this.complete + '>' + InputHeure + ' ' + this.description + '</span></td></tr>'
+                    htmlDeFin += InputHeure + ' ' + this.description + '</td></tr>'
                   })
-                  htmlDeFin += "</table>"
+                  htmlDeFin += "</tbody></table>"
                 }
                 document.getElementById("ListeTachesApi").innerHTML = htmlDeFin
               }
