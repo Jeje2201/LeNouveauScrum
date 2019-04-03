@@ -58,10 +58,12 @@
 
         case 'ListeDeroulanteProjet':
 
-          $statement = $connection->prepare("SELECT id AS id,
-        nom AS Nom
-        FROM projet
-        ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT P.id AS id,
+          P.nom AS Nom
+          FROM projet P
+          inner join typeprojet T ON P.id_TypeProjet = T.id
+          where T.nom not like 'CIR'
+          ORDER BY nom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -80,15 +82,43 @@
 
           break;
 
+        /////////////////////////////////////
+
+        case 'ListeDeroulanteProjetAvecCir':
+
+        $statement = $connection->prepare("SELECT P.id AS id,
+        P.nom AS Nom
+        FROM projet P
+        ORDER BY nom asc");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output2 = '<select class="form-control"  id="projetId" name="projetId">';
+
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+
+            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Nom"] . ' </option>';
+          }
+
+          $output2 .= '</select>';
+        }
+
+        echo $output2;
+
+        break;
+
           /////////////////////////////////////
 
         case 'ProjetPivotal':
 
-          $statement = $connection->prepare("SELECT id,
-        ApiPivotal,
-        nom
-        FROM projet
-        ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT P.id,
+          P.ApiPivotal,
+          P.nom
+          FROM projet P
+          inner join typeprojet T ON P.id_TypeProjet = T.id
+          where T.nom not like 'CIR'
+          ORDER BY nom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();

@@ -79,7 +79,7 @@
       $('#Done, #DoneFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2 , weekStart: 1});
 
       //Charger liste projets
-      RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+      RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
       SetSelect2('#projetId');
 
       //Charger liste
