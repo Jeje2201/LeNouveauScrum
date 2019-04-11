@@ -168,7 +168,7 @@
          (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
          (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
          (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
-        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_POST["LaRessource"] . "') and now()
+        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_POST["LaRessource"] . "' and E.MailCir = 1) and now()
         and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
         and selected_date not in (SELECT distinct C.Done
         From cir C
