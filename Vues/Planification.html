@@ -220,6 +220,13 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
 
+    //Lorsque charge la liste, si le projet est pas dans pivotal tracker, disable le chercher
+    if($('#ProjetApi').val().split('|')[1] == "")
+      $('#ChercherApiPivotal').prop('disabled', true);
+    else
+      $('#ChercherApiPivotal').prop('disabled', false);
+
+    //Remplir le tableu avec toutes les tâches de tout le monde
     function RemplirTableau(Div) {
       $.ajax({
         url: "Modele/Planification.php",
@@ -235,6 +242,7 @@
       });
     }
 
+    //Remplir le tableau avec toutes les ressources qui ont des heures planifiés
     function RemplirTableauRessources(Div) {
       $.ajax({
         url: "Modele/Planification.php",
@@ -249,6 +257,7 @@
       });
     }
 
+    //Remplir tableau avec tous les projets, pas de id pivotal
     function RemplirTableauProjets(Div) {
       $.ajax({
         url: "Modele/Planification.php",
@@ -263,6 +272,7 @@
       });
     }
 
+    //Petite infos quand planifie qui indique combiens d'heures encore planifiables
     function HeureAttribuable1Ressource() {
       $.ajax({
         url: "Modele/Planification.php",
@@ -280,6 +290,7 @@
       });
     }
 
+    //Si le numéro de sprint change, tout recharger
     $('#numeroSprint').change(function () {
       RemplirTableau('TableListHeuresAttribuees');
       RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -287,22 +298,34 @@
       ListEmployeActifPlanification('ListEmploye', $('#numeroSprint').val())
     });
 
+    //Si change liste projet, checker si pivotal ou non et donc disable ou non bouton
+    $('#ListProjetPivotal').change(function () {
+      if($('#ProjetApi').val().split('|')[1] == "")
+        $('#ChercherApiPivotal').prop('disabled', true);
+      else
+        $('#ChercherApiPivotal').prop('disabled', false);
+    });
+
+    //Si change ressource api, remettre le compteur d'heure attribuable flotant au bon nombre
     $('#RessourceApi').change(function () {
       HeureAttribuable1Ressource();
     });
 
+    //Click sur le bouton pour afficher le modal d'objectif
     $('#Modal_Objectif').click(function () {
       $('#ModalTache').modal('show');
       $('#PartieObjectif').show()
       $('#PartieDemo').hide()
     });
 
+    //Click sur le bouton pour afficher le modal des demos
     $('#Modal_Demo').click(function () {
       $('#ModalTache').modal('show');
       $('#PartieDemo').show()
       $('#PartieObjectif').hide()
     });
 
+    //Click sur le bouton pour afficher le modal de scrum planing
     $('#ButtonScrumPlaning').click(function () {
       $('#ModalScrumPlaning').modal('show');
     });
@@ -312,6 +335,7 @@
       $('#action').val('NouvvelObjectif');
     });
 
+    //Click sur le bouton pour planifier des heures
     $('#Boutton_Modal_ApiPivotal').click(function () {
       HeureAttribuable1Ressource();
       document.getElementById("ListeTachesApi").innerHTML = ""
@@ -319,6 +343,7 @@
       $('#EnvoyerApiPivotal').hide()
     });
 
+    //Planifier des heures selon le mode x+x+x
     $('#action').click(function () {
       var erreur = false
 
@@ -363,7 +388,7 @@
       else BootstrapAlertError("Le champ d'heure comporte une erreur")
     });
 
-    //Créer des heures spéciales scrum planing
+    //Planifier des heures spéciales scrum planing
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
       if ($('#TOUTLEMONDE').length > 0) {
@@ -390,7 +415,7 @@
         BootstrapAlertError('Aucune ressource selectionnée ?')
     });
 
-    //Créer démo
+    //Créer des démos
     $(document).on('click', '.EnvoyerDemo', function () {
 
       $.ajax({
@@ -409,7 +434,7 @@
       $('#LabelDemo').val('');
     });
 
-    //Créer objectif
+    //Créer des objectifs
     $(document).on('click', '.EnvoyerObjectif', function () {
 
       $.ajax({
@@ -440,6 +465,7 @@
       }
     });
 
+    //Click sur le bouton pour chercher toutes les heures planifiable sur pivotal tracker
     $('#ChercherApiPivotal').click(function () {
 
       $('#EnvoyerApiPivotal').hide()
@@ -468,7 +494,6 @@
           BootstrapAlertError("Le projet n'a pas d'API Pivotal Tracker enregistré");
         },
         success: function (data) {
-
           //Liste des stories trouvées
           myStories = data;
 
@@ -483,7 +508,7 @@
               beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-TrackerToken', TokenApi);
               },
-              async: false,
+              async: true,
               type: 'GET',
               dataType: 'json',
               contentType: 'application/json',
@@ -544,6 +569,7 @@
 
     })
 
+    //Click sur le bouton flottant vert attribuer des heures planifiées pivotal
     $('#EnvoyerApiPivotal').click(function () {
       if (TotalHoursChecked().length > 2)
         $.ajax({
@@ -574,6 +600,7 @@
     SetSelect2('#TypeEmployeOk, #projetId, #RessourceApi, #ProjetApi, #TOUTLEMONDE');
   });
 
+  //Lorsque click sur le bouton flottant vert attribuer des heures planifiées pivotal, liste toutes les taches qui ne sont pas des "non" et les mettres dans un tableau qui sera envoyé
   function TotalHoursChecked() {
 
     var cart = [];
