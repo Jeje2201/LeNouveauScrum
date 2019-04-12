@@ -7,6 +7,7 @@
         $statement = $connection->prepare("SELECT P.id,
       P.nom as Projet,
       P.ApiPivotal,
+      P.Actif,
       L.path as Logo,
       T.nom as TypeProjet
       FROM projet P
@@ -24,6 +25,7 @@
       <th>Type</th>
       <th>ID Pivotal</th>
       <th>Icone</th>
+      <th style="text-align: center;">Actif</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -36,10 +38,13 @@
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
-            $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
-        <td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
-        </tr>
-        ';
+        $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>';
+        if ($row["Actif"] == 1)
+          $output .= '<td style="text-align: center; vertical-align: middle;">✔</td>';
+        else
+          $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
+        $output .= '<td><center><div class="btn-group" role="group" aria-label="Basic example"><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+      </tr>';
           }
         } else {
           print_r($statement->errorInfo());
@@ -60,14 +65,15 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare("
-   INSERT INTO projet (nom, Id_Logo, id_TypeProjet, ApiPivotal) 
-   VALUES (:Nom, :Id_Logo, :id_TypeProjet, :ApiPivotal)
+   INSERT INTO projet (nom, Id_Logo, Actif, id_TypeProjet, ApiPivotal) 
+   VALUES (:Nom, :Id_Logo, :actif, :id_TypeProjet, :ApiPivotal)
    ");
 
         $result = $statement->execute(
           array(
             ':Nom' => $_POST["Nom"],
             ':Id_Logo' => $_POST["fileName"],
+            ':actif' => $_POST["Actif"],
             ':id_TypeProjet' => $_POST["TypeProjet"],
             ':ApiPivotal' => $_POST["ApiPivotal"]
           )
@@ -90,6 +96,7 @@
 
         $output["Nom"] = $result["nom"];
         $output["Logo"] = $result["Id_Logo"];
+        $output["Actif"] = $result["Actif"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeProjet"] = $result["id_TypeProjet"];
 
@@ -103,7 +110,7 @@
 
         $statement = $connection->prepare(
           "UPDATE projet 
-   SET nom = :nom, Id_Logo = :Id_Logo, id_TypeProjet = :id_TypeProjet, ApiPivotal = :ApiPivotal
+   SET nom = :nom, Id_Logo = :Id_Logo, id_TypeProjet = :id_TypeProjet, Actif = :actif, ApiPivotal = :ApiPivotal
    WHERE id = :id
    "
         );
@@ -112,6 +119,7 @@
             ':nom' => $_POST["Nom"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Id_Logo' => $_POST["fileName"],
+            ':actif' => $_POST["Actif"],
             ':id_TypeProjet' => $_POST["TypeProjet"],
             ':id' => $_POST["id"]
           )

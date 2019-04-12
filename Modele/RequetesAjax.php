@@ -63,6 +63,7 @@
           FROM projet P
           inner join typeprojet T ON P.id_TypeProjet = T.id
           where T.nom not like 'CIR'
+          and P.Actif = 1
           ORDER BY nom asc");
 
           $statement->execute();
@@ -89,6 +90,7 @@
         $statement = $connection->prepare("SELECT P.id AS id,
         P.nom AS Nom
         FROM projet P
+        WHERE P.Actif = 1
         ORDER BY nom asc");
 
         $statement->execute();
@@ -118,6 +120,7 @@
           FROM projet P
           inner join typeprojet T ON P.id_TypeProjet = T.id
           where T.nom not like 'CIR'
+          and P.Actif = 1
           ORDER BY nom asc");
 
           $statement->execute();

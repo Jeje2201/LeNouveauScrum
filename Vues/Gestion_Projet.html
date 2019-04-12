@@ -50,6 +50,11 @@
           </div>
         </div>
 
+        <div>
+          <input id="Actif" type="checkbox" checked>
+          <label for="Actif">Actif</label>
+        </div>
+
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
@@ -78,9 +83,16 @@
       $('#action').val('Ajouter');
       $('#Nom').val('');
       $('#ApiPivotal').val('');
+      $('#Actif').prop("checked", true);
     });
 
     $('#action').click(function () {
+
+      if (document.getElementById("Actif").checked == true) {
+        var Actif = 1;
+      } else {
+        var Actif = 0;
+      }
 
       if ($('#Nom').val() != '' && $('#ToutesLesImages').val() != '') {
         $.ajax({
@@ -90,6 +102,7 @@
             id: $('#id').val(),
             Nom: $('#Nom').val(),
             ApiPivotal: $('#ApiPivotal').val(),
+            Actif: Actif,
             TypeProjet: $('#TypeProjet').val(),
             fileName: parseInt($('#ToutesLesImages').val()),
             action: $('#action').val()
@@ -122,6 +135,11 @@
           $('#ModaleProjet').modal('show');
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
+
+          if (data.Actif == 1)
+            $('#Actif').prop('checked', true);
+          else
+            $('#Actif').prop('checked', false);
 
           $('#id').val(id);
           $('#ApiPivotal').val(data.ApiPivotal);
