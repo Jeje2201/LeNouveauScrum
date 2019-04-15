@@ -54,7 +54,7 @@
         <td>' . $row["objectif"] . '</td>';
             if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
               $output .= '
-        <td><center><div class="btn-group" role="group" aria-label="Basic example">
+        <td><center><div class="btn-group" role="group" >
         <button type="button" id="' . $row["id"] . '" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
         <button type="button" id="' . $row["id"] . '" class="btn btn-warning 2"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>
         <button type="button" id="' . $row["id"] . '" class="btn btn-danger 3"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
@@ -159,16 +159,14 @@
         <tr>
         <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>
         <td>' . $row["Label"] . '</td>';
-            if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-              $output .= '
-          <td>
-          <center>
-          
+        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster'){
+          $output .= '
+          <td><center><div class="btn-group" role="group" >
           <button type="button" id="' . $row["id"] . '" class="btn btn-warning GetRemarque"><i class="fa fa-pencil" aria-hidden="true"></i></button>
           <button type="button" id="' . $row["id"] . '" class="btn btn-success ValiderRemarque"><i class="fa fa-check" aria-hidden="true"></i></button>
-          </center>
-          </td>';
-            $output .= '</tr>
+          </div></center></td>';
+        }
+          $output .= '</tr>
         ';
           }
         } else {

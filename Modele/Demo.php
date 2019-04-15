@@ -26,9 +26,9 @@
       <th>Ressource</th>
       <th>Démo</th>
       <th>Label</th>';
-        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
-          $output .= '<th width=""><center>Changer État</center></th>';
-
+        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster'){
+          $output .= '<th><center>Changer État</center></th>';
+        }
         $output .= ' </tr>
       </thead>
       <tbody id="myTable">
@@ -42,13 +42,10 @@
         <td>' . $row["label"] . '</td>';
             if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
               $output .= '
-            <td width=10%>
-          <center>
-          
+          <td width=min><center><div class="btn-group" role="group">
           <button type="button" id="' . $row["id"] . '" class="btn btn-danger SupprimerDemo"><i class="fa fa-times" aria-hidden="true"></i></button>
           <button type="button" id="' . $row["id"] . '" class="btn btn-success ValiderDemo"><i class="fa fa-check" aria-hidden="true"></i></button>
-          </center>
-          </td>';
+          </div></center> </td>';
             $output .= '</tr>
         ';
           }
