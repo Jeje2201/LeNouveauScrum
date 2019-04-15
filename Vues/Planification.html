@@ -549,9 +549,8 @@
           })
 
 
-
           //si pas de stories
-          if (htmlDeFin === '') {
+          if (myStories.length === 0) {
             document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons\
         <ul>\
           <li>La ressource n'est pas owner des stories ? </li>\
