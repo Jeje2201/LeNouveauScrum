@@ -468,12 +468,12 @@
     //Click sur le bouton pour chercher toutes les heures planifiable sur pivotal tracker
     $('#ChercherApiPivotal').click(function () {
 
+      document.getElementById('ListeTachesApi').innerHTML = '<i class="fa fa-spin fa-3x fa-fw">😮</i>'
+
       $('#EnvoyerApiPivotal').hide()
 
       var htmlDeFin = ""
       var ListeErreur = ""
-
-      document.getElementById('ListeTachesApi').innerHTML = ""
 
       var myStories
 
@@ -508,7 +508,7 @@
               beforeSend: function (xhr) {
                 xhr.setRequestHeader('X-TrackerToken', TokenApi);
               },
-              async: true,
+              async: false,
               type: 'GET',
               dataType: 'json',
               contentType: 'application/json',
