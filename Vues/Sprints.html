@@ -7,38 +7,43 @@
           <b>Créer sprint</b>
         </div>
         <div class="card-body">
-          <!-- Selectionner le sprint sur lequel l'on va jouer -->
 
-          <div class="input-group">
-
-            <div class="input-group-prepend">
-              <span class="input-group-text">Sprint n°</span>
-            </div>
-            <input type="number" name="numero" id='numero' class="form-control">
-
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <span class="fa fa-calendar"></span>&nbsp;Début</span>
-            </div>
-            <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
-
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <span class="fa fa-calendar"></span>&nbsp;Fin</span>
-            </div>
-            <input type="text" name="dateFin" id='dateFin' class="form-control" />
-
-            <div class="input-group-prepend">
-              <span class="input-group-text">Attribuable (h)</span>
-            </div>
-            <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
-
-            <div class="btn-group " role="group" >
-              <button type="button" id="modal_button" class="btn btn-info">
-                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer Sprint</button>
-              <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
-            </div>
-          </div>
+            <!-- Selectionner le sprint sur lequel l'on va jouer -->
+            <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Sprint</label>
+                    <input type="number" name="numero" id='numero' class="form-control">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Début</label>
+                    <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Fin</label>
+                    <input type="text" name="dateFin" id='dateFin' class="form-control" />
+                  </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                      <label>Attribuables</label>
+                      <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
+                    </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                        <label>Fin</label><br>
+                        <div class="btn-group " role="group" >
+                            <button type="button" id="modal_button" class="btn btn-info">Créer</button>
+                            <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
         </div>
 
       </div>
@@ -59,11 +64,11 @@
             <div class="modal-body">
 
               <img src="Assets/Image/InfoHeureAttribuable.png" width="100%">
-              <p>Par jour est attribuable un certain nombre d'heures.
-                <br>Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h
-                attribuable
-                car 3h sont déjà attribuées pour la planification des tâches.
-                <br>Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.</p>
+              <p>
+                Par jour est attribuable un certain nombre d'heures.<br>
+                Certains jours en auront moins. Le premier lundi de chaque sprint par exemple a seulement 4h attribuable car 3h sont déjà attribuées pour la planification des tâches.<br>
+                Le résultat par défaut est donc de 60h pour 9j soit 1 sprint complet.
+              </p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
