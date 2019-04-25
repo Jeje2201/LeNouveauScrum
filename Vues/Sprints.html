@@ -8,42 +8,42 @@
         </div>
         <div class="card-body">
 
-            <!-- Selectionner le sprint sur lequel l'on va jouer -->
-            <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Sprint</label>
-                    <input type="number" name="numero" id='numero' class="form-control">
-                  </div>
+          <!-- Selectionner le sprint sur lequel l'on va jouer -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Sprint</label>
+                <input type="number" name="numero" id='numero' class="form-control">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Début</label>
+                <input type="text" name="dateDebut" id='dateDebut' class="form-control"/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Fin</label>
+                <input type="text" name="dateFin" id='dateFin' class="form-control"/>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Attribuables</label>
+                <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Fin</label><br>
+                <div class="btn-group " role="group">
+                  <button type="button" id="modal_button" class="btn btn-info">Créer</button>
+                  <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
                 </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Début</label>
-                    <input type="text" name="dateDebut" id='dateDebut' class="form-control" />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Fin</label>
-                    <input type="text" name="dateFin" id='dateFin' class="form-control" />
-                  </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                      <label>Attribuables</label>
-                      <input type="number" name="attribuable" id='attribuable' value='60' min='1' max='77' class="form-control">
-                    </div>
-                  </div>
-                  <div class="col">
-                      <div class="form-group">
-                        <label>Fin</label><br>
-                        <div class="btn-group " role="group" >
-                            <button type="button" id="modal_button" class="btn btn-info">Créer</button>
-                            <button type="button" id="BouttonInfo" class="btn btn-secondary">?</button>
-                          </div>
-                      </div>
-                    </div>
-                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -52,7 +52,7 @@
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
       </div>
 
-      <div id="result" class="table-responsive table-hover"> </div>
+      <div id="result" class="table-responsive table-hover"></div>
 
       <!-- This is sprint Modal. It will be use for Create new Records and Update Existing Records!-->
       <div id="ModalInfoAttribuable" class="modal fade">
@@ -86,20 +86,20 @@
             <div class="modal-body">
               <label>Numero</label>
               <input type="number" name="numero" id='numeroo' class="form-control">
-              <br />
+              <br/>
               <label>Date Debut</label>
-              <input type="text" name="dateDebut" id='dateDebutt' class="form-control" />
-              <br />
+              <input type="text" name="dateDebut" id='dateDebutt' class="form-control"/>
+              <br/>
               <label>Date Fin</label>
-              <input type="text" name="dateFin" id='dateFinn' class="form-control" />
-              <br />
+              <input type="text" name="dateFin" id='dateFinn' class="form-control"/>
+              <br/>
               <label>Attribuable (h)</label>
-              <input type="number" name="attribuableEdition" id='attribuableEdition' min="1" class="form-control" />
-              <br />
+              <input type="number" name="attribuableEdition" id='attribuableEdition' min="1" class="form-control"/>
+              <br/>
             </div>
             <div class="modal-footer">
-              <input type="hidden" name="id" id="id" />
-              <input type="submit" name="action" id="action" class="btn btn-success" />
+              <input type="hidden" name="id" id="id"/>
+              <input type="submit" name="action" id="action" class="btn btn-success"/>
               <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
             </div>
           </div>
@@ -110,7 +110,6 @@
   </div>
 </body>
 <script>
-
   $(document).ready(function () {
 
     $('#dateDebut').val(ChoixDate(0));
@@ -123,7 +122,7 @@
 
     RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
-    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     $('#BouttonInfo').click(function () {
       $('#ModalInfoAttribuable').modal('show');
@@ -165,102 +164,99 @@
 
             }
           });
-        }
-        else {
+        } else {
           BootstrapAlertError("Tous les champs doivent être plein.");
         }
-      }
-      else {
+      } else {
         BootstrapAlertError("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?");
       }
     });
 
     //This JQuery code is for Update sprint data. If we have click on any sprint row update button then this code will execute
     $(document).on('click', '.update', function () {
-      var id = $(this).attr("id"); //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
+      var id = $(this).attr("id"); //This code will fetch any sprint id from attribute id with help of attr() JQuery method
       $.ajax({
-        url: "Modele/Sprint.php",   //Request send to "Sprint.php page"
-        method: "POST",    //Using of Post method for send data
+        url: "Modele/Sprint.php", //Request send to "Sprint.php page"
+        method: "POST", //Using of Post method for send data
         data: {
           id: id,
           action: "Select" //We have define action variable value is equal to select
-        },//Send data to server
-        dataType: "json",   //Here we have define json data type, so server will send data in json format.
+        }, //Send data to server
+        dataType: "json", //Here we have define json data type, so server will send data in json format.
         success: function (data) {
-          $('#ModalSprint').modal('show');   //It will display modal on webpage
+          $('#ModalSprint').modal('show'); //It will display modal on webpage
           $('.modal-title').text("Changer infos sprint"); //This code will change this class text to Update records
-          $('#action').val("Update");     //This code will change Button value to Update
-          $('#id').val(id);     //It will define value of id variable to this sprint id hidden field
-          $('#numeroo').val(data.numero);  //It will assign value to modal first name texbox
-          $('#dateDebutt').val(data.dateDebut);  //It will assign value of modal last name textbox
-          $('#dateFinn').val(data.dateFin);  //It will assign value of modal last name textbox
+          $('#action').val("Update"); //This code will change Button value to Update
+          $('#id').val(id); //It will define value of id variable to this sprint id hidden field
+          $('#numeroo').val(data.numero); //It will assign value to modal first name texbox
+          $('#dateDebutt').val(data.dateDebut); //It will assign value of modal last name textbox
+          $('#dateFinn').val(data.dateFin); //It will assign value of modal last name textbox
           $('#attribuableEdition').val(data.attribuable);
         }
       });
     });
 
     $('#action').click(function () {
-      if ($('#numeroo').val() != '' && DateFrToEn($('#dateDebutt').val()) != '' && DateFrToEn($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) //This condition will check both variable has some value
-      {
+      if ($('#numeroo').val() != '' && DateFrToEn($('#dateDebutt').val()) != '' && DateFrToEn($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
         $.ajax({
-          url: "Modele/Sprint.php",    //Request send to "Sprint.php page"
-          method: "POST",     //Using of Post method for send data
+          url: "Modele/Sprint.php", //Request send to "Sprint.php page"
+          method: "POST", //Using of Post method for send data
           data: {
             numero: $('#numeroo').val(),
             dateDebut: DateFrToEn($('#dateDebutt').val()),
             id: $('#id').val(),
             dateFin: DateFrToEn($('#dateFinn').val()),
             attribuableEdi: $('#attribuableEdition').val(),
-            action: $('#action').val()//Get the value of Modal Action button and stored into action variable
+            action: $('#action').val() //Get the value of Modal Action button and stored into action variable
           }, //Send data to server
           success: function (data) {
             BootstrapAlertDefaut(data);
             $('#ModalSprint').modal('hide'); //It will hide sprint Modal from webpage.
-            RequeteAjax('result', 'Load', 'Modele/Sprint.php')    // Fetch User function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/Sprint.php') // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
-      }
-      else {
+      } else {
         BootstrapAlertError("Tous les champs doivent être plein."); //If both or any one of the variable has no value them it will display this message
       }
     });
 
     //This JQuery code is for Delete sprint data. If we have click on any sprint row delete button then this code will execute
     $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) //Confim Box if OK then
-      {
+      if (confirm("Es-tu sûr de vouloir supprimer ce sprint?")) { //Confim Box if OK then
         $.ajax({
-          url: "Modele/Sprint.php",    //Request send to "Sprint.php page"
-          method: "POST",     //Using of Post method for send data
+          url: "Modele/Sprint.php", //Request send to "Sprint.php page"
+          method: "POST", //Using of Post method for send data
           data: {
-            id: $(this).attr("id"), //This code will fetch any sprint id from attribute id with help of attr() JQuery method 
+            id: $(this).attr("id"), //This code will fetch any sprint id from attribute id with help of attr() JQuery method
             action: "Delete" //Define action variable value Delete
           }, //Data send to server from ajax method
           success: function (data) {
-            RequeteAjax('result', 'Load', 'Modele/Sprint.php')    // fetchUser() function has been called and it will load data under divison tag with id result
+            RequeteAjax('result', 'Load', 'Modele/Sprint.php') // fetchUser() function has been called and it will load data under divison tag with id result
             BootstrapAlertDefaut(data);
           }
         })
-      }
-      else  //Confim Box if cancel then 
-      {
+      } else { //Confim Box if cancel then
         return false; //No action will perform
       }
     });
 
-    $('#dateFin, #dateDebut').datetimepicker().on('changeDate', function (ev) {
+    $('#dateFin, #dateDebut')
+      .datetimepicker()
+      .on('changeDate', function (ev) {
 
-      $("#attribuable").attr({
-        "max": (NbJourDeTravail($('#dateDebut').val(), $('#dateFin').val()) * 7)
+        $("#attribuable").attr({
+          "max": (NbJourDeTravail($('#dateDebut').val(), $('#dateFin').val()) * 7)
+        });
+
       });
 
-    });
+    $('#dateFin, #dateDebut')
+      .datetimepicker()
+      .on('click', function (ev) {
 
-    $('#dateFin, #dateDebut').datetimepicker().on('click', function (ev) {
+        $('#dateFin').datetimepicker('setStartDate', $('#dateDebut').val());
 
-      $('#dateFin').datetimepicker('setStartDate', $('#dateDebut').val());
-
-    });
+      });
 
   });
 </script>
