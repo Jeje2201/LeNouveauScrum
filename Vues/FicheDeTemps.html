@@ -70,6 +70,25 @@
     </div>
   </div>
 
+
+  <div id="ModalProblemeDate" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Ah non, je t'arrête de suite!</h4>
+        </div>
+        <div class="modal-body">
+          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que 1.</p>
+          <p>Je suis gentil (😊) alors voici la liste des dates qui posent problème :</p>
+          <p id="ListeDateAvecUnProbleme"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     $(document).ready(function () {
 
@@ -99,11 +118,10 @@
       //Add les infos
       $('#SetFicheDeTemps').click(function () {
 
-        console.log(ListeJoursDate($('#Done').val(), $('#DoneFin').val()))
-
           $.ajax({
             url: "Modele/FicheDeTemps.php",
             method: "POST",
+            dataType: "json",
             data: {
               action: "Create",
               Ressource: localStorage.getItem("Connexion"),
@@ -113,9 +131,16 @@
               Log: DateFrToEn(ChoixDate(0))
             },
             success: function (data) {
-              BootstrapAlertDefaut(data);
-              ChargerListeHeures1Jour1Ressource()
-              TableTotJoursNonPlein()
+              console.log(data)
+              if((data.Liste).length > 0){
+                $('#ListeDateAvecUnProbleme').html(data.Texte)
+                $('#ModalProblemeDate').modal('show');
+              }
+              else{
+                ChargerListeHeures1Jour1Ressource()
+                TableTotJoursNonPlein()
+                BootstrapAlertDefaut('✓');
+              }
             }
           });
       });

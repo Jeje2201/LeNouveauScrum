@@ -215,6 +215,9 @@
         $LesDates = $_POST["Done"];
         $Time = $_POST["Time"];
         $DatesOk = true;
+        $JsonResult = [];
+        $Liste = [];
+        $ListeText = "";
 
         //pour chaque date
         for ($i = 0; $i < sizeof($LesDates); $i++) {
@@ -232,13 +235,16 @@
           $statement->execute();
           $result = $statement->fetch();
 
-          //si on dépase
+          //si on dépase pour une de toutes ces dates on warn le user mais rien de plus
           if($result["Depasse"] > 1){
-            echo "Total sur la feuille de temps > 1 pour la date : ".$LesDates[$i];
+            $Liste[] = $LesDates[$i];
+            $ListeText .= '- '.$LesDates[$i] . "<br>";
             $DatesOk = false;
-            break;
           }
         }
+
+        $JsonResult['Liste'] = $Liste;
+        $JsonResult['Texte'] = $ListeText;
 
         if($DatesOk){
           for ($i = 0; $i < sizeof($LesDates); $i++) {
@@ -258,13 +264,12 @@
                   ':Log' => $_POST["Log"]
                 )
               );
-              if (!empty($result))
-                echo '✓';
-              else
+              if (empty($result)){
                 print_r($statement->errorInfo());
-
+              } 
           }
         }
+        echo json_encode($JsonResult);
       }
 
 
