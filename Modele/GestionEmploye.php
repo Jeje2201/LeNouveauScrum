@@ -19,7 +19,6 @@
       E.prenom,
       E.Initial,
       E.nom,
-      E.Pseudo,
       E.MailCir,
       E.actif,
       (
@@ -41,7 +40,6 @@
       <th>Prénom</th>
       <th>Nom</th>
       <th>Initial</th>
-      <th>Pseudo</th>
       <th>Job</th>
       <th>ID Pivotal</th>
       <th>Couleur</th>
@@ -59,7 +57,6 @@
               <td>' . $row["prenom"] . '</td>
               <td>' . $row["nom"] . '</td>
               <td>' . $row["Initial"] . '</td>
-              <td>' . $row["Pseudo"] . '</td>
               <td>' . $row["TypeJob"] . '</td>
               <td>' . $row["IdPivotal"] . '</td>
               <td style="background-color:' . $row["Couleur"] . '"></td>';
@@ -96,14 +93,13 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Pseudo, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
-          VALUES (:prenom, :nom, :pseudo, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
+          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
+          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
         ");
 
         $result = $statement->execute(
           array(
             ':prenom' => $_POST["Prenom_Employe"],
-            ':pseudo' => $_POST["Prenom_Employe"],
             ':nom' => $_POST["Nom_Employe"],
             ':Couleur' => '#' . random_color(),
             ':actif' => $_POST["Actif"],

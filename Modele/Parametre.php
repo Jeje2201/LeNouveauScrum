@@ -9,8 +9,7 @@
         $idRessource = $_POST["idRessource"];
 
         $statement = $connection->prepare(
-          $sql = "SELECT Couleur,
-        Pseudo
+          $sql = "SELECT Couleur
         FROM employe E
         WHERE E.id = $idRessource"
         );
@@ -18,19 +17,16 @@
         $result = $statement->fetch();
         echo " ";
         echo $result["Couleur"];
-        echo " ";
-        echo $result["Pseudo"];
       }
 
       if ($_POST["action"] == "CustomColorName") {
         $statement = $connection->prepare(
           "UPDATE employe 
-        SET Pseudo = :Pseudo, Couleur = :Couleur
+        SET Couleur = :Couleur
         WHERE id = :id"
         );
         $result = $statement->execute(
           array(
-            ':Pseudo' => $_POST["Pseudo"],
             ':Couleur' => $_POST["couleur"],
             ':id' => $_POST["idRessource"]
           )

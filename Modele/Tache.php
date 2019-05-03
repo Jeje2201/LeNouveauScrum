@@ -33,8 +33,7 @@
           E.Initial,
           E.couleur,
           E.prenom AS E_Prenom,
-          E.nom AS E_Nom,
-          E.Pseudo AS E_Pseudo
+          E.nom AS E_Nom
           FROM attribution A
           INNER JOIN employe E
             ON E.id = A.id_Employe
@@ -76,7 +75,7 @@
         E.Initial,
         E.couleur,
         E.prenom,
-        E.nom AS E_Nom, E.Pseudo
+        E.nom AS E_Nom
         FROM attribution A
         INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
