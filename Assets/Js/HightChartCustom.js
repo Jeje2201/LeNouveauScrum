@@ -16,7 +16,6 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
 
   console.log('numero sprint : ', NumeroduSprint)
   console.log('affichage : ', affichage)
-  console.log('numero sprint : ', div)
 
   $.ajax({
     url: "Modele/Accueil.php",
@@ -376,7 +375,7 @@ function UpdateBurndownchart(NumeroSprint, div) {
 
       fillInformation(Total);
 
-      console.log('yoyo' , Total)
+      console.log('Liste d\'infos' , Total)
 
         CreerLaBurnDownChart(
           FusionnerJoursEtHeuresBurndDownChart(

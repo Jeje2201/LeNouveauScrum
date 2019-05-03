@@ -55,14 +55,11 @@
           foreach ($result as $row) {
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
-        <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">
-        <div style="margin-left:7px;">
+        <div style="margin-left:10px;">
           <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
-            <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["E_Pseudo"] . ' (' . $row["Initial"] . ')<br>
-            <div class="SpecialHr"></div>
-            <i class="fa fa-file-o" aria-hidden="true"></i> ' . $row["projet"] . '<br>
-            <div class="SpecialHr"></div>
-            <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
+          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"><br>
+          <div class="SpecialHr"></div>
+          ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
         </div>
       </div>';
           }
@@ -97,14 +94,11 @@
 
             $output2 .= '
 <div class="card PASTOUCHE">
-  <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">
-  <div style="margin-left:7px;">
+  <div style="margin-left:10px;">
     <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
-      <i class="fa fa-user-o" aria-hidden="true"></i> ' . $row["Pseudo"] . ' (' . $row["Initial"] . ')<br>
-      <div class="SpecialHr"></div>
-      <i class="fa fa-file-o" aria-hidden="true"></i> ' . $row["projet"] . '<br>
-      <div class="SpecialHr"></div>
-      <i class="fa fa-tag" aria-hidden="true"></i> ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
+    ' . $row["prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"><br>
+    <div class="SpecialHr"></div>
+    ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';
           }

@@ -135,9 +135,11 @@ html {
 }
 
   .SpecialHr{
+    margin-top: 5px;
+    margin-bottom: 2px;
     height: 1px;
-    width: 25%;
-    background-color: gray;
+    width: 5%;
+    background-color: #cecece;
   }
 
   .hideElement{
@@ -226,18 +228,13 @@ However, delay the fade out process for 2.5 seconds */
   cursor:not-allowed;
 }
  
-
-
 hr{
   margin-top: 0rem;
   margin-bottom: 0rem;
 
 }
 .LogoProjet{
-  width: 26px;
-  position: absolute;
-  top: 1px;
-  right: 1px;
+  width: 22px;
 }
 
 .BarreLateralCard{
