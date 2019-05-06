@@ -185,7 +185,7 @@
           })
       });
 
-      //?
+      //Load la liste des fiches de temps non rempli + fonction pour update la date sélectionné quand click sur une date de la liste
       function TableTotJoursNonPlein() {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
@@ -196,6 +196,14 @@
           },
           success: function (data) {
             $('#TableTotJoursNonPlein').html(data);
+
+            let elementsArray = document.querySelectorAll(".ListeDateManquante");
+
+            elementsArray.forEach(function(elem) {
+                elem.addEventListener("click", function() {
+                  $('#Done, #DoneFin').val(elem.innerHTML.replace(/\//g, "-"))
+                });
+            });
           }
         })
       }

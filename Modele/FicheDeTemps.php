@@ -7,53 +7,50 @@
       //Load les fiches de temps de tout le monde dans la gestion des fiches de temps
       if ($_POST["action"] == "Load") {
         $statement = $connection->prepare("SELECT
-      C.id,
-      CONCAT(E.prenom,' ', E.initial) AS Ressource,
-      P.nom as Projet,
-      C.Time,
-      C.Done,
-      C.Log
-      FROM cir C
-      inner join employe E on C.Fk_User = E.id
-      inner join projet P on C.Fk_Project = P.id
-      ORDER BY C.Done DESC");
+        C.id,
+        CONCAT(E.prenom,' ', E.initial) AS Ressource,
+        P.nom as Projet,
+        C.Time,
+        C.Done,
+        C.Log
+        FROM cir C
+        inner join employe E on C.Fk_User = E.id
+        inner join projet P on C.Fk_Project = P.id
+        ORDER BY C.Done DESC");
 
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
         $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th width="">Ressource</th>
-      <th width="">Projet</th>
-      <th width="">Journée</th>
-      <th width="">Effectué le</th>
-      <th width="">Enregistré</th>
-      <th width=""><center>Éditer</center></th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Ressource</th>
+        <th width="">Projet</th>
+        <th width="">Journée</th>
+        <th width="">Effectué le</th>
+        <th width="">Enregistré</th>
+        <th width=""><center>Éditer</center></th>
+        </tr>
+        </thead>
+        <tbody id="myTable">';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr>
-        <td>' . $row["Ressource"] . '</td>
-        <td>' . $row["Projet"] . '</td>
-        <td>' . $row["Time"] . '</td>
-        <td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>
-        <td>' . date("d/m/Y", strtotime($row["Log"])) . '</td>
-        <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
-        </tr>
-        ';
+            <tr>
+            <td>' . $row["Ressource"] . '</td>
+            <td>' . $row["Projet"] . '</td>
+            <td>' . $row["Time"] . '</td>
+            <td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>
+            <td>' . date("d/m/Y", strtotime($row["Log"])) . '</td>
+            <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+            </tr>';
           }
         } else {
-          $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+            $output .= '
+            <tr>
+            <td align="center" colspan="10">Pas de données</td>
+            </tr>';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -65,17 +62,17 @@
         $LaDate = $_POST["LaDate"];
 
         $statement = $connection->prepare("SELECT CONCAT(X.prenom,' ', X.nom) as Ressource
-      from employe X
-      where X.id not in (SELECT
+        from employe X
+        where X.id not in (SELECT
         C.Fk_User
         FROM cir C
         where C.Done = '$LaDate'
         group by C.Done, C.Fk_User
         having sum(C.Time) = 1)
-      and X.actif = 1
-      and X.MailCir = 1
-      and X.RegisterDate <= '$LaDate'
-      order by X.prenom");
+        and X.actif = 1
+        and X.MailCir = 1
+        and X.RegisterDate <= '$LaDate'
+        order by X.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -85,28 +82,25 @@
           $TotLol +=1;
         }
         $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Ressource ('.$TotLol.')</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th>Ressource ('.$TotLol.')</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr>
-        <td>' . $row["Ressource"] . '</td>
-        </tr>
-        ';
+            <tr>
+              <td>' . $row["Ressource"] . '</td>
+            </tr>';
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -126,16 +120,15 @@
         $result = $statement->fetchAll();
         $output = '';
         $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th width="">Projet</th>
-      <th width="">Journée du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
-      <th width="10%"><center>Supprimer</center></th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Projet</th>
+        <th width="">Journée du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
+        <th width="10%"><center>Supprimer</center></th>
+        </tr>
+        </thead>
+        <tbody id="myTable">';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
@@ -148,10 +141,9 @@
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -180,29 +172,26 @@
         $result = $statement->fetchAll();
         $output = '';
         $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th width="">Feuilles de temps non remplis</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Feuilles de temps non remplis</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr>
-        
-        <td>' . date("d/m/Y", strtotime($row["selected_date"])) . '</td>
-        </tr>
-        ';
+            <tr>
+              <td class="ListeDateManquante">' . date("d/m/Y", strtotime($row["selected_date"])) . '</td>
+            </tr>';
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -271,7 +260,6 @@
         }
         echo json_encode($JsonResult);
       }
-
 
       //Select une fiche de temps
       if ($_POST["action"] == "Select") {
@@ -366,7 +354,7 @@
 
         foreach ($array['ListId'] as $UnId) {
 
-        $statement = $connection->prepare(
+          $statement = $connection->prepare(
           "SELECT * from 
           (
               select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
@@ -386,17 +374,16 @@
               where C.Fk_User = $UnId
               group by C.Done, C.Fk_User
               having sum(C.Time)=1
-          )"
-      );
+          )");
 
-      $statement->execute();
+          $statement->execute();
 
-      $NbDate[] = $statement->rowCount();
-    }
+          $NbDate[] = $statement->rowCount();
+        }
 
-      $array['NbDatePerUser'] = $NbDate;
+        $array['NbDatePerUser'] = $NbDate;
 
-      echo json_encode($array);
+        echo json_encode($array);
       }
     }
 
