@@ -202,6 +202,7 @@
             elementsArray.forEach(function(elem) {
                 elem.addEventListener("click", function() {
                   $('#Done, #DoneFin').val(elem.innerHTML.replace(/\//g, "-"))
+                  ChargerListeHeures1Jour1Ressource()
                 });
             });
           }
