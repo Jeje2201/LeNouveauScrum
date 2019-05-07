@@ -237,14 +237,6 @@ hr{
   width: 22px;
 }
 
-.BarreLateralCard{
-  height:100%;
-  width:5px;
-  position:absolute;
-  top:0px;
-  left:0px;
-}
-
 body {
   overflow-x: hidden; }
 

@@ -53,9 +53,8 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output1 .= '
-      <div class="card BOUGEMOI" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
-        <div style="margin-left:10px;">
-          <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
+      <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
+        <div style="margin-left:4px;">
           ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"><br>
           <div class="SpecialHr"></div>
           ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
@@ -92,9 +91,8 @@
           foreach ($result as $row) {
 
             $output2 .= '
-<div class="card PASTOUCHE">
-  <div style="margin-left:10px;">
-    <div class="BarreLateralCard" style="background-color:' . $row["couleur"] . ';"></div>
+<div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
+  <div style="margin-left:4px;">
     ' . $row["prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"><br>
     <div class="SpecialHr"></div>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
