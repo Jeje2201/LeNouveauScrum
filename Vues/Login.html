@@ -7,21 +7,17 @@
       <h3 class="text-center">Connexion</h3>
     </div>
     <div class="card-body">
-      <form method="POST" action="Modele/ConnectionLogin.php">
 
         <div id="ListeEmploye"></div>
         <br>
         <div class="form-label-group">
           <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Mot de passe"
             minlength="5" required="required">
+            <small id="wrongpassword" style="color:red" class="form-text text-hide">Non, je suis sûr que ce n'est pas le bon, essaie encore ¯\_(ツ)_/¯</small>
         </div>
 
         <br>
-
-        <button type="submit" onclick="localStorage.setItem('Connexion', $('#TypeEmployeOk').val())"
-          class="btn btn-primary btn-block">Se
-          connecter</button>
-      </form>
+        <button class="btn btn-primary btn-block" id="Log">Connexion</button>
       <div class="text-center">
         <hr>
         <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
@@ -52,17 +48,40 @@
 </div>
 
 <script>
-  // $('#BackGround').css('background-image', 'url(/Assets/Image/BackGround/'+(Math.floor(Math.random() * (4 - 0 + 1) ) + 0)+'.jpg)');
   
   $(document).ready(function () {
 
     //Load all employes
     RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php')
 
-    //Show modal if click on text
+    //Show modal if click on help
     $("#target").click(function () {
       $('#ModalLogin').modal('show');
     });
+
+    //Lors du click sur connexion
+    $('#Log').click(function () {
+
+      $.ajax({
+          url: "Modele/ConnectionLogin.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            inputPassword: $('#inputPassword').val(),
+            TypeEmployeOk: $('#TypeEmployeOk').val()
+          },
+          success: function (data) {
+            if(data.Connexion){
+              localStorage.setItem('Connexion', $('#TypeEmployeOk').val())
+              location.reload();
+            }else{
+              $( "#wrongpassword" ).removeClass( "text-hide" );
+              $( "#inputPassword" ).addClass( "is-invalid" );
+              $( "#inputPassword" ).effect( "shake" );
+            }
+          }
+        });
+      });
 
     //Preload users if ID is save in the local storage
     if (localStorage.getItem("Connexion")) {

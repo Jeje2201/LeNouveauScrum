@@ -7,6 +7,7 @@ require_once('../Modele/Configs.php');
 $_SESSION['IdUtilisateur'] = $_POST['TypeEmployeOk'];
 $IdUser = $_POST['TypeEmployeOk'];
 $PasswordInput = $_POST['inputPassword'];
+$output = [];
 
 //Recuperer le mdp chiffré du user qui essaie de se connecter
 $statement = $connection->prepare(
@@ -35,10 +36,11 @@ if (password_verify($PasswordInput, $result['mdp'])) {
     $_SESSION['PrenomUtilisateur'] = $result["prenom"];
     $_SESSION['TypeUtilisateur'] = $result["LeType"];
 
-    header('Location: ../index.php');
+    $output["Connexion"] = true;
+    
 } else {
-    echo "<script type='text/javascript'>alert('Mhm.. Jérémy a pourtant bien codé l\'application, et ce mot de passe semble ne pas correspondre. Se référer à un ScrumMaster qui pourrait le re-définir semble être la meilleur solution :\)');
-    window.location=' ../index.php';
-    </script>";
+    $output["Connexion"] = false;
 }
+
+echo json_encode($output);
  
