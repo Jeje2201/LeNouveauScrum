@@ -5,7 +5,6 @@
 <h5>Scrum is a simple set of roles, responsibilities, and meetings that never change. By removing unnecessary unpredictability, we’re better able to cope with the necessary unpredictability of continuous discovery and learning.</h5>
 
 <h2> Overview </h2>
-<hr>
 <p>A quick overview of the different interfaces offered by the web app ScrumManager</p>
 
 <h2>Login</h2>
