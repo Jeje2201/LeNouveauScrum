@@ -7,6 +7,10 @@
 <h2> Overview </h2>
 <p>A quick overview of the different interfaces offered by the web app ScrumManager</p>
 
+<h2>Navigation Bar</h2>
+<p>Depend on the user, you have more or less perms. </p>
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57519959-cc936100-731c-11e9-9e31-78b436b30783.png"/> 
+
 <h2>Login</h2>
 <p>Simple page to log into the web app. </p>
 <img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57519458-9bfef780-731b-11e9-89e5-949944343447.gif"/> 
