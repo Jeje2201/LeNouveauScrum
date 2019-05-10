@@ -9,7 +9,7 @@
 
 <h2>Login</h2>
 <p>Simple page to log into the web app. </p>
-<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/54074816-8a579000-4297-11e9-9e54-9e576dae2945.gif"/> 
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57512663-8fbf6e00-730c-11e9-93b9-fb141ece8806.gif"/> 
 
 <h2>Dashboard</h2>
 <p>Dashboard that show you all infos with graphs in one page. The burndownchart, the total hours allocated & done for all, the total hours done per day per resource, the total hours allocated & dones per resources and per project, a pie chart about the states of the objectives.</p>
