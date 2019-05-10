@@ -9,7 +9,7 @@
 
 <h2>Login</h2>
 <p>Simple page to log into the web app. </p>
-<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57512663-8fbf6e00-730c-11e9-93b9-fb141ece8806.gif"/> 
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57519458-9bfef780-731b-11e9-89e5-949944343447.gif"/> 
 
 <h2>Dashboard</h2>
 <p>Dashboard that show you all infos with graphs in one page. The burndownchart, the total hours allocated & done for all, the total hours done per day per resource, the total hours allocated & dones per resources and per project, a pie chart about the states of the objectives.</p>
@@ -24,16 +24,16 @@ Where you can allocate hours for your resources per project per sprint, objectiv
 <img src="https://i.imgur.com/ZfrEWrg.png"/> 
 
 ## Task
-List of all the tasks that are allocated and done.
-<img src="https://i.imgur.com/aYYb3xo.png"/> 
+List of all the tasks that are allocated and done, that's where you can set them as done.
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57518090-9227c500-7318-11e9-9a89-fdc515c8dd89.gif"/> 
 
 ## Retrospective
 List of all the demos you allocated that are not done and you can set on done when you finish it. List of objectives you had for this sprint that you can change states and list of remarks that are not done.
 <img src="https://i.imgur.com/wS5OmaV.png"/> 
 
 ## Interference
-List of all the interferences, you can create them here too.
-<img src="https://i.imgur.com/PpBk0U5.png"/> 
+List of all the interferences, you can create and edit them here too.
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57518992-a66cc180-731a-11e9-844f-9acd4ebfa2e8.gif"/> 
 
 ## Personnalisation - Me
 Where you can custom your nickname that is show on tasks, as same as the color, and you can change your password too.
@@ -41,7 +41,7 @@ Where you can custom your nickname that is show on tasks, as same as the color, 
 
 ## Personnalisation - Task's label
 If the label on your tasks doesn't please you, that's where you can change them.
-<img src="https://i.imgur.com/0Wm9YFh.png"/>
+<img style="width: 100%;" src="https://user-images.githubusercontent.com/19387127/57518562-8f799f80-7319-11e9-87c8-66b8ee92b4f3.gif"/> 
 
 ## Management - Password
 Where the Scrum Master can create a new password and erase the previous one for any resources.
