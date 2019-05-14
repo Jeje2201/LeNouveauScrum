@@ -14,12 +14,12 @@
         $result = $statement->fetchAll();
         $output = '';
         $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      <table class="table table-sm table-striped table-bordered" id="datatable" cellspacing="0">
       <thead class="thead-light">
       <tr>
       <th>Nom</th>
       <th>Chemin</th>
-      <th width=60px>Image</th>
+      <th>Image</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -31,7 +31,7 @@
         <tr>
         <td>' . $row["nom"] . '</td>
         <td>' . $row["path"] . '</td>
-        <td> <img src="Assets/Image/Projets/' . $row["path"] . '" width=60px height=60px /></td>';
+        <td style="width:60px"> <img src="Assets/Image/Projets/' . $row["path"] . '" width=60px height=60px /></td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
