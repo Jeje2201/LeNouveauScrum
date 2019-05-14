@@ -483,7 +483,7 @@
       $.ajax({
         url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] + "/stories",
         beforeSend: function (xhr) {
-          xhr.setRequestHeader('X-TrackerToken', TokenApi);
+          xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
         },
         type: 'GET',
         dataType: 'json',
@@ -506,7 +506,7 @@
             $.ajax({
               url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] + "/stories/" + this.id + "/tasks",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-TrackerToken', TokenApi);
+                xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
               },
               async: false,
               type: 'GET',
