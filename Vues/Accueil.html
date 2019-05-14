@@ -78,25 +78,21 @@
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
-    GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), 1, 'HeureDescenduParEmploye');
+    GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Ressources", 'HeureDescenduParEmploye');
     ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
     GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
     HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
 
     $('#numeroSprint').change(function () {
-      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');
+      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Ressources", 'HeureDescenduParEmploye');
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
       UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     });
 
-    $('#BoutonEmployes').click(function () {
-      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 1, 'HeureDescenduParEmploye');
-    });
-
-    $('#BoutonProjets').click(function () {
-      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), 2, 'HeureDescenduParEmploye');
+    $('#BoutonEmployes, #BoutonProjets').click(function () {
+      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), $(this).text(), 'HeureDescenduParEmploye');
     });
   });
 
