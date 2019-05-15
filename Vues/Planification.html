@@ -157,7 +157,17 @@
           <button type="submit" id="EnvoyerApiPivotal" class="btn btn-block btn-success">Attribuer</button>
         </div>
         <p></p>
-
+        <div id="AucuneStorie" class="hideElement">
+          <h3>Aucunes storie pour ce projet ?</h3>
+          <label>
+            Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons
+            <ul>
+              <li>La ressource n'est pas owner des stories ? </li>
+              <li>L'ID pivotal tracker du projet ou de la ressource n'est pas le bon ?</li>
+            </ul>
+          </label>
+        </div>
+        <i id="ChargementLogo" class="hideElement fa fa-spin fa-3x fa-fw">😮</i>
         <div id="ListeTachesApi"></div>
 
       </div>
@@ -465,13 +475,15 @@
     //Click sur le bouton pour chercher toutes les heures planifiable sur pivotal tracker
     $('#ChercherApiPivotal').click(function () {
 
-      document.getElementById('ListeTachesApi').innerHTML = '<i class="fa fa-spin fa-3x fa-fw">😮</i>'
+      document.getElementById("ListeTachesApi").innerHTML = ""
+      $('#ChargementLogo').removeClass('hideElement')
+      $('#AucuneStorie').addClass('hideElement')
 
       $('#EnvoyerApiPivotal').hide()
 
       var htmlDeFin = ""
-      var ListeErreur = ""
 
+      // var test1 = new Array();
       var myStories
 
       console.log('🎁 Projet: ' + $("#ProjetApi option:selected").text())
@@ -513,17 +525,23 @@
               success: function (LesTaches) {
 
                 if (LesTaches.length != 0) {
+                  // var test2 = new Array();
+                  // var test3 = new Array();
+                  
+                  // test2.push(Storyname) 
+                  // test1.push(test2) 
                   console.log('   📙 Storie: ' + Storyname)
-                  // htmlDeFin += '<div  style="margin-bottom: 30px;"> <h3>' + Storyname + '</h3>'
                   htmlDeFin += '<table class="table table-sm thead-dark table-bordered"><tbody class="thead-dark"><tr><th colspan="10">'+ Storyname + '</th></tr>';
 
                   $.each(LesTaches, function () {
+                    // var test4 = new Array();
+                    // var test5 = new Array();
                     try {
                       var ListeHeures = /\.-(.+)/.exec(this.description)[1];
+                      // test4.push(this.description)
                       console.log('       📃 Une tache à faire : ' + this.description)
                     } catch  {
                       console.log("       🔴🔴🔴🔴" + this.description)
-                      ListeErreur = this.description
                     }
 
                     var RegexGroupeHeure = /([0-9]+)/g
@@ -531,13 +549,17 @@
 
                     match = RegexGroupeHeure.exec(ListeHeures);
                     while (match != null) {
+                      // test5.push(match[0])
                       InputHeure += '<option value=' + match[0] + '>' + match[0] + '</option>'
                       match = RegexGroupeHeure.exec(ListeHeures);
                     }
-                    InputHeure += '</select>'
+                    // test4.push(test5)
+                    // test3.push(test4)
 
+                    InputHeure += '</select>'
                     htmlDeFin += InputHeure + ' ' + this.description + '</td></tr>'
                   })
+                  // test2.push(test3)
                   htmlDeFin += "</tbody></table>"
                 }
                 document.getElementById("ListeTachesApi").innerHTML = htmlDeFin
@@ -545,21 +567,16 @@
             });
           })
 
+          $('#ChargementLogo').addClass('hideElement')
 
           //si pas de stories
           if (myStories.length === 0) {
-            document.getElementById("ListeTachesApi").innerHTML = "<h3>Aucunes storie pour ce projet ?</h3><label>Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons\
-        <ul>\
-          <li>La ressource n'est pas owner des stories ? </li>\
-          <li>L'ID pivotal tracker du projet ou de la ressource n'est pas le bon ?</li>\
-        </ul>\
-      </label>"
+            $('#AucuneStorie').removeClass('hideElement')
           }
           else {
             $('#EnvoyerApiPivotal').show()
           }
-
-
+          // console.log('array sort: ',test1.sort())
         }
       });
 
