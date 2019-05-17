@@ -295,7 +295,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       area: {
         fillOpacity: 0.2
       },
-      line: {
+      series: {
         dataLabels: {
           enabled: true
         },
@@ -331,7 +331,7 @@ function fillInformation(infosource) {
   else 
     var couleurBar = "success";
   
-  $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-' + couleurBar + '" role="progressbar" style="width: ' + moyenne + '%; aria-valuenow="' + moyenne + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
+  $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar bg-' + couleurBar + '" role="progressbar" style="width: ' + moyenne + '%; aria-valuenow="' + moyenne + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
 
   $("#PourcentageDescendue").text(Math.round(moyenne) + "%");
 }
