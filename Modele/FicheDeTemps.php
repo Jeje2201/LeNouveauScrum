@@ -184,7 +184,7 @@
           foreach ($result as $row) {
             $output .= '
             <tr>
-              <td class="ListeDateManquante">' . date("d/m/Y", strtotime($row["selected_date"])) . '</td>
+              <td class="ListeDateManquante"><u>' . date("d/m/Y", strtotime($row["selected_date"])) . '</u></td>
             </tr>';
           }
         } else {
