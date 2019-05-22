@@ -511,6 +511,7 @@
 
             Storyname = this.name
             StoryId = this.id
+            Storyurl = this.url
 
             $.ajax({
               url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] + "/stories/" + this.id + "/tasks",
@@ -524,14 +525,13 @@
               processData: false,
               success: function (LesTaches) {
 
-                if (LesTaches.length != 0) {
                   // var test2 = new Array();
                   // var test3 = new Array();
                   
                   // test2.push(Storyname) 
                   // test1.push(test2) 
                   console.log('   📙 Storie: ' + Storyname)
-                  htmlDeFin += '<table class="table table-sm thead-dark table-bordered"><tbody class="thead-dark"><tr><th colspan="10">'+ Storyname + '</th></tr>';
+                  htmlDeFin += '<table class="table table-sm thead-dark table-bordered"><tbody class="thead-dark"><tr><th colspan="10"><u><a class="HeaderTablePlanif" href='+ Storyurl + '>'+ Storyname + '</a></u> 🔗</th></tr>';
 
                   $.each(LesTaches, function () {
                     // var test4 = new Array();
@@ -561,7 +561,7 @@
                   })
                   // test2.push(test3)
                   htmlDeFin += "</tbody></table>"
-                }
+
                 document.getElementById("ListeTachesApi").innerHTML = htmlDeFin
               }
             });

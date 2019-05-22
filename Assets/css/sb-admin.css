@@ -3,6 +3,17 @@ html {
   min-height: 100%;
 }
 
+.HeaderTablePlanif{
+  color:white
+}
+.HeaderTablePlanif:hover{
+  color:white
+}
+
+.ListeDateManquante{
+  cursor: pointer;
+}
+
 /*Div qui permet de follow le screen meme si scroll, appartient au div quand planif avec l'api*/
 .FollowAttribuable{
   margin-left: 52%;
