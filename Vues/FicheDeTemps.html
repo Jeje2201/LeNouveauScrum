@@ -29,7 +29,7 @@
               <div class="col">
                 <label>Heures (Custom Style By Jérémy 👌)</label>
                   <input type="range" id="LeSliderDesHeures" value="0.25" min="0.25" max="7" step="0.25" />
-                  <label id="InfosRangeHeures"></label> / <label id="InfosRangeHeuresMax"></label>
+                  <label id="InfosRangeHeures"></label> <label id="InfosRangeHeuresMax"></label>
               </div>
               
               <div class="col">
@@ -77,10 +77,8 @@
   <script>
     $(document).ready(function () {
 
+      //Charger le slider
       InfoMaxSlider();
-
-      //On informe le texte de range combien vaut la range
-      $('#InfosRangeHeures').html( Math.trunc($('#LeSliderDesHeures').val()) + ' h ' + ($('#LeSliderDesHeures').val() - Math.floor($('#LeSliderDesHeures').val())) * 60);   
 
       //Date d'aujourd'hui
       $('#StartDate, #EndDate').val(ChoixDate(0));
@@ -95,21 +93,16 @@
 
       TableTotJoursNonPlein()
 
-      //Si ne reconnait pas l'utilisateur, le rediriger vers la connexion
-      if (!localStorage.getItem("Connexion")) {
-        $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
-      }
-
+      //Lorsque change la date de debut
       $('#StartDate').change(function () {
         ChargerListeHeures1Jour1Ressource()
         $('#EndDate').val($('#StartDate').val())
+        InfoMaxSlider()
       });
 
       //Quand bouge slider
       $(document).on('input', '#LeSliderDesHeures', function() {
-
         $('#InfosRangeHeures').html( Math.trunc($(this).val()) + ' h ' + ($(this).val() - Math.floor($(this).val())) * 60);   
-
       });
 
       //Add les infos
@@ -145,6 +138,7 @@
 
       //Partie pour informer le max du slider
       function InfoMaxSlider() {
+
         var LaDate = DateFrToEn($('#StartDate').val())
 
         if ($('#StartDate').val() == "") 
@@ -160,8 +154,21 @@
             Done: LaDate
           },
           success: function (data) {
-            console.log(data)
-            $('#InfosRangeHeuresMax').html( Math.trunc(data) + ' h ' + (data - Math.floor(data)) * 60); 
+
+            console.log('Nouveau max range: ' + data)
+
+            if(data == 0){
+              $( "#LeSliderDesHeures" ).slider({disabled: true});
+              $( "#InfosRangeHeures" ).html( "Tout est ok !" );
+              $( "#InfosRangeHeuresMax" ).html( "" );
+            }
+            else{
+              $( "#LeSliderDesHeures" ).slider({disabled: false});
+              $( "#LeSliderDesHeures" ).attr('max', data).val(0.25);
+              $( "#InfosRangeHeures" ).html( "0 h 15" );
+              $('#InfosRangeHeuresMax').html( ' / '+ Math.trunc(data) + ' h ' + (data - Math.floor(data)) * 60 ); 
+            }
+
           }
         })
       }
@@ -223,8 +230,9 @@
 
             elementsArray.forEach(function(elem) {
                 elem.addEventListener("click", function() {
-                  $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"))
-                  ChargerListeHeures1Jour1Ressource()
+                  $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"));
+                  ChargerListeHeures1Jour1Ressource();
+                  InfoMaxSlider();
                 });
             });
           }
