@@ -1,3 +1,8 @@
+//Si ne reconnait pas l'utilisateur, le rediriger vers la connexion
+if (!localStorage.getItem("Connexion")) {
+  $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
+}
+
 /**
  * Quelques js esthétiques
  * @param {string} LaPage Affecter la classe active dans la navbar a la page active, en cours
