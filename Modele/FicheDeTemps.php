@@ -68,7 +68,7 @@
         FROM cir C
         where C.Done = '$LaDate'
         group by C.Done, C.Fk_User
-        having sum(C.Time) = 1)
+        having sum(C.Time) = 7)
         and X.actif = 1
         and X.MailCir = 1
         and X.RegisterDate <= '$LaDate'
@@ -106,6 +106,21 @@
         echo $output;
       }
 
+      // Get le nb de temps pour set le max du slider
+      if ($_POST["action"] == "LimitSlider") {
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT sum(C.Time)
+        FROM cir C
+        inner join projet P on C.Fk_Project = P.id 
+        WHERE Fk_User = '" . $_POST["Ressource"] . "'
+        AND Done = '" . $_POST["Done"] . "'"
+        );
+        $statement->execute();
+        $result = $statement->fetch();
+        echo 7 - $result[0];
+      }
+
       // Pour la liste d'heures validé sur une journée selectionné dans la page de fiche de temps
       if ($_POST["action"] == "LoadHeuresRempli1Jour1Ressource") {
         $output = array();
@@ -124,7 +139,7 @@
         <thead class="thead-light">
         <tr>
         <th width="">Projet</th>
-        <th width="">Journée du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
+        <th width="">Heures du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
         <th width="10%"><center>Supprimer</center></th>
         </tr>
         </thead>
@@ -134,7 +149,7 @@
             $output .= '
         <tr>
         <td>' . $row["Projet"] . '</td>
-        <td>' . $row["Time"] . '</td>
+        <td>' . intval($row["Time"]) . 'h' . (($row["Time"] - intval($row["Time"]))*60) . '</td>
         <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -166,7 +181,7 @@
         From cir C
         where C.Fk_User = '" . $_POST["LaRessource"] . "'
         group by C.Done, C.Fk_User
-        having sum(C.Time)=1)"
+        having sum(C.Time)=7)"
         );
         $statement->execute();
         $result = $statement->fetchAll();
@@ -225,7 +240,7 @@
           $result = $statement->fetch();
 
           //si on dépase pour une de toutes ces dates on warn le user mais rien de plus
-          if($result["Depasse"] > 1){
+          if($result["Depasse"] > 7){
             $Liste[] = $LesDates[$i];
             $ListeText .= '- '.$LesDates[$i] . "<br>";
             $DatesOk = false;
@@ -373,7 +388,7 @@
               From cir C
               where C.Fk_User = $UnId
               group by C.Done, C.Fk_User
-              having sum(C.Time)=1
+              having sum(C.Time)=7
           )");
 
           $statement->execute();

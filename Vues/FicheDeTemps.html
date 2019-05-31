@@ -17,34 +17,19 @@
             <div class="col">
               <div class="form-group">
                 <label>Date début</label>
-                <input type="text" class="form-control" id="Done">
+                <input type="text" class="form-control" id="StartDate">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label>Date Fin</label>
-                <input type="text" class="form-control" id="DoneFin">
+                <input type="text" class="form-control" id="EndDate">
               </div>
             </div>
               <div class="col">
-                <div class="form-group">
-                  <label>Jour</label>
-                  <br>
-                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-info active">
-                      <input type="radio" name="options" value="0.25" id="options" autocomplete="off" checked>0,25
-                    </label>
-                    <label class="btn btn-info">
-                      <input type="radio" name="options" value="0.5" id="options" autocomplete="off">0,5
-                    </label>
-                    <label class="btn btn-info">
-                      <input type="radio" name="options" value="0.75" id="options" autocomplete="off">0,75
-                    </label>
-                    <label class="btn btn-info">
-                      <input type="radio" name="options" value="1" id="options" autocomplete="off">1
-                    </label>
-                  </div>
-                </div>
+                <label>Heures (Custom Style By Jérémy 👌)</label>
+                  <input type="range" id="LeSliderDesHeures" value="0.25" min="0.25" max="7" step="0.25" />
+                  <label id="InfosRangeHeures"></label> / <label id="InfosRangeHeuresMax"></label>
               </div>
               
               <div class="col">
@@ -78,7 +63,7 @@
           <h4 class="modal-title">Ah non, je t'arrête de suite!</h4>
         </div>
         <div class="modal-body">
-          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que 1.</p>
+          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que 7h.</p>
           <p>Je suis gentil (😊) alors voici la liste des dates qui posent problème :</p>
           <p id="ListeDateAvecUnProbleme"></p>
         </div>
@@ -92,9 +77,14 @@
   <script>
     $(document).ready(function () {
 
+      InfoMaxSlider();
+
+      //On informe le texte de range combien vaut la range
+      $('#InfosRangeHeures').html( Math.trunc($('#LeSliderDesHeures').val()) + ' h ' + ($('#LeSliderDesHeures').val() - Math.floor($('#LeSliderDesHeures').val())) * 60);   
+
       //Date d'aujourd'hui
-      $('#Done, #DoneFin').val(ChoixDate(0));
-      $('#Done, #DoneFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2 , weekStart: 1});
+      $('#StartDate, #EndDate').val(ChoixDate(0));
+      $('#StartDate, #EndDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2 , weekStart: 1});
 
       //Charger liste projets
       RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
@@ -110,9 +100,16 @@
         $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
       }
 
-      $('#Done').change(function () {
+      $('#StartDate').change(function () {
         ChargerListeHeures1Jour1Ressource()
-        $('#DoneFin').val($('#Done').val())
+        $('#EndDate').val($('#StartDate').val())
+      });
+
+      //Quand bouge slider
+      $(document).on('input', '#LeSliderDesHeures', function() {
+
+        $('#InfosRangeHeures').html( Math.trunc($(this).val()) + ' h ' + ($(this).val() - Math.floor($(this).val())) * 60);   
+
       });
 
       //Add les infos
@@ -126,8 +123,8 @@
               action: "Create",
               Ressource: localStorage.getItem("Connexion"),
               Projet: $('#projetId').val(),
-              Time: $("input[name=options]:checked").val(),
-              Done: ListeJoursDate($('#Done').val(), $('#DoneFin').val()),
+              Time: $('#LeSliderDesHeures').val(),
+              Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
               Log: DateFrToEn(ChoixDate(0))
             },
             success: function (data) {
@@ -140,17 +137,41 @@
                 ChargerListeHeures1Jour1Ressource()
                 TableTotJoursNonPlein()
                 BootstrapAlertDefaut('✓');
+                InfoMaxSlider()
               }
             }
           });
       });
 
+      //Partie pour informer le max du slider
+      function InfoMaxSlider() {
+        var LaDate = DateFrToEn($('#StartDate').val())
+
+        if ($('#StartDate').val() == "") 
+          LaDate = DateFrToEn(ChoixDate(0))
+
+        $.ajax({
+          url: "Modele/FicheDeTemps.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            action: "LimitSlider",
+            Ressource: localStorage.getItem("Connexion"),
+            Done: LaDate
+          },
+          success: function (data) {
+            console.log(data)
+            $('#InfosRangeHeuresMax').html( Math.trunc(data) + ' h ' + (data - Math.floor(data)) * 60); 
+          }
+        })
+      }
+
       //Charger les infos
       function ChargerListeHeures1Jour1Ressource() {
 
-        var LaDate = DateFrToEn($('#Done').val())
+        var LaDate = DateFrToEn($('#StartDate').val())
 
-        if ($('#Done').val() == "") 
+        if ($('#StartDate').val() == "") 
           LaDate = DateFrToEn(ChoixDate(0))
 
         $.ajax({
@@ -181,6 +202,7 @@
               ChargerListeHeures1Jour1Ressource()
               TableTotJoursNonPlein()
               BootstrapAlertDefaut(data);
+              InfoMaxSlider();
             }
           })
       });
@@ -201,7 +223,7 @@
 
             elementsArray.forEach(function(elem) {
                 elem.addEventListener("click", function() {
-                  $('#Done, #DoneFin').val(elem.textContent.replace(/\//g, "-"))
+                  $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"))
                   ChargerListeHeures1Jour1Ressource()
                 });
             });
