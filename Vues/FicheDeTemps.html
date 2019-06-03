@@ -53,7 +53,7 @@
             <div class="col">
               <label id="InfosTempsFdt"></label>
               <div class="progress"  style="height: 35px;">
-                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
 
@@ -89,7 +89,7 @@
           <h4 class="modal-title">Ah non, je t'arrête de suite!</h4>
         </div>
         <div class="modal-body">
-          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que 7h.</p>
+          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que <b>7h7h24</b>.</p>
           <p>Je suis gentil (😊) alors voici la liste des dates qui posent problème :</p>
           <p id="ListeDateAvecUnProbleme"></p>
         </div>
@@ -102,8 +102,6 @@
 
   <script>
     $(document).ready(function () {
-
-      
 
       //Date d'aujourd'hui
       $('#StartDate, #EndDate').val(ChoixDate(0));
@@ -167,19 +165,27 @@
             Done: DateFrToEn($('#StartDate').val())
           },
           success: function (data) {
-            var IlManque = 444-data
-
-            $('#InfosTempsFdt').text('Il manque: '+MinutesIntoTime(IlManque,'more'))
+            $('#InfosTempsFdt').text('Il manque: '+MinutesIntoTime(444-data,'more'))
             $('.progress-bar').text(Math.trunc(data/444*100)+' %').css("width", Math.trunc(data/444*100)+'%')
-            
 
-            // $('#InfosTempsFdt').text(DejaRempliPourcent+'%')
+            if(Math.trunc(data/444*100) < 100 ){
+            $('.progress-bar').removeClass('bg-success')
+            $('.progress-bar').addClass('bg-danger')
+            } else{
+            $('.progress-bar').removeClass('bg-danger')
+            $('.progress-bar').addClass('bg-success')
+            }
           }
         });
       }
 
       //Add les infos
       $('#SetFicheDeTemps').click(function () {
+
+        if(parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()) == 0){
+          BootstrapAlertError('0 ? Je crois pas non 🙃')
+          return false;
+        }
 
         $.ajax({
           url: "Modele/FicheDeTemps.php",
