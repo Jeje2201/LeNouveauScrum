@@ -170,7 +170,7 @@
             var IlManque = 444-data
 
             $('#InfosTempsFdt').text('Il manque: '+MinutesIntoTime(IlManque,'more'))
-            $('.progress-bar').text(Math.round(data/444*100)+' %').css("width", Math.round(data/444*100)+'%')
+            $('.progress-bar').text(Math.trunc(data/444*100)+' %').css("width", Math.trunc(data/444*100)+'%')
             
 
             // $('#InfosTempsFdt').text(DejaRempliPourcent+'%')
