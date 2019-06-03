@@ -26,18 +26,43 @@
                 <input type="text" class="form-control" id="EndDate">
               </div>
             </div>
-              <div class="col">
-                <label>Heures</label>
-                  <input type="range" id="LeSliderDesHeures" value="0.25" min="0.25" max="7" step="0.25" />
-                  <label id="InfosRangeHeures"></label> <label id="InfosRangeHeuresMax"></label>
-              </div>
-              
-              <div class="col">
-                  <div class="form-group">
-                    <label>Valider</label>
-                    <button type="button" id="SetFicheDeTemps" class="btn btn-success btn-block">Envoyer</button>
-                  </div>
+            <div class="col">
+              <label>Heures (version J)</label>
+              <div class="form-group">
+                <div class="btn-group btn-block" role="group">
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.25 </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.5 </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.75 </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 1 </button>
+                  <!-- <button type="button" id="ShortcutHours" class="btn btn-info"> Max </button> -->
                 </div>
+              </div>
+            </div>
+            <div class="col">
+              <label>Heures</label>
+              <div class="input-group">
+
+                <input type="number" id="HeureFdt" value="0" min="0" class="form-control">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">H</span>
+                </div>
+                <input type="number" id="MinuteFdt" value="0" class="form-control" min="0">
+
+              </div>
+            </div>
+            <div class="col">
+              <label id="InfosTempsFdt"></label>
+              <div class="progress"  style="height: 35px;">
+                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label>Valider</label>
+                <button type="button" id="SetFicheDeTemps" class="btn btn-success btn-block">Envoyer</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -50,11 +75,12 @@
           <div id="TableTotJoursNonPlein"></div>
         </div>
       </div>
-      <div class="centered" id="RetardEnGeneral"> <i class="fa fa-spin fa-3x fa-fw">😮</i></div>
+      <div class="centered" id="RetardEnGeneral">
+        <i class="fa fa-spin fa-3x fa-fw">😮</i>
+      </div>
 
     </div>
   </div>
-
 
   <div id="ModalProblemeDate" class="modal fade">
     <div class="modal-dialog">
@@ -77,12 +103,13 @@
   <script>
     $(document).ready(function () {
 
-      //Charger le slider
-      InfoMaxSlider();
+      
 
       //Date d'aujourd'hui
       $('#StartDate, #EndDate').val(ChoixDate(0));
-      $('#StartDate, #EndDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2 , weekStart: 1});
+      $('#StartDate, #EndDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+
+      InfoMaxSlider()
 
       //Charger liste projets
       RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
@@ -97,81 +124,88 @@
       $('#StartDate').change(function () {
         ChargerListeHeures1Jour1Ressource()
         $('#EndDate').val($('#StartDate').val())
-        InfoMaxSlider()
-      });
-
-      //Quand bouge slider
-      $(document).on('input', '#LeSliderDesHeures', function() {
-        $('#InfosRangeHeures').html( Math.trunc($(this).val()) + ' h ' + ($(this).val() - Math.floor($(this).val())) * 60);   
       });
 
       //Add les infos
+      $('.btn-info').click(function () {
+        // alert($(this).text()*444);
+        $('#HeureFdt').val(MinutesIntoTime($(this).text()*444,'heure'))
+        $('#MinuteFdt').val(MinutesIntoTime($(this).text()*444,'minute'))
+      })
+
+      //Convert minutes into hours and min
+      function MinutesIntoTime(n,result) {
+        var num = n;
+        var hours = (num / 60);
+        var rhours = Math.floor(hours);
+        var minutes = (hours - rhours) * 60;
+        var rminutes = Math.round(minutes);
+
+        if(rhours < 10)
+          rhours = "0"+rhours
+
+        if(rminutes < 10)
+          rminutes = "0"+rminutes
+
+        if(result == 'minute')
+          return rminutes;
+        if(result == 'heure')
+          return rhours;
+        if(result == 'more')
+          return rhours + ' h ' + rminutes;
+      }
+
+      function InfoMaxSlider(){
+        $.ajax({
+          url: "Modele/FicheDeTemps.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            action: "GetNewMax",
+            Ressource: localStorage.getItem("Connexion"),
+            Done: DateFrToEn($('#StartDate').val())
+          },
+          success: function (data) {
+            var IlManque = 444-data
+
+            $('#InfosTempsFdt').text('Il manque: '+MinutesIntoTime(IlManque,'more'))
+            $('.progress-bar').text(Math.round(data/444*100)+' %').css("width", Math.round(data/444*100)+'%')
+            
+
+            // $('#InfosTempsFdt').text(DejaRempliPourcent+'%')
+          }
+        });
+      }
+
+      //Add les infos
       $('#SetFicheDeTemps').click(function () {
-
-          $.ajax({
-            url: "Modele/FicheDeTemps.php",
-            method: "POST",
-            dataType: "json",
-            data: {
-              action: "Create",
-              Ressource: localStorage.getItem("Connexion"),
-              Projet: $('#projetId').val(),
-              Time: $('#LeSliderDesHeures').val(),
-              Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
-              Log: DateFrToEn(ChoixDate(0))
-            },
-            success: function (data) {
-              console.log(data)
-              if((data.Liste).length > 0){
-                $('#ListeDateAvecUnProbleme').html(data.Texte)
-                $('#ModalProblemeDate').modal('show');
-              }
-              else{
-                ChargerListeHeures1Jour1Ressource()
-                TableTotJoursNonPlein()
-                BootstrapAlertDefaut('✓');
-                InfoMaxSlider()
-              }
-            }
-          });
-      });
-
-      //Partie pour informer le max du slider
-      function InfoMaxSlider() {
-
-        var LaDate = DateFrToEn($('#StartDate').val())
-
-        if ($('#StartDate').val() == "") 
-          LaDate = DateFrToEn(ChoixDate(0))
 
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           dataType: "json",
           data: {
-            action: "LimitSlider",
+            action: "Create",
             Ressource: localStorage.getItem("Connexion"),
-            Done: LaDate
+            Projet: $('#projetId').val(),
+            Time: parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()),
+            Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
+            Log: DateFrToEn(ChoixDate(0))
           },
           success: function (data) {
-
-            console.log('Nouveau max range: ' + data)
-
-            if(data == 0){
-              $( "#LeSliderDesHeures" ).slider({disabled: true});
-              $( "#InfosRangeHeures" ).html( "Tout est ok !" );
-              $( "#InfosRangeHeuresMax" ).html( "" );
+            console.log(data)
+            if ((data.Liste).length > 0) {
+              $('#ListeDateAvecUnProbleme').html(data.Texte)
+              $('#ModalProblemeDate').modal('show');
+            } else {
+              ChargerListeHeures1Jour1Ressource()
+              TableTotJoursNonPlein()
+              BootstrapAlertDefaut('✓');
+              InfoMaxSlider()
             }
-            else{
-              $( "#LeSliderDesHeures" ).slider({disabled: false});
-              $( "#LeSliderDesHeures" ).attr('max', data).val(0.25);
-              $( "#InfosRangeHeures" ).html( "0 h 15" );
-              $('#InfosRangeHeuresMax').html( ' / '+ Math.trunc(data) + ' h ' + (data - Math.floor(data)) * 60 ); 
-            }
-
           }
-        })
-      }
+        });
+      });
 
       //Charger les infos
       function ChargerListeHeures1Jour1Ressource() {
@@ -228,78 +262,78 @@
 
             let elementsArray = document.querySelectorAll(".ListeDateManquante");
 
-            elementsArray.forEach(function(elem) {
-                elem.addEventListener("click", function() {
-                  $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"));
-                  ChargerListeHeures1Jour1Ressource();
-                  InfoMaxSlider();
-                });
+            elementsArray.forEach(function (elem) {
+              elem.addEventListener("click", function () {
+                $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"));
+                ChargerListeHeures1Jour1Ressource();
+                InfoMaxSlider();
+              });
             });
           }
         })
       }
 
       $.ajax({
-    url: "Modele/FicheDeTemps.php",
-    method: "POST",
-    data: {
-      action: "RetardEnGeneral"
-    },
-    success: function (data) {
+        url: "Modele/FicheDeTemps.php",
+        method: "POST",
+        data: {
+          action: "RetardEnGeneral"
+        },
+        success: function (data) {
 
-      if (IsJsonString(data))
-        data = JSON.parse(data);
-
-      Highcharts.chart('RetardEnGeneral', {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Nombre de feuilles de temps non remplies par ressources'
-        },
-        xAxis: {
-          type: 'category',
-          categories: data['NomUser'],
-          labels: {
-            rotation: -45,
-            style: {
-              fontSize: '15px',
-              fontFamily: 'Verdana, sans-serif'
-            }
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'feuilles de temps non remplies'
-          }
-        },
-        tooltip: {
-          shared: true,
-        },
-        plotOptions: {
-          column: {
-            stacking: 'normal',
-            grouping: false,
-            shadow: true,
-            borderWidth: 1
-          },
-          dataLabels: {
-            enabled: true,
-            format: ''
-          }
-        },
-        series: [
-          {
-            name: 'feuilles de temps non remplies',
-            data:  data['NbDatePerUser'],
-            stack: 0,
-            pointPadding: 0.3,
-          }
-        ]
+          if (IsJsonString(data)) 
+            data = JSON.parse(data);
+          
+          Highcharts.chart('RetardEnGeneral', {
+            chart: {
+              type: 'column'
+            },
+            title: {
+              text: 'Nombre de feuilles de temps non remplies par ressources'
+            },
+            xAxis: {
+              type: 'category',
+              categories: data['NomUser'],
+              labels: {
+                rotation: -45,
+                style: {
+                  fontSize: '15px',
+                  fontFamily: 'Verdana, sans-serif'
+                }
+              }
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'feuilles de temps non remplies'
+              }
+            },
+            tooltip: {
+              shared: true
+            },
+            plotOptions: {
+              column: {
+                stacking: 'normal',
+                grouping: false,
+                shadow: true,
+                borderWidth: 1
+              },
+              dataLabels: {
+                enabled: true,
+                format: ''
+              }
+            },
+            series: [
+              {
+                name: 'feuilles de temps non remplies',
+                data: data['NbDatePerUser'],
+                stack: 0,
+                pointPadding: 0.3
+              }
+            ]
+          });
+        }
       });
-    }
-  });
 
     });
   </script>

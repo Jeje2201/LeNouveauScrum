@@ -68,7 +68,7 @@
         FROM cir C
         where C.Done = '$LaDate'
         group by C.Done, C.Fk_User
-        having sum(C.Time) = 7)
+        having sum(C.Time) = 444)
         and X.actif = 1
         and X.MailCir = 1
         and X.RegisterDate <= '$LaDate'
@@ -107,7 +107,7 @@
       }
 
       // Get le nb de temps pour set le max du slider
-      if ($_POST["action"] == "LimitSlider") {
+      if ($_POST["action"] == "GetNewMax") {
         $output = array();
         $statement = $connection->prepare(
           "SELECT sum(C.Time)
@@ -118,11 +118,12 @@
         );
         $statement->execute();
         $result = $statement->fetch();
-        echo 7 - $result[0];
+        echo 0 + $result[0];
       }
 
       // Pour la liste d'heures validé sur une journée selectionné dans la page de fiche de temps
       if ($_POST["action"] == "LoadHeuresRempli1Jour1Ressource") {
+
         $output = array();
         $statement = $connection->prepare(
           "SELECT C.Time, C.id, P.Nom as Projet
@@ -146,10 +147,24 @@
         <tbody id="myTable">';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
+
+            $num = $row["Time"];
+            $hours = ($num / 60);
+            $rhours = floor($hours);
+            $minutes = ($hours - $rhours) * 60;
+            $rminutes = round($minutes);
+            if($rminutes < 10){
+              $rminutes = "0".$rminutes;
+            }
+
+            if($rhours < 10){
+              $rhours = "0".$rhours;
+            }
+
             $output .= '
         <tr>
         <td>' . $row["Projet"] . '</td>
-        <td>' . intval($row["Time"]) . 'h' . (($row["Time"] - intval($row["Time"]))*60) . '</td>
+        <td>' . $rhours . 'h' . $rminutes . '</td>
         <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
@@ -176,12 +191,12 @@
          (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
          (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
         where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_POST["LaRessource"] . "' and E.MailCir = 1) and now()
-        and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
+        and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 444
         and selected_date not in (SELECT distinct C.Done
         From cir C
         where C.Fk_User = '" . $_POST["LaRessource"] . "'
         group by C.Done, C.Fk_User
-        having sum(C.Time)=7)"
+        having sum(C.Time)=444)"
         );
         $statement->execute();
         $result = $statement->fetchAll();
@@ -240,7 +255,7 @@
           $result = $statement->fetch();
 
           //si on dépase pour une de toutes ces dates on warn le user mais rien de plus
-          if($result["Depasse"] > 7){
+          if($result["Depasse"] > 444){
             $Liste[] = $LesDates[$i];
             $ListeText .= '- '.$LesDates[$i] . "<br>";
             $DatesOk = false;
@@ -382,13 +397,13 @@
           where selected_date between (
               SELECT E.RegisterDate from employe E where E.id = $UnId
           ) and now()
-          and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
+          and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 444
           and selected_date not in (
               SELECT distinct C.Done
               From cir C
               where C.Fk_User = $UnId
               group by C.Done, C.Fk_User
-              having sum(C.Time)=7
+              having sum(C.Time)=444
           )");
 
           $statement->execute();
