@@ -89,7 +89,7 @@
           <h4 class="modal-title">Ah non, je t'arrête de suite!</h4>
         </div>
         <div class="modal-body">
-          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que <b>7h7h24</b>.</p>
+          <p>Pour faire simple, dans ta liste de dates que tu as sélectionné, certaines dates auraient plus d'1 jour si on additionne ta valeur avec celles dont elles sont déjà composées, pour le CIR, une journée, c'est pas plus que <b>7h24</b>.</p>
           <p>Je suis gentil (😊) alors voici la liste des dates qui posent problème :</p>
           <p id="ListeDateAvecUnProbleme"></p>
         </div>
@@ -184,6 +184,11 @@
 
         if(parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()) == 0){
           BootstrapAlertError('0 ? Je crois pas non 🙃')
+          return false;
+        }
+
+        if(parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()) > 444){
+          $('#ModalProblemeDate').modal('show');
           return false;
         }
 
