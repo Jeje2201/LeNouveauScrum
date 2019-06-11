@@ -16,39 +16,31 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label>Date début</label>
+                <label>Début</label>
                 <input type="text" class="form-control" id="StartDate">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label>Date Fin</label>
+                <label>Fin</label>
                 <input type="text" class="form-control" id="EndDate">
               </div>
             </div>
             <div class="col">
-              <label>Heures (version J)</label>
+              <label>Temps (en jours)</label>
               <div class="form-group">
                 <div class="btn-group btn-block" role="group">
-                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.25 </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.5 </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info"> 0.75 </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info"> 1 </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 25% </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 50% </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 75% </button>
+                  <button type="button" id="ShortcutHours" class="btn btn-info"> 100% </button>
                   <!-- <button type="button" id="ShortcutHours" class="btn btn-info"> Max </button> -->
                 </div>
               </div>
             </div>
             <div class="col">
-              <label>Heures</label>
-              <div class="input-group">
-
-                <input type="number" id="HeureFdt" value="0" min="0" class="form-control">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">H</span>
-                </div>
-                <input type="number" id="MinuteFdt" value="0" class="form-control" min="0">
-
-              </div>
+              <label>Temps</label>
+              <input type="time" id="TempsFdt" value="00:00" class="form-control">
             </div>
             <div class="col">
               <label id="InfosTempsFdt"></label>
@@ -128,9 +120,21 @@
 
       //Add les infos
       $('.btn-info').click(function () {
-        // alert($(this).text()*444);
-        $('#HeureFdt').val(MinutesIntoTime($(this).text()*444,'heure'))
-        $('#MinuteFdt').val(MinutesIntoTime($(this).text()*444,'minute'))
+        
+        switch ($(this).text()) {
+          case ' 25% ':
+            $('#TempsFdt').val('01:51')
+            break;
+          case ' 50% ':
+            $('#TempsFdt').val('03:42')
+            break;
+          case ' 75% ':
+            $('#TempsFdt').val('05:33')
+            break;
+          case ' 100% ':
+            $('#TempsFdt').val('07:24')
+            break;
+        }
       })
 
       //Convert minutes into hours and min
@@ -152,7 +156,7 @@
         if(result == 'heure')
           return rhours;
         if(result == 'more')
-          return rhours + ' h ' + rminutes;
+          return rhours + 'h' + rminutes;
       }
 
       function InfoMaxSlider(){
@@ -166,7 +170,7 @@
             Done: DateFrToEn($('#StartDate').val())
           },
           success: function (data) {
-            $('#InfosTempsFdt').text('Il manque: '+MinutesIntoTime(444-data,'more'))
+            $('#InfosTempsFdt').text('Il manque '+MinutesIntoTime(444-data,'more'))
             $('.progress-bar').text(Math.trunc(data/444*100)+' %').css("width", Math.trunc(data/444*100)+'%')
 
             if(Math.trunc(data/444*100) < 100 ){
@@ -181,12 +185,10 @@
       }
 
       //Add les infos
-      $('#SetFicheDeTemps').click(function () {
+      $('#SetFicheDeTemps').click(function () {  
 
-        
-
-        if((parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()) == 0) || (parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()) > 444) ){
-          BootstrapAlertError(`Minimum 00h01 <br> Maximum 07h24`)      
+        if(parseInt($('#TempsFdt').val().split(':')[0]*60)+parseInt($('#TempsFdt').val().split(':')[1]) > 444 || parseInt($('#TempsFdt').val().split(':')[0]*60)+parseInt($('#TempsFdt').val().split(':')[1]) == 0 ){
+          BootstrapAlertError(`Minimum 00:01 <br> Maximum 07:24`)      
           return false;
         }
 
@@ -198,12 +200,11 @@
             action: "Create",
             Ressource: localStorage.getItem("Connexion"),
             Projet: $('#projetId').val(),
-            Time: parseInt($('#HeureFdt').val()*60)+parseInt($('#MinuteFdt').val()),
+            Time: parseInt($('#TempsFdt').val().split(':')[0]*60)+parseInt($('#TempsFdt').val().split(':')[1]),
             Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
             Log: DateFrToEn(ChoixDate(0))
           },
           success: function (data) {
-            console.log(data)
             if ((data.Liste).length > 0) {
               $('#ListeDateAvecUnProbleme').html(data.Texte)
               $('#ModalProblemeDate').modal('show');
