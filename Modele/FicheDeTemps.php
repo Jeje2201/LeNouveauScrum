@@ -249,7 +249,7 @@
         <thead class="thead-light">
         <tr>
         <th width="">Projet</th>
-        <th width="">temps</th>
+        <th width="">Total</th>
         </tr>
         </thead>
         <tbody id="myTable">
