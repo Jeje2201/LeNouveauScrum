@@ -256,11 +256,25 @@
         ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
-              $output .= '
-              <tr>
-              <td>' . $row["Projets"] . '</td>
-              <td>' . $row["Temps"] . '</td>
-              </tr>';
+
+            $num = $row["Temps"];
+            $hours = ($num / 60);
+            $rhours = floor($hours);
+            $minutes = ($hours - $rhours) * 60;
+            $rminutes = round($minutes);
+            if($rminutes < 10){
+              $rminutes = "0".$rminutes;
+            }
+
+            if($rhours < 10){
+              $rhours = "0".$rhours;
+            }
+
+            $output .= '
+            <tr>
+            <td>' . $row["Projets"] . '</td>
+            <td>' . $rhours . 'h' . $rminutes . '</td>
+            </tr>';
           }
         } else {
           $output .= '
