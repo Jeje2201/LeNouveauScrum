@@ -227,6 +227,51 @@
         echo $output;
       }
 
+      //List des heures par sprint de rempli
+      if ($_POST["action"] == "ListTotalSurSprint") {
+        $output = array();
+        $statement = $connection->prepare(
+        "SELECT
+          projet.nom as Projets,
+          sum(C.Time) as Temps
+        FROM `cir` C
+        inner JOIN projet on
+          projet.id = C.Fk_Project
+        WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["LeSprint"] . "' ) 
+        and Done <= (SELECT S.dateFin from sprint S where S.id = '" . $_POST["LeSprint"] . "' )
+        and Fk_User = '" . $_POST["LaRessource"] . "' group by Fk_Project");
+        
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Projet</th>
+        <th width="">temps</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+              $output .= '
+              <tr>
+              <td>' . $row["Projets"] . '</td>
+              <td>' . $row["Temps"] . '</td>
+              </tr>';
+          }
+        } else {
+          $output .= '
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
       //Create une fiche de temps
       if ($_POST["action"] == "Create") {
 

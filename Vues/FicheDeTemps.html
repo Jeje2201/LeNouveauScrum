@@ -30,16 +30,16 @@
               <label>Temps (en jours)</label>
               <div class="form-group">
                 <div class="btn-group btn-block" role="group">
-                  <button type="button" id="ShortcutHours" class="btn btn-info">
+                  <button type="button" id="ShortcutHours" value="01:51" class="btn btn-info">
                     25%
                   </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info">
+                  <button type="button" id="ShortcutHours" value="03:42" class="btn btn-info">
                     50%
                   </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info">
+                  <button type="button" id="ShortcutHours" value="05:33" class="btn btn-info">
                     75%
                   </button>
-                  <button type="button" id="ShortcutHours" class="btn btn-info">
+                  <button type="button" id="ShortcutHours" value="07:24" class="btn btn-info">
                     100%
                   </button>
                   <!-- <button type="button" id="ShortcutHours" class="btn btn-info"> Max </button> -->
@@ -59,7 +59,7 @@
 
             <div class="col">
               <div class="form-group">
-                <label>Valider</label>
+                <label>&nbsp;</label>
                 <button type="button" id="SetFicheDeTemps" class="btn btn-success btn-block">Envoyer</button>
               </div>
             </div>
@@ -67,14 +67,25 @@
         </div>
       </div>
       <br>
+
       <div class="row">
-        <div class="col-lg-6">
+
+        <div class="col">
           <div id="TableTotAujourdhui"></div>
         </div>
-        <div class="col-lg-6">
+
+        <div class="col">
           <div id="TableTotJoursNonPlein"></div>
         </div>
+
+        <div class="col">
+          <div id="ListSrint"></div>
+          <div id="TotRempliSprint"></div>
+        </div>
+
       </div>
+
+
       <div class="centered" id="RetardEnGeneral">
         <i class="fa fa-spin fa-3x fa-fw">😮</i>
       </div>
@@ -104,6 +115,9 @@
   <script>
     $(document).ready(function () {
 
+      //List de sprint chargé
+      RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+
       //Date d'aujourd'hui
       $('#StartDate, #EndDate').val(ChoixDate(0));
       $('#StartDate, #EndDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
@@ -116,8 +130,8 @@
 
       //Charger liste
       ChargerListeHeures1Jour1Ressource()
-
       TableTotJoursNonPlein()
+      ListTotalSurSprint()
 
       //Lorsque change la date de debut
 
@@ -129,21 +143,7 @@
 
       //Add les infos
       $('.btn-info').click(function () {
-
-        switch ($(this).text()) {
-          case ' 25% ':
-            $('#TempsFdt').val('01:51')
-            break;
-          case ' 50% ':
-            $('#TempsFdt').val('03:42')
-            break;
-          case ' 75% ':
-            $('#TempsFdt').val('05:33')
-            break;
-          case ' 100% ':
-            $('#TempsFdt').val('07:24')
-            break;
-        }
+        $('#TempsFdt').val($(this).val())
       })
 
       //Convert minutes into hours and min
@@ -269,6 +269,26 @@
             }
           })
       });
+
+      $('#ListSrint').change(function () {
+        ListTotalSurSprint()
+      });
+
+      function ListTotalSurSprint() {
+        console.log($("#numeroSprint").val())
+        $.ajax({
+          url: "Modele/FicheDeTemps.php",
+          method: "POST",
+          data: {
+            LaRessource: localStorage.getItem("Connexion"),
+            LeSprint: $("#numeroSprint").val(),
+            action: "ListTotalSurSprint"
+          },
+          success: function (data) {
+            $('#TotRempliSprint').html(data);
+          }
+        })
+      }
 
       //Load la liste des fiches de temps non rempli + fonction pour update la date sélectionné quand click sur une date de la liste
       function TableTotJoursNonPlein() {
