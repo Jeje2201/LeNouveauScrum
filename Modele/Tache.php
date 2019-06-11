@@ -54,9 +54,9 @@
           foreach ($result as $row) {
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
-        <div style="margin-left:4px;">
-          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"><br>
-          <div class="SpecialHr"></div>
+        <div style="margin-left:4px;"><b>
+          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"></b><br>
+
           ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
         </div>
       </div>';
@@ -92,9 +92,8 @@
 
             $output2 .= '
 <div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
-  <div style="margin-left:4px;">
-    ' . $row["prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"><br>
-    <div class="SpecialHr"></div>
+  <div style="margin-left:4px;"><b>
+    ' . $row["prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';
