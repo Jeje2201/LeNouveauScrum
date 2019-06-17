@@ -111,6 +111,12 @@
       //List de sprint chargé
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
+      //Selectionner le mois actuel
+      LeMois = (new Date).getMonth()+1
+      if(LeMois < 10)
+        LeMois = '0'+LeMois 
+      $('#LeMois option[value="' + LeMois + '"]').attr('selected', 'selected')
+
       //Charge liste heures fiche de temps sur un sprint au lancement de la page
       ListTotalSurSprint()
       ListTotalFdTSurMois();
