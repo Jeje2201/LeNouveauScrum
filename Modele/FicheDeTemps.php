@@ -239,7 +239,7 @@
           projet.id = C.Fk_Project
         WHERE Done >= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-01' 
         and Done <= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-31'
-        and Fk_User = '" . $_POST["LaRessource"] . "' group by Fk_Project");
+        and Fk_User = '" . $_POST["LaRessource"] . "' group by Fk_Project order by Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();
