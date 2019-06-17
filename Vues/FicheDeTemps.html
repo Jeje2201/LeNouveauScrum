@@ -77,12 +77,6 @@
         <div class="col">
           <div id="TableTotJoursNonPlein"></div>
         </div>
-
-        <div class="col">
-          <div id="ListSrint"></div>
-          <div id="TotRempliSprint"></div>
-        </div>
-
       </div>
 
 
@@ -115,9 +109,6 @@
   <script>
     $(document).ready(function () {
 
-      //List de sprint chargé
-      RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-
       //Date d'aujourd'hui
       $('#StartDate, #EndDate').val(ChoixDate(0));
       $('#StartDate, #EndDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
@@ -131,7 +122,6 @@
       //Charger liste
       ChargerListeHeures1Jour1Ressource()
       TableTotJoursNonPlein()
-      ListTotalSurSprint()
 
       //Lorsque change la date de debut
 
@@ -270,25 +260,7 @@
           })
       });
 
-      $('#ListSrint').change(function () {
-        ListTotalSurSprint()
-      });
-
-      function ListTotalSurSprint() {
-        console.log($("#numeroSprint").val())
-        $.ajax({
-          url: "Modele/FicheDeTemps.php",
-          method: "POST",
-          data: {
-            LaRessource: localStorage.getItem("Connexion"),
-            LeSprint: $("#numeroSprint").val(),
-            action: "ListTotalSurSprint"
-          },
-          success: function (data) {
-            $('#TotRempliSprint').html(data);
-          }
-        })
-      }
+      
 
       //Load la liste des fiches de temps non rempli + fonction pour update la date sélectionné quand click sur une date de la liste
       function TableTotJoursNonPlein() {
