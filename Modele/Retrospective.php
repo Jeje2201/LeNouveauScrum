@@ -10,7 +10,7 @@
       O.objectif,
       S.couleur,
       P.nom AS projet,
-      CONCAT(employe.prenom,' ', employe.initial) AS Employe,
+      CONCAT(employe.prenom,'&nbsp;', employe.initial) AS Employe,
       S.nom AS etat
       FROM objectif O
       INNER JOIN statutobjectif S
