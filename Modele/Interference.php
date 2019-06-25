@@ -9,7 +9,7 @@
         $statement = $connection->prepare("SELECT I.id,
       I.heure,
       I.label,
-      CONCAT(E.prenom,' ', E.initial) AS Employe,
+      CONCAT(E.prenom,'&nbsp;', E.initial) AS Employe,
       projet.nom,
       T.nom AS TypeInterference
       FROM interference I

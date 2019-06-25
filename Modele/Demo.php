@@ -9,7 +9,7 @@
         $statement = $connection->prepare("SELECT
         D.id AS id,
         D.label,
-        CONCAT(E.prenom,' ', E.initial) AS Employe,
+        CONCAT(E.prenom,'&nbsp;', E.initial) AS Employe,
         P.Nom AS Projet
         FROM demo D
         INNER JOIN projet P on P.id = D.id_Projet

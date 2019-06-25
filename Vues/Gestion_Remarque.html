@@ -6,7 +6,7 @@
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-      <div id="TableauHeuresDescendues" class="table-responsive table-hover"></div>
+      <div id="TableauRemarques" class="table-responsive table-hover"></div>
 
     </div>
 </body>
@@ -56,7 +56,7 @@
   $(document).ready(function () {
 
     ChargerTableau();
-    BarreDeRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
+    BarreDeRecherche('BarreDeRecherche', 'TableauRemarques');
 
     function ChargerTableau() {
       $.ajax({
@@ -66,8 +66,8 @@
           action: "Load"
         },
         success: function (data) {
-          $('#TableauHeuresDescendues').html(data);
-          GarderLaRecherche('BarreDeRecherche', 'TableauHeuresDescendues');
+          $('#TableauRemarques').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauRemarques');
         }
       });
     }

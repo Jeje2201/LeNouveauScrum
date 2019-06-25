@@ -53,7 +53,7 @@ html {
 }
 
   /* Eviter que les tables sorte de la page */
-  #TableListHeuresAttribuees, #TableauInterferanceHtml, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
+  #TableListHeuresAttribuees, #TableauEmployeHtml, #TableauProjetHtml, #TableauHeuresDescendues{
     height: 85%;
   }
 

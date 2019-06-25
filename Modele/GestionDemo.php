@@ -28,7 +28,7 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th width="">Date</th>
+      <th width="">Fait le</th>
       <th width="">Ressource</th>
       <th width="">Projet</th>
       <th width="">Label</th>

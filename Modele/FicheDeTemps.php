@@ -8,7 +8,7 @@
       if ($_POST["action"] == "Load") {
         $statement = $connection->prepare("SELECT
         C.id,
-        CONCAT(E.prenom,' ', E.initial) AS Ressource,
+        CONCAT(E.prenom,'&nbsp;', E.initial) AS Ressource,
         P.nom as Projet,
         C.Time,
         C.Done,
@@ -61,7 +61,7 @@
 
         $LaDate = $_POST["LaDate"];
 
-        $statement = $connection->prepare("SELECT CONCAT(X.prenom,' ', X.nom) as Ressource
+        $statement = $connection->prepare("SELECT CONCAT(X.prenom,'&nbsp;', X.nom) as Ressource
         from employe X
         where X.id not in (SELECT
         C.Fk_User

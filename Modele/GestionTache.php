@@ -12,7 +12,7 @@
       A.Done,
       A.Label,
       P.nom AS projet,
-      CONCAT(E.prenom,' ', E.initial) AS employe
+      CONCAT(E.prenom,'&nbsp;', E.initial) AS employe
       FROM attribution A
       inner JOIN employe E ON A.id_Employe = E.id
       INNER JOIN projet P on P.id = A.id_Projet
