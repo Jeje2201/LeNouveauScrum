@@ -58,6 +58,10 @@ else {
       require_once("Vues/Interference.html");
       break;
 
+      case 'Achievement':
+      require_once("Vues/Achievement.html");
+      break;
+
     case 'GestionTache':
       if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
         require_once("Vues/Gestion_Tache.html");

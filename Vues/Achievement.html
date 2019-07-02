@@ -1,0 +1,81 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid ">
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>En cours de développement!</strong>
+        Voici un avant gout.. (づ￣ 3￣)づ
+      </div>
+      <label>Condition:
+      </label>
+      <input class="form-control" id="Condition" disabled="disabled" value="Survoler un trophé pour obtenir sa condition">
+      <p>&nbsp;</p>
+      <div class="row centered">
+
+        <div class="col">
+          <img id="Vacance" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Prendre au total plus de 30j de congés">
+          <p>Vacances</p>
+        </div>
+
+        <div class="col">
+          <img id="Interference" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 20h d'intérférence sur un sprint">
+          <p>Interférence</p>
+        </div>
+
+        <div class="col">
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Remplir plus de 1000h de fiches de temps">
+          <p>Ancien</p>
+        </div>
+
+        <div class="col">
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Changer sa couleur de tâche">
+          <p>Custom</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 400h sur un projet">
+          <p>PARCEQUE C'EST NOTRE PROJET</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" src="Assets/Image/achievement.png" text="?">
+          <p>L'habit ne fait pas le moine</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>Adujet vendu</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>Hello darkness my old friend</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>Never gonna let your down</p>
+        </div>
+
+        <div class="col">
+          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>Just think about</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  $(document).ready(function () {
+
+    //phase de test
+    $('#Vacance').removeClass('TrophePasEncore')
+
+    //Si hover une image, afficher la condition
+    $('img').mouseenter(function () {
+      $('#Condition').val($(this).attr('text'))
+    })
+  });
+</script>

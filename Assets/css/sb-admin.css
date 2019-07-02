@@ -14,6 +14,11 @@ html {
   cursor: pointer;
 }
 
+.TrophePasEncore{
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
 /*Div qui permet de follow le screen meme si scroll, appartient au div quand planif avec l'api*/
 .FollowAttribuable{
   margin-left: 52%;
