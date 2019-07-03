@@ -78,6 +78,9 @@
         <div class="col">
           <div id="table3"></div>
         </div>
+        <div class="col">
+          <div id="table4"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -121,12 +124,13 @@
       }
     });
 
+    /////////////////////////////////////////////////////////
+
     //Jours de congés
     $.ajax({
       url: "Modele/Achievement.php",
       method: "POST",
       data: {
-        idRessource: localStorage.getItem("Connexion"),
         action: 'LeaderboardConge'
       },
       success: function (data) {
@@ -141,7 +145,6 @@
       url: "Modele/Achievement.php",
       method: "POST",
       data: {
-        idRessource: localStorage.getItem("Connexion"),
         action: 'LeaderboardObjectif'
       },
       success: function (data) {
@@ -154,11 +157,22 @@
       url: "Modele/Achievement.php",
       method: "POST",
       data: {
-        idRessource: localStorage.getItem("Connexion"),
         action: 'LeaderboardTotProjet'
       },
       success: function (data) {
         $('#table3').html(data);
+      }
+    });
+
+    //Tot taches validess
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      data: {
+        action: 'LeaderboardTacheValide'
+      },
+      success: function (data) {
+        $('#table4').html(data);
       }
     });
 

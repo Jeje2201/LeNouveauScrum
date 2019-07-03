@@ -105,6 +105,31 @@
         echo $output;
       }
 
+      if ($_POST["action"] == "LeaderboardTacheValide") {
+        $statement = $connection->prepare("SELECT count(attribution.id) as Total, employe.prenom as Employe, projet.nom as Projet FROM `attribution` inner JOIN employe on employe.id = attribution.id_Employe INNER JOIN projet on projet.id = attribution.id_Projet where id_Employe != 45 and Done is not null group by id_Employe, id_Projet order by Total desc limit 5");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0"><thead class="thead-light"><tr><th colspan="10">Tâches validées</th></tr></thead><tbody id="myTable">';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+            $output .= '
+            <tr>
+            <td>' . round($row["Total"]) . '</td>
+            <td>' . $row["Employe"] . '</td>
+            <td>' . $row["Projet"] . '</td>
+            </tr>';
+          }
+        } else {
+            $output .= '
+            <tr><td align="center" colspan="10">Pas de données</td></tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
 
       
     }
