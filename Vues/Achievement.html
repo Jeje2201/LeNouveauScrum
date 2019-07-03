@@ -72,9 +72,9 @@
         <div class="col">
           <div id="table1"></div>
         </div>
-        <!-- <div class="col">
+        <div class="col">
           <div id="table2"></div>
-        </div> -->
+        </div>
 
       </div>
     </div>
@@ -119,22 +119,34 @@
       }
     });
 
-    //Leaderboard
+    //Jours de congés
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      data: {
+        idRessource: localStorage.getItem("Connexion"),
+        action: 'LeaderboardConge'
+      },
+      success: function (data) {
+        console.log('Info: ', data)
+        $('#table1').html(data);
+        // $('#table2').html(data);
+      }
+    });
 
-      //Jours de congés
-      $.ajax({
-            url: "Modele/Achievement.php",
-            method: "POST",
-            data: {
-              idRessource: localStorage.getItem("Connexion"),
-              action: 'Leaderboard'
-            },
-            success: function (data) {
-              console.log('Info: ', data)
-              $('#table1').html(data);
-              // $('#table2').html(data);
-            }
-          });
+    //Jours de congés
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      data: {
+        idRessource: localStorage.getItem("Connexion"),
+        action: 'LeaderboardObjectif'
+      },
+      success: function (data) {
+        console.log('Info: ', data)
+        $('#table2').html(data);
+      }
+    });
 
   });
 </script>
