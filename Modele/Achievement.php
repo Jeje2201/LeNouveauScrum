@@ -78,5 +78,34 @@
         $output .= '</tbody></table>';
         echo $output;
       }
+
+      if ($_POST["action"] == "LeaderboardTotProjet") {
+        $statement = $connection->prepare("SELECT sum(Time)/444 as Total, employe.prenom as Employe, projet.nom as Projet from cir inner JOIN projet on cir.Fk_Project = projet.id INNER JOIN employe on cir.Fk_User = employe.id group by Fk_User, Fk_Project  
+        ORDER BY Total  DESC limit 5");
+
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0"><thead class="thead-light"><tr><th colspan="10">Jours sur un projet</th></tr></thead><tbody id="myTable">';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+            $output .= '
+            <tr>
+            <td>' . round($row["Total"]) . '</td>
+            <td>' . $row["Employe"] . '</td>
+            <td>' . $row["Projet"] . '</td>
+            </tr>';
+          }
+        } else {
+            $output .= '
+            <tr><td align="center" colspan="10">Pas de données</td></tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
+
+      
     }
     ?> 

@@ -75,7 +75,9 @@
         <div class="col">
           <div id="table2"></div>
         </div>
-
+        <div class="col">
+          <div id="table3"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -143,8 +145,20 @@
         action: 'LeaderboardObjectif'
       },
       success: function (data) {
-        console.log('Info: ', data)
         $('#table2').html(data);
+      }
+    });
+
+    //Tot par projets
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      data: {
+        idRessource: localStorage.getItem("Connexion"),
+        action: 'LeaderboardTotProjet'
+      },
+      success: function (data) {
+        $('#table3').html(data);
       }
     });
 
