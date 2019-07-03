@@ -33,13 +33,13 @@
         </div>
 
         <div class="col">
-          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>?</p>
+          <img id="TacheValides" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 100 tâches validées">
+          <p>ergr</p>
         </div>
 
         <div class="col">
-          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>?</p>
+          <img id="CouleurCustom" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Changer la couleur de base d'une tâche">
+          <p>Pimp my tâche</p>
         </div>
 
         <div class="col">
@@ -81,6 +81,9 @@
         <div class="col">
           <div id="table4"></div>
         </div>
+        <div class="col">
+          <div id="table5"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,17 +113,21 @@
         if (data[0] == "1") 
           $('#Conge').removeClass('TrophePasEncore')
 
-          //Objectif +48h total sur un projet
+        //Objectif +48h total sur un projet
         if (data[1] == "1") 
           $('#NotreProjet').removeClass('TrophePasEncore')
 
-          //Objectif +50 objectifs rétro 'ok'
+        //Objectif +50 objectifs rétro 'ok'
         if (data[2] == "1") 
           $('#Objectif').removeClass('TrophePasEncore')
 
-          //Objectif +30h interference 'ok'
+        //Objectif +30h interference
         if (data[3] == "1") 
           $('#Interference').removeClass('TrophePasEncore')
+            
+        //Objectif +100 taches validees
+        if (data[4] == "1") 
+          $('#TacheValides').removeClass('TrophePasEncore')
       }
     });
 
@@ -173,6 +180,18 @@
       },
       success: function (data) {
         $('#table4').html(data);
+      }
+    });
+    
+    //tot interference sur un sprint
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      data: {
+        action: 'LeaderboardInterference'
+      },
+      success: function (data) {
+        $('#table5').html(data);
       }
     });
 

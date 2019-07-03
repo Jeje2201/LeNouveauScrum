@@ -18,8 +18,11 @@
         select if((select count(id_Employe) as total from objectif where id_Employe = 22 and id_StatutObjectif = (select id from statutobjectif where statutobjectif.nom = 'OK'))>50 , '1', '0')
         union all
         /* Avoir plus de 30h interferebce 1 sprint ok */
-        select if((SELECT sum(heure) as total FROM `interference` where id_Employe = 22 group by id_Sprint, id_Employe order by total desc limit 1)>=29 , '1', '0')");
-        
+        select if((SELECT sum(heure) as total FROM `interference` where id_Employe = 22 group by id_Sprint, id_Employe order by total desc limit 1)>=30 , '1', '0')
+        union all
+        /* Avoir plus de 100 taches validées */
+        select if((SELECT count(attribution.id) as Total FROM `attribution` where id_Employe = 22 and Done is not null group by id_Projet order by Total desc limit 1)>=100 , '1', '0')");
+
         $statement->execute();
         $result = $statement->fetchAll();
         if ($statement->rowCount() > 0) {
@@ -130,7 +133,29 @@
         echo $output;
       }
 
+      if ($_POST["action"] == "LeaderboardInterference") {
+        $statement = $connection->prepare("SELECT sum(heure) as Total, employe.prenom as Employe FROM `interference` inner join employe on employe.id = interference.id_Employe group by id_Sprint, id_Employe order by total desc limit 5");
 
-      
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0"><thead class="thead-light"><tr><th colspan="10">Interférence sur 1 sprint</th></tr></thead><tbody id="myTable">';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+            $output .= '
+            <tr>
+            <td>' . round($row["Total"]) . '</td>
+            <td>' . $row["Employe"] . '</td>
+            </tr>';
+          }
+        } else {
+            $output .= '
+            <tr><td align="center" colspan="10">Pas de données</td></tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
     }
     ?> 
