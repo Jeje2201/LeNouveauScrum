@@ -13,54 +13,68 @@
       <div class="row centered">
 
         <div class="col">
-          <img id="Vacance" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Prendre au total plus de 30j de congés">
-          <p>Vacances</p>
+          <img id="Conge" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir un total de plus de 30j de congés">
+          <p>Yes, we can'd</p>
         </div>
 
         <div class="col">
-          <img id="Interference" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 20h d'intérférence sur un sprint">
+          <img id="NotreProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 48h passées au total sur un projet">
+          <p>PARCE QUE C'EST NOTRE PROJET</p>
+        </div>
+
+        <div class="col">
+          <img id="Objectif" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 50 objectifs 'OK'">
+          <p>Sssplendide !!</p>
+        </div>
+
+        <div class="col">
+          <img id="Interference" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 30h d'interférence sur 1 sprint">
           <p>Interférence</p>
         </div>
 
         <div class="col">
-          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Remplir plus de 1000h de fiches de temps">
-          <p>Ancien</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
         <div class="col">
-          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Changer sa couleur de tâche">
-          <p>Custom</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
         <div class="col">
-          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Avoir plus de 400h sur un projet">
-          <p>PARCEQUE C'EST NOTRE PROJET</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
         <div class="col">
-          <img id="GrosProjet" src="Assets/Image/achievement.png" text="?">
-          <p>L'habit ne fait pas le moine</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
         <div class="col">
-          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>Adujet vendu</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
         <div class="col">
-          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>Hello darkness my old friend</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
+          <p>?</p>
         </div>
 
-        <div class="col">
-          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>Never gonna let your down</p>
-        </div>
+      </div>
+      <hr>
+      <p></p>
+      <h3 class="centered">Leaderboard (Top 5)</h3>
+      
+      <div class="row centered">
 
         <div class="col">
-          <img id="GrosProjet" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>Just think about</p>
+          <div id="table1"></div>
         </div>
+        <!-- <div class="col">
+          <div id="table2"></div>
+        </div> -->
 
       </div>
     </div>
@@ -70,12 +84,57 @@
 <script>
   $(document).ready(function () {
 
-    //phase de test
-    $('#Vacance').removeClass('TrophePasEncore')
-
     //Si hover une image, afficher la condition
     $('img').mouseenter(function () {
       $('#Condition').val($(this).attr('text'))
     })
+
+    //phase de test
+    $.ajax({
+      url: "Modele/Achievement.php",
+      method: "POST",
+      dataType: "json",
+      data: {
+        action: 'Trophee',
+        idRessource: localStorage.getItem("Connexion")
+      },
+      success: function (data) {
+        console.log('Liste: ', data)
+
+        //Objectif 30j congé
+        if (data[0] == "1") 
+          $('#Conge').removeClass('TrophePasEncore')
+
+          //Objectif +48h total sur un projet
+        if (data[1] == "1") 
+          $('#NotreProjet').removeClass('TrophePasEncore')
+
+          //Objectif +50 objectifs rétro 'ok'
+        if (data[2] == "1") 
+          $('#Objectif').removeClass('TrophePasEncore')
+
+          //Objectif +30h interference 'ok'
+        if (data[3] == "1") 
+          $('#Interference').removeClass('TrophePasEncore')
+      }
+    });
+
+    //Leaderboard
+
+      //Jours de congés
+      $.ajax({
+            url: "Modele/Achievement.php",
+            method: "POST",
+            data: {
+              idRessource: localStorage.getItem("Connexion"),
+              action: 'Leaderboard'
+            },
+            success: function (data) {
+              console.log('Info: ', data)
+              $('#table1').html(data);
+              // $('#table2').html(data);
+            }
+          });
+
   });
 </script>
