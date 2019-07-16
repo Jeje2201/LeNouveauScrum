@@ -3,7 +3,7 @@
 
     if (isset($_POST["action"])) {
 
-      if ($_POST["action"] == "Load") {
+      if ($_POST["action"] == "GetColor") {
 
         $array = [];
         $idRessource = $_POST["idRessource"];
@@ -15,8 +15,7 @@
         );
         $statement->execute();
         $result = $statement->fetch();
-        echo " ";
-        echo $result["Couleur"];
+        echo trim($result["Couleur"]);
       }
 
       if ($_POST["action"] == "LoadTacheValide") {

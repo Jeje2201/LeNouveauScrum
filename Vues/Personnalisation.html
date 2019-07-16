@@ -26,6 +26,9 @@
               <div class="form-group">
                 <label>Ancien mot de passe</label>
                 <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+                <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
+                    <u>Mot de passe oublié ?</u>
+                  </a>
               </div>
               <div class="form-group">
                 <label>Nouveau mot de passe</label>
@@ -51,6 +54,11 @@
       <h2 style="display: inline-flex;">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
       <hr>
       <p></p>
+      <div id="ListEmpAdmin">
+        <div class="form-group">
+          <div id="ListEmploye"></div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-4">
           <div class="card">
@@ -104,24 +112,54 @@
       </div>
     </div>
   </div>
+  <div id="ModalOublieMdp" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Ta mémoire te fait faillite ?</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              N'ai crainte, oublier son mot de passe sur ScumManager ce n'est pas si grave que ça, et pour cause, un Scrum Master a des pouvoirs magiques si puissants qu'il est capable de réinitialiser ton mot de passe à ses désirs. Seul lui a ce pouvoir car cette magie est si puissante qu'entre de mauvaises mains ce pourrait être la fin du monde..
+            </p>
+            
+            <img src="https://i.imgflip.com/35rso0.jpg" width="100%"></img>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <script>
     $(document).ready(function () {
 
-      //List de sprint chargé
+      //Affiche la modal quand oublie son mot de passe
+      $("#target").click(function () {
+        $('#ModalOublieMdp').modal('show');
+      });
+
+      //Si non scrum master, alors ne pas afficher la liste de ressources
+      if ("<?php echo $_SESSION['TypeUtilisateur'] ?>" != "ScrumMaster") 
+        $("#ListEmpAdmin").hide();
+      
+      //Remplace le div "ListEmploye" par une list de ressources
+      RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
+      $('#TypeEmployeOk option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+
+      //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
-      //Selectionner le mois actuel
-      LeMois = (new Date).getMonth()+1
-      if(LeMois < 10)
-        LeMois = '0'+LeMois 
+      //Selectionne par défaut au lancement le mois actuel sur le select de mois
+      LeMois = (new Date).getMonth() + 1
+      if (LeMois < 10) 
+        LeMois = '0' + LeMois
       $('#LeMois option[value="' + LeMois + '"]').attr('selected', 'selected')
 
-      //Charge liste heures fiche de temps sur un sprint au lancement de la page
-      ListTotalSurSprint()
-      ListTotalFdTSurMois();
+      //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
+      ListTotalSurSprint(localStorage.getItem("Connexion"))
+      ListTotalFdTSurMois(localStorage.getItem("Connexion"));
+      ListTotalTotal(localStorage.getItem("Connexion"));
 
-      //Load total taches validées
+      //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
         url: "Modele/Parametre.php",
         method: "POST",
@@ -134,48 +172,51 @@
         }
       });
 
-      //Load total fiche de temps validé
       $.ajax({
         url: "Modele/Parametre.php",
         method: "POST",
         data: {
-          action: "LoadFicheDeTempsValide",
+          action: "GetColor",
           idRessource: localStorage.getItem('Connexion')
         },
         success: function (data) {
-          $('#FicheValide').html(data);
+          $('#CouleurUser').val('#'+data.split('#')[1].split(' ')[0]);
+          $('.BOUGEMOI').css("border-left",  '5px solid #'+data.split('#')[1].split(' ')[0]);
         }
       });
 
-      $.ajax({
-        url: "Modele/Parametre.php",
-        method: "POST",
-        data: {
-          action: "Load",
-          idRessource: localStorage.getItem('Connexion')
-        },
-        success: function (data) {
-          $('#CouleurUser').val(data.split(' ')[4]);
-          $("#AfficherCouleur").css("background-color", $('#CouleurUser').val());
-        }
+      //Si peut changer le type d'employer, alors charger toutes les infos avec le nouvel utilisateur sélectionné
+      $('#TypeEmployeOk').change(function () {
+        ListTotalSurSprint($('#TypeEmployeOk').val())
+        ListTotalFdTSurMois($('#TypeEmployeOk').val());
+        ListTotalTotal($('#TypeEmployeOk').val());
       });
 
-      //Quand change sprint, charge list de temps
+      //Quand change sprint, charge list fiches de temps / sprint
       $('#ListSrint').change(function () {
-        ListTotalSurSprint()
+        //Si le champs est hidden, le user est un scrum master et donc on check en fonction de la list sinon par rapport a celui connecté
+        if($('#ListEmpAdmin').is(":hidden")) 
+          ListTotalSurSprint(localStorage.getItem("Connexion"))
+        else
+          ListTotalSurSprint($('#TypeEmployeOk').val())
       });
 
-      //Quand change sprint, charge list de temps
+      //Quand change mois / années, charge list fiches de temps / Mois
       $('#LeMois,#LeAnnee').change(function () {
-        ListTotalFdTSurMois();
+        //Si le champs est hidden, le user est un scrum master et donc on check en fonction de la list sinon par rapport a celui connecté
+        if($('#ListEmpAdmin').is(":hidden")) 
+        ListTotalFdTSurMois(localStorage.getItem("Connexion"))
+        else
+        ListTotalFdTSurMois($('#TypeEmployeOk').val())
       });
 
-      function ListTotalFdTSurMois() {
+      //Liste des fonctions utilisées pour obtenir les obtenir les infos 
+      function ListTotalFdTSurMois(Ressource) {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           data: {
-            LaRessource: localStorage.getItem("Connexion"),
+            LaRessource: Ressource,
             LeMois: $("#LeMois option:selected").val(),
             LeAnnee: $("#LeAnnee option:selected").val(),
             action: "ListTotalSurDate"
@@ -185,13 +226,12 @@
           }
         })
       }
-
-      function ListTotalSurSprint() {
+      function ListTotalSurSprint(Ressource) {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           data: {
-            LaRessource: localStorage.getItem("Connexion"),
+            LaRessource: Ressource,
             LeSprint: $("#numeroSprint").val(),
             action: "ListTotalSurSprint"
           },
@@ -200,7 +240,21 @@
           }
         })
       }
-
+      function ListTotalTotal(Ressource) {
+        //Load total fiche de temps validé
+        $.ajax({
+          url: "Modele/Parametre.php",
+          method: "POST",
+          data: {
+            action: "LoadFicheDeTempsValide",
+            idRessource: Ressource
+          },
+          success: function (data) {
+            $('#FicheValide').html(data);
+          }
+        });
+      }
+      
       //Quand change la couleur pour les taches
       $('#CouleurUser').change(function () {
 
