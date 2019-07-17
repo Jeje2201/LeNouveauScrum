@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label>Projets / Activités</label>
+                <label>Projets&nbsp;/&nbsp;Activités</label>
                 <div name="ListProjet" id="ListProjet"></div>
               </div>
             </div>
@@ -81,7 +81,7 @@
 
 
       <div class="centered" id="RetardEnGeneral">
-        <i class="fa fa-spin fa-3x fa-fw">😮</i>
+        <i class="fa fa-spin fa-3x fa-fw">🦄</i>
       </div>
 
     </div>
@@ -169,7 +169,7 @@
             Done: DateFrToEn($('#StartDate').val())
           },
           success: function (data) {
-            $('#InfosTempsFdt').text('Il manque ' + MinutesIntoTime(444 - data, 'more'))
+            $('#InfosTempsFdt').html('Il&nbsp;manque&nbsp;' + MinutesIntoTime(444 - data, 'more'))
             $('.progress-bar')
               .text(Math.trunc(data / 444 * 100) + ' %')
               .css("width", Math.trunc(data / 444 * 100) + '%')
