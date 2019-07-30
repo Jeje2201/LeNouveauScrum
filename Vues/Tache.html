@@ -51,7 +51,7 @@
             <div class="card-header" style="text-align: center">
               Tâches en cours
             </div>
-            <div class="card-body card-columns" id=EnCours>
+            <div class="card-body card-columns DeplacementDeTache" id=EnCours>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="card-header" style="text-align: center">
               Tâches achevées
             </div>
-            <div class="card-body card-columns" id=Fini>
+            <div class="card-body card-columns DeplacementDeTache" id=Fini>
             </div>
           </div>
 
@@ -73,7 +73,7 @@
 
   $(document).ready(function () {
 
-    $( "div.card-body" ).sortable({
+    $( "div.DeplacementDeTache" ).sortable({
       connectWith: "div",
       cancel: ".PASTOUCHE"
     });
