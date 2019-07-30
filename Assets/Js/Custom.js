@@ -17,21 +17,8 @@ function ClassActive(LaPage, TypeUser, NameUser) {
   //Puis cherche la nav qui a la page d'affiché et lui donner la class active
   $('nav a[href^="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
-  //Get le last commit et le mettre avec le nom du user
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", ".git/FETCH_HEAD", false);
-  rawFile.onreadystatechange = function ()
-  {
-      if(rawFile.readyState === 4)
-      {
-          if(rawFile.status === 200 || rawFile.status == 0)
-          {
-              var allText = rawFile.responseText.split('branch')[0];
-              $("#TitreNavBar").html("Ns Scrum - " + NameUser + '<span style="color:#8c8c8c" class="small mt-3">(' + allText + ')</span>');
-          }
-      }
-  }
-  rawFile.send(null);
+  //Afficher le prénom
+  $("#TitreNavBar").text("Ns Scrum - " + NameUser);
 
   //Cacher les onglets innutiles pour les non admin
   if (TypeUser !== "ScrumMaster") {
