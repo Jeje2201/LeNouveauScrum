@@ -62,7 +62,7 @@
       </div>';
           }
         } else {
-          $output1 .= 'Pas de tâche';
+          $output1 .= '';
         }
 
         $statement = $connection->prepare("SELECT
@@ -99,7 +99,7 @@
 </div>';
           }
         } else {
-          $output2 .= 'Pas de tâche';
+          $output2 .= '';
         }
         $Test->Attribution = $output1;
         $Test->Descendue = $output2;

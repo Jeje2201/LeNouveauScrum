@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <body class="fixed-nav sticky-footer" id="page-Result">
   <div class="content-wrapper">
     <div class="container-fluid">
@@ -71,6 +72,14 @@
 <script>
 
   $(document).ready(function () {
+
+    $( "div.card-body" ).sortable({
+      connectWith: "div",
+      cancel: ".PASTOUCHE"
+    });
+
+    $( "#EnCours, #Fini" ).disableSelection();
+  
 
     $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
@@ -172,15 +181,15 @@
     });
   });
 
-  function DeplaceToi(id) {
+  // function DeplaceToi(id) {
 
-    if ($(id).parent().attr('id') == 'EnCours') {
-      $(id).prependTo($("#Fini"));
+  //   if ($(id).parent().attr('id') == 'EnCours') {
+  //     $(id).prependTo($("#Fini"));
 
-    }
-    else {
-      $(id).prependTo($("#EnCours"));
-    }
-  }
+  //   }
+  //   else {
+  //     $(id).prependTo($("#EnCours"));
+  //   }
+  // }
 
 </script>
