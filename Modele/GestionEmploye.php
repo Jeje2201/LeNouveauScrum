@@ -90,7 +90,7 @@
       if ($_POST["action"] == "Ajouter") {
 
         if ($_POST["ApiPivotal"] == "")
-          $_POST["ApiPivotal"] = null;
+          $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
           "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
