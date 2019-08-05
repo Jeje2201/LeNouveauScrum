@@ -545,7 +545,7 @@
                     }
 
                     var RegexGroupeHeure = /([0-9]+)/g
-                    var InputHeure = '<tr><td class=Tache' + this.complete + '><select onchange="TotalHoursChecked()"><option value="NON">NON</option>'
+                    var InputHeure = '<tr><td class=Tache' + this.complete + '><select id="LeSelectId" onchange="TotalHoursChecked()"><option value="NON">NON</option>'
 
                     match = RegexGroupeHeure.exec(ListeHeures);
                     while (match != null) {
@@ -555,9 +555,8 @@
                     }
                     // test4.push(test5)
                     // test3.push(test4)
-
                     InputHeure += '</select>'
-                    htmlDeFin += InputHeure + ' ' + this.description + '</td></tr>'
+                    htmlDeFin += InputHeure + ' <span id="TaskDescription">' + this.description +'</span><span id="StoryId" class="hideElement">'+ StoryId + '</span><span id="TaskId" class="hideElement">'+ this.id+ '</span></td></tr>'
                   })
                   // test2.push(test3)
                   htmlDeFin += "</tbody></table>"
@@ -627,18 +626,24 @@
       'Project': $('#ProjetApi').val().split('|')[0]
     });
 
-    $('tr td select').each(function () {
+    $('#ListeTachesApi tr td').each(function () {
 
-      if (this.value != "NON") {
-        TotalHeures += parseInt(this.value);
+
+      if ($(this).children()[0].value != "NON") {
+        TotalHeures += parseInt($(this).children('#LeSelectId')[0].options[$(this).children('#LeSelectId')[0].selectedIndex].value);
 
         element = {}
-        element.heure = parseInt(this.value);
-        element.label = /(.+)\.-/.exec($(this).parent()[0].innerText)[1].trim();
-        if ($(this).parent()[0].className == "Tachetrue")
+        element.StoryId = $(this).children('#StoryId').text()
+        element.TaskId =  $(this).children('#TaskId').text()
+        element.ProjectId =  $('#ProjetApi').val().split('|')[1]
+        element.heure =   parseInt($(this).children('#LeSelectId')[0].options[$(this).children('#LeSelectId')[0].selectedIndex].value)
+        element.label = /(.+)\.-/.exec($(this).children('#TaskDescription').text())[1].trim();
+
+        if ($(this).hasClass('Tachetrue'))
           element.done = DateFrToEn(ChoixDate(0))
         else
           element.done = null
+
         cart.push(element)
       }
 

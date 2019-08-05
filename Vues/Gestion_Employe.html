@@ -105,6 +105,7 @@
       $('#MailCir').prop("checked", true);
     });
 
+    //update ou create avec champs remplis
     $('#action').click(function () {
 
       if (document.getElementById("Actif").checked == true) {
@@ -190,6 +191,7 @@
       });
     });
 
+    //delete employe
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?"))
         $.ajax({

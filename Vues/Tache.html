@@ -153,12 +153,58 @@
     });
 
     $('#Descendre').click(function () {
+
       var IdAttribue = [];
 
-      $('#Fini').find(".BOUGEMOI").each(function () {
+      $('#Fini .BOUGEMOI').each(function () {
         IdAttribue.push($(this).attr('id'));
       });
 
+      $('#Fini .BOUGEMOI div').each(function () {
+
+        var TextDeLaTache = $(this).children('#LabelDeLaTache').text()
+        var Project_id_Pivotal = $(this).children('#ProjectIdPivotal').text()
+        var Story_id_Pivotal = $(this).children('#StoryId').text()
+        var Task_id_Pivotal = $(this).children('#TaskId').text()
+
+        if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != ""){
+
+          $.ajax({
+          url: "https://www.pivotaltracker.com/services/v5/projects/" + Project_id_Pivotal + "/stories/" + Story_id_Pivotal + "/tasks/" + Task_id_Pivotal,
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+          },
+          type: 'PUT',
+          processData: false,
+          data: 'complete=true',
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            BootstrapAlertError("Erreur");
+          },
+          success: function (data) {
+            //Liste des stories trouvées
+            BootstrapAlertDefaut("Story validé dans pivotal tracker")
+          }
+        })
+
+          $.ajax({
+        url: "https://www.pivotaltracker.com/services/v5/projects/" + $(this).children('#ProjectIdPivotal').text() + "/stories/" + $(this).children('#StoryId').text() + "/comments",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+        },
+        type: 'POST',
+        processData: false,
+        data: 'text= Tâche validée par Scrum Manager : '+TextDeLaTache,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          BootstrapAlertError("Erreur");
+        },
+        success: function (data) {
+          //Liste des stories trouvées
+          BootstrapAlertDefaut("Ajout d'un commentaire")
+        }
+        })
+        }
+      });
+      
       if (IdAttribue != '') {
         $.ajax({
           url: "Modele/Tache.php",
@@ -181,15 +227,15 @@
     });
   });
 
-  // function DeplaceToi(id) {
+  function DeplaceToi(id) {
 
-  //   if ($(id).parent().attr('id') == 'EnCours') {
-  //     $(id).prependTo($("#Fini"));
+    if ($(id).parent().attr('id') == 'EnCours') {
+      $(id).prependTo($("#Fini"));
 
-  //   }
-  //   else {
-  //     $(id).prependTo($("#EnCours"));
-  //   }
-  // }
+    }
+    else {
+      $(id).prependTo($("#EnCours"));
+    }
+  }
 
 </script>

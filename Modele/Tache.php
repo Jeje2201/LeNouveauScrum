@@ -28,6 +28,9 @@
         $statement = $connection->prepare("SELECT A.id,
           A.Label,
           A.heure,
+          A.pivotal_id_Story,
+          A.pivotal_id_Task,
+          A.pivotal_id_Project,
           P.nom AS projet,
           L.Path,
           E.Initial,
@@ -57,8 +60,8 @@
         <div style="margin-left:4px;"><b>
           ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"></b><br>
 
-          ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
-        </div>
+          <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
+        <span class="hideElement" id="TaskId">'. $row["pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["pivotal_id_Project"].'</span></div>
       </div>';
           }
         } else {
