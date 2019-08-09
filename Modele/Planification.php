@@ -6,7 +6,7 @@
 
       if ($_POST["action"] == "RemplirTableau") {
         $numero = $_POST["idAffiche"];
-        $statement = $connection->prepare("SELECT A.id,
+        $statement = $connection->prepare("SELECT A.id as id,
       A.Label,
       A.heure,
       A.Done,
@@ -34,6 +34,7 @@
       <th>Label</th>
       <th>Heures</th>
       <th>Fini</th>
+      <th>Éditer</th>
       </tr>
       </thead>
       <tbody id="myTable">
@@ -46,10 +47,12 @@
         <td>' . $row["projet"] . '</td>
         <td>' . $row["Label"] . '</td>
         <td>' . $row["heure"] . '</td>';
-            if ($row["Done"] == null)
-              $output .= '<td></td>';
-            else
-              $output .= '<td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>';
+        if ($row["Done"] == null)
+          $output .= '<td></td>';
+        else
+          $output .= '<td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>';
+
+          $output .='<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>';
           }
         } else {
           $output .= '
