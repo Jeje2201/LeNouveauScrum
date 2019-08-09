@@ -268,7 +268,7 @@
             idRessource: localStorage.getItem('Connexion')
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         });
 
@@ -287,11 +287,11 @@
           },
           success: function (ancienmdpOk) {
             if ($('#mdp').val() != $('#confirmmdp').val()) {
-              BootstrapAlertError('Les mots de passe ne correspondent pas.')
+              $.notify("Les mots de passe ne correspondent pas.", "error");
             } else if ($('#mdp').val().length < 5) {
-              BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
+              $.notify("Un mot de passe est composé de 5 caractères minimum.", "error");
             } else if (ancienmdpOk.trim() == "non") {
-              BootstrapAlertError('Ton ancien mot de passe n\'est pas le même que celui que je connais..')
+              $.notify("Ton ancien mot de passe n'est pas le même que celui que je connais...", "error");
             } else {
               $.ajax({
                 url: "Modele/Parametre.php",
@@ -302,7 +302,7 @@
                   mdp: $('#mdp').val()
                 },
                 success: function (data) {
-                  BootstrapAlertDefaut(data);
+                  $.notify(data, "info");
                 }
               });
             }

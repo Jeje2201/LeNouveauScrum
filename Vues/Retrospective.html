@@ -212,7 +212,7 @@
           $('#projetId').val(data.id_Projet);
           $('#TypeEmployeOk').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
-          SetSelect2('#projetId, #TypeEmployeOk');
+          
         }
       });
     });
@@ -234,14 +234,14 @@
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             RemplirTableau();
           }
         });
         $('#LabelObjectif').val('');
       }
       else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
+        $.notify("Tous les champs doivent être plein.", "error");
       }
     });
 
@@ -273,7 +273,7 @@
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             RemplirTableau();
           }
         });
@@ -291,7 +291,7 @@
           action: "retrospectiveFini"
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           RemplirTableau();
         }
       });
@@ -331,7 +331,7 @@
           action: $('#ActionRemarque').val()
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           $('#ModalRemarque').modal('hide');
           RemplirTableau();
         }
@@ -351,7 +351,7 @@
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
     });
@@ -368,7 +368,7 @@
           action: "ValiderDemo"
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           RemplirTableau();
         }
       });
@@ -385,13 +385,13 @@
             action: "SupprimerDemo"
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             RemplirTableau();
           }
         });
     });
 
-    SetSelect2('#projetId, #TypeEmployeOk');
+    
 
   });
 </script>

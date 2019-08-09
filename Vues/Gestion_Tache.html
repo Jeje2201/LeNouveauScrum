@@ -102,14 +102,14 @@
             action: "Update"
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             $('#ModalGestionHeuresDescendues').modal('hide');
             ChargerGestionHeuresDescendues();
           }
         });
       }
       else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
+        $.notify("Tous les champs doivent être plein.", "error");
       }
     });
 
@@ -132,7 +132,7 @@
           $('#LabelTache').val(data.Label);
           $('#Done').val(data.Done);
 
-          SetSelect2('#employeId, #projetId');
+          
 
         }
       });
@@ -149,7 +149,7 @@
           },
           success: function (data) {
             ChargerGestionHeuresDescendues();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
     });

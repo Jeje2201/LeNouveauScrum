@@ -138,6 +138,9 @@
         success: function (data) {
           $('#ListeEmploye').html(data.Attribution);
           $('#numeroEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+          $( "select" ).each(function( index ) {
+        $(this).select2({width: "100%"});
+      });
         }
       });
 
@@ -178,7 +181,7 @@
           processData: false,
           data: 'complete=true',
           error: function (XMLHttpRequest, textStatus, errorThrown) {
-            BootstrapAlertError("Erreur");
+            $.notify("Erreur", "error");
           },
           success: function (data) {
             //Liste des stories trouvées
@@ -195,7 +198,7 @@
         processData: false,
         data: 'text= Tâche validée par Scrum Manager : '+TextDeLaTache,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-          BootstrapAlertError("Erreur");
+          $.notify("Erreur", "error");
         },
         success: function (data) {
           //Liste des stories trouvées
@@ -215,16 +218,17 @@
             LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             AfficherCards();
           }
         });
       }
       else {
-        BootstrapAlertError("Tu dois d'abord déplacer au moins une tâche de son emplacement \"en cours\" -> \"terminée.\"");
+      $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
       }
 
     });
+    
   });
 
   function DeplaceToi(id) {

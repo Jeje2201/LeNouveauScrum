@@ -112,7 +112,7 @@
           },
 
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             $('#ModaleProjet').modal('hide');
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
             GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
@@ -120,7 +120,7 @@
         });
       }
       else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
+        $.notify("Tous les champs doivent être plein.", "error");
       }
     })
 
@@ -150,7 +150,7 @@
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);
 
-          SetSelect2('#TypeProjet, #ToutesLesImages');
+          
 
         }
       });
@@ -164,7 +164,7 @@
           data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
           }
         })

@@ -73,6 +73,7 @@
     }
 
     $(document).on('click', '.Get', function () {
+      $('#ModalRemarque').modal('show');
       var id = $(this).attr("id");
       $.ajax({
         url: "Modele/GestionDemo.php",
@@ -91,7 +92,7 @@
           $('#LabelDemo').val(data.LabelDemo);
           $('#DateEffectue').val(data.DateEffectue);
 
-          SetSelect2('#employeId, #projetId');
+          
 
         }
       });
@@ -110,7 +111,7 @@
           action: "Update"
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           $('#ModalRemarque').modal('hide');
           ChargerTableau();
         }
@@ -128,7 +129,7 @@
           },
           success: function (data) {
             ChargerTableau();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");      
           }
         })
     });

@@ -60,7 +60,7 @@
           ToReturn: ToReturn
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           RemplirTableau();
         }
       });

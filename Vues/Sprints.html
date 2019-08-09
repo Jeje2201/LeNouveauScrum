@@ -159,17 +159,17 @@
             },
             success: function (data) {
 
-              BootstrapAlertDefaut(data);
+              $.notify(data, "info");
               GetNumeroSprintMax('numero');
               RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
             }
           });
         } else {
-          BootstrapAlertError("Tous les champs doivent être plein.");
+          $.notify("Tous les champs doivent être plein.", "error");
         }
       } else {
-        BootstrapAlertError("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?");
+      $.notify("La date de début est supérieure à celle de fin, comment tu veux que ça marche ?", "error");
       }
     });
 
@@ -211,13 +211,13 @@
             action: $('#action').val() //Get the value of Modal Action button and stored into action variable
           }, //Send data to server
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             $('#ModalSprint').modal('hide'); //It will hide sprint Modal from webpage.
             RequeteAjax('result', 'Load', 'Modele/Sprint.php') // Fetch User function has been called and it will load data under divison tag with id result
           }
         });
       } else {
-        BootstrapAlertError("Tous les champs doivent être plein."); //If both or any one of the variable has no value them it will display this message
+        $.notify("Tous les champs doivent être plein.", "error"); //If both or any one of the variable has no value them it will display this message
       }
     });
 
@@ -233,7 +233,7 @@
           }, //Data send to server from ajax method
           success: function (data) {
             RequeteAjax('result', 'Load', 'Modele/Sprint.php') // fetchUser() function has been called and it will load data under divison tag with id result
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
       } else { //Confim Box if cancel then

@@ -136,7 +136,7 @@
           $('#Done').val(data.Done);
           $('#Log').val(data.Log);
 
-          SetSelect2('#employeId, #projetId');
+          
 
         }
       });
@@ -157,7 +157,7 @@
           action: "Update"
         },
         success: function (data) {
-          BootstrapAlertDefaut(data);
+          $.notify(data, "info");
           $('#ModaleFicheDeTemps').modal('hide');
           ChargerTableauEdition();
         }
@@ -176,7 +176,7 @@
           },
           success: function (data) {
             ChargerTableauEdition();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
     });

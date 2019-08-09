@@ -22,15 +22,15 @@
 			$(document).ready(function () {
 
 				RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
-				SetSelect2('#employeId');
+				
 
 				$('#set').click(function () {
 
 					if ($('#mdp').val() != $('#confirmmdp').val()) {
-						BootstrapAlertError('Les mots de passe ne correspondent pas.')
+						$.notify("Les mots de passe ne correspondent pas.", "error");
 					}
 					else if ($('#mdp').val().length < 5) {
-						BootstrapAlertError('Un mot de passe est composé de 5 caractères minimuim')
+						$.notify("Un mot de passe est composé de 5 caractères minimum.", "error");
 					}
 					else {
 						$.ajax({
@@ -42,7 +42,7 @@
 								mdp: $('#mdp').val()
 							},
 							success: function (data) {
-								BootstrapAlertDefaut(data);
+								$.notify(data, "info");
 							}
 						});
 					}

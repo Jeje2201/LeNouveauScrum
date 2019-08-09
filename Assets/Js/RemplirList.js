@@ -16,6 +16,9 @@ function RequeteAjax(DivId, action, path) {
     },
     success: function (data) {
       $('#' + DivId).html(data);
+      $( "select" ).each(function( index ) {
+        $(this).select2({width: "100%"});
+      });
     }
   });
 }

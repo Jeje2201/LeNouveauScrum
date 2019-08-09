@@ -117,7 +117,7 @@
 
       //Charger liste projets
       RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
-      SetSelect2('#projetId');
+      
 
       //Charger liste
       ChargerListeHeures1Jour1Ressource()
@@ -189,7 +189,7 @@
       $('#SetFicheDeTemps').click(function () {
 
         if (parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]) > 444 || parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]) == 0) {
-          BootstrapAlertError(`Minimum 00:01 <br> Maximum 07:24`)
+          $.notify("Le temps ne peut pas être inférieure à 00:01 et supérieure à 07:24", "info");
           return false;
         }
 
@@ -212,7 +212,7 @@
             } else {
               ChargerListeHeures1Jour1Ressource()
               TableTotJoursNonPlein()
-              BootstrapAlertDefaut('✓');
+              $.notify("Fiche de temps créée avec succés", "success");
               InfoMaxSlider()
             }
           }
@@ -254,7 +254,7 @@
             success: function (data) {
               ChargerListeHeures1Jour1Ressource()
               TableTotJoursNonPlein()
-              BootstrapAlertDefaut(data);
+              $.notify(data, "info");
               InfoMaxSlider();
             }
           })

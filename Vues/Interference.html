@@ -132,14 +132,14 @@
             action: $('#action').val()
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             $('#ModalInterference').modal('hide');
             RemplirTableau();
           }
         });
       }
       else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
+        $.notify("Tous les champs doivent être plein.", "error");
       }
     });
 
@@ -165,7 +165,7 @@
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
-          SetSelect2('#TypeEmployeOk, #projetId, #typeinterference');
+          
 
         }
       });
@@ -182,12 +182,12 @@
           },
           success: function (data) {
             RemplirTableau();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
     });
 
-    SetSelect2('#TypeEmployeOk, #projetId, #typeinterference');
+    
 
   });
 </script>

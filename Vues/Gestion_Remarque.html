@@ -107,14 +107,15 @@
             action: "UpdateAvecDateFin"
           },
           success: function (data) {
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
             $('#ModalRemarque').modal('hide');
             ChargerTableau();
           }
         });
       }
       else {
-        BootstrapAlertError("Tous les champs doivent être plein.");
+        $.notify("Tous les champs doivent être plein.", "error");
+
       }
     });
 
@@ -129,7 +130,7 @@
           },
           success: function (data) {
             ChargerTableau();
-            BootstrapAlertDefaut(data);
+            $.notify(data, "info");
           }
         })
     });

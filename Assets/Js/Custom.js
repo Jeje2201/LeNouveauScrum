@@ -29,49 +29,11 @@ function ClassActive(LaPage, TypeUser, NameUser) {
 }
 
 /**
- * Permet de faire apparaitre une popup plus sympa
- * @param {string} message Le message a faire apparaitre dans la popup
- */
-function BootstrapAlertDefaut(message) {
-  $("#snackbar").addClass("show");
-
-  $("#snackbar").html(message);
-
-  setTimeout(function () {
-    $("#snackbar").removeClass("show");
-  }, 2500);
-}
-
-/**
- * Permet de faire apparaitre une popup plus sympa
- * @param {string} message Le message a faire apparaitre dans la popup
- */
-function BootstrapAlertError(message) {
-  $("#snackbar").addClass("show");
-  $("#snackbar").css("background-color", "red");
-
-  $("#snackbar").html(message);
-
-  setTimeout(function () {
-    $("#snackbar").removeClass("show");
-    $("#snackbar").css("background-color", "#333");
-  }, 2500);
-}
-
-/**
  * Active ou désactive le css sidenav-toggled quand clic ou non sur la navbar "gestion"
  */
 $("#SlideNav").click(function () {
   $("body").toggleClass("sidenav-toggled");
 });
-
-/**
- *  Mettre la taille du select2 au max
- * @param {string} div Le div sur lequel jouer
- */
-function SetSelect2(div) {
-  $(div).select2({width: "100%"});
-}
 
 /**
  * Fonction pour chercher dans une table depuis un input
