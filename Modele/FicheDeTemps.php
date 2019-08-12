@@ -16,6 +16,8 @@
         FROM cir C
         inner join employe E on C.Fk_User = E.id
         inner join projet P on C.Fk_Project = P.id
+        WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["IdSprint"] . "' ) 
+        and Done <= (SELECT S.dateFin from sprint S where S.id = '" . $_POST["IdSprint"] . "' )
         ORDER BY C.Done DESC");
 
         $statement->execute();

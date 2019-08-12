@@ -1,15 +1,14 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
-
       <div class="row">
         <div class="col-lg-10">
 
           <h3>Gestion des feuilles de temps</h3>
-
+          <div id="ListSrint"></div>
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-          <div id="TableauDemo" style="max-height: 75%;" class="table-responsive table-hover"></div>
+          <div id="TableauListFicheDeTemps" style="max-height: 75%;" class="table-responsive table-hover"></div>
 
         </div>
 
@@ -73,25 +72,27 @@
   $(document).ready(function () {
 
     $('#Done, #Log, #DateACheck').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1 });
-
+    
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
-    ChargerTableauEdition();
+    ChargerTableauListeFdT();
     ChargerTableauOnDate();
-    BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
+    BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
 
     $('#DateACheck').val(ChoixDate(0));
 
-    function ChargerTableauEdition() {
+    function ChargerTableauListeFdT() {
       $.ajax({
         url: "Modele/FicheDeTemps.php",
         method: "POST",
         data: {
-          action: "Load"
+          action: "Load",
+          IdSprint: $('#numeroSprint').val()
         },
         success: function (data) {
-          $('#TableauDemo').html(data);
-          GarderLaRecherche('BarreDeRecherche', 'TableauDemo');
+          $('#TableauListFicheDeTemps').html(data);
+          GarderLaRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
         }
       });
     }
@@ -115,6 +116,10 @@
         }
       });
     }
+
+    $('#numeroSprint').change(function () {
+      ChargerTableauListeFdT()
+      });
 
     //Obtenir les infos de sur quoi on click a modifier
     $(document).on('click', '.Get', function () {
@@ -158,7 +163,7 @@
         success: function (data) {
           $.notify(data, "info");
           $('#ModaleFicheDeTemps').modal('hide');
-          ChargerTableauEdition();
+          ChargerTableauListeFdT();
         }
       });
     });
@@ -174,7 +179,7 @@
             action: "Delete"
           },
           success: function (data) {
-            ChargerTableauEdition();
+            ChargerTableauListeFdT();
             $.notify(data, "info");
           }
         })
