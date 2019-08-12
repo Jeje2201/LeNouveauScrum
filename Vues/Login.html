@@ -1,5 +1,4 @@
-<div id="BackGround" class="ImageLogin">
-</div>
+<div id="BackGround" class="ImageLogin"></div>
 <div class="PageConnexion">
 
   <div class="card card-login mx-auto mt-5">
@@ -7,21 +6,21 @@
       <h3 class="text-center">Connexion</h3>
     </div>
     <div class="card-body">
-      
-        <div id="ListeEmploye"></div>
-        <br>
-        <div class="form-label-group">
-          <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Mot de passe" minlength="5" required="required">
-          <small id="wrongpassword" style="color:red" class="form-text text-hide">Non, je suis sûr que ce n'est pas le bon, essaie encore ¯\_(ツ)_/¯</small>
-        </div>
-        <br>
-        <button class="btn btn-primary btn-block" id="Log">Connexion</button>
-        <div class="text-center">
-          <hr>
-          <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
-            <u>Je n'apparais pas dans la liste..</u>
-          </a>
-        </div>
+
+      <div id="ListeEmploye"></div>
+      <br>
+      <div class="form-label-group">
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Mot de passe" minlength="5" required="required">
+        <small id="wrongpassword" style="color:red" class="form-text text-hide">Non, je suis sûr que ce n'est pas le bon, essaie encore ¯\_(ツ)_/¯</small>
+      </div>
+      <br>
+      <button class="btn btn-primary btn-block" id="Log">Connexion</button>
+      <div class="text-center">
+        <hr>
+        <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
+          <u>Je n'apparais pas dans la liste..</u>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -38,7 +37,7 @@
           <li>Sont définies en tant qu'actifs</li>
           Si ce n'est pas ton cas, un Scrum Master peux résoudre ça.
         </p>
-        
+
         <img src="https://i.imgflip.com/2wxesf.jpg" width="100%"></img>
       </div>
     </div>
@@ -46,7 +45,6 @@
 </div>
 
 <script>
-  
   $(document).ready(function () {
 
     //Load all employes
@@ -57,43 +55,44 @@
       $('#ModalLogin').modal('show');
     });
 
-function SeConnecter(){
-    $.ajax({
-          url: "Modele/ConnectionLogin.php",
-          method: "POST",
-          dataType: "json",
-          data: {
-            inputPassword: $('#inputPassword').val(),
-            TypeEmployeOk: $('#TypeEmployeOk').val()
-          },
-          success: function (data) {
-            if(data.Connexion){
-              localStorage.setItem('Connexion', $('#TypeEmployeOk').val())
-              location.reload();
-            }else{
-              $( "#wrongpassword" ).removeClass( "text-hide" );
-              $( "#inputPassword" ).addClass("is-invalid").effect( "shake" );
-            }
+    //fonction pour se connecter, trigger quand log on ou press enter
+    function SeConnecter() {
+      $.ajax({
+        url: "Modele/ConnectionLogin.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+          inputPassword: $('#inputPassword').val(),
+          TypeEmployeOk: $('#TypeEmployeOk').val()
+        },
+        success: function (data) {
+          if (data.Connexion) {
+            localStorage.setItem('Connexion', $('#TypeEmployeOk').val())
+            location.reload();
+          } else {
+            $("#wrongpassword").removeClass("text-hide");
+            $("#inputPassword")
+              .addClass("is-invalid")
+              .effect("shake");
           }
-        });
-      }
+        }
+      });
+    }
 
     //Lors du click sur connexion
     $('#Log').click(function () {
       SeConnecter()
     });
 
-      $(document).keypress(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
-          SeConnecter()
-        }
-      });
-
-    //Preload users if ID is save in the local storage
-    if (localStorage.getItem("Connexion")) {
-      $('#TypeEmployeOk option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-    }
+    $(document).keypress(function (event) {
+      var keycode = (
+        event.keyCode
+        ? event.keyCode
+        : event.which);
+      if (keycode == '13') {
+        SeConnecter()
+      }
+    });
 
   });
 </script>

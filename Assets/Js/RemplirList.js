@@ -16,6 +16,12 @@ function RequeteAjax(DivId, action, path) {
     },
     success: function (data) {
       $('#' + DivId).html(data);
+
+      //Si dans la page de connexion alors direct selectionner      
+      if($('#ModalLogin').length == 1 && localStorage.getItem("Connexion")){
+        $('#TypeEmployeOk option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+      }
+
       $( "select" ).each(function( index ) {
         $(this).select2({width: "100%"});
       });
