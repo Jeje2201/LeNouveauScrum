@@ -20,7 +20,7 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label>DateEffectue</label>
+          <label>Date effectuée</label>
           <input type="text" name="DateEffectue" id='DateEffectue' class="form-control" />
         </div>
 
@@ -54,7 +54,7 @@
   $(document).ready(function () {
 
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php','ProjetDemo');
     ChargerTableau();
     BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
@@ -88,12 +88,12 @@
           $('.modal-title').text("Editer remarque");
           $('#id').val(id);
           $('#employeId').val(data.Ressource);
-          $('#projetId').val(data.Projet);
+          $('#ProjetDemo').val(data.Projet);
           $('#LabelDemo').val(data.LabelDemo);
           $('#DateEffectue').val(data.DateEffectue);
 
+				  $("#ProjetDemo, #employeId").select2({width: "100%"});
           
-
         }
       });
     });
@@ -105,7 +105,7 @@
         data: {
           id: $('#id').val(),
           Employe: $('#employeId').val(),
-          Projet: $('#projetId').val(),
+          Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
           DateEffectue: DateFrToEn($('#DateEffectue').val()),
           action: "Update"

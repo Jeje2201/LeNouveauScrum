@@ -48,7 +48,14 @@
   $(document).ready(function () {
 
     //Load all employes
-    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php')
+    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php', 'EmployeLogin')
+
+     //Si dans la page de connexion alors direct selectionner      
+     if(localStorage.getItem("Connexion")){
+        $('#EmployeLogin option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+      }
+
+      $( "#EmployeLogin" ).each(function() {$(this).select2({width: "100%"});});
 
     //Show modal if click on help
     $("#target").click(function () {
@@ -63,11 +70,11 @@
         dataType: "json",
         data: {
           inputPassword: $('#inputPassword').val(),
-          TypeEmployeOk: $('#TypeEmployeOk').val()
+          EmployeLogin: $('#EmployeLogin').val()
         },
         success: function (data) {
           if (data.Connexion) {
-            localStorage.setItem('Connexion', $('#TypeEmployeOk').val())
+            localStorage.setItem('Connexion', $('#EmployeLogin').val())
             location.reload();
           } else {
             $("#wrongpassword").removeClass("text-hide");

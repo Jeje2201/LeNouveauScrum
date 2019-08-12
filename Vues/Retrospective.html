@@ -110,10 +110,11 @@
     // $('body').toggleClass('sidenav-toggled');
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+    $( "#numeroSprint" ).select2({width: "100%"});
 
-    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ProjetRetrospective');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployeRetrospective');
 
     RemplirTableau();
 
@@ -209,10 +210,12 @@
           $('.modal-title').text("Éditer objectif");
           $('#action').val("Changer Objectif");
           $('#id').val(id);
-          $('#projetId').val(data.id_Projet);
-          $('#TypeEmployeOk').val(data.id_Employe);
+          $('#ProjetRetrospective').val(data.id_Projet);
+          $('#EmployeRetrospective').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
-          
+
+          $( "#EmployeRetrospective, #ProjetRetrospective" ).select2({width: "100%"});
+
         }
       });
     });
@@ -220,7 +223,7 @@
     //Editer ou créer pour editer un objectif
 
     $('#action').click(function () {
-      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#TypeEmployeOk').val() != '' && $('#projetId').val() != '') {
+      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#EmployeRetrospective').val() != '' && $('#ProjetRetrospective').val() != '') {
         $.ajax({
           url: "Modele/Retrospective.php",
           method: "POST",
@@ -228,8 +231,8 @@
             id: $('#id').val(),
             idSprint: $('#numeroSprint').val(),
             LabelObjectif: $('#LabelObjectif').val(),
-            idEmploye: $('#TypeEmployeOk').val(),
-            idProjet: $('#projetId').val(),
+            idEmploye: $('#EmployeRetrospective').val(),
+            idProjet: $('#ProjetRetrospective').val(),
             action: $('#action').val()
           },
           success: function (data) {
@@ -389,9 +392,7 @@
             RemplirTableau();
           }
         });
-    });
-
-    
+    });    
 
   });
 </script>

@@ -7,38 +7,38 @@
       if ($_POST["action"] == "RemplirTableau") {
         $numero = $_POST["idAffiche"];
         $statement = $connection->prepare("SELECT A.id as id,
-      A.Label,
-      A.heure,
-      A.Done,
-      P.nom AS projet,
-      E.prenom AS employeP,
-      E.nom AS employeN
-      FROM attribution A
-      inner JOIN employe E
-        ON E.id = A.id_Employe
-      INNER JOIN projet  P
-        ON P.id = A.id_Projet
-      INNER JOIN sprint  S
-        ON S.id = A.id_Sprint
-      WHERE A.id_Sprint = $numero
-      ORDER BY A.id DESC");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Ressource</th>
-      <th>Projet</th>
-      <th>Label</th>
-      <th>Heures</th>
-      <th>Fini</th>
-      <th>Éditer</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        A.Label,
+        A.heure,
+        A.Done,
+        P.nom AS projet,
+        E.prenom AS employeP,
+        E.nom AS employeN
+        FROM attribution A
+        inner JOIN employe E
+          ON E.id = A.id_Employe
+        INNER JOIN projet  P
+          ON P.id = A.id_Projet
+        INNER JOIN sprint  S
+          ON S.id = A.id_Sprint
+        WHERE A.id_Sprint = $numero
+        ORDER BY A.id DESC");
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output = '';
+          $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th>Ressource</th>
+        <th>Projet</th>
+        <th>Label</th>
+        <th>Heures</th>
+        <th>Fini</th>
+        <th>Éditer</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
@@ -56,10 +56,10 @@
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+          <tr>
+          <td align="center" colspan="10">Pas de données</td>
+          </tr>
+          ';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -69,34 +69,34 @@
         $numero = $_POST["idAffiche"];
 
         $statement = $connection->prepare("SELECT sum(A.heure) AS NbHeure,
-      (
         (
-          SELECT Attribuable
-          FROM sprint S
-          WHERE S.id = $numero
-        )- sum(A.heure)
-      ) AS Attribuable,
-      E.prenom AS employeP,
-      E.nom AS employeN
-      FROM attribution A
-      inner JOIN employe E
-        ON E.id = A.id_Employe
-      WHERE A.id_Sprint = $numero
-      GROUP BY A.id_Employe
-      ORDER BY employeP ASC");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Ressource</th>
-      <th>Planifié (Dispo)</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+          (
+            SELECT Attribuable
+            FROM sprint S
+            WHERE S.id = $numero
+          )- sum(A.heure)
+        ) AS Attribuable,
+        E.prenom AS employeP,
+        E.nom AS employeN
+        FROM attribution A
+        inner JOIN employe E
+          ON E.id = A.id_Employe
+        WHERE A.id_Sprint = $numero
+        GROUP BY A.id_Employe
+        ORDER BY employeP ASC");
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output = '';
+          $output .= '
+        <table class="table table-sm table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th>Ressource</th>
+        <th>Planifié (Dispo)</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
@@ -115,10 +115,10 @@
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+        <tr>
+        <td align="center" colspan="10">Pas de données</td>
+        </tr>
+        ';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -127,26 +127,26 @@
       if ($_POST["action"] == "RemplirTableauProjets") {
         $numero = $_POST["idAffiche"];
         $statement = $connection->prepare("SELECT sum(A.heure) AS NbHeure,
-      P.nom AS ProjetN
-      FROM attribution A
-      inner JOIN projet P
-        ON P.id = A.id_Projet
-      WHERE A.id_Sprint = $numero
-      GROUP BY A.id_Projet
-      ORDER BY ProjetN ASC");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Projet</th>
-      <th>H</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
+        P.nom AS ProjetN
+        FROM attribution A
+        inner JOIN projet P
+          ON P.id = A.id_Projet
+        WHERE A.id_Sprint = $numero
+        GROUP BY A.id_Projet
+        ORDER BY ProjetN ASC");
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output = '';
+          $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th>Projet</th>
+        <th>H</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
@@ -158,10 +158,10 @@
           }
         } else {
           $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
+        <tr>
+        <td align="center" colspan="10">Pas de données</td>
+        </tr>
+        ';
         }
         $output .= '</tbody></table>';
         echo $output;
@@ -171,9 +171,9 @@
       if ($_POST["action"] == "Attribuer") {
         $TableauHeurePlanifie = $_POST["NombreHeure"];
         $statement = $connection->prepare("
-   INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label)
-   ");
+        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label) 
+        VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label)
+        ");
         for ($i = 0; $i < count($TableauHeurePlanifie); $i++) {
 
           $result = $statement->execute(
@@ -186,7 +186,7 @@
             )
           );
           if (!empty($result))
-            echo '✓';
+            echo 'Tâche attribuée ✓' . PHP_EOL;
           else
             print_r($statement->errorInfo());
         }
@@ -213,9 +213,9 @@
       if ($_POST["action"] == "Update") {
         $statement = $connection->prepare(
           "UPDATE attribution 
-   SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
-   WHERE id = :id
-   "
+          SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
+          WHERE id = :id
+          "
         );
         $result = $statement->execute(
           array(
@@ -253,9 +253,9 @@
       if ($_POST["action"] == "CreerTacheApi") {
         $ListeTache = $_POST["ListeTaches"];
         $statement = $connection->prepare("
-     INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project) 
-     VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label, :Done, :pivotal_id_Task, :pivotal_id_Story, :pivotal_id_Project)
-     ");
+        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project) 
+        VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label, :Done, :pivotal_id_Task, :pivotal_id_Story, :pivotal_id_Project)
+        ");
         for ($i = 2; $i < count($ListeTache); $i++) {
 
           if ($ListeTache[$i]['done'] == null)
@@ -286,8 +286,8 @@
         $TableauEmploye = $_POST["idEmploye"];
         $numero = $_POST["idSprint"];
         $statement = $connection->prepare("INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
-   VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),(select dateDebut FROM sprint S WHERE S.id = $numero))
-   ");
+        VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),(select dateDebut FROM sprint S WHERE S.id = $numero))
+        ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
 
           $result = $statement->execute(
@@ -304,7 +304,6 @@
             print_r($statement->errorInfo());
         }
       }
-
 
       if ($_POST["action"] == "NbHeureRestantePlanifiable") {
         $output = array();

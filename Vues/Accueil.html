@@ -98,6 +98,9 @@
     GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
     HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
 
+    $( "#numeroSprint" ).select2({width: "100%"});
+
+
     $('#numeroSprint').change(function () {
       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Ressources", 'HeureDescenduParEmploye');
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');

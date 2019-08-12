@@ -13,10 +13,7 @@
           <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">Scrum planning </button>
         </div>
         <div class="col">
-          <button type="button" id="Modal_Objectif" class="btn btn-block btn-info">Objectif</button>
-        </div>
-        <div class="col">
-          <button type="button" id="Modal_Demo" class="btn btn-block btn-info">Démo</button>
+          <button type="button" id="Btn_Modal_Objectif_Demo" class="btn btn-block btn-info">Objectif / Démo</button>
         </div>
 
       </div>
@@ -45,7 +42,7 @@
 </body>
 
 
-<div id="ModalTache" class="modal fade">
+<div id="Modal_Objectif_Demo" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
@@ -66,7 +63,7 @@
         <hr>
         <p></p>
 
-        <div class="row" id="PartieObjectif">
+        <div class="row">
 
           <div class="row col-lg-12">
             <h5>&nbsp;&nbsp; Objectifs</h5>
@@ -83,7 +80,7 @@
 
         <p></p>
 
-        <div class="row" id="PartieDemo">
+        <div class="row">
           <div class="row col-lg-12">
             <h5>&nbsp;&nbsp; Démo</h5>
           </div>
@@ -219,17 +216,17 @@
 
         <div class="form-group">
           <label>Ressource</label>
-          <div id="ListEmploye5"></div>
+          <div id="ListEmployeEditionTache"></div>
         </div>
 
         <div class="form-group">
           <label>Projet</label>
-          <div id="ListProjet5"></div>
+          <div id="ListProjetEditionTache"></div>
         </div>
 
         <div class="form-group">
           <label>Nombre heures</label>
-          <input class="form-control" name="nbheure5" id="nbheure5" type="number" min="1" value="1">
+          <input class="form-control" name="nbheureEditionTache" id="nbheureEditionTache" type="number" min="1" value="1">
         </div>
 
         <div class="form-group">
@@ -246,7 +243,7 @@
 
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action5" id="action5" class="btn btn-success" value="Mettre à jours" />
+        <input type="submit" name="actionEditionTache" id="actionEditionTache" class="btn btn-success" value="Mettre à jours" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -258,14 +255,16 @@
   $(document).ready(function () {
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListEmploye5', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListProjet5', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','ListeEmployeObjectifDemo');
+    RequeteAjax('ListEmployeEditionTache', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','ListeEmployeEditionTache');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ListeProjetObjectifDemo');
+    RequeteAjax('ListProjetEditionTache', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ListeProjeteditionTache');
     RequeteAjax('ListEmployePivotal', 'RessourcePivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
+
+    $("#ListeProjetObjectifDemo, #ListeEmployeObjectifDemo, #TOUTLEMONDE, #RessourceApi, #ProjetApi" ).select2({width: "100%"});
 
     $('#Done').datetimepicker({format: 'dd-mm-yyyy',autoclose: true, minView: 2, weekStart: 1});
 
@@ -385,17 +384,19 @@
           $('.modal-title').text("Metre à jour les heures descendues");
           $('#id').val(id);
           $('#idSprint').val(data.id_Sprint);
-          $('#ListEmploye5 #TypeEmployeOk').val(data.id_Employe);
-          $('#ListProjet5 #projetId').val(data.id_Projet);
-          $('#nbheure5').val(data.heure);
+          $('#ListeEmployeEditionTache').val(data.id_Employe);
+          $('#ListeProjeteditionTache').val(data.id_Projet);
+          $('#nbheureEditionTache').val(data.heure);
           $('#LabelTache').val(data.Label);
           $('#Done').val(data.Done);
+
+          $("#ListeEmployeEditionTache, #ListeProjeteditionTache" ).select2({width: "100%"});
         }
       });
     });
 
     //Maj de la tache envoyée au back
-    $('#action5').click(function () {
+    $('#actionEditionTache').click(function () {
         $.ajax({
           url: "Modele/GestionTache.php",
           method: "POST",
@@ -403,9 +404,9 @@
             id: $('#id').val(),
             Done: DateFrToEn($('#Done').val()),
             idSprint: $('#numeroSprint').val(),
-            idEmploye: $('#ListEmploye5 #TypeEmployeOk').val(),
-            idProjet: $('#ListProjet5 #projetId').val(),
-            NombreHeure: $('#nbheure5').val(),
+            idEmploye: $('#ListeEmployeEditionTache').val(),
+            idProjet: $('#ListeProjeteditionTache').val(),
+            NombreHeure: $('#nbheureEditionTache').val(),
             Label: $('#LabelTache').val(),
             action: "Update"
           },
@@ -433,17 +434,8 @@
     });
 
     //Click sur le bouton pour afficher le modal d'objectif
-    $('#Modal_Objectif').click(function () {
-      $('#ModalTache').modal('show');
-      $('#PartieObjectif').show()
-      $('#PartieDemo').hide()
-    });
-
-    //Click sur le bouton pour afficher le modal des demos
-    $('#Modal_Demo').click(function () {
-      $('#ModalTache').modal('show');
-      $('#PartieDemo').show()
-      $('#PartieObjectif').hide()
+    $('#Btn_Modal_Objectif_Demo').click(function () {
+      $('#Modal_Objectif_Demo').modal('show');
     });
 
     //Click sur le bouton pour afficher le modal de scrum planing
@@ -491,7 +483,7 @@
           },
           success: function (data) {
             $.notify(data, "info");
-            // $('#ModalTache').modal('hide');
+            // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
@@ -521,7 +513,7 @@
           },
           success: function (data) {
             $.notify(data, "info");
-            // $('#ModalTache').modal('hide');
+            // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
@@ -539,8 +531,8 @@
         url: "Modele/Demo.php",
         method: "POST",
         data: {
-          idEmploye: $('#TypeEmployeOk').val(),
-          idProjet: $('#projetId').val(),
+          idEmploye: $('#ListeEmployeObjectifDemo').val(),
+          idProjet: $('#ListeProjetObjectifDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
           action: "CréerDemo"
         },
@@ -560,8 +552,8 @@
         data: {
           idSprint: $('#numeroSprint').val(),
           LabelObjectif: $('#LabelObjectif').val(),
-          idEmploye: $('#TypeEmployeOk').val(),
-          idProjet: $('#projetId').val(),
+          idEmploye: $('#ListeEmployeObjectifDemo').val(),
+          idProjet: $('#ListeProjetObjectifDemo').val(),
           action: "Créer"
         },
         success: function (data) {

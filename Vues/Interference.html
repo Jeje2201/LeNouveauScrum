@@ -73,12 +73,12 @@
 
   $(document).ready(function () {
 
-    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');    
+    $( "#numeroSprint" ).select2({width: "100%"});
 
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
-
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployeInterference');
     $('#ListEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
@@ -113,6 +113,10 @@
       $('#ModalInterference').modal('show');
       $('.modal-title').text("Ajouter une interférence");
       $('#action').val('Ajouter');
+      $('#nbheure').val('0'),
+      $('#EmployeInterference').val(localStorage.getItem("Connexion"))
+      
+      $("#EmployeInterference, #projetId" ).select2({width: "100%"});
     });
 
     $('#action').click(function () {
@@ -124,7 +128,7 @@
           data: {
             id: $('#id').val(),
             NbHeure: $('#nbheure').val(),
-            Employe: $('#TypeEmployeOk').val(),
+            Employe: $('#EmployeInterference').val(),
             Projet: $('#projetId').val(),
             TypeInterferance: $('#typeinterference').val(),
             idAffichee: $("#numeroSprint").val(),
@@ -160,13 +164,12 @@
 
           $('#id').val(id);
           $('#nbheure').val(data.Heure);
-          $('#TypeEmployeOk').val(data.Employe);
+          $('#EmployeInterference').val(data.Employe);
           $('#projetId').val(data.Projet);
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
-          
-
+          $( "#EmployeInterference, #projetId" ).select2({width: "100%"});
         }
       });
     });
@@ -186,8 +189,5 @@
           }
         })
     });
-
-    
-
   });
 </script>

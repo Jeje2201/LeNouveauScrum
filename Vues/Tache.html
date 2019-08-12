@@ -78,7 +78,11 @@
       $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+
       RemplirListeEmploye();
+
+      $( "#numeroEmploye, #numeroSprint" ).select2({width: "100%"});
+
       AfficherCards();
 
       function AfficherCards() {
@@ -131,9 +135,6 @@
           success: function (data) {
             $('#ListeEmploye').html(data.Attribution);
             $('#numeroEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-            $("select").each(function (index) {
-              $(this).select2({width: "100%"});
-            });
           }
         });
 

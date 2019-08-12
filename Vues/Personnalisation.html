@@ -142,8 +142,9 @@
         $("#ListEmpAdmin").hide();
       
       //Remplace le div "ListEmploye" par une list de ressources
-      RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php');
-      $('#TypeEmployeOk option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+      RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployePersonalisation');
+      $('#EmployePersonalisation option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+      $("#EmployePersonalisation" ).select2({width: "100%"});
 
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
@@ -186,10 +187,10 @@
       });
 
       //Si peut changer le type d'employer, alors charger toutes les infos avec le nouvel utilisateur sélectionné
-      $('#TypeEmployeOk').change(function () {
-        ListTotalSurSprint($('#TypeEmployeOk').val())
-        ListTotalFdTSurMois($('#TypeEmployeOk').val());
-        ListTotalTotal($('#TypeEmployeOk').val());
+      $('#EmployePersonalisation').change(function () {
+        ListTotalSurSprint($('#EmployePersonalisation').val())
+        ListTotalFdTSurMois($('#EmployePersonalisation').val());
+        ListTotalTotal($('#EmployePersonalisation').val());
       });
 
       //Quand change sprint, charge list fiches de temps / sprint
@@ -198,7 +199,7 @@
         if($('#ListEmpAdmin').is(":hidden")) 
           ListTotalSurSprint(localStorage.getItem("Connexion"))
         else
-          ListTotalSurSprint($('#TypeEmployeOk').val())
+          ListTotalSurSprint($('#EmployePersonalisation').val())
       });
 
       //Quand change mois / années, charge list fiches de temps / Mois
@@ -207,7 +208,7 @@
         if($('#ListEmpAdmin').is(":hidden")) 
         ListTotalFdTSurMois(localStorage.getItem("Connexion"))
         else
-        ListTotalFdTSurMois($('#TypeEmployeOk').val())
+        ListTotalFdTSurMois($('#EmployePersonalisation').val())
       });
 
       //Liste des fonctions utilisées pour obtenir les obtenir les infos 

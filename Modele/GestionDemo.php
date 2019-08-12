@@ -79,7 +79,7 @@
         else
           $output["DateEffectue"] = date("d-m-Y", strtotime($result["DateEffectue"]));
 
-        $output["LabelDemo"] = $result["label"];
+        $output["LabelDemo"] = $result["Label"];
         $output["Ressource"] = $result["id_Employe"];
         $output["Projet"] = $result["id_Projet"];
 

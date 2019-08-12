@@ -4,8 +4,8 @@ session_start();
 
 require_once('../Modele/Configs.php');
 
-$_SESSION['IdUtilisateur'] = $_POST['TypeEmployeOk'];
-$IdUser = $_POST['TypeEmployeOk'];
+$_SESSION['IdUtilisateur'] = $_POST['EmployeLogin'];
+$IdUser = $_POST['EmployeLogin'];
 $PasswordInput = $_POST['inputPassword'];
 $output = [];
 

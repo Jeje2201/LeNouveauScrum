@@ -68,7 +68,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="projetId" name="projetId">';
+          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" name="projetId">';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -212,7 +212,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="TypeEmployeOk" name="TypeEmployeOk">';
+          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" name="TypeEmployeOk">';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
