@@ -1,6 +1,9 @@
 //Si ne reconnait pas l'utilisateur, le rediriger vers la connexion
 if (!localStorage.getItem("Connexion")) {
-  $('.container-fluid').html("<h1>Erreur de cache</h1>Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau en cliquand <a href='Modele/ConnectionLogout.php'>ICI</a> ?")
+  if (window.confirm('Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau ?'))
+    window.location.href = "Modele/ConnectionLogout.php";
+  else
+    alert("C'est ton choix, mais ça risque de ne pas fonctionner")
 }
 
 /**
@@ -11,10 +14,11 @@ if (!localStorage.getItem("Connexion")) {
  */
 function ClassActive(LaPage, TypeUser, NameUser) {
   //Enlever actif a toutes les class
-  $("li").each(function () {
+  $("exampleAccordion li").each(function () {
     $(this).removeClass("active");
   });
-  //Puis cherche la nav qui a la page d'affiché et lui donner la class active
+
+  //Puis cherche la nav qui a la page d'affichéE et lui donner la class active
   $('nav a[href^="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
   //Afficher le prénom
@@ -23,7 +27,7 @@ function ClassActive(LaPage, TypeUser, NameUser) {
   //Cacher les onglets innutiles pour les non admin
   if (TypeUser !== "ScrumMaster") {
     $(".AdminOnly").each(function () {
-      $(this).hide();
+      $(this).remove();
     });
   }
 }
