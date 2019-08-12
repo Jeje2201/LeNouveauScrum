@@ -185,7 +185,7 @@
           },
           success: function (data) {
             //Liste des stories trouvées
-            BootstrapAlertDefaut("Story validé dans pivotal tracker")
+            $.notify("Story validée dans pivotal tracker", "info");
           }
         })
 
@@ -196,13 +196,12 @@
         },
         type: 'POST',
         processData: false,
-        data: 'text= Tâche validée par Scrum Manager : '+TextDeLaTache,
+        data: 'text= Tâche validée sur Scrum Manager par '+ $("#numeroEmploye option:selected").text() +' : '+TextDeLaTache,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           $.notify("Erreur", "error");
         },
         success: function (data) {
-          //Liste des stories trouvées
-          BootstrapAlertDefaut("Ajout d'un commentaire")
+          $.notify("Ajout d'un commentaire dans Pivotal Tracker", "info");
         }
         })
         }
