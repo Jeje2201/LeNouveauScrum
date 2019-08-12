@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <body class="fixed-nav sticky-footer" id="page-Result">
   <div class="content-wrapper">
     <div class="container-fluid">
@@ -14,11 +15,11 @@
               <!-- Selectionner le sprint sur lequel l'on va jouer -->
               <div class="row">
                 <div class="col-lg-4">
-                <div id="ListSrint"></div>
-              </div>
-              <div class="col-lg-7">
-                <div id="ListeEmploye"></div>
-              </div>
+                  <div id="ListSrint"></div>
+                </div>
+                <div class="col-lg-7">
+                  <div id="ListeEmploye"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -33,7 +34,7 @@
             <div class="card-body">
               <div class="input-group mb-12">
 
-                <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control" />
+                <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control"/>
 
                 <button type="button" id="Descendre" class="btn btn-info">
                   <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Descendre</button>
@@ -51,8 +52,7 @@
             <div class="card-header" style="text-align: center">
               Tâches en cours
             </div>
-            <div class="card-body card-columns DeplacementDeTache" id=EnCours>
-            </div>
+            <div class="card-body card-columns DeplacementDeTache" id="EnCours"></div>
           </div>
         </div>
 
@@ -61,184 +61,186 @@
             <div class="card-header" style="text-align: center">
               Tâches achevées
             </div>
-            <div class="card-body card-columns DeplacementDeTache" id=Fini>
-            </div>
+            <div class="card-body card-columns DeplacementDeTache" id="Fini"></div>
           </div>
 
         </div>
       </div>
     </div>
-</body>
-<script>
+  </body>
+  <script>
+    $(document).ready(function () {
 
-  $(document).ready(function () {
+      $("div.DeplacementDeTache").sortable({connectWith: "div", cancel: ".PASTOUCHE"});
 
-    $( "div.DeplacementDeTache" ).sortable({
-      connectWith: "div",
-      cancel: ".PASTOUCHE"
-    });
+      $("#EnCours, #Fini").disableSelection();
 
-    $( "#EnCours, #Fini" ).disableSelection();
-  
+      $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
-    $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
-
-    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    RemplirListeEmploye();
-    AfficherCards();
-
-    function AfficherCards() {
-      $.ajax({
-        url: "Modele/Tache.php",
-        method: "POST",
-        data: {
-          action: "AfficherCards",
-          idAffiche: $('#numeroSprint').val(),
-          idEmploye: $('#numeroEmploye').val()
-        },
-        success: function (data) {
-          $('#EnCours').html(data.Attribution);
-          $('#Fini').html(data.Descendue);
-
-          $.ajax({
-            url: "Modele/Tache.php",
-            method: "POST",
-            data: {
-              action: "DateMinMax",
-              idAffiche: $('#numeroSprint').val()
-            },
-            success: function (data) {
-              $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
-              $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
-
-              if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
-                $('#DateAujourdhui').val(ChoixDate(0));
-              }
-              else {
-                $('#DateAujourdhui').val(data['DateMax']);
-              }
-              $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-              })
-            }
-          });
-        }
-      });
-    }
-
-    function RemplirListeEmploye() {
-      $.ajax({
-        url: "Modele/Tache.php",
-        method: "POST",
-        async: false,
-        data: {
-          action: "LoadListEmployes",
-          idAffiche: $('#numeroSprint').val()
-        },
-        success: function (data) {
-          $('#ListeEmploye').html(data.Attribution);
-          $('#numeroEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-          $( "select" ).each(function( index ) {
-        $(this).select2({width: "100%"});
-      });
-        }
-      });
-
-    }
-
-    $('#numeroSprint').change(function () {
+      RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
       RemplirListeEmploye();
       AfficherCards();
-    });
 
-    $('#ListeEmploye').change(function () {
-      AfficherCards();
-    });
-
-    $('#Descendre').click(function () {
-
-      var IdAttribue = [];
-
-      $('#Fini .BOUGEMOI').each(function () {
-        IdAttribue.push($(this).attr('id'));
-      });
-
-      $('#Fini .BOUGEMOI div').each(function () {
-
-        var TextDeLaTache = $(this).children('#LabelDeLaTache').text()
-        var Project_id_Pivotal = $(this).children('#ProjectIdPivotal').text()
-        var Story_id_Pivotal = $(this).children('#StoryId').text()
-        var Task_id_Pivotal = $(this).children('#TaskId').text()
-
-        if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != ""){
-
-          $.ajax({
-          url: "https://www.pivotaltracker.com/services/v5/projects/" + Project_id_Pivotal + "/stories/" + Story_id_Pivotal + "/tasks/" + Task_id_Pivotal,
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
-          },
-          type: 'PUT',
-          processData: false,
-          data: 'complete=true',
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $.notify("Erreur", "error");
-          },
-          success: function (data) {
-            //Liste des stories trouvées
-            $.notify("Story validée aussi dans Pivotal Tracker !", "info");
-          }
-        })
-
-          $.ajax({
-        url: "https://www.pivotaltracker.com/services/v5/projects/" + $(this).children('#ProjectIdPivotal').text() + "/stories/" + $(this).children('#StoryId').text() + "/comments",
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
-        },
-        type: 'POST',
-        processData: false,
-        data: 'text= Tâche validée sur Scrum Manager par '+ $("#numeroEmploye option:selected").text() +' : '+TextDeLaTache,
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          $.notify("Erreur", "error");
-        },
-        success: function (data) {
-          $.notify("Ajout d'un commentaire dans Pivotal Tracker", "info");
-        }
-        })
-        }
-      });
-      
-      if (IdAttribue != '') {
+      function AfficherCards() {
         $.ajax({
           url: "Modele/Tache.php",
           method: "POST",
           data: {
-            IdAttribue: IdAttribue,
-            action: "Descendre",
-            LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
+            action: "AfficherCards",
+            idAffiche: $('#numeroSprint').val(),
+            idEmploye: $('#numeroEmploye').val()
           },
           success: function (data) {
-            $.notify(data, "info");
-            AfficherCards();
+            $('#EnCours').html(data.Attribution);
+            $('#Fini').html(data.Descendue);
+
+            $.ajax({
+              url: "Modele/Tache.php",
+              method: "POST",
+              data: {
+                action: "DateMinMax",
+                idAffiche: $('#numeroSprint').val()
+              },
+              success: function (data) {
+                $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
+                $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
+
+                if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
+                  $('#DateAujourdhui').val(ChoixDate(0));
+                } else {
+                  $('#DateAujourdhui').val(data['DateMax']);
+                }
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                })
+              }
+            });
           }
         });
       }
-      else {
-      $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
+
+      function RemplirListeEmploye() {
+        $.ajax({
+          url: "Modele/Tache.php",
+          method: "POST",
+          async: false,
+          data: {
+            action: "LoadListEmployes",
+            idAffiche: $('#numeroSprint').val()
+          },
+          success: function (data) {
+            $('#ListeEmploye').html(data.Attribution);
+            $('#numeroEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
+            $("select").each(function (index) {
+              $(this).select2({width: "100%"});
+            });
+          }
+        });
+
       }
 
+      $('#numeroSprint').change(function () {
+        RemplirListeEmploye();
+        AfficherCards();
+      });
+
+      $('#ListeEmploye').change(function () {
+        AfficherCards();
+      });
+
+      $('#Descendre').click(function () {
+
+        var IdAttribue = [];
+
+        $('#Fini .BOUGEMOI').each(function () {
+          IdAttribue.push($(this).attr('id'));
+        });
+
+        $('#Fini .BOUGEMOI div').each(function () {
+
+          var TextDeLaTache = $(this)
+            .children('#LabelDeLaTache')
+            .text()
+          var Project_id_Pivotal = $(this)
+            .children('#ProjectIdPivotal')
+            .text()
+          var Story_id_Pivotal = $(this)
+            .children('#StoryId')
+            .text()
+          var Task_id_Pivotal = $(this)
+            .children('#TaskId')
+            .text()
+
+          if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
+
+            $.ajax({
+              url: "https://www.pivotaltracker.com/services/v5/projects/" + Project_id_Pivotal + "/stories/" + Story_id_Pivotal + "/tasks/" + Task_id_Pivotal,
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+              },
+              type: 'PUT',
+              processData: false,
+              data: 'complete=true',
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.notify("Erreur", "error");
+              },
+              success: function (data) {
+                //Liste des stories trouvées
+                $.notify("Story validée aussi dans Pivotal Tracker !", "info");
+              }
+            })
+
+            $.ajax({
+              url: "https://www.pivotaltracker.com/services/v5/projects/" + $(this)
+                .children('#ProjectIdPivotal')
+                .text() + "/stories/" + $(this)
+                .children('#StoryId')
+                .text() + "/comments",
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+              },
+              type: 'POST',
+              processData: false,
+              data: 'text= Tâche validée sur Scrum Manager par ' + $("#numeroEmploye option:selected").text() + ' : ' + TextDeLaTache,
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.notify("Erreur", "error");
+              },
+              success: function (data) {
+                $.notify("Ajout d'un commentaire dans Pivotal Tracker", "info");
+              }
+            })
+          }
+        });
+
+        if (IdAttribue != '') {
+          $.ajax({
+            url: "Modele/Tache.php",
+            method: "POST",
+            data: {
+              IdAttribue: IdAttribue,
+              action: "Descendre",
+              LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
+            },
+            success: function (data) {
+              $.notify(data, "info");
+              AfficherCards();
+            }
+          });
+        } else {
+          $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
+        }
+
+      });
+
     });
-    
-  });
 
-  function DeplaceToi(id) {
+    function DeplaceToi(id) {
 
-    if ($(id).parent().attr('id') == 'EnCours') {
-      $(id).prependTo($("#Fini"));
+      if ($(id).parent().attr('id') == 'EnCours') {
+        $(id).prependTo($("#Fini"));
 
+      } else {
+        $(id).prependTo($("#EnCours"));
+      }
     }
-    else {
-      $(id).prependTo($("#EnCours"));
-    }
-  }
-
-</script>
+  </script>
