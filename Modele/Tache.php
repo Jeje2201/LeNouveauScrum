@@ -55,10 +55,13 @@
         $output1 = '';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
+            $test = '';
+            if($row["pivotal_id_Task"] != '')
+            $test = '<span style="color: #ff7702"> (Pivotal)</span>';
             $output1 .= '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
         <div style="margin-left:4px;"><b>
-          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '"></b><br>
+          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">'. $test.'</b><br>
 
           <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["pivotal_id_Project"].'</span></div>
