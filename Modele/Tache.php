@@ -184,6 +184,7 @@
       if ($_POST["action"] == "Descendre") {
 
         $IdAttribue = $_POST["IdAttribue"];
+        $LaSortie = '';
 
         for ($i = 0; $i < sizeof($IdAttribue); $i++) {
 
@@ -197,9 +198,11 @@
               ':id' => $IdAttribue[$i]
             )
           );
+
+          $LaSortie .= 'Tâche validée ✓'. PHP_EOL;
         }
         if (!empty($result))
-          echo '✓';
+          echo $LaSortie;
         else
           print_r($statement->errorInfo());
       }

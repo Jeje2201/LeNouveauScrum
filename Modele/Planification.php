@@ -275,7 +275,7 @@
             )
           );
           if (!empty($result))
-            echo '✓';
+            echo 'Tâche pivotal planifiée ✓'. PHP_EOL;
           else
             print_r($statement->errorInfo());
         }

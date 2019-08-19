@@ -195,7 +195,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Objectif créé ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -211,7 +211,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Remarque créée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -266,7 +266,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Objectif changé ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -285,7 +285,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Remarque changée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -304,7 +304,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Etat changé ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -322,7 +322,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Remarque validée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -338,7 +338,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Objectif supprimé ✓';
         else
           print_r($statement->errorInfo());
       }

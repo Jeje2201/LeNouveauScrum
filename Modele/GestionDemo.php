@@ -122,7 +122,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Démo supprimée ✓';
         else
           print_r($statement->errorInfo());
       }

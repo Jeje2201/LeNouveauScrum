@@ -78,7 +78,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Interférence créée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -122,7 +122,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Interférence changée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -138,7 +138,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Interférence supprimée ✓';
         else
           print_r($statement->errorInfo());
       }

@@ -74,7 +74,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Démo créée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -93,7 +93,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Démo validée ✓';
         else
           print_r($statement->errorInfo());
       }
@@ -110,7 +110,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Démo supprimée ✓';
         else
           print_r($statement->errorInfo());
       }
