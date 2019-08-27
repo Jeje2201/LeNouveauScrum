@@ -311,7 +311,7 @@
 
             //2) sort:
             list.sort(function(a, b) {
-                return ((a.LeNbRetard < b.LeNbRetard) ? -1 : ((a.LeNbRetard == b.LeNbRetard) ? 0 : 1));
+                return ((a.LeNbRetard > b.LeNbRetard) ? -1 : ((a.LeNbRetard == b.LeNbRetard) ? 0 : 1));
                 //Sort could be modified to, for example, sort on the LeNomUser 
                 // if the LeNbRetard is the same.
             });
