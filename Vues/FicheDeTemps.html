@@ -297,6 +297,30 @@
 
           if (IsJsonString(data)) 
             data = JSON.parse(data);
+
+            LeNomUser = new Array
+            LeNomUser = data['NomUser']
+
+            LeNbRetard = new Array
+            LeNbRetard = data['NbDatePerUser']
+
+            //1) combine the arrays:
+            var list = [];
+            for (var j = 0; j < LeNbRetard.length; j++) 
+                list.push({'LeNbRetard': LeNbRetard[j], 'LeNomUser': LeNomUser[j]});
+
+            //2) sort:
+            list.sort(function(a, b) {
+                return ((a.LeNbRetard < b.LeNbRetard) ? -1 : ((a.LeNbRetard == b.LeNbRetard) ? 0 : 1));
+                //Sort could be modified to, for example, sort on the LeNomUser 
+                // if the LeNbRetard is the same.
+            });
+
+            //3) separate them back out:
+            for (var k = 0; k < list.length; k++) {
+                LeNbRetard[k] = list[k].LeNbRetard;
+                LeNomUser[k] = list[k].LeNomUser;
+            }
           
           Highcharts.chart('RetardEnGeneral', {
             chart: {
@@ -307,7 +331,7 @@
             },
             xAxis: {
               type: 'category',
-              categories: data['NomUser'],
+              categories: LeNomUser,
               labels: {
                 rotation: -45,
                 style: {
@@ -340,7 +364,7 @@
             series: [
               {
                 name: 'feuilles de temps non remplies',
-                data: data['NbDatePerUser'],
+                data: LeNbRetard,
                 stack: 0,
                 pointPadding: 0.3
               }
