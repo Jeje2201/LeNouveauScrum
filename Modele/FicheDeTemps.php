@@ -29,9 +29,9 @@
         <tr>
         <th width="">Ressource</th>
         <th width="">Projet</th>
-        <th width="">Journée</th>
-        <th width="">Effectué le</th>
-        <th width="">Enregistré</th>
+        <th width="">Heure(s)</th>
+        <th width="">Date</th>
+        <th width="">Log</th>
         <th width=""><center>Éditer</center></th>
         </tr>
         </thead>
