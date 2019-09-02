@@ -321,7 +321,8 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
  */
 function fillInformation(infosource) {
 
-  var moyenne = Math.round((infosource["TotalHeuresDescendues"][0] + infosource["TotalHeuresInterference"][0]) / infosource["TotalHeuresAttribuees"][0] * 100);
+  // var moyenne = Math.round((infosource["TotalHeuresDescendues"][0] + infosource["TotalHeuresInterference"][0]) / infosource["TotalHeuresAttribuees"][0] * 100);
+  var moyenne = Math.round(infosource["TotalHeuresDescendues"][0] / infosource["TotalHeuresAttribuees"][0] * 100);
 
   if (moyenne < 50) 
     var couleurBar = "danger";
