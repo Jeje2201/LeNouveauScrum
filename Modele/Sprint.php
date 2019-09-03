@@ -59,7 +59,7 @@
           )
         );
         if (!empty($result))
-          echo 'Sprint créé';
+          echo 'Sprint n°'.$_POST["numero"].' créé';
         else
           print_r($statement->errorInfo());
       }
@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo 'Sprint changé';
+          echo 'Sprint n°'.$_POST["numero"].' changé';
         else
           print_r($statement->errorInfo());
       }

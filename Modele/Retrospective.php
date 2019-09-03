@@ -195,7 +195,7 @@
           )
         );
         if (!empty($result))
-          echo 'Objectif créé ✓';
+          echo 'Objectif "'.$_POST["LabelObjectif"].'" créé';
         else
           print_r($statement->errorInfo());
       }
@@ -211,7 +211,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque créée ✓';
+          echo 'Remarque "'.$_POST["Labelretrospective"].'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -266,7 +266,7 @@
           )
         );
         if (!empty($result))
-          echo 'Objectif changé ✓';
+          echo 'Objectif "'.$_POST["LabelObjectif"].'" changé';
         else
           print_r($statement->errorInfo());
       }
@@ -285,7 +285,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque changée ✓';
+          echo 'Remarque "'.$_POST["Labelretrospective"].'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -304,7 +304,7 @@
           )
         );
         if (!empty($result))
-          echo 'Etat changé ✓';
+          echo 'Etat changé';
         else
           print_r($statement->errorInfo());
       }
@@ -322,7 +322,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque validée ✓';
+          echo 'Remarque validée';
         else
           print_r($statement->errorInfo());
       }
@@ -338,7 +338,7 @@
           )
         );
         if (!empty($result))
-          echo 'Objectif supprimé ✓';
+          echo 'Objectif supprimé';
         else
           print_r($statement->errorInfo());
       }

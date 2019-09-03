@@ -74,7 +74,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo créée ✓';
+          echo 'Démo "'.$_POST["LabelDemo"].'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -93,7 +93,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo validée ✓';
+          echo 'Démo validée';
         else
           print_r($statement->errorInfo());
       }
@@ -110,7 +110,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo supprimée ✓';
+          echo 'Démo supprimée';
         else
           print_r($statement->errorInfo());
       }

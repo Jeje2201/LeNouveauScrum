@@ -93,7 +93,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque changée';
+          echo 'Remarque "'.$_POST["Label"].'" changée';
         else {
           print_r($statement->errorInfo());
         }

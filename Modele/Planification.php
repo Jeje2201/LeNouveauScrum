@@ -185,11 +185,11 @@
               ':idProjet' => $_POST["idProjet"]
             )
           );
-          if (!empty($result))
-            echo 'Tâche attribuée' . "\n";
+        }
+        if (!empty($result))
+            echo count($TableauHeurePlanifie) . ' tâche attribuée(s)';
           else
             print_r($statement->errorInfo());
-        }
       }
 
       if ($_POST["action"] == "Select") {
@@ -208,45 +208,6 @@
         $output["Done"] = $result["Done"];
 
         echo json_encode($output);
-      }
-
-      if ($_POST["action"] == "Update") {
-        $statement = $connection->prepare(
-          "UPDATE attribution 
-          SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe 
-          WHERE id = :id
-          "
-        );
-        $result = $statement->execute(
-          array(
-            ':heure' => $_POST["NombreHeure"],
-            ':id_Sprint' => $_POST["idSprint"],
-            ':id_Projet' => $_POST["idProjet"],
-            ':id_Employe' => $_POST["idEmploye"],
-            ':id' => $_POST["id"]
-          )
-        );
-        if (!empty($result))
-          echo ' ✓ ';
-        else
-          echo 'X ';
-      }
-
-      //Supprimer une tache
-      if ($_POST["action"] == "Delete") {
-        $statement = $connection->prepare(
-          "DELETE FROM attribution
-        WHERE id = :id"
-        );
-        $result = $statement->execute(
-          array(
-            ':id' => $_POST["id"]
-          )
-        );
-        if (!empty($result))
-          echo '✓';
-        else
-          print_r($statement->errorInfo());
       }
 
       //Créer une tache depuis l'api
@@ -274,11 +235,11 @@
               ':pivotal_id_Project' => $ListeTache[$i]['ProjectId']
             )
           );
-          if (!empty($result))
-            echo 'Tâche pivotal planifiée'. "\n";
-          else
-            print_r($statement->errorInfo());
         }
+        if (!empty($result))
+        echo count($ListeTache)-2 . ' tâche(s) pivotal planifiée(s)';
+      else
+        print_r($statement->errorInfo());
       }
 
       //Creer des taches de type scrum planing 

@@ -77,8 +77,8 @@
               ':Label' => $TableauLabelObjectuf[$i][1]
             )
           );
+        echo 'Label "'.$TableauLabelObjectuf[$i][1].'" changé'."\n";
         }
-        echo 'Label changé';
       }
     }
 

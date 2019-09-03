@@ -106,7 +106,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo changée avec succès';
+          echo 'Démo "'.$_POST["LabelDemo"].'" changée avec succès';
         else {
           print_r($statement->errorInfo());
         }

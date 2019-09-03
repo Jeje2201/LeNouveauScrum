@@ -78,7 +78,7 @@
           )
         );
         if (!empty($result))
-          echo 'Interférence créée ✓';
+          echo 'Interférence "'.$_POST["labelinterference"].'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -122,7 +122,7 @@
           )
         );
         if (!empty($result))
-          echo 'Interférence changée ✓';
+          echo 'Interférence "'.$_POST["labelinterference"].'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -138,7 +138,7 @@
           )
         );
         if (!empty($result))
-          echo 'Interférence supprimée ✓';
+          echo 'Interférence supprimée';
         else
           print_r($statement->errorInfo());
       }

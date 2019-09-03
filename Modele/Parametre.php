@@ -119,7 +119,7 @@
           )
         );
         if (!empty($result))
-          echo 'Couleur de tâche changée';
+          echo 'Couleur de tâche changée en '.$_POST["couleur"];
         else
           print_r($statement->errorInfo());
       }

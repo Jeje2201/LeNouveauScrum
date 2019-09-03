@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo 'Ressource créée';
+          echo 'Ressource "'.$_POST["Prenom_Employe"]. ' ' .$_POST["Nom_Employe"] .'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -164,7 +164,7 @@
           )
         );
         if (!empty($result))
-          echo 'Ressource changée';
+          echo 'Ressource "' .$_POST["Prenom_Employe"].' '. $_POST["Nom_Employe"] .'" changée';
         else
           print_r($statement->errorInfo());
       }

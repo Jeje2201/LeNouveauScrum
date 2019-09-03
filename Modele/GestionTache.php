@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo 'Tâche changée';
+          echo 'Tâche "'.$_POST["Label"].'" changée';
         else
           print_r($statement->errorInfo());
       }
