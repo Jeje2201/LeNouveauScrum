@@ -347,6 +347,122 @@
         echo $output;
       }
 
+      //List des heures par ressources pour un projet sur une plage horaire
+      if ($_POST["action"] == "ListeSelonProjetDateRessource") {
+        $output = array();
+        $statement = $connection->prepare(
+        " SELECT
+        CONCAT(E.prenom,'&nbsp;', E.initial) AS Ressource,
+        sum(C.Time) as Temps
+        FROM cir C
+        inner join employe E on C.Fk_User = E.id
+        inner join projet P on C.Fk_Project = P.id
+        WHERE C.Done >= '" . $_POST["Start"] ."' 
+        and C.Done <= '" . $_POST["Finish"] ."' 
+        and P.id = ".$_POST["ProjetId"]."
+        group by Ressource
+        ORDER BY Temps DESC");
+        
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Ressource</th>
+        <th width="">Heures</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+
+            $num = $row["Temps"];
+            $hours = ($num / 60);
+            $rhours = floor($hours);
+            $minutes = ($hours - $rhours) * 60;
+            $rminutes = round($minutes);
+            if($rminutes < 10){
+              $rminutes = "0".$rminutes;
+            }
+
+            if($rhours < 10){
+              $rhours = "0".$rhours;
+            }
+
+            $output .= '
+            <tr>
+            <td>' . $row["Ressource"] . '</td>
+            <td>' . $rhours . 'h' . $rminutes . '</td>
+            </tr>';
+          }
+        } else {
+          $output .= '
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
+      if ($_POST["action"] == "ListeSelonProjetDate") {
+        $output = array();
+        $statement = $connection->prepare(
+        " SELECT
+        sum(C.Time) as Temps
+        FROM cir C
+        inner join employe E on C.Fk_User = E.id
+        inner join projet P on C.Fk_Project = P.id
+        WHERE C.Done >= '" . $_POST["Start"] ."' 
+        and C.Done <= '" . $_POST["Finish"] ."' 
+        and P.id = ".$_POST["ProjetId"]."");
+        
+        $statement->execute();
+        $result = $statement->fetchAll();
+        $output = '';
+        $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th width="">Global</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+
+            $num = $row["Temps"];
+            $hours = ($num / 60);
+            $rhours = floor($hours);
+            $minutes = ($hours - $rhours) * 60;
+            $rminutes = round($minutes);
+            if($rminutes < 10){
+              $rminutes = "0".$rminutes;
+            }
+
+            if($rhours < 10){
+              $rhours = "0".$rhours;
+            }
+
+            $output .= '
+            <tr>
+            <td>' . $rhours . 'h' . $rminutes . '</td>
+            </tr>';
+          }
+        } else {
+          $output .= '
+          <tr>
+            <td align="center" colspan="10">Pas de données</td>
+          </tr>';
+        }
+        $output .= '</tbody></table>';
+        echo $output;
+      }
+
       //Create une fiche de temps
       if ($_POST["action"] == "Create") {
 

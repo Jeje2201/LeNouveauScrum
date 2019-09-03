@@ -1,0 +1,98 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <h3>Temps passé sur un projet</h3>
+          <div class="row">
+            <div class="col">
+              <label>Projet</label>
+
+              <div id="ListProjet"></div>
+            </div>
+            <div class="col">
+              <label>Début</label>
+
+              <input type="text" class="form-control" id="Start">
+            </div>
+
+            <div class="col">
+              <label>Fin</label>
+              <input type="text" class="form-control" id="Finish">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+            </div>
+          </div>
+          <div id="TableauListFicheDeTemps" style="max-height: 75%;" class="table-responsive table-hover"></div>
+          <div id="TableauListFicheDeTempsGlobal" style="max-height: 75%;" class="table-responsive table-hover"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+      $(document).ready(function () {
+
+        $('#Start, #Finish').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+
+        // RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+        // RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
+        RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
+        BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
+        $("#projetId").select2({width: "100%"});
+
+        $('#Start').val(ChoixDate(-7));
+        $('#Finish').val(ChoixDate(0));
+
+        ChargerTableauListeFdT()
+        ChargerTableauListeFdTGlobal()
+
+        function ChargerTableauListeFdT() {
+          $.ajax({
+            url: "Modele/FicheDeTemps.php",
+            method: "POST",
+            data: {
+              action: "ListeSelonProjetDateRessource",
+              ProjetId: $('#projetId').val(),
+              Start: DateFrToEn($('#Start').val()),
+              Finish: DateFrToEn($('#Finish').val())
+            },
+            success: function (data) {
+              $('#TableauListFicheDeTemps').html(data);
+              GarderLaRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
+            }
+          });
+        }
+
+          function ChargerTableauListeFdTGlobal() {
+            $.ajax({
+              url: "Modele/FicheDeTemps.php",
+              method: "POST",
+              data: {
+                action: "ListeSelonProjetDate",
+                ProjetId: $('#projetId').val(),
+                Start: DateFrToEn($('#Start').val()),
+                Finish: DateFrToEn($('#Finish').val())
+              },
+              success: function (data) {
+                $('#TableauListFicheDeTempsGlobal').html(data);
+                GarderLaRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
+              }
+            });
+          }
+
+          $('#ListProjet, #Start, #Finish').change(function () {
+            if ($('#projetId').val() != '' && $('#Start').val() != '' && $('#Finish').val()) {
+              ChargerTableauListeFdT()
+              ChargerTableauListeFdTGlobal()
+            }
+          });
+
+        })
+    </script>

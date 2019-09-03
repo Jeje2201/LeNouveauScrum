@@ -92,6 +92,14 @@ else {
         require_once("Vues/Gestion_FicheDeTemps.html");
       break;
 
+      case 'GestionFicheDeTemps2':
+      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+        require_once("Vues/Gestion_FicheDeTemps2.html");
+      break;
+
+
+      
+
     case 'LabelObjectif':
       require_once("Vues/LabelObjectif.html");
       break;
