@@ -187,7 +187,7 @@
           );
         }
         if (!empty($result))
-            echo count($TableauHeurePlanifie) . ' tâche attribuée(s)';
+            echo count($TableauHeurePlanifie) . ' tâche(s) attribuée(s)';
           else
             print_r($statement->errorInfo());
       }

@@ -198,11 +198,9 @@
               ':id' => $IdAttribue[$i]
             )
           );
-
-          $LaSortie .= 'Tâche validée'. "\n";
         }
         if (!empty($result))
-          echo $LaSortie;
+          echo sizeof($IdAttribue)." tâche(s) validée(s)";
         else
           print_r($statement->errorInfo());
       }
