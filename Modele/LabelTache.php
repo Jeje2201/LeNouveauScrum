@@ -78,7 +78,7 @@
             )
           );
         }
-        echo '✓';
+        echo 'Label changé';
       }
     }
 

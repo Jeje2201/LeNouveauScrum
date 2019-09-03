@@ -86,7 +86,6 @@
         );
         $result = $statement->execute(
           array(
-
             ':DateDebut' => $_POST["DateDebut"],
             ':Label' => $_POST["Label"],
             ':DateFin' => $_POST["DateFin"],
@@ -94,7 +93,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Remarque changée';
         else {
           print_r($statement->errorInfo());
         }
@@ -111,7 +110,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Remarque supprimée';
         else
           print_r($statement->errorInfo());
       }

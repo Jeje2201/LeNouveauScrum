@@ -199,7 +199,7 @@
             )
           );
 
-          $LaSortie .= 'Tâche validée ✓'. PHP_EOL;
+          $LaSortie .= 'Tâche validée'. "\n";
         }
         if (!empty($result))
           echo $LaSortie;

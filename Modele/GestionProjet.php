@@ -79,7 +79,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Projet "'.  $_POST["Nom"] .'" créé';
         else
           print_r($statement->errorInfo());
       }
@@ -125,7 +125,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Projet "'. $_POST["Nom"] .'" changé';
         else
           print_r($statement->errorInfo());
       }
@@ -141,7 +141,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Projet supprimé';
         else
           print_r($statement->errorInfo());
       }

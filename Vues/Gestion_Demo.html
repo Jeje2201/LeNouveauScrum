@@ -111,7 +111,7 @@
           action: "Update"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           $('#ModalRemarque').modal('hide');
           ChargerTableau();
         }
@@ -129,7 +129,7 @@
           },
           success: function (data) {
             ChargerTableau();
-            $.notify(data, "info");      
+            $.notify(data, "success");      
           }
         })
     });

@@ -183,11 +183,11 @@
               processData: false,
               data: 'complete=true',
               error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $.notify("Erreur", "error");
+                $.notify(errorThrown, "error");
               },
               success: function (data) {
                 //Liste des stories trouvées
-                $.notify("Story validée aussi dans Pivotal Tracker !", "info");
+                $.notify("Story validée aussi dans Pivotal Tracker !", "success");
               }
             })
 
@@ -204,10 +204,10 @@
               processData: false,
               data: 'text= Tâche validée sur Scrum Manager par ' + $("#numeroEmploye option:selected").text() + ' : ' + TextDeLaTache,
               error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $.notify("Erreur", "error");
+                $.notify(errorThrown, "error");
               },
               success: function (data) {
-                $.notify("Ajout d'un commentaire dans Pivotal Tracker", "info");
+                $.notify("Ajout d'un commentaire dans Pivotal Tracker", "success");
               }
             })
           }
@@ -223,7 +223,7 @@
               LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
             },
             success: function (data) {
-              $.notify(data, "info");
+              $.notify(data, "success");
               AfficherCards();
             }
           });

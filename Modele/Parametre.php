@@ -119,7 +119,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Couleur de tâche changée';
         else
           print_r($statement->errorInfo());
       }
@@ -137,7 +137,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Nouveau mot de passe créé';
         else
           print_r($statement->errorInfo());
       }

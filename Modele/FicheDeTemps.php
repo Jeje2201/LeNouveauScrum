@@ -450,7 +450,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Fiche de temps changée';
         else {
           print_r($statement->errorInfo());
         }
@@ -467,7 +467,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Fiche de temps supprimée';
         else
           print_r($statement->errorInfo());
       }

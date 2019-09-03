@@ -189,7 +189,7 @@
       $('#SetFicheDeTemps').click(function () {
 
         if (parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]) > 444 || parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]) == 0) {
-          $.notify("Le temps ne peut pas être inférieure à 00:01 et supérieure à 07:24", "info");
+          $.notify("Le temps ne peut pas être inférieure à 00:01 et supérieure à 07:24", "error");
           return false;
         }
 
@@ -254,7 +254,7 @@
             success: function (data) {
               ChargerListeHeures1Jour1Ressource()
               TableTotJoursNonPlein()
-              $.notify(data, "info");
+              $.notify(data, "success");
               InfoMaxSlider();
             }
           })

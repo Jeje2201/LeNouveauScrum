@@ -106,7 +106,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Démo changée avec succès';
         else {
           print_r($statement->errorInfo());
         }
@@ -122,7 +122,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo supprimée ✓';
+          echo 'Démo supprimée';
         else
           print_r($statement->errorInfo());
       }

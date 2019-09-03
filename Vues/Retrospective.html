@@ -236,14 +236,14 @@
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            $.notify(data, "info");
+            $.notify(data, "success");
             RemplirTableau();
           }
         });
         $('#LabelObjectif').val('');
       }
       else {
-        $.notify("Tous les champs doivent être plein.", "error");
+        $.notify("Tous les champs doivent être remplis", "error");
       }
     });
 
@@ -275,7 +275,7 @@
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            $.notify(data, "info");
+            $.notify(data, "success");
             RemplirTableau();
           }
         });
@@ -293,7 +293,7 @@
           action: "retrospectiveFini"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           RemplirTableau();
         }
       });
@@ -333,7 +333,7 @@
           action: $('#ActionRemarque').val()
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           $('#ModalRemarque').modal('hide');
           RemplirTableau();
         }
@@ -353,7 +353,7 @@
           success: function (data) {
             $('#ModalRemarque').modal('hide');
             RemplirTableau();
-            $.notify(data, "info");
+            $.notify(data, "success");
           }
         })
     });
@@ -370,7 +370,7 @@
           action: "ValiderDemo"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           RemplirTableau();
         }
       });
@@ -387,7 +387,7 @@
             action: "SupprimerDemo"
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
             RemplirTableau();
           }
         });

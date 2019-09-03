@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Ressource créée';
         else
           print_r($statement->errorInfo());
       }
@@ -164,7 +164,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Ressource changée';
         else
           print_r($statement->errorInfo());
       }
@@ -180,7 +180,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Ressource supprimée';
         else
           print_r($statement->errorInfo());
       }

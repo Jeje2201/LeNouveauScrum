@@ -142,7 +142,7 @@
         },
 
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           $('#ModalEmploye').modal('hide');
           RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
           GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
@@ -200,7 +200,7 @@
           data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
             RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
-            $.notify(data, "info");
+            $.notify(data, "success");
             GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
           }
         })

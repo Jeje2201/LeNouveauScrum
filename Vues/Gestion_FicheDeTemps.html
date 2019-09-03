@@ -18,7 +18,7 @@
         </div>
 
         <div class="col-lg-2">
-          <h3>Oublie</h3>
+          <h3 style="padding-bottom: 8px;">Oublie</h3>
           <input type="text" name="DateACheck" id='DateACheck' class="form-control" style="margin-bottom: 12px; margin-top: 12px;">
 
           <div id="RetardPourUneDate" style="max-height: 75%;" class="table-responsive table-hover"></div>
@@ -166,7 +166,7 @@
           action: "Update"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
           $('#ModaleFicheDeTemps').modal('hide');
           ChargerTableauListeFdT();
         }
@@ -185,7 +185,7 @@
           },
           success: function (data) {
             ChargerTableauListeFdT();
-            $.notify(data, "info");
+            $.notify(data, "success");
           }
         })
     });

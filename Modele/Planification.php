@@ -186,7 +186,7 @@
             )
           );
           if (!empty($result))
-            echo 'Tâche attribuée ✓' . PHP_EOL;
+            echo 'Tâche attribuée' . "\n";
           else
             print_r($statement->errorInfo());
         }
@@ -275,7 +275,7 @@
             )
           );
           if (!empty($result))
-            echo 'Tâche pivotal planifiée ✓'. PHP_EOL;
+            echo 'Tâche pivotal planifiée'. "\n";
           else
             print_r($statement->errorInfo());
         }
@@ -299,7 +299,7 @@
             )
           );
           if (!empty($result))
-            echo '✓';
+            echo 'Tâche scrum planing planifiée'."\n";
           else
             print_r($statement->errorInfo());
         }

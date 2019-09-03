@@ -243,7 +243,7 @@
 
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="actionEditionTache" id="actionEditionTache" class="btn btn-success" value="Mettre à jours" />
+        <input type="submit" name="actionEditionTache" id="actionEditionTache" class="btn btn-success" value="Mettre à jour" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -365,7 +365,7 @@
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-            $.notify(data, "info");
+            $.notify(data, "success");
           }
         })
     });
@@ -411,7 +411,7 @@
             action: "Update"
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
             $('#ModalGestionHeuresDescendues').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -482,7 +482,7 @@
             action: "Attribuer"
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
             // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -512,7 +512,7 @@
             action: "AttributionScrumPlaning"
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
             // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
@@ -537,7 +537,7 @@
           action: "CréerDemo"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
         }
       });
       $('#LabelDemo').val('');
@@ -557,7 +557,7 @@
           action: "Créer"
         },
         success: function (data) {
-          $.notify(data, "info");
+          $.notify(data, "success");
         }
       });
       $('#LabelObjectif').val('');
@@ -602,7 +602,7 @@
         processData: false,
         data: 'filter=mywork:' + $('#RessourceApi').val().split('|')[1],
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-          $.notify("Le projet n'a pas d'API Pivotal Tracker enregistré.", "error");
+          $.notify("Le projet n'a pas d'API Pivotal Tracker enregistrée.", "error");
         },
         success: function (data) {
           //Liste des stories trouvées
@@ -700,7 +700,7 @@
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets');
-            $.notify(data, "info");
+            $.notify(data, "success");
             document.getElementById("ListeTachesApi").innerHTML = ""
             HeureAttribuable1Ressource();
             $('#EnvoyerApiPivotal').hide()
@@ -708,7 +708,7 @@
         });
 
       else
-      $.notify("Aucune tâche sélectionnée.", "error");
+      $.notify("Aucune tâche n'est sélectionnée", "error");
     })
 
     

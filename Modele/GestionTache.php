@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Tâche changée';
         else
           print_r($statement->errorInfo());
       }
@@ -128,7 +128,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Tâche supprimée';
         else
           print_r($statement->errorInfo());
       }

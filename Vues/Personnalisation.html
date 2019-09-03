@@ -269,7 +269,7 @@
             idRessource: localStorage.getItem('Connexion')
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
           }
         });
 
@@ -303,7 +303,7 @@
                   mdp: $('#mdp').val()
                 },
                 success: function (data) {
-                  $.notify(data, "info");
+                  $.notify(data, "success");
                 }
               });
             }

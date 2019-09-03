@@ -135,7 +135,7 @@
             action: $('#action').val()
           },
           success: function (data) {
-            $.notify(data, "info");
+            $.notify(data, "success");
             $('#ModalInterference').modal('hide');
             RemplirTableau();
           }
@@ -184,7 +184,7 @@
           },
           success: function (data) {
             RemplirTableau();
-            $.notify(data, "info");
+            $.notify(data, "success");
           }
         })
     });

@@ -59,7 +59,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Sprint créé';
         else
           print_r($statement->errorInfo());
       }
@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Sprint changé';
         else
           print_r($statement->errorInfo());
       }
@@ -128,7 +128,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          echo 'Sprint supprimé';
         else
           print_r($statement->errorInfo());
       }
