@@ -31,6 +31,7 @@
           A.pivotal_id_Story,
           A.pivotal_id_Task,
           A.pivotal_id_Project,
+          A.pivotal_Label_Story,
           P.nom AS projet,
           L.Path,
           E.Initial,
@@ -53,13 +54,21 @@
         $statement->execute();
         $result = $statement->fetchAll();
         $output1 = '';
+        $SameStory = '';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
+
             $ShowItsPivotal = '';
             if($row["pivotal_id_Task"] != '')
             $ShowItsPivotal = '<span style="color: #ff7702"> (Pivotal)</span>';
 
-            $output1 .= '
+            $GroupStory = '';
+            if($SameStory != $row["pivotal_id_Story"]){
+            $GroupStory = '<p> </p><span><b><u>'. $row["pivotal_Label_Story"].'</u></b></span>';
+            $SameStory = $row["pivotal_id_Story"];
+          }
+
+            $output1 .= $GroupStory . '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
         <div style="margin-left:4px;"><b>
           ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">'. $ShowItsPivotal.'</b><br>

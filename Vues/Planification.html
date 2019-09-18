@@ -740,6 +740,7 @@
         element.ProjectId =  $('#ProjetApi').val().split('|')[1]
         element.heure =   parseInt($(this).children('#LeSelectId')[0].options[$(this).children('#LeSelectId')[0].selectedIndex].value)
         element.label = /(.+)\.-/.exec($(this).children('#TaskDescription').text())[1].trim();
+        element.StoryLabel = ($(this).parent().parent().children()[0].innerText).slice(0, -3)
 
         if ($(this).hasClass('Tachetrue'))
           element.done = DateFrToEn(ChoixDate(0))

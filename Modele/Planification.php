@@ -214,8 +214,8 @@
       if ($_POST["action"] == "CreerTacheApi") {
         $ListeTache = $_POST["ListeTaches"];
         $statement = $connection->prepare("
-        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project) 
-        VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label, :Done, :pivotal_id_Task, :pivotal_id_Story, :pivotal_id_Project)
+        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project, pivotal_Label_Story) 
+        VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label, :Done, :pivotal_id_Task, :pivotal_id_Story, :pivotal_id_Project, :pivotal_Label_Story)
         ");
         for ($i = 2; $i < count($ListeTache); $i++) {
 
@@ -232,7 +232,8 @@
               ':Done' => $ListeTache[$i]['done'],
               ':pivotal_id_Task' => $ListeTache[$i]['TaskId'],
               ':pivotal_id_Story' => $ListeTache[$i]['StoryId'],
-              ':pivotal_id_Project' => $ListeTache[$i]['ProjectId']
+              ':pivotal_id_Project' => $ListeTache[$i]['ProjectId'],
+              ':pivotal_Label_Story' => $ListeTache[$i]['StoryLabel']
             )
           );
         }
