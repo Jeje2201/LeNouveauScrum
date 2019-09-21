@@ -39,7 +39,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="numeroSprint" name="numeroSprint">';
+          $output2 = '<select class="form-control"  id="numeroSprint" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -68,7 +68,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" name="projetId">';
+          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -95,7 +95,7 @@
 
         $statement->execute();
         $result = $statement->fetchAll();
-        $output2 = '<select class="form-control"  id="projetId" name="projetId">';
+        $output2 = '<select class="form-control"  id="projetId" >';
 
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
@@ -125,7 +125,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="ProjetApi" name="ProjetApi">';
+          $output2 = '<select class="form-control"  id="ProjetApi" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -155,7 +155,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="RessourceApi" name="RessourceApi">';
+          $output2 = '<select class="form-control"  id="RessourceApi" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -184,7 +184,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="employeId" name="employeId">';
+          $output2 = '<select class="form-control"  id="employeId" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -212,12 +212,40 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" name="TypeEmployeOk">';
+          $output2 = '<select class="form-control"  id="'.$_POST["id"].'" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
               $output2 .= '<option value="' . $row["id"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
+            }
+
+            $output2 .= '</select>';
+          }
+
+          echo $output2;
+
+          break;
+
+          /////////////////////////////////////
+
+        case 'ListeDeroulanteEmployeMail':
+
+          $statement = $connection->prepare("SELECT prenom,
+        nom,
+        mail
+        FROM employe E
+        WHERE E.actif = 1
+        ORDER BY prenom asc");
+
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output2 = '<select class="form-control" id="'.$_POST["id"].'" >';
+
+          if ($statement->rowCount() > 0) {
+            foreach ($result as $row) {
+
+              $output2 .= '<option value="' . $row["mail"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -238,7 +266,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="typeinterference" name="typeinterference">';
+          $output2 = '<select class="form-control"  id="typeinterference" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -264,7 +292,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="TypeEmploye" name="TypeEmploye">';
+          $output2 = '<select class="form-control"  id="TypeEmploye" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -293,7 +321,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="TypeProjet" name="TypeProjet">';
+          $output2 = '<select class="form-control"  id="TypeProjet" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
@@ -319,12 +347,12 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<form class="form-control" name="EtatObjectif" id="EtatObjectif">';
+          $output2 = '<form class="form-control"  id="EtatObjectif">';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<label><input type="radio" name="Etat" id="EtatNum' . $row["id"] . '" value="' . $row["id"] . '">  ' . $row["nom"] . '</label><br>';
+              $output2 .= '<label><input type="radio"  id="EtatNum' . $row["id"] . '" value="' . $row["id"] . '">  ' . $row["nom"] . '</label><br>';
             }
 
             $output2 .= '</form>';
@@ -345,7 +373,7 @@
 
           $statement->execute();
           $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="ToutesLesImages" name="ToutesLesImages">';
+          $output2 = '<select class="form-control"  id="ToutesLesImages" >';
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
