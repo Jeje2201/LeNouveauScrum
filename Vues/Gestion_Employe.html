@@ -42,6 +42,10 @@
         </div>
 
         <div class="form-group">
+          <input class="form-control" name="Email" id="Email" type="text" placeholder="Email">
+        </div>
+
+        <div class="form-group">
           <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number" placeholder="Id Pivotal Tracker">
         </div>
 
@@ -91,6 +95,11 @@
 
     RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
 
+    $( "#Prenom, #Nom" ).keyup(function() {
+      $('#Email').val($("#Prenom").val().toLowerCase()+'_'+$("#Nom").val().toLowerCase()+"@natural-solutions.eu")
+      $('#Initial').val(($("#Prenom").val()).charAt(0).toUpperCase()+($("#Nom").val()).charAt(0).toUpperCase())
+    })
+
     $('#modal_button').click(function () {
       $('#InfoMdp').show()
       $('#ModalEmploye').modal('show');
@@ -98,6 +107,7 @@
       $('#RegisterDate').val(ChoixDate(0));
       $('#action').val('Ajouter');
       $('#Prenom').val('');
+      $('#Email').val('');
       $('#ApiPivotal').val('');
       $('#Nom').val('');
       $('#Initial').val('');
@@ -133,6 +143,7 @@
           Nom_Employe: $('#Nom').val(),
           Prenom_Employe: $('#Prenom').val(),
           ApiPivotal: $('#ApiPivotal').val(),
+          Email: $('#Email').val(),
           RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
           MailCir: MailCir,
@@ -179,14 +190,12 @@
           $('#Prenom').val(data.Prenom);
           $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
+          $('#Email').val(data.Mail);
           $('#RegisterDate').val(data.RegisterDate);
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
           $('#mdp').hide();
           $('#confirmmdp').hide();
-
-          
-
         }
       });
     });
