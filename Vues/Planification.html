@@ -1,3 +1,5 @@
+<script src="https://apis.google.com/js/api.js"></script>
+
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
@@ -10,10 +12,16 @@
           <button type="button" id="Boutton_Modal_ApiPivotal" class="btn btn-block btn-info">Planification</button>
         </div>
         <div class="col">
-          <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info">Scrum planning </button>
+          <button type="button" id="ButtonScrumPlaning" class="btn btn-block btn-info"
+            onclick="$('#ModalScrumPlaning').modal('show');">Scrum planning </button>
         </div>
         <div class="col">
-          <button type="button" id="Btn_Modal_Objectif_Demo" class="btn btn-block btn-info">Objectif / Démo</button>
+          <button type="button" id="Btn_Modal_Objectif_Demo" class="btn btn-block btn-info"
+            onclick="$('#Modal_Objectif_Demo').modal('show');">Objectif / Démo</button>
+        </div>
+        <div class="col">
+          <button type="button" id="Btn_Modal_Google_Calendar" class="btn btn-block btn-info"
+            onclick="$('#ModalGoogleCalendar').modal('show');">Réunion</button>
         </div>
 
       </div>
@@ -206,6 +214,39 @@
   </div>
 </div>
 
+<div id="ModalGoogleCalendar" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6">
+              <button class="btn btn-block btn-primary" onclick="authenticate().then(loadClient)">authorize and
+                  load</button>
+          </div>
+          <div class="col-lg-6">
+              <button type="button" class="btn btn-block btn-primary" id="SearchCalendarEvent" onclick="execute()"
+              disabled>execute</button>
+          </div>
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="col-lg-12">
+              <div id="DivListMail"></div>
+            </div>
+          </div>
+          <p></p>
+        
+
+        <div id="ListReunion"></div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="ModalGestionHeuresDescendues" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -251,7 +292,6 @@
 </div>
 
 <script>
-
   $(document).ready(function () {
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
@@ -263,8 +303,9 @@
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
+    RequeteAjax('DivListMail', 'ListeDeroulanteEmployeMail', 'Modele/RequetesAjax.php', 'ListMailRessource');
 
-    $("#ListeProjetObjectifDemo, #ListeEmployeObjectifDemo, #TOUTLEMONDE, #RessourceApi, #ProjetApi" ).select2({width: "100%"});
+    $("#ListeProjetObjectifDemo, #ListeEmployeObjectifDemo, #TOUTLEMONDE, #RessourceApi, #ProjetApi, #ListMailRessource").select2({width: "100%"});
 
     $('#Done').datetimepicker({format: 'dd-mm-yyyy',autoclose: true, minView: 2, weekStart: 1});
 
@@ -431,16 +472,6 @@
     //Si change ressource api, remettre le compteur d'heure attribuable flotant au bon nombre
     $('#RessourceApi').change(function () {
       HeureAttribuable1Ressource();
-    });
-
-    //Click sur le bouton pour afficher le modal d'objectif
-    $('#Btn_Modal_Objectif_Demo').click(function () {
-      $('#Modal_Objectif_Demo').modal('show');
-    });
-
-    //Click sur le bouton pour afficher le modal de scrum planing
-    $('#ButtonScrumPlaning').click(function () {
-      $('#ModalScrumPlaning').modal('show');
     });
 
     //Click sur le bouton pour planifier des heures
@@ -755,4 +786,104 @@
 
     return cart
   }
+
+  function authenticate() {
+    return gapi.auth2.getAuthInstance()
+      .signIn({
+        scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly"
+      })
+      .then(function () {
+          console.log("Sign-in successful");
+        },
+        function (err) {
+          console.error("Error signing in", err);
+        });
+  }
+
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyBMEPLt4APiX1FrwAZ-yTFVXusUBWhhwD0");
+    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
+      .then(function () {
+          console.log("GAPI client loaded for API");
+          $('#SearchCalendarEvent').removeAttr("disabled");
+        },
+        function (err) {
+          console.error("Error loading GAPI client for API", err);
+        });
+  }
+  // Make sure the client is loaded and sign-in is complete before calling this method.
+  function execute() {
+    return gapi.client.calendar.events.list({
+        "calendarId": "vm4sgd63mstfudh51c5k4h1n9o@group.calendar.google.com",
+        "maxResults": 2500,
+        "orderBy": "startTime",
+        "showHiddenInvitations": true,
+        "singleEvents": true,
+        "timeMax": "2019-09-30T10:00:00-07:00",
+        "timeMin": "2019-09-01T10:00:00-07:00"
+      })
+      .then(function (response) {
+          console.log("Response", response);
+
+          $('#ListReunion').html('')
+
+          var idEvent = []
+
+
+          $(response.result.items).each(function () {
+
+            //Si il a des gens qui doivent participer et que ce n'est pas un doublon (event déjà logger précédement)
+            if (this.attendees != null && !idEvent.includes(this.etag)) {
+
+              var theEvent = this
+              idEvent.push(this.etag)
+
+              //Alors pour chaque participant
+              $(this.attendees).each(function () {
+
+                //Si l'email correspond à celui recherché alors on affiche les evenements
+                if (this.email == $('#ListMailRessource').val()) {
+
+                  console.log('event trouvé: ', theEvent)
+
+                  var LienEvent = theEvent.htmlLink
+
+                  if (!theEvent.start.dateTime) {
+                    DescriptionEvent = '???'
+                  }
+
+                  var TitreEvent = (theEvent.start.dateTime).split('T')[0] + ` | ` + theEvent.summary
+
+                  var DescriptionEvent = theEvent.description
+                  if (!DescriptionEvent) {
+                    DescriptionEvent = ''
+                  }
+
+                  $('#ListReunion').append(`<div class="card" style="margin-bottom: 15px; border-color: black;" onclick="DeplaceToi(this)">
+                                      <div style="margin-left:4px;"><b><a href="` + LienEvent + `">` + TitreEvent + `</a></b><br>
+                                        <span>` + DescriptionEvent + `</span>
+                                      </div>
+                                   </div>`)
+
+                  console.log('Titre: ', theEvent.summary + "\n" + 'Description: ',
+                    theEvent.description + "\n ")
+                }
+
+              })
+            }
+          })
+
+          if ($('#ListReunion').text() == "")
+            $('#ListReunion').text('Aucune réunion de prévu pour '+ $("#ListMailRessource option:selected").text() +' pour le moment')
+        },
+
+        function (err) {
+          console.error("Execute error", err);
+        });
+  }
+  gapi.load("client:auth2", function () {
+    gapi.auth2.init({
+      client_id: "140086684989-cbg9jgefb6gkc5cl37tmeu09mrc0m5ii.apps.googleusercontent.com"
+    });
+  });
 </script>
