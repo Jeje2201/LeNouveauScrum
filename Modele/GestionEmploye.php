@@ -18,6 +18,7 @@
         $statement = $connection->prepare("SELECT E.id,
       E.prenom,
       E.Initial,
+      E.mail,
       E.nom,
       E.MailCir,
       E.actif,
@@ -37,9 +38,9 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th>Prénom</th>
-      <th>Nom</th>
+      <th>Ressource</th>
       <th>Initial</th>
+      <th>Mail</th>
       <th>Job</th>
       <th>ID Pivotal</th>
       <th>Couleur</th>
@@ -54,9 +55,9 @@
           foreach ($result as $row) {
             $output .= '
               <tr>
-              <td>' . $row["prenom"] . '</td>
-              <td>' . $row["nom"] . '</td>
+              <td>' . $row["prenom"] . ' '. $row["nom"] .'</td>
               <td>' . $row["Initial"] . '</td>
+              <td>' . $row["mail"] . '</td>
               <td>' . $row["TypeJob"] . '</td>
               <td>' . $row["IdPivotal"] . '</td>
               <td style="background-color:' . $row["Couleur"] . '"></td>';
@@ -93,8 +94,8 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate) 
-          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate)
+          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail) 
+          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
         $result = $statement->execute(
@@ -108,7 +109,8 @@
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Type_Employe' => $_POST["Type_Employe"],
-            ':mdp' => password_hash('123naturalsolutions456', PASSWORD_BCRYPT)
+            ':mdp' => password_hash('123naturalsolutions456', PASSWORD_BCRYPT),
+            ':mail' => $_POST["Email"]
           )
         );
         if (!empty($result))
@@ -131,6 +133,7 @@
         $output["Nom"] = $result["nom"];
         $output["Actif"] = $result["actif"];
         $output["MailCir"] = $result["MailCir"];
+        $output["Mail"] = $result["mail"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeEmploye"] = $result["id_TypeEmploye"];
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
@@ -147,7 +150,7 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
           WHERE id = :id"
         );
         $result = $statement->execute(
@@ -160,6 +163,7 @@
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],
             ':Type_Employe' => $_POST["Type_Employe"],
+            ':mail' => $_POST["Email"],
             ':id' => $_POST["id"]
           )
         );
