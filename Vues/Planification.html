@@ -235,7 +235,8 @@
             </div>
           </div>
           <p></p>
-        
+          <u><div class="centered" id="InfoDateSprint"></div></u>
+          <p></p>        
 
         <div id="ListReunion"></div>
 
@@ -813,22 +814,42 @@
   }
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
+
+    var DateMinSprint ="";
+    var DateMaxSprint = "";
+
+    $.ajax({
+              url: "Modele/Tache.php",
+              method: "POST",
+              async: "false",
+              data: {
+                action: "DateMinMax",
+                idAffiche: $('#numeroSprint').val()
+              },
+              success: function (data) {
+                DateMinSprint = DateFrToEn(data.DateMin[0])
+                DateMaxSprint = DateFrToEn(data.DateMax[0])
+
+                $('#InfoDateSprint').html('Sprint du ' + data.DateMin[0] + ' au ' + data.DateMax[0])
+              }
+            }).then(function (response) {
+
+                          
     return gapi.client.calendar.events.list({
         "calendarId": "vm4sgd63mstfudh51c5k4h1n9o@group.calendar.google.com",
         "maxResults": 2500,
         "orderBy": "startTime",
         "showHiddenInvitations": true,
         "singleEvents": true,
-        "timeMax": "2019-09-30T10:00:00-07:00",
-        "timeMin": "2019-09-01T10:00:00-07:00"
+        "timeMin": DateMinSprint+"T07:00:00+02:00",
+        "timeMax": DateMaxSprint+"T23:00:00+02:00"
       })
       .then(function (response) {
-          console.log("Response", response);
+          // console.log("Response", response);
 
           $('#ListReunion').html('')
 
           var idEvent = []
-
 
           $(response.result.items).each(function () {
 
@@ -842,7 +863,7 @@
               $(this.attendees).each(function () {
 
                 //Si l'email correspond à celui recherché alors on affiche les evenements
-                if (this.email == $('#ListMailRessource').val()) {
+                if (this.email == $("#ListMailRessource option:selected").val()) {
 
                   console.log('event trouvé: ', theEvent)
 
@@ -852,7 +873,12 @@
                     DescriptionEvent = '???'
                   }
 
-                  var TitreEvent = (theEvent.start.dateTime).split('T')[0] + ` | ` + theEvent.summary
+                  if(!theEvent.start.dateTime)
+                  var DateCalendar = "???"
+                  else
+                  DateCalendar = DateFrToEn((theEvent.start.dateTime).split('T')[0])
+
+                  var TitreEvent = DateCalendar + ` | ` + theEvent.summary
 
                   var DescriptionEvent = theEvent.description
                   if (!DescriptionEvent) {
@@ -874,13 +900,14 @@
           })
 
           if ($('#ListReunion').text() == "")
-            $('#ListReunion').text('Aucune réunion de prévu pour '+ $("#ListMailRessource option:selected").text() +' pour le moment')
+            $('#ListReunion').text('Aucune réunion de prévu pour '+ $("#ListMailRessource option:selected").text() +'('+$("#ListMailRessource option:selected").val()+') pour le moment')
         },
 
         function (err) {
           console.error("Execute error", err);
         });
-  }
+      })
+      }
   gapi.load("client:auth2", function () {
     gapi.auth2.init({
       client_id: "140086684989-cbg9jgefb6gkc5cl37tmeu09mrc0m5ii.apps.googleusercontent.com"
