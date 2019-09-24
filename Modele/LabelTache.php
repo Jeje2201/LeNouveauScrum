@@ -6,6 +6,7 @@
 
       if ($_POST["action"] == "Load") {
         $idEmploye = $_POST["idEmploye"];
+        $IdSprint = $_POST["idSprint"];
         $statement = $connection->prepare("SELECT
       (
         select P.nom
@@ -17,12 +18,7 @@
       A.Label
       FROM attribution A
       WHERE id_Employe = $idEmploye
-      AND id_sprint = (
-        select id
-        FROM sprint
-        ORDER BY numero DESC
-        LIMIT 1
-      )
+      AND id_sprint = $IdSprint
       AND A.id_TypeTache IS NULL");
         $statement->execute();
         $result = $statement->fetchAll();

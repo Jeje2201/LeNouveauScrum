@@ -49,7 +49,7 @@
             ON S.id = A.id_Sprint
           WHERE A.id_Sprint =  $numero
           AND A.Done IS NULL " . $Requete1 .
-          " ORDER BY E.prenom, projet, pivotal_id_Project, pivotal_id_Story, pivotal_id_Task");
+          " ORDER BY E.prenom, pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
 
         $statement->execute();
         $result = $statement->fetchAll();

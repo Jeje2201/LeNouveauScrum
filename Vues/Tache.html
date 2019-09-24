@@ -71,9 +71,9 @@
   <script>
     $(document).ready(function () {
 
-      $("div.DeplacementDeTache").sortable({connectWith: "div", cancel: ".PASTOUCHE"});
+      // $("div.DeplacementDeTache").sortable({connectWith: "div", cancel: ".PASTOUCHE"});
 
-      $("#EnCours, #Fini").disableSelection();
+      // $("#EnCours, #Fini").disableSelection();
 
       $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
@@ -114,9 +114,9 @@
                 } else {
                   $('#DateAujourdhui').val(data['DateMax']);
                 }
-                $(function () {
-                  $('[data-toggle="tooltip"]').tooltip()
-                })
+                // $(function () {
+                //   $('[data-toggle="tooltip"]').tooltip()
+                // })
               }
             });
           }
