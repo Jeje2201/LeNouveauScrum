@@ -23,12 +23,10 @@ $result = $statement->fetch();
 if (password_verify($PasswordInput, $result['mdp'])) {
 
     $statement = $connection->prepare(
-        $sql = "SELECT E.prenom AS prenom,
-    (
-        select T.nom FROM typeemploye T
-        WHERE T.id = E.id_TypeEmploye
-    ) AS LeType
-    FROM employe E WHERE E.id = $IdUser"
+        $sql = "SELECT E.prenom AS prenom, T.nom as LeType
+        From employe E INNER JOIN typeemploye T
+        on E.id_TypeEmploye = T.id
+        where E.id = $IdUser"
     );
     $statement->execute();
     $result = $statement->fetch();

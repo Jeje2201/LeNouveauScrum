@@ -192,6 +192,28 @@
             print_r($statement->errorInfo());
       }
 
+      //Créer une tache depuis la méthode de reunion
+      if ($_POST["action"] == "AttribuerReunion") {
+        $TableauHeurePlanifie = $_POST["NombreHeure"];
+        $statement = $connection->prepare("
+        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, id_TypeTache) 
+        VALUES (:NombreHeure, :idSprint, (select employe.id from employe where employe.mail like :emailEmploye), (select projet.id from projet where projet.nom like 'NS Interne'), :Label, (Select typetache.id from typetache where typetache.nom like 'Réunion'))
+        ");
+
+          $result = $statement->execute(
+            array(
+              ':NombreHeure' => $_POST["NombreHeure"],
+              ':idSprint' => $_POST["idSprint"],
+              ':Label' => $_POST["Label"],
+              ':emailEmploye' => $_POST["mailEmploye"]
+            )
+          );
+        if (!empty($result))
+            echo 'Reunion bien prise en compte';
+          else
+            print_r($statement->errorInfo());
+      }
+
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(

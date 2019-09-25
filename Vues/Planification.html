@@ -210,7 +210,7 @@
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="aa" id="aa" class="btn btn-success AttribuerHeureScrumPlaning" />
+        <input type="submit" class="btn btn-success AttribuerHeureScrumPlaning" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -218,24 +218,27 @@
 </div>
 
 <div id="ModalGoogleCalendar" class="modal fade">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-6">
-            <button class="btn btn-block btn-primary" onclick="authenticate().then(loadClient)">authorize and
-              load</button>
+          <div class="col-lg-4">
+            <button class="btn btn-block btn-primary" onclick="authenticate().then(loadClient)">Autoriser</button>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <button type="button" class="btn btn-block btn-primary" id="SearchCalendarEvent" onclick="execute()"
-              disabled>execute</button>
+              disabled>Charger</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="button" class="btn btn-block btn-primary" id="EnvoyerEventBdd"
+              disabled>Envoyer</button>
           </div>
         </div>
         <p></p>
         <div class="row">
-          <div class="col-lg-12">
+          <!-- <div class="col-lg-12">
             <div id="DivListMail"></div>
-          </div>
+          </div> -->
         </div>
         <p></p>
         <u>
@@ -314,7 +317,7 @@
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
-    RequeteAjax('DivListMail', 'ListeDeroulanteEmployeMail', 'Modele/RequetesAjax.php', 'ListMailRessource');
+    // RequeteAjax('DivListMail', 'ListeDeroulanteEmployeMail', 'Modele/RequetesAjax.php', 'ListMailRessource');
 
     $("#ListeProjetObjectifDemo, #ListeEmployeObjectifDemo, #TOUTLEMONDE, #RessourceApi, #ProjetApi, #ListMailRessource")
       .select2({
@@ -770,6 +773,40 @@
         $.notify("Aucune tâche n'est sélectionnée", "error");
     })
 
+    
+    $('#EnvoyerEventBdd').click(function () {
+    var counter = 0
+    console.log(LaVariable)
+
+    LaVariable.forEach(function (element) {
+
+          $.ajax({
+          url: "Modele/Planification.php",
+          method: "POST",
+          async: "false",
+          data: {
+            idSprint: $('#numeroSprint').val(),
+            mailEmploye: element.email,
+            NombreHeure: element.Temps,
+            Label: element.Event,
+            action: "AttribuerReunion"
+          },
+          success: function (data) {  
+            counter += 1       
+          }
+        });
+
+        });
+          console.log('le compteur: '+counter)
+          $.notify(LaVariable.length+ ' tâches de réunions ajoutées', "success");
+          // location.reload();
+
+          // $('#Modal_Objectif_Demo').modal('hide');
+          RemplirTableau('TableListHeuresAttribuees');
+          RemplirTableauRessources('TableListHeuresAttribueesRessources');
+          RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
+
+  })
 
   });
 
@@ -842,8 +879,13 @@
           console.error("Error loading GAPI client for API", err);
         });
   }
+
+  var LaVariable = []
+                
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
+
+    $('#EnvoyerEventBdd').removeAttr("disabled");
 
     var DateMinSprint = "";
     var DateMaxSprint = "";
@@ -876,7 +918,6 @@
         })
         .then(function (response) {
             // console.log("Response", response);
-
             $('#ListReunion').html('')
 
             var idEvent = []
@@ -886,44 +927,48 @@
               //Si il a des gens qui doivent participer et que ce n'est pas un doublon (event déjà logger précédement)
               if (this.attendees != null && !idEvent.includes(this.etag)) {
 
-                var theEvent = this
+                //Si sur plusieurs jours, on passe
+                if(this.start.date){
+                  return;
+                }
+
+                //on ajout l'event a la list devent qu'on check pour pas le rechecker apres
                 idEvent.push(this.etag)
+
+                //Log l'event
+                var LienEvent = this.htmlLink
+
+                var DescriptionEvent = ''
+                if (this.description) {
+                  DescriptionEvent = this.description
+                }
+
+                var TempsCalendar = 0
+                
+                var DateCalendar = DateFrToEn(this.end.dateTime.substring(0,10))
+
+                  // console.log(this.start.dateTime.substring(11,16))
+                  // console.log(this.end.dateTime.substring(11,16))
+                  // console.log(this.end.dateTime.substring(11,13)-this.start.dateTime.substring(11,13))
+                  // console.log(this.end.dateTime.substring(14,16)-this.start.dateTime.substring(14,16))
+
+                TempsCalendar = this.end.dateTime.substring(11,13)-this.start.dateTime.substring(11,13)
+                if(this.end.dateTime.substring(14,16)-this.start.dateTime.substring(14,16) > 30){
+                    TempsCalendar = TempsCalendar + 1
+                }
+
+                $('#ListReunion').append(`<div class="card" style="margin-bottom: 15px; border-color: black;">
+                                      <div style="margin-left:4px;"><b><a href="` + LienEvent + `">`+DateCalendar+` `+TempsCalendar+`h | <span id="TitreEvent">`+this.summary +`</span></a></b>
+                                      </div>
+                                   </div>`)
+               
+                var theEvent = this
 
                 //Alors pour chaque participant
                 $(this.attendees).each(function () {
 
-                  //Si l'email correspond à celui recherché alors on affiche les evenements
-                  if (this.email == $("#ListMailRessource option:selected").val()) {
-
-                    console.log('event trouvé: ', theEvent)
-
-                    var LienEvent = theEvent.htmlLink
-
-                    if (!theEvent.start.dateTime) {
-                      DescriptionEvent = '???'
-                    }
-
-                    if (!theEvent.start.dateTime)
-                      var DateCalendar = "???"
-                    else
-                      DateCalendar = DateFrToEn((theEvent.start.dateTime).split('T')[0])
-
-                    var TitreEvent = DateCalendar + ` | ` + theEvent.summary
-
-                    var DescriptionEvent = theEvent.description
-                    if (!DescriptionEvent) {
-                      DescriptionEvent = ''
-                    }
-
-                    $('#ListReunion').append(`<div class="card" style="margin-bottom: 15px; border-color: black;" onclick="DeplaceToi(this)">
-                                      <div style="margin-left:4px;"><b><a href="` + LienEvent + `">` + TitreEvent + `</a></b><br>
-                                        <span>` + DescriptionEvent + `</span>
-                                      </div>
-                                   </div>`)
-
-                    console.log('Titre: ', theEvent.summary + "\n" + 'Description: ',
-                      theEvent.description + "\n ")
-                  }
+                    LaVariable.push({'Event': theEvent.summary, 'Temps' : TempsCalendar, 'email' : this.email});
+                    console.log('Pour: '+ this.email + "\nEvent: " + theEvent.summary+ "\nTemps: " + TempsCalendar)
 
                 })
               }
@@ -944,4 +989,5 @@
       client_id: "140086684989-cbg9jgefb6gkc5cl37tmeu09mrc0m5ii.apps.googleusercontent.com"
     });
   });
+
 </script>
