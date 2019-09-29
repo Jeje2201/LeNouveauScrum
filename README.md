@@ -44,7 +44,7 @@ List of all the demos you allocated that are not done and you can set on done wh
 <img style="width: 100%; border: solid 2px black;" src="https://i.imgur.com/wS5OmaV.png"/> 
 
 <hr>
-<h2>Interference
+<h2>Interference</h2>
 List of all the interferences, you can create and edit them here too.
 <img style="width: 100%; border: solid 2px black;" src="https://user-images.githubusercontent.com/19387127/57518992-a66cc180-731a-11e9-844f-9acd4ebfa2e8.gif"/> 
 
