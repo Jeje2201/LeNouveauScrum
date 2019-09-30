@@ -94,8 +94,8 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail) 
-          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
+          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail, FinDeContrat) 
+          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail, :FinDeContrat)
         ");
 
         $result = $statement->execute(
@@ -106,6 +106,7 @@
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
+            ':FinDeContrat' => date("Y-m-d", strtotime($_POST["FinDeContrat"])),
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Type_Employe' => $_POST["Type_Employe"],
@@ -137,6 +138,7 @@
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeEmploye"] = $result["id_TypeEmploye"];
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
+        $output["FinDeContrat"] = date("d-m-Y", strtotime($result["FinDeContrat"]));
         $output["Initial"] = $result["Initial"];
 
         echo json_encode($output);
@@ -150,7 +152,7 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail, FinDeContrat = :FinDeContrat
           WHERE id = :id"
         );
         $result = $statement->execute(
@@ -160,6 +162,7 @@
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
+            ':FinDeContrat' => date("Y-m-d", strtotime($_POST["FinDeContrat"])),
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],
             ':Type_Employe' => $_POST["Type_Employe"],
