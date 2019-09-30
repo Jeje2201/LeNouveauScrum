@@ -22,39 +22,49 @@
 </body>
 
 <div id="ModalEmploye" class="modal fade">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
+<div class="row">
+        <div class="form-group col-lg-4">
+            <label>Prénom</label>
+          <input class="form-control" name="Prenom" id="Prenom" type="text">
+        </div>
+
+        <div class="form-group col-lg-4">
+            <label>Nom</label>
+          <input class="form-control" name="Nom" id="Nom" type="text">
+        </div>
+
+        <div class="form-group col-lg-4">
+          <label>Initials</label>
+          <input class="form-control" name="Initial" id="Initial" type="text" maxlength="2">
+        </div>
+      </div>
 
         <div class="form-group">
-          <input class="form-control" name="Prenom" id="Prenom" type="text" placeholder="Prénom">
+          <label>Email</label>
+          <input class="form-control" name="Email" id="Email" type="text">
         </div>
 
         <div class="form-group">
-          <input class="form-control" name="Nom" id="Nom" type="text" placeholder="Nom">
+          <label>ID Pivotal Tracker</label>
+          <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number">
         </div>
+        <div class="row">
 
-        <div class="form-group">
-          <input class="form-control" name="Initial" id="Initial" type="text" maxlength="2" placeholder="Initial">
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" name="Email" id="Email" type="text" placeholder="Email">
-        </div>
-
-        <div class="form-group">
-          <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number" placeholder="Id Pivotal Tracker">
-        </div>
-
-        <div class="form-group">
+        <div class="form-group col-lg-6">
+            <label>Date d'arrivée</label>
           <input class="form-control" name="RegisterDate" id="RegisterDate" type="text">
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-lg-6">
+            <label>Date de fin</label>
           <input class="form-control" name="FinDeContrat" id="FinDeContrat" type="text">
+        </div>
         </div>
 
         <div class="form-group">
