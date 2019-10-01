@@ -15,7 +15,7 @@
 
 <hr>
 <h2>Login</h2>
-<p>Simple page to log into the web app. </p>
+<p>Simple page to log into the web app. Password are hash in the database for security purpose obviously. Wrong password create animation. Something you find on any website when you have to logon to access stuffs basically.</p>
 <img style="width: 100%; border: solid 2px black;" src="https://user-images.githubusercontent.com/19387127/57519458-9bfef780-731b-11e9-89e5-949944343447.gif"/> 
 
 <hr>
@@ -25,7 +25,7 @@
 
 <hr>
 <h2>Sprint</h2>
-<p>Where you can create new sprints, edit and delete them.</p>
+<p>List of all the sprints created. You can create new sprints, edit and delete them.</p>
 <img style="width: 100%; border: solid 2px black;" src="https://user-images.githubusercontent.com/19387127/54072490-b5cc8180-427b-11e9-96ad-9f1aec2e8930.gif"/> 
 
 <hr>
