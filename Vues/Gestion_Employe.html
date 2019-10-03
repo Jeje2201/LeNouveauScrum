@@ -56,14 +56,9 @@
         </div>
         <div class="row">
 
-        <div class="form-group col-lg-6">
+        <div class="form-group col-lg-12">
             <label>Date d'arrivée</label>
           <input class="form-control" name="RegisterDate" id="RegisterDate" type="text">
-        </div>
-
-        <div class="form-group col-lg-6">
-            <label>Date de fin</label>
-          <input class="form-control" name="FinDeContrat" id="FinDeContrat" type="text">
         </div>
         </div>
 
@@ -101,7 +96,7 @@
   $(document).ready(function () {
 
     //Date d'aujourd'hui
-    $('#RegisterDate, #FinDeContrat').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#RegisterDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
@@ -119,7 +114,6 @@
       $('#ModalEmploye').modal('show');
       $('.modal-title').text("Ajouter une ressource");
       $('#RegisterDate').val(ChoixDate(0));
-      $('#FinDeContrat').val(ChoixDate(0));
       $('#action').val('Ajouter');
       $('#Prenom').val('');
       $('#Email').val('');
@@ -160,7 +154,6 @@
           ApiPivotal: $('#ApiPivotal').val(),
           Email: $('#Email').val(),
           RegisterDate: $('#RegisterDate').val(),
-          FinDeContrat: $('#FinDeContrat').val(),
           Actif: Actif,
           MailCir: MailCir,
           Initial: $('#Initial').val(),
@@ -208,7 +201,6 @@
           $('#Nom').val(data.Nom);
           $('#Email').val(data.Mail);
           $('#RegisterDate').val(data.RegisterDate);
-          $('#FinDeContrat').val(data.FinDeContrat);
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
           $('#mdp').hide();
