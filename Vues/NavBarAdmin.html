@@ -1,0 +1,169 @@
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+		<a class="navbar-brand" href="index.php" id="TitreNavBar">Ns Scrum</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+			data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+
+		</button>
+		<div class="collapse navbar-collapse " id="navbarResponsive">
+			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Accueil">
+						<i class="fa fa-fw fa-home" aria-hidden="true"></i>
+						<span class="nav-link-text">Accueil</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Tache">
+						<i class="fa fa-fw fa-sticky-note-o"></i>
+						<span class="nav-link-text">Tâches</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Objectifs">
+						<i class="fa fa-fw fa-television"></i>
+						<span class="nav-link-text">Rétrospective</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Interference">
+						<i class="fa fa-fw fa-exclamation-triangle"></i>
+						<span class="nav-link-text">Interférence</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=FicheDeTemps">
+						<i class="fa fa-fw fa-file-text-o"></i>
+						<span class="nav-link-text">Fiche de temps</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Achievement">
+						<i class="fa fa-fw fa-trophy"></i>
+						<span class="nav-link-text">Achievement</span>
+					</a>
+				</li>
+
+				<li>
+					<p></p>
+				</li>
+
+				<li class="nav-item AdminOnly">
+					<a class="nav-link" href="index.php?vue=Sprint">
+						<i class="fa fa-fw fa-rocket"></i>
+						<span class="nav-link-text">Sprints</span>
+					</a>
+				</li>
+
+				<li class="nav-item AdminOnly">
+					<a class="nav-link" href="index.php?vue=Planification">
+						<i class="fa fa-fw fa fa-tasks"></i>
+						<span class="nav-link-text">Planification</span>
+					</a>
+				</li>
+
+				<li class="AdminOnly">
+					<p></p>
+				</li>
+
+				<li class="nav-item" data-original-title="Menu Levels">
+					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
+						href="#collapsepersonalisation" data-parent="#exampleAccordion" aria-expanded="false">
+						<i class="fa fa-fw fa-address-card-o" aria-hidden="true"></i>
+						<span class="nav-link-text">Personnalisation</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="collapsepersonalisation">
+
+						<li>
+							<a href="index.php?vue=Personnalisation">
+								<i class="fa fa-fw fa-cogs" aria-hidden="true"></i> Moi</a>
+						</li>
+
+						<li>
+							<a href="index.php?vue=LabelObjectif">
+								<i class="fa fa-fw fa-font" aria-hidden="true"></i> Label tâche</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item AdminOnly" data-original-title="Menu Levels">
+					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#ColapseGestion"
+						data-parent="#exampleAccordion" aria-expanded="false">
+						<i class="fa fa-fw fa-database" aria-hidden="true"></i>
+						<span class="nav-link-text">Gestions</span>
+					</a>
+					<ul class="sidenav-second-level collapse" id="ColapseGestion">
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=MotDePasse">
+								<i class="fa fa-fw fa-key" aria-hidden="true"></i> Mot de passe</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionEmploye">
+								<i class="fa fa-fw fa-users" aria-hidden="true"></i> Ressources</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionProjet">
+								<i class="fa fa-fw fa-gamepad" aria-hidden="true"></i> Projets</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionLogo">
+								<i class="fa fa-fw fa-file-image-o" aria-hidden="true"></i> Logos</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionDemo">
+								<i class="fa fa-fw fa-sign-language" aria-hidden="true"></i> Démos</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionRemarque">
+								<i class="fa fa-fw fa-ticket" aria-hidden="true"></i> Remarques Rétro</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionFicheDeTemps">
+								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche De Temps</a>
+						</li>
+
+						<li class="AdminOnly">
+							<a href="index.php?vue=GestionFicheDeTemps2">
+								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche De Temps +</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" onclick="$('#ModalHelp').modal('show');">
+						<i class="fa fa-fw fa-blind"></i>
+						<span class="nav-link-text">Idée ? Bug ?</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="Modele/ConnectionLogout.php">
+						<i class="fa fa-fw fa-sign-out"></i>
+						<span class="nav-link-text">Déconnexion</span>
+					</a>
+				</li>
+			</ul>
+
+			<ul class="navbar-nav sidenav-toggler">
+				<li class="nav-item" id="SlideNav">
+					<a class="nav-link text-center" id="sidenavToggler">
+						<i class="fa fa-fw fa-angle-left"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</body>

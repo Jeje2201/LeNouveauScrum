@@ -10,7 +10,10 @@ if (!isset($_SESSION['TypeUtilisateur']))
 
 else {
 
-  require_once("Vues/NavBar.html");
+  if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+    require_once("Vues/NavBarAdmin.html");
+  else
+    require_once("Vues/NavBar.html");
 
   if (!isset($_REQUEST['vue']))
     $_REQUEST['vue'] = 'Accueil';

@@ -15,13 +15,6 @@ function ClassActive(LaPage, TypeUser, NameUser) {
 
   //Afficher le prénom
   $("#TitreNavBar").text("Ns Scrum - " + NameUser);
-
-  //Cacher les onglets innutiles pour les non admin
-  if (TypeUser !== "ScrumMaster") {
-    $(".AdminOnly").each(function () {
-      $(this).remove();
-    });
-  }
 }
 
 /**
