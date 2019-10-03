@@ -1,11 +1,12 @@
    <?php
 
+    session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "Load") {
-        $idEmploye = $_POST["idEmploye"];
+        $idEmploye = $_SESSION['IdUtilisateur'];
         $IdSprint = $_POST["idSprint"];
         $statement = $connection->prepare("SELECT
       (
