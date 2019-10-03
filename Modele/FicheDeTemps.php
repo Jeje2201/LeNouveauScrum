@@ -1,5 +1,6 @@
    <?php
 
+    session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
@@ -131,7 +132,7 @@
           "SELECT C.Time, C.id, P.Nom as Projet
         FROM cir C
         inner join projet P on C.Fk_Project = P.id 
-        WHERE Fk_User = '" . $_POST["LaRessource"] . "'
+        WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         AND Done = '" . $_POST["Done"] . "'"
         );
         $statement->execute();
@@ -192,11 +193,11 @@
          (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
          (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
          (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
-        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_POST["LaRessource"] . "' and E.MailCir = 1) and now()
+        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_SESSION['IdUtilisateur'] . "' and E.MailCir = 1) and now()
         and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
         and selected_date not in (SELECT distinct C.Done
         From cir C
-        where C.Fk_User = '" . $_POST["LaRessource"] . "'
+        where C.Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         group by C.Done, C.Fk_User
         having sum(C.Time)=444)"
         );
@@ -241,7 +242,7 @@
           projet.id = C.Fk_Project
         WHERE Done >= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-01' 
         and Done <= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-31'
-        and Fk_User = '" . $_POST["LaRessource"] . "' group by Fk_Project order by Temps desc");
+        and Fk_User = '" . $_SESSION['IdUtilisateur'] . "' group by Fk_Project order by Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();
@@ -300,7 +301,7 @@
           projet.id = C.Fk_Project
         WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["LeSprint"] . "' ) 
         and Done <= (SELECT S.dateFin from sprint S where S.id = '" . $_POST["LeSprint"] . "' )
-        and Fk_User = '" . $_POST["LaRessource"] . "' group by Fk_Project");
+        and Fk_User = '" . $_SESSION['IdUtilisateur'] . "' group by Fk_Project");
         
         $statement->execute();
         $result = $statement->fetchAll();

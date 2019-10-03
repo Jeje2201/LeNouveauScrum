@@ -1,12 +1,14 @@
    <?php
+    session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
 
+      $idRessource = $_SESSION["IdUtilisateur"];
+
       if ($_POST["action"] == "GetColor") {
 
         $array = [];
-        $idRessource = $_POST["idRessource"];
 
         $statement = $connection->prepare(
           $sql = "SELECT Couleur
@@ -21,7 +23,7 @@
       if ($_POST["action"] == "LoadTacheValide") {
         $output = array();
         $statement = $connection->prepare(
-        "SELECT sum(heure) as 'Temps', projet.nom as 'Projets' FROM `attribution` INNER JOIN projet on attribution.id_Projet = projet.id where id_Employe = '" . $_POST["idRessource"] . "' and Done is not null group by id_Projet order by Temps desc");
+        "SELECT sum(heure) as 'Temps', projet.nom as 'Projets' FROM `attribution` INNER JOIN projet on attribution.id_Projet = projet.id where id_Employe = " . $idRessource . " and Done is not null group by id_Projet order by Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();
@@ -59,7 +61,7 @@
       if ($_POST["action"] == "LoadFicheDeTempsValide") {
         $output = array();
         $statement = $connection->prepare(
-        "SELECT sum(cir.Time) as 'Temps', projet.nom as 'Projets' from cir inner join projet on cir.Fk_Project = projet.id where Fk_User = '" . $_POST["idRessource"] . "' group by Fk_Project order by Temps desc");
+        "SELECT sum(cir.Time) as 'Temps', projet.nom as 'Projets' from cir inner join projet on cir.Fk_Project = projet.id where Fk_User = " . $idRessource . " group by Fk_Project order by Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();
@@ -115,7 +117,7 @@
         $result = $statement->execute(
           array(
             ':Couleur' => $_POST["couleur"],
-            ':id' => $_POST["idRessource"]
+            ':id' => $idRessource 
           )
         );
         if (!empty($result))
@@ -133,7 +135,7 @@
         $result = $statement->execute(
           array(
             ':mdp' => password_hash($_POST["mdp"], PASSWORD_BCRYPT),
-            ':id' => $_POST["idRessource"]
+            ':id' => $idRessource
           )
         );
         if (!empty($result))

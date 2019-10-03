@@ -82,7 +82,7 @@
               <div class="form-row">
                 <div class="col">
                   <select id="LeMois" class="form-control">
-                    <option value="01" selected="selected">Janvier</option>
+                    <option value="01">Janvier</option>
                     <option value="02">Février</option>
                     <option value="03">Mars</option>
                     <option value="04">Avril</option>
@@ -146,11 +146,6 @@
       //Si non scrum master, alors ne pas afficher la liste de ressources
       if ("<?php echo $_SESSION['TypeUtilisateur'] ?>" != "ScrumMaster") 
         $("#ListEmpAdmin").hide();
-      
-      //Remplace le div "ListEmploye" par une list de ressources
-      RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployePersonalisation');
-      $('#EmployePersonalisation option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-      $("#EmployePersonalisation" ).select2({width: "100%"});
 
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
@@ -162,17 +157,16 @@
       $('#LeMois option[value="' + LeMois + '"]').attr('selected', 'selected')
 
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
-      ListTotalSurSprint(localStorage.getItem("Connexion"))
-      ListTotalFdTSurMois(localStorage.getItem("Connexion"));
-      ListTotalTotal(localStorage.getItem("Connexion"));
+      ListTotalSurSprint()
+      ListTotalFdTSurMois();
+      ListTotalTotal();
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
         url: "Modele/Parametre.php",
         method: "POST",
         data: {
-          action: "LoadTacheValide",
-          idRessource: localStorage.getItem('Connexion')
+          action: "LoadTacheValide"
         },
         success: function (data) {
           $('#TacheValide').html(data);
@@ -183,8 +177,7 @@
         url: "Modele/Parametre.php",
         method: "POST",
         data: {
-          action: "GetColor",
-          idRessource: localStorage.getItem('Connexion')
+          action: "GetColor"
         },
         success: function (data) {
           $('#CouleurUser').val('#'+data.split('#')[1].split(' ')[0]);
@@ -192,20 +185,9 @@
         }
       });
 
-      //Si peut changer le type d'employer, alors charger toutes les infos avec le nouvel utilisateur sélectionné
-      $('#EmployePersonalisation').change(function () {
-        ListTotalSurSprint($('#EmployePersonalisation').val())
-        ListTotalFdTSurMois($('#EmployePersonalisation').val());
-        ListTotalTotal($('#EmployePersonalisation').val());
-      });
-
       //Quand change sprint, charge list fiches de temps / sprint
       $('#ListSrint').change(function () {
-        //Si le champs est hidden, le user est un scrum master et donc on check en fonction de la list sinon par rapport a celui connecté
-        if($('#ListEmpAdmin').is(":hidden")) 
-          ListTotalSurSprint(localStorage.getItem("Connexion"))
-        else
-          ListTotalSurSprint($('#EmployePersonalisation').val())
+          ListTotalSurSprint()
       });
 
       //Quand change mois / années, charge list fiches de temps / Mois
@@ -233,12 +215,11 @@
           }
         })
       }
-      function ListTotalSurSprint(Ressource) {
+      function ListTotalSurSprint() {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           data: {
-            LaRessource: Ressource,
             LeSprint: $("#numeroSprint").val(),
             action: "ListTotalSurSprint"
           },
@@ -247,14 +228,13 @@
           }
         })
       }
-      function ListTotalTotal(Ressource) {
+      function ListTotalTotal() {
         //Load total fiche de temps validé
         $.ajax({
           url: "Modele/Parametre.php",
           method: "POST",
           data: {
-            action: "LoadFicheDeTempsValide",
-            idRessource: Ressource
+            action: "LoadFicheDeTempsValide"
           },
           success: function (data) {
             $('#FicheValide').html(data);
