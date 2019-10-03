@@ -38,11 +38,6 @@
           <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
         </div>
 
-        <div class="form-group">
-          <label>Ressource</label>
-          <div id="ListEmploye"></div>
-        </div>
-
         <div id="leProjet" class="form-group">
           <label>Projet</label>
           <div name="ListProjet" id="ListProjet"> </div>
@@ -77,9 +72,6 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployeInterference');
-    $('#ListEmploye option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
 
     RequeteAjax('ListTypeInterferance', 'ListeDeroulanteTypeInterferance', 'Modele/RequetesAjax.php');
@@ -113,9 +105,8 @@
       $('.modal-title').text("Ajouter une interférence");
       $('#action').val('Ajouter');
       $('#nbheure').val('0'),
-      $('#EmployeInterference').val(localStorage.getItem("Connexion"))
-      
-      $("#EmployeInterference, #projetId" ).select2({width: "100%"});
+
+      $("#projetId, #typeinterference" ).select2({width: "100%"});
     });
 
     $('#action').click(function () {
@@ -127,7 +118,6 @@
           data: {
             id: $('#id').val(),
             NbHeure: $('#nbheure').val(),
-            Employe: $('#EmployeInterference').val(),
             Projet: $('#projetId').val(),
             TypeInterferance: $('#typeinterference').val(),
             idAffichee: $("#numeroSprint").val(),
@@ -163,12 +153,11 @@
 
           $('#id').val(id);
           $('#nbheure').val(data.Heure);
-          $('#EmployeInterference').val(data.Employe);
           $('#projetId').val(data.Projet);
           $('#typeinterference').val(data.TypeInterferance);
           $('#labelinterference').val(data.labelinterference);
 
-          $( "#EmployeInterference, #projetId, #typeinterference" ).select2({width: "100%"});
+          $( "#projetId, #typeinterference" ).select2({width: "100%"});
         }
       });
     });

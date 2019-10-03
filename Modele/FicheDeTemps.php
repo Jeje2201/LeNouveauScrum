@@ -116,7 +116,7 @@
           "SELECT sum(C.Time)
         FROM cir C
         inner join projet P on C.Fk_Project = P.id 
-        WHERE Fk_User = '" . $_POST["Ressource"] . "'
+        WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         AND Done = '" . $_POST["Done"] . "'"
         );
         $statement->execute();
@@ -466,8 +466,7 @@
 
       //Create une fiche de temps
       if ($_POST["action"] == "Create") {
-
-        $Ressource = $_POST["Ressource"];
+        
         $LesDates = $_POST["Done"];
         $Time = $_POST["Time"];
         $DatesOk = true;
@@ -484,7 +483,7 @@
             "SELECT
           IFNULL(sum(Time)+$Time,0) as Depasse
           from cir
-          where Fk_User = $Ressource
+          where Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
           and Done = '$LaDate'"
           );
 
@@ -513,7 +512,7 @@
     
               $result = $statement->execute(
                 array(
-                  ':Fk_User' => $_POST["Ressource"],
+                  ':Fk_User' => $_SESSION['IdUtilisateur'],
                   ':Fk_Project' => $_POST["Projet"],
                   ':Time' => $_POST["Time"],
                   ':Done' => $LaDate,

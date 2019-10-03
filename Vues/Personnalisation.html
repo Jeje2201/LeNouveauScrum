@@ -192,11 +192,7 @@
 
       //Quand change mois / années, charge list fiches de temps / Mois
       $('#LeMois,#LeAnnee').change(function () {
-        //Si le champs est hidden, le user est un scrum master et donc on check en fonction de la list sinon par rapport a celui connecté
-        if($('#ListEmpAdmin').is(":hidden")) 
-        ListTotalFdTSurMois(localStorage.getItem("Connexion"))
-        else
-        ListTotalFdTSurMois($('#EmployePersonalisation').val())
+        ListTotalFdTSurMois()
       });
 
       //Liste des fonctions utilisées pour obtenir les obtenir les infos 
@@ -251,8 +247,7 @@
           method: "POST",
           data: {
             action: "CustomColorName",
-            couleur: $('#CouleurUser').val(),
-            idRessource: localStorage.getItem('Connexion')
+            couleur: $('#CouleurUser').val()
           },
           success: function (data) {
             $.notify(data, "success");
@@ -269,7 +264,6 @@
           method: "POST",
           data: {
             ancienmdp: $('#ancienmdp').val(),
-            idRessource: localStorage.getItem('Connexion'),
             action: "Checkpswd"
           },
           success: function (ancienmdpOk) {
@@ -285,7 +279,6 @@
                 method: "POST",
                 data: {
                   action: "Update",
-                  idRessource: localStorage.getItem('Connexion'),
                   mdp: $('#mdp').val()
                 },
                 success: function (data) {

@@ -1,5 +1,6 @@
    <?php
 
+    session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
@@ -19,7 +20,8 @@
         ON projet.id = I.id_Projet
       INNER JOIN typeinterference T
         ON T.id = I.id_TypeInterference
-      WHERE I.id_Sprint = $numero ORDER BY I.id_Projet asc");
+      WHERE I.id_Sprint = $numero
+      ORDER BY I.id_Projet asc");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
@@ -74,7 +76,7 @@
             ':sprint' => $_POST["idAffichee"],
             ':projet' => $_POST["Projet"],
             ':label' => $_POST["labelinterference"],
-            ':employe' => $_POST["Employe"]
+            ':employe' => $_SESSION['IdUtilisateur']
           )
         );
         if (!empty($result))
@@ -116,7 +118,7 @@
             ':typeinterference' => $_POST["TypeInterferance"],
             ':sprint' => $_POST["idAffichee"],
             ':projet' => $_POST["Projet"],
-            ':employe' => $_POST["Employe"],
+            ':employe' => $_SESSION['IdUtilisateur'],
             ':label' => $_POST["labelinterference"],
             ':id' => $_POST["id"]
           )

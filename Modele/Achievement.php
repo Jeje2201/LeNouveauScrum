@@ -6,7 +6,6 @@
 
       //Load les fiches de temps de tout le monde dans la gestion des fiches de temps
       if ($_POST["action"] == "Trophee") {
-        $idRessource = $_POST["idRessource"];
         $Liste = [];
 
         $statement = $connection->prepare("SELECT if((SELECT sum(Time)/444 from cir where Fk_User = 22 and Fk_Project = ( select id from projet where projet.nom like 'Congés'))>4 , '1', '0') as resultat

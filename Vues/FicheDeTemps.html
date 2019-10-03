@@ -165,7 +165,6 @@
           dataType: "json",
           data: {
             action: "GetNewMax",
-            Ressource: localStorage.getItem("Connexion"),
             Done: DateFrToEn($('#StartDate').val())
           },
           success: function (data) {
@@ -199,7 +198,6 @@
           dataType: "json",
           data: {
             action: "Create",
-            Ressource: localStorage.getItem("Connexion"),
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
             Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
@@ -232,8 +230,7 @@
           method: "POST",
           data: {
             action: "LoadHeuresRempli1Jour1Ressource",
-            Done: LaDate,
-            LaRessource: localStorage.getItem("Connexion")
+            Done: LaDate
           },
           success: function (data) {
             $('#TableTotAujourdhui').html(data);
@@ -268,7 +265,6 @@
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           data: {
-            LaRessource: localStorage.getItem("Connexion"),
             action: "TableTotJoursNonPlein"
           },
           success: function (data) {

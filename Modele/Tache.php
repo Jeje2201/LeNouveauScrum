@@ -1,5 +1,5 @@
     <?php
-
+    session_start();
     require_once('../Modele/Configs.php');
 
     //Si jamais le texte d'une tache risque de casser l'html qui ressort
@@ -17,13 +17,7 @@
       if ($_POST["action"] == "AfficherCards") {
         $Test = new stdClass;
 
-        $idEmploye = $_POST["idEmploye"];
         $numero = $_POST["idAffiche"];
-
-        if ($_POST["idEmploye"] == "ToutLeMonde")
-          $Requete1 = "AND A.id_Employe in (select id FROM employe)";
-        else
-          $Requete1 = "AND A.id_Employe = $idEmploye";
 
         $statement = $connection->prepare("SELECT A.id,
           A.Label,
@@ -48,8 +42,9 @@
           INNER JOIN sprint S
             ON S.id = A.id_Sprint
           WHERE A.id_Sprint =  $numero
-          AND A.Done IS NULL " . $Requete1 .
-          " ORDER BY E.prenom, pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
+          AND A.Done IS NULL
+          AND A.id_Employe = '" . $_SESSION['IdUtilisateur'] . "'
+          ORDER BY E.prenom, pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -97,8 +92,9 @@
         INNER JOIN logo L ON P.Id_Logo = L.id
         INNER JOIN sprint S ON S.id = A.id_Sprint
         WHERE A.id_Sprint =  $numero
-        AND A.Done IS NOT NULL "  . $Requete1 .
-          " ORDER BY E.prenom");
+        AND A.Done IS NOT NULL
+        AND A.id_Employe = '" . $_SESSION['IdUtilisateur'] . "'
+        ORDER BY E.prenom");
 
         $statement->execute();
         $result = $statement->fetchAll();

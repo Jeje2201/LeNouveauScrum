@@ -1,11 +1,3 @@
-//Si ne reconnait pas l'utilisateur, le rediriger vers la connexion
-if (!localStorage.getItem("Connexion")) {
-  if (window.confirm('Je ne reconnais pas qui tu es. Peut-tu te connecter à nouveau ?'))
-    window.location.href = "Modele/ConnectionLogout.php";
-  else
-    alert("C'est ton choix, mais ça risque de ne pas fonctionner")
-}
-
 /**
  * Quelques js esthétiques
  * @param {string} LaPage Affecter la classe active dans la navbar a la page active, en cours
