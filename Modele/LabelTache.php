@@ -40,7 +40,7 @@
         <tr >
         <td>' . $row["heure"] . '</td>
         <td>' . $row["projet"] . '</td>
-        <td><input class="form-control" name="LabelObjectif" id="' . $row["id"] . '" type="text" value="' . $row["Label"] . '"></td>
+        <td><input class="form-control" name="LabelObjectif" onkeypress="ListInputChanged(this)" id="' . $row["id"] . '" type="text" value="' . $row["Label"] . '"></td>
         </tr>
         ';
           }

@@ -4,10 +4,10 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <div id="ListSrint"></div>
+          <div id="ListSrint" onchange="RemplirTableau();"></div>
         </div>
         <div class="col-lg-6">
-          <button type="button" class="btn btn-block btn-success">Tout mettre à jour</button>
+          <button type="button" class="btn btn-block btn-success" onclick="SaveAll();">Tout mettre à jour</button>
         </div>
       </div>
       <p></p>
@@ -22,57 +22,64 @@
 </body>
 
 <script>
-  $(document).ready(function () {
+  RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+  RemplirTableau();
 
-    RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
+  var ListIdInputChanged = new Array
 
-    RemplirTableau();
+  function ListInputChanged(input) {
 
-    $('#ListSrint').change(function () {
-      RemplirTableau();
-    });
+    var id = parseInt(input.getAttribute("id"))
 
-    function RemplirTableau() {
-      $.ajax({
-        url: "Modele/LabelTache.php",
-        method: "POST",
-        data: {
-          action: "Load",
-          idSprint: $("#numeroSprint").val(),
-          idEmploye: localStorage.getItem("Connexion")
-        },
-        success: function (data) {
-          $('#TableObjectif').html(data);
-        }
-      });
+    if (!ListIdInputChanged.includes(id)) {
+      ListIdInputChanged.push(id)
     }
+  }
 
-    $(document).on('click', '.btn', function () {
+  function RemplirTableau() {
+    $.ajax({
+      url: "Modele/LabelTache.php",
+      method: "POST",
+      data: {
+        action: "Load",
+        idSprint: $("#numeroSprint").val(),
+        idEmploye: localStorage.getItem("Connexion")
+      },
+      success: function (data) {
+        document
+          .getElementById('TableObjectif')
+          .innerHTML = data;
+      }
+    });
+  }
 
-      var ToReturn = new Array();
-      $("input[type=text]").each(function () {
-        if ($(this).val() != "") {
-          var UnLabel = new Array();
-          UnLabel.push(parseInt($(this).attr('id')))
-          UnLabel.push($(this).val().replace(/\"/g, ""))
-          ToReturn.push(UnLabel)
-        }
+  function SaveAll() {
 
-      });
+    var ToReturn = new Array();
+    $("input[type=text]").each(function () {
 
-      $.ajax({
-        url: "Modele/LabelTache.php",
-        method: "POST",
-        data: {
-          action: "Changer",
-          ToReturn: ToReturn
-        },
-        success: function (data) {
-          $.notify(data, "success");
-          RemplirTableau();
-        }
-      });
+      inputId = parseInt($(this).attr('id'))
+      inputText = $(this).val().replace(/\"|\'|\`/g, "")
+
+      if (ListIdInputChanged.includes(inputId)) {
+        var UnInputChanged = new Array();
+        UnInputChanged.push(inputId)
+        UnInputChanged.push(inputText)
+        ToReturn.push(UnInputChanged)
+      }
     });
 
-  });
+    $.ajax({
+      url: "Modele/LabelTache.php",
+      method: "POST",
+      data: {
+        action: "Changer",
+        ToReturn: ToReturn
+      },
+      success: function (data) {
+        $.notify(data, "success");
+        RemplirTableau();
+      }
+    });
+  };
 </script>
