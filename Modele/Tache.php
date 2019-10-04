@@ -65,8 +65,7 @@
 
             $output1 .= $GroupStory . '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
-        <div style="margin-left:4px;"><b>
-          ' . $row["E_Prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">'. $ShowItsPivotal.'</b><br>
+        <div style="margin-left:4px;"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">'. $ShowItsPivotal.'</b><br>
 
           <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["pivotal_id_Project"].'</span></div>
@@ -104,8 +103,7 @@
 
             $output2 .= '
 <div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
-  <div style="margin-left:4px;"><b>
-    ' . $row["prenom"] . ' (' . $row["Initial"] . ') | ' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
+  <div style="margin-left:4px;"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';

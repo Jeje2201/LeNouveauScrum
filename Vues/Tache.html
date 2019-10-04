@@ -4,53 +4,29 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
+      <div class="hideElement" name="DateAujourdhui" id='DateAujourdhui'></div>
+
       <div class="row">
+        
         <div class="col-lg-6">
-          <!-- Example Bar Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              Trier par sprint / ressource
-            </div>
-            <div class="card-body">
-              <!-- Selectionner le sprint sur lequel l'on va jouer -->
-              <div class="row">
-                <div class="col-lg-4">
-                  <div id="ListSrint"></div>
-                </div>
-                <div class="col-lg-7">
-                  <div id="ListeEmploye"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <span>Sprint</span>
+          <div id="ListSrint"></div>
         </div>
 
         <div class="col-lg-6">
-          <!-- Example Pie Chart Card-->
-          <div class="card mb-3">
-            <div class="card-header">
-              Valider les tâches
-            </div>
-            <div class="card-body">
-              <div class="input-group mb-12">
-
-                <input type="text" name="DateAujourdhui" id='DateAujourdhui' class="form-control"/>
-
-                <button type="button" id="Descendre" class="btn btn-info">
-                  <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Descendre</button>
-
-              </div>
-            </div>
-          </div>
+          <span>&nbsp;</span>
+            <button type="button" id="Descendre" class="btn btn-info btn-block">Valider</button>
         </div>
 
       </div>
+
+      <p></p>
 
       <div class="row">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header" style="text-align: center">
-              Tâches en cours
+              En cours
             </div>
             <div class="card-body card-columns DeplacementDeTache" id="EnCours"></div>
           </div>
@@ -59,7 +35,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header" style="text-align: center">
-              Tâches achevées
+              Validée
             </div>
             <div class="card-body card-columns DeplacementDeTache" id="Fini"></div>
           </div>
@@ -75,7 +51,7 @@
 
       // $("#EnCours, #Fini").disableSelection();
 
-      $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+      // $('#DateAujourdhui').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
@@ -101,17 +77,14 @@
                 idAffiche: $('#numeroSprint').val()
               },
               success: function (data) {
-                $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
-                $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
+                // $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
+                // $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
 
                 if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
-                  $('#DateAujourdhui').val(ChoixDate(0));
+                  $('#DateAujourdhui').text(ChoixDate(0));
                 } else {
-                  $('#DateAujourdhui').val(data['DateMax']);
+                  $('#DateAujourdhui').text(data['DateMax']);
                 }
-                // $(function () {
-                //   $('[data-toggle="tooltip"]').tooltip()
-                // })
               }
             });
           }
@@ -119,7 +92,6 @@
       }
 
       $('#numeroSprint').change(function () {
-        RemplirListeEmploye();
         AfficherCards();
       });
 
@@ -195,7 +167,7 @@
             data: {
               IdAttribue: IdAttribue,
               action: "Descendre",
-              LeJourDeDescente: DateFrToEn($('#DateAujourdhui').val())
+              LeJourDeDescente: DateFrToEn($('#DateAujourdhui').text())
             },
             success: function (data) {
               $.notify(data, "success");
