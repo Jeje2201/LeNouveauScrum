@@ -94,6 +94,5 @@ List of retrospective's remark that were create, where the Scrum Master can crea
 <img style="width: 100%; border: solid 2px black;" src="https://i.imgur.com/2uPWn5v.png"/>
 
 <hr>
-<h2>Autheur 👨‍💻
-
-**[Leriche Jérémy](http://LericheJeremy.fr/)**
+<h2>Autheur 👨‍💻</h2>
+<a href="http://JeremyLeriche.fr">Leriche Jérémy</a>
