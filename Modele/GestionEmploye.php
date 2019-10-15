@@ -20,6 +20,7 @@
       E.Initial,
       E.mail,
       E.nom,
+      E.admin,
       E.MailCir,
       E.actif,
       (
@@ -46,6 +47,7 @@
       <th>Couleur</th>
       <th style="text-align: center;">Actif</th>
       <th style="text-align: center;">Mail</th>
+      <th style="text-align: center;">Admin</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -68,9 +70,14 @@
               $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
 
             if ($row["MailCir"] == 1)
+              $output .= '<td style="text-align: center; vertical-align: middle;">📬</td>';
+            else
+            $output .= '<td style="text-align: center; vertical-align: middle;">📭</td>';
+
+            if ($row["admin"] == 1)
               $output .= '<td style="text-align: center; vertical-align: middle;">✔</td>';
             else
-            $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -94,8 +101,8 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail) 
-          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
+          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, admin, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail) 
+          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
         $result = $statement->execute(
@@ -105,6 +112,7 @@
             ':Couleur' => '#' . random_color(),
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
+            ':admin' => $_POST["admin"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
@@ -133,6 +141,7 @@
         $output["Nom"] = $result["nom"];
         $output["Actif"] = $result["actif"];
         $output["MailCir"] = $result["MailCir"];
+        $output["admin"] = $result["admin"];
         $output["Mail"] = $result["mail"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeEmploye"] = $result["id_TypeEmploye"];
@@ -150,7 +159,7 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, admin = :admin, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
           WHERE id = :id"
         );
         $result = $statement->execute(
@@ -159,6 +168,7 @@
             ':nom' => $_POST["Nom_Employe"],
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
+            ':admin' => $_POST["admin"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],

@@ -144,7 +144,7 @@
       });
 
       //Si non scrum master, alors ne pas afficher la liste de ressources
-      if ("<?php echo $_SESSION['TypeUtilisateur'] ?>" != "ScrumMaster") 
+      if ("<?php echo $_SESSION['Admin'] ?>" != "ScrumMaster") 
         $("#ListEmpAdmin").hide();
 
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint

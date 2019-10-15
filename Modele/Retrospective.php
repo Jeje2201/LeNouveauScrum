@@ -33,7 +33,7 @@
       <th>Projet</th>
       <th>Ressource</th>
       <th>Objectif</th>';
-        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+        if ($_SESSION['Admin'])
           $output .= '<th colspan="2"><center>Changer État</center></th>';
         $output .= '
       </tr>
@@ -52,7 +52,7 @@
         <td>' . $row["projet"] . '</td>
         <td>' . $row["Employe"] . '</td>
         <td>' . $row["objectif"] . '</td>';
-            if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+            if ($_SESSION['Admin'])
               $output .= '
         <td><center><div class="btn-group" role="group" >
         <button type="button" id="' . $row["id"] . '" class="btn btn-success 1"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
@@ -146,7 +146,7 @@
       <tr>
       <th>Création</th>
       <th>Remarque</th>';
-        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+        if ($_SESSION['Admin'])
           $output .= '<th width=""><center>Changer État</center></th>';
 
         $output .= ' </tr>
@@ -159,7 +159,7 @@
         <tr>
         <td>' . date("d/m/Y", strtotime($row["DateCreation"])) . '</td>
         <td>' . $row["Label"] . '</td>';
-        if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster'){
+        if ($_SESSION['Admin']){
           $output .= '
           <td><center><div class="btn-group" role="group" >
           <button type="button" id="' . $row["id"] . '" class="btn btn-warning GetRemarque"><i class="fa fa-pencil" aria-hidden="true"></i></button>

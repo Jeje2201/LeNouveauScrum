@@ -5,12 +5,20 @@
       <div class="mb-5">
 
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col-lg-6">
               <input class="form-control" style="margin-top: 0px" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
           </div>
 
           <div class="col-lg-2">
               <button type="button" id="modal_button" class="btn btn-block btn-info">Créer une ressource</button>
+          </div>
+
+          <div class="col-lg-2">
+              <button type="button" id="modal_button" class="btn btn-block btn-success" onclick="$('#NouvelleRessource').modal('show');">Nouvelle ressource</button>
+          </div>
+
+          <div class="col-lg-2">
+              <button type="button" id="modal_button" class="btn btn-block btn-warning" onclick="$('#FinRessource').modal('show');">Fin ressource</button>
           </div>
         </div>
 
@@ -81,6 +89,11 @@
           <label for="MailCir">Reçoit un mail si ne remplie pas sa feuille de temps</label>
         </div>
 
+        <div>
+            <input id="admin" type="checkbox" checked>
+            <label for="admin">Admin</label>
+          </div>
+
       </div>
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
@@ -90,6 +103,89 @@
     </div>
   </div>
 </div>
+
+<div id="NouvelleRessource" class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Nouvelle ressource ? Les démarches à suivre</h4>
+        </div>
+        <div class="modal-body">
+            
+            <h3>Créer compte Gmail</h3>
+              <ol>
+               <li>Etape 1</li>
+               <li>Etape 2</li>
+               </ol>
+            <h3>Créer compte Synolution</h3>
+              <ol>
+                <li>Etape 1</li>
+                <li>Etape 2</li>
+              </ol>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="FinRessource" class="modal fade">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Une ressource qui part ? Les démarches à suivre</h4>
+          </div>
+          <div class="modal-body">
+              <p>Voici une liste des actions à effectuer quant une ressource arrive pour s'assurer que les droits à révoquer sont révoqués, etc..
+              <br>Si de nouvelles démarches font leur apparitions et ne sont pas notées là, merci de le faire savoir pour que la liste soit toujours à jour 👍🏻</p>
+              
+              <h3>Google admin</h3>
+              <ol>
+               <li>Se rendre sur Google Admin</li>
+               <li>Se rendre dans la liste des utilisateurs en cliquant sur "Utilisateurs"</li>
+               <li>Chercher la ressource en question</li>
+               <li>Tout a droite cliquer sur "Plus"</li>
+               <li>Cliquer sur "Supprimer le compte"</li>
+               <li>Tout cocher</li>
+               <li>Mettre une adresse de transfert</li>
+               <li>Supprimer</li>
+               </ol>
+              
+                <h3>Scrum Manager</h3>
+              
+                <ol>
+                <li>Se rendre dans la gestion des ressources</li>
+                <li>Chercher la ressource en question</li>
+                <li>Cliquer sur le bouton pour éditer situé à droite</li>
+                <li>Désactiver la checkbox "actif" et "recevoir un mail"</li>
+              </ol>
+              
+                <h3>InVisionApp</h3>
+              
+                <ol>
+                <li>Etape 1</li>
+                <li>Etape 2</li>
+                <li>Etape 3</li>
+              </ol>
+              
+                <h3>GitHub</h3>
+              
+                <ol>
+                <li>Se rendre dans la gestion de l'entreprise</li>
+                <li>Se rendre la liste des utilisateurs "People"</li>
+                <li>Cliquer sur la bouton en forme de réglage à coté de l'utilisateur en question</li>
+                <li>Cliquer sur "Remove from organisation"</li>
+              </ol>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <script>
 
@@ -122,6 +218,7 @@
       $('#Initial').val('');
       $('#Actif').prop("checked", true);
       $('#MailCir').prop("checked", true);
+      $('#admin').prop("checked", false);
     });
 
     //update ou create avec champs remplis
@@ -137,6 +234,12 @@
         var MailCir = 1;
       } else {
         var MailCir = 0;
+      }
+
+      if (document.getElementById("admin").checked == true) {
+        var admin = 1;
+      } else {
+        var admin = 0;
       }
 
       if ($('#Nom').val() == '' || $('#Prenom').val() == '' || $('#TypeEmploye').val() == '') {
@@ -156,6 +259,7 @@
           RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
           MailCir: MailCir,
+          admin: admin,
           Initial: $('#Initial').val(),
           Type_Employe: $('#TypeEmploye').val(),
           action: $('#action').val()
@@ -194,6 +298,11 @@
             $('#MailCir').prop('checked', true);
           else
             $('#MailCir').prop('checked', false);
+
+          if (data.admin == 1)
+            $('#admin').prop('checked', true);
+          else
+            $('#admin').prop('checked', false);
 
           $('#id').val(id);
           $('#Prenom').val(data.Prenom);

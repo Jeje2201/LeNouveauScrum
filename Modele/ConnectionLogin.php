@@ -23,7 +23,7 @@ $result = $statement->fetch();
 if (password_verify($PasswordInput, $result['mdp'])) {
 
     $statement = $connection->prepare(
-        $sql = "SELECT E.prenom AS prenom, T.nom as LeType
+        $sql = "SELECT E.prenom AS prenom, E.admin as admin
         From employe E INNER JOIN typeemploye T
         on E.id_TypeEmploye = T.id
         where E.id = $IdUser"
@@ -32,7 +32,7 @@ if (password_verify($PasswordInput, $result['mdp'])) {
     $result = $statement->fetch();
 
     $_SESSION['PrenomUtilisateur'] = $result["prenom"];
-    $_SESSION['TypeUtilisateur'] = $result["LeType"];
+    $_SESSION['Admin'] = $result["admin"];
 
     $output["Connexion"] = true;
     
