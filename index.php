@@ -5,12 +5,18 @@ session_start();
 require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
-if (!isset($_SESSION['TypeUtilisateur']))
+if($Maintenance == 1)
+{
+  require_once('Vues/Maintenance.html');
+  return;
+}
+
+if (!isset($_SESSION['Admin']))
   require_once('Vues/Login.html');
 
 else {
 
-  if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+  if ($_SESSION['Admin'])
     require_once("Vues/NavBarAdmin.html");
   else
     require_once("Vues/NavBar.html");
@@ -27,12 +33,12 @@ else {
       break;
 
     case 'Sprint':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Sprints.html");
       break;
 
     case 'Planification':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Planification.html");
       break;
 
@@ -53,7 +59,7 @@ else {
       break;
 
     case 'MotDePasse':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/MotDePasseAdmin.html");
       break;
 
@@ -66,49 +72,50 @@ else {
       break;
 
     case 'GestionTache':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Tache.html");
       break;
 
     case 'GestionEmploye':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Employe.html");
       break;
 
     case 'GestionDemo':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Demo.html");
       break;
 
     case 'GestionProjet':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Projet.html");
       break;
 
     case 'GestionLogo':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Logo.html");
       break;
 
     case 'GestionFicheDeTemps':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_FicheDeTemps.html");
       break;
 
       case 'GestionFicheDeTemps2':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_FicheDeTemps2.html");
       break;
 
-
-      
+      case 'Bienvenue':
+        require_once("Vues/Bienvenue.html");
+      break;
 
     case 'LabelObjectif':
       require_once("Vues/LabelObjectif.html");
       break;
 
     case 'GestionRemarque':
-      if ($_SESSION['TypeUtilisateur'] == 'ScrumMaster')
+      if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Remarque.html");
       break;
 
