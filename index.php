@@ -5,17 +5,19 @@ session_start();
 require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
-//Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
-if($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22)
-{
-  require_once('Vues/Maintenance.html');
-  return;
-}
 
-if (!isset($_SESSION['Admin']))
+if (!isset($_SESSION['Admin']) || !isset($_SESSION['IdUtilisateur']))
   require_once('Vues/Login.html');
 
 else {
+
+
+  //Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
+  if($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22)
+  {
+    require_once('Vues/Maintenance.html');
+    return;
+  }
 
   if ($_SESSION['Admin'])
     require_once("Vues/NavBarAdmin.html");
