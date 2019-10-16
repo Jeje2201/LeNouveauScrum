@@ -83,6 +83,64 @@
 
           break;
 
+          /////////////////////////////////////
+
+          case 'ListProjetBienvenue':
+
+          $statement = $connection->prepare("SELECT P.nom as Nom, T.nom as Type, L.path as Logo
+          FROM projet P
+          inner join typeprojet T ON P.id_TypeProjet = T.id
+          inner join logo L on P.Id_Logo = L.id
+          where T.nom not like 'Cir'
+          and P.Actif = 1
+          order by P.nom");
+
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output2 = '<div class="list-group">';
+
+          if ($statement->rowCount() > 0) {
+            foreach ($result as $row) {
+             
+              $output2 .= '<span class="list-group-item"><img src="Assets/Image/Projets/' . $row["Logo"] . '" width="25"><b> ' . $row["Nom"] . '</b> | Clien : ' . $row["Type"] . '</span>';
+          
+            }
+
+            $output2 .= '</div>';
+          }
+
+          echo $output2;
+
+          break;
+
+          /////////////////////////////////////
+
+          case 'ListRessourcesBienvenue':
+
+          $statement = $connection->prepare("SELECT E.prenom as Prenom, E.nom as Nom, T.nom AS Type, E.Couleur as Couleur
+          FROM employe E
+          inner join typeemploye T ON E.id_TypeEmploye = T.id
+          and E.actif = 1
+          order by E.prenom");
+
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output2 = '<div class="list-group">';
+
+          if ($statement->rowCount() > 0) {
+            foreach ($result as $row) {
+
+              $output2 .= '<a class="list-group-item" style="border-left: solid 6px ' . $row["Couleur"] . '";><b>' . $row["Prenom"] . ' ' . $row["Nom"] . '</b> - ' . $row["Type"] . '</a>';        
+
+            }
+
+            $output2 .= '</div>';
+          }
+
+          echo $output2;
+
+          break;
+
         /////////////////////////////////////
 
         case 'ListeDeroulanteProjetAvecCir':

@@ -1,0 +1,57 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <h2 class="centered mb-4">
+        <u>Bienvenue à Natural Solutions</u>
+      </h2>
+
+      <h4>Adresse mail</h4>
+      <hr>
+      <p>En arrivant à Natural Solutions, tu obtiens une adresse mail qui se compose de ton prénom et nom : prenom_nom@natural-solutions.eu </p>
+
+      <h4>Communication</h4>
+      <hr>
+      <p>Nous utilisons Skype pour communiquer. Tu peux utiliser l'adresse mail fourni par Natural Solution pour te créer un compte.</p>
+
+      <h4>Télétravail</h4>
+      <hr>
+      <p>Lorsqu'une ressource est en télétravail, pour participer au daily il faut accéder à l'agenda de l'organisation, cliquer sur l'évènement "Daily" puis "participer à l'évènement". </p>
+
+      <h4>Github</h4>
+      <hr>
+      <p>Les projets sont hostés sur un github propre à Natural Solution, l'organisation est accessible <a class="" href='https://github.com/NaturalSolutions'>ici</a> </p>
+
+      <h4>Synolution</h4>
+      <hr>
+      <p>En plus du stockage Google Drive proposé avec ton compte Gmail, Natural Solutions possède un espace de stockage local accessible depuis l'extérieur <a class="" href='http://nastural-solutions.quickconnect.to/'>ici</a></p>
+
+      
+      <div class="row">
+
+        <div class="col-lg-6">
+          <h4>Liste des projets actif</h4>
+          <hr class="mb-2">
+          <small>Les listes sont mise à jour automatiquement avec les informations en base de données. Merci d'informer si des informations sont manquantes ou erronées.</small>
+          <div id="ListProjet"></div>
+        </div>
+        <div class="col-lg-6">
+          <h4>Liste des ressources actif</h4>
+          <hr class="mb-2">
+          <small>Les listes sont mise à jour automatiquement avec les informations en base de données. Merci d'informer si des informations sont manquantes ou erronées.</small>
+          <div id="ListRessourcesBienvenue"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script>
+  $(document).ready(function () {
+
+    RequeteAjax('ListProjet', 'ListProjetBienvenue', 'Modele/RequetesAjax.php');
+    RequeteAjax('ListRessourcesBienvenue', 'ListRessourcesBienvenue', 'Modele/RequetesAjax.php');
+
+  })
+</script>
