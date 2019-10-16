@@ -5,7 +5,8 @@ session_start();
 require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
-if($Maintenance == 1)
+//Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
+if($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22)
 {
   require_once('Vues/Maintenance.html');
   return;
