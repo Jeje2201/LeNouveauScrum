@@ -19,6 +19,7 @@
       E.prenom,
       E.Initial,
       E.mail,
+      E.RegisterDate,
       E.nom,
       E.admin,
       E.MailCir,
@@ -64,20 +65,20 @@
               <td>' . $row["IdPivotal"] . '</td>
               <td style="background-color:' . $row["Couleur"] . '"></td>';
 
-            if ($row["actif"] == 1)
-              $output .= '<td style="text-align: center; vertical-align: middle;">✔</td>';
+            if ($row["actif"])
+              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
             else
-              $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
 
-            if ($row["MailCir"] == 1)
-              $output .= '<td style="text-align: center; vertical-align: middle;">📬</td>';
+            if ($row["MailCir"])
+              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
             else
-            $output .= '<td style="text-align: center; vertical-align: middle;">📭</td>';
+            $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
 
-            if ($row["admin"] == 1)
-              $output .= '<td style="text-align: center; vertical-align: middle;">✔</td>';
+            if ($row["admin"])
+              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
             else
-              $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
+              $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
