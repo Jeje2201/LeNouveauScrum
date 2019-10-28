@@ -46,9 +46,9 @@
       <th>Job</th>
       <th>ID Pivotal</th>
       <th>Couleur</th>
-      <th style="text-align: center;">Actif</th>
-      <th style="text-align: center;">Mail</th>
-      <th style="text-align: center;">Admin</th>
+      <th class="centered">Actif</th>
+      <th class="centered">Mail</th>
+      <th class="centered">Admin</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -66,19 +66,19 @@
               <td style="background-color:' . $row["Couleur"] . '"></td>';
 
             if ($row["actif"])
-              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
+              $output .= '<td class="centered bg-success"></td>';
             else
-              $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
+              $output .= '<td class="centered bg-danger"></td>';
 
             if ($row["MailCir"])
-              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
+              $output .= '<td class="centered bg-success"></td>';
             else
-            $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
+            $output .= '<td class="centered bg-danger"></td>';
 
             if ($row["admin"])
-              $output .= '<td style="text-align: center; vertical-align: middle;background-color: #6fd16f;">✔</td>';
+              $output .= '<td class="centered bg-success"></td>';
             else
-              $output .= '<td style="text-align: center; vertical-align: middle; background-color: #ff8a8a;">❌</td>';
+              $output .= '<td class="centered bg-danger"></td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>

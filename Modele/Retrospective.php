@@ -48,7 +48,7 @@
         <tr >
         
         <td>' . $num . '</td>
-        <td style="background-color: ' . $row["couleur"] . '; color: white; font-weight: bold;">' . $row["etat"] . '</td>
+        <td class="centered font-weight-bold text-white" style="background-color: ' . $row["couleur"] . ';">' . $row["etat"] . '</td>
         <td>' . $row["projet"] . '</td>
         <td>' . $row["Employe"] . '</td>
         <td>' . $row["objectif"] . '</td>';

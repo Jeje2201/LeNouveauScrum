@@ -24,12 +24,18 @@
 
       <p></p>
 
+      <h2>Liste des démos</h2>
       <div id="TableDemo" class="table-responsive table-hover"></div>
+      
+      <hr class="mt-2 mb-2 w-75">
 
+      <h2>Liste des objectifs</h2>
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-
       <div id="TableObjectif" class="table-responsive table-hover"></div>
 
+      <hr class="mt-2 mb-2 w-75">
+
+      <h2>Liste des remarques</h2>
       <button type="button" id="BouttonRemarque" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
       <p></p>
@@ -107,7 +113,7 @@
 
   $(document).ready(function () {
 
-    // $('body').toggleClass('sidenav-toggled');
+    $('body').toggleClass('sidenav-toggled');
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 

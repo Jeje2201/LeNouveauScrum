@@ -25,7 +25,7 @@
       <th>Type</th>
       <th>ID Pivotal</th>
       <th>Icone</th>
-      <th style="text-align: center;">Actif</th>
+      <th class="centered">Actif</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -40,9 +40,9 @@
         <td>' . $row["ApiPivotal"] . '</td>';
         $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>';
         if ($row["Actif"] == 1)
-          $output .= '<td style="text-align: center; vertical-align: middle;">✔</td>';
+          $output .= '<td class="bg-success centered"></td>';
         else
-          $output .= '<td style="text-align: center; vertical-align: middle;">❌</td>';
+          $output .= '<td class="bg-danger centered"></td>';
         $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }

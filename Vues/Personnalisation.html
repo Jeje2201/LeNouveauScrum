@@ -8,8 +8,8 @@
             <div class="card-body">
               <input type="color" class="" id="CouleurUser">
               <p></p>
-              <div class="card BOUGEMOI" style=" border-left: 5px solid;">
-                <div style="margin-left:4px;">
+              <div class="card BOUGEMOI">
+                <div class="ml-2">
                   <b>
                     Prenom Nom | Projet
                     <img class="LogoProjet" src="Assets/Image/Projets/Inconnue.png"></b><br>
@@ -27,7 +27,7 @@
               <div class="form-group col-lg-3">
                 <label>Ancien mot de passe</label>
                 <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
-                <a class="d-block small mt-3" id="target" style="color:DodgerBlue; cursor:pointer">
+                <a class="d-block small text-primary mt-3" id="target" style="cursor:pointer">
                     <u>Mot de passe oublié ?</u>
                   </a>
               </div>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <h2 style="display: inline-flex;">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
+      <h2 class="d-inline-flex">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
       <hr>
       <p></p>
       <div id="ListEmpAdmin">
@@ -142,10 +142,6 @@
       $("#target").click(function () {
         $('#ModalOublieMdp').modal('show');
       });
-
-      //Si non scrum master, alors ne pas afficher la liste de ressources
-      if ("<?php echo $_SESSION['Admin'] ?>" != "ScrumMaster") 
-        $("#ListEmpAdmin").hide();
 
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');

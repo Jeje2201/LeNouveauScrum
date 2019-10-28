@@ -1,11 +1,11 @@
 <body class="fixed-nav sticky-footer" id="page-top">
-  <div class="content-wrapper" style="padding-top: 0px;">
+  <div class="content-wrapper pt-0">
     <div class="container-fluid">
 
       <div class="row">
         <div class="col-lg-12">
           <div class="card-body centered">
-              <span style="color:#8c8c8c" id="VersionScrumManager" class="small mt-3"></span>
+              <span id="VersionScrumManager" class="small mt-3 text-muted"></span>
             <div id="ListSrint"></div>
           </div>
         </div>
@@ -13,8 +13,8 @@
 
       <div class="row">
         <div class="card col-lg-12">
-          <div style="padding-top: 10px" class="card-body centered">
-            <div style="padding-bottom: 10px; display: inline-block;">Avancement du sprint :&nbsp;</div><span id="PourcentageDescendue"></span>
+          <div class="card-body centered pt-2">
+            <div class="d-inline-block">Avancement du sprint :&nbsp;</div><span id="PourcentageDescendue"></span>
             <div id="BarDePourcentageDheureDescendue" class="DonneesBurndownChart"></div>
             
           </div>
@@ -85,7 +85,7 @@
           if(rawFile.status === 200 || rawFile.status == 0)
           {
               var allText = rawFile.responseText.split('branch')[0];
-              $("#VersionScrumManager").html('<span style="color:#8c8c8c" class="small mt-3">Version: ' + allText + '</span>');
+              $("#VersionScrumManager").html('<span class="small mt-3">Version: ' + allText + '</span>');
           }
       }
   }
@@ -111,7 +111,7 @@
     });
   });
 
-// if("<?php echo $_SESSION['Admin'] ?>" != "ScrumMaster")
+// if(!"<?php echo $_SESSION['Admin'] ?>")
 // $( "#BadInfo1,#BadInfo2" ).hide();
 
 </script>
