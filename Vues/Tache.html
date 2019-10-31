@@ -149,7 +149,7 @@
               },
               type: 'POST',
               processData: false,
-              data: 'text= Tâche validée sur Scrum Manager par ' + $("#numeroEmploye option:selected").text() + ' : ' + TextDeLaTache,
+              data: 'text= Tâche validée sur Scrum Manager par ' + document.getElementById('TitreNavBar').text.split('Ns Scrum - ')[1] + ' : ' + TextDeLaTache,
               error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.notify(errorThrown, "error");
               },
