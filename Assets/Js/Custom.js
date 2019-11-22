@@ -1,7 +1,8 @@
 // Quelques js esthétiques
 function ClassActive(NameUser) {
+
   //Enlever actif a toutes les class
-  $("exampleAccordion li").each(function () {
+  $("#navbarResponsive li").each(function () {
     $(this).removeClass("active");
   });
   
@@ -10,7 +11,13 @@ function ClassActive(NameUser) {
   else
     var LaPage = window.location.href.split('=')[1]
 
-  //Puis cherche la nav qui a la page d'affichéE et lui donner la class active
+    if(!"<?php echo $_SESSION['Admin'] ?>"){
+      $(".AdminOnly").each(function () {
+        $(this).hide()
+      });
+    }
+
+  //Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
   $('nav a[href^="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
   //Afficher le prénom

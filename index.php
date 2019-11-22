@@ -19,10 +19,8 @@ else {
     return;
   }
 
-  if ($_SESSION['Admin'])
-    require_once("Vues/NavBarAdmin.html");
-  else
-    require_once("Vues/NavBar.html");
+  require_once("Vues/NavBar.html");
+
 
   if (!isset($_REQUEST['vue']))
     $_REQUEST['vue'] = 'Accueil';
