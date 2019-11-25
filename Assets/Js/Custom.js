@@ -18,7 +18,7 @@ function ClassActive(NameUser) {
     }
 
   //Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
-  $('nav a[href^="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
+  $('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
   //Afficher le prénom
   $("#TitreNavBar").text("Ns Scrum - " + NameUser);
