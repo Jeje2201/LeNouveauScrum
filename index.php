@@ -102,9 +102,9 @@ else {
         require_once("Vues/Gestion_FicheDeTemps.html");
       break;
 
-      case 'GestionFicheDeTemps2':
+      case 'GestionFicheDeTempsPlus':
       if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_FicheDeTemps2.html");
+        require_once("Vues/Gestion_FicheDeTempsPlus.html");
       break;
 
       case 'Bienvenue':
