@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: "Proxima Nova", sans-serif;
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        td img {
+            width: auto;
+            height: 1.2em;
+            vertical-align: inherit;
+            padding-right: .5em;
+        }
+
+        td:nth-of-type(1) {
+            padding-left: 1em;
+            text-align: center;
+        }
+
+        td[colspan="2"] {
+            text-align: left;
+        }
+
+        a {
+            text-decoration: none;
+            color: #525252;
+        }
+
+        th img {
+            width: 60%;
+            min-size: 8em;
+            max-size: 12em;
+            float: right;
+        }
+
+        #Name {
+            color: black;
+            font-weight: 700;
+            padding-right: .5em;
+        }
+
+        #Job {
+            color: #666666;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th rowspan="5"><a href="http://www.natural-solutions.eu/"><img src="https://i.imgur.com/iHszlAR.png"></a></th>
+            <td colspan="2"><span id="Name">Prenom Nom</span><span id="Job"><i>Job</i></span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="http://www.natural-solutions.eu/"><img src="https://i.imgur.com/s0OwcYr.png"></a>
+            </td>
+            <td>
+                <a href="http://www.natural-solutions.eu/">natural-solutions.eu</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="tel:0491720026"><img src="https://i.imgur.com/lJJ7AFY.png"></a>
+            </td>
+            <td>
+                <a href="tel:+33491720026">+33 (0)4 91 72 00 26</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="mailto:AdresseMail"><img src="https://i.imgur.com/mElDdGh.png"></a>
+            </td>
+            <td>
+                <a href="mailto:AdresseMail" id="Mail">AdresseMail</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://goo.gl/maps/1X4TcrYwwi22"><img src="https://i.imgur.com/1gDgqRi.png"></a>
+            </td>
+            <td>
+                <a href="https://goo.gl/maps/1X4TcrYwwi22">68 rue Sainte 13001 Marseille</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script>
+
+var prenom = prompt("Ton prénom ?");
+var nom = prompt("Ton nom ?");
+var job = prompt("Ton poste ?");
+var email = prompt("Ton email ?");
+window.alert("On est tout bon.. Quelques tours de magies et... voilà !");
+
+document.getElementById('Name').innerText = prenom + ' ' + nom
+document.getElementById('Job').innerText = job
+document.getElementById('Mail').innerText = email
+document.getElementById('Mail').href = 'mailto:'+email
+</script>
+
+</html>
