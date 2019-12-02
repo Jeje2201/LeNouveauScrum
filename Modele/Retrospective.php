@@ -20,7 +20,7 @@
       INNER JOIN employe
         ON employe.id = O.id_Employe
       WHERE O.id_Sprint = $numero
-      ORDER BY P.nom, employe.prenom, O.id");
+      ORDER BY Employe, P.nom, O.id");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
