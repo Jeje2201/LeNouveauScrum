@@ -27,7 +27,7 @@
           A.pivotal_id_Project,
           A.pivotal_Label_Story,
           P.nom AS projet,
-          L.Path,
+          L.base54 as logo,
           E.Initial,
           E.couleur,
           E.prenom AS E_Prenom,
@@ -65,7 +65,7 @@
 
             $output1 .= $GroupStory . '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
-        <div class="ml-1"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Path"] . '">'. $ShowItsPivotal.'</b><br>
+        <div class="ml-1"><b>' . $row["projet"] . ' <img class="LogoProjet" src="' . $row["logo"] . '">'. $ShowItsPivotal.'</b><br>
 
           <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["pivotal_id_Project"].'</span></div>
@@ -80,7 +80,7 @@
         A.Label,
         A.heure,
         P.nom AS projet,
-        L.path as Logo,
+        L.base64 as Logo,
         E.Initial,
         E.couleur,
         E.prenom,
@@ -103,7 +103,7 @@
 
             $output2 .= '
 <div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
-  <div class="ml-2"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
+  <div class="ml-2"><b>' . $row["projet"] . ' <img class="LogoProjet" src="' . $row["Logo"] . '"></b><br>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';

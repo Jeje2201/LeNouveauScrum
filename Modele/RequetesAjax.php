@@ -87,7 +87,7 @@
 
           case 'ListProjetBienvenue':
 
-          $statement = $connection->prepare("SELECT P.nom as Nom, T.nom as Type, L.path as Logo
+          $statement = $connection->prepare("SELECT P.nom as Nom, T.nom as Type, L.base64 as Logo
           FROM projet P
           inner join typeprojet T ON P.id_TypeProjet = T.id
           inner join logo L on P.Id_Logo = L.id
@@ -102,7 +102,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
              
-              $output2 .= '<span class="list-group-item"><img src="Assets/Image/Projets/' . $row["Logo"] . '" width="25"><b> ' . $row["Nom"] . '</b> | Clien : ' . $row["Type"] . '</span>';
+              $output2 .= '<span class="list-group-item"><img src="' . $row["Logo"] . '" width="25"><b> ' . $row["Nom"] . '</b> | Clien : ' . $row["Type"] . '</span>';
           
             }
 

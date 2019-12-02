@@ -8,7 +8,7 @@
       P.nom as Projet,
       P.ApiPivotal,
       P.Actif,
-      L.path as Logo,
+      L.base64 as Logo,
       T.nom as TypeProjet
       FROM projet P
       INNER JOIN logo L on L.id = P.Id_Logo
@@ -38,7 +38,7 @@
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
-        $output .= '<td><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>';
+        $output .= '<td><img src="' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>';
         if ($row["Actif"] == 1)
           $output .= '<td class="bg-success centered"></td>';
         else
@@ -47,7 +47,6 @@
       </tr>';
           }
         } else {
-          print_r($statement->errorInfo());
 
           $output .= '
      <tr>
