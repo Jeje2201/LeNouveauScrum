@@ -8,6 +8,7 @@
     <div class="card-body">
 
       <div id="ListeEmploye"></div>
+      <input type="text" name="EmployeLogin" id="EmployeLogin" class="form-control" placeholder="Email NS" required="required">
       <br>
       <div class="form-label-group">
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Mot de passe" minlength="5" required="required">
@@ -47,16 +48,6 @@
 <script>
   $(document).ready(function () {
 
-    //Load all employes
-    RequeteAjax('ListeEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php', 'EmployeLogin')
-
-     //Si dans la page de connexion alors direct selectionner      
-     if(localStorage.getItem("Connexion")){
-        $('#EmployeLogin option[value="' + localStorage.getItem("Connexion") + '"]').attr('selected', 'selected');
-      }
-
-      $( "#EmployeLogin" ).each(function() {$(this).select2({width: "100%"});});
-
     //Show modal if click on help
     $("#target").click(function () {
       $('#ModalLogin').modal('show');
@@ -74,7 +65,6 @@
         },
         success: function (data) {
           if (data.Connexion) {
-            localStorage.setItem('Connexion', $('#EmployeLogin').val())
             location.reload();
           } else {
             $("#wrongpassword").removeClass("text-hide");

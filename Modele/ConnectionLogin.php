@@ -4,8 +4,7 @@ session_start();
 
 require_once('../Modele/Configs.php');
 
-$_SESSION['IdUtilisateur'] = $_POST['EmployeLogin'];
-$IdUser = $_POST['EmployeLogin'];
+$EmployeLogin = $_POST['EmployeLogin'];
 $PasswordInput = $_POST['inputPassword'];
 $output = [];
 
@@ -14,7 +13,7 @@ $statement = $connection->prepare(
     $sql = "SELECT E.mdp
     AS mdp
     FROM employe E
-    WHERE E.id = $IdUser"
+    WHERE E.mail like '$EmployeLogin'"
 );
 $statement->execute();
 $result = $statement->fetch();
@@ -23,14 +22,15 @@ $result = $statement->fetch();
 if (password_verify($PasswordInput, $result['mdp'])) {
 
     $statement = $connection->prepare(
-        $sql = "SELECT E.prenom AS prenom, E.admin as admin
+        $sql = "SELECT E.id as id, E.prenom AS prenom, E.admin as admin
         From employe E INNER JOIN typeemploye T
         on E.id_TypeEmploye = T.id
-        where E.id = $IdUser"
+        where E.mail like '$EmployeLogin'"
     );
     $statement->execute();
     $result = $statement->fetch();
 
+    $_SESSION['IdUtilisateur'] = $result['id'];
     $_SESSION['PrenomUtilisateur'] = $result["prenom"];
     $_SESSION['Admin'] = $result["admin"];
 
