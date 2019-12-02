@@ -18,7 +18,6 @@
       <thead class="thead-light">
       <tr>
       <th>Nom</th>
-      <th>Chemin</th>
       <th>Image</th>
       <th><center>Éditer</center></th>
       </tr>
@@ -30,8 +29,7 @@
             $output .= '
         <tr>
         <td>' . $row["nom"] . '</td>
-        <td>' . $row["path"] . '</td>
-        <td style="width:60px"> <img src="Assets/Image/Projets/' . $row["path"] . '" width=60px height=60px /></td>';
+        <td style="width:60px"> <img src="' . $row["base64"] . '" width=60px height=60px /></td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -115,7 +113,6 @@
           print_r($statement->errorInfo());
       }
 
-
       //Supprimer une image
       if ($_POST["action"] == "Delete") {
 
@@ -136,66 +133,33 @@
           print_r($statement->errorInfo());
 
         $statement = $connection->prepare(
-          "DELETE FROM logo WHERE id = :id and logo.nom not like 'Inconnue'"
+          "DELETE FROM logo WHERE id = :id"
         );
         $result = $statement->execute(
           array(
             ':id' => $_POST["id"]
           )
         );
-        if (!empty($result) && $_POST["path"] != "Inconnue.png") {
-
-          $Path = "../Assets/Image/Projets/" . $_POST["path"];
-          echo $_POST["path"];
-
-          if (file_exists($Path)) {
-            if (unlink($Path)) {
-              echo "✓";
-            } else {
-              echo "Impossible de supprimer ?";
-            }
-          } else {
-            echo "Le fichier n'existe pas";
-          }
-        } else
-          print_r('Erreur lors de la suppression');
       }
 
       if ($_POST["action"] == "insert") {
-        $target_file = basename($_FILES["image"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-        //Je check si l'image n'a pas déjà le meme nom dans le dossier
-        if (file_exists($target_file)) {
-          echo "Ce nom d'image existe déjà. Image non insérée, pas de doublon ici! bouh!";
-        }
-
-        //Check si le fichier est supérieux a 10 Mo
-        else if ($_FILES["image"]["size"] > 10000000) {
-          echo "Tu veux pas envoyer un fichier de la taille d'un film aussi ? Trouve plus petit (max = 1mo)";
-        }
-
-        //Si l'image convient et passe toutes les regles, alors on peut l'ajouter dans le dossier serveur
-        else if (move_uploaded_file($_FILES["image"]["tmp_name"], "../Assets/Image/Projets/" . $target_file)) {
-          move_uploaded_file($_FILES["image"]["tmp_name"], "../Assets/Image/Projets/" . $target_file);
-
-          $statement = $connection->prepare("
-        INSERT INTO logo (nom, path) 
-        VALUES (:nom, :path)
+        $statement = $connection->prepare("
+          INSERT INTO logo (nom, base64) 
+          VALUES (:nom, :base64)
         ");
 
-          $result = $statement->execute(
-            array(
-              ':nom' => $_FILES["image"]["name"],
-              ':path' => $target_file
-            )
-          );
-          if (!empty($result))
-            echo '✓';
-          else
-            print_r($statement->errorInfo());
-        } else
-          echo "Une erreur dont je ne suis pas capable d'identifier est intervenue :/";
+        $result = $statement->execute(
+          array(
+            ':nom' => $_POST["imgName"],
+            ':base64' => $_POST["img64"]
+          )
+        );
+
+        if (!empty($result))
+          echo '✓';
+        else
+          print_r($statement->errorInfo());
       }
     }
 

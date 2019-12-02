@@ -52,15 +52,13 @@
         <h4>Ajouter une image</h4>
       </div>
       <div class="modal-body">
-        <form id="image_form" method="post" enctype="multipart/form-data">
-          <input type="file" name="image" id="image" />
-          </p>
-          <br />
-          <input type="hidden" name="action" id="action" value="insert" />
-          <input type="hidden" name="image_id" id="image_id" />
-          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-info" />
+          <input type="file" name="image" id="image" class="mb-3"/>
+          <input type="text" class="form-control mb-3"  id="imageName" placeholder="Nom du projet">
+          <img src="" class="img-fluid mb-3" id="base64imgPreview">
 
-        </form>
+          <button name="insert" id="insert" value="Insert" class="btn btn-info">Ajouter</button>
+
+          <p id="Base64Log" class="d-none"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -133,7 +131,6 @@
           method: "POST",
           data: {
             id: $(this).attr("id"),
-            path: (($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/')[($(this).parent().parent().parent().parent()[0].childNodes[3].childNodes[1].src).split('/').length - 1]),
             action: "Delete"
           },
           success: function (data) {
@@ -146,35 +143,51 @@
 
     $('#add').click(function () {
       $('#imageModal').modal('show');
-      $('#image_form')[0].reset();
-      $('.modal-title').text("Add Image");
-      $('#image_id').val('');
-      $('#action').val('insert');
-      $('#insert').val("Ajouter");
     });
-    $('#image_form').submit(function (event) {
-      event.preventDefault();
-      if ($('#image').val() == '') {
+
+    $('#insert').click(function () {
+      if($('#Base64Log').text() == ""){
         $.notify("Choisie une image d'abord", "error");
-        return false;
+        return;
       }
-      else {
-        $.ajax({
-          url: "Modele/GestionLogo.php",
-          method: "POST",
-          data: new FormData(this),
-          contentType: false,
-          processData: false,
-          success: function (data) {
-            $('#image_form')[0].reset();
-            $('#imageModal').modal('hide');
-            $.notify(data, "info");
-            RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
-            GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
-          }
-        });
+      if($('#imageName').val() == ""){
+        $.notify("Il lui faut un nom", "error");
+        return;
       }
+
+      $.ajax({
+        url: "Modele/GestionLogo.php",
+        method: "POST",
+        data: {
+          action: "insert",
+          imgName : $('#imageName').val(),
+          img64 : $('#Base64Log').text()
+        },
+        success: function (data) {
+          $('#imageModal').modal('hide');
+          $.notify(data, "info");
+          RequeteAjax('TableauLogo', 'Load', 'Modele/GestionLogo.php')
+          GarderLaRecherche('BarreDeRecherche', 'TableauLogo');
+        }
+      });
     });
+
+document.getElementById("image").addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    
+    var FR= new FileReader();
+    
+    FR.addEventListener("load", function(e) {
+      console.log(e.target.result)
+      $('#Base64Log').text(e.target.result)
+      document.getElementById("base64imgPreview").src = e.target.result;
+      
+      // $('#Base64Log').text = e.target.result
+    }); 
+    
+    FR.readAsDataURL( this.files[0] );
+  }
+});
 
   });
 </script>
