@@ -240,8 +240,8 @@
         FROM `cir` C
         inner JOIN projet on
           projet.id = C.Fk_Project
-        WHERE Done >= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-01' 
-        and Done <= '" . $_POST["LeAnnee"] . "-" . $_POST["LeMois"] . "-31'
+        WHERE Done >= '" . $_POST["Start"] ."'  
+        and Done <= '" . $_POST["End"] ."' 
         and Fk_User = '" . $_SESSION['IdUtilisateur'] . "' group by Fk_Project order by Temps desc");
         
         $statement->execute();

@@ -77,30 +77,14 @@
         </div>
         <div class="col-lg-4">
           <div class="card">
-            <h5 class="card-header">Fiches de temps / Mois</h5>
+            <h5 class="card-header">Fiches de temps / Date</h5>
             <div class="card-body">
               <div class="form-row">
                 <div class="col">
-                  <select id="LeMois" class="form-control">
-                    <option value="01">Janvier</option>
-                    <option value="02">Février</option>
-                    <option value="03">Mars</option>
-                    <option value="04">Avril</option>
-                    <option value="05">Mai</option>
-                    <option value="06">Juin</option>
-                    <option value="07">Juillet</option>
-                    <option value="08">Août</option>
-                    <option value="09">Septembre</option>
-                    <option value="10">Octobre</option>
-                    <option value="11">Novembre</option>
-                    <option value="12">Décembre</option>
-                  </select>
+              <input type="text" class="form-control" id="Start">
                 </div>
                 <div class="col">
-                  <select id="LeAnnee" class="form-control">
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                  </select>
+                    <input type="text" class="form-control" id="End">
                 </div>
               </div>
               <div id="TotRempliDate"></div>
@@ -138,6 +122,11 @@
   <script>
     $(document).ready(function () {
 
+      $('#Start, #End').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+      $('#Start').val(ChoixDate(-1));
+      $('#End').val(ChoixDate(0));
+
+
       //Affiche la modal quand oublie son mot de passe
       $("#target").click(function () {
         $('#ModalOublieMdp').modal('show');
@@ -146,15 +135,9 @@
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
-      //Selectionne par défaut au lancement le mois actuel sur le select de mois
-      LeMois = (new Date).getMonth() + 1
-      if (LeMois < 10) 
-        LeMois = '0' + LeMois
-      $('#LeMois option[value="' + LeMois + '"]').attr('selected', 'selected')
-
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
       ListTotalSurSprint()
-      ListTotalFdTSurMois();
+      ListTotalFdtSurDate();
       ListTotalTotal();
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
@@ -187,19 +170,19 @@
       });
 
       //Quand change mois / années, charge list fiches de temps / Mois
-      $('#LeMois,#LeAnnee').change(function () {
-        ListTotalFdTSurMois()
+      $('#Start,#End').change(function () {
+        ListTotalFdtSurDate()
       });
 
       //Liste des fonctions utilisées pour obtenir les obtenir les infos 
-      function ListTotalFdTSurMois(Ressource) {
+      function ListTotalFdtSurDate(Ressource) {
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
           data: {
             LaRessource: Ressource,
-            LeMois: $("#LeMois option:selected").val(),
-            LeAnnee: $("#LeAnnee option:selected").val(),
+            Start: DateFrToEn($('#Start').val()),
+            End: DateFrToEn($('#End').val()),
             action: "ListTotalSurDate"
           },
           success: function (data) {
