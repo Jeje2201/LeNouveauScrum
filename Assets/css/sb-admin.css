@@ -3,6 +3,54 @@ html {
   min-height: 100%;
 }
 
+/*///////////////////*/
+
+.LaSignatureDeMail table,.LaSignatureDeMail th,.LaSignatureDeMail td {
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.LaSignatureDeMail td img {
+    width: auto;
+    height: 1.2em;
+    vertical-align: inherit;
+    padding-right: .5em;
+}
+
+.LaSignatureDeMail td:nth-of-type(1) {
+    padding-left: 1em;
+    text-align: center;
+}
+
+.LaSignatureDeMail td[colspan="2"] {
+    text-align: left;
+}
+
+.LaSignatureDeMail a {
+    text-decoration: none;
+    color: #525252;
+}
+
+.LaSignatureDeMail th img {
+    width: 60%;
+    min-width: 8em;
+    max-width: 12em;
+    float: right;
+}
+
+.LaSignatureDeMail #Name {
+    color: black;
+    font-weight: 700;
+    padding-right: .5em;
+}
+
+.LaSignatureDeMail #Job {
+    color: #666666;
+}
+/*//////////////////////////////*/
+
+
+
 .HeaderTablePlanif{
   color:white
 }

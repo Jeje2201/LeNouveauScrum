@@ -43,16 +43,57 @@
       <hr>
       <p>Il est possible d'avoir une signature de mail customisé spécial Natural Solution. Pour ce faire il suffit de :
         <ol>
-          <li>Télécharger le fichier : <a href="/Assets/html/TemplateFooter.html">ici</a></li>
-          <li>La lancer avec Google chrome</li>
+          <li>Cliquer <span id="ButtonMail" class="text-danger font-weight-bold">ici</span></li>
           <li>Répondre aux questions qui sont automatiquement posées</li>
-          <li>Une fois la page chargée, tout sélectionner et copier (ctrl+a ctrl+c pas à la souris)</li>
+          <li>Une fois la signature customisée, la sélectionner entièrement et la copier</li>
           <li>Se rendre dans Gmail</li>
           <li>Se rendre dans les options de Gmail</li>
           <li>Trouver la partie "footer" et coller (ctrl+v) le contenu copié précédement</li>
           <li>Si tout c'est bien collé, sauvegarder</li>
           <li>Vous voilà avec une signature customisé spécial Ns</li>
         </ol>
+        <div class="LaSignatureDeMail p-3" style="border: dotted;">
+
+          <table>
+            <tr>
+                <th rowspan="5"><a href="http://www.natural-solutions.eu/"><img src="./Assets/Image/MailFooter/Banner.png"></a></th>
+                <td colspan="2"><span id="Name">Prenom Nom</span><span id="Job"><i>Job</i></span></td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.natural-solutions.eu/"><img src="./Assets/Image/MailFooter/internet.png"></a>
+                </td>
+                <td>
+                    <a href="http://www.natural-solutions.eu/">natural-solutions.eu</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="tel:0491720026"><img src="./Assets/Image/MailFooter/call.png"></a>
+                </td>
+                <td>
+                    <a href="tel:+33491720026">+33 (0)4 91 72 00 26</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="mailto:AdresseMail"><img src="./Assets/Image/MailFooter/Mail.png"></a>
+                </td>
+                <td>
+                    <a href="mailto:AdresseMail" id="Mail">AdresseMail</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://goo.gl/maps/1X4TcrYwwi22"><img src="./Assets/Image/MailFooter/map.png"></a>
+                </td>
+                <td>
+                    <a href="https://goo.gl/maps/1X4TcrYwwi22">68 rue Sainte 13001 Marseille</a>
+                </td>
+            </tr>
+        </table>
+
+        </div>
       </p>
 
       
@@ -78,6 +119,21 @@
 
 <script>
   $(document).ready(function () {
+
+    $( "#ButtonMail" ).click(function() {
+      
+      var prenom = prompt("Ton prénom ?");
+      var nom = prompt("Ton nom ?");
+      var job = prompt("Ton poste ?");
+      var email = prompt("Ton email ?");
+      window.alert("On est tout bon.. Quelques tours de magies et... voilà !");
+
+      document.getElementById('Name').innerText = prenom + ' ' + nom
+      document.getElementById('Job').innerText = job
+      document.getElementById('Mail').innerText = email
+      document.getElementById('Mail').href = 'mailto:'+email
+
+    });
 
     RequeteAjax('ListProjet', 'ListProjetBienvenue', 'Modele/RequetesAjax.php');
     RequeteAjax('ListRessourcesBienvenue', 'ListRessourcesBienvenue', 'Modele/RequetesAjax.php');
