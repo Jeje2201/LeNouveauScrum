@@ -21,10 +21,10 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
+      <th width=35>Icone</th>
       <th>Nom</th>
       <th>Type</th>
       <th>ID Pivotal</th>
-      <th>Icone</th>
       <th class="centered">Actif</th>
       <th><center>Éditer</center></th>
       </tr>
@@ -35,15 +35,15 @@
           foreach ($result as $row) {
             $output .= '
         <tr>
+        <td class="centered" ><img src="' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
-        $output .= '<td><img src="' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>';
-        if ($row["Actif"] == 1)
-          $output .= '<td class="bg-success centered"></td>';
-        else
-          $output .= '<td class="bg-danger centered"></td>';
-        $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+            if ($row["Actif"] == 1)
+              $output .= '<td class="bg-success centered"></td>';
+            else
+              $output .= '<td class="bg-danger centered"></td>';
+            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }
         } else {
@@ -78,7 +78,7 @@
           )
         );
         if (!empty($result))
-          echo 'Projet "'.  $_POST["Nom"] .'" créé';
+          echo 'Projet "' .  $_POST["Nom"] . '" créé';
         else
           print_r($statement->errorInfo());
       }
@@ -124,7 +124,7 @@
           )
         );
         if (!empty($result))
-          echo 'Projet "'. $_POST["Nom"] .'" changé';
+          echo 'Projet "' . $_POST["Nom"] . '" changé';
         else
           print_r($statement->errorInfo());
       }
