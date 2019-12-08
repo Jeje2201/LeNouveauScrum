@@ -30,8 +30,8 @@
       <tr>
       <th>N°</th>
       <th>État</th>
-      <th>Projet</th>
       <th>Ressource</th>
+      <th>Projet</th>
       <th>Objectif</th>';
         if ($_SESSION['Admin'])
           $output .= '<th colspan="2"><center>Changer État</center></th>';
@@ -49,8 +49,8 @@
         
         <td>' . $num . '</td>
         <td class="centered font-weight-bold text-white" style="background-color: ' . $row["couleur"] . ';">' . $row["etat"] . '</td>
-        <td>' . $row["projet"] . '</td>
         <td>' . $row["Employe"] . '</td>
+        <td>' . $row["projet"] . '</td>
         <td>' . $row["objectif"] . '</td>';
             if ($_SESSION['Admin'])
               $output .= '
