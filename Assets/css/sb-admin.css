@@ -40,6 +40,7 @@ html {
 
 .LaSignatureDeMail #Name {
     color: black;
+    font-size: 14px;
     font-weight: 700;
     padding-right: .5em;
 }
