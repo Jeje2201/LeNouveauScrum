@@ -1,5 +1,10 @@
 <?php
 
+// Idée : 
+// Créer la liste des vue seulement admin style ['planificatio','toto','tutu']
+// Pas de case ou switch, seuelement un 
+// if $vue est dans la liste de admin style, alors on check si admin, sinon on envoit dans tous les cas le "Vues/.$vue" car le nom doit correspondre au fichier
+
 session_start();
 
 require_once('Modele/Configs.php');
@@ -11,7 +16,6 @@ if (!isset($_SESSION['Admin']) || !isset($_SESSION['IdUtilisateur']))
 
 else {
 
-
   //Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
   if ($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22) {
     require_once('Vues/Maintenance.html');
@@ -20,132 +24,44 @@ else {
 
   require_once("Vues/NavBar.html");
 
-
-  if (!isset($_REQUEST['vue']))
+  //Si la vue n'existe pas (donc dans l'url on a un ?vues="" alors on met l'acceuil par défaut)
+  if (!isset($_REQUEST['vue'])) {
     $_REQUEST['vue'] = 'Accueil';
-
-  $vue = $_REQUEST['vue'];
-  $notAdminMsg = '<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper"><h1 class="container-fluid">Je ne sais pas comment tu es arrivé(e) là mais ce n\'est destiné qu\'aux admins. Tu n\'es pas le/la bienvenue ici.</h1>';
-
-  switch ($vue) {
-
-    case 'Accueil':
-      require_once("Vues/Accueil.html");
-      break;
-
-    case 'Sprint':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Sprints.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'Planification':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Planification.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'Tache':
-      require_once("Vues/Tache.html");
-      break;
-
-    case 'Objectifs':
-      require_once("Vues/Retrospective.html");
-      break;
-
-    case 'Personnalisation':
-      require_once("Vues/Personnalisation.html");
-      break;
-
-    case 'FicheDeTemps':
-      require_once("Vues/FicheDeTemps.html");
-      break;
-
-    case 'MotDePasse':
-      if ($_SESSION['Admin'])
-        require_once("Vues/MotDePasseAdmin.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'Interference':
-      require_once("Vues/Interference.html");
-      break;
-
-    case 'Achievement':
-      require_once("Vues/Achievement.html");
-      break;
-
-    case 'GestionTache':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Tache.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionEmploye':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Employe.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionDemo':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Demo.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionProjet':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Projet.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionLogo':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Logo.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionFicheDeTemps':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_FicheDeTemps.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'GestionFicheDeTempsPlus':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_FicheDeTempsPlus.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    case 'Bienvenue':
-      require_once("Vues/Bienvenue.html");
-      break;
-
-    case 'LabelObjectif':
-      require_once("Vues/LabelObjectif.html");
-      break;
-
-    case 'GestionRemarque':
-      if ($_SESSION['Admin'])
-        require_once("Vues/Gestion_Remarque.html");
-      else
-        print($notAdminMsg);
-      break;
-
-    default:
-      print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper">
-  <div class="container-fluid">JE CONNAIS PAS CETTE PAGE, TU ME DEMANDES "' . $vue . '" MAIS C\'EST QUOI AU JUSTE :((');
-      break;
   }
+  
+  //Sinon on a une vue et on va la checker
+  else {
+
+    $vue = $_REQUEST['vue'];
+
+    //Liste des pages visibles que par un admin
+    $AdminOnly = array('Sprints', 'Planification', 'MotDePasseAdmin', 'Gestion_Employe', 'Gestion_Projet', 'Gestion_Logo', 'Gestion_Demo', 'Gestion_Remarque','Gestion_FicheDeTemps', 'Gestion_FicheDeTempsPlus');
+
+    //Si le chemin n'existe pas, l'indiquer à l'utilisateur
+    if (!file_exists("Vues/" . $vue . ".html")) {
+      print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper"><h1 class="container-fluid">La page n\'existe pas.</h1>');
+
+      return;
+    }
+
+    //Si ma variable vue est dans ma variable admin, c'est que ce n'est destiné qu'aux admins
+    if (in_array($vue, $AdminOnly)) {
+      //si l'utilisateur est admin, on lui donne la vue
+      if ($_SESSION['Admin']) {
+        require_once("Vues/" . $vue . ".html");
+      }
+      
+      //Sinon on lui dit qu'il n'a rien a faire ici
+      else {
+        print('<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper"><h1 class="container-fluid">Je ne sais pas comment tu es arrivé(e) là mais ce n\'est destiné qu\'aux admins. Tu n\'es pas le/la bienvenue ici.</h1>');
+      }
+    }
+    
+    //Si la page ne fait pas partie de admin seulement alors tout le monde peux y accéder sans prise de tete
+    else {
+      require_once("Vues/" . $vue . ".html");
+    }
+  }
+
   require_once("Vues/footer.html");
 }
