@@ -13,8 +13,7 @@ else {
 
 
   //Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
-  if($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22)
-  {
+  if ($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22) {
     require_once('Vues/Maintenance.html');
     return;
   }
@@ -26,6 +25,7 @@ else {
     $_REQUEST['vue'] = 'Accueil';
 
   $vue = $_REQUEST['vue'];
+  $notAdminMsg = '<body class="fixed-nav sticky-footer" id="page-top"><div class="content-wrapper"><h1 class="container-fluid">Je ne sais pas comment tu es arrivé(e) là mais ce n\'est destiné qu\'aux admins. Tu n\'es pas le/la bienvenue ici.</h1>';
 
   switch ($vue) {
 
@@ -36,11 +36,15 @@ else {
     case 'Sprint':
       if ($_SESSION['Admin'])
         require_once("Vues/Sprints.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'Planification':
       if ($_SESSION['Admin'])
         require_once("Vues/Planification.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'Tache':
@@ -62,53 +66,69 @@ else {
     case 'MotDePasse':
       if ($_SESSION['Admin'])
         require_once("Vues/MotDePasseAdmin.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'Interference':
       require_once("Vues/Interference.html");
       break;
 
-      case 'Achievement':
+    case 'Achievement':
       require_once("Vues/Achievement.html");
       break;
 
     case 'GestionTache':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Tache.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'GestionEmploye':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Employe.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'GestionDemo':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Demo.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'GestionProjet':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Projet.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'GestionLogo':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Logo.html");
+      else
+        print($notAdminMsg);
       break;
 
     case 'GestionFicheDeTemps':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_FicheDeTemps.html");
+      else
+        print($notAdminMsg);
       break;
 
-      case 'GestionFicheDeTempsPlus':
+    case 'GestionFicheDeTempsPlus':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_FicheDeTempsPlus.html");
+      else
+        print($notAdminMsg);
       break;
 
-      case 'Bienvenue':
-        require_once("Vues/Bienvenue.html");
+    case 'Bienvenue':
+      require_once("Vues/Bienvenue.html");
       break;
 
     case 'LabelObjectif':
@@ -118,6 +138,8 @@ else {
     case 'GestionRemarque':
       if ($_SESSION['Admin'])
         require_once("Vues/Gestion_Remarque.html");
+      else
+        print($notAdminMsg);
       break;
 
     default:
@@ -127,5 +149,3 @@ else {
   }
   require_once("Vues/footer.html");
 }
-
- 
