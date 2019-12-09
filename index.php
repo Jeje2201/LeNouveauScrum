@@ -26,13 +26,13 @@ else {
 
   //Si la vue n'existe pas (donc dans l'url on a un ?vues="" alors on met l'acceuil par défaut)
   if (!isset($_REQUEST['vue'])) {
-    $_REQUEST['vue'] = 'Accueil';
+    $vue =  'Accueil';
   }
   
   //Sinon on a une vue et on va la checker
   else {
-
-    $vue = $_REQUEST['vue'];
+    $vue = $_REQUEST['vue']; 
+  }
 
     //Liste des pages visibles que par un admin
     $AdminOnly = array('Sprints', 'Planification', 'MotDePasseAdmin', 'Gestion_Employe', 'Gestion_Projet', 'Gestion_Logo', 'Gestion_Demo', 'Gestion_Remarque','Gestion_FicheDeTemps', 'Gestion_FicheDeTempsPlus');
@@ -61,7 +61,6 @@ else {
     else {
       require_once("Vues/" . $vue . ".html");
     }
-  }
 
   require_once("Vues/footer.html");
 }
