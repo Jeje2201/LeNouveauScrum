@@ -1,5 +1,5 @@
 // Quelques js esthétiques
-function ClassActive(NameUser) {
+function ClassActive(NameUser, Admin) {
 
   //Enlever actif a toutes les class
   $("#navbarResponsive li").each(function () {
@@ -11,7 +11,7 @@ function ClassActive(NameUser) {
   else
     var LaPage = window.location.href.split('=')[1]
 
-    if(!"<?php echo $_SESSION['Admin'] ?>"){
+    if(parseInt(Admin) != 1){
       $(".AdminOnly").each(function () {
         $(this).hide()
       });

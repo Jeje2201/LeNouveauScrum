@@ -37,7 +37,7 @@
 </html>
 <script src="Assets/Js/Custom.js"></script>
 <script>
-  ClassActive("<?php echo $_SESSION['PrenomUtilisateur'] ?> ")
+  ClassActive("<?php echo $_SESSION['PrenomUtilisateur'] ?> ","<?php echo $_SESSION['Admin'] ?> ")
 
   $(window).scroll(function () {
     if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
