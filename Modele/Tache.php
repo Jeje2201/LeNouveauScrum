@@ -27,7 +27,7 @@
           A.pivotal_id_Project,
           A.pivotal_Label_Story,
           P.nom AS projet,
-          L.base54 as logo,
+          L.base64 as logo,
           E.Initial,
           E.couleur,
           E.prenom AS E_Prenom,
