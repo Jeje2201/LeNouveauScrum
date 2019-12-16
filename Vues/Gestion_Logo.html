@@ -10,7 +10,7 @@
           </div>
 
           <div class="col-lg-2">
-              <button type="button" name="add" id="add" class="btn btn-block btn-info">Ajouter une image</button>
+              <button type="button" name="add" id="add" class="btn btn-block btn-info">Créer un logo</button>
           </div>
         </div>
 
@@ -25,7 +25,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"></h4>
+        <h4 class="modal-title">Changer le nom du logo</h4>
       </div>
       <div class="modal-body">
 
@@ -49,18 +49,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4>Ajouter une image</h4>
+        <h4>Créer un logo</h4>
       </div>
       <div class="modal-body">
-          <input type="file" name="image" id="image" class="mb-3"/>
+          <input type="file" name="image" id="image" class="mb-3 d-none"/>
+          <label for="image" class="customInputFile px-2 py-1"><i class="fa fa-upload" aria-hidden="true"></i> Choisir un logo</label>
           <input type="text" class="form-control mb-3"  id="imageName" placeholder="Nom du projet">
           <img src="" class="img-fluid mb-3" id="base64imgPreview">
-
-          <button name="insert" id="insert" value="Insert" class="btn btn-info">Ajouter</button>
-
           <p id="Base64Log" class="d-none"></p>
       </div>
       <div class="modal-footer">
+        <button name="insert" id="insert" value="Insert" class="btn btn-info">Ajouter</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -116,9 +115,6 @@
 
           $('#id').val(id);
           $('#Nom').val(data.Nom);
-
-          
-
         }
       });
     });
@@ -188,6 +184,12 @@ document.getElementById("image").addEventListener("change", function () {
     FR.readAsDataURL( this.files[0] );
   }
 });
+
+document.getElementById('image').addEventListener( 'change', function( e )
+	{
+    var LePath = e.target.value.split('\\')
+    $('#imageName').val(LePath[LePath.length-1])
+  })
 
   });
 </script>

@@ -4,6 +4,12 @@ html {
 }
 
 /*///////////////////*/
+.customInputFile{
+    font-weight: 700;
+    color: white;
+    background-color: #df474b;
+    cursor: pointer;
+  }
 
 .LaSignatureDeMail table,.LaSignatureDeMail th,.LaSignatureDeMail td {
     border-collapse: collapse;
