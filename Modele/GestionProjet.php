@@ -13,7 +13,7 @@
       FROM projet P
       INNER JOIN logo L on L.id = P.Id_Logo
       INNER JOIN typeprojet T on T.id = P.id_TypeProjet
-      ORDER BY P.nom asc");
+      ORDER BY P.Actif desc, P.nom asc");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
