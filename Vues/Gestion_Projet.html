@@ -92,7 +92,7 @@
     $('#action').click(function () {
 
       if (document.getElementById("Actif").checked == true) {
-        var Actif = 1;
+        var Actif = 2;
       } else {
         var Actif = 0;
       }
@@ -139,7 +139,7 @@
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 
-          if (data.Actif == 1)
+          if (data.Actif == 2)
             $('#Actif').prop('checked', true);
           else
             $('#Actif').prop('checked', false);
