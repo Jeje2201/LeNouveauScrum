@@ -96,23 +96,6 @@
         </div>
       </p>
 
-      
-      <div class="row">
-
-        <div class="col-lg-6">
-          <h4>Liste des projets actifs</h4>
-          <hr class="mb-2">
-          <small>La liste est mise à jour automatiquement avec les informations en base de données. Merci d'informer si des informations sont manquantes ou erronées.</small>
-          <div id="ListProjet"></div>
-        </div>
-        <div class="col-lg-6">
-          <h4>Liste des ressources actives</h4>
-          <hr class="mb-2">
-          <small>La liste est mise à jour automatiquement avec les informations en base de données. Merci d'informer si des informations sont manquantes ou erronées.</small>
-          <div id="ListRessourcesBienvenue"></div>
-        </div>
-      </div>
-
     </div>
   </div>
 </body>
@@ -134,9 +117,6 @@
       document.getElementById('Mail').href = 'mailto:'+email
 
     });
-
-    RequeteAjax('ListProjet', 'ListProjetBienvenue', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListRessourcesBienvenue', 'ListRessourcesBienvenue', 'Modele/RequetesAjax.php');
 
   })
 </script>
