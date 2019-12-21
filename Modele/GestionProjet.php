@@ -40,11 +40,11 @@
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
             if ($row["Actif"] == 2)
-              $output .= '<td class="bg-success centered"></td>';
+              $output .= '<td class="bg-success centered text-white">En cours</td>';
             else if ($row["Actif"] == 1)
-              $output .= '<td class="bg-warning centered"></td>';
+              $output .= '<td class="bg-warning centered text-white">CIR</td>';
             else
-              $output .= '<td class="bg-danger centered"></td>';
+              $output .= '<td class="bg-danger centered text-white">Terminé</td>';
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }

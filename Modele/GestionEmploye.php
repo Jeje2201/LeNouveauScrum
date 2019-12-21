@@ -47,7 +47,7 @@
       <th>ID Pivotal</th>
       <th>Couleur</th>
       <th class="centered">Actif</th>
-      <th class="centered">Mail</th>
+      <th class="centered">Fiche de temps</th>
       <th class="centered">Admin</th>
       <th><center>Éditer</center></th>
       </tr>
@@ -66,19 +66,19 @@
               <td style="background-color:' . $row["Couleur"] . '"></td>';
 
             if ($row["actif"])
-              $output .= '<td class="centered bg-success"></td>';
+              $output .= '<td class="centered text-white bg-success">Actif</td>';
             else
-              $output .= '<td class="centered bg-danger"></td>';
+              $output .= '<td class="centered text-white bg-danger">Absents</td>';
 
             if ($row["MailCir"])
-              $output .= '<td class="centered bg-success"></td>';
+              $output .= '<td class="centered text-white bg-success">Mail</td>';
             else
-            $output .= '<td class="centered bg-danger"></td>';
+            $output .= '<td class="centered text-white bg-danger">Rien</td>';
 
             if ($row["admin"])
-              $output .= '<td class="centered bg-success"></td>';
+              $output .= '<td class="centered text-white bg-success">Admin</td>';
             else
-              $output .= '<td class="centered bg-danger"></td>';
+              $output .= '<td class="centered text-white bg-danger">Lambda</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
