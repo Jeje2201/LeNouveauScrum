@@ -21,7 +21,7 @@
       INNER JOIN typeinterference T
         ON T.id = I.id_TypeInterference
       WHERE I.id_Sprint = $numero
-      ORDER BY I.id_Projet asc");
+      ORDER BY E.prenom, I.id_Projet asc");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
