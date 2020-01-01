@@ -8,7 +8,7 @@
     <div class="card-body">
 
       <div id="ListeEmploye"></div>
-      <input type="text" name="EmployeLogin" id="EmployeLogin" class="form-control" placeholder="Email NS" required="required">
+      <input type="email" name="EmployeLoginMail" id="EmployeLoginMail" class="form-control" placeholder="Email NS" required="required">
       <br>
       <div class="form-label-group">
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Mot de passe" minlength="5" required="required">
@@ -58,7 +58,7 @@
         dataType: "json",
         data: {
           inputPassword: $('#inputPassword').val(),
-          EmployeLogin: $('#EmployeLogin').val()
+          EmployeLogin: $('#EmployeLoginMail').val()
         },
         success: function (data) {
           if (data.Connexion) {
