@@ -77,7 +77,7 @@
 
     
     var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", ".git/FETCH_HEAD", false);
+  rawFile.open("GET", ".git/refs/heads/master", false);
   rawFile.onreadystatechange = function ()
   {
       if(rawFile.readyState === 4)
