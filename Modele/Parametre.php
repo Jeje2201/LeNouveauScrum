@@ -20,6 +20,22 @@
         echo trim($result["Couleur"]);
       }
 
+      if ($_POST["action"] == "GetAvatar") {
+
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT * FROM employe 
+         WHERE id = $idRessource
+         LIMIT 1"
+        );
+        $statement->execute();
+        $result = $statement->fetch();
+
+        $output["avatar"] = $result["avatar"];
+
+        echo json_encode($output);
+      }
+
       if ($_POST["action"] == "LoadTacheValide") {
         $output = array();
         $statement = $connection->prepare(
