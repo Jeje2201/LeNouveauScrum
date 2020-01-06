@@ -1,0 +1,84 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="centered">
+        <h2 class="centered mb-2" id="NomProjet"></h2>
+        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/Client/Default.png"
+          onclick="$('#ModaleClient').modal('show'); ">
+
+        <h4 class="centered mb-4" id="ClientEntreprise"></h4>
+        <h4 class="centered mb-3" id="DescriptionProjet"></h4>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<div id="ModaleClient" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content centered">
+      <div class="modal-body">
+        <p id="ClientEntrepriseModale">entreprise</p>
+        <img id="ClientLogoModale" src="https://scrummanager.natural-solutions.eu/Assets/Image/Client/Default.png">
+        <p id="ClientNomModale">nom</p>
+        <p id="ClientJobModale">job</p>
+        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/MailFooter/Mail.png">
+        <p id="ClientMailModale">mail</p>
+        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/MailFooter/call.png">
+        <p id="ClientTelephoneModale" class="pb-3">telephone</p>
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    var projectId = parseInt(location.href.split('projet=')[1])
+
+    //Get la description et le client du projet
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        id: projectId,
+        action: "DescriptionProjet"
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log(data)
+        $('#NomProjet').text(data.Nom);
+        $('#DescriptionProjet').text(data.Description);
+      }
+    });
+
+    //Get le client
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        id: projectId,
+        action: "DescriptionClient"
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log(data)
+        $('#ClientEntreprise').text(data.entreprise);
+        $('#ClientLogo').attr("src", 'https://scrummanager.natural-solutions.eu/Assets/Image/Client/' + data.logo + '.png');
+
+
+        $('#ClientEntrepriseModale').text(data.entreprise);
+        $('#ClientLogoModale').attr("src", 'https://scrummanager.natural-solutions.eu/Assets/Image/Client/' + data.logo + '.png');
+        $('#ClientNomModale').text(data.Nom);
+        $('#ClientJobModale').text(data.job);
+        $('#ClientMailModale').text(data.mail);
+        $('#ClientTelephoneModale').text(data.telephone);
+      }
+    });
+
+  })
+</script>
