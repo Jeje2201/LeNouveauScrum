@@ -89,6 +89,11 @@
       $('#Actif').prop("checked", true);
     });
 
+    //Quand click sur une ligne on get l'id du projet en question et on ouvre la page qui donne toutes les infos sur le projet en question
+    $(document).on('click', 'table tr', function (e) {
+      window.location.href = location.origin+location.pathname+'?vue=ProjectInformation&projet='+e.currentTarget.id.split('Project')[1];
+    })
+
     $('#action').click(function () {
 
       if (document.getElementById("Actif").checked == true) {
@@ -149,8 +154,6 @@
           $('#Nom').val(data.Nom);
           $('#TypeProjet').val(data.TypeProjet);
           $('#ToutesLesImages').val(data.Logo);
-
-          
 
         }
       });

@@ -34,7 +34,7 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr>
+        <tr id="Project' . $row["id"] . '">
         <td class="centered" ><img src="' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
