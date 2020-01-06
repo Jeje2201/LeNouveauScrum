@@ -35,7 +35,7 @@ else {
   }
 
     //Liste des pages visibles que par un admin
-    $AdminOnly = array('Sprints', 'Planification', 'MotDePasseAdmin', 'Gestion_Employe', 'Gestion_Projet', 'Gestion_Logo', 'Gestion_Demo', 'Gestion_Remarque','Gestion_FicheDeTemps', 'Gestion_FicheDeTempsPlus');
+    $AdminOnly = array('Sprints', 'Planification', 'MotDePasseAdmin', 'Gestion_Employe', 'Gestion_Projet', 'Gestion_Logo', 'Gestion_Demo', 'Gestion_Remarque','Gestion_FicheDeTemps', 'Gestion_FicheDeTempsPlus','ProjectInformation');
 
     //Si le chemin n'existe pas, l'indiquer à l'utilisateur
     if (!file_exists("Vues/" . $vue . ".html")) {
