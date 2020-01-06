@@ -56,6 +56,22 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <h5 class="card-header">Avatar</h5>
+            <div class="card-body">
+              <div class="row">
+              <img class="img-responsive" id="avatarUser" src="">
+              <form id="image_form" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" id="image" />
+                <input type="submit" name="ChangerAvatar" id="ChangerAvatar" value="Changer" class="btn btn-success" />
+              </form>
+                </div>
+            </div>
+              
+            </div>
+          </div>
+        </div>
       </div>
       <h2 class="d-inline-flex">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
       <hr>
@@ -132,6 +148,25 @@
         $('#ModalOublieMdp').modal('show');
       });
 
+      $('#image_form').submit(function (event) {
+      event.preventDefault();
+      if ($('#image').val() == '') {
+        $.notify(`Choisie une image d'abord`, `error`);
+      }else {
+        $.ajax({
+          url: "Modele/GestionEmploye.php",
+          method: "POST",
+          data: new FormData(this),
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            $('#image_form')[0].reset();
+            $.notify(data, "info");
+          }
+        });
+      }
+    });
+
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
@@ -161,6 +196,18 @@
         success: function (data) {
           $('#CouleurUser').val('#'+data.split('#')[1].split(' ')[0]);
           $('.BOUGEMOI').css("border-left",  '5px solid #'+data.split('#')[1].split(' ')[0]);
+        }
+      });
+
+      $.ajax({
+        url: "Modele/Parametre.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+          action: "GetAvatar"
+        },
+        success: function (data) {
+        $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/' + data.avatar);
         }
       });
 

@@ -220,6 +220,10 @@
           print('non');
         }
       }
+
+      if ($_POST["action"] == "LeTest") {
+        echo 'hello';
+      }
     }
 
     ?> 
