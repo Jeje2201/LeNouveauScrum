@@ -24,27 +24,27 @@
             <h5 class="card-header">Mot de passe</h5>
             <div class="card-body">
               <div class="row">
-              <div class="form-group col-lg-3">
-                <label>Ancien mot de passe</label>
-                <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
-                <a class="d-block small text-primary mt-3" id="target" style="cursor:pointer">
+                <div class="form-group col-lg-3">
+                  <label>Ancien mot de passe</label>
+                  <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+                  <a class="d-block small text-primary mt-3" id="target" style="cursor:pointer">
                     <u>Mot de passe oublié ?</u>
                   </a>
-              </div>
-              <div class="form-group col-lg-3">
-                <label>Nouveau mot de passe</label>
-                <input type="password" class="form-control" id="mdp" minlength="5" required="required">
-              </div>
-              <div class="form-group col-lg-3">
-                <label>Confirmer</label>
-                <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
-              </div>
-              <div class="form-group col-lg-3">
+                </div>
+                <div class="form-group col-lg-3">
+                  <label>Nouveau mot de passe</label>
+                  <input type="password" class="form-control" id="mdp" minlength="5" required="required">
+                </div>
+                <div class="form-group col-lg-3">
+                  <label>Confirmer</label>
+                  <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
+                </div>
+                <div class="form-group col-lg-3">
                   <label>Sauvegarder</label>
                   <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
                 </div>
-            </div>
-              
+              </div>
+
             </div>
           </div>
         </div>
@@ -61,84 +61,93 @@
             <h5 class="card-header">Avatar</h5>
             <div class="card-body">
               <div class="row">
-              <img class="img-responsive" id="avatarUser" src="">
-              <form id="image_form" method="post" enctype="multipart/form-data">
-                <input type="file" name="image" id="image" />
-                <input type="submit" name="ChangerAvatar" id="ChangerAvatar" value="Changer" class="btn btn-success" />
-              </form>
-                </div>
-            </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2 class="d-inline-flex">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
-      <hr>
-      <p></p>
-      <div id="ListEmpAdmin">
-        <div class="form-group">
-          <div id="ListEmploye"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Fiches de temps / Sprint</h5>
-            <div class="card-body">
-              <div id="ListSrint"></div>
-              <div id="TotRempliSprint"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Fiches de temps / Date</h5>
-            <div class="card-body">
-              <div class="form-row">
-                <div class="col">
-              <input type="text" class="form-control" id="Start">
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" id="End">
-                </div>
+                <img style="width: 144px;height: 100%;" id="avatarUser" src="">
               </div>
-              <div id="TotRempliDate"></div>
+              <div class="row">
+                <form id="image_form" method="post" enctype="multipart/form-data">
+                  <input type="file" name="image" id="image" accept="image/*" class="mb-3 d-none" />
+                  <label for="image" class="customInputFile px-2 py-1"><i class="fa fa-upload" aria-hidden="true"></i>
+                    Choisir un logo</label>
+                  <input type="hidden" name="action" id="action" value="ChangerAvatar" />
+                  <input type="submit" name="ChangerAvatar" id="ChangerAvatar" value="Changer"
+                    class="btn btn-success" />
+                </form>
+              </div>
             </div>
+
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Fiches de temps / Total</h5>
-            <div class="card-body">
-              <div id="FicheValide"></div>
+      </div>
+    </div>
+    <h2 class="d-inline-flex">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars
+      2019)</label>
+    <hr>
+    <p></p>
+    <div id="ListEmpAdmin">
+      <div class="form-group">
+        <div id="ListEmploye"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <h5 class="card-header">Fiches de temps / Sprint</h5>
+          <div class="card-body">
+            <div id="ListSrint"></div>
+            <div id="TotRempliSprint"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <h5 class="card-header">Fiches de temps / Date</h5>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" class="form-control" id="Start">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="End">
+              </div>
             </div>
+            <div id="TotRempliDate"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <h5 class="card-header">Fiches de temps / Total</h5>
+          <div class="card-body">
+            <div id="FicheValide"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
   <div id="ModalOublieMdp" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Ta mémoire te fait faillite ?</h4>
-          </div>
-          <div class="modal-body">
-            <p>
-              N'ai crainte, oublier son mot de passe sur ScumManager n'est pas si grave, et pour cause, un scrum master a des pouvoirs magiques si puissants qu'il est capable de réinitialiser ton mot de passe à ses désirs. Seul lui a ce pouvoir car cette magie est si puissante qu'entre de mauvaises mains ce pourrait être la fin..
-            </p>
-            
-            <img src="https://i.imgflip.com/35rso0.jpg" width="100%"></img>
-          </div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Ta mémoire te fait faillite ?</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            N'ai crainte, oublier son mot de passe sur ScumManager n'est pas si grave, et pour cause, un scrum master a
+            des pouvoirs magiques si puissants qu'il est capable de réinitialiser ton mot de passe à ses désirs. Seul
+            lui a ce pouvoir car cette magie est si puissante qu'entre de mauvaises mains ce pourrait être la fin..
+          </p>
+
+          <img src="https://i.imgflip.com/35rso0.jpg" width="100%"></img>
         </div>
       </div>
     </div>
+  </div>
 
   <script>
     $(document).ready(function () {
 
-      $('#Start, #End').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+      $('#Start, #End').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1 });
       $('#Start').val(ChoixDate(-1));
       $('#End').val(ChoixDate(0));
 
@@ -149,23 +158,23 @@
       });
 
       $('#image_form').submit(function (event) {
-      event.preventDefault();
-      if ($('#image').val() == '') {
-        $.notify(`Choisie une image d'abord`, `error`);
-      }else {
-        $.ajax({
-          url: "Modele/GestionEmploye.php",
-          method: "POST",
-          data: new FormData(this),
-          contentType: false,
-          processData: false,
-          success: function (data) {
-            $('#image_form')[0].reset();
-            $.notify(data, "info");
-          }
-        });
-      }
-    });
+        event.preventDefault();
+        if ($('#image').val() == '') {
+          $.notify(`Choisie une image d'abord`, `error`);
+        } else {
+          $.ajax({
+            url: "Modele/GestionEmploye.php",
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              $('#image_form')[0].reset();
+              $.notify(data, "info");
+            }
+          });
+        }
+      });
 
       //List de sprints généré pour pouvoir regarder les fiches de temps sur un sprint
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
@@ -194,8 +203,8 @@
           action: "GetColor"
         },
         success: function (data) {
-          $('#CouleurUser').val('#'+data.split('#')[1].split(' ')[0]);
-          $('.BOUGEMOI').css("border-left",  '5px solid #'+data.split('#')[1].split(' ')[0]);
+          $('#CouleurUser').val('#' + data.split('#')[1].split(' ')[0]);
+          $('.BOUGEMOI').css("border-left", '5px solid #' + data.split('#')[1].split(' ')[0]);
         }
       });
 
@@ -207,13 +216,13 @@
           action: "GetAvatar"
         },
         success: function (data) {
-        $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/' + data.avatar);
+          $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/' + data.avatar);
         }
       });
 
       //Quand change sprint, charge list fiches de temps / sprint
       $('#ListSrint').change(function () {
-          ListTotalSurSprint()
+        ListTotalSurSprint()
       });
 
       //Quand change mois / années, charge list fiches de temps / Mois
@@ -263,7 +272,7 @@
           }
         });
       }
-      
+
       //Quand change la couleur pour les taches
       $('#CouleurUser').change(function () {
 
