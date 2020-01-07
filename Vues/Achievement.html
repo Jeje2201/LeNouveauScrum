@@ -6,10 +6,8 @@
         <strong>En cours de développement!</strong>
         Voici un avant gout.. (づ￣ 3￣)づ
       </div>
-      <label>Condition:
-      </label>
-      <input class="form-control" id="Condition" disabled="disabled" value="Survoler un trophé pour obtenir sa condition">
-      <p>&nbsp;</p>
+      <label>Condition:&nbsp;</label><b><span id="Condition" class="mb-3"></span></b>
+      
       <div class="row centered">
 
         <div class="col">
@@ -43,8 +41,8 @@
         </div>
 
         <div class="col">
-          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="?">
-          <p>?</p>
+          <img id="Ancien" class="TrophePasEncore" src="Assets/Image/achievement.png" text="Changer sa photo de profil">
+          <p>Ce n'était donc pas un métamorphe !</p>
         </div>
 
         <div class="col">
@@ -62,28 +60,6 @@
           <p>?</p>
         </div>
 
-      </div>
-      <hr>
-      <p></p>
-      <h3 class="centered">Leaderboard (Top 5)</h3>
-      
-      <div class="row centered">
-
-        <div class="col">
-          <div id="table1"></div>
-        </div>
-        <div class="col">
-          <div id="table2"></div>
-        </div>
-        <div class="col">
-          <div id="table3"></div>
-        </div>
-        <div class="col">
-          <div id="table4"></div>
-        </div>
-        <div class="col">
-          <div id="table5"></div>
-        </div>
       </div>
     </div>
   </div>
@@ -94,7 +70,7 @@
 
     //Si hover une image, afficher la condition
     $('img').mouseenter(function () {
-      $('#Condition').val($(this).attr('text'))
+      $('#Condition').text($(this).attr('text'))
     })
 
     //phase de test
@@ -127,70 +103,6 @@
         //Objectif +100 taches validees
         if (data[4] == "1") 
           $('#TacheValides').removeClass('TrophePasEncore')
-      }
-    });
-
-    /////////////////////////////////////////////////////////
-
-    //Jours de congés
-    $.ajax({
-      url: "Modele/Achievement.php",
-      method: "POST",
-      data: {
-        action: 'LeaderboardConge'
-      },
-      success: function (data) {
-        console.log('Info: ', data)
-        $('#table1').html(data);
-        // $('#table2').html(data);
-      }
-    });
-
-    //Jours de congés
-    $.ajax({
-      url: "Modele/Achievement.php",
-      method: "POST",
-      data: {
-        action: 'LeaderboardObjectif'
-      },
-      success: function (data) {
-        $('#table2').html(data);
-      }
-    });
-
-    //Tot par projets
-    $.ajax({
-      url: "Modele/Achievement.php",
-      method: "POST",
-      data: {
-        action: 'LeaderboardTotProjet'
-      },
-      success: function (data) {
-        $('#table3').html(data);
-      }
-    });
-
-    //Tot taches validess
-    $.ajax({
-      url: "Modele/Achievement.php",
-      method: "POST",
-      data: {
-        action: 'LeaderboardTacheValide'
-      },
-      success: function (data) {
-        $('#table4').html(data);
-      }
-    });
-    
-    //tot interference sur un sprint
-    $.ajax({
-      url: "Modele/Achievement.php",
-      method: "POST",
-      data: {
-        action: 'LeaderboardInterference'
-      },
-      success: function (data) {
-        $('#table5').html(data);
       }
     });
 
