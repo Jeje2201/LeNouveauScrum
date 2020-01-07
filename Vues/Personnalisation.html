@@ -216,8 +216,15 @@
           action: "GetAvatar"
         },
         success: function (data) {
+          avatar = data.avatar
+          console.log('le avatar: ' + avatar)
+          if(avatar == '' || avatar == undefined){
+            $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/default.png');
+          }
+          else{
           $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/' + data.avatar);
         }
+      }
       });
 
       //Quand change sprint, charge list fiches de temps / sprint
