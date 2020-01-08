@@ -2,13 +2,25 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="centered">
+      <div class="centered border border-warning">
         <h2 class="centered mb-2" id="NomProjet"></h2>
-        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/Client/Default.png"
-          onclick="$('#ModaleClient').modal('show'); ">
-
+        <img src="Assets/Image/Client/Default.png"onclick="$('#ModaleClient').modal('show'); ">
         <h4 class="centered mb-4" id="ClientEntreprise"></h4>
         <h4 class="centered mb-3" id="DescriptionProjet"></h4>
+      </div>
+
+      <div class="border border-dark">
+        <p><small>Ressoures mobilisées</small></p>
+        <div id="RessourcesMobilisees" class="row">
+          <div id="addUserToProject" class="col"><img height="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
+        </div>
+      </div>
+
+      <div class="border border-dark">
+        <p><small>Technologies mobilisées</small></p>
+        <div id="TechnologiesProjet" class="row">
+          <div id="addTechToProject" class="col"><img height="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
+        </div>
       </div>
 
     </div>
@@ -20,12 +32,12 @@
     <div class="modal-content centered">
       <div class="modal-body">
         <p id="ClientEntrepriseModale">entreprise</p>
-        <img id="ClientLogoModale" src="https://scrummanager.natural-solutions.eu/Assets/Image/Client/Default.png">
+        <img id="ClientLogoModale" src="Assets/Image/Client/Default.png">
         <p id="ClientNomModale">nom</p>
         <p id="ClientJobModale">job</p>
-        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/MailFooter/Mail.png">
+        <img src="Assets/Image/MailFooter/Mail.png">
         <p id="ClientMailModale">mail</p>
-        <img src="https://scrummanager.natural-solutions.eu/Assets/Image/MailFooter/call.png">
+        <img src="Assets/Image/MailFooter/call.png">
         <p id="ClientTelephoneModale" class="pb-3">telephone</p>
         <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
@@ -40,45 +52,153 @@
 
     var projectId = parseInt(location.href.split('projet=')[1])
 
+    GetClient()
+    GetTechno()
+
     //Get la description et le client du projet
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
       data: {
-        id: projectId,
+        projectId: projectId,
         action: "DescriptionProjet"
       },
       dataType: "json",
       success: function (data) {
-        console.log(data)
         $('#NomProjet').text(data.Nom);
         $('#DescriptionProjet').text(data.Description);
       }
     });
 
-    //Get le client
+    function GetClient(){
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
       data: {
-        id: projectId,
+        projectId: projectId,
         action: "DescriptionClient"
       },
       dataType: "json",
       success: function (data) {
-        console.log(data)
         $('#ClientEntreprise').text(data.entreprise);
-        $('#ClientLogo').attr("src", 'https://scrummanager.natural-solutions.eu/Assets/Image/Client/' + data.logo + '.png');
+        $('#ClientLogo').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
 
 
         $('#ClientEntrepriseModale').text(data.entreprise);
-        $('#ClientLogoModale').attr("src", 'https://scrummanager.natural-solutions.eu/Assets/Image/Client/' + data.logo + '.png');
+        $('#ClientLogoModale').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
         $('#ClientNomModale').text(data.Nom);
         $('#ClientJobModale').text(data.job);
         $('#ClientMailModale').text(data.mail);
         $('#ClientTelephoneModale').text(data.telephone);
       }
     });
+  }
 
+    //Get les ressources mobilisées
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        projectId: projectId,
+        action: "RessourcesProjet"
+      },
+      dataType: "json",
+      success: function (data) {
+
+        console.log(data)
+
+        $.each(data, function () {
+
+          var divRessource = $(`<div class="col"></div>`);
+
+          if(this.Avatar == '' || this.Avatar == undefined || this.Avatar == null){ 
+            var avatarRessource = $(`<img class="mb-3" height="75px" src="` + `Assets/Image/Ressources/default.png">`);
+          }
+          else{
+            var avatarRessource = $(`<img class="img-responsive" height="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
+          }
+          divRessource.append(avatarRessource)
+
+          divRessource.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
+          divRessource.append($(`<p>`+this.Job+`</p>`))
+          
+          $('#RessourcesMobilisees').prepend(divRessource)
+        
+        })
+
+      }
+    });
+
+    //Get les technologies mobilisées
+    function GetTechno() {
+
+            $('#TechnologiesProjet').html('')
+
+
+      $.ajax({
+        url: "Modele/ProjectInformation.php",
+        method: "POST",
+        data: {
+          projectId: projectId,
+          action: "GetTechno"
+        },
+        dataType: "json",
+        success: function (data) {
+
+          console.log(data)
+
+          $.each(data, function () {
+            var divTechnologie = $(`<div class="col"></div>`);
+
+            // if(this.Technologie == '' || this.Avatar == undefined || this.Avatar == null){ 
+            //   var avatarRessource = $(`<img class="mb-3" height="75px" src="` + `Assets/Image/Ressources/default.png">`);
+            // }
+            // else{
+            //   var avatarRessource = $(`<img class="img-responsive" height="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
+            // }
+            // divTechnologie.append(avatarRessource)
+
+            // divTechnologie.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
+            divTechnologie.append($(`<p>`+this+`</p>`))
+            
+            $('#TechnologiesProjet').prepend(divTechnologie)
+          
+          })
+
+        }
+      });
+    }
+
+    $('#addUserToProject').click(function () {
+      alert('fonction ici qui ajouter un user')
+      GetClient()
+    })
+
+    //Ajouter une techno au projet
+    $('#addTechToProject').click(function () {
+      var NouvelleTechno = prompt("Nom de la technologie");
+
+      if (NouvelleTechno != '') {
+        $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            projectId: projectId,
+            NouvelleTechno: NouvelleTechno,
+            action: "AddTechno"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetTechno();
+          }
+        });
+      }
+      else {
+        $.notify("Tous les champs doivent être plein.", "error");
+      }
+    })
+  
+    
+  
   })
 </script>

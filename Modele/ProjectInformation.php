@@ -7,7 +7,7 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM projet 
-         WHERE id = '" . $_POST["id"] . "' 
+         WHERE id = '" . $_POST["projectId"] . "' 
          LIMIT 1"
         );
         $statement->execute();
@@ -24,7 +24,7 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM clientprojet 
-         WHERE id = (select id_client from projet where projet.id = '" . $_POST["id"] . "') 
+         WHERE id = (select id_client from projet where projet.id = '" . $_POST["projectId"] . "') 
          LIMIT 1"
         );
         $statement->execute();
@@ -37,6 +37,68 @@
         $output["telephone"] = $result["telephone"];
 
         echo json_encode($output);
+      }
+
+      if ($_POST["action"] == "RessourcesProjet") {
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT E.prenom, E.avatar, T.nom as job FROM employe E
+           INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
+           WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")"
+        );
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        $resultat = [];
+
+        foreach ($result as $row) {
+
+          $MonTest = [];
+
+          $MonTest['Prenom'] = $row['prenom'];
+          $MonTest['Avatar'] = $row['avatar'];
+          $MonTest['Job'] = $row['job'];
+
+          $resultat[] = $MonTest;
+        }
+
+        print json_encode($resultat);
+      }
+
+      if ($_POST["action"] == "GetTechno") {
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT T.technologie FROM technologieprojet T
+           WHERE T.id_projet = " . $_POST["projectId"]
+        );
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        $resultat = [];
+
+        foreach ($result as $row) {
+
+          $resultat[] = $row['technologie'];
+        }
+
+        print json_encode($resultat);
+      }
+
+      if ($_POST["action"] == "AddTechno") {
+          $statement = $connection->prepare("
+          INSERT INTO technologieprojet (technologie, id_projet) 
+          VALUES (:technologie, :id_projet)
+          ");
+          $result = $statement->execute(
+            array(
+              ':technologie' => $_POST["NouvelleTechno"],
+              ':id_projet' => $_POST["projectId"]
+            )
+          );
+          if (!empty($result))
+            echo 'Tehcno "'.$_POST["NouvelleTechno"].'" ajoutée';
+          else
+            print_r($statement->errorInfo());
       }
     }
 
