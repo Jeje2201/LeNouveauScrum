@@ -219,10 +219,10 @@
           avatar = data.avatar
           console.log('le avatar: ' + avatar)
           if(avatar == '' || avatar == undefined){
-            $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/default.png');
+            $('#avatarUser').attr("src", 'Assets/Image/Ressources/default.png');
           }
           else{
-          $('#avatarUser').attr("src", location.origin + '/Assets/Image/Ressources/' + data.avatar);
+          $('#avatarUser').attr("src", 'Assets/Image/Ressources/' + data.avatar);
         }
       }
       });
