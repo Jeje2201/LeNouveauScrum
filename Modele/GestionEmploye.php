@@ -10,6 +10,7 @@
       return random_color_part() . random_color_part() . random_color_part();
     }
 
+    session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
@@ -221,8 +222,58 @@
         }
       }
 
-      if ($_POST["action"] == "LeTest") {
-        echo 'hello';
+      if ($_POST["action"] == "ChangerAvatar") {
+
+        $target_file = basename($_FILES["image"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $target_file = 'avatar_user_'. $_SESSION['IdUtilisateur'] . '.'.$imageFileType;
+        $pathDeLimage= "../Assets/Image/Ressources/" . $target_file;
+
+        if (file_exists($target_file)) {
+          echo "Ce nom d'image existe déjà. Changez le nom et recommencez.";
+        }
+
+        else if ($_FILES["image"]["size"] > 2000000) {
+          echo "Tu veux pas envoyer un fichier de la taille d'un film aussi ? Trouve plus petit (max = 2mo)";
+        }
+
+        else if (move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage)) {
+
+          $statement = $connection->prepare(
+            $sql = "SELECT E.avatar AS avatar
+            FROM employe E
+            WHERE E.id = " . $_SESSION['IdUtilisateur']
+          );
+  
+          $statement->execute();
+          $result = $statement->fetch();
+
+          if(file_exists("../Assets/Image/Ressources/".$result[0])){
+          if (unlink("../Assets/Image/Ressources/".$result[0])) {
+              echo "Suppression du précédent avatar '".$result[0]."' réussi\n";
+          } else {
+            echo "Impossible de supprimer l'image précédente ".$result[0]."\n";
+          }
+        }else {
+          echo "Impossible de supprimer l'image précédente ".$result[0]."\n";
+        }
+
+          $statement = $connection->prepare(
+            $sql = "UPDATE employe E
+            set E.avatar = '". $target_file ."'
+            WHERE E.id = " . $_SESSION['IdUtilisateur']
+          );
+  
+          $statement->execute();
+
+          move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage);
+
+          echo "Votre avatar a évolué en '".$target_file . "' ! Félicitation !";
+
+        }
+        else{
+          echo "Une erreur est survenu mais non reconnue.. L'image dépasse peut être 2mo ?";
+        }
       }
     }
 
