@@ -2,24 +2,24 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="centered border border-warning">
+      <div class="centered border border-warning" onclick="$('#ModaleClient').modal('show'); ">
         <h2 class="centered mb-2" id="NomProjet"></h2>
-        <img src="Assets/Image/Client/Default.png"onclick="$('#ModaleClient').modal('show'); ">
+        <!-- <img id="ClientLogo" src="" height="75px" width="75px"> -->
         <h4 class="centered mb-4" id="ClientEntreprise"></h4>
         <h4 class="centered mb-3" id="DescriptionProjet"></h4>
       </div>
 
       <div class="border border-dark">
         <p><small>Ressoures mobilisées</small></p>
-        <div id="RessourcesMobilisees" class="row">
-          <div id="addUserToProject" class="col"><img height="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
-        </div>
+        <div id="RessourcesMobilisees" class="col row"></div>
+        <div id="addUserToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
       </div>
 
       <div class="border border-dark">
         <p><small>Technologies mobilisées</small></p>
-        <div id="TechnologiesProjet" class="row">
-          <div id="addTechToProject" class="col"><img height="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
+        <div class="row">
+          <div id="TechnologiesProjet" class="col row"></div>
+          <div id="addTechToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
     <div class="modal-content centered">
       <div class="modal-body">
         <p id="ClientEntrepriseModale">entreprise</p>
-        <img id="ClientLogoModale" src="Assets/Image/Client/Default.png">
+        <!-- <img id="ClientLogoModale" height="75px" width="75px" src=""> -->
         <p id="ClientNomModale">nom</p>
         <p id="ClientJobModale">job</p>
         <img src="Assets/Image/MailFooter/Mail.png">
@@ -54,6 +54,7 @@
 
     GetClient()
     GetTechno()
+    GetRessources()
 
     //Get la description et le client du projet
     $.ajax({
@@ -80,12 +81,17 @@
       },
       dataType: "json",
       success: function (data) {
+
+        if(data.logo == '' || data.logo == undefined || data.logo == null){ 
+            data.logo = 'default'
+        }
+
         $('#ClientEntreprise').text(data.entreprise);
-        $('#ClientLogo').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
+        // $('#ClientLogo').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
 
 
         $('#ClientEntrepriseModale').text(data.entreprise);
-        $('#ClientLogoModale').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
+        // $('#ClientLogoModale').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
         $('#ClientNomModale').text(data.Nom);
         $('#ClientJobModale').text(data.job);
         $('#ClientMailModale').text(data.mail);
@@ -94,7 +100,10 @@
     });
   }
 
-    //Get les ressources mobilisées
+    function GetRessources() {
+
+    $('#RessourcesMobilisees').html('')
+
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
@@ -105,19 +114,15 @@
       dataType: "json",
       success: function (data) {
 
-        console.log(data)
-
         $.each(data, function () {
 
           var divRessource = $(`<div class="col"></div>`);
 
           if(this.Avatar == '' || this.Avatar == undefined || this.Avatar == null){ 
-            var avatarRessource = $(`<img class="mb-3" height="75px" src="` + `Assets/Image/Ressources/default.png">`);
+            this.Avatar = 'default'
           }
-          else{
-            var avatarRessource = $(`<img class="img-responsive" height="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
-          }
-          divRessource.append(avatarRessource)
+
+          divRessource.append($(`<img class="img-responsive" height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`));
 
           divRessource.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
           divRessource.append($(`<p>`+this.Job+`</p>`))
@@ -125,15 +130,12 @@
           $('#RessourcesMobilisees').prepend(divRessource)
         
         })
-
       }
-    });
+    })
+  }
 
-    //Get les technologies mobilisées
     function GetTechno() {
-
-            $('#TechnologiesProjet').html('')
-
+      $('#TechnologiesProjet').html('')
 
       $.ajax({
         url: "Modele/ProjectInformation.php",
@@ -145,23 +147,21 @@
         dataType: "json",
         success: function (data) {
 
-          console.log(data)
-
           $.each(data, function () {
             var divTechnologie = $(`<div class="col"></div>`);
 
             // if(this.Technologie == '' || this.Avatar == undefined || this.Avatar == null){ 
-            //   var avatarRessource = $(`<img class="mb-3" height="75px" src="` + `Assets/Image/Ressources/default.png">`);
+            //   var avatarRessource = $(`<img class="mb-3" height="75px" width="75px" src="` + `Assets/Image/Ressources/default.png">`);
             // }
             // else{
-            //   var avatarRessource = $(`<img class="img-responsive" height="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
+            //   var avatarRessource = $(`<img class="img-responsive" height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
             // }
             // divTechnologie.append(avatarRessource)
 
             // divTechnologie.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
             divTechnologie.append($(`<p>`+this+`</p>`))
-            
-            $('#TechnologiesProjet').prepend(divTechnologie)
+
+            $('#TechnologiesProjet').append(divTechnologie)
           
           })
 
@@ -170,15 +170,34 @@
     }
 
     $('#addUserToProject').click(function () {
-      alert('fonction ici qui ajouter un user')
-      GetClient()
+      var UserId = prompt("Id du user (methode temporaire)");
+
+      if (Number.isInteger(parseInt(UserId))) {
+
+        $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            projectId: projectId,
+            UserId: UserId,
+            action: "AddRessource"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetRessources()
+          }
+        });
+      }
+      else {
+        $.notify("Il faut un nombre.", "error");
+      }
+      
     })
 
-    //Ajouter une techno au projet
     $('#addTechToProject').click(function () {
       var NouvelleTechno = prompt("Nom de la technologie");
 
-      if (NouvelleTechno != '') {
+      if (NouvelleTechno != undefined && NouvelleTechno != '' && NouvelleTechno != null) {
         $.ajax({
           url: "Modele/ProjectInformation.php",
           method: "POST",
@@ -194,11 +213,9 @@
         });
       }
       else {
-        $.notify("Tous les champs doivent être plein.", "error");
+        $.notify("Il faut du texte pour la techno.", "error");
       }
     })
-  
-    
   
   })
 </script>

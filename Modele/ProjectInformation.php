@@ -64,6 +64,23 @@
 
         print json_encode($resultat);
       }
+      
+      if ($_POST["action"] == "AddRessource") {
+        $statement = $connection->prepare("
+        INSERT INTO ressourceprojet (id_projet, id_ressource) 
+        VALUES (:id_projet, :id_ressource)
+        ");
+        $result = $statement->execute(
+          array(
+            ':id_projet' => $_POST["projectId"],
+            ':id_ressource' => $_POST["UserId"]
+          )
+        );
+        if (!empty($result))
+          echo 'User "'.$_POST["UserId"].'" ajoutée';
+        else
+          print_r($statement->errorInfo());
+    }
 
       if ($_POST["action"] == "GetTechno") {
         $output = array();
