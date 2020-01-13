@@ -42,7 +42,7 @@
       if ($_POST["action"] == "GetRessource") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT E.prenom, E.avatar, T.nom as job FROM employe E
+          "SELECT E.prenom, E.avatar, E.id as ressourceID, T.nom as job FROM employe E
            INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
            WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")"
         );
@@ -55,6 +55,7 @@
 
           $MonTest = [];
 
+          $MonTest['RessourceId'] = 'ressource_'.$row['ressourceID'];
           $MonTest['Prenom'] = $row['prenom'];
           $MonTest['Avatar'] = $row['avatar'];
           $MonTest['Job'] = $row['job'];
@@ -97,16 +98,16 @@
       );
 
       if ($statement->rowCount() > 0){
-        echo 'Ressource "'.$_POST["idRessource"].'" supprimée';
+        echo 'Ressource "'.$_POST["RessourceNom"].'" supprimée';
       }
       else
-        echo 'Impossible de supprimer "'.$_POST["idRessource"];
+        echo 'Impossible de supprimer "'.$_POST["RessourceNom"].'"';
   }
 
       if ($_POST["action"] == "GetTechno") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT T.technologie FROM technologieprojet T
+          "SELECT T.technologie, T.id as technologieId FROM technologieprojet T
            WHERE T.id_projet = " . $_POST["projectId"]
         );
         $statement->execute();
@@ -116,7 +117,12 @@
 
         foreach ($result as $row) {
 
-          $resultat[] = $row['technologie'];
+          $MonTest = [];
+
+          $MonTest['technologieId'] = 'technologie_'.$row['technologieId'];
+          $MonTest['technologie'] = $row['technologie'];
+
+          $resultat[] = $MonTest;
         }
 
         print json_encode($resultat);
@@ -143,19 +149,45 @@
 
         $statement = $connection->prepare(
           "DELETE FROM technologieprojet
-          WHERE technologie like :technologie
+          WHERE id = :id_technologie
           AND id_projet = :id_projet"
         );
         $result = $statement->execute(
           array(
-            ':technologie' => $_POST["NouvelleTechno"],
+            ':id_technologie' => $_POST["idTechno"],
             ':id_projet' => $_POST["projectId"]
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Techno "'.$_POST["NouvelleTechno"].'" supprimée';
+          echo 'Techno "'.$_POST["NomTechno"].'" supprimée';
         else
-        echo 'Techno "'.$_POST["NouvelleTechno"].'" non trouvée';
+          echo 'Techno "'.$_POST["NomTechno"].'" non trouvée';
+    }
+
+    if ($_POST["action"] == "GetEchange") {
+      $output = array();
+      $statement = $connection->prepare(
+        "SELECT E.prenom, E.avatar, T.nom as job FROM employe E
+         INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
+         WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")"
+      );
+      $statement->execute();
+      $result = $statement->fetchAll();
+
+      $resultat = [];
+
+      foreach ($result as $row) {
+
+        $MonTest = [];
+
+        $MonTest['Prenom'] = $row['prenom'];
+        $MonTest['Avatar'] = $row['avatar'];
+        $MonTest['Job'] = $row['job'];
+
+        $resultat[] = $MonTest;
+      }
+
+      print json_encode($resultat);
     }
     }
 

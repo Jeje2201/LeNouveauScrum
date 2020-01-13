@@ -12,17 +12,20 @@
       <div class="border border-dark">
         <p><small>Ressoures mobilisées</small></p>
         <div id="RessourcesMobilisees" class="col row"></div>
-        <div id="addUserToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
-        <div id="SuppRessourceProjet" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Supprimer -</p></div>
+        <div id="AddRessourceToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
       </div>
 
       <div class="border border-dark">
         <p><small>Technologies mobilisées</small></p>
         <div class="row">
           <div id="TechnologiesProjet" class="col row"></div>
-          <div id="addTechToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
-          <div id="SuppTechnoProjet" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Supprimer -</p></div>
+          <div id="addTechToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Autre/Logo_Code.png"><p>Ajouter +</p></div>
         </div>
+      </div>
+
+      <div class="border border-dark">
+        <p><small>Module échange</small></p>
+        <div id="EchangesProjet" class="row"></div>
       </div>
 
     </div>
@@ -53,12 +56,13 @@
   $(document).ready(function () {
 
     var projectId = parseInt(location.href.split('projet=')[1])
-
+    
+    GetDescription()
     GetClient()
     GetTechno()
     GetRessources()
 
-    //Get la description et le client du projet
+    function GetDescription(){
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
@@ -72,6 +76,7 @@
         $('#DescriptionProjet').text(data.Description);
       }
     });
+    }
 
     function GetClient(){
     $.ajax({
@@ -118,7 +123,7 @@
 
         $.each(data, function () {
 
-          var divRessource = $(`<div class="col"></div>`);
+          var divRessource = $(`<div class="col centered" id="`+this.RessourceId+`"></div>`);
 
           if(this.Avatar == '' || this.Avatar == undefined || this.Avatar == null){ 
             this.Avatar = 'default'
@@ -128,6 +133,9 @@
 
           divRessource.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
           divRessource.append($(`<p>`+this.Job+`</p>`))
+          divRessource.bind( "click", function() {
+            SuppRessource($(this))
+          });
           
           $('#RessourcesMobilisees').prepend(divRessource)
         
@@ -136,42 +144,10 @@
     })
   }
 
-    function GetTechno() {
-      $('#TechnologiesProjet').html('')
-
-      $.ajax({
-        url: "Modele/ProjectInformation.php",
-        method: "POST",
-        data: {
-          projectId: projectId,
-          action: "GetTechno"
-        },
-        dataType: "json",
-        success: function (data) {
-
-          $.each(data, function () {
-            var divTechnologie = $(`<div class="col"></div>`);
-
-            // if(this.Technologie == '' || this.Avatar == undefined || this.Avatar == null){ 
-            //   var avatarRessource = $(`<img class="mb-3" height="75px" width="75px" src="` + `Assets/Image/Ressources/default.png">`);
-            // }
-            // else{
-            //   var avatarRessource = $(`<img class="img-responsive" height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
-            // }
-            // divTechnologie.append(avatarRessource)
-
-            // divTechnologie.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
-            divTechnologie.append($(`<p>`+this+`</p>`))
-
-            $('#TechnologiesProjet').append(divTechnologie)
-          
-          })
-
-        }
-      });
-    }
-
-    $('#addUserToProject').click(function () {
+    $('#AddRessourceToProject').bind( "click", function() {
+      AddRessource()
+    });
+    function AddRessource() {
       var UserId = prompt("Id du user (methode temporaire)");
 
       if (Number.isInteger(parseInt(UserId))) {
@@ -194,34 +170,76 @@
         $.notify("Il faut un nombre.", "error");
       }
       
-    })
+    }
 
-    $('#SuppRessourceProjet').click(function () {
-      var idRessource = parseInt(prompt("ID de la ressource"));
+    function SuppRessource(infos) {
 
-      console.log(idRessource);
+      var idRessource = infos[0].id.split('_')[1]
+      var RessourceNom = infos[0].children[1].textContent
 
-      if (Number.isInteger(idRessource)) {
-        $.ajax({
-          url: "Modele/ProjectInformation.php",
-          method: "POST",
-          data: {
-            projectId: projectId,
-            idRessource: idRessource,
-            action: "DellRessourceProjet"
-          },
-          success: function (data) {
-            $.notify(data, "info");
-            GetRessources();
-          }
-        });
-      }
-      else {
-        $.notify("Il faut un int pour la techno.", "error");
-      }
-    })
+      if (confirm("Es-tu sûr de vouloir supprimer "+RessourceNom+" ?"))
 
-    $('#addTechToProject').click(function () {
+          $.ajax({
+            url: "Modele/ProjectInformation.php",
+            method: "POST",
+            data: {
+              projectId: projectId,
+              idRessource: idRessource,
+              RessourceNom: RessourceNom,
+              action: "DellRessourceProjet"
+            },
+            success: function (data) {
+              $.notify(data, "info");
+              GetRessources();
+            }
+          });
+      
+    }
+
+    function GetTechno() {
+      $('#TechnologiesProjet').html('')
+
+      $.ajax({
+        url: "Modele/ProjectInformation.php",
+        method: "POST",
+        data: {
+          projectId: projectId,
+          action: "GetTechno"
+        },
+        dataType: "json",
+        success: function (data) {
+
+          $.each(data, function () {
+            var divTechnologie = $(`<div class="col centered" id="`+this.technologieId+`"></div>`);
+
+            // if(this.Technologie == '' || this.Avatar == undefined || this.Avatar == null){ 
+              var avatarRessource = $(`<img class="mb-3" height="75px" width="75px" src="` + `Assets/Image/Autre/Logo_Code.png">`);
+            // }
+            // else{
+            //   var avatarRessource = $(`<img class="img-responsive" height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
+            // }
+            divTechnologie.append(avatarRessource)
+
+            // divTechnologie.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
+            divTechnologie.append($(`<p>`+this.technologie+`</p>`))
+
+            divTechnologie.bind( "click", function() {
+            SuppTechno($(this))
+          });
+
+            $('#TechnologiesProjet').append(divTechnologie)
+          
+          })
+
+        }
+      });
+    }
+
+    $('#addTechToProject').bind( "click", function() {
+      AddTechno()
+    });
+      
+    function AddTechno(){
       var NouvelleTechno = prompt("Nom de la technologie");
 
       if (NouvelleTechno != undefined && NouvelleTechno != '' && NouvelleTechno != null) {
@@ -242,18 +260,21 @@
       else {
         $.notify("Il faut du texte pour la techno.", "error");
       }
-    })
+    }
 
-    $('#SuppTechnoProjet').click(function () {
-      var NouvelleTechno = prompt("Nom de la technologie");
+    function SuppTechno(infos) {
 
-      if (NouvelleTechno != undefined && NouvelleTechno != '' && NouvelleTechno != null) {
+      var idTechno = infos[0].id.split('_')[1]
+      var nomTechno = infos[0].children[1].textContent
+
+      if (confirm("Es-tu sûr de vouloir supprimer "+nomTechno+" ?"))
         $.ajax({
           url: "Modele/ProjectInformation.php",
           method: "POST",
           data: {
             projectId: projectId,
-            NouvelleTechno: NouvelleTechno,
+            idTechno: idTechno,
+            NomTechno: nomTechno,
             action: "DellTechno"
           },
           success: function (data) {
@@ -261,12 +282,7 @@
             GetTechno();
           }
         });
-      }
-      else {
-        $.notify("Il faut du texte pour la techno.", "error");
-      }
-    })
-
+    }
 
   })
 </script>
