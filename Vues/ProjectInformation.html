@@ -13,6 +13,7 @@
         <p><small>Ressoures mobilisées</small></p>
         <div id="RessourcesMobilisees" class="col row"></div>
         <div id="addUserToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
+        <div id="SuppRessourceProjet" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Supprimer -</p></div>
       </div>
 
       <div class="border border-dark">
@@ -110,7 +111,7 @@
       method: "POST",
       data: {
         projectId: projectId,
-        action: "RessourcesProjet"
+        action: "GetRessource"
       },
       dataType: "json",
       success: function (data) {
@@ -195,6 +196,31 @@
       
     })
 
+    $('#SuppRessourceProjet').click(function () {
+      var idRessource = parseInt(prompt("ID de la ressource"));
+
+      console.log(idRessource);
+
+      if (Number.isInteger(idRessource)) {
+        $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            projectId: projectId,
+            idRessource: idRessource,
+            action: "DellRessourceProjet"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetRessources();
+          }
+        });
+      }
+      else {
+        $.notify("Il faut un int pour la techno.", "error");
+      }
+    })
+
     $('#addTechToProject').click(function () {
       var NouvelleTechno = prompt("Nom de la technologie");
 
@@ -240,6 +266,7 @@
         $.notify("Il faut du texte pour la techno.", "error");
       }
     })
-  
+
+
   })
 </script>

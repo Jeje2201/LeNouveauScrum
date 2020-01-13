@@ -39,7 +39,7 @@
         echo json_encode($output);
       }
 
-      if ($_POST["action"] == "RessourcesProjet") {
+      if ($_POST["action"] == "GetRessource") {
         $output = array();
         $statement = $connection->prepare(
           "SELECT E.prenom, E.avatar, T.nom as job FROM employe E
@@ -81,6 +81,27 @@
         else
           print_r($statement->errorInfo());
     }
+
+    if ($_POST["action"] == "DellRessourceProjet") {
+
+      $statement = $connection->prepare(
+        "DELETE FROM ressourceprojet
+        WHERE id_ressource = :id_ressource
+        AND id_projet = :id_projet"
+      );
+      $result = $statement->execute(
+        array(
+          ':id_ressource' => $_POST["idRessource"],
+          ':id_projet' => $_POST["projectId"]
+        )
+      );
+
+      if ($statement->rowCount() > 0){
+        echo 'Ressource "'.$_POST["idRessource"].'" supprimée';
+      }
+      else
+        echo 'Impossible de supprimer "'.$_POST["idRessource"];
+  }
 
       if ($_POST["action"] == "GetTechno") {
         $output = array();
@@ -131,10 +152,10 @@
             ':id_projet' => $_POST["projectId"]
           )
         );
-        if (!empty($result))
+        if ($statement->rowCount() > 0)
           echo 'Techno "'.$_POST["NouvelleTechno"].'" supprimée';
         else
-          print_r($statement->errorInfo());
+        echo 'Techno "'.$_POST["NouvelleTechno"].'" non trouvée';
     }
     }
 
