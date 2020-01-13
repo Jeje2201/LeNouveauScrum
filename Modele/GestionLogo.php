@@ -156,7 +156,7 @@
           )
         );
 
-        if (!empty($result))
+        if ($statement->rowCount() > 0)
           echo '✓';
         else
           print_r($statement->errorInfo());

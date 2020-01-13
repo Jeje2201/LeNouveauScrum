@@ -127,7 +127,7 @@
             ':id' => $_POST["id"]
           )
         );
-        if (!empty($result))
+        if ($statement->rowCount() > 0)
           echo 'Sprint supprimé';
         else
           print_r($statement->errorInfo());

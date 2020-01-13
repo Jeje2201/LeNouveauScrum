@@ -109,7 +109,7 @@
             ':id' => $_POST["id"]
           )
         );
-        if (!empty($result))
+        if ($statement->rowCount() > 0)
           echo 'Remarque supprimée';
         else
           print_r($statement->errorInfo());
