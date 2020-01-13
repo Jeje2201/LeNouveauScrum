@@ -167,9 +167,8 @@
     if ($_POST["action"] == "GetEchange") {
       $output = array();
       $statement = $connection->prepare(
-        "SELECT E.prenom, E.avatar, T.nom as job FROM employe E
-         INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
-         WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")"
+        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
+         WHERE E.id_project = " . $_POST["projectId"]
       );
       $statement->execute();
       $result = $statement->fetchAll();
@@ -180,9 +179,10 @@
 
         $MonTest = [];
 
-        $MonTest['Prenom'] = $row['prenom'];
-        $MonTest['Avatar'] = $row['avatar'];
-        $MonTest['Job'] = $row['job'];
+        $MonTest['id_echange'] = 'resume_'.$row['resume_id'];
+        $MonTest['resume_echange'] = $row['resume_echange'];
+        $MonTest['date_echange'] = $row['date_echange'];
+        $MonTest['type_echange'] = $row['type_echange'];
 
         $resultat[] = $MonTest;
       }

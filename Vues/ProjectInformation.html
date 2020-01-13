@@ -25,7 +25,19 @@
 
       <div class="border border-dark">
         <p><small>Module échange</small></p>
-        <div id="EchangesProjet" class="row"></div>
+          <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Echange</th>
+                <th>Date</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="EchangesProjet">
+              
+            </tbody>
+          </table>
+            
       </div>
 
     </div>
@@ -59,8 +71,9 @@
     
     GetDescription()
     GetClient()
-    GetTechno()
     GetRessources()
+    GetTechno()
+    GetEchanges()
 
     function GetDescription(){
     $.ajax({
@@ -284,5 +297,30 @@
         });
     }
 
+    function GetEchanges(){
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        projectId: projectId,
+        action: "GetEchange"
+      },
+      dataType: "json",
+      success: function (data) {
+
+       $.each(data, function () {
+
+        var divEchange = $(`<tr id="`+this.id_echange+`">
+                <td>`+this.resume_echange+`</td>
+                <td>`+this.date_echange+`</td>
+                <td>`+this.type_echange+`</td>
+              </tr>`);
+
+        $('#EchangesProjet').prepend(divEchange)
+
+       })
+      }
+    });
+    }
   })
 </script>
