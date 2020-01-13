@@ -6,7 +6,7 @@
       if ($_POST["action"] == "DescriptionProjet") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM projet 
+        "SELECT * FROM projet 
          WHERE id = '" . $_POST["projectId"] . "' 
          LIMIT 1"
         );
@@ -23,7 +23,7 @@
       if ($_POST["action"] == "DescriptionClient") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM clientprojet 
+        "SELECT * FROM clientprojet 
          WHERE id = (select id_client from projet where projet.id = '" . $_POST["projectId"] . "') 
          LIMIT 1"
         );
@@ -66,8 +66,8 @@
       }
       
       if ($_POST["action"] == "AddRessource") {
-        $statement = $connection->prepare("
-        INSERT INTO ressourceprojet (id_projet, id_ressource) 
+        $statement = $connection->prepare(
+        "INSERT INTO ressourceprojet (id_projet, id_ressource) 
         VALUES (:id_projet, :id_ressource)
         ");
         $result = $statement->execute(
@@ -102,8 +102,8 @@
       }
 
       if ($_POST["action"] == "AddTechno") {
-          $statement = $connection->prepare("
-          INSERT INTO technologieprojet (technologie, id_projet) 
+          $statement = $connection->prepare(
+          "INSERT INTO technologieprojet (technologie, id_projet) 
           VALUES (:technologie, :id_projet)
           ");
           $result = $statement->execute(
@@ -117,6 +117,25 @@
           else
             print_r($statement->errorInfo());
       }
+
+      if ($_POST["action"] == "DellTechno") {
+
+        $statement = $connection->prepare(
+          "DELETE FROM technologieprojet
+          WHERE technologie like :technologie
+          AND id_projet = :id_projet"
+        );
+        $result = $statement->execute(
+          array(
+            ':technologie' => $_POST["NouvelleTechno"],
+            ':id_projet' => $_POST["projectId"]
+          )
+        );
+        if (!empty($result))
+          echo 'Techno "'.$_POST["NouvelleTechno"].'" supprimée';
+        else
+          print_r($statement->errorInfo());
+    }
     }
 
     ?> 

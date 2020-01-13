@@ -250,7 +250,7 @@
 
           if(file_exists("../Assets/Image/Ressources/".$result[0])){
           if (unlink("../Assets/Image/Ressources/".$result[0])) {
-              echo "Suppression du précédent avatar '".$result[0]."' réussi\n";
+              echo "Suppression du précédent avatar réussi\n";
           } else {
             echo "Impossible de supprimer l'image précédente ".$result[0]."\n";
           }
@@ -268,7 +268,7 @@
 
           move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage);
 
-          echo "Votre avatar a évolué en '".$target_file . "' ! Félicitation !";
+          echo "Votre avatar a évolué ! Félicitation !";
 
         }
         else{
