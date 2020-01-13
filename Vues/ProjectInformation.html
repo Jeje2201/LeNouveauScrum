@@ -31,6 +31,7 @@
                 <th>Echange</th>
                 <th>Date</th>
                 <th>Type</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody id="EchangesProjet">
@@ -310,11 +311,28 @@
 
        $.each(data, function () {
 
+        var $btnDelete = $('<button type="button" class="btn btn-danger delete">Projets</button>');
+        $btnDelete.on('click', function() {
+          DellEchanges()
+        });
+
+        var $btnInfo = $('<button type="button" class="btn btn-warning warning">Projets</button>');
+        $btnDelete.on('click', function() {
+          DellEchanges()
+        });
+
         var divEchange = $(`<tr id="`+this.id_echange+`">
                 <td>`+this.resume_echange+`</td>
                 <td>`+this.date_echange+`</td>
                 <td>`+this.type_echange+`</td>
               </tr>`);
+
+        var $colloneBoutons = $('<td />');
+
+        $colloneBoutons.append($btnDelete);
+        $colloneBoutons.append($btnInfo);
+        
+        divEchange.append($colloneBoutons);
 
         $('#EchangesProjet').prepend(divEchange)
 
@@ -322,5 +340,9 @@
       }
     });
     }
+
+    function DellEchanges() {
+      alert('test')
+    };
   })
 </script>

@@ -181,7 +181,7 @@
 
         $MonTest['id_echange'] = 'resume_'.$row['resume_id'];
         $MonTest['resume_echange'] = $row['resume_echange'];
-        $MonTest['date_echange'] = $row['date_echange'];
+        $MonTest['date_echange'] = date("d/m/Y", strtotime($row['date_echange']));;
         $MonTest['type_echange'] = $row['type_echange'];
 
         $resultat[] = $MonTest;
