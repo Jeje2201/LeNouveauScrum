@@ -12,15 +12,11 @@
       <div class="border border-dark">
         <p><small>Ressoures mobilisées</small></p>
         <div id="RessourcesMobilisees" class="col row"></div>
-        <div onclick="$('#ModaleAddUser').modal('show'); " class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png"><p>Ajouter +</p></div>
       </div>
 
       <div class="border border-dark">
         <p><small>Technologies mobilisées</small></p>
-        <div class="row">
-          <div id="TechnologiesProjet" class="col row"></div>
-          <div id="addTechToProject" class="col"><img height="75px" width="75px" class="mb-3" src="Assets/Image/Autre/Logo_Code.png"><p>Ajouter +</p></div>
-        </div>
+        <div id="TechnologiesProjet" class="col row"></div>
       </div>
 
       <div class="border border-dark">
@@ -83,8 +79,7 @@
   $(document).ready(function () {
 
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
-    $("#TOUTLEMONDE")
-      .select2({
+    $("#TOUTLEMONDE").select2({
         width: "100%"
       });
 
@@ -157,30 +152,29 @@
 
         $.each(data, function () {
 
-          var divRessource = $(`<div class="col centered"></div>`);
+          var divRessource = $(`<div class="ml-3"></div>`);
 
           if(this.Avatar == '' || this.Avatar == undefined || this.Avatar == null){ 
             this.Avatar = 'default'
           }
 
           divRessource.append($(`<img height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`));
-          divRessource.append($(`<img id="`+this.RessourceId+`" class="position-absolute" height="25px" width="25px" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
+          divRessource.append($(`<img id="`+this.RessourceId+`" height="25px" width="25px" style="position: relative;left: -19px;top: -27px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
             SuppRessource($(this))
           }));
 
           divRessource.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
           divRessource.append($(`<p>`+this.Job+`</p>`))
           
-          $('#RessourcesMobilisees').prepend(divRessource)
+          $('#RessourcesMobilisees').append(divRessource)
         
         })
+        $('#RessourcesMobilisees').append($(`<img height="75px" width="75px" class="mb-3 ml-3" onclick="$('#ModaleAddUser').modal('show'); " src="Assets/Image/Ressources/addUser.png">`))
       }
     })
   }
 
-    $('#AddRessourceToProject').bind( "click", function() {
-      AddRessource()
-    });
+    $('#AddRessourceToProject').bind( "click", function() { AddRessource() });
     function AddRessource() {
 
       if ($('#TOUTLEMONDE').val() != '') {
@@ -240,35 +234,28 @@
         success: function (data) {
 
           $.each(data, function () {
-            var divTechnologie = $(`<div class="col centered" id="`+this.technologieId+`"></div>`);
 
-            // if(this.Technologie == '' || this.Avatar == undefined || this.Avatar == null){ 
-              var avatarRessource = $(`<img class="mb-3" height="75px" width="75px" src="` + `Assets/Image/Autre/Logo_Code.png">`);
-            // }
-            // else{
-            //   var avatarRessource = $(`<img class="img-responsive" height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`);
-            // }
-            divTechnologie.append(avatarRessource)
+            var divTechnologie = $(`<div class="ml-3"></div>`);
 
-            // divTechnologie.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
-            divTechnologie.append($(`<p>`+this.technologie+`</p>`))
+            divTechnologie.append($(`<img class="" height="75px" width="75px" src="` + `Assets/Image/Autre/Logo_Code.png">`))
+            divTechnologie.append($(`<img id="`+this.technologieId+`" height="25px" width="25px" style="position: relative;left: -19px;top: -27px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
+              SuppTechno($(this))
+          }));
 
-            divTechnologie.bind( "click", function() {
-            SuppTechno($(this))
-          });
+            divTechnologie.append($(`<p class="mb-3">`+this.technologie+`</p>`))
 
             $('#TechnologiesProjet').append(divTechnologie)
-          
           })
+        
+
+          $('#TechnologiesProjet').append($(`<img id="addTechToProject" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
+            AddTechno()
+          }))
 
         }
       });
     }
 
-    $('#addTechToProject').bind( "click", function() {
-      AddTechno()
-    });
-      
     function AddTechno(){
       var NouvelleTechno = prompt("Nom de la technologie");
 
@@ -295,9 +282,9 @@
     function SuppTechno(infos) {
 
       var idTechno = infos[0].id.split('_')[1]
-      var nomTechno = infos[0].children[1].textContent
+      var nomTechno = infos[0].nextSibling.textContent
 
-      if (confirm("Es-tu sûr de vouloir supprimer "+nomTechno+" ?"))
+      if (confirm("Es-tu sûr de vouloir supprimer '"+nomTechno+"' ?"))
         $.ajax({
           url: "Modele/ProjectInformation.php",
           method: "POST",

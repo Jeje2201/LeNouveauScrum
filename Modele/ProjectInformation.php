@@ -44,7 +44,8 @@
         $statement = $connection->prepare(
           "SELECT E.prenom, E.avatar, E.id as ressourceID, T.nom as job FROM employe E
            INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
-           WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")"
+           WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")
+           ORDER BY E.prenom"
         );
         $statement->execute();
         $result = $statement->fetchAll();
