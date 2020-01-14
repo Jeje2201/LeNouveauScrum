@@ -67,18 +67,23 @@
       }
       
       if ($_POST["action"] == "AddRessource") {
+
+        $TableauEmploye = $_POST["UserId"];
+
         $statement = $connection->prepare(
         "INSERT INTO ressourceprojet (id_projet, id_ressource) 
         VALUES (:id_projet, :id_ressource)
         ");
-        $result = $statement->execute(
-          array(
-            ':id_projet' => $_POST["projectId"],
-            ':id_ressource' => $_POST["UserId"]
-          )
-        );
+        for ($i = 0; $i < count($TableauEmploye); $i++) {
+          $result = $statement->execute(
+            array(
+              ':id_projet' => $_POST["projectId"],
+              ':id_ressource' => intval($TableauEmploye[$i])
+            )
+          );
+        }
         if (!empty($result))
-          echo 'User "'.$_POST["UserId"].'" ajoutée';
+          echo 'Ressource(s) ajoutée(s)';
         else
           print_r($statement->errorInfo());
     }
