@@ -38,6 +38,11 @@
             
       </div>
 
+      <div class="border border-dark">
+        <p><small>Project Time Line</small></p>
+        <div id="ProjectTimeLine" class="col row"></div>
+      </div>
+
     </div>
   </div>
 </body>
@@ -135,6 +140,7 @@
     GetRessources()
     GetTechno()
     GetEchanges()
+    GetTimeLine()
 
     function GetDescription(){
     $.ajax({
@@ -425,5 +431,30 @@
           }
         });
     };
+  
+    function GetTimeLine(){
+
+      google.charts.load("current", {packages:["timeline"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var container = document.getElementById('ProjectTimeLine');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'vide' });
+        dataTable.addColumn({ type: 'string', id: 'Name' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'Projet', 'Design maquette', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
+          [ 'Projet', 'Développement', new Date(1797, 2, 4), new Date(1801, 2, 4) ],
+          [ 'Projet', 'Intégration', new Date(1801, 2, 4), new Date(1809, 2, 4) ]]);
+
+        var options = {
+        };
+
+        chart.draw(dataTable, options);
+      }
+    }
+  
   })
 </script>
