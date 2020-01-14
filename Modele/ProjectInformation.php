@@ -87,7 +87,7 @@
           echo 'Ressource(s) ajoutée(s)';
         else
           print_r($statement->errorInfo());
-    }
+      }
 
     if ($_POST["action"] == "DellRessourceProjet") {
 
@@ -175,7 +175,7 @@
       $statement = $connection->prepare(
         "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
          WHERE E.id_project = " . $_POST["projectId"]."
-         ORDER BY date_echange DESC"
+         ORDER BY date_echange asc"
       );
       $statement->execute();
       $result = $statement->fetchAll();
@@ -196,6 +196,25 @@
 
       print json_encode($resultat);
     }
+
+    if ($_POST["action"] == "AddEchange") {
+      $statement = $connection->prepare(
+      "INSERT INTO echangeprojet (resume_echange, date_echange, type_echange, id_project) 
+      VALUES (:resume_echange, :date_echange, :type_echange, :id_project)
+      ");
+      $result = $statement->execute(
+        array(
+          ':resume_echange' => $_POST["echange_label"],
+          ':date_echange' => $_POST["echange_date"],
+          ':type_echange' => $_POST["echange_type"],
+          ':id_project' => $_POST["projectId"]
+        )
+      );
+      if (!empty($result))
+        echo 'Echange "'.$_POST["echange_label"].'" ajouté';
+      else
+        print_r($statement->errorInfo());
+  }
 
     if ($_POST["action"] == "DellEchange") {
 

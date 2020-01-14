@@ -21,6 +21,7 @@
 
       <div class="border border-dark">
         <p><small>Module échange</small></p>
+        <button onclick="$('#ModaleAddComment').modal('show'); ">ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -75,6 +76,47 @@
   </div>
 </div>
 
+<div id="ModaleAddComment" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col">
+
+        <div class="form-group">
+          <label>Echange</label>
+          <input type="text" name="LabelDemo" id="Echange_Label" class="form-control" />
+        </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label>Date</label>
+            <input type="text" class="form-control" id="Echange_Date">
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="Echange_Type" class="form-control">
+              <option value="mail">Mail</option>
+              <option value="telephone">Téléphone</option>
+              <option value="reel">Réel</option>
+          </select>
+          </div>
+        </div>
+
+        <div class="col">
+          <button type="button" id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel echange</button>
+        </div>
+
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
 
@@ -82,6 +124,9 @@
     $("#TOUTLEMONDE").select2({
         width: "100%"
       });
+
+    $('#Echange_Date').val(ChoixDate(0));
+    $('#Echange_Date').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     var projectId = parseInt(location.href.split('projet=')[1])
     
@@ -247,7 +292,6 @@
             $('#TechnologiesProjet').append(divTechnologie)
           })
         
-
           $('#TechnologiesProjet').append($(`<img id="addTechToProject" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
             AddTechno()
           }))
@@ -303,7 +347,7 @@
 
     function GetEchanges(){
     
-      $('#EchangesProjet').html('')
+    $('#EchangesProjet').html('')
     
     $.ajax({
       url: "Modele/ProjectInformation.php",
@@ -341,6 +385,27 @@
       })
       }
     });
+    }
+
+    $('#AddEchange').bind( "click", function() { AddEchange() });
+    function AddEchange(){
+
+      $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            projectId: projectId,
+            echange_label: document.getElementById('Echange_Label').value,
+            echange_date: DateFrToEn($('#Echange_Date').val()),
+            echange_type: $("#Echange_Type option:selected")[0].value,
+            action: "AddEchange"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetEchanges();
+          }
+        });
+
     }
 
     function DellEchanges(idEchange) {
