@@ -31,7 +31,7 @@
                 <th>Echange</th>
                 <th>Date</th>
                 <th>Type</th>
-                <th>Edit</th>
+                <th>Edition</th>
               </tr>
             </thead>
             <tbody id="EchangesProjet">
@@ -299,6 +299,9 @@
     }
 
     function GetEchanges(){
+    
+      $('#EchangesProjet').html('')
+    
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
@@ -309,19 +312,9 @@
       dataType: "json",
       success: function (data) {
 
-       $.each(data, function () {
+      $.each(data, function () {
 
-        var $btnDelete = $('<button type="button" class="btn btn-danger delete">Projets</button>');
-        $btnDelete.on('click', function() {
-          DellEchanges()
-        });
-
-        var $btnInfo = $('<button type="button" class="btn btn-warning warning">Projets</button>');
-        $btnDelete.on('click', function() {
-          DellEchanges()
-        });
-
-        var divEchange = $(`<tr id="`+this.id_echange+`">
+        var divEchange = $(`<tr>
                 <td>`+this.resume_echange+`</td>
                 <td>`+this.date_echange+`</td>
                 <td>`+this.type_echange+`</td>
@@ -329,20 +322,40 @@
 
         var $colloneBoutons = $('<td />');
 
-        $colloneBoutons.append($btnDelete);
-        $colloneBoutons.append($btnInfo);
+        $colloneBoutons.append($('<button type="button" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
+          // DellEchanges()
+        }));
+
+        $colloneBoutons.append($('<button type="button" id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>').on('click', function() {
+          DellEchanges(this.id.split('_')[1])
+        }));
+        
         
         divEchange.append($colloneBoutons);
 
         $('#EchangesProjet').prepend(divEchange)
 
-       })
+      })
       }
     });
     }
 
-    function DellEchanges() {
-      alert('test')
+    function DellEchanges(idEchange) {
+
+      if (confirm("Es-tu sûr de vouloir supprimer cet échange ?"))
+        $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            projectId: projectId,
+            idEchange: idEchange,
+            action: "DellEchange"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetEchanges();
+          }
+        });
     };
   })
 </script>

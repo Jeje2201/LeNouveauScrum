@@ -168,7 +168,8 @@
       $output = array();
       $statement = $connection->prepare(
         "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
-         WHERE E.id_project = " . $_POST["projectId"]
+         WHERE E.id_project = " . $_POST["projectId"]."
+         ORDER BY date_echange DESC"
       );
       $statement->execute();
       $result = $statement->fetchAll();
@@ -179,7 +180,7 @@
 
         $MonTest = [];
 
-        $MonTest['id_echange'] = 'resume_'.$row['resume_id'];
+        $MonTest['id_echange'] = $row['resume_id'];
         $MonTest['resume_echange'] = $row['resume_echange'];
         $MonTest['date_echange'] = date("d/m/Y", strtotime($row['date_echange']));;
         $MonTest['type_echange'] = $row['type_echange'];
@@ -189,6 +190,27 @@
 
       print json_encode($resultat);
     }
+
+    if ($_POST["action"] == "DellEchange") {
+
+      $statement = $connection->prepare(
+        "DELETE FROM echangeprojet
+        WHERE id = :id_echange
+        AND id_project = :id_projet"
+      );
+      $result = $statement->execute(
+        array(
+          ':id_echange' => $_POST["idEchange"],
+          ':id_projet' => $_POST["projectId"]
+        )
+      );
+      if ($statement->rowCount() > 0)
+        echo 'Echange supprimé';
+      else
+        echo 'Echange non trouvé';
+  }
+
+
     }
 
     ?> 
