@@ -170,7 +170,7 @@
           echo 'Techno "'.$_POST["NomTechno"].'" non trouvée';
     }
 
-    if ($_POST["action"] == "GetEchange") {
+    if ($_POST["action"] == "getEchanges") {
       $output = array();
       $statement = $connection->prepare(
         "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
@@ -197,7 +197,27 @@
       print json_encode($resultat);
     }
 
-    if ($_POST["action"] == "AddEchange") {
+    if ($_POST["action"] == "getEchange") {
+
+      $output = array();
+      $statement = $connection->prepare(
+        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
+         WHERE E.id = " . $_POST["idComment"]
+      );
+      $statement->execute();
+      $result = $statement->fetch();
+
+      $resultat = [];
+
+      $resultat['id_echange'] = $result['resume_id'];
+      $resultat['resume_echange'] = $result['resume_echange'];
+      $resultat['date_echange'] = date("d-m-Y", strtotime($result['date_echange']));
+      $resultat['type_echange'] = $result['type_echange'];
+
+      print json_encode($resultat);
+    }
+
+    if ($_POST["action"] == "postEchange") {
       $statement = $connection->prepare(
       "INSERT INTO echangeprojet (resume_echange, date_echange, type_echange, id_project) 
       VALUES (:resume_echange, :date_echange, :type_echange, :id_project)
@@ -214,6 +234,27 @@
         echo 'Echange "'.$_POST["echange_label"].'" ajouté';
       else
         print_r($statement->errorInfo());
+  }
+
+  if ($_POST["action"] == "putEchange") {
+
+    $statement = $connection->prepare(
+      "UPDATE echangeprojet 
+      SET resume_echange = :resume_echange, date_echange = :date_echange, type_echange = :type_echange
+      WHERE id = :resume_id"
+    );
+    $result = $statement->execute(
+      array(
+        ':resume_echange' => $_POST["echange_label"],
+        ':date_echange' => date("Y-m-d", strtotime($_POST["echange_date"])),
+        ':type_echange' => $_POST["echange_type"],
+        ':resume_id' => $_POST["echange_id"]
+      )
+    );
+    if (!empty($result))
+      echo 'Echange "' .$_POST["echange_label"].'" changé';
+    else
+      print_r($statement->errorInfo());
   }
 
     if ($_POST["action"] == "DellEchange") {
