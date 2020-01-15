@@ -21,7 +21,7 @@
 
       <div class="border border-dark">
         <p><small>Module échange</small></p>
-        <button onclick="$('#ModaleAddComment').modal('show'); ">ajouter</button>
+        <button id="AddComment">ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -81,7 +81,7 @@
   </div>
 </div>
 
-<div id="ModaleAddComment" class="modal fade">
+<div id="ModaleComment" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
@@ -110,9 +110,11 @@
           </select>
           </div>
         </div>
+        <input type="number" class="form-control" id="Echange_ID">
 
         <div class="col">
           <button type="button" id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel échange</button>
+          <button type="button" id="EditEchange" class="btn btn-info mt-2 btn-block">Editer échange</button>
         </div>
 
         
@@ -225,8 +227,7 @@
     })
   }
 
-    $('#AddRessourceToProject').bind( "click", function() { AddRessource() });
-    function AddRessource() {
+    $('#AddRessourceToProject').bind( "click", function() { 
 
       if ($('#TOUTLEMONDE').val() != '') {
         $.ajax({
@@ -244,8 +245,8 @@
         });
       } else
         $.notify("Aucune ressource selectionnée ?", "error");
-      
-    }
+
+     });
 
     function SuppRessource(infos) {
 
@@ -351,6 +352,36 @@
         });
     }
 
+    $('#AddComment').bind( "click", function() {
+      ShowAndClearModaleForNew('ModaleComment','EditEchange','AddEchange')
+    });
+
+    function GetEchange(idComment){
+
+      $('#AddEchange').hide()
+      $('#EditEchange').show()
+
+      $.ajax({
+        url: "Modele/ProjectInformation.php",
+        method: "POST",
+        data: {
+          idComment: idComment,
+          action: "getEchange"
+        },
+        dataType: "json",
+        success: function (data) {
+          $('#ModaleComment').modal('show');
+
+          $('#Echange_Label').val(data.resume_echange);
+          $('#Echange_Date').val(data.date_echange);
+          $('#Echange_Type').val(data.type_echange);
+
+          $('#Echange_ID').val(data.id_echange);
+        }
+      });
+
+      }
+
     function GetEchanges(){
     
     $('#EchangesProjet').html('')
@@ -360,7 +391,7 @@
       method: "POST",
       data: {
         projectId: projectId,
-        action: "GetEchange"
+        action: "getEchanges"
       },
       dataType: "json",
       success: function (data) {
@@ -375,14 +406,13 @@
 
         var $colloneBoutons = $('<td />');
 
-        $colloneBoutons.append($('<button type="button" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
-          // DellEchanges()
+        $colloneBoutons.append($('<button type="button" id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
+          GetEchange(this.id.split('_')[1])
         }));
 
         $colloneBoutons.append($('<button type="button" id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>').on('click', function() {
-          DellEchanges(this.id.split('_')[1])
+          DellEchange(this.id.split('_')[1])
         }));
-        
         
         divEchange.append($colloneBoutons);
 
@@ -393,8 +423,7 @@
     });
     }
 
-    $('#AddEchange').bind( "click", function() { AddEchange() });
-    function AddEchange(){
+    $('#AddEchange').bind( "click", function() { 
 
       $.ajax({
           url: "Modele/ProjectInformation.php",
@@ -404,7 +433,7 @@
             echange_label: document.getElementById('Echange_Label').value,
             echange_date: DateFrToEn($('#Echange_Date').val()),
             echange_type: $("#Echange_Type option:selected")[0].value,
-            action: "AddEchange"
+            action: "postEchange"
           },
           success: function (data) {
             $.notify(data, "info");
@@ -412,9 +441,31 @@
           }
         });
 
-    }
+    });
 
-    function DellEchanges(idEchange) {
+    $('#EditEchange').bind( "click", function() {
+
+      $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            echange_id: document.getElementById('Echange_ID').value,
+            echange_label: document.getElementById('Echange_Label').value,
+            echange_date: DateFrToEn($('#Echange_Date').val()),
+            echange_type: $("#Echange_Type option:selected")[0].value,
+            action: "putEchange"
+          },
+          success: function (data) {
+            $.notify(data, "info");
+            GetEchanges();
+          }
+        });
+
+      $('#ModaleComment').modal('hide');
+
+     });
+
+    function DellEchange(idEchange) {
 
       if (confirm("Es-tu sûr de vouloir supprimer cet échange ?"))
         $.ajax({
