@@ -44,3 +44,15 @@ function GarderLaRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
     $(this).toggle($(this).text().toLowerCase().indexOf($("#" + IdDivBarreDeRecherche).val().toLowerCase()) > -1);
   });
 }
+
+//  Affiche la modale et clear tous les input
+function ShowAndClearModaleForNew(idModale,hideElement, showElement) {
+
+  $('#'+idModale).modal('show')
+  $('#'+hideElement).hide()
+  $('#'+showElement).show()
+
+  $('#'+idModale+' input').each(function(){
+    $(this).val('')
+});
+}
