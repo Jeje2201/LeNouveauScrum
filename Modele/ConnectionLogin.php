@@ -23,8 +23,7 @@ if (password_verify($PasswordInput, $result['mdp'])) {
 
     $statement = $connection->prepare(
         $sql = "SELECT E.id as id, E.prenom AS prenom, E.admin as admin
-        From employe E INNER JOIN typeemploye T
-        on E.id_TypeEmploye = T.id
+        From employe E 
         where E.mail like '$EmployeLogin'"
     );
     $statement->execute();
