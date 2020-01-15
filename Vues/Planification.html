@@ -154,7 +154,7 @@
         </div>
         <div class="row">
           <div class="col-lg-3">
-            <button id="ChercherApiPivotal" class="btn btn-block btn-info">Chercher</button>
+            <button id="ChercherApiPivotal" class="btn btn-block btn-info">Rechercher</button>
           </div>
         </div>
 
@@ -175,7 +175,6 @@
             </ul>
           </label>
         </div>
-        <i id="ChargementLogo" class="hideElement fa fa-spin fa-3x fa-fw">😮</i>
         <div id="ListeTachesApi"></div>
 
       </div>
@@ -632,8 +631,9 @@
     //Click sur le bouton pour chercher toutes les heures planifiable sur pivotal tracker
     $('#ChercherApiPivotal').click(function () {
 
+      $("#ChercherApiPivotal").attr("disabled", true).text('Recherche en cours.. ').append('<span id="logochargement" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+
       document.getElementById("ListeTachesApi").innerHTML = ""
-      $('#ChargementLogo').removeClass('hideElement')
       $('#AucuneStorie').addClass('hideElement')
 
       $('#EnvoyerApiPivotal').hide()
@@ -731,7 +731,7 @@
             });
           })
 
-          $('#ChargementLogo').addClass('hideElement')
+          $("#ChercherApiPivotal").attr("disabled", false).text('Rechercher');
 
           //si pas de stories
           if (myStories.length === 0) {
@@ -742,7 +742,6 @@
           // console.log('array sort: ',test1.sort())
         }
       });
-
     })
 
     //Click sur le bouton flottant vert attribuer des heures planifiées pivotal
