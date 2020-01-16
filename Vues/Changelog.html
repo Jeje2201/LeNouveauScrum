@@ -1,0 +1,46 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <h2><i class="fa fa-bullhorn"></i> Changelog </h2><small>Seule les 4 dernières versions sont affichées, pour voir toutes les versions, se référencer <a href="https://github.com/Jeje2201/ScrumManager/releases">ici!</a> </small>
+      <hr>
+      <div class="mt-3" id="Changelog" ></div>
+    </div>
+  </div>
+</body>
+<script>
+
+$(document).ready(function () {
+
+  $.ajax({
+      url: "Modele/Changelog.php",
+      method: "POST",
+      data: {
+        action: "GetChangelogs"
+      },
+      dataType: "json",
+      success: function (data) {
+
+        localStorage.setItem('LastVersionKnown', data[0].changelog_numero)
+
+        $.each(data, function () {
+
+          var divUnChangelog = $(`<div class="my-3"></div>`);
+          divUnChangelog.append($(`<h2> Changelog n°`+this.changelog_numero+` | `+this.changelog_date+` </h2>`));
+          divUnChangelog.append($(`<p>`+this.changelog_contenue.replace(/\n/g, "<br>")+`</p>`))
+          divUnChangelog.append($(`<img class="border border-dark my-2" height="275px" src="`+this.changelog_meme+`">`))
+
+          divUnChangelog.append($(`<hr>`))
+          
+          $('#Changelog').append(divUnChangelog)
+        
+        })
+      }
+    })
+
+    // localStorage.getItem('DerniereVersionConnu')[]
+
+})
+
+
+</script>

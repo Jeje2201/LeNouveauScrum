@@ -29,6 +29,23 @@ $("#SlideNav").click(function () {
   $("body").toggleClass("sidenav-toggled");
 });
 
+//Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
+$.ajax({
+  url: "Modele/Changelog.php",
+  method: "POST",
+  data: {
+    action: "GetChangelogs"
+  },
+  dataType: "json",
+  success: function (data) {
+
+    if(localStorage.getItem('LastVersionKnown') != data[0].changelog_numero){
+      $('#ChangelogBadge').append('<span id="newsgithub" class="badge badge-danger ml-2">News !</span>')
+    }
+
+  }
+})
+
 // Fonction pour chercher dans une table depuis un input
 function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   $("#" + IdDivBarreDeRecherche).on("keyup", function () {
