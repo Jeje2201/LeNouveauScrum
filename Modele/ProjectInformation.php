@@ -199,7 +199,6 @@
 
     if ($_POST["action"] == "getEchange") {
 
-      $output = array();
       $statement = $connection->prepare(
         "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
          WHERE E.id = " . $_POST["idComment"]
