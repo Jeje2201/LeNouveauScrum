@@ -53,7 +53,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Changer") {
@@ -74,7 +74,7 @@
               ':Label' => $TableauLabelObjectuf[$i][1]
             )
           );
-        echo 'Label "'.$TableauLabelObjectuf[$i][1].'" changé'."\n";
+        print 'Label "'.$TableauLabelObjectuf[$i][1].'" changé'."\n";
         }
       }
     }

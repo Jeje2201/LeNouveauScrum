@@ -17,7 +17,7 @@
         );
         $statement->execute();
         $result = $statement->fetch();
-        echo trim($result["Couleur"]);
+        print trim($result["Couleur"]);
       }
 
       if ($_POST["action"] == "GetAvatar") {
@@ -33,7 +33,7 @@
 
         $output["avatar"] = $result["avatar"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "LoadTacheValide") {
@@ -70,7 +70,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //List des heures par sprint de rempli
@@ -121,7 +121,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "CustomColorName") {
@@ -137,7 +137,7 @@
           )
         );
         if (!empty($result))
-          echo 'Couleur de tâche changée en '.$_POST["couleur"];
+          print 'Couleur de tâche changée en '.$_POST["couleur"];
         else
           print_r($statement->errorInfo());
       }
@@ -155,7 +155,7 @@
           )
         );
         if (!empty($result))
-          echo 'Nouveau mot de passe créé';
+          print 'Nouveau mot de passe créé';
         else
           print_r($statement->errorInfo());
       }

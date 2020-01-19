@@ -39,5 +39,5 @@ if (password_verify($PasswordInput, $result['mdp'])) {
     $output["Connexion"] = false;
 }
 
-echo json_encode($output);
+print json_encode($output);
  

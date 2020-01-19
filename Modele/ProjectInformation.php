@@ -17,7 +17,7 @@
         $output["Description"] = $result["description"];
         $output["Logo"] = $result["Id_Logo"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "DescriptionClient") {
@@ -36,7 +36,7 @@
         $output["mail"] = $result["mail"];
         $output["telephone"] = $result["telephone"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "GetRessource") {
@@ -84,7 +84,7 @@
           );
         }
         if (!empty($result))
-          echo 'Ressource(s) ajoutée(s)';
+          print 'Ressource(s) ajoutée(s)';
         else
           print_r($statement->errorInfo());
       }
@@ -104,10 +104,10 @@
       );
 
       if ($statement->rowCount() > 0){
-        echo 'Ressource "'.$_POST["RessourceNom"].'" supprimée';
+        print 'Ressource "'.$_POST["RessourceNom"].'" supprimée';
       }
       else
-        echo 'Impossible de supprimer "'.$_POST["RessourceNom"].'"';
+        print 'Impossible de supprimer "'.$_POST["RessourceNom"].'"';
   }
 
       if ($_POST["action"] == "GetTechno") {
@@ -146,7 +146,7 @@
             )
           );
           if (!empty($result))
-            echo 'Tehcno "'.$_POST["NouvelleTechno"].'" ajoutée';
+            print 'Tehcno "'.$_POST["NouvelleTechno"].'" ajoutée';
           else
             print_r($statement->errorInfo());
       }
@@ -165,9 +165,9 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Techno "'.$_POST["NomTechno"].'" supprimée';
+          print 'Techno "'.$_POST["NomTechno"].'" supprimée';
         else
-          echo 'Techno "'.$_POST["NomTechno"].'" non trouvée';
+          print 'Techno "'.$_POST["NomTechno"].'" non trouvée';
     }
 
     if ($_POST["action"] == "getEchanges") {
@@ -230,7 +230,7 @@
         )
       );
       if (!empty($result))
-        echo 'Echange "'.$_POST["echange_label"].'" ajouté';
+        print 'Echange "'.$_POST["echange_label"].'" ajouté';
       else
         print_r($statement->errorInfo());
   }
@@ -251,7 +251,7 @@
       )
     );
     if (!empty($result))
-      echo 'Echange "' .$_POST["echange_label"].'" changé';
+      print 'Echange "' .$_POST["echange_label"].'" changé';
     else
       print_r($statement->errorInfo());
   }
@@ -270,9 +270,9 @@
         )
       );
       if ($statement->rowCount() > 0)
-        echo 'Echange supprimé';
+        print 'Echange supprimé';
       else
-        echo 'Echange non trouvé';
+        print 'Echange non trouvé';
   }
 
 

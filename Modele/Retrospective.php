@@ -78,7 +78,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "LoadMail") {
@@ -127,7 +127,7 @@
           }
         }
 
-        echo ($output);
+        print ($output);
       }
 
       if ($_POST["action"] == "LoadRemarque") {
@@ -177,7 +177,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Créer") {
@@ -195,7 +195,7 @@
           )
         );
         if (!empty($result))
-          echo 'Objectif "'.$_POST["LabelObjectif"].'" créé';
+          print 'Objectif "'.$_POST["LabelObjectif"].'" créé';
         else
           print_r($statement->errorInfo());
       }
@@ -211,7 +211,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque "'.$_POST["Labelretrospective"].'" créée';
+          print 'Remarque "'.$_POST["Labelretrospective"].'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -231,7 +231,7 @@
         $output["objectif"] = $result["objectif"];
         $output["id_StatutObjectif"] = $result["id_StatutObjectif"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "SelectRemarque") {
@@ -246,7 +246,7 @@
 
         $output["labelremarque"] = $result["Label"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "Changer Objectif") {
@@ -266,7 +266,7 @@
           )
         );
         if (!empty($result))
-          echo 'Objectif "'.$_POST["LabelObjectif"].'" changé';
+          print 'Objectif "'.$_POST["LabelObjectif"].'" changé';
         else
           print_r($statement->errorInfo());
       }
@@ -285,7 +285,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque "'.$_POST["Labelretrospective"].'" changée';
+          print 'Remarque "'.$_POST["Labelretrospective"].'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -304,7 +304,7 @@
           )
         );
         if (!empty($result))
-          echo 'Etat changé';
+          print 'Etat changé';
         else
           print_r($statement->errorInfo());
       }
@@ -322,7 +322,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque validée';
+          print 'Remarque validée';
         else
           print_r($statement->errorInfo());
       }
@@ -338,7 +338,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Objectif supprimé';
+          print 'Objectif supprimé';
         else
           print_r($statement->errorInfo());
       }

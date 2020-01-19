@@ -61,7 +61,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Get les information d'une tache
@@ -86,7 +86,7 @@
         $output["id_Employe"] = $result["id_Employe"];
         $output["id_Projet"] = $result["id_Projet"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       //Mettre a jour une tache
@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo 'Tâche "'.$_POST["Label"].'" changée';
+          print 'Tâche "'.$_POST["Label"].'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -128,7 +128,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Tâche supprimée';
+          print 'Tâche supprimée';
         else
           print_r($statement->errorInfo());
       }

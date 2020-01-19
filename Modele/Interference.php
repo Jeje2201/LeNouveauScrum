@@ -60,7 +60,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Ajouter") {
@@ -80,7 +80,7 @@
           )
         );
         if (!empty($result))
-          echo 'Interférence "'.$_POST["labelinterference"].'" créée';
+          print 'Interférence "'.$_POST["labelinterference"].'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -102,7 +102,7 @@
         $output["Employe"] = $result["id_Employe"];
         $output["labelinterference"] = $result["label"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "Update") {
@@ -124,7 +124,7 @@
           )
         );
         if (!empty($result))
-          echo 'Interférence "'.$_POST["labelinterference"].'" changée';
+          print 'Interférence "'.$_POST["labelinterference"].'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -140,7 +140,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Interférence supprimée';
+          print 'Interférence supprimée';
         else
           print_r($statement->errorInfo());
       }

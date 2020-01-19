@@ -214,7 +214,7 @@
         $array['DateDebutSprint'] = $result["dateDebut"];
       }
 
-      echo json_encode($array);
+      print json_encode($array);
     }
 
     ?> 

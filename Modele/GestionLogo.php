@@ -43,7 +43,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Ajouter des images
@@ -71,7 +71,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          print '✓';
         else
           print_r($statement->errorInfo());
       }
@@ -89,7 +89,7 @@
 
         $output["Nom"] = $result["nom"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       //mettre a jours les infos
@@ -108,7 +108,7 @@
           )
         );
         if (!empty($result))
-          echo '✓';
+          print '✓';
         else
           print_r($statement->errorInfo());
       }
@@ -128,7 +128,7 @@
           )
         );
         if (!empty($result))
-          echo 'Le projet à maintenant la miniature Inconnue.';
+          print 'Le projet à maintenant la miniature Inconnue.';
         else
           print_r($statement->errorInfo());
 
@@ -157,7 +157,7 @@
         );
 
         if ($statement->rowCount() > 0)
-          echo '✓';
+          print '✓';
         else
           print_r($statement->errorInfo());
       }

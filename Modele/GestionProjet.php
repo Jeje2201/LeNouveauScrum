@@ -57,7 +57,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Ajouter") {
@@ -80,7 +80,7 @@
           )
         );
         if (!empty($result))
-          echo 'Projet "' .  $_POST["Nom"] . '" créé';
+          print 'Projet "' .  $_POST["Nom"] . '" créé';
         else
           print_r($statement->errorInfo());
       }
@@ -101,7 +101,7 @@
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeProjet"] = $result["id_TypeProjet"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "Update") {
@@ -126,7 +126,7 @@
           )
         );
         if (!empty($result))
-          echo 'Projet "' . $_POST["Nom"] . '" changé';
+          print 'Projet "' . $_POST["Nom"] . '" changé';
         else
           print_r($statement->errorInfo());
       }
@@ -142,7 +142,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Projet supprimé';
+          print 'Projet supprimé';
         else
           print_r($statement->errorInfo());
       }

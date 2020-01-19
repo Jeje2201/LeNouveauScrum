@@ -62,7 +62,7 @@
           ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "RemplirTableauRessources") {
@@ -121,7 +121,7 @@
         ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "RemplirTableauProjets") {
@@ -164,7 +164,7 @@
         ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Créer une tache depuis la méthode x+x+x
@@ -187,7 +187,7 @@
           );
         }
         if (!empty($result))
-            echo count($TableauHeurePlanifie) . ' tâche(s) attribuée(s)';
+            print count($TableauHeurePlanifie) . ' tâche(s) attribuée(s)';
           else
             print_r($statement->errorInfo());
       }
@@ -209,7 +209,7 @@
             )
           );
         if (!empty($result))
-            echo 'Reunion bien prise en compte';
+            print 'Reunion bien prise en compte';
           else
             print_r($statement->errorInfo());
       }
@@ -229,7 +229,7 @@
         $output["id_Projet"] = $result["id_Projet"];
         $output["Done"] = $result["Done"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       //Créer une tache depuis l'api
@@ -260,7 +260,7 @@
           );
         }
         if (!empty($result))
-        echo count($ListeTache)-2 . ' tâche(s) pivotal planifiée(s)';
+        print count($ListeTache)-2 . ' tâche(s) pivotal planifiée(s)';
       else
         print_r($statement->errorInfo());
       }
@@ -283,7 +283,7 @@
             )
           );
           if (!empty($result))
-            echo 'Tâche scrum planing planifiée'."\n";
+            print 'Tâche scrum planing planifiée'."\n";
           else
             print_r($statement->errorInfo());
         }
@@ -310,7 +310,7 @@
         else
           $output["Attribuable"] = intval($result["Attribuable"]);
 
-        echo json_encode($output);
+        print json_encode($output);
       }
     }
 

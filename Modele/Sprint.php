@@ -42,7 +42,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Créer") {
@@ -59,7 +59,7 @@
           )
         );
         if (!empty($result))
-          echo 'Sprint n°'.$_POST["numero"].' créé';
+          print 'Sprint n°'.$_POST["numero"].' créé';
         else
           print_r($statement->errorInfo());
       }
@@ -72,9 +72,9 @@
         $statement->execute();
         $result = $statement->fetch();
         if (isset($result["numero"]))
-          echo $result["numero"];
+          print $result["numero"];
         else
-          echo 1;
+          print 1;
       }
 
       if ($_POST["action"] == "Select") {
@@ -92,7 +92,7 @@
         $output["dateFin"] = date("d-m-Y", strtotime($result["dateFin"]));
         $output["attribuable"] = $result["attribuable"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "Update") {
@@ -112,7 +112,7 @@
           )
         );
         if (!empty($result))
-          echo 'Sprint n°'.$_POST["numero"].' changé';
+          print 'Sprint n°'.$_POST["numero"].' changé';
         else
           print_r($statement->errorInfo());
       }
@@ -128,7 +128,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Sprint supprimé';
+          print 'Sprint supprimé';
         else
           print_r($statement->errorInfo());
       }

@@ -22,7 +22,7 @@
               $test["dateFin"] = $row["dateFin"];
               $test["id"] = $row["id"];
 
-              echo json_encode($test);
+              print json_encode($test);
             }
           }
 
@@ -50,7 +50,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -78,7 +78,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -105,7 +105,7 @@
           $output2 .= '</select>';
         }
 
-        echo $output2;
+        print $output2;
 
         break;
 
@@ -135,7 +135,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -165,7 +165,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -194,7 +194,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -222,7 +222,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -250,7 +250,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -276,7 +276,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -305,7 +305,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -331,7 +331,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -357,7 +357,7 @@
             $output2 .= '</form>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -383,7 +383,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
 
@@ -408,7 +408,7 @@
           }
           $output2 .= '</select>';
 
-          echo $output2;
+          print $output2;
           break;
 
           /////////////////////////////////////
@@ -434,7 +434,7 @@
             $output2 .= '</select>';
           }
 
-          echo $output2;
+          print $output2;
 
           break;
       }

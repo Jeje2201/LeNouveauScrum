@@ -93,7 +93,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Créer une ressource
@@ -124,7 +124,7 @@
           )
         );
         if (!empty($result))
-          echo 'Ressource "'.$_POST["Prenom_Employe"]. ' ' .$_POST["Nom_Employe"] .'" créée';
+          print 'Ressource "'.$_POST["Prenom_Employe"]. ' ' .$_POST["Nom_Employe"] .'" créée';
         else
           print_r($statement->errorInfo());
       }
@@ -150,7 +150,7 @@
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
         $output["Initial"] = $result["Initial"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       //Update employe
@@ -180,7 +180,7 @@
           )
         );
         if (!empty($result))
-          echo 'Ressource "' .$_POST["Prenom_Employe"].' '. $_POST["Nom_Employe"] .'" changée';
+          print 'Ressource "' .$_POST["Prenom_Employe"].' '. $_POST["Nom_Employe"] .'" changée';
         else
           print_r($statement->errorInfo());
       }
@@ -196,7 +196,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Ressource supprimée';
+          print 'Ressource supprimée';
         else
           print_r($statement->errorInfo());
       }
@@ -230,11 +230,11 @@
         $pathDeLimage= "../Assets/Image/Ressources/" . $target_file;
 
         if (file_exists($target_file)) {
-          echo "Ce nom d'image existe déjà. Changez le nom et recommencez.";
+          print "Ce nom d'image existe déjà. Changez le nom et recommencez.";
         }
 
         else if ($_FILES["image"]["size"] > 2000000) {
-          echo "Tu veux pas envoyer un fichier de la taille d'un film aussi ? Trouve plus petit (max = 2mo)";
+          print "Tu veux pas envoyer un fichier de la taille d'un film aussi ? Trouve plus petit (max = 2mo)";
         }
 
         else if (move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage)) {
@@ -250,12 +250,12 @@
 
           if(file_exists("../Assets/Image/Ressources/".$result[0])){
           if (unlink("../Assets/Image/Ressources/".$result[0])) {
-              echo "Suppression du précédent avatar réussi\n";
+              print "Suppression du précédent avatar réussi\n";
           } else {
-            echo "Impossible de supprimer l'image précédente ".$result[0]."\n";
+            print "Impossible de supprimer l'image précédente ".$result[0]."\n";
           }
         }else {
-          echo "Impossible de supprimer l'image précédente ".$result[0]."\n";
+          print "Impossible de supprimer l'image précédente ".$result[0]."\n";
         }
 
           $statement = $connection->prepare(
@@ -268,11 +268,11 @@
 
           move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage);
 
-          echo "Votre avatar a évolué ! Félicitation !";
+          print "Votre avatar a évolué ! Félicitation !";
 
         }
         else{
-          echo "Une erreur est survenu mais non reconnue.. L'image dépasse peut être 2mo ?";
+          print "Une erreur est survenu mais non reconnue.. L'image dépasse peut être 2mo ?";
         }
       }
     }

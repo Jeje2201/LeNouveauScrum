@@ -29,7 +29,7 @@
           foreach ($result as $row) {
             $Liste[] = $row['resultat'];
           }
-          echo json_encode($Liste);
+          print json_encode($Liste);
         }
       }
 

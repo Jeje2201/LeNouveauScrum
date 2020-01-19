@@ -118,7 +118,7 @@
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
         header('Content-type: application/json');
 
-        echo json_encode($Test);
+        print json_encode($Test);
       }
 
       //Afficher la liste d'employes qui ont des taches
@@ -155,7 +155,7 @@
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
         header('Content-type: application/json');
 
-        echo json_encode($Test);
+        print json_encode($Test);
       }
 
       //Ressortir la date min et max du sprint
@@ -181,7 +181,7 @@
         header('Cache-Control: no-cache, must-revalidate');
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
         header('Content-type: application/json');
-        echo json_encode($array);
+        print json_encode($array);
       }
 
       //Valider une tache, soit lui donner une date de validation
@@ -204,7 +204,7 @@
           );
         }
         if (!empty($result))
-          echo sizeof($IdAttribue)." tâche(s) validée(s)";
+          print sizeof($IdAttribue)." tâche(s) validée(s)";
         else
           print_r($statement->errorInfo());
       }

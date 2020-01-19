@@ -56,7 +56,7 @@
             </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       // Pour la liste "Oublie sur une date" dans la gestion des fiches de temps 
@@ -106,7 +106,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       // Get le nb de temps pour set le max du slider
@@ -121,7 +121,7 @@
         );
         $statement->execute();
         $result = $statement->fetch();
-        echo 0 + $result[0];
+        print 0 + $result[0];
       }
 
       // Pour la liste d'heures validé sur une journée selectionné dans la page de fiche de temps
@@ -179,7 +179,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Afficher la liste des dates où il manque des fiche de temps non remplies
@@ -227,7 +227,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //List des heures par date de rempli
@@ -286,7 +286,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //List des heures par sprint de rempli
@@ -345,7 +345,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //List des heures par ressources pour un projet sur une plage horaire
@@ -406,7 +406,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "ListeSelonProjetDate") {
@@ -461,7 +461,7 @@
           </tr>';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       //Create une fiche de temps
@@ -524,7 +524,7 @@
               } 
           }
         }
-        echo json_encode($JsonResult);
+        print json_encode($JsonResult);
       }
 
       //Select une fiche de temps
@@ -544,7 +544,7 @@
         $output["Ressource"] = $result["Fk_User"];
         $output["Projet"] = $result["Fk_Project"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       //Update une fiche de temps
@@ -566,7 +566,7 @@
           )
         );
         if (!empty($result))
-          echo 'Fiche de temps changée';
+          print 'Fiche de temps changée';
         else {
           print_r($statement->errorInfo());
         }
@@ -583,7 +583,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Fiche de temps supprimée';
+          print 'Fiche de temps supprimée';
         else
           print_r($statement->errorInfo());
       }
@@ -649,7 +649,7 @@
 
         $array['NbDatePerUser'] = $NbDate;
 
-        echo json_encode($array);
+        print json_encode($array);
       }
     }
 

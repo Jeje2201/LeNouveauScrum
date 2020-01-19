@@ -51,7 +51,7 @@
      ';
         }
         $output .= '</tbody></table>';
-        echo $output;
+        print $output;
       }
 
       if ($_POST["action"] == "Select") {
@@ -71,7 +71,7 @@
           $output["Fin"] = date("d-m-Y", strtotime($result["DateFini"]));
         $output["Label"] = $result["Label"];
 
-        echo json_encode($output);
+        print json_encode($output);
       }
 
       if ($_POST["action"] == "UpdateAvecDateFin") {
@@ -93,7 +93,7 @@
           )
         );
         if (!empty($result))
-          echo 'Remarque "'.$_POST["Label"].'" changée';
+          print 'Remarque "'.$_POST["Label"].'" changée';
         else {
           print_r($statement->errorInfo());
         }
@@ -110,7 +110,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Remarque supprimée';
+          print 'Remarque supprimée';
         else
           print_r($statement->errorInfo());
       }
