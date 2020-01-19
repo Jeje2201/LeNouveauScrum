@@ -158,9 +158,6 @@
         }
       });
 
-
-
-
       //Remplir la liste des remarques
       $.ajax({
         url: "Modele/Retrospective.php",
@@ -233,7 +230,7 @@
           action: "achieveDemo"
         },
         success: function (data) {
-          $.notify(data, "success");
+          Notify(data,'Démo validée')
           getDemos();
         }
       });
@@ -242,9 +239,7 @@
 
     function dellDemo(demo_id) {
 
-      console.log(demo_id)
-
-      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
+      if (confirm("Es-tu sûr de vouloir supprimer cette démo ?"))
         $.ajax({
           url: "Modele/Retrospective_demo.php",
           method: "POST",
@@ -253,7 +248,7 @@
             action: "dellDemo"
           },
           success: function (data) {
-            $.notify(data, "success");
+            Notify(data,'Démo supprimée')
             getDemos();
           }
         });

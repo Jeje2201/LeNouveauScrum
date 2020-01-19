@@ -77,9 +77,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo "'.$_POST["LabelDemo"].'" créée';
-        else
-          print_r($statement->errorInfo());
+          print true;
       }
 
       if ($_POST["action"] == "achieveDemo") {
@@ -95,9 +93,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo validée';
-        else
-          print_r($statement->errorInfo());
+          print true;
       }
 
       if ($_POST["action"] == "putDemo") {
@@ -120,10 +116,7 @@
           )
         );
         if (!empty($result))
-          echo 'Démo "'.$_POST["LabelDemo"].'" changée avec succès';
-        else {
-          print_r($statement->errorInfo());
-        }
+          print true;
       }
 
       if ($_POST["action"] == "dellDemo") {
@@ -137,9 +130,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          echo 'Démo supprimée';
-        else
-          print_r($statement->errorInfo());
+          print true;
       }
     }
     ?> 

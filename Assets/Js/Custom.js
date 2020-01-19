@@ -77,3 +77,12 @@ function ShowAndClearModaleForNew(idModale,hideElement = null, showElement = nul
     $(this).val('')
 });
 }
+
+//  Affiche la modale et clear tous les input
+function Notify(resultSQL, Message = 'Message non customisé') {
+
+  if(resultSQL == true)
+    $.notify(Message, "success");
+  else
+    $.notify("Erreur", "error");
+}
