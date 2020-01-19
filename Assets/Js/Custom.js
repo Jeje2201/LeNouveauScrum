@@ -63,11 +63,15 @@ function GarderLaRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
 }
 
 //  Affiche la modale et clear tous les input
-function ShowAndClearModaleForNew(idModale,hideElement, showElement) {
+function ShowAndClearModaleForNew(idModale,hideElement = null, showElement = null) {
 
   $('#'+idModale).modal('show')
-  $('#'+hideElement).hide()
-  $('#'+showElement).show()
+
+  if(hideElement != null)
+    $('#'+hideElement).hide()
+
+  if(showElement != null)
+    $('#'+showElement).show()
 
   $('#'+idModale+' input').each(function(){
     $(this).val('')
