@@ -16,8 +16,7 @@
             onclick="$('#ModalScrumPlaning').modal('show');">Scrum planning </button>
         </div>
         <div class="col">
-          <button type="button" id="Btn_Modal_Objectif_Demo" class="btn btn-block btn-info"
-            onclick="$('#Modal_Objectif_Demo').modal('show');">Objectif / Démo</button>
+          <button type="button" id="Btn_Modal_Objectif_Demo" class="btn btn-block btn-info">Objectif / Démo</button>
         </div>
         <div class="col">
           <button type="button" id="Btn_Modal_Google_Calendar" class="btn btn-block btn-info"
@@ -85,7 +84,7 @@
           </div>
 
           <div class="col-lg-3">
-            <input type="submit" value="Attribuer" class="btn btn-success EnvoyerObjectif" />
+            <button type="submit" class="btn btn-success EnvoyerObjectif">Attribuer</button>
           </div>
         </div>
 
@@ -100,7 +99,7 @@
           </div>
 
           <div class="col-lg-3">
-            <input type="submit" value="Attribuer" class="btn btn-success EnvoyerDemo" />
+            <button id="postDemo" class="btn btn-success">Attribuer</button>
           </div>
         </div>
 
@@ -539,7 +538,6 @@
           },
           success: function (data) {
             $.notify(data, "success");
-            // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
@@ -568,7 +566,6 @@
           },
           success: function (data) {
             $.notify(data, "success");
-            // $('#Modal_Objectif_Demo').modal('hide');
             RemplirTableau('TableListHeuresAttribuees');
             RemplirTableauRessources('TableListHeuresAttribueesRessources');
             RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
@@ -577,18 +574,21 @@
       } else
         $.notify("Aucune ressource selectionnée ?", "error");
     });
-
-    //Créer des démos
-    $(document).on('click', '.EnvoyerDemo', function () {
+    
+    $(document).on('click', '#Btn_Modal_Objectif_Demo', function () {
+      ShowAndClearModaleForNew('Modal_Objectif_Demo')
+    })
+    
+    $(document).on('click', '#postDemo', function () {
 
       $.ajax({
-        url: "Modele/Demo.php",
+        url: "Modele/Retrospective_demo.php",
         method: "POST",
         data: {
           idEmploye: $('#ListeEmployeObjectifDemo').val(),
           idProjet: $('#ListeProjetObjectifDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
-          action: "CréerDemo"
+          action: "addDemo"
         },
         success: function (data) {
           $.notify(data, "success");
@@ -800,7 +800,6 @@
           $.notify(LaVariable.length+ ' tâches de réunions ajoutées', "success");
           // location.reload();
 
-          // $('#Modal_Objectif_Demo').modal('hide');
           RemplirTableau('TableListHeuresAttribuees');
           RemplirTableauRessources('TableListHeuresAttribueesRessources');
           RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')

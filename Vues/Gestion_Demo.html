@@ -6,7 +6,20 @@
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-      <div id="TableauDemo" class="table-responsive table-hover"></div>
+      <table class="table table-sm  table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Fais le</th>
+            <th>Ressource</th>
+            <th>Projet</th>
+            <th>Label</th>
+            <th>Edition</th>
+          </tr>
+        </thead>
+        <tbody id="TableDemo">
+
+        </tbody>
+      </table>
 
     </div>
 </body>
@@ -15,7 +28,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"></h4>
+        <h4 class="modal-title">Editer remarque</h4>
       </div>
       <div class="modal-body">
 
@@ -43,7 +56,7 @@
 
       <div class="modal-footer">
         <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success Set" />
+        <input type="submit" name="action" id="putDemo" class="btn btn-success" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -53,54 +66,118 @@
 <script>
   $(document).ready(function () {
 
+    $('#DateEffectue').datetimepicker({
+    format: 'dd-mm-yyyy',
+    autoclose: true,
+    minView: 2,
+    weekStart: 1
+  });
+
+    getDemos();
+
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php','ProjetDemo');
-    ChargerTableau();
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ProjetDemo');
     BarreDeRecherche('BarreDeRecherche', 'TableauDemo');
 
-    function ChargerTableau() {
+    function getDemos() {
+      // Remplir la liste des démos
       $.ajax({
-        url: "Modele/GestionDemo.php",
+        url: "Modele/Retrospective_demo.php",
         method: "POST",
+        dataType: "json",
         data: {
-          action: "Load"
+          action: "getDemos"
         },
         success: function (data) {
-          $('#TableauDemo').html(data);
-          GarderLaRecherche('BarreDeRecherche', 'TableauDemo');
-        }
+          console.log(data)
+
+          $('#TableDemo').html('')
+
+          $.each(data, function () {
+
+            var tableDemos = $(`<tr>
+                                <td>` + this.demo_DateEffectue + `</td>
+                                <td>` + this.ressource_prenom + ` ` + this.ressource_initial + `</td>
+                                <td>` + this.projet_nom + `</td>
+                                <td>` + this.demo_label + `</td>
+                              </tr>`);
+
+            var $colloneBoutons = $('<td />');
+
+            $colloneBoutons.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+              '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
+            ).on('click', function () {
+              getDemo(this.id.split('_')[2])
+            }));
+
+            $colloneBoutons.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+              '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
+            ).on('click', function () {
+              dellDemo(this.id.split('_')[2])
+            }));
+
+            tableDemos.append($colloneBoutons);
+
+            $('#TableDemo').prepend(tableDemos)
+
+          })
+
+        },
+
       });
     }
 
-    $(document).on('click', '.Get', function () {
-      $('#ModalRemarque').modal('show');
-      var id = $(this).attr("id");
+    function getDemo(demo_id) {
+
       $.ajax({
-        url: "Modele/GestionDemo.php",
+        url: "Modele/Retrospective_demo.php",
         method: "POST",
         data: {
-          id: $(this).attr("id"),
-          action: "Select"
+          demo_id: demo_id,
+          action: "getDemo"
         },
         dataType: "json",
         success: function (data) {
-          $('#ModalRemarque').modal('show');
-          $('.modal-title').text("Editer remarque");
-          $('#id').val(id);
-          $('#employeId').val(data.Ressource);
-          $('#ProjetDemo').val(data.Projet);
-          $('#LabelDemo').val(data.LabelDemo);
-          $('#DateEffectue').val(data.DateEffectue);
 
-				  $("#ProjetDemo, #employeId").select2({width: "100%"});
-          
+          $('#ModalRemarque').modal('show');
+          $('#id').val(data.demo_id);
+          $('#employeId').val(data.demo_id_Employe);
+          $('#ProjetDemo').val(data.demo_id_Projet);
+          $('#LabelDemo').val(data.demo_Label);
+          $('#DateEffectue').val(data.demo_DateEffectue);
+
+          $("#ProjetDemo, #employeId").select2({
+            width: "100%"
+          });
+
+
         }
       });
-    });
 
-    $(document).on('click', '.Set', function () {
+    }
+
+    function dellDemo(demo_id) {
+
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
+        $.ajax({
+          url: "Modele/Retrospective_demo.php",
+          method: "POST",
+          data: {
+            demo_id: demo_id,
+            action: "dellDemo"
+          },
+          success: function (data) {
+            $.notify(data, "success");
+            getDemos();
+          }
+        });
+
+    }
+
+    $('#putDemo').bind( "click", function() {
+
       $.ajax({
-        url: "Modele/GestionDemo.php",
+        url: "Modele/Retrospective_demo.php",
         method: "POST",
         data: {
           id: $('#id').val(),
@@ -108,32 +185,17 @@
           Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
           DateEffectue: DateFrToEn($('#DateEffectue').val()),
-          action: "Update"
+          action: "putDemo"
         },
         success: function (data) {
           $.notify(data, "success");
           $('#ModalRemarque').modal('hide');
-          ChargerTableau();
+          getDemos()
         }
       });
     });
 
-    $(document).on('click', '.delete', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette démo ?"))
-        $.ajax({
-          url: "Modele/GestionDemo.php",
-          method: "POST",
-          data: {
-            id: $(this).attr("id"),
-            action: "Delete"
-          },
-          success: function (data) {
-            ChargerTableau();
-            $.notify(data, "success");      
-          }
-        })
-    });
   });
 
-  $('#DateEffectue').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+  
 </script>

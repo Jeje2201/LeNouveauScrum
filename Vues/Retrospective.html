@@ -3,21 +3,34 @@
     <div class="container-fluid">
 
       <h3>Sprint</h3>
-          <div class="row ">
-            <div class="col-lg-9">
-              <div id="ListSrint"></div>
-            </div>
+      <div class="row ">
+        <div class="col-lg-9">
+          <div id="ListSrint"></div>
+        </div>
 
-            <div class="col-lg-3">
-              <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
-            </div>
+        <div class="col-lg-3">
+          <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
+        </div>
 
-            <textarea id="textbox" class="hideElement"></textarea>
-          </div>
+        <textarea id="textbox" class="hideElement"></textarea>
+      </div>
 
       <h2 class="mt-3">Liste des démos</h2>
-      <div id="TableDemo" class="table-responsive table-hover"></div>
-      
+
+      <table class="table table-sm  table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Ressource</th>
+            <th>Démo</th>
+            <th>Label</th>
+            <th>Edition</th>
+          </tr>
+        </thead>
+        <tbody id="TableDemo">
+
+        </tbody>
+      </table>
+
       <hr class="mt-2 mb-2 w-75">
 
       <h2>Liste des objectifs</h2>
@@ -52,7 +65,8 @@
         <div id="ListEmploye"> </div>
         <br />
 
-        <textarea class="form-control" placeholder="Label objectif" name="LabelObjectif" id="LabelObjectif"  rows="2"></textarea>
+        <textarea class="form-control" placeholder="Label objectif" name="LabelObjectif" id="LabelObjectif"
+          rows="2"></textarea>
 
       </div>
       <div class="modal-footer">
@@ -101,7 +115,6 @@
 </div>
 
 <script>
-
   $(document).ready(function () {
 
     $('body').toggleClass('sidenav-toggled');
@@ -110,13 +123,14 @@
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ProjetRetrospective');
 
-    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php','EmployeRetrospective');
+    RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php', 'EmployeRetrospective');
 
     RemplirTableau();
 
+    getDemos();
+
     BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
 
-    // Remplir la liste des objectifs dans une table
     function RemplirTableau() {
       $.ajax({
         url: "Modele/Retrospective.php",
@@ -144,17 +158,8 @@
         }
       });
 
-      // Remplir la liste des démos
-      $.ajax({
-        url: "Modele/Demo.php",
-        method: "POST",
-        data: {
-          action: "LoadDemo"
-        },
-        success: function (data) {
-          $('#TableDemo').html(data.trim());
-        }
-      });
+
+
 
       //Remplir la liste des remarques
       $.ajax({
@@ -167,6 +172,92 @@
           $('#TableRemarque').html(data);
         }
       });
+    }
+
+    function getDemos() {
+      // Remplir la liste des démos
+      $.ajax({
+        url: "Modele/Retrospective_demo.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+          action: "getDemos"
+        },
+        success: function (data) {
+
+          $('#TableDemo').html('')
+
+          $.each(data, function () {
+
+            if (this.demo_DateEffectue == "") {
+
+              var tableDemos = $(`<tr>
+                                <td>` + this.ressource_prenom + ` ` + this.ressource_initial + `</td>
+                                <td>` + this.projet_nom + `</td>
+                                <td>` + this.demo_label + `</td>
+                              </tr>`);
+
+              var $colloneBoutons = $('<td />');
+
+              $colloneBoutons.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+                '" class="btn btn-success mr-1 btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                achieveDemo(this.id.split('_')[2])
+              }));
+
+              $colloneBoutons.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+                '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                dellDemo(this.id.split('_')[2])
+              }));
+
+              tableDemos.append($colloneBoutons);
+
+              $('#TableDemo').prepend(tableDemos)
+            }
+
+          })
+
+        },
+
+      });
+    }
+
+    function achieveDemo(demo_id) {
+
+      $.ajax({
+        url: "Modele/Retrospective_demo.php",
+        method: "POST",
+        data: {
+          demo_id: demo_id,
+          action: "achieveDemo"
+        },
+        success: function (data) {
+          $.notify(data, "success");
+          getDemos();
+        }
+      });
+
+    }
+
+    function dellDemo(demo_id) {
+
+      console.log(demo_id)
+
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
+        $.ajax({
+          url: "Modele/Retrospective_demo.php",
+          method: "POST",
+          data: {
+            demo_id: demo_id,
+            action: "dellDemo"
+          },
+          success: function (data) {
+            $.notify(data, "success");
+            getDemos();
+          }
+        });
+
     }
 
     // Afficher le modal de mail quand clic sur bouton de mail    
@@ -210,7 +301,9 @@
           $('#EmployeRetrospective').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
 
-          $( "#EmployeRetrospective, #ProjetRetrospective" ).select2({width: "100%"});
+          $("#EmployeRetrospective, #ProjetRetrospective").select2({
+            width: "100%"
+          });
 
         }
       });
@@ -219,7 +312,8 @@
     //Editer ou créer pour editer un objectif
 
     $('#action').click(function () {
-      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#EmployeRetrospective').val() != '' && $('#ProjetRetrospective').val() != '') {
+      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#EmployeRetrospective')
+      .val() != '' && $('#ProjetRetrospective').val() != '') {
         $.ajax({
           url: "Modele/Retrospective.php",
           method: "POST",
@@ -238,8 +332,7 @@
           }
         });
         $('#LabelObjectif').val('');
-      }
-      else {
+      } else {
         $.notify("Tous les champs doivent être remplis", "error");
       }
     });
@@ -318,7 +411,6 @@
       });
     });
 
-
     // Créer ou éditer une remarque
     $('#ActionRemarque').click(function () {
       $.ajax({
@@ -354,41 +446,6 @@
           }
         })
     });
-
-    //+-+-+-+-+-+-+-+-+-+-+  Démos +-+-+-+-+-+-+-+-+-+-+
-
-    // Valider une démo
-    $(document).on('click', '.ValiderDemo', function () {
-      $.ajax({
-        url: "Modele/Demo.php",
-        method: "POST",
-        data: {
-          id: $(this).attr("id"),
-          action: "ValiderDemo"
-        },
-        success: function (data) {
-          $.notify(data, "success");
-          RemplirTableau();
-        }
-      });
-    });
-
-    // Supprimer une démo
-    $(document).on('click', '.SupprimerDemo', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
-        $.ajax({
-          url: "Modele/Demo.php",
-          method: "POST",
-          data: {
-            id: $(this).attr("id"),
-            action: "SupprimerDemo"
-          },
-          success: function (data) {
-            $.notify(data, "success");
-            RemplirTableau();
-          }
-        });
-    });    
 
   });
 </script>
