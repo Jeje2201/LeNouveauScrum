@@ -1,29 +1,22 @@
-// Quelques js esthétiques
-function ClassActive(NameUser) {
+//Enlever actif a toutes les class
+$("#navbarResponsive li").each(function () {
+  $(this).removeClass("active");
+});
 
-  //Enlever actif a toutes les class
-  $("#navbarResponsive li").each(function () {
-    $(this).removeClass("active");
-  });
-  
-  //Cherche sur quelle page il est
-    var LaPage = 'Accueil'
-    if(window.location.href.split('=')[1] != undefined){
-      LaPage = window.location.href.split('=')[1]
-    }
-
-  //Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
-  $('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
-
-  //Si user n'est pas admin, alors enlever tout ce qui est pour les admins
-  if(isAdmin() != 1){
-    $(".AdminOnly").each(function () {
-      $(this).remove()
-    });
+//Cherche sur quelle page il est
+  var LaPage = 'Accueil'
+  if(window.location.href.split('=')[1] != undefined){
+    LaPage = window.location.href.split('=')[1]
   }
 
-  //Afficher le prénom
-  $("#TitreNavBar").text("Ns Scrum - " + NameUser);
+//Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
+$('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
+
+//Si user n'est pas admin, alors enlever tout ce qui est pour les admins
+if(isAdmin() != 1){
+  $(".AdminOnly").each(function () {
+    $(this).remove()
+  });
 }
 
 // Active ou désactive le css sidenav-toggled quand clic ou non sur la navbar "gestion"
@@ -31,7 +24,9 @@ $("#SlideNav").click(function () {
   $("body").toggleClass("sidenav-toggled");
 });
 
-//Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
+/**
+ * Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
+ */
 $.ajax({
   url: "Modele/Changelog.php",
   method: "POST",
@@ -48,7 +43,19 @@ $.ajax({
   }
 })
 
-// Fonction pour chercher dans une table depuis un input
+/**
+ * Afficher le prénom en haut dans l'application
+ * @param {string} NameUser Nom du user
+ */
+function ClassActive(NameUser) {
+  $("#TitreNavBar").text("Ns Scrum - " + NameUser);
+}
+
+/**
+ * Fonction pour chercher dans une table depuis un input
+ * @param {string} IdDivBarreDeRecherche Id de la bar de recherche dans laquelle on tape pour chercher
+ * @param {string} IdTableRecherche Table de recherche sur laquelle on va chercher ce qu'on a tapé
+ */
 function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   $("#" + IdDivBarreDeRecherche).on("keyup", function () {
     $("#" + IdTableRecherche + " tr:not(thead tr)").filter(function () {
@@ -57,14 +64,23 @@ function BarreDeRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   });
 }
 
-//  Fonction pour appliquer ce qui se trouve dans la barre de recherche sur la table, sans besoin de taper du texte dedans, c'est instentané
+/**
+ * Fonction pour appliquer ce qui se trouve dans la barre de recherche sur la table, sans besoin de taper du texte dedans, c'est instentané
+ * @param {string} IdDivBarreDeRecherche Id de la bar de recherche dans laquelle on tape pour chercher
+ * @param {string} IdTableRecherche Table de recherche sur laquelle on va chercher ce qu'on a tapé
+ */
 function GarderLaRecherche(IdDivBarreDeRecherche, IdTableRecherche) {
   $("#" + IdTableRecherche + " tr:not(thead tr)").filter(function () {
     $(this).toggle($(this).text().toLowerCase().indexOf($("#" + IdDivBarreDeRecherche).val().toLowerCase()) > -1);
   });
 }
 
-//  Affiche la modale et clear tous les input
+/**
+ * Affiche la modale, clear tous ses input et si donnée, cache et affiche un input pour choisir si afficher "créer" ou "maj"
+ * @param {string} idModale modale qu'on va show et clear tout ses inputs
+ * @param {string} hideElement input qu'on veut cacher
+ * @param {string} showElement input qu'on veut afficher
+ */
 function ShowAndClearModaleForNew(idModale,hideElement = null, showElement = null) {
 
   $('#'+idModale).modal('show')
@@ -80,7 +96,11 @@ function ShowAndClearModaleForNew(idModale,hideElement = null, showElement = nul
 });
 }
 
-//  Affiche la modale et clear tous les input
+/**
+ * Créer une notif qui affiche qu'il y a une erreur si le résultat n'est pas "1" et sinon un custom message
+ * @param {string} resultSQL Prend le retour de la requete sql qui devrait etre "1" si tout c'est bien passé
+ * @param {string} Message Message qu'on affiche si tout c'est bien pass"
+ */
 function Notify(resultSQL, Message = 'Message non customisé') {
 
   if(resultSQL == true)
@@ -89,6 +109,9 @@ function Notify(resultSQL, Message = 'Message non customisé') {
     $.notify("Erreur", "error");
 }
 
+/**
+ * Retourne 1 / true si le user est admin sinon 0 / false
+ */
 function isAdmin(){
 
   var isAdmin = 0
@@ -112,7 +135,12 @@ function isAdmin(){
     return parseInt(isAdmin)
 }
 
-function IfNoRows(idTable, Text){
+/**
+ * 
+ * @param {string} idTable ID Table qu'on va check
+ * @param {string} Text Texte a afficher si aucune résultat n'arrive
+ */
+function IfNoRows(idTable, Text = "Aucune donnée.."){
   if($('#'+idTable+' td').length == 0)
   {
     $('#'+idTable).prepend('<td colspan="6"  class="centered table-dark">'+Text+'</td>')
