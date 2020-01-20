@@ -24,6 +24,7 @@ function ClassActive(NameUser) {
 
   //Afficher le prénom
   $("#TitreNavBar").text("Ns Scrum - " + NameUser);
+}
 
 // Active ou désactive le css sidenav-toggled quand clic ou non sur la navbar "gestion"
 $("#SlideNav").click(function () {
