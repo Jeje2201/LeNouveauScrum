@@ -2,23 +2,23 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="centered border mb-3" onclick="$('#ModaleClient').modal('show'); ">
+      <div class="centered border border-dark mb-3" onclick="$('#ModaleClient').modal('show'); ">
         <h2 class="centered mb-2" id="NomProjet"></h2>
         <h4 class="centered mb-4" id="ClientEntreprise"></h4>
         <h4 class="centered mb-3" id="DescriptionProjet"></h4>
       </div>
 
-      <div class="border mb-3">
+      <div class="border border-dark mb-3">
         <p class="ml-2 mt-1"><small>Ressoures mobilisées</small></p>
         <div id="RessourcesMobilisees" class="col row"></div>
       </div>
 
-      <div class="border mb-3">
+      <div class="border border-dark mb-3">
         <p class="ml-2 mt-1"><small>Technologies mobilisées</small></p>
         <div id="TechnologiesProjet" class="col row"></div>
       </div>
 
-      <div class="border mb-3">
+      <div class="border border-dark mb-3">
         <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
         <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">ajouter</button>
           <table class="table table-sm table-striped table-bordered">
@@ -236,7 +236,7 @@
     });
   }
 
-  $('#putClient').bind( "click", function() {
+    $('#putClient').bind( "click", function() {
 
   $.ajax({
       url: "Modele/ProjectInformation.php",
@@ -500,6 +500,7 @@
       })
       }
     });
+    IfNoRows('EchangesProjet','Aucun échange trouvé..')
     }
 
     $('#AddEchange').bind( "click", function() { 

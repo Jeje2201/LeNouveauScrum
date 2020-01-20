@@ -1,28 +1,29 @@
 // Quelques js esthétiques
-function ClassActive(NameUser, Admin) {
+function ClassActive(NameUser) {
 
   //Enlever actif a toutes les class
   $("#navbarResponsive li").each(function () {
     $(this).removeClass("active");
   });
   
-  if(window.location.href.split('=')[1] == undefined)
+  //Cherche sur quelle page il est
     var LaPage = 'Accueil'
-  else
-    var LaPage = window.location.href.split('=')[1]
-
-    if(parseInt(Admin) != 1){
-      $(".AdminOnly").each(function () {
-        $(this).hide()
-      });
+    if(window.location.href.split('=')[1] != undefined){
+      LaPage = window.location.href.split('=')[1]
     }
 
   //Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
   $('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
+  //Si user n'est pas admin, alors enlever tout ce qui est pour les admins
+  if(isAdmin() != 1){
+    $(".AdminOnly").each(function () {
+      $(this).remove()
+    });
+  }
+
   //Afficher le prénom
   $("#TitreNavBar").text("Ns Scrum - " + NameUser);
-}
 
 // Active ou désactive le css sidenav-toggled quand clic ou non sur la navbar "gestion"
 $("#SlideNav").click(function () {
@@ -108,4 +109,11 @@ function isAdmin(){
     }
   })
     return parseInt(isAdmin)
+}
+
+function IfNoRows(idTable, Text){
+  if($('#'+idTable+' td').length == 0)
+  {
+    $('#'+idTable).prepend('<td colspan="6"  class="centered table-dark">'+Text+'</td>')
+  }
 }
