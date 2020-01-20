@@ -100,6 +100,24 @@
   </div>
 </div>
 
+<div id="ModalPassword" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+              <label>Mot de passe</label>
+            <input class="form-control" name="inputMotDePasse" id="inputMotDePasse" type="text">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="inputPassword_id" />
+        <button id="putPassword" class="btn btn-success">Changer</button>
+        <button class="btn btn-primary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div id="EtapeRessource" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -308,6 +326,30 @@
         })
     });
     
+    $(document).on('click', '.password', function () {
+
+      ShowAndClearModaleForNew('ModalPassword');
+      $('#inputPassword_id').val($(this).attr("id"))
+      
+    });
+
+    $(document).on('click', '#putPassword', function () {
+
+      $.ajax({
+							url: "Modele/Parametre.php",
+							method: "POST",
+							data: {
+								action: "Update",
+								idRessource: $('#inputPassword_id').val(),
+								mdp: $('#inputMotDePasse').val()
+							},
+							success: function (data) {
+								$.notify(data, "success");
+							}
+            });
+            
+      $('#ModalPassword').modal('hide')
+    });
 
   });
 </script>
