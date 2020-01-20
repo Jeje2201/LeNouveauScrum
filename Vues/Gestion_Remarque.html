@@ -6,7 +6,19 @@
 
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
 
-      <div id="TableauRemarques" class="table-responsive table-hover"></div>
+      <table class="table table-sm  table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Créée</th>
+            <th>Terminée</th>
+            <th>Remarque</th>
+            <th>Edition</th>
+          </tr>
+        </thead>
+        <tbody id="TableRemarque">
+
+        </tbody>
+      </table>
 
     </div>
 </body>
@@ -23,28 +35,28 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Label</span>
           </div>
-          <input class="form-control" name="labelRemarque" id="labelRemarque" type="text">
+          <input class="form-control" id="labelRemarque" type="text">
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Début</span>
           </div>
-          <input type="text" name="DateDebut" id='DateDebut' class="form-control" />
+          <input type="text" id='DateDebut' class="form-control" />
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Fin</span>
           </div>
-          <input type="text" name="DateFin" id='DateFin' class="form-control" />
+          <input type="text" id='DateFin' class="form-control" />
         </div>
 
       </div>
 
       <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <input type="hidden" id="remarque_id" />
+        <button id="EditerRemarque" class="btn btn-success">Editer</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -52,90 +64,120 @@
 </div>
 
 <script>
-
   $(document).ready(function () {
 
-    ChargerTableau();
+    $('#DateDebut, #DateFin').datetimepicker({
+    format: 'dd-mm-yyyy',
+    autoclose: true,
+    minView: 2,
+    weekStart: 1
+  });
+
+    getRemarques()
     BarreDeRecherche('BarreDeRecherche', 'TableauRemarques');
 
-    function ChargerTableau() {
+    function getRemarques() {
       $.ajax({
-        url: "Modele/GestionRemarque.php",
+        url: "Modele/Retrospective_Remarque.php",
         method: "POST",
+        dataType: "json",
         data: {
-          action: "Load"
+          action: "getRemarques"
         },
         success: function (data) {
-          $('#TableauRemarques').html(data);
-          GarderLaRecherche('BarreDeRecherche', 'TableauRemarques');
+
+          $('#TableRemarque').html('')
+
+          $.each(data, function () {
+
+
+            var tableRemarque = $(`<tr>
+                                <td>` + this.remarque_dateCreation + `</td>
+                                <td>` + this.remarque_dateFini + `</td>
+                                <td>` + this.remarque_label + `</td>
+                              </tr>`);
+
+            var $colloneBoutons = $('<td />');
+
+            $colloneBoutons.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
+              '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+            ).on('click', function () {
+              getRemarque(this.id.split('_')[2])
+            }));
+
+            $colloneBoutons.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
+              '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
+            ).on('click', function () {
+              dellRemarque(this.id.split('_')[2])
+            }));
+
+            tableRemarque.append($colloneBoutons);
+
+            $('#TableRemarque').prepend(tableRemarque)
+
+          })
         }
       });
     }
 
-    $(document).on('click', '.update', function () {
-      var id = $(this).attr("id");
+    function getRemarque(remarque_id) {
+
+      ShowAndClearModaleForNew('ModalRemarque', 'CreerRemarque', 'EditerRemarque')
+
       $.ajax({
-        url: "Modele/GestionRemarque.php",
+        url: "Modele/Retrospective_Remarque.php",
+        method: "POST",
+        dataType: 'json',
+        data: {
+          remarque_id: remarque_id,
+          action: "getRemarque"
+        },
+        success: function (data) {
+
+          $('#ModalRemarque').modal('show');
+          $('#remarque_id').val(data.RetrospectiveRemarque_id);
+          $('#labelRemarque').val(data.RetrospectiveRemarque_Label);
+          $('#DateDebut').val(data.RetrospectiveRemarque_DateCreation);
+          $('#DateFin').val(data.RetrospectiveRemarque_DateFini);
+        }
+      });
+
+    };
+
+    $('#EditerRemarque').click(function () {
+      $.ajax({
+        url: "Modele/Retrospective_Remarque.php",
         method: "POST",
         data: {
-          id: $(this).attr("id"),
-          action: "Select"
+          remarque_id: $('#remarque_id').val(),
+          remarque_DateDebut: DateFrToEn($('#DateDebut').val()),
+          remarque_DateFin: DateFrToEn($('#DateFin').val()),
+          remarque_label: $('#labelRemarque').val(),
+          action: 'putRemarque'
         },
-        dataType: "json",
         success: function (data) {
-          $('#ModalRemarque').modal('show');
-          $('.modal-title').text("Editer remarque");
-          $('#action').val("Update");
-          $('#id').val(id);
-          $('#labelRemarque').val(data.Label);
-          $('#DateDebut').val(data.Debut);
-          $('#DateFin').val(data.Fin);
+          $('#ModalRemarque').modal('hide')
+          Notify(data, 'Remarque "' + $('#LabelRemarque').val() + '" éditée')
+          getRemarques();
         }
       });
     });
 
-    $('#action').click(function () {
-      if ($('#labelRemarque').val() != '' && DateFrToEn($('#DateDebut').val()) != '') {
-        $.ajax({
-          url: "Modele/GestionRemarque.php",
-          method: "POST",
-          data: {
-            id: $('#id').val(),
-            DateDebut: DateFrToEn($('#DateDebut').val()),
-            DateFin: DateFrToEn($('#DateFin').val()),
-            Label: $('#labelRemarque').val(),
-            action: "UpdateAvecDateFin"
-          },
-          success: function (data) {
-            $.notify(data, "success");
-            $('#ModalRemarque').modal('hide');
-            ChargerTableau();
-          }
-        });
-      }
-      else {
-        $.notify("Tous les champs doivent être plein.", "error");
-
-      }
-    });
-
-    $(document).on('click', '.delete', function () {
+    function dellRemarque(remarque_id) {
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
-          url: "Modele/GestionRemarque.php",
+          url: "Modele/Retrospective_Remarque.php",
           method: "POST",
           data: {
-            id: $(this).attr("id"),
-            action: "Delete"
+            remarque_id: remarque_id,
+            action: "dellRemarque"
           },
           success: function (data) {
-            ChargerTableau();
-            $.notify(data, "success");
+            getRemarques()
+            Notify(data, 'Remarque supprimée')
           }
         })
-    });
-  });
-
-  $('#DateDebut, #DateFin').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    }
+  })
 
 </script>
