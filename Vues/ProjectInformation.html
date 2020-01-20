@@ -20,15 +20,15 @@
       </div>
 
       <div class="border border-dark">
-        <p><small>Module échange</small></p>
+        <p><small>Échange réalisés</small></p>
         <button id="AddComment">ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
-                <th>Echange</th>
+                <th>Échange</th>
                 <th>Date</th>
                 <th>Type</th>
-                <th>Edition</th>
+                <th>Édition</th>
               </tr>
             </thead>
             <tbody id="EchangesProjet">
@@ -39,7 +39,7 @@
       </div>
 
       <div class="border border-dark">
-        <p><small>Project Time Line</small></p>
+        <p><small>Timelinep</small></p>
         <div id="ProjectTimeLine" class="col row"></div>
       </div>
 
@@ -51,14 +51,15 @@
   <div class="modal-dialog">
     <div class="modal-content centered">
       <div class="modal-body">
-        <p id="ClientEntrepriseModale">entreprise</p>
-        <!-- <img id="ClientLogoModale" height="75px" width="75px" src=""> -->
-        <p id="ClientNomModale">nom</p>
+        <h2 id="ClientEntrepriseModale" class="mb-3">entreprise</h2>
+        <img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png">
+        <h4 class="mb-n1" id="ClientNomModale">nom</h4>
         <p id="ClientJobModale">job</p>
         <img src="Assets/Image/MailFooter/Mail.png">
-        <p id="ClientMailModale">mail</p>
+        <span class="mb-5" id="ClientMailModale">mail</span>
+        <br>
         <img src="Assets/Image/MailFooter/call.png">
-        <p id="ClientTelephoneModale" class="pb-3">telephone</p>
+        <span id="ClientTelephoneModale">telephone</p>
         <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -88,7 +89,7 @@
         <div class="col">
 
         <div class="form-group">
-          <label>Echange</label>
+          <label>Échange</label>
           <input type="text" name="LabelDemo" id="Echange_Label" class="form-control" />
         </div>
         </div>
@@ -110,11 +111,11 @@
           </select>
           </div>
         </div>
-        <input type="number" class="form-control" id="Echange_ID">
+        <input type="number" class="form-control d-none" id="Echange_ID">
 
         <div class="col">
           <button type="button" id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel échange</button>
-          <button type="button" id="EditEchange" class="btn btn-info mt-2 btn-block">Editer échange</button>
+          <button type="button" id="EditEchange" class="btn btn-info mt-2 btn-block">Éditer échange</button>
         </div>
 
         
@@ -132,7 +133,6 @@
         width: "100%"
       });
 
-    $('#Echange_Date').val(ChoixDate(0));
     $('#Echange_Date').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     var projectId = parseInt(location.href.split('projet=')[1])
@@ -211,7 +211,7 @@
             this.Avatar = 'default'
           }
 
-          divRessource.append($(`<img height="75px" width="75px" src="` + `Assets/Image/Ressources/`+this.Avatar+`">`));
+          divRessource.append($(`<img height="75px" width="75px" src="Assets/Image/Ressources/`+this.Avatar+`">`));
           divRessource.append($(`<img id="`+this.RessourceId+`" height="25px" width="25px" style="position: relative;left: -19px;top: -27px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
             SuppRessource($(this))
           }));
@@ -354,6 +354,7 @@
 
     $('#AddComment').bind( "click", function() {
       ShowAndClearModaleForNew('ModaleComment','EditEchange','AddEchange')
+      $('#Echange_Date').val(ChoixDate(0));
     });
 
     function GetEchange(idComment){
