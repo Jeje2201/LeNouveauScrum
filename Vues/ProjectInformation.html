@@ -2,26 +2,25 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="centered border border-warning" onclick="$('#ModaleClient').modal('show'); ">
+      <div class="centered border mb-3" onclick="$('#ModaleClient').modal('show'); ">
         <h2 class="centered mb-2" id="NomProjet"></h2>
-        <!-- <img id="ClientLogo" src="" height="75px" width="75px"> -->
         <h4 class="centered mb-4" id="ClientEntreprise"></h4>
         <h4 class="centered mb-3" id="DescriptionProjet"></h4>
       </div>
 
-      <div class="border border-dark">
-        <p><small>Ressoures mobilisées</small></p>
+      <div class="border mb-3">
+        <p class="ml-2 mt-1"><small>Ressoures mobilisées</small></p>
         <div id="RessourcesMobilisees" class="col row"></div>
       </div>
 
-      <div class="border border-dark">
-        <p><small>Technologies mobilisées</small></p>
+      <div class="border mb-3">
+        <p class="ml-2 mt-1"><small>Technologies mobilisées</small></p>
         <div id="TechnologiesProjet" class="col row"></div>
       </div>
 
-      <div class="border border-dark">
-        <p><small>Échange réalisés</small></p>
-        <button id="AddComment">ajouter</button>
+      <div class="border mb-3">
+        <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
+        <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -38,7 +37,7 @@
             
       </div>
 
-      <div class="border border-dark">
+      <div class="border">
         <p><small>Timelinep</small></p>
         <div id="ProjectTimeLine" class="col row"></div>
       </div>
@@ -49,17 +48,37 @@
 
 <div id="ModaleClient" class="modal fade">
   <div class="modal-dialog">
-    <div class="modal-content centered">
+    <div class="modal-content">
       <div class="modal-body">
-        <h2 id="ClientEntrepriseModale" class="mb-3">entreprise</h2>
-        <img height="75px" width="75px" class="mb-3" src="Assets/Image/Ressources/default.png">
-        <h4 class="mb-n1" id="ClientNomModale">nom</h4>
-        <p id="ClientJobModale">job</p>
-        <img src="Assets/Image/MailFooter/Mail.png">
-        <span class="mb-5" id="ClientMailModale">mail</span>
-        <br>
-        <img src="Assets/Image/MailFooter/call.png">
-        <span id="ClientTelephoneModale">telephone</p>
+
+        <div class="form-group">
+          <label>Entreprise</label>
+          <input class="form-control" id="ClientEntrepriseModale" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Nom</label>
+          <input class="form-control" id="ClientNomModale" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Poste</label>
+          <input class="form-control" id="ClientJobModale" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Mail</label>
+          <input class="form-control" id="ClientMailModale" type="text">
+        </div>
+
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input class="form-control" id="ClientTelephoneModale" type="text">
+        </div>
+
+        <input class="form-control" type="hidden" id="ClientID" type="text">
+
+        <button type="button" class="btn btn-success" id="putClient" data-dismiss="modal">Editer</button>
         <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -82,6 +101,29 @@
   </div>
 </div>
 
+<div id="ModaleTechno" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Technologie</p>
+
+        <input list="listTechnos" id="inputTechno"/>
+
+        <datalist id="listTechnos">
+            <option value="Ajax">
+            <option value="Jquery">
+            <option value="PHP">
+            <option value="HTML">
+            <option value="VueJs">
+        </datalist>
+
+        <button type="button" id="AddTechnoToProject" class="btn btn-info mb-1 btn-sm">Ajouter Techno</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div id="ModaleComment" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -90,7 +132,9 @@
 
         <div class="form-group">
           <label>Échange</label>
-          <input type="text" name="LabelDemo" id="Echange_Label" class="form-control" />
+          <textarea class="form-control" id="Echange_Label"
+              rows="3"></textarea>
+
         </div>
         </div>
 
@@ -140,9 +184,11 @@
     GetDescription()
     GetClient()
     GetRessources()
-    GetTechno()
+    GetTechnos()
     GetEchanges()
     GetTimeLine()
+
+    //+-+-+-+-+-+-+-+-+-+-+ Infos Projet +-+-+-+-+-+-+-+-+-+-+
 
     function GetDescription(){
     $.ajax({
@@ -150,7 +196,7 @@
       method: "POST",
       data: {
         projectId: projectId,
-        action: "DescriptionProjet"
+        action: "getDescription"
       },
       dataType: "json",
       success: function (data) {
@@ -160,13 +206,15 @@
     });
     }
 
+    //+-+-+-+-+-+-+-+-+-+-+ Client +-+-+-+-+-+-+-+-+-+-+
+
     function GetClient(){
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
       data: {
         projectId: projectId,
-        action: "DescriptionClient"
+        action: "getClient"
       },
       dataType: "json",
       success: function (data) {
@@ -175,19 +223,43 @@
             data.logo = 'default'
         }
 
-        $('#ClientEntreprise').text(data.entreprise);
-        // $('#ClientLogo').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
+        $('#ClientEntreprise').val(data.entreprise);
 
+        $('#ClientEntrepriseModale').val(data.entreprise);
+        $('#ClientNomModale').val(data.Nom);
+        $('#ClientJobModale').val(data.job);
+        $('#ClientMailModale').val(data.mail);
+        $('#ClientTelephoneModale').val(data.telephone);
+        $('#ClientID').val(data.id);
 
-        $('#ClientEntrepriseModale').text(data.entreprise);
-        // $('#ClientLogoModale').attr("src", 'Assets/Image/Client/' + data.logo + '.png');
-        $('#ClientNomModale').text(data.Nom);
-        $('#ClientJobModale').text(data.job);
-        $('#ClientMailModale').text(data.mail);
-        $('#ClientTelephoneModale').text(data.telephone);
       }
     });
   }
+
+  $('#putClient').bind( "click", function() {
+
+  $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        client_id: document.getElementById('ClientID').value,
+        client_entreprise: document.getElementById('ClientEntrepriseModale').value,
+        client_nom: document.getElementById('ClientNomModale').value,
+        client_job: document.getElementById('ClientJobModale').value,
+        client_mail: document.getElementById('ClientMailModale').value,
+        client_telephone: document.getElementById('ClientTelephoneModale').value,
+        action: "putClient"
+      },
+      success: function (data) {
+        Notify(data,'Client édité')
+      }
+    });
+
+    $('#ModaleClient').modal('hide');
+
+  });
+
+  //+-+-+-+-+-+-+-+-+-+-+ Ressources +-+-+-+-+-+-+-+-+-+-+
 
     function GetRessources() {
 
@@ -198,7 +270,7 @@
       method: "POST",
       data: {
         projectId: projectId,
-        action: "GetRessource"
+        action: "GetRessources"
       },
       dataType: "json",
       success: function (data) {
@@ -272,7 +344,9 @@
       
     }
 
-    function GetTechno() {
+    //+-+-+-+-+-+-+-+-+-+-+ Technos +-+-+-+-+-+-+-+-+-+-+
+
+    function GetTechnos() {
       $('#TechnologiesProjet').html('')
 
       $.ajax({
@@ -280,7 +354,7 @@
         method: "POST",
         data: {
           projectId: projectId,
-          action: "GetTechno"
+          action: "GetTechnos"
         },
         dataType: "json",
         success: function (data) {
@@ -299,16 +373,17 @@
             $('#TechnologiesProjet').append(divTechnologie)
           })
         
-          $('#TechnologiesProjet').append($(`<img id="addTechToProject" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
-            AddTechno()
+          $('#TechnologiesProjet').append($(`<img id="AddTechnoModal" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
+            ShowAndClearModaleForNew('ModaleTechno')
           }))
 
         }
       });
     }
-
-    function AddTechno(){
-      var NouvelleTechno = prompt("Nom de la technologie");
+    
+    $('#AddTechnoToProject').bind( "click", function() {
+      
+      var NouvelleTechno = $('#inputTechno').val()
 
       if (NouvelleTechno != undefined && NouvelleTechno != '' && NouvelleTechno != null) {
         $.ajax({
@@ -321,14 +396,14 @@
           },
           success: function (data) {
             $.notify(data, "info");
-            GetTechno();
+            GetTechnos();
           }
         });
       }
       else {
         $.notify("Il faut du texte pour la techno.", "error");
       }
-    }
+    })
 
     function SuppTechno(infos) {
 
@@ -347,14 +422,17 @@
           },
           success: function (data) {
             $.notify(data, "info");
-            GetTechno();
+            GetTechnos();
           }
         });
     }
 
-    $('#AddComment').bind( "click", function() {
+    //+-+-+-+-+-+-+-+-+-+-+ Echange +-+-+-+-+-+-+-+-+-+-+
+    
+    $('#ModaleAddEchange').bind( "click", function() {
       ShowAndClearModaleForNew('ModaleComment','EditEchange','AddEchange')
       $('#Echange_Date').val(ChoixDate(0));
+      $('#Echange_Label').val('');
     });
 
     function GetEchange(idComment){
@@ -484,6 +562,8 @@
         });
     };
   
+    //+-+-+-+-+-+-+-+-+-+-+ Timeline +-+-+-+-+-+-+-+-+-+-+
+
     function GetTimeLine(){
 
       google.charts.load("current", {packages:["timeline"]});

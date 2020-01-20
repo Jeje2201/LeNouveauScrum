@@ -3,7 +3,7 @@
 
     if (isset($_POST["action"])) {
 
-      if ($_POST["action"] == "DescriptionProjet") {
+      if ($_POST["action"] == "getDescription") {
         $output = array();
         $statement = $connection->prepare(
         "SELECT * FROM projet 
@@ -20,7 +20,7 @@
         print json_encode($output);
       }
 
-      if ($_POST["action"] == "DescriptionClient") {
+      if ($_POST["action"] == "getClient") {
         $output = array();
         $statement = $connection->prepare(
         "SELECT * FROM clientprojet 
@@ -35,11 +35,35 @@
         $output["job"] = $result["job"];
         $output["mail"] = $result["mail"];
         $output["telephone"] = $result["telephone"];
+        $output["id"] = $result["id"];
 
         print json_encode($output);
       }
 
-      if ($_POST["action"] == "GetRessource") {
+      if ($_POST["action"] == "putClient") {
+
+        $statement = $connection->prepare(
+          "UPDATE clientprojet 
+          SET entreprise = :clientprojet_entreprise, nom = :clientprojet_nom, job = :clientprojet_job, mail = :clientprojet_mail, telephone = :clientprojet_telephone
+          WHERE id = :clientprojet_id"
+          );
+          $result = $statement->execute(
+          array(
+            ':clientprojet_entreprise' => $_POST["client_entreprise"],
+            ':clientprojet_nom' => $_POST["client_nom"],
+            ':clientprojet_job' => $_POST["client_job"],
+            ':clientprojet_mail' => $_POST["client_mail"],
+            ':clientprojet_telephone' => $_POST["client_telephone"],
+            ':clientprojet_id' => $_POST["client_id"]
+          )
+          );
+          if (!empty($result))
+            print true;
+          else
+            print_r($statement->errorInfo());
+      }
+
+      if ($_POST["action"] == "GetRessources") {
         $output = array();
         $statement = $connection->prepare(
           "SELECT E.prenom, E.avatar, E.id as ressourceID, T.nom as job FROM employe E
@@ -110,7 +134,7 @@
         print 'Impossible de supprimer "'.$_POST["RessourceNom"].'"';
   }
 
-      if ($_POST["action"] == "GetTechno") {
+      if ($_POST["action"] == "GetTechnos") {
         $output = array();
         $statement = $connection->prepare(
           "SELECT T.technologie, T.id as technologieId FROM technologieprojet T
@@ -241,19 +265,19 @@
       "UPDATE echangeprojet 
       SET resume_echange = :resume_echange, date_echange = :date_echange, type_echange = :type_echange
       WHERE id = :resume_id"
-    );
-    $result = $statement->execute(
+      );
+      $result = $statement->execute(
       array(
         ':resume_echange' => $_POST["echange_label"],
         ':date_echange' => date("Y-m-d", strtotime($_POST["echange_date"])),
         ':type_echange' => $_POST["echange_type"],
         ':resume_id' => $_POST["echange_id"]
       )
-    );
-    if (!empty($result))
-      print 'Echange "' .$_POST["echange_label"].'" changé';
-    else
-      print_r($statement->errorInfo());
+      );
+      if (!empty($result))
+        print 'Echange "' .$_POST["echange_label"].'" changé';
+      else
+        print_r($statement->errorInfo());
   }
 
     if ($_POST["action"] == "DellEchange") {
@@ -275,7 +299,6 @@
         print 'Echange non trouvé';
   }
 
-
-    }
+}
 
     ?> 
