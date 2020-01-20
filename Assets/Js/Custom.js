@@ -86,3 +86,26 @@ function Notify(resultSQL, Message = 'Message non customisé') {
   else
     $.notify("Erreur", "error");
 }
+
+function isAdmin(){
+
+  var isAdmin = 0
+
+  $.ajax({
+
+    url: "Modele/GestionEmploye.php",
+    method: "POST",
+    async: false,
+    data: {
+      action: "isAdmin"
+    },
+    dataType: "json",
+    success: function (data) {
+      isAdmin = data['Admin']
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }
+  })
+    return parseInt(isAdmin)
+}

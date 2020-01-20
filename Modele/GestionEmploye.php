@@ -275,6 +275,22 @@
           print "Une erreur est survenu mais non reconnue.. L'image dépasse peut être 2mo ?";
         }
       }
+
+      if ($_POST["action"] == "isAdmin") {
+        
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT * FROM employe 
+         WHERE id = '" . $_SESSION['IdUtilisateur'] . "' 
+         LIMIT 1"
+        );
+        $statement->execute();
+        $result = $statement->fetch();
+
+        $output["Admin"] = $result["admin"];
+
+        print json_encode($output);
+      }
     }
 
     ?> 
