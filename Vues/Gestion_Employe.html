@@ -336,10 +336,10 @@
     $(document).on('click', '#putPassword', function () {
 
       $.ajax({
-							url: "Modele/Parametre.php",
+							url: "Modele/GestionEmploye.php",
 							method: "POST",
 							data: {
-								action: "Update",
+								action: "setMdpOp",
 								idRessource: $('#inputPassword_id').val(),
 								mdp: $('#inputMotDePasse').val()
 							},

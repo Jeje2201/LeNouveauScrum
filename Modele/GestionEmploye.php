@@ -291,6 +291,26 @@
 
         print json_encode($output);
       }
+
+      if ($_POST["action"] == "setMdpOp") {
+        $statement = $connection->prepare(
+          "UPDATE employe 
+        SET mdp = :mdp
+        WHERE id = :id"
+        );
+        $result = $statement->execute(
+          array(
+            ':mdp' => password_hash($_POST["mdp"], PASSWORD_BCRYPT),
+            ':id' => $_POST["idRessource"]
+          )
+        );
+        if (!empty($result))
+          print true;
+        else
+          print_r($statement->errorInfo());
+      }
+
+
     }
 
     ?> 
