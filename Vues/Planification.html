@@ -353,6 +353,21 @@
         success: function (data) {
           $('#' + Div).html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
+
+          //Checker si doublons
+          $('#TableListHeuresAttribuees tr').each (function() {
+            var LaValueACheck = this.innerText
+            var LeIndexACheck = $(this).index()
+
+            $('#TableListHeuresAttribuees tr').each (function() {
+              
+              if(LaValueACheck == this.innerText && LeIndexACheck != $(this).index()){
+                $(this).addClass('bg-warning')   
+              }
+
+            });    
+
+          }); 
         }
       });
     }
