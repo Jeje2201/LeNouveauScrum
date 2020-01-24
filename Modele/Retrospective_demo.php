@@ -15,7 +15,7 @@
         FROM demo D
         INNER JOIN projet P on P.id = D.id_Projet
         INNER JOIN employe E on E.id = D.id_Employe
-        ORDER BY E.prenom DESC");
+        ORDER BY D.DateEffectue IS NULL ASC, D.DateEffectue ASC, E.prenom DESC");
         $statement->execute();
         $result = $statement->fetchAll();
 

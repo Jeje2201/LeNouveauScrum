@@ -11,7 +11,7 @@ if (isset($_POST["action"])) {
         R.DateCreation as remarque_dateCreation,
         R.DateFini as remarque_dateFini
         FROM retrospective R
-        ORDER BY remarque_dateFini ASC");
+        ORDER BY R.DateFini IS NULL ASC, R.DateFini ASC");
 
     $statement->execute();
     $result = $statement->fetchAll();

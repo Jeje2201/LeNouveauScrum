@@ -30,7 +30,7 @@ $(document).ready(function () {
           divUnChangelog.append($(`<p>`+this.changelog_contenue.replace(/\n/g, "<br>")+`</p>`))
 
           if(this.changelog_meme!=""){
-            divUnChangelog.append($(`<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample`+this.changelog_numero+`" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Meme n°`+this.changelog_numero+` <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>`))
+            divUnChangelog.append($(`<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample`+this.changelog_numero+`" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Mème n°`+this.changelog_numero+` <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>`))
             divUnChangelog.append($(`<div class="collapse" id="multiCollapseExample`+this.changelog_numero+`"><img class="border border-dark my-2" height="275px" src="`+this.changelog_meme+`"></div>`))
           }
           
