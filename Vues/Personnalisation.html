@@ -89,16 +89,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col">
         <div class="card">
           <h5 class="card-header">Fiches de temps / Sprint</h5>
           <div class="card-body">
-            <div id="ListSrint"></div>
+            <div class="mb-2" id="ListSrint"></div>
             <div id="TotRempliSprint"></div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col">
         <div class="card">
           <h5 class="card-header">Fiches de temps / Date</h5>
           <div class="card-body">
@@ -110,15 +110,7 @@
                 <input type="text" class="form-control" id="End">
               </div>
             </div>
-            <div id="TotRempliDate"></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <h5 class="card-header">Fiches de temps / Total</h5>
-          <div class="card-body">
-            <div id="FicheValide"></div>
+            <div class="mt-2" id="TotRempliDate"></div>
           </div>
         </div>
       </div>
@@ -138,7 +130,8 @@
             lui a ce pouvoir car cette magie est si puissante qu'entre de mauvaises mains ce pourrait être la fin..
           </p>
 
-          <img src="https://i.imgflip.com/35rso0.jpg" width="100%"></img>
+          <img class="img-fluid" src="Assets\Image\Autre\MemeLogin.jpg"/>
+
         </div>
       </div>
     </div>
@@ -182,7 +175,6 @@
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
       ListTotalSurSprint()
       ListTotalFdtSurDate();
-      ListTotalTotal();
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
@@ -265,19 +257,6 @@
             $('#TotRempliSprint').html(data);
           }
         })
-      }
-      function ListTotalTotal() {
-        //Load total fiche de temps validé
-        $.ajax({
-          url: "Modele/Parametre.php",
-          method: "POST",
-          data: {
-            action: "LoadFicheDeTempsValide"
-          },
-          success: function (data) {
-            $('#FicheValide').html(data);
-          }
-        });
       }
 
       //Quand change la couleur pour les taches
