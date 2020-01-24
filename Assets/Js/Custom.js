@@ -141,8 +141,7 @@ function isAdmin(){
  * @param {string} Text Texte a afficher si aucune résultat n'arrive
  */
 function IfNoRows(idTable, Text = "Aucune donnée.."){
-  if($('#'+idTable+' td').length == 0)
-  {
+  if($('#'+idTable+' td').length == 0){
     $('#'+idTable).prepend('<td colspan="6"  class="centered bg-light">'+Text+'</td>')
   }
 }

@@ -37,6 +37,14 @@
             
       </div>
 
+      <div class="border border-dark mb-3">
+        <p class="ml-2 mt-1"><small>Note</small></p>
+        <div class="col row ml-1 mb-2">
+          <textarea class="form-control mb-2" id="Note" rows="3"></textarea>
+          <button type="button" class="btn btn-success" id="putNote" data-dismiss="modal">Valider</button>
+        </div>
+      </div>
+
       <div class="border">
         <p><small>Timelinep</small></p>
         <div id="ProjectTimeLine" class="col row"></div>
@@ -185,6 +193,7 @@
     GetClient()
     GetRessources()
     GetTechnos()
+    GetNote()
     GetEchanges()
     GetTimeLine()
 
@@ -344,6 +353,39 @@
       
     }
 
+    //+-+-+-+-+-+-+-+-+-+-+ Infos Note +-+-+-+-+-+-+-+-+-+-+
+
+    function GetNote(){
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        projectId: projectId,
+        action: "getNote"
+      },
+      dataType: "json",
+      success: function (data) {
+        $('#Note').text(data.Note);
+      }
+    });
+    }
+
+    $('#putNote').bind( "click", function() {
+
+      $.ajax({
+          url: "Modele/ProjectInformation.php",
+          method: "POST",
+          data: {
+            Note_Text: $('#Note').val(),
+            projectId: projectId,
+            action: "putNote"
+          },
+          success: function (data) {
+            Notify(data,'Note éditée')
+          }
+        });
+    })
+
     //+-+-+-+-+-+-+-+-+-+-+ Technos +-+-+-+-+-+-+-+-+-+-+
 
     function GetTechnos() {
@@ -498,9 +540,10 @@
         $('#EchangesProjet').prepend(divEchange)
 
       })
+      IfNoRows('EchangesProjet','Aucun échange trouvé..')
       }
     });
-    IfNoRows('EchangesProjet','Aucun échange trouvé..')
+    
     }
 
     $('#AddEchange').bind( "click", function() { 

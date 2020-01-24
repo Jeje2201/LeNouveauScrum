@@ -1,5 +1,43 @@
-   <?php
-    require_once('../Modele/Configs.php');
+<?php
+    
+require_once('../Modele/Configs.php');
+
+//+-+-+-+-+-+-+-+-+-+-+ Infos Note +-+-+-+-+-+-+-+-+-+-+
+
+  if ($_POST["action"] == "getNote") {
+    $output = array();
+    $statement = $connection->prepare(
+      "SELECT Note FROM projet 
+    WHERE id = '" . $_POST["projectId"] . "'"
+    );
+    $statement->execute();
+    $result = $statement->fetch();
+
+    $output["Note"] = $result["Note"];
+
+    print json_encode($output);
+
+  }
+
+  if ($_POST["action"] == "putNote") {
+    $statement = $connection->prepare(
+      "UPDATE projet 
+      SET Note = :Note_Text
+      WHERE id = :Projet_Id"
+      );
+      $result = $statement->execute(
+      array(
+        ':Note_Text' => $_POST["Note_Text"],
+        ':Projet_Id' => $_POST["projectId"]
+      )
+      );
+      if (!empty($result))
+        print 1;
+      else
+        print_r($statement->errorInfo());
+  }
+
+//+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
 
     if (isset($_POST["action"])) {
 
