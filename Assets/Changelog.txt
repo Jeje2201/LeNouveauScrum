@@ -2,6 +2,7 @@
 Changelog est de retour
 - Générateur d'adresse mail ns dans la page "bienvenue"
 - Changer mdp des ressources plus facilement pour scrum master
+- Dans la page d'info, le champ "en tout" pour les fiches de temps a été supprimé car peut le choisir en changeant les inputs date
 - Amélioration de la rapidité de chargement, le back renvoit du json et plus du html, reste encore beaucoup de page a gérer
 - Nouvelle page info des projets  ressources mobilisées, techno, client, timeline, bloc note
 - Retouch design a gauche et droite
