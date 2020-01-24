@@ -20,7 +20,7 @@
 
       <div class="border border-dark mb-3">
         <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
-        <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">ajouter</button>
+        <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">Ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -115,7 +115,7 @@
       <div class="modal-body">
         <p>Technologie</p>
 
-        <input list="listTechnos" id="inputTechno"/>
+        <input class="form-control" list="listTechnos" id="inputTechno"/>
 
         <datalist id="listTechnos">
             <option value="Ajax">
@@ -156,11 +156,16 @@
         <div class="col">
           <div class="form-group">
             <label>Type</label>
-            <select id="Echange_Type" class="form-control">
-              <option value="mail">Mail</option>
-              <option value="telephone">Téléphone</option>
-              <option value="reel">Réel</option>
-          </select>
+
+            <input class="form-control" list="listEchangeType" id="Echange_Type"/>
+
+            <datalist id="listEchangeType">
+                <option value="Mail">
+                <option value="Téléphone">
+                <option value="Réunion">
+                <option value="Entretiens">
+            </datalist>
+
           </div>
         </div>
         <input type="number" class="form-control d-none" id="Echange_ID">
@@ -439,6 +444,7 @@
           success: function (data) {
             $.notify(data, "info");
             GetTechnos();
+            $('#inputTechno').val('')
           }
         });
       }
@@ -555,7 +561,7 @@
             projectId: projectId,
             echange_label: document.getElementById('Echange_Label').value,
             echange_date: DateFrToEn($('#Echange_Date').val()),
-            echange_type: $("#Echange_Type option:selected")[0].value,
+            echange_type: $("#Echange_Type").val(),
             action: "postEchange"
           },
           success: function (data) {
@@ -575,7 +581,7 @@
             echange_id: document.getElementById('Echange_ID').value,
             echange_label: document.getElementById('Echange_Label').value,
             echange_date: DateFrToEn($('#Echange_Date').val()),
-            echange_type: $("#Echange_Type option:selected")[0].value,
+            echange_type: $("#Echange_Type").val(),
             action: "putEchange"
           },
           success: function (data) {
