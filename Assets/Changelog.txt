@@ -1,0 +1,8 @@
+------------------------------------------------------------------------------------------------
+Changelog est de retour
+- Générateur d'adresse mail ns dans la page "bienvenue"
+- Changer mdp des ressources plus facilement pour scrum master
+- Amélioration de la rapidité de chargement, le back renvoit du json et plus du html, reste encore beaucoup de page a gérer
+- Nouvelle page info des projets  ressources mobilisées, techno, client, timeline, bloc note
+- Retouch design a gauche et droite
+- Lors de la planification, si une tache que l'on planifie a déjà été planifié mais on a oublié, une couleur de fond lui sera appliqué, a mort les doublons invisible !
