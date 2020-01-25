@@ -325,7 +325,7 @@
             action: "AddRessource"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Resource(s) ajoutée(s)')
             GetRessources()
           }
         });
@@ -347,11 +347,10 @@
             data: {
               projectId: projectId,
               idRessource: idRessource,
-              RessourceNom: RessourceNom,
               action: "DellRessourceProjet"
             },
             success: function (data) {
-              $.notify(data, "info");
+              Notify(data,'Ressource '+RessourceNom+' supprimée')
               GetRessources();
             }
           });
@@ -442,7 +441,7 @@
             action: "AddTechno"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Technologie '+NouvelleTechno+' ajoutée')
             GetTechnos();
             $('#inputTechno').val('')
           }
@@ -469,7 +468,7 @@
             action: "DellTechno"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Technologie '+nomTechno+' supprimée')
             GetTechnos();
           }
         });
@@ -565,7 +564,7 @@
             action: "postEchange"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Echange '+document.getElementById('Echange_Label').value+' ajouté')
             GetEchanges();
           }
         });
@@ -585,7 +584,7 @@
             action: "putEchange"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Echange '+document.getElementById('Echange_Label').value+' modifié')
             GetEchanges();
           }
         });
@@ -606,7 +605,7 @@
             action: "DellEchange"
           },
           success: function (data) {
-            $.notify(data, "info");
+            Notify(data,'Echange bien supprimé')
             GetEchanges();
           }
         });

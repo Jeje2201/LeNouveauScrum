@@ -32,7 +32,7 @@ require_once('../Modele/Configs.php');
       )
       );
       if (!empty($result))
-        print 1;
+        print true;
       else
         print_r($statement->errorInfo());
   }
@@ -146,7 +146,7 @@ require_once('../Modele/Configs.php');
           );
         }
         if (!empty($result))
-          print 'Ressource(s) ajoutée(s)';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -166,10 +166,10 @@ require_once('../Modele/Configs.php');
       );
 
       if ($statement->rowCount() > 0){
-        print 'Ressource "'.$_POST["RessourceNom"].'" supprimée';
+        print true;
       }
       else
-        print 'Impossible de supprimer "'.$_POST["RessourceNom"].'"';
+        print_r($statement->errorInfo());
   }
 
       if ($_POST["action"] == "GetTechnos") {
@@ -208,7 +208,7 @@ require_once('../Modele/Configs.php');
             )
           );
           if (!empty($result))
-            print 'Tehcno "'.$_POST["NouvelleTechno"].'" ajoutée';
+            print true;
           else
             print_r($statement->errorInfo());
       }
@@ -227,7 +227,7 @@ require_once('../Modele/Configs.php');
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Techno "'.$_POST["NomTechno"].'" supprimée';
+          print true;
         else
           print 'Techno "'.$_POST["NomTechno"].'" non trouvée';
     }
@@ -292,7 +292,7 @@ require_once('../Modele/Configs.php');
         )
       );
       if (!empty($result))
-        print 'Echange "'.$_POST["echange_label"].'" ajouté';
+        print true;
       else
         print_r($statement->errorInfo());
   }
@@ -313,7 +313,7 @@ require_once('../Modele/Configs.php');
       )
       );
       if (!empty($result))
-        print 'Echange "' .$_POST["echange_label"].'" changé';
+        print true;
       else
         print_r($statement->errorInfo());
   }
@@ -332,9 +332,9 @@ require_once('../Modele/Configs.php');
         )
       );
       if ($statement->rowCount() > 0)
-        print 'Echange supprimé';
+        print true;
       else
-        print 'Echange non trouvé';
+        print_r($statement->errorInfo());
   }
 
 }
