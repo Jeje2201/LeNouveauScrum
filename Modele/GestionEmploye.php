@@ -248,15 +248,15 @@
           $statement->execute();
           $result = $statement->fetch();
 
-          if(file_exists("../Assets/Image/Ressources/".$result[0])){
-          if (unlink("../Assets/Image/Ressources/".$result[0])) {
+          if($result[0] != null){
+            if (unlink("../Assets/Image/Ressources/".$result[0])) {
               print "Suppression du précédent avatar réussi\n";
-          } else {
-            print "Impossible de supprimer l'image précédente ".$result[0]."\n";
-          }
-        }else {
-          print "Impossible de supprimer l'image précédente ".$result[0]."\n";
-        }
+            } else {
+               print "Impossible de supprimer l'image précédente ".$result[0]."\n";
+            }
+         }else{
+            print "Aucune image précédente.\n";
+         }
 
           $statement = $connection->prepare(
             $sql = "UPDATE employe E
