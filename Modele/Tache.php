@@ -27,7 +27,7 @@
           A.pivotal_id_Project,
           A.pivotal_Label_Story,
           P.nom AS projet,
-          L.base64 as logo,
+          P.avatar as Logo,
           E.Initial,
           E.couleur,
           E.prenom AS E_Prenom,
@@ -37,8 +37,6 @@
             ON E.id = A.id_Employe
           INNER JOIN projet P
             ON P.id = A.id_Projet
-          INNER JOIN logo L
-            ON P.Id_Logo = L.id
           INNER JOIN sprint S
             ON S.id = A.id_Sprint
           WHERE A.id_Sprint =  $numero
@@ -53,6 +51,10 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
+            if($row["Logo"] == null){
+              $row["Logo"] = 'default.png';
+            }
+
             $ShowItsPivotal = '';
             if($row["pivotal_id_Task"] != '')
             $ShowItsPivotal = '<span class="text-warning"> (Pivotal)</span>';
@@ -65,7 +67,7 @@
 
             $output1 .= $GroupStory . '
       <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
-        <div class="ml-1"><b>' . $row["projet"] . ' <img class="LogoProjet" src="' . $row["logo"] . '">'. $ShowItsPivotal.'</b><br>
+        <div class="ml-1"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">'. $ShowItsPivotal.'</b><br>
 
           <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["pivotal_id_Project"].'</span></div>
@@ -80,7 +82,7 @@
         A.Label,
         A.heure,
         P.nom AS projet,
-        L.base64 as Logo,
+        P.avatar as Logo,
         E.Initial,
         E.couleur,
         E.prenom,
@@ -88,7 +90,6 @@
         FROM attribution A
         INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
-        INNER JOIN logo L ON P.Id_Logo = L.id
         INNER JOIN sprint S ON S.id = A.id_Sprint
         WHERE A.id_Sprint =  $numero
         AND A.Done IS NOT NULL
@@ -101,9 +102,13 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
+            if($row["Logo"] == null){
+              $row["Logo"] = 'default.png';
+            }
+
             $output2 .= '
 <div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
-  <div class="ml-2"><b>' . $row["projet"] . ' <img class="LogoProjet" src="' . $row["Logo"] . '"></b><br>
+  <div class="ml-2"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
 </div>';
