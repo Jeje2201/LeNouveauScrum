@@ -8,10 +8,9 @@
       P.nom as Projet,
       P.ApiPivotal,
       P.Actif,
-      L.base64 as Logo,
+      P.avatar as Logo,
       T.nom as TypeProjet
       FROM projet P
-      INNER JOIN logo L on L.id = P.Id_Logo
       INNER JOIN typeprojet T on T.id = P.id_TypeProjet
       ORDER BY P.Actif desc, P.nom asc");
         $statement->execute();
@@ -35,7 +34,7 @@
           foreach ($result as $row) {
             $output .= '
         <tr id="Project' . $row["id"] . '">
-        <td class="centered" ><img src="' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
+        <td class="centered" ><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
@@ -45,7 +44,7 @@
               $output .= '<td class="bg-warning centered text-white">CIR</td>';
             else
               $output .= '<td class="bg-danger centered text-white">Terminé</td>';
-            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button type="button" id="'.$row["Projet"] . '|' . $row["id"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }
         } else {

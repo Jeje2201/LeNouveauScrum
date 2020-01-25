@@ -5,11 +5,11 @@
       <div class="mb-5">
 
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col">
               <input class="form-control mt-0" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
           </div>
 
-          <div class="col-lg-2">
+          <div class="col">
               <button type="button" id="modal_button" class="btn btn-block btn-info">Créer un projet</button>
           </div>
         </div>
@@ -68,6 +68,40 @@
   </div>
 </div>
 
+<div id="ModaleLogo" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+         <form id="image_form" method="post" enctype="multipart/form-data">
+
+          <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control" name="logo_project_id" id="logo_project_id" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" class="form-control" name="logo_project_nom" id="logo_project_nom" readonly/>
+          </div>
+
+          <div class="form-group">
+            <input type="file" name="image" id="image" accept="image/*" class="mb-3 d-none" />
+          <label for="image" class="customInputFile p-1"><i class="fa fa-upload" aria-hidden="true"></i>
+            Choisir un logo</label>
+          </div>
+
+          
+          <input type="hidden" name="action" id="action" value="Projet_Changer_Avatar" />
+          <input type="submit" name="Projet_Changer_Avatar" id="Projet_Changer_Avatar" value="Changer"
+            class="btn btn-success" />
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
 
   $(document).ready(function () {
@@ -79,6 +113,36 @@
     RequeteAjax('ListImage', 'LoadPictures', 'Modele/RequetesAjax.php')
 
     RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php')
+
+    $('.projectLogo').click(function () {
+      $('#logo_project_id').val(this.id.split('|')[1]);
+      $('#logo_project_nom').val(this.id.split('|')[0].replace(/\s/g, "_"));
+
+      $('#ModaleLogo').modal('show');
+    });
+
+    $('#image_form').submit(function (event) {
+
+        event.preventDefault();
+
+        if ($('#image').val() == '') {
+          $.notify(`Choisie une image d'abord`, `error`);
+        } else {
+          $.ajax({
+            url: "Modele/Projet.php",
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              $('#image_form')[0].reset();
+              $.notify(data, "info");
+              $('#ModaleLogo').modal('hide');
+              RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
+            }
+          });
+        }
+      });
 
     $('#modal_button').click(function () {
       $('#ModaleProjet').modal('show');
