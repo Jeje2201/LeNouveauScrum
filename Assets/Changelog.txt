@@ -1,3 +1,4 @@
+- Les logos des projets sont stocké en dur et non en merde de base64
 ------------------------------------------------------------------------------------------------
 Changelog est de retour
 - Générateur d'adresse mail ns dans la page "bienvenue"
