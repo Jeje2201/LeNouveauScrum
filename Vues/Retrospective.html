@@ -179,22 +179,25 @@
                                 <td>` + this.demo_label + `</td>
                               </tr>`);
 
-              var $colloneBoutons = $('<td />');
+                var $colloneBoutons = $('<td />');
+
+                var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $colloneBoutons.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
-                  '" class="btn btn-success mr-1 btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+                  '" class="btn btn-success btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveDemo(this.id.split('_')[2])
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
                   '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   dellDemo(this.id.split('_')[2])
                 }));
             }
 
+              $colloneBoutons.append($GroupBouton);
               tableDemos.append($colloneBoutons);
 
               $('#TableDemo').prepend(tableDemos)
@@ -268,26 +271,30 @@
                               </tr>`);
 
               var $colloneBoutons = $('<td />');
+
+              var $GroupBouton = $('<div class="btn-group" role="group" />');
+
               if(admin){
-                $colloneBoutons.append($('<button type="button" id="Achieve_Remarque_' + this.remarque_id +
-                  '" class="btn btn-success mr-1 btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="Achieve_Remarque_' + this.remarque_id +
+                  '" class="btn btn-success btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveRemarque(this.id.split('_')[2])
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
-                  '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
+                  '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getRemarque(this.id.split('_')[2])
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
+                $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
                   '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   dellRemarque(this.id.split('_')[2])
                 }));
               }
 
+              $colloneBoutons.append($GroupBouton);
               tableRemarque.append($colloneBoutons);
 
               $('#TableRemarque').prepend(tableRemarque)
@@ -419,50 +426,53 @@
           $.each(data, function () {
             i+= 1
 
-              var TableObjectif = $(`<tr>
-                                <td class="centered">` + i + `</td>
-                                <td class="centered font-weight-bold text-white" style="background-color:`+this.couleur+` ">` + this.Etat + `</td>
-                                <td>` + this.Employe + `</td>
-                                <td>` + this.projet + `</td>
-                                <td>` + this.objectif + `</td>
-                              </tr>`);
+            var TableObjectif = $(`<tr>
+            <td class="centered">` + i + `</td>
+            <td class="centered font-weight-bold text-white" style="background-color:`+this.couleur+` ">` + this.Etat + `</td>
+            <td>` + this.Employe + `</td>
+            <td>` + this.projet + `</td>
+            <td>` + this.objectif + `</td>
+            </tr>`);
 
               var $colloneBoutons = $('<td />');
 
+              var $GroupBouton = $('<div class="btn-group" role="group" />');
+
               if(admin){
-                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 1)
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 2)
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 3)
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 4)
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-3 btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 5)
                 }));
 
-                $colloneBoutons.append($('<button type="button" id="' + this.id +
-                  '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id +
+                  '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getObjectif(this.id)
                 }));
 
             }
 
+              $colloneBoutons.append($GroupBouton);
               TableObjectif.append($colloneBoutons);
 
               $('#TableObjectif').append(TableObjectif)
@@ -526,11 +536,6 @@
       } else {
         $.notify("Tous les champs doivent être remplis", "error");
       }
-    });
-
-    //Editer ou créer pour editer un objectif
-    $('#action').click(function () {
-      
     });
 
     function putEtatObjectif(id_object,etat){

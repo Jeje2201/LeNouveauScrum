@@ -5,15 +5,6 @@ html {
 
 /*///////////////////*/
 
-.table td:last-child{
-  display: inline-block;
-    width: max-content;
-}
-
-.table th:last-child{
-  width: 1%;
-}
-
 .customInputFile{
     font-weight: 700;
     color: white;

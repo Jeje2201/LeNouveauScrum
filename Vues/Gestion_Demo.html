@@ -104,18 +104,21 @@
 
             var $colloneBoutons = $('<td />');
 
-            $colloneBoutons.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
-              '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
+            var $GroupBouton = $('<div class="btn-group" role="group" />');
+
+            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+              '" class="btn btn-warning btn-sm"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getDemo(this.id.split('_')[2])
             }));
 
-            $colloneBoutons.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
               '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellDemo(this.id.split('_')[2])
             }));
 
+            $colloneBoutons.append($GroupBouton);
             tableDemos.append($colloneBoutons);
 
             $('#TableDemo').prepend(tableDemos)
