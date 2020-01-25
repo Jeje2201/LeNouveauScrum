@@ -279,7 +279,7 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
       renderTo: div
     },
     title: {
-      text: "BurnDown Chart"
+      text: "Burndown chart"
     },
     yAxis: {
       min: 0,
