@@ -22,22 +22,7 @@
         $resultat = [];
 
         foreach ($result as $row) {
-
-          $MonTest = [];
-
-          $MonTest['ressource_prenom'] = $row['ressource_prenom'];
-          $MonTest['ressource_prenom'] = $row['ressource_prenom'];
-          $MonTest['ressource_initial'] = $row['ressource_initial'];
-          $MonTest['projet_nom'] = $row['projet_nom'];
-          $MonTest['demo_label'] = $row['demo_label'];
-          $MonTest['demo_id'] = $row['demo_id'];
-
-          if ($row["demo_DateEffectue"] == null)
-            $MonTest["demo_DateEffectue"] = "";
-          else
-            $MonTest["demo_DateEffectue"] = date("d/m/Y", strtotime($row["demo_DateEffectue"]));
-
-          $resultat[] = $MonTest;
+          $resultat[] = $row;
         }
 
         print json_encode($resultat);
@@ -45,23 +30,17 @@
 
       if ($_POST["action"] == "getDemo") {
 
-        $statement = $connection->prepare("SELECT * FROM demo WHERE id = '" . $_POST["demo_id"] . "' LIMIT 1");
+        $statement = $connection->prepare("SELECT
+        D.Label as demo_Label,
+        D.id as demo_id,
+        D.id_Employe as demo_id_Employe,
+        D.id_Projet as demo_id_Projet,
+        D.DateEffectue as demo_DateEffectue
+        FROM demo D WHERE id = '" . $_POST["demo_id"] . "' LIMIT 1");
         $statement->execute();
         $result = $statement->fetch();
-  
-        $resultat = [];
-  
-        $resultat['demo_id'] = $result['id'];
-        $resultat['demo_Label'] = $result['Label'];
-        $resultat['demo_id_Employe'] = $result['id_Employe'];
-        $resultat['demo_id_Projet'] = $result['id_Projet'];
-
-        if ($result["DateEffectue"] == null)
-            $resultat["demo_DateEffectue"] = "";
-        else
-            $resultat["demo_DateEffectue"] = date("d-m-Y", strtotime($result["DateEffectue"]));
-  
-        print json_encode($resultat);
+          
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "addDemo") {
