@@ -44,15 +44,6 @@
           <input class="form-control" name="ApiPivotal" id="ApiPivotal" type="number">
         </div>
 
-        <div class="form-group">
-          <label>Icone (50x50)</label>
-          <div class="row">
-            <div class="col">
-              <div id='ListImage'></div>
-            </div>
-          </div>
-        </div>
-
         <div>
           <input id="Actif" type="checkbox" checked>
           <label for="Actif">Actif</label>
@@ -77,11 +68,6 @@
           <div class="form-group">
             <label>Id</label>
             <input type="text" class="form-control" name="logo_project_id" id="logo_project_id" readonly/>
-          </div>
-
-          <div class="form-group">
-            <label>Nom</label>
-            <input type="text" class="form-control" name="logo_project_nom" id="logo_project_nom" readonly/>
           </div>
 
           <div class="form-group">
@@ -110,14 +96,10 @@
 
     RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
 
-    RequeteAjax('ListImage', 'LoadPictures', 'Modele/RequetesAjax.php')
-
     RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php')
 
     $('.projectLogo').click(function () {
-      $('#logo_project_id').val(this.id.split('|')[1]);
-      $('#logo_project_nom').val(this.id.split('|')[0].replace(/\s/g, "_"));
-
+      $('#logo_project_id').val(this.id);
       $('#ModaleLogo').modal('show');
     });
 
@@ -212,7 +194,6 @@
           $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
           $('#TypeProjet').val(data.TypeProjet);
-          $('#ToutesLesImages').val(data.Logo);
 
         }
       });

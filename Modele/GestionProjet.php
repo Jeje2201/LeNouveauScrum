@@ -33,8 +33,14 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
             $output .= '
-        <tr id="Project' . $row["id"] . '">
-        <td class="centered" ><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="MrJeje" width="35px" height="35px"/></td>
+        <tr id="Project' . $row["id"] . '">';
+        if($row['Logo'] == null){
+          $output .= '<td class="centered" ><img src="Assets/Image/Projets/default.png" alt="default.png" width="35px" height="35px"/></td>';
+        }
+        else{
+          $output .= '<td class="centered" ><img src="Assets/Image/Projets/' . $row['Logo'] . '" alt="' . $row['Logo'] . '" width="35px" height="35px"/></td>';
+        }
+        $output .= '
         <td>' . $row["Projet"] . '</td>
         <td>' . $row["TypeProjet"] . '</td>
         <td>' . $row["ApiPivotal"] . '</td>';
@@ -44,7 +50,7 @@
               $output .= '<td class="bg-warning centered text-white">CIR</td>';
             else
               $output .= '<td class="bg-danger centered text-white">Terminé</td>';
-            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button type="button" id="'.$row["Projet"] . '|' . $row["id"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button type="button" id="'. $row["id"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }
         } else {
@@ -65,14 +71,13 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare("
-   INSERT INTO projet (nom, Id_Logo, Actif, id_TypeProjet, ApiPivotal) 
-   VALUES (:Nom, :Id_Logo, :actif, :id_TypeProjet, :ApiPivotal)
+   INSERT INTO projet (nom, Actif, id_TypeProjet, ApiPivotal) 
+   VALUES (:Nom, :actif, :id_TypeProjet, :ApiPivotal)
    ");
 
         $result = $statement->execute(
           array(
             ':Nom' => $_POST["Nom"],
-            ':Id_Logo' => $_POST["fileName"],
             ':actif' => $_POST["Actif"],
             ':id_TypeProjet' => $_POST["TypeProjet"],
             ':ApiPivotal' => $_POST["ApiPivotal"]
@@ -95,7 +100,6 @@
         $result = $statement->fetch();
 
         $output["Nom"] = $result["nom"];
-        $output["Logo"] = $result["Id_Logo"];
         $output["Actif"] = $result["Actif"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
         $output["TypeProjet"] = $result["id_TypeProjet"];
@@ -110,7 +114,7 @@
 
         $statement = $connection->prepare(
           "UPDATE projet 
-   SET nom = :nom, Id_Logo = :Id_Logo, id_TypeProjet = :id_TypeProjet, Actif = :actif, ApiPivotal = :ApiPivotal
+   SET nom = :nom, id_TypeProjet = :id_TypeProjet, Actif = :actif, ApiPivotal = :ApiPivotal
    WHERE id = :id
    "
         );
@@ -118,7 +122,6 @@
           array(
             ':nom' => $_POST["Nom"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
-            ':Id_Logo' => $_POST["fileName"],
             ':actif' => $_POST["Actif"],
             ':id_TypeProjet' => $_POST["TypeProjet"],
             ':id' => $_POST["id"]

@@ -7,7 +7,7 @@
 
         $target_file = basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $target_file = 'avatar_projet_'. $_POST["logo_project_nom"] . '.'.$imageFileType;
+        $target_file = 'avatar_projet_'. $_POST["logo_project_id"] . '.'.$imageFileType;
         $pathDeLimage= "../Assets/Image/Projets/" . $target_file;
 
         if (file_exists($target_file)) {

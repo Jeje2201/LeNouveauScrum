@@ -363,32 +363,6 @@
 
           /////////////////////////////////////
 
-        case 'LoadPictures':
-
-          $statement = $connection->prepare("SELECT id,
-          nom
-          FROM logo
-          ORDER BY nom asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="ToutesLesImages" >';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $output2 .= '<option value=' . $row["id"] . '> ' . $row["nom"] . ' </option>';
-            }
-
-            $output2 .= '</select>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
         case 'ListEmployeCheckBox':
 
           $statement = $connection->prepare("SELECT id,
