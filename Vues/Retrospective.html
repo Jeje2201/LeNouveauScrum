@@ -3,16 +3,11 @@
     <div class="container-fluid">
 
       <h3>Sprint</h3>
-      <div class="row ">
-        <div class="col-lg-9">
+      <div class="row">
+        <div class="col">
           <div id="ListSrint"></div>
         </div>
 
-        <div class="col-lg-3">
-          <button type="button" id="BoutonMail" class="btn btn-info btn-block">Mail</button>
-        </div>
-
-        <textarea id="textbox" class="hideElement"></textarea>
       </div>
 
       <h2 class="mt-3">Liste des démos</h2>
@@ -35,7 +30,21 @@
 
       <h2>Liste des objectifs</h2>
       <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
-      <div id="TableObjectif" class="table-responsive table-hover"></div>
+      <table class="table table-striped table-sm table-bordered">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Etat</th>
+            <th>Ressource</th>
+            <th>Projet</th>
+            <th>Objectif</th>
+            <th>Edition</th>
+          </tr>
+        </thead>
+        <tbody id="TableObjectif">
+
+        </tbody>
+      </table>
 
       <hr class="mt-2 mb-2 w-75">
 
@@ -63,9 +72,6 @@
 <div id="ModalObjectif" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
 
         <label>Projet</label>
@@ -81,9 +87,9 @@
 
       </div>
       <div class="modal-footer">
-        <input type="hidden" name="id" id="id" />
-        <input type="submit" name="action" id="action" class="btn btn-success" />
-        <input type="submit" value="Supprimer" class="btn btn-danger SupprimerObjectif"></input>
+        <input name="id" id="id" class="form-control" readonly/>
+        <input type="submit" id="EditerObjectif" class="btn btn-success" />
+        <input type="submit" id="SupprimerObjectif" value="Supprimer" class="btn btn-danger"></input>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -109,21 +115,8 @@
       <div class="modal-footer">
         <button id="CreerRemarque" class="btn btn-success">Créer</button>
         <button id="EditerRemarque" class="btn btn-success">Éditer</button>
-        <input type="hidden" id="remarque_id" />
+        <input id="remarque_id" readonly/>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="ModalMail" class="modal fade">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <input type="button"
-          onclick="window.getSelection().selectAllChildren( document.getElementById( 'MailGenerer' ) )"
-          value="Sélectionner" class="btn btn-info"></br></br>
-        <div id="MailGenerer"></div>
       </div>
     </div>
   </div>
@@ -131,6 +124,8 @@
 
 <script>
   $(document).ready(function () {
+
+    var admin = isAdmin()
 
     $('#DateDebut').datetimepicker({
     format: 'dd-mm-yyyy',
@@ -147,12 +142,16 @@
 
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php', 'EmployeRetrospective');
 
-    RemplirTableau();
-
     getDemos();
+    getObjectifs();
     getRemarques();
 
     BarreDeRecherche('BarreDeRecherche', 'TableObjectif');
+
+     // Si le numéro de sprint change, raffraichir les tables
+     $('#numeroSprint').change(function () {
+      getObjectifs();
+    });
 
     //+-+-+-+-+-+-+-+-+-+-+  Démos +-+-+-+-+-+-+-+-+-+-+
 
@@ -181,7 +180,7 @@
 
               var $colloneBoutons = $('<td />');
 
-              if(isAdmin()){
+              if(admin){
                 $colloneBoutons.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
                   '" class="btn btn-success mr-1 btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
@@ -268,7 +267,7 @@
                               </tr>`);
 
               var $colloneBoutons = $('<td />');
-              if(isAdmin()){
+              if(admin){
                 $colloneBoutons.append($('<button type="button" id="Achieve_Remarque_' + this.remarque_id +
                   '" class="btn btn-success mr-1 btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
@@ -399,65 +398,97 @@
         })
     }
 
-    //+-+-+-+-+-+-+-+-+-+-+  Autre +-+-+-+-+-+-+-+-+-+-+
+    //+-+-+-+-+-+-+-+-+-+-+  Objectif +-+-+-+-+-+-+-+-+-+-+
 
-    function RemplirTableau() {
+    function getObjectifs() {
       $.ajax({
-        url: "Modele/Retrospective.php",
+        url: "Modele/Retrospective_objectif.php",
         method: "POST",
+        dataType: "json",
         data: {
-          action: "LoadObjectif",
+          action: "getObjectifs",
           idAffiche: $('#numeroSprint').val()
         },
         success: function (data) {
-          $('#TableObjectif').html(data);
+
+          $('#TableObjectif').html('')
+
+          i = 0
+          
+          $.each(data, function () {
+            i+= 1
+
+              var TableObjectif = $(`<tr>
+                                <td class="centered">` + i + `</td>
+                                <td class="centered font-weight-bold text-white" style="background-color:`+this.couleur+` ">` + this.Etat + `</td>
+                                <td>` + this.Employe + `</td>
+                                <td>` + this.projet + `</td>
+                                <td>` + this.objectif + `</td>
+                              </tr>`);
+
+              var $colloneBoutons = $('<td />');
+
+              if(admin){
+                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  putEtatObjectif(this.id, 1)
+                }));
+
+                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  putEtatObjectif(this.id, 2)
+                }));
+
+                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  putEtatObjectif(this.id, 3)
+                }));
+
+                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-1 btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  putEtatObjectif(this.id, 4)
+                }));
+
+                $colloneBoutons.append($('<button type="button" id="' + this.id + '" class="btn btn-sm mr-3 btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  putEtatObjectif(this.id, 5)
+                }));
+
+                $colloneBoutons.append($('<button type="button" id="' + this.id +
+                  '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                ).on('click', function () {
+                  getObjectif(this.id)
+                }));
+
+            }
+
+              TableObjectif.append($colloneBoutons);
+
+              $('#TableObjectif').append(TableObjectif)
+
+            })
+
+            IfNoRows('TableObjectif', 'Aucune démo trouvée..')
+
           GarderLaRecherche('BarreDeRecherche', 'TableObjectif');
         }
       });
-
-      // Remplir la liste des objectifs dans un modal caché pour les mails
-      $.ajax({
-        url: "Modele/Retrospective.php",
-        method: "POST",
-        data: {
-          action: "LoadMail",
-          idAffiche: $('#numeroSprint').val()
-        },
-        success: function (data) {
-          $('#MailGenerer').html(data.trim());
-        }
-      });
-
     }
 
-    // Afficher le modal de mail quand clic sur bouton de mail    
-    $('#BoutonMail').click(function () {
-      $('#ModalMail').modal('show');
-    });
+    function getObjectif(remarque_id) {
 
-    // Si le numéro de sprint change, raffraichir les tables
-    $('#numeroSprint').change(function () {
-      RemplirTableau();
-    });
-
-    //+-+-+-+-+-+-+-+-+-+-+  Objectifs +-+-+-+-+-+-+-+-+-+-+
-
-    //Get les infos d'un objectif et afficher le modal pour edition
-    $(document).on('click', '.GetObjectif', function () {
-      var id = $(this).attr("id");
       $.ajax({
-        url: "Modele/Retrospective.php",
+        url: "Modele/Retrospective_objectif.php",
         method: "POST",
         data: {
-          id: id,
-          action: "SelectObjectif"
+          id: remarque_id,
+          action: "getObjectif"
         },
         dataType: "json",
         success: function (data) {
+
           $('#ModalObjectif').modal('show');
-          $('.modal-title').text("Éditer objectif");
-          $('#action').val("Changer Objectif");
-          $('#id').val(id);
+          $('#id').val(remarque_id);
           $('#ProjetRetrospective').val(data.id_Projet);
           $('#EmployeRetrospective').val(data.id_Employe);
           $('#LabelObjectif').val(data.objectif);
@@ -468,14 +499,14 @@
 
         }
       });
-    });
 
-    //Editer ou créer pour editer un objectif
-    $('#action').click(function () {
+      };
+
+    $('#EditerObjectif').click(function () {
       if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#EmployeRetrospective')
         .val() != '' && $('#ProjetRetrospective').val() != '') {
         $.ajax({
-          url: "Modele/Retrospective.php",
+          url: "Modele/Retrospective_objectif.php",
           method: "POST",
           data: {
             id: $('#id').val(),
@@ -483,50 +514,53 @@
             LabelObjectif: $('#LabelObjectif').val(),
             idEmploye: $('#EmployeRetrospective').val(),
             idProjet: $('#ProjetRetrospective').val(),
-            action: $('#action').val()
+            action: 'putObjectif'
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            $.notify(data, "success");
-            RemplirTableau();
+            Notify(data,'Objectif changé')
+            getObjectifs();
           }
         });
-        $('#LabelObjectif').val('');
       } else {
         $.notify("Tous les champs doivent être remplis", "error");
       }
     });
 
-    // Envoyer au back le changement d'état d'un objectif et raffraichir le tableau
-    $(document).on('click', '.1, .2, .3, .4, .5', function () {
-      $.ajax({
-        url: "Modele/Retrospective.php",
-        method: "POST",
-        data: {
-          id: this.id,
-          EtatObjectif: this.className.split(" ")[2],
-          action: "ChangerEtat"
-        },
-        success: function (data) {
-          RemplirTableau();
-        }
-      });
+    //Editer ou créer pour editer un objectif
+    $('#action').click(function () {
+      
     });
 
-    // Supprimer objectif
-    $(document).on('click', '.SupprimerObjectif', function () {
-      if (confirm("Es-tu sûr de vouloir supprimer cette objectif ?"))
+    function putEtatObjectif(id_object,etat){
+      $.ajax({
+        url: "Modele/Retrospective_objectif.php",
+        method: "POST",
+        data: {
+          id: id_object,
+          EtatObjectif: etat,
+          action: "putEtatObjectif"
+        },
+        success: function (data) {
+          getObjectifs();
+          Notify(data,'Objectif changé')
+        }
+      });
+    }
+
+    $('#SupprimerObjectif').click(function () {
+      if (confirm("Es-tu sûr de vouloir supprimer cet objectif ?"))
         $.ajax({
-          url: "Modele/Retrospective.php",
+          url: "Modele/Retrospective_objectif.php",
           method: "POST",
           data: {
             id: $('#id').val(),
-            action: "Delete"
+            action: "dellObjectif"
           },
           success: function (data) {
             $('#ModalObjectif').modal('hide');
-            $.notify(data, "success");
-            RemplirTableau();
+            Notify(data,"Objectif supprimé")
+            getObjectifs();
           }
         });
     });
