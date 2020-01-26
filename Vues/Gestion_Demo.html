@@ -147,7 +147,7 @@
           $('#employeId').val(data.demo_id_Employe);
           $('#ProjetDemo').val(data.demo_id_Projet);
           $('#LabelDemo').val(data.demo_Label);
-          $('#DateEffectue').val(data.demo_DateEffectue);
+          $('#DateEffectue').val(DateFrToEn(data.demo_DateEffectue));
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"
