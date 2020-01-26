@@ -9,9 +9,8 @@
       P.ApiPivotal,
       P.Actif,
       P.avatar as Logo,
-      T.nom as TypeProjet
+      P.projet_type as TypeProjet
       FROM projet P
-      INNER JOIN typeprojet T on T.id = P.id_TypeProjet
       ORDER BY P.Actif desc, P.nom asc");
         $statement->execute();
         $result = $statement->fetchAll();
@@ -71,7 +70,7 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare("
-   INSERT INTO projet (nom, Actif, id_TypeProjet, ApiPivotal) 
+   INSERT INTO projet (nom, Actif, projet_type, ApiPivotal) 
    VALUES (:Nom, :actif, :id_TypeProjet, :ApiPivotal)
    ");
 
@@ -102,7 +101,7 @@
         $output["Nom"] = $result["nom"];
         $output["Actif"] = $result["Actif"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
-        $output["TypeProjet"] = $result["id_TypeProjet"];
+        $output["TypeProjet"] = $result["projet_type"];
 
         print json_encode($output);
       }
@@ -114,7 +113,7 @@
 
         $statement = $connection->prepare(
           "UPDATE projet 
-   SET nom = :nom, id_TypeProjet = :id_TypeProjet, Actif = :actif, ApiPivotal = :ApiPivotal
+   SET nom = :nom, projet_type = :id_TypeProjet, Actif = :actif, ApiPivotal = :ApiPivotal
    WHERE id = :id
    "
         );

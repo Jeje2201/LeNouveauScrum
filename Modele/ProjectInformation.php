@@ -104,8 +104,7 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "GetRessources") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT E.prenom, E.avatar, E.id as ressourceID, T.nom as job FROM employe E
-           INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
+          "SELECT E.prenom, E.avatar, E.id as ressourceID, E.user_type as job FROM employe E
            WHERE E.id in (select R.id_ressource from projet_ressource R where R.id_projet = " . $_POST["projectId"] . ")
            ORDER BY E.prenom"
         );

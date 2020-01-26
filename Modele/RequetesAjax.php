@@ -61,8 +61,7 @@
           $statement = $connection->prepare("SELECT P.id AS id,
           P.nom AS Nom
           FROM projet P
-          inner join typeprojet T ON P.id_TypeProjet = T.id
-          where T.nom not like 'CIR'
+          where P.projet_type not like 'CIR'
           and P.Actif > 0
           ORDER BY nom asc");
 
@@ -117,8 +116,7 @@
           P.ApiPivotal,
           P.nom
           FROM projet P
-          inner join typeprojet T ON P.id_TypeProjet = T.id
-          where T.nom not like 'CIR'
+          where P.projet_type not like 'CIR'
           and P.Actif = 2
           ORDER BY nom asc");
 
@@ -258,10 +256,9 @@
 
         case 'ListeDeroulanteTypeProjet':
 
-          $statement = $connection->prepare("SELECT id,
-        nom
-        FROM typeprojet
-        ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT distinct(projet_type)
+        FROM projet
+        ORDER BY projet_type asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -270,7 +267,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["projet_type"] . '"> ' . $row["projet_type"] . ' </option>';
             }
 
             $output2 .= '</select>';
