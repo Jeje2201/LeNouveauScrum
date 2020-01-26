@@ -55,6 +55,26 @@ html {
 .LaSignatureDeMail #Job {
     color: #666666;
 }
+
+/*////////// objectif ////////////////*/
+
+.Objectif_OK{
+  background-color: #95D972;
+}
+.Objectif_Inconnue{
+  background-color: #007bff;
+}
+.Objectif_Non{
+  background-color: #E8514E;
+}
+.Objectif_Annule{
+  background-color: #424242;
+}
+
+.Objectif_En_cours{
+  background-color: #E88648;
+}
+
 /*//////////////////////////////*/
 
 

@@ -428,7 +428,7 @@
 
             var TableObjectif = $(`<tr>
             <td class="centered">` + i + `</td>
-            <td class="centered font-weight-bold text-white" style="background-color:`+this.couleur+` ">` + this.Etat + `</td>
+            <td class="centered font-weight-bold text-white Objectif_`+this.Etat.replace(' ','_')+`">` + this.Etat + `</td>
             <td>` + this.Employe + `</td>
             <td>` + this.projet + `</td>
             <td>` + this.objectif + `</td>
@@ -441,27 +441,27 @@
               if(admin){
                 $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
                 ).on('click', function () {
-                  putEtatObjectif(this.id, 1)
+                  putEtatObjectif(this.id, 'Ok')
                 }));
 
                 $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
                 ).on('click', function () {
-                  putEtatObjectif(this.id, 2)
+                  putEtatObjectif(this.id, 'En cours')
                 }));
 
                 $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
                 ).on('click', function () {
-                  putEtatObjectif(this.id, 3)
+                  putEtatObjectif(this.id, 'Non')
                 }));
 
                 $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
-                  putEtatObjectif(this.id, 4)
+                  putEtatObjectif(this.id, 'Annule')
                 }));
 
                 $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
                 ).on('click', function () {
-                  putEtatObjectif(this.id, 5)
+                  putEtatObjectif(this.id, 'Inconnue')
                 }));
 
                 $GroupBouton.append($('<button type="button" id="' + this.id +

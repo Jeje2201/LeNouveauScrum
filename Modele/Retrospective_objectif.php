@@ -7,13 +7,10 @@
       if ($_POST["action"] == "getObjectifs") {
         $statement = $connection->prepare("SELECT O.id as id,
         O.objectif,
-        S.couleur,
         P.nom AS projet,
         CONCAT(employe.prenom,'&nbsp;', employe.initial) AS Employe,
-        S.nom AS etat
+        O.objectif_statut AS etat
         FROM retrospective_objectif O
-        INNER JOIN statutobjectif S
-          ON S.id = O.id_StatutObjectif
         INNER JOIN projet P
           ON P.id = O.id_Projet
         INNER JOIN employe
@@ -30,7 +27,6 @@
 
           $MonTest['id'] = $row['id'];
           $MonTest['objectif'] = $row['objectif'];
-          $MonTest['couleur'] = $row['couleur'];
           $MonTest['projet'] = $row['projet'];
           $MonTest['Employe'] = $row['Employe'];
           $MonTest['Etat'] = $row['etat'];
@@ -44,7 +40,7 @@
       if ($_POST["action"] == "putEtatObjectif") {
         $statement = $connection->prepare(
           "UPDATE retrospective_objectif 
-          SET id_StatutObjectif = :EtatObjectif 
+          SET objectif_statut = :EtatObjectif 
           WHERE id = :id
           "
         );
@@ -62,7 +58,7 @@
       
       if ($_POST["action"] == "Créer") {
         $statement = $connection->prepare("
-        INSERT INTO retrospective_objectif (id_Sprint, id_Projet, id_Employe, objectif, id_StatutObjectif) 
+        INSERT INTO retrospective_objectif (id_Sprint, id_Projet, id_Employe, objectif, objectif_statut) 
         VALUES (:id_Sprint, :id_Projet, :id_Employe, :objectif, :id_StatutObjectif)
         ");
         $result = $statement->execute(
@@ -71,7 +67,7 @@
             ':id_Projet' => $_POST["idProjet"],
             ':id_Employe' => $_POST["idEmploye"],
             ':objectif' => $_POST["LabelObjectif"],
-            ':id_StatutObjectif' => 5
+            ':id_StatutObjectif' => 'Inconnue'
           )
         );
         if (!empty($result))

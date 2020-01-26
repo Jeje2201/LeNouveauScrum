@@ -337,32 +337,6 @@
 
           /////////////////////////////////////
 
-        case 'ListeDeroulanteEtatObjectif':
-
-          $statement = $connection->prepare("SELECT id,
-        nom
-        FROM statutobjectif
-        ORDER BY nom asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<form class="form-control"  id="EtatObjectif">';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $output2 .= '<label><input type="radio"  id="EtatNum' . $row["id"] . '" value="' . $row["id"] . '">  ' . $row["nom"] . '</label><br>';
-            }
-
-            $output2 .= '</form>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
         case 'ListEmployeCheckBox':
 
           $statement = $connection->prepare("SELECT id,
