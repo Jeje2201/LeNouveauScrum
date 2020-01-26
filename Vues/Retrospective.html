@@ -115,6 +115,7 @@
       </div>
       <div class="modal-footer">
         <input id="remarque_id" class="form-control" placeholder="id.." readonly/>
+        <button id="SupprimerRemarque" class="btn btn-danger">Supprimer</button>
         <button id="CreerRemarque" class="btn btn-success">Créer</button>
         <button id="EditerRemarque" class="btn btn-success">Éditer</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -185,7 +186,7 @@
 
               if(admin){
                 $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
-                  '" class="btn btn-success btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
+                  '" class="btn btn-success btn-sm mr-2"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveDemo(this.id.split('_')[2])
                 }));
@@ -276,7 +277,7 @@
 
               if(admin){
                 $GroupBouton.append($('<button type="button" id="Achieve_Remarque_' + this.remarque_id +
-                  '" class="btn btn-success btn-sm"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
+                  '" class="btn btn-success btn-sm mr-2"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveRemarque(this.id.split('_')[2])
                 }));
@@ -285,12 +286,6 @@
                   '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getRemarque(this.id.split('_')[2])
-                }));
-
-                $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
-                  '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
-                ).on('click', function () {
-                  dellRemarque(this.id.split('_')[2])
                 }));
               }
 
@@ -389,22 +384,23 @@
         }
       });
     }
-
-    function dellRemarque(remarque_id) {
+    
+    $('#SupprimerRemarque').click(function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
         $.ajax({
           url: "Modele/Retrospective_Remarque.php",
           method: "POST",
           data: {
-            remarque_id: remarque_id,
+            remarque_id: $('#remarque_id').val(),
             action: "dellRemarque"
           },
           success: function (data) {
+            $('#ModalRemarque').modal('hide')
             getRemarques()
             Notify(data, 'Remarque supprimée')
           }
         })
-    }
+    })
 
     //+-+-+-+-+-+-+-+-+-+-+  Objectif +-+-+-+-+-+-+-+-+-+-+
 
@@ -459,7 +455,7 @@
                   putEtatObjectif(this.id, 'Annule')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-primary mr-2"><i class="fa fa-question" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Inconnue')
                 }));
