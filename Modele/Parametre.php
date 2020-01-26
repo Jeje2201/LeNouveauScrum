@@ -39,7 +39,7 @@
       if ($_POST["action"] == "LoadTacheValide") {
         $output = array();
         $statement = $connection->prepare(
-        "SELECT sum(heure) as 'Temps', projet.nom as 'Projets' FROM `attribution` INNER JOIN projet on attribution.id_Projet = projet.id where id_Employe = " . $idRessource . " and Done is not null group by id_Projet order by Temps desc");
+        "SELECT sum(heure) as 'Temps', projet.nom as 'Projets' FROM `tache` INNER JOIN projet on tache.id_Projet = projet.id where id_Employe = " . $idRessource . " and Done is not null group by id_Projet order by Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();

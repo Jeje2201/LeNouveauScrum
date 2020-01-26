@@ -17,14 +17,14 @@
         sum(A.heure) AS nbheureadescendre,
         (
           SELECT IFNULL( sum(A.heure),0)
-          FROM attribution A
+          FROM tache A
           WHERE A.id_Employe = E.id
           AND A.id_Sprint = $NumeroduSprint 
           AND A.Done IS NOT NULL
         ) AS nbheuredescendu,
         (
           SELECT IFNULL( sum(A.heure),0)
-          FROM attribution A
+          FROM tache A
           WHERE A.id_Employe = E.id
           AND A.id_Sprint = $NumeroduSprint
           AND A.Done
@@ -37,7 +37,7 @@
           AND I.id_Sprint = $NumeroduSprint
         ) AS heuresinterference
         FROM employe E
-        LEFT JOIN attribution A ON A.id_employe = E.id
+        LEFT JOIN tache A ON A.id_employe = E.id
         AND A.id_Sprint = $NumeroduSprint
         WHERE
         A.heure IS NOT NULL
@@ -74,13 +74,13 @@
         sum(A.heure) AS nbheureadescendre,
         (
           SELECT IFNULL( sum(A.heure),0)
-          FROM attribution A
+          FROM tache A
           WHERE A.id_Projet = P.id
           AND A.id_Sprint = $NumeroduSprint
           AND A.Done IS NOT NULL) AS nbheuredescendu,
         (
           SELECT IFNULL( sum(A.heure),0)
-          FROM attribution A
+          FROM tache A
           WHERE A.id_Projet = P.id
           AND A.id_Sprint = $NumeroduSprint
           AND A.Done  IS NULL
@@ -92,7 +92,7 @@
           AND I.id_Sprint = $NumeroduSprint
           ) AS heuresinterference
         FROM projet AS P
-        LEFT JOIN attribution AS A ON A.id_Projet = P.id AND A.id_Sprint = $NumeroduSprint
+        LEFT JOIN tache AS A ON A.id_Projet = P.id AND A.id_Sprint = $NumeroduSprint
         WHERE
         A.heure IS NOT NULL
         AND A.id_TypeTache IS NULL
@@ -175,8 +175,8 @@
         //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
         $statement = $connection->prepare(
           $sql = "SELECT
-        (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
-        (select sum(heure) FROM attribution A WHERE A.id_Sprint = $NumeroduSprint AND A.Done IS NOT NULL) AS TotalHeuresDescendues,
+        (select sum(heure) FROM tache A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
+        (select sum(heure) FROM tache A WHERE A.id_Sprint = $NumeroduSprint AND A.Done IS NOT NULL) AS TotalHeuresDescendues,
         (select sum(heure) FROM interference I WHERE I.id_Sprint = $NumeroduSprint) AS TotalHeuresInterference"
         );
 
@@ -195,7 +195,7 @@
         $statement = $connection->prepare(
           $sql = "SELECT
         sum(heure) AS heures, Done
-        FROM attribution A
+        FROM tache A
         WHERE A.id_Sprint = $NumeroduSprint
         AND A.Done IS NOT NULL
         GROUP by Done

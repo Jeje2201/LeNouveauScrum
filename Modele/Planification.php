@@ -13,7 +13,7 @@
         P.nom AS projet,
         E.prenom AS employeP,
         E.nom AS employeN
-        FROM attribution A
+        FROM tache A
         inner JOIN employe E
           ON E.id = A.id_Employe
         INNER JOIN projet  P
@@ -78,7 +78,7 @@
         ) AS Attribuable,
         E.prenom AS employeP,
         E.nom AS employeN
-        FROM attribution A
+        FROM tache A
         inner JOIN employe E
           ON E.id = A.id_Employe
         WHERE A.id_Sprint = $numero
@@ -128,7 +128,7 @@
         $numero = $_POST["idAffiche"];
         $statement = $connection->prepare("SELECT sum(A.heure) AS NbHeure,
         P.nom AS ProjetN
-        FROM attribution A
+        FROM tache A
         inner JOIN projet P
           ON P.id = A.id_Projet
         WHERE A.id_Sprint = $numero
@@ -171,7 +171,7 @@
       if ($_POST["action"] == "Attribuer") {
         $TableauHeurePlanifie = $_POST["NombreHeure"];
         $statement = $connection->prepare("
-        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label) 
+        INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label) 
         VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label)
         ");
         for ($i = 0; $i < count($TableauHeurePlanifie); $i++) {
@@ -196,7 +196,7 @@
       if ($_POST["action"] == "AttribuerReunion") {
         $TableauHeurePlanifie = $_POST["NombreHeure"];
         $statement = $connection->prepare("
-        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, id_TypeTache) 
+        INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label, id_TypeTache) 
         VALUES (:NombreHeure, :idSprint, (select employe.id from employe where employe.mail like :emailEmploye), (select projet.id from projet where projet.nom like 'NS Interne'), :Label, (Select typetache.id from typetache where typetache.nom like 'Réunion'))
         ");
 
@@ -217,7 +217,7 @@
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM attribution 
+          "SELECT * FROM tache 
         WHERE id = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
@@ -236,7 +236,7 @@
       if ($_POST["action"] == "CreerTacheApi") {
         $ListeTache = $_POST["ListeTaches"];
         $statement = $connection->prepare("
-        INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project, pivotal_Label_Story) 
+        INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label, Done, pivotal_id_Task, pivotal_id_Story, pivotal_id_Project, pivotal_Label_Story) 
         VALUES (:NombreHeure, :idSprint, :idEmploye, :idProjet, :Label, :Done, :pivotal_id_Task, :pivotal_id_Story, :pivotal_id_Project, :pivotal_Label_Story)
         ");
         for ($i = 2; $i < count($ListeTache); $i++) {
@@ -269,7 +269,7 @@
       if ($_POST["action"] == "AttributionScrumPlaning") {
         $TableauEmploye = $_POST["idEmploye"];
         $numero = $_POST["idSprint"];
-        $statement = $connection->prepare("INSERT INTO attribution (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
+        $statement = $connection->prepare("INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
         VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),(select dateDebut FROM sprint S WHERE S.id = $numero))
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
@@ -297,7 +297,7 @@
           "SELECT
         S.attribuable - sum(A.heure) as Attribuable,
         (select sprint.attribuable from sprint where id = $idSprint) as AttribuablePD
-        FROM attribution A
+        FROM tache A
         INNER JOIN sprint S on S.id = A.id_Sprint
         where A.id_Sprint = $idSprint
         and A.id_Employe = $idRessource"

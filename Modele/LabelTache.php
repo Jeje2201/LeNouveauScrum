@@ -17,7 +17,7 @@
       A.id,
       A.heure,
       A.Label
-      FROM attribution A
+      FROM tache A
       WHERE id_Employe = $idEmploye
       AND id_sprint = $IdSprint
       AND A.id_TypeTache IS NULL");
@@ -61,7 +61,7 @@
         $TableauLabelObjectuf = $_POST["ToReturn"];
 
         $statement = $connection->prepare(
-          "UPDATE attribution 
+          "UPDATE tache 
         SET Label = :Label 
         WHERE id = :id"
         );

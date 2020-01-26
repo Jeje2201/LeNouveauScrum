@@ -13,7 +13,7 @@
       A.Label,
       P.nom AS projet,
       CONCAT(E.prenom,'&nbsp;', E.initial) AS employe
-      FROM attribution A
+      FROM tache A
       inner JOIN employe E ON A.id_Employe = E.id
       INNER JOIN projet P on P.id = A.id_Projet
       INNER JOIN sprint S on S.id = A.id_Sprint
@@ -68,7 +68,7 @@
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM attribution 
+          "SELECT * FROM tache 
          WHERE id = '" . $_POST["id"] . "' 
          LIMIT 1"
         );
@@ -96,7 +96,7 @@
           $_POST["Done"] = null;
 
         $statement = $connection->prepare(
-          "UPDATE attribution
+          "UPDATE tache
           SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, Done = :Done, Label = :Label, id_Employe = :id_Employe 
           WHERE id = :id"
         );
@@ -119,7 +119,7 @@
 
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
-          "DELETE FROM attribution
+          "DELETE FROM tache
          WHERE id = :id"
         );
         $result = $statement->execute(

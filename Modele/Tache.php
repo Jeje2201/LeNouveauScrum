@@ -32,7 +32,7 @@
           E.couleur,
           E.prenom AS E_Prenom,
           E.nom AS E_Nom
-          FROM attribution A
+          FROM tache A
           INNER JOIN employe E
             ON E.id = A.id_Employe
           INNER JOIN projet P
@@ -87,7 +87,7 @@
         E.couleur,
         E.prenom,
         E.nom AS E_Nom
-        FROM attribution A
+        FROM tache A
         INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
         INNER JOIN sprint S ON S.id = A.id_Sprint
@@ -136,7 +136,7 @@
         E.prenom,
         E.nom,
         A.id_Employe
-        FROM attribution A
+        FROM tache A
         INNER JOIN employe E ON A.id_Employe = E.id
         WHERE A.id_Sprint = $numero
         ORDER BY E.prenom
@@ -197,7 +197,7 @@
 
         for ($i = 0; $i < sizeof($IdAttribue); $i++) {
 
-          $statement = $connection->prepare("UPDATE attribution
+          $statement = $connection->prepare("UPDATE tache
           set Done = :done
           WHERE id = :id");
 
