@@ -15,10 +15,10 @@ $(document).ready(function () {
   $.ajax({
       url: "Modele/Changelog.php",
       method: "POST",
+      dataType: "json",
       data: {
         action: "GetChangelogs"
       },
-      dataType: "json",
       success: function (data) {
 
         localStorage.setItem('LastVersionKnown', data[0].changelog_numero)

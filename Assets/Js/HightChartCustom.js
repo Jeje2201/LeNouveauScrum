@@ -212,13 +212,12 @@ function ChargerPieObjectif(NumeroduSprint, div) {
   $.ajax({
     url: "Modele/Accueil.php",
     method: "POST",
+    dataType: 'json',
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-      if (IsJsonString(data)) 
-        data = JSON.parse(data);
       
       var finalColors = data["Objectifs"].map(o => o[2]);
       Highcharts.chart(div, {

@@ -125,14 +125,11 @@
         //Requete pour la charte des objectifs
         $statement = $connection->prepare(
           $sql = "SELECT COUNT(O.id) AS Nombre,
-        S.nom AS Statut,
-        S.couleur AS Couleur
+        O.objectif_statut AS Statut
       FROM retrospective_objectif O
-      JOIN statutobjectif S
-      ON S.id = O.id_StatutObjectif
       WHERE O.id_Sprint = $NumeroduSprint
-      GROUP BY O.id_StatutObjectif
-      ORDER BY O.id_StatutObjectif
+      GROUP BY O.objectif_statut
+      ORDER BY O.objectif_statut
       "
         );
 
@@ -147,7 +144,28 @@
 
           $MonTest[] = $row['Statut'];
           $MonTest[] = intval($row['Nombre']);
-          $MonTest[] = $row['Couleur'];
+
+          switch ($row['Statut']) {
+            case "En cours":
+              $MonTest[] = '#E88648';
+              break;
+            case "Ok":
+              $MonTest[] = '#95D972';
+              break;
+            case "Annule":
+              $MonTest[] = '#424242';
+              break;
+            case "Non":
+              $MonTest[] = '#E8514E';
+              break;
+            case "Inconnue":
+              $MonTest[] = '#007bff';
+              break;
+            default:
+              $MonTest[] = '#c1349c';
+        }
+
+         
 
           $Total[] = $MonTest;
         }
