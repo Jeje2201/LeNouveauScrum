@@ -256,61 +256,6 @@
 
           /////////////////////////////////////
 
-        case 'ListeDeroulanteTypeInterferance':
-
-          $statement = $connection->prepare("SELECT id,
-        nom
-        FROM typeinterference
-        ORDER BY id asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="typeinterference" >';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $output2 .= '<option value="' . $row["id"] . '">' . $row["nom"] . '</option>';
-            }
-
-            $output2 .= '</select>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
-        case 'ListeDeroulanteTypeEmploye':
-
-          $statement = $connection->prepare("SELECT id,
-        nom
-        FROM typeemploye
-        ORDER BY nom asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="TypeEmploye" >';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              if ($row["nom"] == "Developpeur")
-                $output2 .= '<option value="' . $row["id"] . '" selected> ' . $row["nom"] . ' </option>';
-              else
-                $output2 .= '<option value="' . $row["id"] . '"> ' . $row["nom"] . ' </option>';
-            }
-
-            $output2 .= '</select>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
         case 'ListeDeroulanteTypeProjet':
 
           $statement = $connection->prepare("SELECT id,

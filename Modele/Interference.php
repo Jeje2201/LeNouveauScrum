@@ -12,14 +12,12 @@
       I.label,
       CONCAT(E.prenom,'&nbsp;', E.initial) AS Employe,
       projet.nom,
-      T.nom AS TypeInterference
+      I.interference_type AS TypeInterference
       FROM interference I
       INNER join employe E
         ON E.id = I.id_Employe
       INNER JOIN projet
         ON projet.id = I.id_Projet
-      INNER JOIN typeinterference T
-        ON T.id = I.id_TypeInterference
       WHERE I.id_Sprint = $numero
       ORDER BY E.prenom, I.id_Projet asc");
         $statement->execute();
@@ -65,7 +63,7 @@
 
       if ($_POST["action"] == "Ajouter") {
         $statement = $connection->prepare("
-   INSERT INTO interference (heure, id_TypeInterference, id_Sprint, id_Projet, id_Employe, label) 
+   INSERT INTO interference (heure, interference_type, id_Sprint, id_Projet, id_Employe, label) 
    VALUES (:heure, :typeinterference, :sprint, :projet, :employe, :label)
    ");
 
@@ -96,7 +94,7 @@
         $result = $statement->fetch();
 
         $output["Heure"] = $result["heure"];
-        $output["TypeInterferance"] = $result["id_TypeInterference"];
+        $output["TypeInterferance"] = $result["interference_type"];
         $output["Sprint"] = $result["id_Sprint"];
         $output["Projet"] = $result["id_Projet"];
         $output["Employe"] = $result["id_Employe"];
@@ -108,7 +106,7 @@
       if ($_POST["action"] == "Update") {
         $statement = $connection->prepare(
           "UPDATE interference 
-   SET heure = :heure, id_TypeInterference = :typeinterference, id_Sprint =:sprint, id_Projet = :projet, id_Employe = :employe, label = :label
+   SET heure = :heure, interference_type = :typeinterference, id_Sprint =:sprint, id_Projet = :projet, id_Employe = :employe, label = :label
    WHERE id = :id
    "
         );

@@ -164,9 +164,6 @@
             default:
               $MonTest[] = '#c1349c';
         }
-
-         
-
           $Total[] = $MonTest;
         }
 

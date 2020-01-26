@@ -45,7 +45,13 @@
 
         <div class="form-group">
           <label>Type</label>
-          <div name="ListTypeInterferance" id="ListTypeInterferance"> </div>
+          <select class="form-control"  id="typeinterference" >'
+            <option value="Interférence">Interférence</option>
+            <option value="Absence">Absence</option>
+            <option value="Interruption">Interruption</option>
+            <option value="Bugs">Bugs</option>
+            <option value="Aide">Aide</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -73,8 +79,6 @@
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
 
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
-
-    RequeteAjax('ListTypeInterferance', 'ListeDeroulanteTypeInterferance', 'Modele/RequetesAjax.php');
 
     RemplirTableau();
 
