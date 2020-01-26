@@ -99,18 +99,21 @@
 
             var $colloneBoutons = $('<td />');
 
-            $colloneBoutons.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
+            var $GroupBouton = $('<div class="btn-group" role="group" />');
+
+            $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
               '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getRemarque(this.id.split('_')[2])
             }));
 
-            $colloneBoutons.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
+            $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
               '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellRemarque(this.id.split('_')[2])
             }));
 
+            $colloneBoutons.append($GroupBouton);
             tableRemarque.append($colloneBoutons);
 
             $('#TableRemarque').prepend(tableRemarque)

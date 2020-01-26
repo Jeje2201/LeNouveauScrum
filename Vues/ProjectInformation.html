@@ -532,14 +532,17 @@
 
         var $colloneBoutons = $('<td />');
 
-        $colloneBoutons.append($('<button type="button" id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
+        var $GroupBouton = $('<div class="btn-group" role="group" />');
+
+        $GroupBouton.append($('<button type="button" id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
           GetEchange(this.id.split('_')[1])
         }));
 
-        $colloneBoutons.append($('<button type="button" id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>').on('click', function() {
+        $GroupBouton.append($('<button type="button" id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>').on('click', function() {
           DellEchange(this.id.split('_')[1])
         }));
         
+        $colloneBoutons.append($GroupBouton);
         divEchange.append($colloneBoutons);
 
         $('#EchangesProjet').prepend(divEchange)
