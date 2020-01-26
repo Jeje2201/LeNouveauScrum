@@ -80,7 +80,7 @@
                 // $('#DateAujourdhui').datetimepicker('setStartDate', data['DateMin']);
                 // $('#DateAujourdhui').datetimepicker('setEndDate', data['DateMax']);
 
-                if (DateFrToEn(ChoixDate(0)) >= DateFrToEn(String(data['DateMin'])) && DateFrToEn(ChoixDate(0)) <= DateFrToEn(String(data['DateMax']))) {
+                if (DateSwitch(ChoixDate(0)) >= DateSwitch(String(data['DateMin'])) && DateSwitch(ChoixDate(0)) <= DateSwitch(String(data['DateMax']))) {
                   $('#DateAujourdhui').text(ChoixDate(0));
                 } else {
                   $('#DateAujourdhui').text(data['DateMax']);
@@ -167,7 +167,7 @@
             data: {
               IdAttribue: IdAttribue,
               action: "Descendre",
-              LeJourDeDescente: DateFrToEn($('#DateAujourdhui').text())
+              LeJourDeDescente: DateSwitch($('#DateAujourdhui').text())
             },
             success: function (data) {
               $.notify(data, "success");

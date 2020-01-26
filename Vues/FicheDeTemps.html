@@ -168,7 +168,7 @@
           dataType: "json",
           data: {
             action: "GetNewMax",
-            Done: DateFrToEn($('#StartDate').val())
+            Done: DateSwitch($('#StartDate').val())
           },
           success: function (data) {
             $('#InfosTempsFdt').text(MinutesIntoTime(444 - data))
@@ -204,7 +204,7 @@
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
             Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
-            Log: DateFrToEn(ChoixDate(0))
+            Log: DateSwitch(ChoixDate(0))
           },
           success: function (data) {
             if ((data.Liste).length > 0) {
@@ -223,10 +223,10 @@
       //Charger les infos
       function ChargerListeHeures1Jour1Ressource() {
 
-        var LaDate = DateFrToEn($('#StartDate').val())
+        var LaDate = DateSwitch($('#StartDate').val())
 
         if ($('#StartDate').val() == "") 
-          LaDate = DateFrToEn(ChoixDate(0))
+          LaDate = DateSwitch(ChoixDate(0))
 
         $.ajax({
           url: "Modele/FicheDeTemps.php",

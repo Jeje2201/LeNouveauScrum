@@ -29,10 +29,10 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
     if (JourValide == 0) {
 
-      if (DateFrToEn(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
+      if (DateSwitch(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
         HeuresDescenduesParJoursSurToutLeSprint.push(null)
 
-      else if (new Date(DateFrToEn(listeJoursDansSprint[i])).getDay() == 6 || new Date(DateFrToEn(listeJoursDansSprint[i])).getDay() == 0)
+      else if (new Date(DateSwitch(listeJoursDansSprint[i])).getDay() == 6 || new Date(DateSwitch(listeJoursDansSprint[i])).getDay() == 0)
         HeuresDescenduesParJoursSurToutLeSprint.push(0)
 
       else {
@@ -82,7 +82,7 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
 
     if (JourValide == 0) {
 
-      if (DateFrToEn(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
+      if (DateSwitch(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
         HeuresDescenduesParJoursSurToutLeSprint.push(null)
 
       else {
@@ -129,7 +129,7 @@ function ChoixDate(jours) {
  * Convertie la date dans le format inverse qu'il possède j-m-y <-> y-m-j
  * @param {string} date date a convertir
  */
-function DateFrToEn(date) {
+function DateSwitch(date) {
   
   if(date == null || date == undefined || date == ""){
     return null
@@ -152,7 +152,7 @@ function AjouterJourFrDevantDate(date) {
 
   for (i = 0; i < date.length; i++) {
 
-    dateconnupourcheckday = new Date(DateFrToEn(date[i]))
+    dateconnupourcheckday = new Date(DateSwitch(date[i]))
 
     switch (dateconnupourcheckday.getDay()) {
       case 1:
@@ -284,7 +284,7 @@ function ListeJoursDate(DateDebut, DateFin) {
     while (start <= end) {
       var day = start.getDay();
 
-      EnsembleDeDate.push(DateFrToEn(start.toJSON().split('T')[0]))
+      EnsembleDeDate.push(DateSwitch(start.toJSON().split('T')[0]))
 
       start.setDate(start.getDate() + 1);
     }

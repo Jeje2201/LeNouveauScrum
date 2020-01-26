@@ -144,16 +144,16 @@
 
     $('#modal_button').click(function () {
 
-      if (DateFrToEn($('#dateFin').val()) > DateFrToEn($('#dateDebut').val())) {
-        if ($('#numero').val() != '' && DateFrToEn($('#dateDebut').val()) != '' && DateFrToEn($('#dateFin').val()) != '') {
+      if (DateSwitch($('#dateFin').val()) > DateSwitch($('#dateDebut').val())) {
+        if ($('#numero').val() != '' && DateSwitch($('#dateDebut').val()) != '' && DateSwitch($('#dateFin').val()) != '') {
           $.ajax({
             url: "Modele/Sprint.php",
             method: "POST",
             data: {
               numero: $('#numero').val(),
-              dateDebut: DateFrToEn($('#dateDebut').val()),
+              dateDebut: DateSwitch($('#dateDebut').val()),
               id: $('#id').val(),
-              dateFin: DateFrToEn($('#dateFin').val()),
+              dateFin: DateSwitch($('#dateFin').val()),
               Attribuable: $('#attribuable').val(),
               action: 'Créer'
             },
@@ -198,15 +198,15 @@
     });
 
     $('#action').click(function () {
-      if ($('#numeroo').val() != '' && DateFrToEn($('#dateDebutt').val()) != '' && DateFrToEn($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
+      if ($('#numeroo').val() != '' && DateSwitch($('#dateDebutt').val()) != '' && DateSwitch($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
         $.ajax({
           url: "Modele/Sprint.php", //Request send to "Sprint.php page"
           method: "POST", //Using of Post method for send data
           data: {
             numero: $('#numeroo').val(),
-            dateDebut: DateFrToEn($('#dateDebutt').val()),
+            dateDebut: DateSwitch($('#dateDebutt').val()),
             id: $('#id').val(),
-            dateFin: DateFrToEn($('#dateFinn').val()),
+            dateFin: DateSwitch($('#dateFinn').val()),
             attribuableEdi: $('#attribuableEdition').val(),
             action: $('#action').val() //Get the value of Modal Action button and stored into action variable
           }, //Send data to server

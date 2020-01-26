@@ -147,7 +147,7 @@
           $('#employeId').val(data.demo_id_Employe);
           $('#ProjetDemo').val(data.demo_id_Projet);
           $('#LabelDemo').val(data.demo_Label);
-          $('#DateEffectue').val(DateFrToEn(data.demo_DateEffectue));
+          $('#DateEffectue').val(DateSwitch(data.demo_DateEffectue));
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"
@@ -187,7 +187,7 @@
           Employe: $('#employeId').val(),
           Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
-          DateEffectue: DateFrToEn($('#DateEffectue').val()),
+          DateEffectue: DateSwitch($('#DateEffectue').val()),
           action: "putDemo"
         },
         success: function (data) {

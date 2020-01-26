@@ -60,8 +60,8 @@
             data: {
               action: "ListeSelonProjetDateRessource",
               ProjetId: $('#projetId').val(),
-              Start: DateFrToEn($('#Start').val()),
-              Finish: DateFrToEn($('#Finish').val())
+              Start: DateSwitch($('#Start').val()),
+              Finish: DateSwitch($('#Finish').val())
             },
             success: function (data) {
               $('#TableauListFicheDeTemps').html(data);
@@ -77,8 +77,8 @@
               data: {
                 action: "ListeSelonProjetDate",
                 ProjetId: $('#projetId').val(),
-                Start: DateFrToEn($('#Start').val()),
-                Finish: DateFrToEn($('#Finish').val())
+                Start: DateSwitch($('#Start').val()),
+                Finish: DateSwitch($('#Finish').val())
               },
               success: function (data) {
                 $('#TableauListFicheDeTempsGlobal').html(data);

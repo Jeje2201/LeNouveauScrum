@@ -104,10 +104,10 @@
 
     function ChargerTableauOnDate() {
 
-      var LaDate = DateFrToEn($('#DateACheck').val())
+      var LaDate = DateSwitch($('#DateACheck').val())
 
       if ($('#DateACheck').val() == "")
-        LaDate = DateFrToEn(ChoixDate(0))
+        LaDate = DateSwitch(ChoixDate(0))
 
       $.ajax({
         url: "Modele/FicheDeTemps.php",
@@ -161,8 +161,8 @@
           Employe: $('#employeId').val(),
           Projet: $('#projetId').val(),
           Time: $('#Time').val(),
-          Done: DateFrToEn($('#Done').val()),
-          Log: DateFrToEn($('#Log').val()),
+          Done: DateSwitch($('#Done').val()),
+          Log: DateSwitch($('#Log').val()),
           action: "Update"
         },
         success: function (data) {

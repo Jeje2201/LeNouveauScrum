@@ -150,8 +150,8 @@
         method: "POST",
         data: {
           remarque_id: $('#remarque_id').val(),
-          remarque_DateDebut: DateFrToEn($('#DateDebut').val()),
-          remarque_DateFin: DateFrToEn($('#DateFin').val()),
+          remarque_DateDebut: DateSwitch($('#DateDebut').val()),
+          remarque_DateFin: DateSwitch($('#DateFin').val()),
           remarque_label: $('#labelRemarque').val(),
           action: 'putRemarque'
         },
