@@ -10,7 +10,7 @@ if (isset($_POST["action"])) {
         R.Label as remarque_label,
         R.DateCreation as remarque_dateCreation,
         R.DateFini as remarque_dateFini
-        FROM retrospective R
+        FROM retrospective_remarque R
         ORDER BY R.DateFini IS NULL ASC, R.DateFini ASC");
 
     $statement->execute();
@@ -44,7 +44,7 @@ if (isset($_POST["action"])) {
   if ($_POST["action"] == "getRemarque") {
 
     $statement = $connection->prepare(
-      "SELECT * FROM retrospective 
+      "SELECT * FROM retrospective_remarque 
      WHERE id = '" . $_POST["remarque_id"] . "' 
      LIMIT 1"
     );
@@ -68,7 +68,7 @@ if (isset($_POST["action"])) {
 
   if ($_POST["action"] == "achieveRetrospective") {
     $statement = $connection->prepare(
-      "UPDATE retrospective 
+      "UPDATE retrospective_remarque 
       SET DateFini = NOW()
       WHERE id = :id
       "
@@ -86,7 +86,7 @@ if (isset($_POST["action"])) {
 
   if ($_POST["action"] == "addRemarque") {
     $statement = $connection->prepare("
-   INSERT INTO retrospective (Label, DateCreation) 
+   INSERT INTO retrospective_remarque (Label, DateCreation) 
    VALUES (:Label, NOW())
    ");
     $result = $statement->execute(
@@ -106,7 +106,7 @@ if (isset($_POST["action"])) {
       $_POST["remarque_DateFin"] = null;
       
     $statement = $connection->prepare(
-      "UPDATE retrospective
+      "UPDATE retrospective_remarque
       SET Label = :remarque_label, DateCreation = :remarque_DateDebut, DateFini = :remarque_DateFin
       WHERE id = :remarque_id"
     );
@@ -126,7 +126,7 @@ if (isset($_POST["action"])) {
 
   if ($_POST["action"] == "dellRemarque") {
     $statement = $connection->prepare(
-      "DELETE FROM retrospective
+      "DELETE FROM retrospective_remarque
          WHERE id = :id"
     );
     $result = $statement->execute(
