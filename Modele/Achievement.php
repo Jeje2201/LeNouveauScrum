@@ -15,7 +15,7 @@
         select if((SELECT round(sum(Time)/444) as toto from cir where Fk_User = ".$_SESSION['IdUtilisateur']." GROUP BY Fk_Project order by toto desc limit 1)>48 , '1', '0')
         union all
         /* Avoir plus de 50 dobjectif ok */
-        select if((select count(id_Employe) as total from objectif where id_Employe = ".$_SESSION['IdUtilisateur']." AND id_StatutObjectif = (select id from statutobjectif where statutobjectif.nom = 'OK'))>50 , '1', '0')
+        select if((select count(id_Employe) as total from retrospective_objectif where id_Employe = ".$_SESSION['IdUtilisateur']." AND id_StatutObjectif = (select id from statutobjectif where statutobjectif.nom = 'OK'))>50 , '1', '0')
         union all
         /* Avoir plus de 30h interferebce 1 sprint ok */
         select if((SELECT sum(heure) as total FROM `interference` where id_Employe = ".$_SESSION['IdUtilisateur']." GROUP BY id_Sprint, id_Employe order by total desc limit 1)>=30 , '1', '0')

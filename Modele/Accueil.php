@@ -127,7 +127,7 @@
           $sql = "SELECT COUNT(O.id) AS Nombre,
         S.nom AS Statut,
         S.couleur AS Couleur
-      FROM objectif O
+      FROM retrospective_objectif O
       JOIN statutobjectif S
       ON S.id = O.id_StatutObjectif
       WHERE O.id_Sprint = $NumeroduSprint

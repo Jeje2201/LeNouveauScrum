@@ -11,7 +11,7 @@
         P.nom AS projet,
         CONCAT(employe.prenom,'&nbsp;', employe.initial) AS Employe,
         S.nom AS etat
-        FROM objectif O
+        FROM retrospective_objectif O
         INNER JOIN statutobjectif S
           ON S.id = O.id_StatutObjectif
         INNER JOIN projet P
@@ -43,7 +43,7 @@
 
       if ($_POST["action"] == "putEtatObjectif") {
         $statement = $connection->prepare(
-          "UPDATE objectif 
+          "UPDATE retrospective_objectif 
           SET id_StatutObjectif = :EtatObjectif 
           WHERE id = :id
           "
@@ -62,7 +62,7 @@
       
       if ($_POST["action"] == "Créer") {
         $statement = $connection->prepare("
-        INSERT INTO objectif (id_Sprint, id_Projet, id_Employe, objectif, id_StatutObjectif) 
+        INSERT INTO retrospective_objectif (id_Sprint, id_Projet, id_Employe, objectif, id_StatutObjectif) 
         VALUES (:id_Sprint, :id_Projet, :id_Employe, :objectif, :id_StatutObjectif)
         ");
         $result = $statement->execute(
@@ -83,7 +83,7 @@
       if ($_POST["action"] == "getObjectif") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM objectif 
+          "SELECT * FROM retrospective_objectif 
         WHERE id = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
@@ -95,7 +95,7 @@
 
       if ($_POST["action"] == "putObjectif") {
         $statement = $connection->prepare(
-          "UPDATE objectif 
+          "UPDATE retrospective_objectif 
         SET objectif = :LabelObjectif, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe
         WHERE id = :id
         "
@@ -117,7 +117,7 @@
 
       if ($_POST["action"] == "dellObjectif") {
         $statement = $connection->prepare(
-          "DELETE FROM objectif
+          "DELETE FROM retrospective_objectif
         WHERE id = :id"
         );
         $result = $statement->execute(
