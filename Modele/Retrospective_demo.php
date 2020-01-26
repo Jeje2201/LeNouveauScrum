@@ -12,7 +12,7 @@
         D.Label as demo_label,
         D.id as demo_id,
         D.DateEffectue as demo_DateEffectue
-        FROM demo D
+        FROM retrospective_demo D
         INNER JOIN projet P on P.id = D.id_Projet
         INNER JOIN employe E on E.id = D.id_Employe
         ORDER BY D.DateEffectue IS NULL ASC, D.DateEffectue ASC, E.prenom DESC");
@@ -36,7 +36,7 @@
         D.id_Employe as demo_id_Employe,
         D.id_Projet as demo_id_Projet,
         D.DateEffectue as demo_DateEffectue
-        FROM demo D WHERE id = '" . $_POST["demo_id"] . "' LIMIT 1");
+        FROM retrospective_demo D WHERE id = '" . $_POST["demo_id"] . "' LIMIT 1");
         $statement->execute();
         $result = $statement->fetch();
           
@@ -45,7 +45,7 @@
 
       if ($_POST["action"] == "addDemo") {
         $statement = $connection->prepare("
-        INSERT INTO demo (id_Projet, id_Employe, Label) 
+        INSERT INTO retrospective_demo (id_Projet, id_Employe, Label) 
         VALUES (:id_Projet, :id_Employe, :Label)
         ");
         $result = $statement->execute(
@@ -61,7 +61,7 @@
 
       if ($_POST["action"] == "achieveDemo") {
         $statement = $connection->prepare(
-          "UPDATE demo 
+          "UPDATE retrospective_demo 
           SET DateEffectue = NOW()
           WHERE id = :id
           "
@@ -81,7 +81,7 @@
           $_POST["DateEffectue"] = null;
 
         $statement = $connection->prepare(
-          "UPDATE demo
+          "UPDATE retrospective_demo
         SET id_Employe = :id_Employe, id_Projet= :id_Projet, DateEffectue = :DateEffectue, label = :Label 
         WHERE id = :id"
         );
@@ -100,7 +100,7 @@
 
       if ($_POST["action"] == "dellDemo") {
         $statement = $connection->prepare(
-          "DELETE FROM demo
+          "DELETE FROM retrospective_demo
           WHERE id = :id"
         );
         $result = $statement->execute(
