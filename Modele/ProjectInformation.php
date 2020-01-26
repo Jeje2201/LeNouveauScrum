@@ -61,7 +61,7 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "getClient") {
         $output = array();
         $statement = $connection->prepare(
-        "SELECT * FROM clientprojet 
+        "SELECT * FROM projet_client 
          WHERE id = (select id_client from projet where projet.id = '" . $_POST["projectId"] . "') 
          LIMIT 1"
         );
@@ -81,7 +81,7 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "putClient") {
 
         $statement = $connection->prepare(
-          "UPDATE clientprojet 
+          "UPDATE projet_client 
           SET entreprise = :clientprojet_entreprise, nom = :clientprojet_nom, job = :clientprojet_job, mail = :clientprojet_mail, telephone = :clientprojet_telephone
           WHERE id = :clientprojet_id"
           );
