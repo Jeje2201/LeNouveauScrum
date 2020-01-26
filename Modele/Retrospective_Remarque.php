@@ -102,7 +102,7 @@ if (isset($_POST["action"])) {
 
   if ($_POST["action"] == "putRemarque") {
 
-    if ($_POST["remarque_DateFin"] == "undefined-undefined-")
+    if ($_POST["remarque_DateFin"] == "")
       $_POST["remarque_DateFin"] = null;
       
     $statement = $connection->prepare(

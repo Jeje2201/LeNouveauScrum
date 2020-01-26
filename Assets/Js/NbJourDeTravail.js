@@ -130,12 +130,16 @@ function ChoixDate(jours) {
  * @param {string} date date a convertir
  */
 function DateFrToEn(date) {
-
+  
+  if(date == null || date == undefined || date == ""){
+    return null
+  }
+  else{
   date = date.split("-")
   NouvelleDate = date[2] + "-" + date[1] + "-" + date[0]
 
   return NouvelleDate;
-
+  }
 };
 
 /**

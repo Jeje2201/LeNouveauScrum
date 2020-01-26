@@ -361,7 +361,7 @@
 
             $('#TableListHeuresAttribuees tr').each (function() {
               
-              if(LaValueACheck == this.innerText && LeIndexACheck != $(this).index()){
+              if(LaValueACheck == this.innerText && LeIndexACheck != $(this).index() && $(this)[0].cells[2].innerText != "?"){
                 $(this).addClass('bg-warning')   
               }
 

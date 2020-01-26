@@ -92,7 +92,7 @@
       //Mettre a jour une tache
       if ($_POST["action"] == "Update") {
 
-        if ($_POST["Done"] == "undefined-undefined-")
+        if ($_POST["Done"] == "")
           $_POST["Done"] = null;
 
         $statement = $connection->prepare(

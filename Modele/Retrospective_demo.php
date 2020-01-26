@@ -77,7 +77,7 @@
 
       if ($_POST["action"] == "putDemo") {
 
-        if ($_POST["DateEffectue"] == "undefined-undefined-")
+        if ($_POST["DateEffectue"] == "")
           $_POST["DateEffectue"] = null;
 
         $statement = $connection->prepare(
