@@ -68,6 +68,16 @@
 
         <div class="form-group">
           <label>Type</label>
+          <select class="form-control"  id="TypeEmploye" >
+            <option value="Graphiste">Graphiste</option>
+            <option value="Design">Design</option>
+            <option value="Développement">Développement</option>
+            <option value="Chef de projet">Chef de projet</option>
+            <option value="Naturaliste">Naturaliste</option>
+            <option value="Inconnue">Inconnue</option>
+            <option value="PDG">PDG</option>
+            <option value="Intégration">Intégration</option>
+          </select>
           <div id="ListTypeEmploye"></div>
         </div>
 
@@ -196,8 +206,6 @@
     $('#RegisterDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
-
-    RequeteAjax('ListTypeEmploye', 'ListeDeroulanteTypeEmploye', 'Modele/RequetesAjax.php');
 
     RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
 

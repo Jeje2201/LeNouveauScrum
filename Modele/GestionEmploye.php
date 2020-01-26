@@ -25,19 +25,15 @@
       E.admin,
       E.MailCir,
       E.actif,
-      (
-        select T.nom
-        FROM typeemploye T
-        WHERE T.id = E.id_TypeEmploye
-        ) AS TypeJob,
-        ApiPivotal AS IdPivotal,
-        E.Couleur AS Couleur
-        FROM employe E
-        ORDER BY E.prenom asc");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
+      E.user_type AS TypeJob,
+      ApiPivotal AS IdPivotal,
+      E.Couleur AS Couleur
+      FROM employe E
+      ORDER BY E.prenom asc");
+      $statement->execute();
+      $result = $statement->fetchAll();
+      $output = '';
+      $output .= '
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
@@ -103,7 +99,7 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, admin, Initial, id_TypeEmploye, mdp, ApiPivotal, RegisterDate, mail) 
+          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, admin, Initial, user_type, mdp, ApiPivotal, RegisterDate, mail) 
           VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
@@ -146,7 +142,7 @@
         $output["admin"] = $result["admin"];
         $output["Mail"] = $result["mail"];
         $output["ApiPivotal"] = $result["ApiPivotal"];
-        $output["TypeEmploye"] = $result["id_TypeEmploye"];
+        $output["TypeEmploye"] = $result["user_type"];
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
         $output["Initial"] = $result["Initial"];
 
@@ -161,7 +157,7 @@
 
         $statement = $connection->prepare(
           "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, admin = :admin, ApiPivotal = :ApiPivotal, id_TypeEmploye = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
+          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, admin = :admin, ApiPivotal = :ApiPivotal, user_type = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
           WHERE id = :id"
         );
         $result = $statement->execute(
