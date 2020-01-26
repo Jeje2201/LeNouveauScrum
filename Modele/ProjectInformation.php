@@ -106,7 +106,7 @@ require_once('../Modele/Configs.php');
         $statement = $connection->prepare(
           "SELECT E.prenom, E.avatar, E.id as ressourceID, T.nom as job FROM employe E
            INNER JOIN typeemploye T on E.id_TypeEmploye = T.id
-           WHERE E.id in (select R.id_ressource from ressourceprojet R where R.id_projet = " . $_POST["projectId"] . ")
+           WHERE E.id in (select R.id_ressource from projet_ressource R where R.id_projet = " . $_POST["projectId"] . ")
            ORDER BY E.prenom"
         );
         $statement->execute();
@@ -134,7 +134,7 @@ require_once('../Modele/Configs.php');
         $TableauEmploye = $_POST["UserId"];
 
         $statement = $connection->prepare(
-        "INSERT INTO ressourceprojet (id_projet, id_ressource) 
+        "INSERT INTO projet_ressource (id_projet, id_ressource) 
         VALUES (:id_projet, :id_ressource)
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
@@ -154,7 +154,7 @@ require_once('../Modele/Configs.php');
     if ($_POST["action"] == "DellRessourceProjet") {
 
       $statement = $connection->prepare(
-        "DELETE FROM ressourceprojet
+        "DELETE FROM projet_ressource
         WHERE id_ressource = :id_ressource
         AND id_projet = :id_projet"
       );
@@ -175,7 +175,7 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "GetTechnos") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT T.technologie, T.id as technologieId FROM technologieprojet T
+          "SELECT T.technologie, T.id as technologieId FROM projet_technologie T
            WHERE T.id_projet = " . $_POST["projectId"]
         );
         $statement->execute();
@@ -198,7 +198,7 @@ require_once('../Modele/Configs.php');
 
       if ($_POST["action"] == "AddTechno") {
           $statement = $connection->prepare(
-          "INSERT INTO technologieprojet (technologie, id_projet) 
+          "INSERT INTO projet_technologie (technologie, id_projet) 
           VALUES (:technologie, :id_projet)
           ");
           $result = $statement->execute(
@@ -216,7 +216,7 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "DellTechno") {
 
         $statement = $connection->prepare(
-          "DELETE FROM technologieprojet
+          "DELETE FROM projet_technologie
           WHERE id = :id_technologie
           AND id_projet = :id_projet"
         );
@@ -235,7 +235,7 @@ require_once('../Modele/Configs.php');
     if ($_POST["action"] == "getEchanges") {
       $output = array();
       $statement = $connection->prepare(
-        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
+        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM projet_echange E
          WHERE E.id_project = " . $_POST["projectId"]."
          ORDER BY date_echange asc"
       );
@@ -262,7 +262,7 @@ require_once('../Modele/Configs.php');
     if ($_POST["action"] == "getEchange") {
 
       $statement = $connection->prepare(
-        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM echangeprojet E
+        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM projet_echange E
          WHERE E.id = " . $_POST["idComment"]
       );
       $statement->execute();
@@ -280,7 +280,7 @@ require_once('../Modele/Configs.php');
 
     if ($_POST["action"] == "postEchange") {
       $statement = $connection->prepare(
-      "INSERT INTO echangeprojet (resume_echange, date_echange, type_echange, id_project) 
+      "INSERT INTO projet_echange (resume_echange, date_echange, type_echange, id_project) 
       VALUES (:resume_echange, :date_echange, :type_echange, :id_project)
       ");
       $result = $statement->execute(
@@ -300,7 +300,7 @@ require_once('../Modele/Configs.php');
   if ($_POST["action"] == "putEchange") {
 
     $statement = $connection->prepare(
-      "UPDATE echangeprojet 
+      "UPDATE projet_echange 
       SET resume_echange = :resume_echange, date_echange = :date_echange, type_echange = :type_echange
       WHERE id = :resume_id"
       );
@@ -321,7 +321,7 @@ require_once('../Modele/Configs.php');
     if ($_POST["action"] == "DellEchange") {
 
       $statement = $connection->prepare(
-        "DELETE FROM echangeprojet
+        "DELETE FROM projet_echange
         WHERE id = :id_echange
         AND id_project = :id_projet"
       );
