@@ -14,7 +14,7 @@
         C.Time,
         C.Done,
         C.Log
-        FROM cir C
+        FROM fiche_de_temps C
         inner join employe E on C.Fk_User = E.id
         inner join projet P on C.Fk_Project = P.id
         WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["IdSprint"] . "' ) 
@@ -68,7 +68,7 @@
         from employe X
         where X.id not in (SELECT
         C.Fk_User
-        FROM cir C
+        FROM fiche_de_temps C
         where C.Done = '$LaDate'
         group by C.Done, C.Fk_User
         having sum(C.Time) = 444)
@@ -114,7 +114,7 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT sum(C.Time)
-        FROM cir C
+        FROM fiche_de_temps C
         inner join projet P on C.Fk_Project = P.id 
         WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         AND Done = '" . $_POST["Done"] . "'"
@@ -130,7 +130,7 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT C.Time, C.id, P.Nom as Projet
-        FROM cir C
+        FROM fiche_de_temps C
         inner join projet P on C.Fk_Project = P.id 
         WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         AND Done = '" . $_POST["Done"] . "'"
@@ -196,7 +196,7 @@
         where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_SESSION['IdUtilisateur'] . "' and E.MailCir = 1) and now()
         and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
         and selected_date not in (SELECT distinct C.Done
-        From cir C
+        From fiche_de_temps C
         where C.Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
         group by C.Done, C.Fk_User
         having sum(C.Time)=444)"
@@ -355,7 +355,7 @@
         " SELECT
         CONCAT(E.prenom,'&nbsp;', E.initial) AS Ressource,
         sum(C.Time) as Temps
-        FROM cir C
+        FROM fiche_de_temps C
         inner join employe E on C.Fk_User = E.id
         inner join projet P on C.Fk_Project = P.id
         WHERE C.Done >= '" . $_POST["Start"] ."' 
@@ -414,7 +414,7 @@
         $statement = $connection->prepare(
         " SELECT
         sum(C.Time) as Temps
-        FROM cir C
+        FROM fiche_de_temps C
         inner join employe E on C.Fk_User = E.id
         inner join projet P on C.Fk_Project = P.id
         WHERE C.Done >= '" . $_POST["Start"] ."' 
@@ -482,7 +482,7 @@
           $statement = $connection->prepare(
             "SELECT
           IFNULL(sum(Time)+$Time,0) as Depasse
-          from cir
+          from fiche_de_temps
           where Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
           and Done = '$LaDate'"
           );
@@ -507,7 +507,7 @@
             $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
 
             $statement = $connection->prepare("
-            INSERT INTO cir (Fk_User, Fk_Project, Time, Done, Log) 
+            INSERT INTO fiche_de_temps (Fk_User, Fk_Project, Time, Done, Log) 
             VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
     
               $result = $statement->execute(
@@ -531,7 +531,7 @@
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM cir 
+          "SELECT * FROM fiche_de_temps 
         WHERE id = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
@@ -551,7 +551,7 @@
       if ($_POST["action"] == "Update") {
 
         $statement = $connection->prepare(
-          "UPDATE cir
+          "UPDATE fiche_de_temps
         SET Fk_User = :User, Fk_Project= :Project, Time = :Time, Done = :Done, Log = :Log 
         WHERE id = :id"
         );
@@ -575,7 +575,7 @@
       //Delete une fiche de temps
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
-          "DELETE FROM cir WHERE id = :id"
+          "DELETE FROM fiche_de_temps WHERE id = :id"
         );
         $result = $statement->execute(
           array(
@@ -636,7 +636,7 @@
           and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
           and selected_date not in (
               SELECT distinct C.Done
-              From cir C
+              From fiche_de_temps C
               where C.Fk_User = $UnId
               group by C.Done, C.Fk_User
               having sum(C.Time)=444

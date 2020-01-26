@@ -15,21 +15,13 @@
     //Etablir la connexion pour les requetes ajax
     $connection = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'jeremy', 'Spiderman2008');
 
-    //Requete sql qui passe toutes les ressource qui ont leur date de fin de contrat arrivé a terme et qui sont toujours note actif en non actif et non mail cir
-    // $statement = $connection->prepare(
-    //   $sql = "UPDATE employe set employe.actif = 0, employe.MailCir = 0 where employe.FinDeContrat < NOW() and actif = 1"
-    //   );
-
-    //Executer la requete sql
-    //$statement->execute();
-
     //Requete sql qui sort les adresses des gens ET les jours de la semaine en numeric
     $statement = $connection->prepare(
         $sql = "SELECT X.mail as 'LesMails'
     from employe X
     where X.id not in (SELECT
         C.Fk_User
-        FROM cir C
+        FROM fiche_de_temps C
         where C.Done like DATE_FORMAT(now(), '%Y-%m-%d')
         group by C.Done, C.Fk_User
         having sum(C.Time) = 444)

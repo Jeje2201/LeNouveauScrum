@@ -9,10 +9,10 @@
       if ($_POST["action"] == "Trophee") {
         $Liste = [];
 
-        $statement = $connection->prepare("SELECT if((SELECT sum(Time)/444 from cir where Fk_User = ".$_SESSION['IdUtilisateur']." AND Fk_Project = ( select id from projet where projet.nom like 'Congés'))>4 , '1', '0') as resultat
+        $statement = $connection->prepare("SELECT if((SELECT sum(Time)/444 from fiche_de_temps where Fk_User = ".$_SESSION['IdUtilisateur']." AND Fk_Project = ( select id from projet where projet.nom like 'Congés'))>4 , '1', '0') as resultat
         union all
         /* Plus travailler temps sur un projet > 4*/
-        select if((SELECT round(sum(Time)/444) as toto from cir where Fk_User = ".$_SESSION['IdUtilisateur']." GROUP BY Fk_Project order by toto desc limit 1)>48 , '1', '0')
+        select if((SELECT round(sum(Time)/444) as toto from fiche_de_temps where Fk_User = ".$_SESSION['IdUtilisateur']." GROUP BY Fk_Project order by toto desc limit 1)>48 , '1', '0')
         union all
         /* Avoir plus de 50 dobjectif ok */
         select if((select count(id_Employe) as total from retrospective_objectif where id_Employe = ".$_SESSION['IdUtilisateur']." AND id_StatutObjectif = (select id from statutobjectif where statutobjectif.nom = 'OK'))>50 , '1', '0')
