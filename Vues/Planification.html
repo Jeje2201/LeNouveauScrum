@@ -139,7 +139,6 @@
           </div>
 
           <div class="col-lg-3">
-            <input name="id" id="id" class="form-control" placeholder="id modalapi" readonly/>
             <input type="submit" name="action" id="action" class="btn btn-success" value="Attribuer" />
           </div>
         </div>
@@ -157,7 +156,6 @@
           </div>
         </div>
 
-        <input type="hidden" name="TotalHeureAttribuable" id="TotalHeureAttribuable" />
 
         <div class="FollowAttribuable">
           <div id="totalheure"></div>
@@ -178,6 +176,7 @@
 
       </div>
       <div class="modal-footer">
+        <input name="TotalHeureAttribuable" class="form-control" id="TotalHeureAttribuable" readonly/>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -207,7 +206,6 @@
 
       </div>
       <div class="modal-footer">
-        <input name="id" id="id" placeholder="id modale scrum planing" class="form-control" readonly/>
         <input type="submit" class="btn btn-success AttribuerHeureScrumPlaning" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
@@ -291,7 +289,7 @@
       </div>
 
       <div class="modal-footer">
-        <input name="id" id="id" placeholder="id ModalGestionHeuresDescendues" class="form-control" readonly/>
+        <input name="id" id="id_planif" placeholder="id ModalGestionHeuresDescendues" class="form-control" readonly/>
         <input type="submit" name="actionEditionTache" id="actionEditionTache" class="btn btn-success"
           value="Mettre à jour" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -461,7 +459,7 @@
         success: function (data) {
           $('#ModalGestionHeuresDescendues').modal('show');
           $('.modal-title').text("Metre à jour les heures descendues");
-          $('#id').val(id);
+          $('#id_planif').val(id);
           $('#idSprint').val(data.id_Sprint);
           $('#ListeEmployeEditionTache').val(data.id_Employe);
           $('#ListeProjeteditionTache').val(data.id_Projet);
@@ -482,7 +480,7 @@
         url: "Modele/GestionTache.php",
         method: "POST",
         data: {
-          id: $('#id').val(),
+          id: $('#id_planif').val(),
           Done: DateSwitch($('#Done').val()),
           idSprint: $('#numeroSprint').val(),
           idEmploye: $('#ListeEmployeEditionTache').val(),
@@ -544,7 +542,6 @@
           url: "Modele/Planification.php",
           method: "POST",
           data: {
-            id: $('#id').val(),
             idSprint: $('#numeroSprint').val(),
             idEmploye: $('#RessourceApi').val().split('|')[0],
             idProjet: $('#ProjetApi').val().split('|')[0],
@@ -576,7 +573,7 @@
             idSprint: $('#numeroSprint').val(),
             idEmploye: $('#TOUTLEMONDE').val(),
             NombreHeure: $('#nbheure2').val(),
-            idTypeTache: parseInt($('#RemplirTypeTache1').val()),
+            idTypeTache: $('#RemplirTypeTache1').val(),
             action: "AttributionScrumPlaning"
           },
           success: function (data) {

@@ -305,11 +305,10 @@
 
         case 'RemplirTypeTache':
 
-          $statement = $connection->prepare("SELECT id,
-        nom,
-        couleur
-        FROM typetache
-        ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT distinct(tache_type)
+        FROM tache
+        where tache_type is not null
+        ORDER BY tache_type asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -318,7 +317,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option style="background-color:' . $row["couleur"] . '; color:black" value="' . $row["id"] . '"> ' . $row["nom"] . ' </option></br>';
+              $output2 .= '<option value="' . $row["tache_type"] . '"> ' . $row["tache_type"] . ' </option></br>';
             }
 
             $output2 .= '</select>';

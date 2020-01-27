@@ -27,22 +27,14 @@
           A.pivotal_id_Project,
           A.pivotal_Label_Story,
           P.nom AS projet,
-          P.avatar as Logo,
-          E.Initial,
-          E.couleur,
-          E.prenom AS E_Prenom,
-          E.nom AS E_Nom
+          P.avatar as Logo
           FROM tache A
-          INNER JOIN employe E
-            ON E.id = A.id_Employe
           INNER JOIN projet P
             ON P.id = A.id_Projet
-          INNER JOIN sprint S
-            ON S.id = A.id_Sprint
           WHERE A.id_Sprint =  $numero
           AND A.Done IS NULL
           AND A.id_Employe = '" . $_SESSION['IdUtilisateur'] . "'
-          ORDER BY E.prenom, pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
+          ORDER BY pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -66,7 +58,7 @@
           }
 
             $output1 .= $GroupStory . '
-      <div class="card BOUGEMOI" id="' . $row["id"] . '" style=" border-left: 5px solid ' . $row["couleur"] . ';" onclick="DeplaceToi(this)">
+      <div class="card BOUGEMOI p-1" id="' . $row["id"] . '" onclick="DeplaceToi(this)">
         <div class="ml-1"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '">'. $ShowItsPivotal.'</b><br>
 
           <span id="LabelDeLaTache">' . PreviewText($row["Label"]) . '</span> (' . $row["heure"] . ')
@@ -82,19 +74,14 @@
         A.Label,
         A.heure,
         P.nom AS projet,
-        P.avatar as Logo,
-        E.Initial,
-        E.couleur,
-        E.prenom,
-        E.nom AS E_Nom
+        P.avatar as Logo
         FROM tache A
-        INNER JOIN employe E ON E.id = A.id_Employe
         INNER JOIN projet P ON P.id = A.id_Projet
         INNER JOIN sprint S ON S.id = A.id_Sprint
         WHERE A.id_Sprint =  $numero
         AND A.Done IS NOT NULL
         AND A.id_Employe = '" . $_SESSION['IdUtilisateur'] . "'
-        ORDER BY E.prenom");
+        ORDER BY pivotal_id_Project desc, pivotal_id_Story, pivotal_id_Task, projet");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -107,7 +94,7 @@
             }
 
             $output2 .= '
-<div class="card PASTOUCHE" style=" border-left: 5px solid ' . $row["couleur"] . ';">
+<div class="card PASTOUCHE p-1">
   <div class="ml-2"><b>' . $row["projet"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["Logo"] . '"></b><br>
     ' . PreviewText($row["Label"]) . ' (' . $row["heure"] . ')
   </div>
@@ -118,10 +105,6 @@
         }
         $Test->Attribution = $output1;
         $Test->Descendue = $output2;
-
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-        header('Content-type: application/json');
 
         print json_encode($Test);
       }
