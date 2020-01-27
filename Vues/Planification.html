@@ -176,7 +176,6 @@
 
       </div>
       <div class="modal-footer">
-        <input name="TotalHeureAttribuable" class="form-control" id="TotalHeureAttribuable" readonly/>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -412,7 +411,6 @@
         },
         dataType: "json",
         success: function (data) {
-          $('#TotalHeureAttribuable').val(data.Attribuable);
           document.getElementById("totalheure").innerHTML = "Heures planifiables : " + data.Attribuable + "h"
         }
       });
@@ -859,8 +857,7 @@
       }
 
     })
-    document.getElementById("totalheure").innerHTML = "Heures planifiables : " + ($('#TotalHeureAttribuable').val() -
-      TotalHeures) + "h"
+    HeureAttribuable1Ressource()
 
     return cart
   }
