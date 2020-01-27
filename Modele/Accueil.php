@@ -95,7 +95,7 @@
         LEFT JOIN tache AS A ON A.id_Projet = P.id AND A.id_Sprint = $NumeroduSprint
         WHERE
         A.heure IS NOT NULL
-        AND A.id_TypeTache IS NULL
+        AND A.tache_type IS NULL
         GROUP BY P.id
         ORDER BY nbheuredescendu DESC, heurerestantes DESC
        "

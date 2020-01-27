@@ -20,7 +20,7 @@
       FROM tache A
       WHERE id_Employe = $idEmploye
       AND id_sprint = $IdSprint
-      AND A.id_TypeTache IS NULL");
+      AND A.tache_type IS NULL");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';

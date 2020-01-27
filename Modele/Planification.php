@@ -18,8 +18,6 @@
           ON E.id = A.id_Employe
         INNER JOIN projet  P
           ON P.id = A.id_Projet
-        INNER JOIN sprint  S
-          ON S.id = A.id_Sprint
         WHERE A.id_Sprint = $numero
         ORDER BY A.id DESC");
           $statement->execute();
@@ -196,8 +194,8 @@
       if ($_POST["action"] == "AttribuerReunion") {
         $TableauHeurePlanifie = $_POST["NombreHeure"];
         $statement = $connection->prepare("
-        INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label, id_TypeTache) 
-        VALUES (:NombreHeure, :idSprint, (select employe.id from employe where employe.mail like :emailEmploye), (select projet.id from projet where projet.nom like 'NS Interne'), :Label, (Select typetache.id from typetache where typetache.nom like 'Réunion'))
+        INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label, tache_type) 
+        VALUES (:NombreHeure, :idSprint, (select employe.id from employe where employe.mail like :emailEmploye), (select projet.id from projet where projet.nom like 'NS Interne'), :Label, 'Réunion')
         ");
 
           $result = $statement->execute(
@@ -269,8 +267,8 @@
       if ($_POST["action"] == "AttributionScrumPlaning") {
         $TableauEmploye = $_POST["idEmploye"];
         $numero = $_POST["idSprint"];
-        $statement = $connection->prepare("INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, id_TypeTache, Label, Done) 
-        VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, (select nom FROM typetache T WHERE T.id = :TypeTache),(select dateDebut FROM sprint S WHERE S.id = $numero))
+        $statement = $connection->prepare("INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, tache_type, Label, Done) 
+        VALUES (:NombreHeure, :idSprint, :idEmploye, (select id FROM projet P WHERE P.nom = 'ScrumPlaning'), :TypeTache, :TypeTachee,(select dateDebut FROM sprint S WHERE S.id = $numero))
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
 
@@ -279,7 +277,8 @@
               ':NombreHeure' => intval($_POST["NombreHeure"]),
               ':idSprint' => intval($_POST["idSprint"]),
               ':idEmploye' => intval($TableauEmploye[$i]),
-              ':TypeTache' => intval($_POST["idTypeTache"])
+              ':TypeTache' => $_POST["idTypeTache"],
+              ':TypeTachee' => $_POST["idTypeTache"]
             )
           );
           if (!empty($result))
