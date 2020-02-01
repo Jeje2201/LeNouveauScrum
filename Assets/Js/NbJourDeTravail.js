@@ -111,8 +111,8 @@ function ChoixDate(jours) {
   var Apres = new Date();
   Apres.setDate(Apres.getDate() + jours);
   j = Apres.getDate(),
-  m = Apres.getMonth() + 1,
-  a = Apres.getFullYear();
+    m = Apres.getMonth() + 1,
+    a = Apres.getFullYear();
 
   if (j < 10) {
     j = "0" + j;
@@ -130,15 +130,14 @@ function ChoixDate(jours) {
  * @param {string} date date a convertir
  */
 function DateSwitch(date) {
-  
-  if(date == null || date == undefined || date == ""){
-    return null
-  }
-  else{
-  date = date.split("-")
-  NouvelleDate = date[2] + "-" + date[1] + "-" + date[0]
 
-  return NouvelleDate;
+  if (date == null || date == undefined || date == "") {
+    return null
+  } else {
+    date = date.split("-")
+    NouvelleDate = date[2] + "-" + date[1] + "-" + date[0]
+
+    return NouvelleDate;
   }
 };
 
@@ -291,4 +290,18 @@ function ListeJoursDate(DateDebut, DateFin) {
     return EnsembleDeDate;
   }
 
+}
+
+/**
+ * Fonction pour obtenir le nombre de jours entre deux date (extrémités comprisent)
+ * @param {string} DateDebut Date de debut
+ * @param {string} DateFin Date de fin
+ */
+function nbJoursEntreDeuxDates(dateDebut) {
+  const date1 = new Date(dateDebut);
+  const date2 = new Date();
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  return diffDays-1
 }

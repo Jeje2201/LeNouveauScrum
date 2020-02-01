@@ -15,6 +15,7 @@
       <table class="table table-striped table-sm table-bordered">
         <thead>
           <tr>
+            <th>Nb jours</th>
             <th>Ressource</th>
             <th>Démo</th>
             <th>Label</th>
@@ -175,9 +176,10 @@
             if (this.demo_DateEffectue == null) {
 
               var tableDemos = $(`<tr>
-                                <td>` + this.ressource_prenom + ` ` + this.ressource_initial + `</td>
+                                <td>` + nbJoursEntreDeuxDates("'"+this.demo_DateCree+"'") + `</td>
+                                <td>` + this.prenom + ` ` + this.Initial + `</td>
                                 <td>` + this.projet_nom + `</td>
-                                <td>` + this.demo_label + `</td>
+                                <td>` + this.demo_Label + `</td>
                               </tr>`);
 
                 var $colloneBoutons = $('<td />');
@@ -185,13 +187,13 @@
                 var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_pk +
                   '" class="btn btn-success btn-sm mr-1"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveDemo(this.id.split('_')[2])
                 }));
 
-                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_pk +
                   '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   dellDemo(this.id.split('_')[2])
@@ -475,7 +477,7 @@
 
             })
 
-            IfNoRows('TableObjectif', 'Aucune démo trouvée..')
+            IfNoRows('TableObjectif', 'Aucun objectif trouvé..')
 
           GarderLaRecherche('BarreDeRecherche', 'TableObjectif');
         }
