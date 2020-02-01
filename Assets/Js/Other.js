@@ -3,13 +3,11 @@ $("#navbarResponsive li").each(function () {
   $(this).removeClass("active");
 });
 
-//Cherche sur quelle page il est
+//Cherche sur quelle page il est puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
   var LaPage = 'Accueil'
   if(window.location.href.split('=')[1] != undefined){
     LaPage = window.location.href.split('=')[1]
   }
-
-//Puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
 $('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
 //Si user n'est pas admin, alors enlever tout ce qui est pour les admins
@@ -24,9 +22,7 @@ $("#SlideNav").click(function () {
   $("body").toggleClass("sidenav-toggled");
 });
 
-/**
- * Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
- */
+//Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
 $.ajax({
   url: "Modele/Changelog.php",
   method: "POST",
@@ -35,21 +31,11 @@ $.ajax({
   },
   dataType: "json",
   success: function (data) {
-
     if(localStorage.getItem('LastVersionKnown') != data[0].changelog_numero){
       $('#ChangelogBadge').append('<span id="newsgithub" class="badge badge-danger ml-2">News !</span>')
     }
-
   }
 })
-
-/**
- * Afficher le prénom en haut dans l'application
- * @param {string} NameUser Nom du user
- */
-function ClassActive(NameUser) {
-  $("#TitreNavBar").text("Ns Scrum - " + NameUser);
-}
 
 /**
  * Fonction pour chercher dans une table depuis un input
