@@ -37,6 +37,20 @@ $.ajax({
   }
 })
 
+//Check si a une notification importante est a afficher, si oui, l'afficher
+$.ajax({
+  url: "Modele/Autre.php",
+  method: "POST",
+  data: {
+    action: "UrgentNotification"
+  },
+  success: function (data) {
+    if(data.trim() != ""){
+    $('.container-fluid').prepend('<div class="alert alert-danger" role="alert">'+data.trim()+'</div>')
+  }
+  }
+})
+
 /**
  * Fonction pour chercher dans une table depuis un input
  * @param {string} IdDivBarreDeRecherche Id de la bar de recherche dans laquelle on tape pour chercher

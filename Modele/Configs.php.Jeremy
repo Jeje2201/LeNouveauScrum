@@ -9,4 +9,6 @@ $ProjectFolderName = "ScrumManager";
 $connection = new PDO('mysql:host=' . $HostName . ';dbname=' . $BddTableName . ';charset=utf8;port=3308', $HostUsername, $HostPassword);
 
 $Maintenance = 0;
+
+$Urgent_Notification = "";
 ?>
