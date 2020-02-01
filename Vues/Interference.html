@@ -35,12 +35,12 @@
 
         <div class="form-group">
           <label>Nombre heures</label>
-          <input class="form-control" name="nbheure" id="nbheure" type="number" min="1" value="1">
+          <input class="form-control" id="nbheure" type="number" min="1" value="1">
         </div>
 
         <div id="leProjet" class="form-group">
           <label>Projet</label>
-          <div name="ListProjet" id="ListProjet"> </div>
+          <div id="ListProjet"> </div>
         </div>
 
         <div class="form-group">
@@ -57,13 +57,13 @@
         <div class="form-group">
           <label>Informations / Raison (peut être laissé vide)</label>
           <!-- <input class="form-control" type="text"> -->
-          <textarea class="form-control" name="labelinterference" id="labelinterference" rows="2"></textarea>
+          <textarea class="form-control" id="labelinterference" rows="2"></textarea>
         </div>
 
       </div>
       <div class="modal-footer">
-        <input name="id" id="id" class="form-control" readonly/>
-        <input type="submit" name="action" id="action" class="btn btn-success" />
+        <input id="id" class="form-control" readonly/>
+        <input type="submit" id="action" class="btn btn-success" />
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
