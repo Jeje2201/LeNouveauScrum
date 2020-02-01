@@ -5,38 +5,21 @@
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "getDemos") {
-        $statement = $connection->prepare("SELECT
-        E.prenom as ressource_prenom,
-        E.Initial as ressource_initial,
-        P.nom as projet_nom,
-        D.Label as demo_label,
-        D.id as demo_id,
-        D.DateEffectue as demo_DateEffectue
+        $statement = $connection->prepare("SELECT *
         FROM retrospective_demo D
-        INNER JOIN projet P on P.id = D.id_Projet
-        INNER JOIN employe E on E.id = D.id_Employe
-        ORDER BY D.DateEffectue IS NULL ASC, D.DateEffectue ASC, E.prenom DESC");
+        INNER JOIN projet P on P.projet_pk = D.demo_fk_Projet
+        INNER JOIN employe E on E.id = D.demo_fk_Employe
+        ORDER BY D.demo_DateEffectue IS NULL ASC, D.demo_DateEffectue ASC, E.prenom DESC");
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $resultat = [];
-
-        foreach ($result as $row) {
-          $resultat[] = $row;
-        }
-
-        print json_encode($resultat);
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "getDemo") {
 
-        $statement = $connection->prepare("SELECT
-        D.Label as demo_Label,
-        D.id as demo_id,
-        D.id_Employe as demo_id_Employe,
-        D.id_Projet as demo_id_Projet,
-        D.DateEffectue as demo_DateEffectue
-        FROM retrospective_demo D WHERE id = '" . $_POST["demo_id"] . "' LIMIT 1");
+        $statement = $connection->prepare("SELECT *
+        FROM retrospective_demo D WHERE demo_pk = '" . $_POST["demo_id"] . "' LIMIT 1");
         $statement->execute();
         $result = $statement->fetch();
           
@@ -45,8 +28,8 @@
 
       if ($_POST["action"] == "addDemo") {
         $statement = $connection->prepare("
-        INSERT INTO retrospective_demo (id_Projet, id_Employe, Label) 
-        VALUES (:id_Projet, :id_Employe, :Label)
+        INSERT INTO retrospective_demo (demo_fk_Projet, demo_fk_Employe, demo_Label, demo_DateCree) 
+        VALUES (:id_Projet, :id_Employe, :Label, NOW())
         ");
         $result = $statement->execute(
           array(
@@ -62,8 +45,8 @@
       if ($_POST["action"] == "achieveDemo") {
         $statement = $connection->prepare(
           "UPDATE retrospective_demo 
-          SET DateEffectue = NOW()
-          WHERE id = :id
+          SET demo_DateEffectue = NOW()
+          WHERE demo_pk = :id
           "
         );
         $result = $statement->execute(
@@ -82,8 +65,8 @@
 
         $statement = $connection->prepare(
           "UPDATE retrospective_demo
-        SET id_Employe = :id_Employe, id_Projet= :id_Projet, DateEffectue = :DateEffectue, label = :Label 
-        WHERE id = :id"
+        SET demo_fk_Employe = :id_Employe, demo_fk_Projet= :id_Projet, demo_DateEffectue = :DateEffectue, demo_Label = :Label 
+        WHERE demo_pk = :id"
         );
         $result = $statement->execute(
           array(
@@ -101,7 +84,7 @@
       if ($_POST["action"] == "dellDemo") {
         $statement = $connection->prepare(
           "DELETE FROM retrospective_demo
-          WHERE id = :id"
+          WHERE demo_pk = :id"
         );
         $result = $statement->execute(
           array(

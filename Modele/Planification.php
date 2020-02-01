@@ -14,10 +14,8 @@
         E.prenom AS employeP,
         E.nom AS employeN
         FROM tache A
-        inner JOIN employe E
-          ON E.id = A.id_Employe
-        INNER JOIN projet  P
-          ON P.id = A.id_Projet
+        inner JOIN employe E ON E.id = A.id_Employe
+        INNER JOIN projet  P ON P.id = A.id_Projet
         WHERE A.id_Sprint = $numero
         ORDER BY A.id DESC");
           $statement->execute();

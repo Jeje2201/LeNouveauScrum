@@ -58,12 +58,11 @@
 
         case 'ListeDeroulanteProjet':
 
-          $statement = $connection->prepare("SELECT P.id AS id,
-          P.nom AS Nom
-          FROM projet P
-          where P.projet_type not like 'CIR'
-          and P.Actif > 0
-          ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT *
+          FROM projet
+          where projet_type not like 'CIR'
+          and projet_actif > 0
+          ORDER BY projet_nom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -71,7 +70,7 @@
 
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
-              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["projet_pk"] . '"> ' . $row["projet_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -85,11 +84,10 @@
 
         case 'ListeDeroulanteProjetAvecCir':
 
-        $statement = $connection->prepare("SELECT P.id AS id,
-        P.nom AS Nom
-        FROM projet P
-        WHERE P.Actif > 0
-        ORDER BY nom asc");
+        $statement = $connection->prepare("SELECT *
+        FROM projet
+        WHERE projet_actif > 0
+        ORDER BY projet_nom asc");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -98,7 +96,7 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
-            $output2 .= '<option value="' . $row["id"] . '"> ' . $row["Nom"] . ' </option>';
+            $output2 .= '<option value="' . $row["projet_pk"] . '"> ' . $row["projet_nom"] . ' </option>';
           }
 
           $output2 .= '</select>';
@@ -112,13 +110,11 @@
 
         case 'ProjetPivotal':
 
-          $statement = $connection->prepare("SELECT P.id,
-          P.ApiPivotal,
-          P.nom
-          FROM projet P
-          where P.projet_type not like 'CIR'
-          and P.Actif = 2
-          ORDER BY nom asc");
+          $statement = $connection->prepare("SELECT *
+          FROM projet
+          where projet_type not like 'CIR'
+          and projet_actif = 2
+          ORDER BY projet_nom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -127,7 +123,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '|' . $row["ApiPivotal"] . '"> ' . $row["nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["projet_pk"] . '|' . $row["projet_ApiPivotal"] . '"> ' . $row["projet_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';

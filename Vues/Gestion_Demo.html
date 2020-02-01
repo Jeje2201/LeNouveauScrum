@@ -97,22 +97,22 @@
 
             var tableDemos = $(`<tr>
                                 <td>` + this.demo_DateEffectue + `</td>
-                                <td>` + this.ressource_prenom + ` ` + this.ressource_initial + `</td>
+                                <td>` + this.prenom + ` ` + this.Initial + `</td>
                                 <td>` + this.projet_nom + `</td>
-                                <td>` + this.demo_label + `</td>
+                                <td>` + this.demo_Label + `</td>
                               </tr>`);
 
             var $colloneBoutons = $('<td />');
 
             var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_id +
+            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_pk +
               '" class="btn btn-warning btn-sm mr-1"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getDemo(this.id.split('_')[2])
             }));
 
-            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_id +
+            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_pk +
               '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellDemo(this.id.split('_')[2])
@@ -143,9 +143,9 @@
         success: function (data) {
 
           $('#ModalRemarque').modal('show');
-          $('#id').val(data.demo_id);
-          $('#employeId').val(data.demo_id_Employe);
-          $('#ProjetDemo').val(data.demo_id_Projet);
+          $('#id').val(data.demo_pk);
+          $('#employeId').val(data.demo_fk_Employe);
+          $('#ProjetDemo').val(data.demo_fk_Projet);
           $('#LabelDemo').val(data.demo_Label);
           $('#DateEffectue').val(DateSwitch(data.demo_DateEffectue));
 
