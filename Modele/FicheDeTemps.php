@@ -1,26 +1,43 @@
    <?php
 
+function MinutesEnHeures($Minutes)
+{
+  $num = $Minutes;
+  $hours = ($num / 60);
+  $rhours = floor($hours);
+  $minutes = ($hours - $rhours) * 60;
+  $rminutes = round($minutes);
+  if($rminutes < 10){
+    $rminutes = "0".$rminutes;
+  }
+
+  if($rhours < 10){
+    $rhours = "0".$rhours;
+  }
+  return $rhours . 'h' . $rminutes;
+}
+
     session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
 
       //Load les fiches de temps de tout le monde dans la gestion des fiches de temps
-      if ($_POST["action"] == "Load") {
+      if ($_POST["action"] == "getFichesDeTemps") {
         $statement = $connection->prepare("SELECT
-        C.id,
-        CONCAT(E.prenom,'&nbsp;', E.initial) AS Ressource,
-        P.nom as Projet,
-        C.Time,
-        C.Done,
-        C.Log
+        fiche_de_temps_pk,
+        user_prenom,
+        user_initial,
+        projet_nom,
+        fiche_de_temps_time,
+        fiche_de_temps_done,
+        fiche_de_temps_log
         FROM fiche_de_temps C
-        inner join employe E on C.Fk_User = E.id
-        inner join projet P on C.Fk_Project = P.id
-        WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["IdSprint"] . "' ) 
-        and Done <= (SELECT S.dateFin from sprint S where S.id = '" . $_POST["IdSprint"] . "' )
-        ORDER BY C.Done DESC");
-
+        inner join user on fiche_de_temps_fk_user = user_pk
+        inner join projet on fiche_de_temps_fk_projet = projet_pk
+        WHERE fiche_de_temps_done >= (SELECT sprint_dateDebut from sprint where sprint_pk = " . $_POST["IdSprint"] . " ) 
+        and fiche_de_temps_done <= (SELECT sprint_dateFin from sprint where sprint_pk = " . $_POST["IdSprint"] . " )
+        ORDER BY fiche_de_temps_done DESC");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
@@ -41,12 +58,12 @@
           foreach ($result as $row) {
             $output .= '
             <tr>
-            <td>' . $row["Ressource"] . '</td>
-            <td>' . $row["Projet"] . '</td>
-            <td>' . $row["Time"] . '</td>
-            <td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>
-            <td>' . date("d/m/Y", strtotime($row["Log"])) . '</td>
-            <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+            <td>' . $row["user_prenom"] . ' ' . $row["user_initial"] . '</td>
+            <td>' . $row["projet_nom"] . '</td>
+            <td>' . $row["fiche_de_temps_time"] . '</td>
+            <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_done"])) . '</td>
+            <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_log"])) . '</td>
+            <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
             </tr>';
           }
         } else {
@@ -59,65 +76,14 @@
         print $output;
       }
 
-      // Pour la liste "Oublie sur une date" dans la gestion des fiches de temps 
-      if ($_POST["action"] == "LoadSelonDate") {
-
-        $LaDate = $_POST["LaDate"];
-
-        $statement = $connection->prepare("SELECT CONCAT(X.prenom,'&nbsp;', X.nom) as Ressource
-        from employe X
-        where X.id not in (SELECT
-        C.Fk_User
-        FROM fiche_de_temps C
-        where C.Done = '$LaDate'
-        group by C.Done, C.Fk_User
-        having sum(C.Time) = 444)
-        and X.actif = 1
-        and X.MailCir = 1
-        and X.RegisterDate <= '$LaDate'
-        order by X.prenom");
-
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $TotLol = 0;
-        foreach ($result as $row) {
-          $TotLol +=1;
-        }
-        $output .= '
-        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-        <thead class="thead-light">
-        <tr>
-        <th>Ressource ('.$TotLol.')</th>
-        </tr>
-        </thead>
-        <tbody id="myTable">';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-            <tr>
-              <td>' . $row["Ressource"] . '</td>
-            </tr>';
-          }
-        } else {
-          $output .= '
-          <tr>
-            <td align="center" colspan="10">Pas de données</td>
-          </tr>';
-        }
-        $output .= '</tbody></table>';
-        print $output;
-      }
-
-      // Get le nb de temps pour set le max du slider
+      // Get combien déjà remplis pour set bon % et max etc..
       if ($_POST["action"] == "GetNewMax") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT sum(C.Time)
-        FROM fiche_de_temps C
-        inner join projet P on C.Fk_Project = P.id 
-        WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
-        AND Done = '" . $_POST["Done"] . "'"
+          "SELECT sum(fiche_de_temps_time)
+        FROM fiche_de_temps
+        WHERE fiche_de_temps_fk_user = '" . $_SESSION['user']['id'] . "'
+        AND fiche_de_temps_done = '" . $_POST["Done"] . "'"
         );
         $statement->execute();
         $result = $statement->fetch();
@@ -129,16 +95,15 @@
 
         $output = array();
         $statement = $connection->prepare(
-          "SELECT C.Time, C.id, P.Nom as Projet
-        FROM fiche_de_temps C
-        inner join projet P on C.Fk_Project = P.id 
-        WHERE Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
-        AND Done = '" . $_POST["Done"] . "'"
+          "SELECT fiche_de_temps_time, fiche_de_temps_pk, projet_nom
+        FROM fiche_de_temps
+        inner join projet on fiche_de_temps_fk_projet = projet_pk
+        WHERE fiche_de_temps_fk_user = " . $_SESSION['user']['id'] . "
+        AND fiche_de_temps_done = '" . $_POST["Done"] . "'"
         );
         $statement->execute();
         $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
+        $output = '
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
@@ -151,24 +116,11 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
-            $num = $row["Time"];
-            $hours = ($num / 60);
-            $rhours = floor($hours);
-            $minutes = ($hours - $rhours) * 60;
-            $rminutes = round($minutes);
-            if($rminutes < 10){
-              $rminutes = "0".$rminutes;
-            }
-
-            if($rhours < 10){
-              $rhours = "0".$rhours;
-            }
-
             $output .= '
         <tr>
-        <td>' . $row["Projet"] . '</td>
-        <td>' . $rhours . 'h' . $rminutes . '</td>
-        <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+        <td>' . $row["projet_nom"] . '</td>
+        <td>' . MinutesEnHeures($row["fiche_de_temps_time"]) . '</td>
+        <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }
@@ -185,49 +137,19 @@
       //Afficher la liste des dates où il manque des fiche de temps non remplies
       if ($_POST["action"] == "TableTotJoursNonPlein") {
         $output = array();
+
         $statement = $connection->prepare(
-        "SELECT * from 
-        (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
-         (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
-         (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
-         (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
-         (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
-         (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
-        where selected_date between (SELECT E.RegisterDate from employe E where E.id = '" . $_SESSION['IdUtilisateur'] . "' and E.MailCir = 1) and now()
-        and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
-        and selected_date not in (SELECT distinct C.Done
-        From fiche_de_temps C
-        where C.Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
-        group by C.Done, C.Fk_User
-        having sum(C.Time)=444)"
-        );
+          "SELECT DISTINCT fiche_de_temps_done
+          from fiche_de_temps
+          WHERE fiche_de_temps_fk_user = " . $_SESSION['user']['id'] . "
+          GROUP BY fiche_de_temps_done
+          HAVING sum(fiche_de_temps_time)=444
+          order by fiche_de_temps_done asc");
+
         $statement->execute();
         $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-        <thead class="thead-light">
-        <tr>
-        <th width="">Feuilles de temps non remplis</th>
-        </tr>
-        </thead>
-        <tbody id="myTable">
-        ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-            <tr>
-              <td class="ListeDateManquante"><u>' . date("d/m/Y", strtotime($row["selected_date"])) . '</u></td>
-            </tr>';
-          }
-        } else {
-          $output .= '
-          <tr>
-            <td align="center" colspan="10">Pas de données</td>
-          </tr>';
-        }
-        $output .= '</tbody></table>';
-        print $output;
+
+        print json_encode($result);
       }
 
       //List des heures par date de rempli
@@ -235,14 +157,15 @@
         $output = array();
         $statement = $connection->prepare(
         "SELECT
-          projet.nom as Projets,
-          sum(C.Time) as Temps
-        FROM `cir` C
-        inner JOIN projet on
-          projet.id = C.Fk_Project
-        WHERE Done >= '" . $_POST["Start"] ."'  
-        and Done <= '" . $_POST["End"] ."' 
-        and Fk_User = '" . $_SESSION['IdUtilisateur'] . "' group by Fk_Project order by Temps desc");
+          projet_nom,
+          sum(fiche_de_temps_time) as Temps
+        FROM fiche_de_temps
+        inner JOIN projet on projet_pk = fiche_de_temps_fk_projet
+        WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'  
+        and fiche_de_temps_done <= '" . $_POST["End"] ."' 
+        and fiche_de_temps_fk_user = " . $_SESSION['user']['id'] . "
+        GROUP BY fiche_de_temps_fk_projet
+        ORDER BY Temps desc");
         
         $statement->execute();
         $result = $statement->fetchAll();
@@ -260,23 +183,10 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
-            $num = $row["Temps"];
-            $hours = ($num / 60);
-            $rhours = floor($hours);
-            $minutes = ($hours - $rhours) * 60;
-            $rminutes = round($minutes);
-            if($rminutes < 10){
-              $rminutes = "0".$rminutes;
-            }
-
-            if($rhours < 10){
-              $rhours = "0".$rhours;
-            }
-
             $output .= '
             <tr>
-            <td>' . $row["Projets"] . '</td>
-            <td>' . $rhours . 'h' . $rminutes . '</td>
+            <td>' . $row["projet_nom"] . '</td>
+            <td>' . MinutesEnHeures($row["Temps"]) . '</td>
             </tr>';
           }
         } else {
@@ -294,14 +204,14 @@
         $output = array();
         $statement = $connection->prepare(
         "SELECT
-          projet.nom as Projets,
-          sum(C.Time) as Temps
-        FROM `cir` C
-        inner JOIN projet on
-          projet.id = C.Fk_Project
-        WHERE Done >= (SELECT S.dateDebut from sprint S where S.id = '" . $_POST["LeSprint"] . "' ) 
-        and Done <= (SELECT S.dateFin from sprint S where S.id = '" . $_POST["LeSprint"] . "' )
-        and Fk_User = '" . $_SESSION['IdUtilisateur'] . "' group by Fk_Project");
+          projet_nom,
+          sum(fiche_de_temps_time) as Temps
+          FROM fiche_de_temps
+          inner JOIN projet on projet_pk = fiche_de_temps_fk_projet
+          WHERE fiche_de_temps_done >= (SELECT sprint_dateDebut from sprint where sprint_pk = " . $_POST["LeSprint"] . " ) 
+          AND fiche_de_temps_done <= (SELECT sprint_dateFin from sprint where sprint_pk = '" . $_POST["LeSprint"] . "' )
+          and fiche_de_temps_fk_user = " . $_SESSION['user']['id'] . "
+          group by fiche_de_temps_fk_projet");
         
         $statement->execute();
         $result = $statement->fetchAll();
@@ -319,23 +229,10 @@
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
-            $num = $row["Temps"];
-            $hours = ($num / 60);
-            $rhours = floor($hours);
-            $minutes = ($hours - $rhours) * 60;
-            $rminutes = round($minutes);
-            if($rminutes < 10){
-              $rminutes = "0".$rminutes;
-            }
-
-            if($rhours < 10){
-              $rhours = "0".$rhours;
-            }
-
             $output .= '
             <tr>
-            <td>' . $row["Projets"] . '</td>
-            <td>' . $rhours . 'h' . $rminutes . '</td>
+            <td>' . $row["projet_nom"] . '</td>
+            <td>' . MinutesEnHeures($row["Temps"]) . '</td>
             </tr>';
           }
         } else {
@@ -353,105 +250,51 @@
         $output = array();
         $statement = $connection->prepare(
         " SELECT
-        CONCAT(E.prenom,'&nbsp;', E.initial) AS Ressource,
-        sum(C.Time) as Temps
-        FROM fiche_de_temps C
-        inner join employe E on C.Fk_User = E.id
-        inner join projet P on C.Fk_Project = P.id
-        WHERE C.Done >= '" . $_POST["Start"] ."' 
-        and C.Done <= '" . $_POST["Finish"] ."' 
-        and P.id = ".$_POST["ProjetId"]."
+        sum(fiche_de_temps_time) as Temps
+        FROM fiche_de_temps
+        inner join user on fiche_de_temps_fk_user = user_pk
+        WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'
+        and fiche_de_temps_done <= '" . $_POST["Finish"] ."'
+        and fiche_de_temps_fk_projet = ".$_POST["ProjetId"]);
+        
+        $statement->execute();
+        $resultN0 = $statement->fetch();
+
+        if($resultN0[0] == NULL){
+          $resultN0[0] = 0;
+        }
+
+        $statement = $connection->prepare(
+        " SELECT
+        CONCAT(user_prenom,'&nbsp;',user_initial) AS Ressource,
+        sum(fiche_de_temps_time) as Temps
+        FROM fiche_de_temps
+        inner JOIN user on user_pk = fiche_de_temps_fk_user
+        WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'
+        AND fiche_de_temps_done <= '" . $_POST["Finish"] ."' 
+        and fiche_de_temps_fk_projet = ".$_POST["ProjetId"]."
         group by Ressource
         ORDER BY Temps DESC");
         
         $statement->execute();
         $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
+        $output = '
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
         <th width="">Ressource</th>
-        <th width="">Heures</th>
+        <th width="">Heures (Total: '.MinutesEnHeures($resultN0[0]).')</th>
         </tr>
         </thead>
         <tbody id="myTable">
         ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
-
-            $num = $row["Temps"];
-            $hours = ($num / 60);
-            $rhours = floor($hours);
-            $minutes = ($hours - $rhours) * 60;
-            $rminutes = round($minutes);
-            if($rminutes < 10){
-              $rminutes = "0".$rminutes;
-            }
-
-            if($rhours < 10){
-              $rhours = "0".$rhours;
-            }
 
             $output .= '
             <tr>
             <td>' . $row["Ressource"] . '</td>
-            <td>' . $rhours . 'h' . $rminutes . '</td>
-            </tr>';
-          }
-        } else {
-          $output .= '
-          <tr>
-            <td align="center" colspan="10">Pas de données</td>
-          </tr>';
-        }
-        $output .= '</tbody></table>';
-        print $output;
-      }
-
-      if ($_POST["action"] == "ListeSelonProjetDate") {
-        $output = array();
-        $statement = $connection->prepare(
-        " SELECT
-        sum(C.Time) as Temps
-        FROM fiche_de_temps C
-        inner join employe E on C.Fk_User = E.id
-        inner join projet P on C.Fk_Project = P.id
-        WHERE C.Done >= '" . $_POST["Start"] ."' 
-        and C.Done <= '" . $_POST["Finish"] ."' 
-        and P.id = ".$_POST["ProjetId"]."");
-        
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-        <thead class="thead-light">
-        <tr>
-        <th width="">Global</th>
-        </tr>
-        </thead>
-        <tbody id="myTable">
-        ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-
-            $num = $row["Temps"];
-            $hours = ($num / 60);
-            $rhours = floor($hours);
-            $minutes = ($hours - $rhours) * 60;
-            $rminutes = round($minutes);
-            if($rminutes < 10){
-              $rminutes = "0".$rminutes;
-            }
-
-            if($rhours < 10){
-              $rhours = "0".$rhours;
-            }
-
-            $output .= '
-            <tr>
-            <td>' . $rhours . 'h' . $rminutes . '</td>
+            <td>' . MinutesEnHeures($row["Temps"]) . '</td>
             </tr>';
           }
         } else {
@@ -465,7 +308,7 @@
       }
 
       //Create une fiche de temps
-      if ($_POST["action"] == "Create") {
+      if ($_POST["action"] == "addFicheDeTemps") {
         
         $LesDates = $_POST["Done"];
         $Time = $_POST["Time"];
@@ -481,10 +324,10 @@
           //on check
           $statement = $connection->prepare(
             "SELECT
-          IFNULL(sum(Time)+$Time,0) as Depasse
+          IFNULL(sum(fiche_de_temps_time)+$Time,0) as Depasse, fiche_de_temps_done
           from fiche_de_temps
-          where Fk_User = '" . $_SESSION['IdUtilisateur'] . "'
-          and Done = '$LaDate'"
+          where fiche_de_temps_fk_user = '" . $_SESSION['user']['id'] . "'
+          and fiche_de_temps_done = '$LaDate'"
           );
 
           $statement->execute();
@@ -498,6 +341,8 @@
           }
         }
 
+
+
         $JsonResult['Liste'] = $Liste;
         $JsonResult['Texte'] = $ListeText;
 
@@ -505,14 +350,15 @@
           for ($i = 0; $i < sizeof($LesDates); $i++) {
 
             $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
+            if((date('N', strtotime($LaDate)) < 6)){
 
             $statement = $connection->prepare("
-            INSERT INTO fiche_de_temps (Fk_User, Fk_Project, Time, Done, Log) 
+            INSERT INTO fiche_de_temps (fiche_de_temps_fk_user, fiche_de_temps_fk_projet, fiche_de_temps_time, fiche_de_temps_done, fiche_de_temps_log) 
             VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
     
               $result = $statement->execute(
                 array(
-                  ':Fk_User' => $_SESSION['IdUtilisateur'],
+                  ':Fk_User' => $_SESSION['user']['id'],
                   ':Fk_Project' => $_POST["Projet"],
                   ':Time' => $_POST["Time"],
                   ':Done' => $LaDate,
@@ -523,6 +369,7 @@
                 print_r($statement->errorInfo());
               } 
           }
+        }
         }
         print json_encode($JsonResult);
       }
@@ -575,7 +422,7 @@
       //Delete une fiche de temps
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
-          "DELETE FROM fiche_de_temps WHERE id = :id"
+          "DELETE FROM fiche_de_temps WHERE fiche_de_temps_pk = :id"
         );
         $result = $statement->execute(
           array(
@@ -592,58 +439,44 @@
       if ($_POST["action"] == "RetardEnGeneral") {
 
         $array = [];
+        $id = [];
+        $NomUser = [];
+        $NbDate = [];
 
         //Liste les users qui devraient remplir la feuille de temps
         $statement = $connection->prepare(
-            "SELECT E.id AS id, CONCAT(E.prenom,' ', E.initial) AS User
-               FROM employe E
-              WHERE E.MailCir = 1 
-                AND E.Actif = 1
-                order by E.prenom"
+            "SELECT user_pk, user_registerDate, CONCAT(user_prenom,' ', user_initial) AS user_nom
+               FROM user
+              WHERE user_mailCir = 1 
+                AND user_actif = 1
+                order by user_prenom"
         );
 
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $id = [];
-        $NomUser = [];
-
         foreach ($result as $row) {
-          $id[] = $row['id'];
-          $NomUser[] = $row['User'];
+          $id[] = $row['user_pk'];
+          $NomUser[] = $row['user_nom'];
+          $RegsiterDate[] = $row['user_registerDate'];
         }
 
-        $array['ListId'] = $id;
         $array['NomUser'] = $NomUser;
+        $array['RegsiterDate'] = $RegsiterDate;
 
-        $NbDate = [];
-
-        foreach ($array['ListId'] as $UnId) {
+        foreach ($id as $UnId) {
 
           $statement = $connection->prepare(
-          "SELECT * from 
-          (
-              select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) selected_date from
-           (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
-           (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
-           (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
-           (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
-           (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4
-          ) as test
-          where selected_date between (
-              SELECT E.RegisterDate from employe E where E.id = $UnId
-          ) and now()
-          and DAYOFWEEK(selected_date) != 1 and DAYOFWEEK(selected_date) != 7
-          and selected_date not in (
-              SELECT distinct C.Done
-              From fiche_de_temps C
-              where C.Fk_User = $UnId
-              group by C.Done, C.Fk_User
-              having sum(C.Time)=444
-          )");
-
+          "SELECT fiche_de_temps_done
+          From fiche_de_temps
+          where fiche_de_temps_fk_user = $UnId
+          and fiche_de_temps_done >= (SELECT user_registerDate from user where user_pk = $UnId)
+          and DAYOFWEEK(fiche_de_temps_done) != 1
+          and DAYOFWEEK(fiche_de_temps_done) != 7
+          group by fiche_de_temps_done, fiche_de_temps_fk_user
+          having sum(fiche_de_temps_time)=444
+          ");
           $statement->execute();
-
           $NbDate[] = $statement->rowCount();
         }
 

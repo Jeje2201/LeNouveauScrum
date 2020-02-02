@@ -4,87 +4,27 @@
 
     if (isset($_POST["action"])) {
 
-      //Afficher toutes les taches pour un sprint selectionné
-      if ($_POST["action"] == "Load") {
-        $numero = $_POST["idAffiche"];
-        $statement = $connection->prepare("SELECT A.id AS id,
-      A.heure,
-      A.Done,
-      A.Label,
-      P.nom AS projet,
-      CONCAT(E.prenom,'&nbsp;', E.initial) AS employe
-      FROM tache A
-      inner JOIN employe E ON A.id_Employe = E.id
-      INNER JOIN projet P on P.id = A.id_Projet
-      INNER JOIN sprint S on S.id = A.id_Sprint
-      WHERE A.id_sprint = $numero
-      ORDER BY A.id DESC");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Ressource</th>
-      <th>Projet</th>
-      <th>Fini le</th>
-      <th>Label</th>
-      <th>H</th>
-      <th><center>Éditer</center></th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-        <tr>
-        <td>' . $row["employe"] . '</td>
-        <td>' . $row["projet"] . '</td>';
-            if ($row["Done"] == null)
-              $output .= '<td></td>';
-            else
-              $output .= '<td>' . date("d/m/Y", strtotime($row["Done"])) . '</td>';
-            $output .= '
-        <td>' . $row["Label"] . '</td>
-        <td>' . $row["heure"] . '</td>
-        <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
-        </tr>
-        ';
-          }
-        } else {
-          $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
-        }
-        $output .= '</tbody></table>';
-        print $output;
-      }
-
       //Get les information d'une tache
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM tache 
-         WHERE id = '" . $_POST["id"] . "' 
+         WHERE tache_pk = '" . $_POST["id"] . "' 
          LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["heure"] = $result["heure"];
+        $output["heure"] = $result["tache_heure"];
 
-        if ($result["Done"] == null)
+        if ($result["tache_done"] == null)
           $output["Done"] = "";
         else
-          $output["Done"] = date("d-m-Y", strtotime($result["Done"]));
+          $output["Done"] = date("d-m-Y", strtotime($result["tache_done"]));
 
-        $output["Label"] = $result["Label"];
-        $output["id_Employe"] = $result["id_Employe"];
-        $output["id_Projet"] = $result["id_Projet"];
+        $output["Label"] = $result["tache_label"];
+        $output["id_Employe"] = $result["tache_fk_user"];
+        $output["id_Projet"] = $result["tache_fk_projet"];
 
         print json_encode($output);
       }
@@ -97,8 +37,8 @@
 
         $statement = $connection->prepare(
           "UPDATE tache
-          SET heure = :heure, id_Sprint = :id_Sprint, id_Projet = :id_Projet, Done = :Done, Label = :Label, id_Employe = :id_Employe 
-          WHERE id = :id"
+          SET tache_heure = :heure, tache_fk_sprint = :id_Sprint, tache_fk_projet = :id_Projet, tache_done = :Done, tache_label = :Label, tache_fk_user = :id_Employe 
+          WHERE tache_pk = :id"
         );
         $result = $statement->execute(
           array(
@@ -120,7 +60,7 @@
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
           "DELETE FROM tache
-         WHERE id = :id"
+         WHERE tache_pk = :id"
         );
         $result = $statement->execute(
           array(

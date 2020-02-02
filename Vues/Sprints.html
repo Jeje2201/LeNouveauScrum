@@ -81,20 +81,23 @@
       <div id="ModalSprint" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"></h4>
-            </div>
             <div class="modal-body">
+
               <label>Numero</label>
-              <input type="number" id='numeroo' class="form-control">
-              <br/>
-              <label>Date Debut</label>
-              <input type="text" id='dateDebutt' class="form-control"/>
-              <br/>
-              <label>Date Fin</label>
-              <input type="text" id='dateFinn' class="form-control"/>
-              <br/>
-              <label>Attribuable (h)</label>
+              <input type="number" id='numeroo' class="form-control mb-2">
+              
+              <div class='row mb-2'>
+                 <div class='col'>
+                  <label>Début</label>
+                  <input type="text" id='dateDebutt' class="form-control"/>
+                 </div>
+                 <div class='col'>
+                  <label>Fin</label>
+                  <input type="text" id='dateFinn' class="form-control"/>
+                 </div>
+              </div>
+            
+              <label>Heures attribuables </label>
               <input type="number" id='attribuableEdition' min="1" class="form-control"/>
               <br/>
             </div>
@@ -117,7 +120,7 @@
 
     $('#dateFin').val(ChoixDate(14));
 
-    GetNumeroSprintMax('numero');
+    GetNumeroSprintMax();
 
     BarreDeRecherche('BarreDeRecherche', 'result');
 
@@ -129,7 +132,7 @@
       $('#ModalInfoAttribuable').modal('show');
     });
 
-    function GetNumeroSprintMax(Div) {
+    function GetNumeroSprintMax() {
       $.ajax({
         url: "Modele/Sprint.php",
         method: "POST",
@@ -137,7 +140,7 @@
           action: "SprintMax"
         },
         success: function (data) {
-          $('#' + Div).val(data.replace(/\s+/g, ''));
+          $('#numero').val(data.replace(/\s+/g, ''));
         }
       });
     }
@@ -160,7 +163,7 @@
             success: function (data) {
 
               $.notify(data, "success");
-              GetNumeroSprintMax('numero');
+              GetNumeroSprintMax();
               RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
             }
@@ -186,13 +189,12 @@
         dataType: "json", //Here we have define json data type, so server will send data in json format.
         success: function (data) {
           $('#ModalSprint').modal('show'); //It will display modal on webpage
-          $('.modal-title').text("Changer infos sprint"); //This code will change this class text to Update records
           $('#action').val("Update"); //This code will change Button value to Update
           $('#id').val(id); //It will define value of id variable to this sprint id hidden field
-          $('#numeroo').val(data.numero); //It will assign value to modal first name texbox
-          $('#dateDebutt').val(data.dateDebut); //It will assign value of modal last name textbox
-          $('#dateFinn').val(data.dateFin); //It will assign value of modal last name textbox
-          $('#attribuableEdition').val(data.attribuable);
+          $('#numeroo').val(data.sprint_numero); //It will assign value to modal first name texbox
+          $('#dateDebutt').val(DateSwitch(data.sprint_dateDebut)); //It will assign value of modal last name textbox
+          $('#dateFinn').val(DateSwitch(data.sprint_dateFin)); //It will assign value of modal last name textbox
+          $('#attribuableEdition').val(data.sprint_attribuable);
         }
       });
     });

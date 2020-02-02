@@ -9,24 +9,21 @@
         return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
     }
 
-    //Création de la variable qui sera composé de tous les mails
-    $ListeMail = "";
-
     //Etablir la connexion pour les requetes ajax
     $connection = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'jeremy', 'Spiderman2008');
 
     //Requete sql qui sort les adresses des gens ET les jours de la semaine en numeric
     $statement = $connection->prepare(
-        $sql = "SELECT X.mail as 'LesMails'
-    from employe X
-    where X.id not in (SELECT
-        C.Fk_User
-        FROM fiche_de_temps C
-        where C.Done like DATE_FORMAT(now(), '%Y-%m-%d')
-        group by C.Done, C.Fk_User
-        having sum(C.Time) = 444)
-    and X.MailCir = 1
-    order by LesMails"
+        $sql = "SELECT user_mail
+        from user
+        where user_pk not in (SELECT
+        fiche_de_temps_fk_user
+        FROM fiche_de_temps
+        where fiche_de_temps_done like DATE_FORMAT(now(), '%Y-%m-%d')
+        group by fiche_de_temps_done, fiche_de_temps_fk_user
+        having sum(fiche_de_temps_time) = 444)
+    and user_mailCir = 1
+    order by user_mail"
     );
 
     //Executer la requete sql
@@ -36,7 +33,14 @@
     $result = $statement->fetchAll();
 
     $Citation = array(
-        "Mon cerveau est mon deuxième organe préféré. (Frédéric)", "Être ou ne pas être alors ne pas être. (Nabil)", "Mieux vaux fermer sa gueule et passer pour un con, que de l'ouvrir et ne laisser aucun doute à ce sujet. (Herve)", "Un grand pouvoir entraîne de grandes irresponsabilités. (Jérémy)", "Et l'immateriel est à présent immatériel. (Garance)", "Trop de paperasse, trop d'administratif : ça tue ! (Amine)", "Mieux vaut marcher lentement dans la bonne direction que de courir dans la mauvaise. (Théa)", "Pour vivre longtemps, à son cul il faut donner vent. (Angélique)"
+        "Mon cerveau est mon deuxième organe préféré. (Frédéric)",
+        "Être ou ne pas être alors ne pas être. (Nabil)",
+        "Mieux vaux fermer sa gueule et passer pour un con, que de l'ouvrir et ne laisser aucun doute à ce sujet. (Herve)",
+        "Un grand pouvoir entraîne de grandes irresponsabilités. (Jérémy)",
+        "Et l'immateriel est à présent immatériel. (Garance)",
+        "Trop de paperasse, trop d'administratif : ça tue ! (Amine)",
+        "Mieux vaut marcher lentement dans la bonne direction que de courir dans la mauvaise. (Théa)",
+        "Pour vivre longtemps, à son cul il faut donner vent. (Angélique)"
     );
 
     //En tete pour prendre l'utf8 et le css
@@ -56,12 +60,9 @@
     foreach ($result as $row) {
 
         //send email
-        mail(stripAccents($row['LesMails']), $Objet, $Message, $EnTete);
-        $ListeMail .= $row['LesMails'];
-        $ListeMail .= '<br>';
+        mail(stripAccents($row['user_mail']), $Objet, $Message, $EnTete);
     }
 
-    echo (stripAccents($ListeMail));
     ?>
 
 </body>

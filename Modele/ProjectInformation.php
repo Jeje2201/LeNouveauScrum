@@ -7,23 +7,22 @@ require_once('../Modele/Configs.php');
   if ($_POST["action"] == "getNote") {
     $output = array();
     $statement = $connection->prepare(
-      "SELECT Note FROM projet 
-    WHERE id = '" . $_POST["projectId"] . "'"
+      "SELECT * FROM projet 
+    WHERE projet_pk = '" . $_POST["projectId"] . "'"
     );
     $statement->execute();
     $result = $statement->fetch();
 
-    $output["Note"] = $result["Note"];
+    $output["Note"] = $result["projet_note"];
 
     print json_encode($output);
-
   }
 
   if ($_POST["action"] == "putNote") {
     $statement = $connection->prepare(
       "UPDATE projet 
-      SET Note = :Note_Text
-      WHERE id = :Projet_Id"
+      SET projet_note = :Note_Text
+      WHERE projet_pk = :Projet_Id"
       );
       $result = $statement->execute(
       array(
@@ -45,15 +44,15 @@ require_once('../Modele/Configs.php');
         $output = array();
         $statement = $connection->prepare(
         "SELECT * FROM projet 
-         WHERE id = '" . $_POST["projectId"] . "' 
+         WHERE projet_pk = '" . $_POST["projectId"] . "' 
          LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["Nom"] = $result["nom"];
-        $output["Description"] = $result["description"];
-        $output["Logo"] = $result["Id_Logo"];
+        $output["Nom"] = $result["projet_nom"];
+        $output["Description"] = $result["projet_description"];
+        $output["Logo"] = $result["projet_avatar"];
 
         print json_encode($output);
       }
@@ -61,19 +60,20 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "getClient") {
         $output = array();
         $statement = $connection->prepare(
-        "SELECT * FROM projet_client 
-         WHERE id = (select id_client from projet where projet.id = '" . $_POST["projectId"] . "') 
+        "SELECT *
+        FROM projet_client 
+         WHERE projet_client_pk = (select projet_fk_client from projet where projet_pk = '" . $_POST["projectId"] . "') 
          LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["entreprise"] = $result["entreprise"];
-        $output["Nom"] = $result["nom"];
-        $output["job"] = $result["job"];
-        $output["mail"] = $result["mail"];
-        $output["telephone"] = $result["telephone"];
-        $output["id"] = $result["id"];
+        $output["entreprise"] = $result["projet_client_entreprise"];
+        $output["Nom"] = $result["projet_client_nom"];
+        $output["job"] = $result["projet_client_job"];
+        $output["mail"] = $result["projet_client_mail"];
+        $output["telephone"] = $result["projet_client_telephone"];
+        $output["id"] = $result["projet_client_pk"];
 
         print json_encode($output);
       }
@@ -82,8 +82,8 @@ require_once('../Modele/Configs.php');
 
         $statement = $connection->prepare(
           "UPDATE projet_client 
-          SET entreprise = :clientprojet_entreprise, nom = :clientprojet_nom, job = :clientprojet_job, mail = :clientprojet_mail, telephone = :clientprojet_telephone
-          WHERE id = :clientprojet_id"
+          SET projet_client_entreprise = :clientprojet_entreprise, projet_client_nom = :clientprojet_nom, projet_client_job = :clientprojet_job, projet_client_mail = :clientprojet_mail, projet_client_telephone = :clientprojet_telephone
+          WHERE projet_client_pk = :clientprojet_id"
           );
           $result = $statement->execute(
           array(
@@ -104,9 +104,11 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "GetRessources") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT E.prenom, E.avatar, E.id as ressourceID, E.user_type as job FROM employe E
-           WHERE E.id in (select R.id_ressource from projet_ressource R where R.id_projet = " . $_POST["projectId"] . ")
-           ORDER BY E.prenom"
+          "SELECT *
+            FROM user
+            inner join projet_ressource on projet_ressource_fk_user = user_pk
+           WHERE user_pk in (select projet_ressource_fk_user from projet_ressource where projet_ressource_fk_projet = " . $_POST["projectId"] . ")
+           ORDER BY user_prenom"
         );
         $statement->execute();
         $result = $statement->fetchAll();
@@ -117,10 +119,10 @@ require_once('../Modele/Configs.php');
 
           $MonTest = [];
 
-          $MonTest['RessourceId'] = 'ressource_'.$row['ressourceID'];
-          $MonTest['Prenom'] = $row['prenom'];
-          $MonTest['Avatar'] = $row['avatar'];
-          $MonTest['Job'] = $row['job'];
+          $MonTest['RessourceId'] = 'ressource_'.$row['projet_ressource_pk'];
+          $MonTest['Prenom'] = $row['user_prenom'];
+          $MonTest['Avatar'] = $row['user_avatar'];
+          $MonTest['Job'] = $row['user_type'];
 
           $resultat[] = $MonTest;
         }
@@ -133,7 +135,7 @@ require_once('../Modele/Configs.php');
         $TableauEmploye = $_POST["UserId"];
 
         $statement = $connection->prepare(
-        "INSERT INTO projet_ressource (id_projet, id_ressource) 
+        "INSERT INTO projet_ressource (projet_ressource_fk_projet, projet_ressource_fk_ressource) 
         VALUES (:id_projet, :id_ressource)
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
@@ -154,13 +156,11 @@ require_once('../Modele/Configs.php');
 
       $statement = $connection->prepare(
         "DELETE FROM projet_ressource
-        WHERE id_ressource = :id_ressource
-        AND id_projet = :id_projet"
+        WHERE projet_ressource_pk = :id_ressource"
       );
       $result = $statement->execute(
         array(
-          ':id_ressource' => $_POST["idRessource"],
-          ':id_projet' => $_POST["projectId"]
+          ':id_ressource' => $_POST["idRessource"]
         )
       );
 
@@ -174,8 +174,9 @@ require_once('../Modele/Configs.php');
       if ($_POST["action"] == "GetTechnos") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT T.technologie, T.id as technologieId FROM projet_technologie T
-           WHERE T.id_projet = " . $_POST["projectId"]
+          "SELECT projet_technologie_technologie, projet_technologie_pk
+          FROM projet_technologie
+           WHERE projet_technologie_fk_projet = " . $_POST["projectId"]
         );
         $statement->execute();
         $result = $statement->fetchAll();
@@ -186,8 +187,8 @@ require_once('../Modele/Configs.php');
 
           $MonTest = [];
 
-          $MonTest['technologieId'] = 'technologie_'.$row['technologieId'];
-          $MonTest['technologie'] = $row['technologie'];
+          $MonTest['technologieId'] = 'technologie_'.$row['projet_technologie_pk'];
+          $MonTest['technologie'] = $row['projet_technologie_technologie'];
 
           $resultat[] = $MonTest;
         }
@@ -197,7 +198,7 @@ require_once('../Modele/Configs.php');
 
       if ($_POST["action"] == "AddTechno") {
           $statement = $connection->prepare(
-          "INSERT INTO projet_technologie (technologie, id_projet) 
+          "INSERT INTO projet_technologie (projet_technologie_technologie, projet_technologie_fk_projet) 
           VALUES (:technologie, :id_projet)
           ");
           $result = $statement->execute(
@@ -216,27 +217,26 @@ require_once('../Modele/Configs.php');
 
         $statement = $connection->prepare(
           "DELETE FROM projet_technologie
-          WHERE id = :id_technologie
-          AND id_projet = :id_projet"
+          WHERE projet_technologie_pk = :id_technologie"
         );
         $result = $statement->execute(
           array(
-            ':id_technologie' => $_POST["idTechno"],
-            ':id_projet' => $_POST["projectId"]
+            ':id_technologie' => $_POST["idTechno"]
           )
         );
         if ($statement->rowCount() > 0)
           print true;
         else
-          print 'Techno "'.$_POST["NomTechno"].'" non trouvée';
+        print_r($statement->errorInfo());
     }
 
     if ($_POST["action"] == "getEchanges") {
       $output = array();
       $statement = $connection->prepare(
-        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM projet_echange E
-         WHERE E.id_project = " . $_POST["projectId"]."
-         ORDER BY date_echange asc"
+        "SELECT *
+        FROM projet_echange
+         WHERE projet_echange_fk_projet = " . $_POST["projectId"]."
+         ORDER BY projet_echange_date asc"
       );
       $statement->execute();
       $result = $statement->fetchAll();
@@ -247,10 +247,10 @@ require_once('../Modele/Configs.php');
 
         $MonTest = [];
 
-        $MonTest['id_echange'] = $row['resume_id'];
-        $MonTest['resume_echange'] = $row['resume_echange'];
-        $MonTest['date_echange'] = date("d/m/Y", strtotime($row['date_echange']));;
-        $MonTest['type_echange'] = $row['type_echange'];
+        $MonTest['id_echange'] = $row['projet_echange_pk'];
+        $MonTest['resume_echange'] = $row['projet_echange_label'];
+        $MonTest['date_echange'] = date("d/m/Y", strtotime($row['projet_echange_date']));;
+        $MonTest['type_echange'] = $row['projet_echange_type'];
 
         $resultat[] = $MonTest;
       }
@@ -261,25 +261,26 @@ require_once('../Modele/Configs.php');
     if ($_POST["action"] == "getEchange") {
 
       $statement = $connection->prepare(
-        "SELECT E.id as resume_id, E.resume_echange, E.date_echange, E.type_echange FROM projet_echange E
-         WHERE E.id = " . $_POST["idComment"]
+        "SELECT *
+         FROM projet_echange
+         WHERE projet_echange_pk = " . $_POST["idComment"]
       );
       $statement->execute();
       $result = $statement->fetch();
 
       $resultat = [];
 
-      $resultat['id_echange'] = $result['resume_id'];
-      $resultat['resume_echange'] = $result['resume_echange'];
-      $resultat['date_echange'] = date("d-m-Y", strtotime($result['date_echange']));
-      $resultat['type_echange'] = $result['type_echange'];
+      $resultat['id_echange'] = $result['projet_echange_pk'];
+      $resultat['resume_echange'] = $result['projet_echange_label'];
+      $resultat['date_echange'] = date("d-m-Y", strtotime($result['projet_echange_date']));
+      $resultat['type_echange'] = $result['projet_echange_type'];
 
       print json_encode($resultat);
     }
 
     if ($_POST["action"] == "postEchange") {
       $statement = $connection->prepare(
-      "INSERT INTO projet_echange (resume_echange, date_echange, type_echange, id_project) 
+      "INSERT INTO projet_echange (projet_echange_label, projet_echange_date, projet_echange_type, projet_echange_fk_projet) 
       VALUES (:resume_echange, :date_echange, :type_echange, :id_project)
       ");
       $result = $statement->execute(
@@ -300,8 +301,8 @@ require_once('../Modele/Configs.php');
 
     $statement = $connection->prepare(
       "UPDATE projet_echange 
-      SET resume_echange = :resume_echange, date_echange = :date_echange, type_echange = :type_echange
-      WHERE id = :resume_id"
+      SET projet_echange_label = :resume_echange, projet_echange_date = :date_echange, projet_echange_type = :type_echange
+      WHERE projet_echange_pk = :resume_id"
       );
       $result = $statement->execute(
       array(
@@ -321,13 +322,11 @@ require_once('../Modele/Configs.php');
 
       $statement = $connection->prepare(
         "DELETE FROM projet_echange
-        WHERE id = :id_echange
-        AND id_project = :id_projet"
+        WHERE projet_echange_pk = :id_echange"
       );
       $result = $statement->execute(
         array(
-          ':id_echange' => $_POST["idEchange"],
-          ':id_projet' => $_POST["projectId"]
+          ':id_echange' => $_POST["idEchange"]
         )
       );
       if ($statement->rowCount() > 0)

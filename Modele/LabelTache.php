@@ -6,21 +6,14 @@
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "Load") {
-        $idEmploye = $_SESSION['IdUtilisateur'];
+        $idEmploye = $_SESSION['user']['id'];
         $IdSprint = $_POST["idSprint"];
-        $statement = $connection->prepare("SELECT
-      (
-        select P.nom
-        FROM projet P
-        WHERE P.id = A.id_Projet
-      ) AS projet,
-      A.id,
-      A.heure,
-      A.Label
-      FROM tache A
-      WHERE id_Employe = $idEmploye
-      AND id_sprint = $IdSprint
-      AND A.tache_type IS NULL");
+        $statement = $connection->prepare(
+        "SELECT *
+        FROM tache
+        inner join projet on tache_fk_projet = projet_pk
+        WHERE tache_fk_user = $idEmploye
+        AND tache_fk_sprint = $IdSprint");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
@@ -39,9 +32,9 @@
           foreach ($result as $row) {
             $output .= '
         <tr >
-        <td>' . $row["heure"] . '</td>
-        <td>' . $row["projet"] . '</td>
-        <td><input class="form-control" name="LabelObjectif" onkeypress="ListInputChanged(this)" id="' . $row["id"] . '" type="text" value="' . $row["Label"] . '"></td>
+        <td>' . $row["tache_heure"] . '</td>
+        <td>' . $row["projet_nom"] . '</td>
+        <td><input class="form-control" name="LabelObjectif" onkeypress="ListInputChanged(this)" id="' . $row["tache_pk"] . '" type="text" value="' . $row["tache_label"] . '"></td>
         </tr>
         ';
           }
@@ -62,8 +55,8 @@
 
         $statement = $connection->prepare(
           "UPDATE tache 
-        SET Label = :Label 
-        WHERE id = :id"
+        SET tache_label = :Label 
+        WHERE tache_pk = :id"
         );
 
         for ($i = 0; $i < count($TableauLabelObjectuf); $i++) {

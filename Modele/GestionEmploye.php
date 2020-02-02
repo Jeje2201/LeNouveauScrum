@@ -1,35 +1,14 @@
    <?php
 
-    function random_color_part()
-    {
-      return str_pad(dechex(mt_rand(0, 255)), 2, '0', STR_PAD_LEFT);
-    }
-
-    function random_color()
-    {
-      return random_color_part() . random_color_part() . random_color_part();
-    }
-
     session_start();
     require_once('../Modele/Configs.php');
 
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "Load") {
-        $statement = $connection->prepare("SELECT E.id,
-      E.prenom,
-      E.Initial,
-      E.mail,
-      E.RegisterDate,
-      E.nom,
-      E.admin,
-      E.MailCir,
-      E.actif,
-      E.user_type AS TypeJob,
-      ApiPivotal AS IdPivotal,
-      E.Couleur AS Couleur
-      FROM employe E
-      ORDER BY E.prenom asc");
+        $statement = $connection->prepare("SELECT *
+      FROM user
+      ORDER BY user_prenom asc");
       $statement->execute();
       $result = $statement->fetchAll();
       $output = '';
@@ -55,29 +34,29 @@
           foreach ($result as $row) {
             $output .= '
               <tr>
-              <td>' . $row["prenom"] . ' '. $row["nom"] .'</td>
-              <td>' . $row["Initial"] . '</td>
-              <td>' . $row["mail"] . '</td>
-              <td>' . $row["TypeJob"] . '</td>
-              <td>' . $row["IdPivotal"] . '</td>
-              <td style="background-color:' . $row["Couleur"] . '"></td>';
+              <td>' . $row["user_prenom"] . ' '. $row["user_nom"] .'</td>
+              <td>' . $row["user_initial"] . '</td>
+              <td>' . $row["user_mail"] . '</td>
+              <td>' . $row["user_type"] . '</td>
+              <td>' . $row["user_apiPivotal"] . '</td>
+              <td style="background-color:' . $row["user_couleur"] . '"></td>';
 
-            if ($row["actif"])
+            if ($row["user_actif"])
               $output .= '<td class="centered text-white bg-success">Actif</td>';
             else
               $output .= '<td class="centered text-white bg-danger">Absents</td>';
 
-            if ($row["MailCir"])
+            if ($row["user_mailCir"])
               $output .= '<td class="centered text-white bg-success">Mail</td>';
             else
             $output .= '<td class="centered text-white bg-danger">Rien</td>';
 
-            if ($row["admin"])
+            if ($row["user_admin"])
               $output .= '<td class="centered text-white bg-success">Admin</td>';
             else
               $output .= '<td class="centered text-white bg-danger">Lambda</td>';
 
-            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }
@@ -99,7 +78,7 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO employe (prenom, nom, Couleur, actif, MailCir, admin, Initial, user_type, mdp, ApiPivotal, RegisterDate, mail) 
+          "INSERT INTO user (user_prenom, user_nom, user_couleur, user_actif, user_mailCir, user_admin, user_initial, user_type, user_mdp, user_apiPivotal, user_registerDate, user_mail) 
           VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
@@ -107,7 +86,7 @@
           array(
             ':prenom' => $_POST["Prenom_Employe"],
             ':nom' => $_POST["Nom_Employe"],
-            ':Couleur' => '#' . random_color(),
+            ':Couleur' => '#000000',
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':admin' => $_POST["admin"],
@@ -128,23 +107,23 @@
       if ($_POST["action"] == "Select") {
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM employe 
-         WHERE id = '" . $_POST["id"] . "' 
+          "SELECT * FROM user 
+         WHERE user_pk = '" . $_POST["id"] . "' 
          LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["Prenom"] = $result["prenom"];
-        $output["Nom"] = $result["nom"];
-        $output["Actif"] = $result["actif"];
-        $output["MailCir"] = $result["MailCir"];
-        $output["admin"] = $result["admin"];
-        $output["Mail"] = $result["mail"];
-        $output["ApiPivotal"] = $result["ApiPivotal"];
+        $output["Prenom"] = $result["user_prenom"];
+        $output["Nom"] = $result["user_nom"];
+        $output["Actif"] = $result["user_actif"];
+        $output["MailCir"] = $result["user_mailCir"];
+        $output["admin"] = $result["user_admin"];
+        $output["Mail"] = $result["user_mail"];
+        $output["ApiPivotal"] = $result["user_apiPivotal"];
         $output["TypeEmploye"] = $result["user_type"];
-        $output["RegisterDate"] = date("d-m-Y", strtotime($result["RegisterDate"]));
-        $output["Initial"] = $result["Initial"];
+        $output["RegisterDate"] = date("d-m-Y", strtotime($result["user_registerDate"]));
+        $output["Initial"] = $result["user_initial"];
 
         print json_encode($output);
       }
@@ -153,12 +132,12 @@
       if ($_POST["action"] == "Update") {
 
         if ($_POST["ApiPivotal"] == "")
-          $_POST["ApiPivotal"] = null;
+          $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "UPDATE employe 
-          SET prenom = :prenom, nom = :nom, Initial =:Initial, actif = :actif, MailCir = :MailCir, admin = :admin, ApiPivotal = :ApiPivotal, user_type = :Type_Employe, RegisterDate = :RegisterDate, mail = :mail
-          WHERE id = :id"
+          "UPDATE user 
+          SET user_prenom = :prenom, user_nom = :nom, user_initial =:Initial, user_actif = :actif, user_mailCir = :MailCir, user_admin = :admin, user_apiPivotal = :ApiPivotal, user_type = :Type_Employe, user_registerDate = :RegisterDate, user_mail = :mail
+          WHERE user_pk = :id"
         );
         $result = $statement->execute(
           array(
@@ -184,7 +163,7 @@
       //Delete un employe
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
-          "DELETE FROM employe WHERE id = :id"
+          "DELETE FROM user WHERE user_pk = :id"
         );
         $result = $statement->execute(
           array(
@@ -202,27 +181,45 @@
 
         //Recuperer le mdp chiffré du user qui essaie de se connecter
         $statement = $connection->prepare(
-          $sql = "SELECT E.mdp AS mdp
-          FROM employe E
-          WHERE E.id = " . $_POST["idRessource"]
+          $sql = "SELECT user_mdp
+          FROM user
+          WHERE user_pk = " . $_SESSION['user']['id']
         );
 
         $statement->execute();
         $result = $statement->fetch();
 
         //Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
-        if (password_verify($_POST['ancienmdp'], $result['mdp'])) {
+        if (password_verify($_POST['ancienmdp'], $result['user_mdp'])) {
           print("JeValide");
         } else {
           print('non');
         }
       }
 
+      if ($_POST["action"] == "UpdateMdpBasic") {
+        $statement = $connection->prepare(
+          "UPDATE user 
+        SET user_mdp = :mdp
+        WHERE user_pk = :id"
+        );
+        $result = $statement->execute(
+          array(
+            ':mdp' => password_hash($_POST["mdp"], PASSWORD_BCRYPT),
+            ':id' => $_SESSION['user']['id']
+          )
+        );
+        if (!empty($result))
+          print 'Nouveau mot de passe créé';
+        else
+          print_r($statement->errorInfo());
+      }
+
       if ($_POST["action"] == "ChangerAvatar") {
 
         $target_file = basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $target_file = 'avatar_user_'. $_SESSION['IdUtilisateur'] . '.'.$imageFileType;
+        $target_file = 'avatar_user_'. $_SESSION['user']['id'] . '.'.$imageFileType;
         $pathDeLimage= "../Assets/Image/Ressources/" . $target_file;
 
         if (file_exists($target_file)) {
@@ -236,9 +233,9 @@
         else if (move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage)) {
 
           $statement = $connection->prepare(
-            $sql = "SELECT E.avatar AS avatar
-            FROM employe E
-            WHERE E.id = " . $_SESSION['IdUtilisateur']
+            $sql = "SELECT user_avatar
+            FROM user
+            WHERE user_pk = " . $_SESSION['user']['id']
           );
   
           $statement->execute();
@@ -255,9 +252,9 @@
          }
 
           $statement = $connection->prepare(
-            $sql = "UPDATE employe E
-            set E.avatar = '". $target_file ."'
-            WHERE E.id = " . $_SESSION['IdUtilisateur']
+            $sql = "UPDATE user
+            set user_avatar = '". $target_file ."'
+            WHERE user_pk = " . $_SESSION['user']['id']
           );
   
           $statement->execute();
@@ -276,23 +273,23 @@
         
         $output = array();
         $statement = $connection->prepare(
-          "SELECT * FROM employe 
-         WHERE id = '" . $_SESSION['IdUtilisateur'] . "' 
+          "SELECT * FROM user 
+         WHERE user_pk = '" . $_SESSION['user']['id'] . "' 
          LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["Admin"] = $result["admin"];
+        $output["Admin"] = $result["user_admin"];
 
         print json_encode($output);
       }
 
       if ($_POST["action"] == "setMdpOp") {
         $statement = $connection->prepare(
-          "UPDATE employe 
-        SET mdp = :mdp
-        WHERE id = :id"
+          "UPDATE user 
+        SET user_mdp = :mdp
+        WHERE user_pk = :id"
         );
         $result = $statement->execute(
           array(

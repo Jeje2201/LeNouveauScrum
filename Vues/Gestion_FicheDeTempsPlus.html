@@ -28,7 +28,6 @@
             </div>
           </div>
           <div id="TableauListFicheDeTemps" class="table-responsive table-hover"></div>
-          <div id="TableauListFicheDeTempsGlobal" class="table-responsive table-hover"></div>
 
         </div>
 
@@ -51,7 +50,6 @@
         $('#Finish').val(ChoixDate(0));
 
         ChargerTableauListeFdT()
-        ChargerTableauListeFdTGlobal()
 
         function ChargerTableauListeFdT() {
           $.ajax({
@@ -70,27 +68,9 @@
           });
         }
 
-          function ChargerTableauListeFdTGlobal() {
-            $.ajax({
-              url: "Modele/FicheDeTemps.php",
-              method: "POST",
-              data: {
-                action: "ListeSelonProjetDate",
-                ProjetId: $('#projetId').val(),
-                Start: DateSwitch($('#Start').val()),
-                Finish: DateSwitch($('#Finish').val())
-              },
-              success: function (data) {
-                $('#TableauListFicheDeTempsGlobal').html(data);
-                GarderLaRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
-              }
-            });
-          }
-
           $('#ListProjet, #Start, #Finish').change(function () {
             if ($('#projetId').val() != '' && $('#Start').val() != '' && $('#Finish').val()) {
               ChargerTableauListeFdT()
-              ChargerTableauListeFdTGlobal()
             }
           });
 

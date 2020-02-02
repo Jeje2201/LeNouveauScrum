@@ -11,37 +11,37 @@
         //Requete pour obtenir la liste des heures attribués / DESCendues / interferances par ressource (soit le graphe tout en bas)
         $statement = $connection->prepare(
           $sql = "SELECT 
-        E.id AS empid,
-        E.prenom AS prenom,
-        E.Initial AS Initial,
-        sum(A.heure) AS nbheureadescendre,
+        user_pk,
+        user_prenom,
+        user_initial,
+        sum(tache_heure) AS nbheureadescendre,
         (
-          SELECT IFNULL( sum(A.heure),0)
-          FROM tache A
-          WHERE A.id_Employe = E.id
-          AND A.id_Sprint = $NumeroduSprint 
-          AND A.Done IS NOT NULL
+          SELECT IFNULL( sum(tache_heure),0)
+          FROM tache
+          WHERE tache_fk_user = user_pk
+          AND tache_fk_sprint = $NumeroduSprint 
+          AND tache_done IS NOT NULL
         ) AS nbheuredescendu,
         (
-          SELECT IFNULL( sum(A.heure),0)
-          FROM tache A
-          WHERE A.id_Employe = E.id
-          AND A.id_Sprint = $NumeroduSprint
-          AND A.Done
+          SELECT IFNULL( sum(tache_heure),0)
+          FROM tache
+          WHERE tache_fk_user = user_pk
+          AND tache_fk_sprint = $NumeroduSprint
+          AND tache_done
            IS NULL
           ) AS heurerestantes,
         (
-          select IFNULL(SUM(I.heure),0)
-          FROM interference I
-          WHERE I.id_Employe = E.id
-          AND I.id_Sprint = $NumeroduSprint
+          select IFNULL(SUM(interference_heure),0)
+          FROM interference
+          WHERE interference_fk_user = user_pk
+          AND interference_fk_sprint = $NumeroduSprint
         ) AS heuresinterference
-        FROM employe E
-        LEFT JOIN tache A ON A.id_employe = E.id
-        AND A.id_Sprint = $NumeroduSprint
+        FROM user
+        LEFT JOIN tache ON tache_fk_user = user_pk
+        AND tache_fk_sprint = $NumeroduSprint
         WHERE
-        A.heure IS NOT NULL
-        GROUP BY E.id
+        tache_heure IS NOT NULL
+        GROUP BY user_pk
         ORDER BY nbheuredescendu DESC, heurerestantes asc
       "
         );
@@ -56,7 +56,7 @@
 
         foreach ($result as $row) {
 
-          $employe[] = $row['prenom'] . ' (' . $row['Initial'] . ')';
+          $employe[] = $row['user_prenom'] . ' (' . $row['user_initial'] . ')';
           $HDescendue[] = intval($row['nbheuredescendu']);
           $Hattribue[] = intval($row['nbheureadescendre']);
           $HInterference[] = intval($row['heuresinterference']);
@@ -69,34 +69,33 @@
 
         $statement = $connection->prepare(
           $sql = "SELECT 
-        P.id AS projid,
-        P.nom AS pnom,
-        sum(A.heure) AS nbheureadescendre,
+        projet_nom,
+        sum(tache_heure) AS nbheureadescendre,
         (
-          SELECT IFNULL( sum(A.heure),0)
-          FROM tache A
-          WHERE A.id_Projet = P.id
-          AND A.id_Sprint = $NumeroduSprint
-          AND A.Done IS NOT NULL) AS nbheuredescendu,
+          SELECT IFNULL( sum(tache_heure),0)
+          FROM tache
+          WHERE tache_pk_projet = projet_pk
+          AND tache_fk_sprint = $NumeroduSprint
+          AND tache_done IS NOT NULL) AS nbheuredescendu,
         (
-          SELECT IFNULL( sum(A.heure),0)
-          FROM tache A
-          WHERE A.id_Projet = P.id
-          AND A.id_Sprint = $NumeroduSprint
-          AND A.Done  IS NULL
+          SELECT IFNULL( sum(tache_heure),0)
+          FROM tache
+          WHERE tache_fk_projet = projet_pk
+          AND tache_fk_sprint = $NumeroduSprint
+          AND tache_done  IS NULL
         ) AS heurerestantes,
         (
-          SELECT IFNULL(SUM(I.heure),0)
-          FROM interference I
-          WHERE I.id_Projet = P.id
-          AND I.id_Sprint = $NumeroduSprint
+          SELECT IFNULL(SUM(interference_heure),0)
+          FROM interference
+          WHERE interference_fk_projet = projet_pk
+          AND interference_fk_sprint = $NumeroduSprint
           ) AS heuresinterference
-        FROM projet AS P
-        LEFT JOIN tache AS A ON A.id_Projet = P.id AND A.id_Sprint = $NumeroduSprint
+        FROM projet
+        LEFT JOIN tache ON tache_fk_projet = projet_pk AND tache_fk_Sprint = $NumeroduSprint
         WHERE
-        A.heure IS NOT NULL
-        AND A.tache_type IS NULL
-        GROUP BY P.id
+        tache_heure IS NOT NULL
+        AND tache_type IS NULL
+        GROUP BY projet_pk
         ORDER BY nbheuredescendu DESC, heurerestantes DESC
        "
         );
@@ -111,7 +110,7 @@
 
         foreach ($result as $row) {
 
-          $projet[] = $row['pnom'];
+          $projet[] = $row['projet_nom'];
           $HDescendueProjet[] = intval($row['nbheuredescendu']);
           $HattribueProjet[] = intval($row['nbheureadescendre']);
           $HInterferenceProjet[] = intval($row['heuresinterference']);
@@ -124,12 +123,12 @@
 
         //Requete pour la charte des objectifs
         $statement = $connection->prepare(
-          $sql = "SELECT COUNT(O.id) AS Nombre,
-        O.objectif_statut AS Statut
-      FROM retrospective_objectif O
-      WHERE O.id_Sprint = $NumeroduSprint
-      GROUP BY O.objectif_statut
-      ORDER BY O.objectif_statut
+          $sql = "SELECT COUNT(retrospective_objectif_pk) AS Nombre,
+                  retrospective_objectif_statut AS Statut
+                FROM retrospective_objectif O
+                WHERE retrospective_objectif_fk_sprint = $NumeroduSprint
+                GROUP BY retrospective_objectif_statut
+                ORDER BY retrospective_objectif_statut
       "
         );
 
@@ -172,9 +171,9 @@
         //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
         $statement = $connection->prepare(
           $sql = "SELECT
-        (select sum(heure) FROM tache A WHERE A.id_Sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
-        (select sum(heure) FROM tache A WHERE A.id_Sprint = $NumeroduSprint AND A.Done IS NOT NULL) AS TotalHeuresDescendues,
-        (select sum(heure) FROM interference I WHERE I.id_Sprint = $NumeroduSprint) AS TotalHeuresInterference"
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $NumeroduSprint) AS TotalHeuresAttribuees,
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $NumeroduSprint AND tache_done IS NOT NULL) AS TotalHeuresDescendues,
+        (select sum(interference_heure) FROM interference WHERE interference_fk_sprint = $NumeroduSprint) AS TotalHeuresInterference"
         );
 
         $statement->execute();
@@ -191,12 +190,12 @@
         //Combiens d'heures DESCendues par jour pour remplir la charte "Heures DESCendues par jour (toutes ressources comprises)"
         $statement = $connection->prepare(
           $sql = "SELECT
-        sum(heure) AS heures, Done
-        FROM tache A
-        WHERE A.id_Sprint = $NumeroduSprint
-        AND A.Done IS NOT NULL
-        GROUP by Done
-        ORDER BY Done"
+        sum(tache_heure) AS heures, tache_done
+        FROM tache
+        WHERE tache_fk_sprint = $NumeroduSprint
+        AND tache_done IS NOT NULL
+        GROUP by tache_done
+        ORDER BY tache_done"
         );
 
         $statement->execute();
@@ -211,7 +210,7 @@
           $BurndownchartHeures -= intval($row['heures']);
           $BurndownchartHeuresTable[] = $BurndownchartHeures;
           $Descendues[] = intval($row['heures']);
-          $Date[] = date("d-m-Y", strtotime($row['Done']));
+          $Date[] = date("d-m-Y", strtotime($row['tache_done']));
         }
 
         $array['HeuresDescenduesParJour'] = $Descendues;
@@ -220,13 +219,13 @@
 
         $statement = $connection->prepare(
           $sql = "SELECT *
-        FROM sprint S
-        WHERE S.id = $NumeroduSprint"
+        FROM sprint
+        WHERE sprint_pk = $NumeroduSprint"
         );
         $statement->execute();
         $result = $statement->fetch();
-        $array['DateFinSprint'] = $result["dateFin"];
-        $array['DateDebutSprint'] = $result["dateDebut"];
+        $array['DateFinSprint'] = $result["sprint_dateFin"];
+        $array['DateDebutSprint'] = $result["sprint_dateDebut"];
       }
 
       print json_encode($array);

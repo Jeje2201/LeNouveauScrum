@@ -229,13 +229,6 @@
               disabled>Envoyer</button>
           </div>
         </div>
-        <p></p>
-        <div class="row">
-          <!-- <div class="col-lg-12">
-            <div id="DivListMail"></div>
-          </div> -->
-        </div>
-        <p></p>
         <u>
           <div class="centered" id="InfoDateSprint"></div>
         </u>
@@ -312,7 +305,6 @@
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
-    // RequeteAjax('DivListMail', 'ListeDeroulanteEmployeMail', 'Modele/RequetesAjax.php', 'ListMailRessource');
 
     $("#ListeProjetObjectifDemo, #ListeEmployeObjectifDemo, #TOUTLEMONDE, #RessourceApi, #ProjetApi, #ListMailRessource")
       .select2({
@@ -358,7 +350,7 @@
 
             $('#TableListHeuresAttribuees tr').each (function() {
               
-              if(LaValueACheck == this.innerText && LeIndexACheck != $(this).index() && $(this)[0].cells[2].innerText != "?"){
+              if(LaValueACheck == this.innerText && LeIndexACheck != $(this).index() && $(this)[0].cells[2].innerText != "Label inconnue"){
                 $(this).addClass('bg-warning')   
               }
 
@@ -412,6 +404,7 @@
         dataType: "json",
         success: function (data) {
           document.getElementById("totalheure").innerHTML = "Heures planifiables : " + data.Attribuable + "h"
+
         }
       });
     }

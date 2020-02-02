@@ -15,7 +15,7 @@
       <table class="table table-striped table-sm table-bordered">
         <thead>
           <tr>
-            <th>Nb jours</th>
+            <th>Depuis (j)</th>
             <th>Ressource</th>
             <th>Démo</th>
             <th>Label</th>
@@ -34,8 +34,8 @@
       <table class="table table-striped table-sm table-bordered">
         <thead>
           <tr>
-            <th>N°</th>
-            <th>Etat</th>
+            <th class="text-center">N°</th >
+            <th class="text-center">Etat</th>
             <th>Ressource</th>
             <th>Projet</th>
             <th>Objectif</th>
@@ -58,7 +58,7 @@
       <table class="table table-striped table-sm table-bordered">
         <thead>
           <tr>
-            <th>Crée</th>
+            <th>Depuis (j)</th>
             <th>Remarque</th>
             <th>Éditer</th>
           </tr>
@@ -76,15 +76,18 @@
     <div class="modal-content">
       <div class="modal-body">
 
-        <label>Projet</label>
-        <div id="ListProjet"> </div>
-        <br />
+        <div class='row mb-2'>
+           <div class='col'>
+            <label>Projet</label>
+            <div id="ListProjet"> </div>
+           </div>
+           <div class='col'>
+            <label>Ressource</label>
+            <div id="ListEmploye"> </div>
+           </div>
+        </div>
 
-        <label>Ressource</label>
-        <div id="ListEmploye"> </div>
-        <br />
-
-        <textarea class="form-control" placeholder="Label objectif" id="LabelObjectif"
+        <textarea class="form-control" placeholder="Faire.." id="LabelObjectif"
           rows="2"></textarea>
 
       </div>
@@ -103,15 +106,20 @@
     <div class="modal-content">
       <div class="modal-body">
 
-        <div class="ui-widget" id="divDateCreation">
-          <label>Création</label>
-          <input type="text" id='DateDebut' class="form-control" />
+        <div class='row mb-2'>
+           <div class='col'>
+            <label>Création</label>
+            <input type="text" id='DateDebut' class="form-control" />
+           </div>
+           <div class='col'>
+            <label>Fini</label>
+            <input type="text" id='DateFin' class="form-control" />
+           </div>
         </div>
+
+        <label>Remarque</label>
+        <input class="form-control" id="LabelRemarque" type="text">
         
-        <div class="ui-widget">
-          <label>Remarque</label>
-          <input class="form-control" id="LabelRemarque" type="text">
-        </div>
 
       </div>
       <div class="modal-footer">
@@ -130,7 +138,7 @@
 
     var admin = isAdmin()
 
-    $('#DateDebut').datetimepicker({
+    $('#DateDebut, #DateFin').datetimepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
     minView: 2,
@@ -173,13 +181,13 @@
 
           $.each(data, function () {
 
-            if (this.demo_DateEffectue == null) {
+            if (this.retrospective_demo_dateEffectue == null) {
 
               var tableDemos = $(`<tr>
-                                <td>` + nbJoursEntreDeuxDates("'"+this.demo_DateCree+"'") + `</td>
-                                <td>` + this.prenom + ` ` + this.Initial + `</td>
+                                <td>` + nbJoursEntreDeuxDates(this.retrospective_demo_dateCree) + `</td>
+                                <td>` + this.user_prenom + ` ` + this.user_initial + `</td>
                                 <td>` + this.projet_nom + `</td>
-                                <td>` + this.demo_Label + `</td>
+                                <td>` + this.retrospective_demo_label + `</td>
                               </tr>`);
 
                 var $colloneBoutons = $('<td />');
@@ -187,13 +195,13 @@
                 var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_pk +
+                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.retrospective_demo_pk +
                   '" class="btn btn-success btn-sm mr-1"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveDemo(this.id.split('_')[2])
                 }));
 
-                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_pk +
+                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.retrospective_demo_pk +
                   '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   dellDemo(this.id.split('_')[2])
@@ -266,11 +274,11 @@
 
           $.each(data, function () {
 
-            if (this.remarque_dateFini == "") {
+            if (this.retrospective_remarque_dateFini == null) {
 
               var tableRemarque = $(`<tr>
-                                <td>` + this.remarque_dateCreation + `</td>
-                                <td>` + this.remarque_label + `</td>
+                                <td>` + nbJoursEntreDeuxDates(this.retrospective_remarque_dateCreation) + `</td>
+                                <td>` + this.retrospective_remarque_label + `</td>
                               </tr>`);
 
               var $colloneBoutons = $('<td />');
@@ -278,13 +286,13 @@
               var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="Achieve_Remarque_' + this.remarque_id +
+                $GroupBouton.append($('<button type="button" id="Achieve_Remarque_' + this.retrospective_remarque_pk +
                   '" class="btn btn-success btn-sm mr-1"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveRemarque(this.id.split('_')[2])
                 }));
 
-                $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
+                $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.retrospective_remarque_pk +
                   '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getRemarque(this.id.split('_')[2])
@@ -305,8 +313,7 @@
 
     $('#BouttonRemarque').click(function () {
       ShowAndClearModaleForNew('ModalRemarque', 'EditerRemarque', 'CreerRemarque')
-      $('#divDateCreation').hide();
-
+      $('#DateDebut').val(ChoixDate(0));
     });
 
     $('#CreerRemarque').click(function () {
@@ -316,6 +323,8 @@
         method: "POST",
         data: {
           Labelretrospective: $('#LabelRemarque').val(),
+          remarque_DateDebut:  DateSwitch($('#DateDebut').val()),
+          remarque_DateFini:  DateSwitch($('#DateFin').val()),
           action: 'addRemarque'
         },
         success: function (data) {
@@ -341,12 +350,11 @@
           action: "getRemarque"
         },
         success: function (data) {
-
           $('#ModalRemarque').modal('show');
-          $('#remarque_id').val(data.RetrospectiveRemarque_id);
-          $('#LabelRemarque').val(data.RetrospectiveRemarque_Label);
-          $('#DateDebut').val(data.RetrospectiveRemarque_DateCreation);
-
+          $('#remarque_id').val(data.retrospective_remarque_pk);
+          $('#LabelRemarque').val(data.retrospective_remarque_label);
+          $('#DateDebut').val(DateSwitch(data.retrospective_remarque_dateCreation));
+          $('#DateFin').val(DateSwitch(data.retrospective_remarque_dateFini));
         }
       });
 
@@ -361,7 +369,7 @@
           remarque_id: $('#remarque_id').val(),
           remarque_label: $('#LabelRemarque').val(),
           remarque_DateDebut:  DateSwitch($('#DateDebut').val()),
-          remarque_DateFin: "",
+          remarque_DateFin: DateSwitch($('#DateFin').val()),
           action: 'putRemarque'
         },
         success: function (data) {
@@ -426,10 +434,10 @@
 
             var TableObjectif = $(`<tr>
             <td class="centered">` + i + `</td>
-            <td class="centered font-weight-bold text-white Objectif_`+this.Etat.replace(' ','_')+`">` + this.Etat + `</td>
-            <td>` + this.Employe + `</td>
-            <td>` + this.projet + `</td>
-            <td>` + this.objectif + `</td>
+            <td class="centered font-weight-bold text-white Objectif_`+this.retrospective_objectif_statut.replace(' ','_')+`">` + this.retrospective_objectif_statut + `</td>
+            <td>` + this.user_prenom + `</td>
+            <td>` + this.projet_nom + `</td>
+            <td>` + this.retrospective_objectif_label + `</td>
             </tr>`);
 
               var $colloneBoutons = $('<td />');
@@ -437,32 +445,32 @@
               var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn btn-sm btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Ok')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn btn-sm btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'En cours')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn btn-sm btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Non')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn btn-sm btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Annule')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id + '" class="btn btn-sm btn-primary mr-2"><i class="fa fa-question" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn btn-sm btn-primary mr-2"><i class="fa fa-question" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Inconnue')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.id +
+                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk +
                   '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getObjectif(this.id)
@@ -484,23 +492,23 @@
       });
     }
 
-    function getObjectif(remarque_id) {
+    function getObjectif(object_id) {
 
       $.ajax({
         url: "Modele/Retrospective_objectif.php",
         method: "POST",
         data: {
-          id: remarque_id,
+          id: object_id,
           action: "getObjectif"
         },
         dataType: "json",
         success: function (data) {
 
           $('#ModalObjectif').modal('show');
-          $('#id').val(remarque_id);
-          $('#ProjetRetrospective').val(data.id_Projet);
-          $('#EmployeRetrospective').val(data.id_Employe);
-          $('#LabelObjectif').val(data.objectif);
+          $('#id').val(object_id);
+          $('#ProjetRetrospective').val(data.retrospective_objectif_fk_projet);
+          $('#EmployeRetrospective').val(data.retrospective_objectif_fk_user);
+          $('#LabelObjectif').val(data.retrospective_objectif_label);
 
           $("#EmployeRetrospective, #ProjetRetrospective").select2({
             width: "100%"

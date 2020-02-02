@@ -63,7 +63,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-         <form id="image_form" method="post" enctype="multipart/form-data">
+        <form id="image_form" method="post" enctype="multipart/form-data">
 
           <div class="form-group">
             <label>Id</label>
@@ -77,8 +77,8 @@
           </div>
 
           
-          <input type="hidden" id="action" value="Projet_Changer_Avatar" />
-          <input type="submit" id="Projet_Changer_Avatar" value="Changer"
+          <input type="hidden" name="action" id="action" value="Projet_Changer_Avatar" />
+          <input type="submit" name="Projet_Changer_Avatar" id="Projet_Changer_Avatar" value="Changer"
             class="btn btn-success" />
           </form>
 
@@ -171,7 +171,7 @@
     })
 
     $(document).on('click', '.update', function () {
-      var id = $(this).attr("id");
+      const id = $(this).attr("id");
       $.ajax({
         url: "Modele/GestionProjet.php",
         method: "POST",
@@ -185,15 +185,15 @@
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 
-          if (data.Actif == 2)
+          if (data.projet_actif == 2)
             $('#Actif').prop('checked', true);
           else
             $('#Actif').prop('checked', false);
 
           $('#id').val(id);
-          $('#ApiPivotal').val(data.ApiPivotal);
-          $('#Nom').val(data.Nom);
-          $('#TypeProjet').val(data.TypeProjet);
+          $('#ApiPivotal').val(data.projet_ApiPivotal);
+          $('#Nom').val(data.projet_nom);
+          $('#TypeProjet').val(data.projet_type);
 
         }
       });

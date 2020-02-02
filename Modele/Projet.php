@@ -4,7 +4,6 @@
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "Projet_Changer_Avatar") {
-
         $target_file = basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $target_file = 'avatar_projet_'. $_POST["logo_project_id"] . '.'.$imageFileType;
@@ -21,9 +20,9 @@
         else if (move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage)) {
 
           $statement = $connection->prepare(
-            $sql = "SELECT P.avatar AS avatar
-            FROM projet P
-            WHERE P.id = " . $_POST["logo_project_id"]
+            $sql = "SELECT projet_avatar
+            FROM projet
+            WHERE projet_pk = " . $_POST["logo_project_id"]
           );
   
           $statement->execute();
@@ -41,9 +40,9 @@
          }
 
           $statement = $connection->prepare(
-            $sql = "UPDATE projet P
-            set P.avatar = '". $target_file ."'
-            WHERE P.id = " . $_POST["logo_project_id"]
+            $sql = "UPDATE projet
+            set projet_avatar = '". $target_file ."'
+            WHERE projet_pk = " . $_POST["logo_project_id"]
           );
   
           $statement->execute();

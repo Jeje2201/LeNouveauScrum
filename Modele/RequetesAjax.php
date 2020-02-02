@@ -9,33 +9,13 @@
 
       switch ($action) {
 
-        case 'TableauDeSprint2':
-          $statement = $connection->prepare("SELECT * FROM sprint
-        ORDER BY numero DESC");
-          $statement->execute();
-          $result = $statement->fetchAll();
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $test["numero"] = $row["numero"];
-              $test["dateDebut"] = $row["dateDebut"];
-              $test["dateFin"] = $row["dateFin"];
-              $test["id"] = $row["id"];
-
-              print json_encode($test);
-            }
-          }
-
-          break;
-
-          /////////////////////////////////////
-
         case 'ListeDeroulanteSprint':
 
-          $statement = $connection->prepare("SELECT id AS id,
-        numero AS numero
+          $statement = $connection->prepare("SELECT
+          sprint_pk,
+          sprint_numero
         FROM sprint
-        ORDER BY numero DESC");
+        ORDER BY sprint_numero DESC");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -44,7 +24,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["numero"] . ' </option>';
+              $output2 .= '<option value="' . $row["sprint_pk"] . '"> ' . $row["sprint_numero"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -123,7 +103,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["projet_pk"] . '|' . $row["projet_ApiPivotal"] . '"> ' . $row["projet_nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["projet_pk"] . '|' . $row["projet_apiPivotal"] . '"> ' . $row["projet_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -137,14 +117,11 @@
 
         case 'RessourcePivotal':
 
-          $statement = $connection->prepare("SELECT id,
-        ApiPivotal,
-        prenom,
-        nom
-        FROM employe
-        WHERE actif = 1
-        AND ApiPivotal IS NOT NULL
-        ORDER BY prenom asc");
+          $statement = $connection->prepare("SELECT *
+        FROM user
+        WHERE user_actif = 1
+        AND user_apiPivotal IS NOT NULL
+        ORDER BY user_prenom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -153,7 +130,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '|' . $row["ApiPivotal"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["user_pk"] . '|' . $row["user_apiPivotal"] . '"> ' . $row["user_prenom"] . ' ' . $row["user_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -168,12 +145,10 @@
 
         case 'ListeDeroulanteEmploye':
 
-          $statement = $connection->prepare("SELECT id,
-        prenom,
-        nom
-        FROM employe
-        WHERE nom not like 'Rouleau'
-        ORDER BY prenom asc");
+          $statement = $connection->prepare("SELECT *
+        FROM user
+        WHERE user_nom not like 'Rouleau'
+        ORDER BY user_prenom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -182,7 +157,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["user_pk"] . '"> ' . $row["user_prenom"] . ' ' . $row["user_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -196,12 +171,10 @@
 
         case 'ListeDeroulanteEmployeActif':
 
-          $statement = $connection->prepare("SELECT prenom,
-        nom,
-        id
-        FROM employe E
-        WHERE E.actif = 1
-        ORDER BY prenom asc");
+          $statement = $connection->prepare("SELECT *
+        FROM user
+        WHERE user_actif = 1
+        ORDER BY user_prenom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
@@ -210,35 +183,7 @@
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
 
-              $output2 .= '<option value="' . $row["id"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
-            }
-
-            $output2 .= '</select>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
-        case 'ListeDeroulanteEmployeMail':
-
-          $statement = $connection->prepare("SELECT prenom,
-        nom,
-        mail
-        FROM employe E
-        WHERE E.actif = 1
-        ORDER BY prenom asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<select class="form-control" id="'.$_POST["id"].'" >';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $output2 .= '<option value="' . $row["mail"] . '"> ' . $row["prenom"] . ' ' . $row["nom"] . ' </option>';
+              $output2 .= '<option value="' . $row["user_pk"] . '"> ' . $row["user_prenom"] . ' ' . $row["user_nom"] . ' </option>';
             }
 
             $output2 .= '</select>';
@@ -277,19 +222,17 @@
 
         case 'ListEmployeCheckBox':
 
-          $statement = $connection->prepare("SELECT id,
-        prenom,
-        nom
-        FROM employe E
-        WHERE E.actif = 1
-        ORDER BY prenom asc");
+          $statement = $connection->prepare("SELECT *
+        FROM user
+        WHERE user_actif = 1
+        ORDER BY user_prenom asc");
 
           $statement->execute();
           $result = $statement->fetchAll();
           $output2 = '<select name="states[]" multiple="multiple" id="TOUTLEMONDE" value="TOUTLEMONDE">';
           if ($statement->rowCount() > 0) {
             foreach ($result as $row) {
-              $output2 .= '<option value="' . $row["id"] . '">  ' . $row["prenom"] . ' ' . $row["nom"] . '</br>';
+              $output2 .= '<option value="' . $row["user_pk"] . '">  ' . $row["user_prenom"] . ' ' . $row["user_nom"] . '</br>';
             }
           }
           $output2 .= '</select>';

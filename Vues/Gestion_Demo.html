@@ -9,6 +9,7 @@
       <table class="table table-sm  table-striped table-bordered">
         <thead>
           <tr>
+            <th>Cree le</th>
             <th>Fais le</th>
             <th>Ressource</th>
             <th>Projet</th>
@@ -27,24 +28,36 @@
 <div id="ModalRemarque" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Éditer remarque</h4>
-      </div>
       <div class="modal-body">
 
-        <div class="form-group">
-          <label>Date effectuée</label>
-          <input type="text" id='DateEffectue' class="form-control" />
+        <div class='row'>
+           <div class='col'>
+            <div class="form-group">
+              <label>Date créée</label>
+              <input type="text" id='DateCree' class="form-control" />
+            </div>
+           </div>
+           <div class='col'>
+            <div class="form-group">
+              <label>Date effectuée</label>
+              <input type="text" id='DateEffectue' class="form-control" />
+            </div>
+           </div>
         </div>
 
-        <div class="form-group">
-          <label>Ressource</label>
-          <div id="ListEmploye"></div>
-        </div>
-
-        <div id="leProjet" class="form-group">
-          <label>Projet</label>
-          <div id="ListProjet"></div>
+        <div class='row'>
+           <div class='col'>
+            <div class="form-group">
+              <label>Ressource</label>
+              <div id="ListEmploye"></div>
+            </div>
+           </div>
+           <div class='col'>
+            <div id="leProjet" class="form-group">
+              <label>Projet</label>
+              <div id="ListProjet"></div>
+            </div>
+           </div>
         </div>
 
         <div class="form-group">
@@ -66,7 +79,7 @@
 <script>
   $(document).ready(function () {
 
-    $('#DateEffectue').datetimepicker({
+    $('#DateEffectue, #DateCree').datetimepicker({
     format: 'dd-mm-yyyy',
     autoclose: true,
     minView: 2,
@@ -96,23 +109,24 @@
           $.each(data, function () {
 
             var tableDemos = $(`<tr>
-                                <td>` + this.demo_DateEffectue + `</td>
-                                <td>` + this.prenom + ` ` + this.Initial + `</td>
+                                <td>` + this.retrospective_demo_dateCree + `</td>
+                                <td>` + this.retrospective_demo_dateEffectue + `</td>
+                                <td>` + this.user_prenom + ` ` + this.user_initial + `</td>
                                 <td>` + this.projet_nom + `</td>
-                                <td>` + this.demo_Label + `</td>
+                                <td>` + this.retrospective_demo_label + `</td>
                               </tr>`);
 
             var $colloneBoutons = $('<td />');
 
             var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.demo_pk +
+            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.retrospective_demo_pk +
               '" class="btn btn-warning btn-sm mr-1"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getDemo(this.id.split('_')[2])
             }));
 
-            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.demo_pk +
+            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.retrospective_demo_pk +
               '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellDemo(this.id.split('_')[2])
@@ -125,7 +139,7 @@
 
           })
 
-        },
+        }
 
       });
     }
@@ -141,18 +155,17 @@
         },
         dataType: "json",
         success: function (data) {
-
           $('#ModalRemarque').modal('show');
-          $('#id').val(data.demo_pk);
-          $('#employeId').val(data.demo_fk_Employe);
-          $('#ProjetDemo').val(data.demo_fk_Projet);
-          $('#LabelDemo').val(data.demo_Label);
-          $('#DateEffectue').val(DateSwitch(data.demo_DateEffectue));
+          $('#id').val(data.retrospective_demo_pk);
+          $('#employeId').val(data.retrospective_demo_fk_user);
+          $('#ProjetDemo').val(data.retrospective_demo_fk_projet);
+          $('#LabelDemo').val(data.retrospective_demo_label);
+          $('#DateEffectue').val(DateSwitch(data.retrospective_demo_dateEffectue));
+          $('#DateCree').val(DateSwitch(data.retrospective_demo_dateCree));
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"
           });
-
 
         }
       });
@@ -187,6 +200,7 @@
           Employe: $('#employeId').val(),
           Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
+          DateCree: DateSwitch($('#DateCree').val()),
           DateEffectue: DateSwitch($('#DateEffectue').val()),
           action: "putDemo"
         },

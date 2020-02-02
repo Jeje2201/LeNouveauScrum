@@ -68,7 +68,7 @@
                   <input type="file" name="image" id="image" accept="image/*" class="mb-3 d-none" />
                   <label for="image" class="customInputFile px-2 py-1"><i class="fa fa-upload" aria-hidden="true"></i>
                     Choisir un logo</label>
-                  <input type="hidden" id="action" value="ChangerAvatar" />
+                  <input type="hidden" id="action" name="action" value="ChangerAvatar" />
                   <input type="submit" id="ChangerAvatar" value="Changer"
                     class="btn btn-success" />
                 </form>
@@ -173,6 +173,7 @@
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
       ListTotalSurSprint()
       ListTotalFdtSurDate();
+      GetAvatar()
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
@@ -198,6 +199,7 @@
         }
       });
 
+      function GetAvatar(){
       $.ajax({
         url: "Modele/Parametre.php",
         method: "POST",
@@ -206,9 +208,8 @@
           action: "GetAvatar"
         },
         success: function (data) {
-          avatar = data.avatar
-          console.log('le avatar: ' + avatar)
-          if(avatar == '' || avatar == undefined){
+          console.log('le avatar: ' + data.avatar)
+          if(data.avatar == '' || data.avatar == undefined){
             $('#avatarUser').attr("src", 'Assets/Image/Ressources/default.png');
           }
           else{
@@ -216,6 +217,7 @@
         }
       }
       });
+    }
 
       //Quand change sprint, charge list fiches de temps / sprint
       $('#ListSrint').change(function () {
@@ -279,7 +281,7 @@
       $('#SetMdp').click(function () {
 
         $.ajax({
-          url: "Modele/GestionTache.php",
+          url: "Modele/GestionEmploye.php",
           method: "POST",
           data: {
             ancienmdp: $('#ancienmdp').val(),
@@ -294,10 +296,10 @@
               $.notify("Ton ancien mot de passe n'est pas le même que celui que je connais...", "error");
             } else {
               $.ajax({
-                url: "Modele/Parametre.php",
+                url: "Modele/GestionEmploye.php",
                 method: "POST",
                 data: {
-                  action: "Update",
+                  action: "UpdateMdpBasic",
                   mdp: $('#mdp').val()
                 },
                 success: function (data) {

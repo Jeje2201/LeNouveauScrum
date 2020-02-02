@@ -11,13 +11,13 @@ require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
 
-if (!isset($_SESSION['Admin']) || !isset($_SESSION['IdUtilisateur']))
+if (!isset($_SESSION['user']['admin']) || !isset($_SESSION['user']['id']))
   require_once('Vues/Login.html');
 
 else {
 
   //Si c'est en maintenance, cacher pour tout le monde a par pour l'id 22 (jeremy leriche)
-  if ($Maintenance == 1 && $_SESSION['IdUtilisateur'] != 22) {
+  if ($Maintenance == 1 && $_SESSION['user']['id'] != 22) {
     require_once('Vues/Maintenance.html');
     return;
   }
@@ -47,7 +47,7 @@ else {
     //Si ma variable vue est dans ma variable admin, c'est que ce n'est destiné qu'aux admins
     if (in_array($vue, $AdminOnly)) {
       //si l'utilisateur est admin, on lui donne la vue
-      if ($_SESSION['Admin']) {
+      if ($_SESSION['user']['admin']) {
         require_once("Vues/" . $vue . ".html");
       }
       

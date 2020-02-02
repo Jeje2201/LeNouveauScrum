@@ -5,7 +5,7 @@
     if (isset($_POST["action"])) {
       if ($_POST["action"] == "Load") {
         $statement = $connection->prepare("SELECT * FROM sprint
-      ORDER BY numero DESC");
+      ORDER BY sprint_numero DESC");
         $statement->execute();
         $result = $statement->fetchAll();
         $output = '';
@@ -26,11 +26,11 @@
           foreach ($result as $row) {
             $output .= '
        <tr>
-       <td>' . $row["numero"] . '</td>
-       <td>' . date("d/m/Y", strtotime($row["dateDebut"])) . '</td>
-       <td>' . date("d/m/Y", strtotime($row["dateFin"])) . '</td>
-       <td>' . $row["attribuable"] . '</td>
-       <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["id"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["id"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
+       <td>' . $row["sprint_numero"] . '</td>
+       <td>' . date("d/m/Y", strtotime($row["sprint_dateDebut"])) . '</td>
+       <td>' . date("d/m/Y", strtotime($row["sprint_dateFin"])) . '</td>
+       <td>' . $row["sprint_attribuable"] . '</td>
+       <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["sprint_pk"] . '" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["sprint_pk"] . '" class="btn btn-danger btn-sm delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
        </tr>
        ';
           }
@@ -47,7 +47,7 @@
 
       if ($_POST["action"] == "Créer") {
         $statement = $connection->prepare("
-   INSERT INTO sprint (numero, dateDebut, dateFin, attribuable) 
+   INSERT INTO sprint (sprint_numero, sprint_dateDebut, sprint_dateFin, sprint_attribuable) 
    VALUES (:numero, :dateDebut, :dateFin, :attribuable)
    ");
         $result = $statement->execute(
@@ -63,10 +63,11 @@
         else
           print_r($statement->errorInfo());
       }
+
       if ($_POST["action"] == "SprintMax") {
         $output = '';
         $statement = $connection->prepare(
-          "SELECT Max(numero)+1 AS numero
+          "SELECT Max(sprint_numero)+1 AS numero
         FROM sprint"
         );
         $statement->execute();
@@ -81,25 +82,20 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM sprint 
-        WHERE id = '" . $_POST["id"] . "' 
+        WHERE sprint_pk = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["numero"] = $result["numero"];
-        $output["dateDebut"] = date("d-m-Y", strtotime($result["dateDebut"]));
-        $output["dateFin"] = date("d-m-Y", strtotime($result["dateFin"]));
-        $output["attribuable"] = $result["attribuable"];
-
-        print json_encode($output);
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "Update") {
         $statement = $connection->prepare(
           "UPDATE sprint 
-   SET numero = :numero, dateDebut = :dateDebut, dateFin = :dateFin, attribuable = :attribuableEdi 
-   WHERE id = :id
+   SET sprint_numero = :numero, sprint_dateDebut = :dateDebut, sprint_dateFin = :dateFin, sprint_attribuable = :attribuableEdi 
+   WHERE sprint_pk = :id
    "
         );
         $result = $statement->execute(
@@ -120,7 +116,7 @@
       if ($_POST["action"] == "Delete") {
         $statement = $connection->prepare(
           "DELETE FROM sprint
-        WHERE id = :id"
+        WHERE sprint_pk = :id"
         );
         $result = $statement->execute(
           array(

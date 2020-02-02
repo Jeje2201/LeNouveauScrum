@@ -1,12 +1,3 @@
-function IsJsonString(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
 /**
  * @param {number} NumeroduSprint - Numéro du sprint
  * @param {string} affichage - Si affichage = 0, afficher ressources, sinon afficher projet
@@ -19,13 +10,12 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
   $.ajax({
     url: "Modele/Accueil.php",
     method: "POST",
+    dataType: "json",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-      if (IsJsonString(data)) 
-        data = JSON.parse(data);
       
       if (affichage == "Ressources") {
         Highcharts.chart(div, {
@@ -152,13 +142,12 @@ function GetTotalHeuresAttribueDescendue(NumeroduSprint, div) {
   $.ajax({
     url: "Modele/Accueil.php",
     method: "POST",
+    dataType: "json",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-      if (IsJsonString(data)) 
-        data = JSON.parse(data);
       
       Highcharts.chart(div, {
         chart: {
@@ -344,13 +333,12 @@ function UpdateBurndownchart(NumeroSprint, div) {
   $.ajax({
     url: "Modele/Accueil.php",
     method: "POST",
+    dataType: "json",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
       NumeroduSprint: NumeroSprint
     },
     success: function (Total) {
-      if (IsJsonString(Total)) 
-        Total = JSON.parse(Total);
       
       fillInformation(Total);
 
@@ -370,13 +358,12 @@ function HeuresDescenduesParJours(NumeroduSprint, div) {
   $.ajax({
     url: "Modele/Accueil.php",
     method: "POST",
+    dataType: "json",
     data: {
       action: "GetTotalHeuresDescenduesParEmploye",
       NumeroduSprint: NumeroduSprint
     },
     success: function (data) {
-      if (IsJsonString(data)) 
-        data = JSON.parse(data);
       
       MoyenneADescendre = new Array();
       for (i = 0; i < ListeJoursDate(data["DateDebutSprint"], data["DateFinSprint"]).length; i++) {

@@ -237,7 +237,7 @@
             data.logo = 'default'
         }
 
-        $('#ClientEntreprise').val(data.entreprise);
+        $('#ClientEntreprise').text(data.entreprise);
 
         $('#ClientEntrepriseModale').val(data.entreprise);
         $('#ClientNomModale').val(data.Nom);
@@ -345,7 +345,6 @@
             url: "Modele/ProjectInformation.php",
             method: "POST",
             data: {
-              projectId: projectId,
               idRessource: idRessource,
               action: "DellRessourceProjet"
             },
@@ -462,7 +461,6 @@
           url: "Modele/ProjectInformation.php",
           method: "POST",
           data: {
-            projectId: projectId,
             idTechno: idTechno,
             NomTechno: nomTechno,
             action: "DellTechno"

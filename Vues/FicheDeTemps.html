@@ -77,7 +77,16 @@
         </div>
 
         <div class="col">
-          <div id="TableTotJoursNonPlein"></div>
+          <table class="table table-sm  table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Date manquante</th>
+              </tr>
+            </thead>
+            <tbody id="TableTotJoursNonPlein">
+    
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -123,6 +132,7 @@
 
       //Charger liste
       ChargerListeHeures1Jour1Ressource()
+      ChartBatonTotJoursNonPlein()
       TableTotJoursNonPlein()
 
       //Lorsque change la date de debut
@@ -200,7 +210,7 @@
           method: "POST",
           dataType: "json",
           data: {
-            action: "Create",
+            action: "addFicheDeTemps",
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
             Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
@@ -212,6 +222,7 @@
               $('#ModalProblemeDate').modal('show');
             } else {
               ChargerListeHeures1Jour1Ressource()
+              ChartBatonTotJoursNonPlein()
               TableTotJoursNonPlein()
               $.notify("Fiche de temps créée avec succès", "success");
               InfoMaxSlider()
@@ -253,6 +264,7 @@
             },
             success: function (data) {
               ChargerListeHeures1Jour1Ressource()
+              ChartBatonTotJoursNonPlein()
               TableTotJoursNonPlein()
               $.notify(data, "success");
               InfoMaxSlider();
@@ -267,58 +279,100 @@
         $.ajax({
           url: "Modele/FicheDeTemps.php",
           method: "POST",
+          dataType: "json",
           data: {
             action: "TableTotJoursNonPlein"
           },
           success: function (data) {
-            $('#TableTotJoursNonPlein').html(data);
+            
+            //Je set mon tableau de toutes les dates enregistrés de {0:... fichedescendue:...} en juste [fichedescendue...,fichedescendue..]
+            i=0
+            data.forEach(element => {
+            
+              data[i] = data[i].fiche_de_temps_done
+              i+=1  
+            })
 
-            let elementsArray = document.querySelectorAll(".ListeDateManquante");
+            //Je créer une variable "dates" qui va prendre toutes les jours sauf weekend depuis que la ressource arrive et les écrit comme le tableau precedent YYYY-MM-JJ
+            var dates = new Array,
+            currentDate = new Date("<?php print($_SESSION['user']['registerDate'] )?>"),
+            today = new Date()
+            addDays = function(days) {
+              var date = new Date(this.valueOf());
+              date.setDate(date.getDate() + days);
+              return date;
+            };
+            while (currentDate <= today) {
+              if(currentDate.getDay() != 0 && currentDate.getDay() != 6){
+                dates.push(new Date(currentDate.getTime() - (currentDate.getTimezoneOffset() * 60000 )).toISOString().split("T")[0]);
+              }
+              currentDate = addDays.call(currentDate, 1);
+            }
 
-            elementsArray.forEach(function (elem) {
-              elem.addEventListener("click", function () {
-                $('#StartDate, #EndDate').val(elem.textContent.replace(/\//g, "-"));
+            $('#TableTotJoursNonPlein').html('')
+
+            //Pours chaques jours qui existent depuis l'arrivé de la ressource et minimum en mars 2019 car quand commence log les fiches de temps, si parmis tous ces jours, il y a des jours qu'on ne retrouve pas en comparant avec ceux remplis alors c'est qu'ils ne sont aps rempli et on les affiche
+            i = 0
+            dates.forEach(element => {
+              if(!data.includes(element)){
+                console.log(element)
+                $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + DateSwitch(element) + `</td></tr>`).on('click', function () {
+              $('#StartDate, #EndDate').val(DateSwitch(element));
                 ChargerListeHeures1Jour1Ressource();
                 InfoMaxSlider();
-              });
+            }))
+              }
+              i+=1
             });
+            IfNoRows("TableTotJoursNonPlein")
+
           }
+          
         })
       }
-
+    function ChartBatonTotJoursNonPlein() {
       $.ajax({
         url: "Modele/FicheDeTemps.php",
         method: "POST",
+        dataType: "json",
         data: {
           action: "RetardEnGeneral"
         },
         success: function (data) {
 
-          if (IsJsonString(data)) 
-            data = JSON.parse(data);
-
             LeNomUser = new Array
             LeNomUser = data['NomUser']
 
-            LeNbRetard = new Array
-            LeNbRetard = data['NbDatePerUser']
+            RegsiterDate = new Array
+            RegsiterDate = data['RegsiterDate']
 
-            //1) combine the arrays:
-            var list = [];
-            for (var j = 0; j < LeNbRetard.length; j++) 
-                list.push({'LeNbRetard': LeNbRetard[j], 'LeNomUser': LeNomUser[j]});
+            NbDateRemplis = new Array
+            NbDateRemplis = data['NbDatePerUser']
+
+            //NbDataRemplis = nombre de fdt remplus, pour chaques user, on check le nb de jours qu'il doit remplir ses feuilles NbJourDeTravai() moins le nombre qu'il a déjà remplis pour savoir combien il doit encore remplir
+            i=0
+            NbDateRemplis.forEach(element => {
+              NbDateRemplis[i] = NbJourDeTravail(RegsiterDate[i],ChoixDate(0))-element+1
+              i+=1
+            });
+
+             //1) combine the arrays:
+             var list = [];
+            for (var j = 0; j < NbDateRemplis.length; j++) 
+                list.push({'NbDateRemplis': NbDateRemplis[j], 'LeNomUser': LeNomUser[j], 'RegsiterDate': RegsiterDate[j]});
 
             //2) sort:
             list.sort(function(a, b) {
-                return ((a.LeNbRetard > b.LeNbRetard) ? -1 : ((a.LeNbRetard == b.LeNbRetard) ? 0 : 1));
+                return ((a.NbDateRemplis > b.NbDateRemplis) ? -1 : ((a.NbDateRemplis == b.NbDateRemplis) ? 0 : 1));
                 //Sort could be modified to, for example, sort on the LeNomUser 
-                // if the LeNbRetard is the same.
+                // if the NbDateRemplis is the same.
             });
 
             //3) separate them back out:
             for (var k = 0; k < list.length; k++) {
-                LeNbRetard[k] = list[k].LeNbRetard;
+                NbDateRemplis[k] = list[k].NbDateRemplis;
                 LeNomUser[k] = list[k].LeNomUser;
+                RegsiterDate[k] = list[k].RegsiterDate;
             }
           
           Highcharts.chart('RetardEnGeneral', {
@@ -363,14 +417,20 @@
             series: [
               {
                 name: 'feuilles de temps non remplies',
-                data: LeNbRetard,
+                data: NbDateRemplis,
                 stack: 0,
-                pointPadding: 0.3
+                pointPadding: 0.3,
+                zones: [{
+                  value: 7,
+                  color: '#7CB5EC' 
+                },{
+                  color: 'red'
+                }]
               }
             ]
           });
         }
       });
-
+    }
     });
   </script>

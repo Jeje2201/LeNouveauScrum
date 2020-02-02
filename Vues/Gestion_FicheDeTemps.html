@@ -6,22 +6,14 @@
 
           <h3>Gestion des feuilles de temps</h3>
           <div class="row">
-              <div class="col-lg-2">
+              <div class="col">
           <div id="ListSrint" class="mt-2"></div>
           </div>
-          <div class="col-lg-10">
+          <div class="col">
           <input class="form-control mt-2" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
         </div>
         </div>
           <div id="TableauListFicheDeTemps" class="table-responsive table-hover"></div>
-
-        </div>
-
-        <div class="col-lg-2">
-          <h3>Oublie</h3>
-          <input type="text" id='DateACheck' class="form-control mt-3 mb-2">
-
-          <div id="RetardPourUneDate" class="table-responsive table-hover"></div>
 
         </div>
       </div>
@@ -82,7 +74,6 @@
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
     ChargerTableauListeFdT();
-    ChargerTableauOnDate();
     BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
 
     $('#DateACheck').val(ChoixDate(0));
@@ -92,32 +83,12 @@
         url: "Modele/FicheDeTemps.php",
         method: "POST",
         data: {
-          action: "Load",
+          action: "getFichesDeTemps",
           IdSprint: $('#numeroSprint').val()
         },
         success: function (data) {
           $('#TableauListFicheDeTemps').html(data);
           GarderLaRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
-        }
-      });
-    }
-
-    function ChargerTableauOnDate() {
-
-      var LaDate = DateSwitch($('#DateACheck').val())
-
-      if ($('#DateACheck').val() == "")
-        LaDate = DateSwitch(ChoixDate(0))
-
-      $.ajax({
-        url: "Modele/FicheDeTemps.php",
-        method: "POST",
-        data: {
-          action: "LoadSelonDate",
-          LaDate: LaDate
-        },
-        success: function (data) {
-          $('#RetardPourUneDate').html(data);
         }
       });
     }
@@ -190,10 +161,6 @@
         })
     });
 
-    //Check si la date a check a changé et si oui load a nouveau
-    $('#DateACheck').change(function () {
-      ChargerTableauOnDate()
-    });
   });
 
 </script>

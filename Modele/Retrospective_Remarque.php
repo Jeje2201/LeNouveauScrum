@@ -5,72 +5,34 @@ require_once('../Modele/Configs.php');
 if (isset($_POST["action"])) {
 
   if ($_POST["action"] == "getRemarques") {
-    $statement = $connection->prepare("SELECT
-        R.id as remarque_id,
-        R.Label as remarque_label,
-        R.DateCreation as remarque_dateCreation,
-        R.DateFini as remarque_dateFini
-        FROM retrospective_remarque R
-        ORDER BY R.DateFini IS NULL ASC, R.DateFini ASC");
+    $statement = $connection->prepare("SELECT *
+        FROM retrospective_remarque
+        ORDER BY retrospective_remarque_dateFini IS NULL ASC, retrospective_remarque_dateFini ASC");
 
     $statement->execute();
     $result = $statement->fetchAll();
 
-    $resultat = [];
-
-    foreach ($result as $row) {
-
-      $MonTest = [];
-
-      $MonTest['remarque_id'] = $row['remarque_id'];
-      $MonTest['remarque_label'] = $row['remarque_label'];
-
-      if ($row["remarque_dateCreation"] == null)
-        $MonTest["remarque_dateCreation"] = "";
-      else
-        $MonTest["remarque_dateCreation"] = date("d/m/Y", strtotime($row["remarque_dateCreation"]));
-
-      if ($row["remarque_dateFini"] == null)
-        $MonTest["remarque_dateFini"] = "";
-      else
-        $MonTest["remarque_dateFini"] = date("d/m/Y", strtotime($row["remarque_dateFini"]));
-
-      $resultat[] = $MonTest;
-    }
-
-    print json_encode($resultat);
+    print json_encode($result);
   }
 
   if ($_POST["action"] == "getRemarque") {
 
     $statement = $connection->prepare(
       "SELECT * FROM retrospective_remarque 
-     WHERE id = '" . $_POST["remarque_id"] . "' 
+     WHERE retrospective_remarque_pk = '" . $_POST["remarque_id"] . "' 
      LIMIT 1"
     );
     $statement->execute();
     $result = $statement->fetch();
 
-    $resultat = [];
-
-    $resultat["RetrospectiveRemarque_DateCreation"] = date("d-m-Y", strtotime($result["DateCreation"]));
-
-    if ($result["DateFini"] == null)
-      $resultat["RetrospectiveRemarque_DateFini"] = "";
-    else
-      $resultat["RetrospectiveRemarque_DateFini"] = date("d-m-Y", strtotime($result["DateFini"]));
-
-    $resultat["RetrospectiveRemarque_Label"] = $result["Label"];
-    $resultat["RetrospectiveRemarque_id"] = $result["id"];
-
-    print json_encode($resultat);
+    print json_encode($result);
   }
 
   if ($_POST["action"] == "achieveRetrospective") {
     $statement = $connection->prepare(
       "UPDATE retrospective_remarque 
-      SET DateFini = NOW()
-      WHERE id = :id
+      SET retrospective_remarque_dateFini = NOW()
+      WHERE retrospective_remarque_pk = :id
       "
     );
     $result = $statement->execute(
@@ -85,13 +47,19 @@ if (isset($_POST["action"])) {
   }
 
   if ($_POST["action"] == "addRemarque") {
+
+    if ($_POST["remarque_DateFini"] == "")
+      $_POST["remarque_DateFini"] = null;
+
     $statement = $connection->prepare("
-   INSERT INTO retrospective_remarque (Label, DateCreation) 
-   VALUES (:Label, NOW())
+   INSERT INTO retrospective_remarque (retrospective_remarque_label, retrospective_remarque_dateCreation, retrospective_remarque_dateFini) 
+   VALUES (:Label, :DateCreation, :DateFin)
    ");
     $result = $statement->execute(
       array(
-        ':Label' => $_POST["Labelretrospective"]
+        ':Label' => $_POST["Labelretrospective"],
+        ':DateCreation' => $_POST["remarque_DateDebut"],
+        ':DateFin' => $_POST["remarque_DateFini"]
       )
     );
     if (!empty($result))
@@ -107,8 +75,8 @@ if (isset($_POST["action"])) {
       
     $statement = $connection->prepare(
       "UPDATE retrospective_remarque
-      SET Label = :remarque_label, DateCreation = :remarque_DateDebut, DateFini = :remarque_DateFin
-      WHERE id = :remarque_id"
+      SET retrospective_remarque_label = :remarque_label, retrospective_remarque_dateCreation = :remarque_DateDebut, retrospective_remarque_dateFini = :remarque_DateFin
+      WHERE retrospective_remarque_pk = :remarque_id"
     );
     $result = $statement->execute(
       array(
@@ -127,7 +95,7 @@ if (isset($_POST["action"])) {
   if ($_POST["action"] == "dellRemarque") {
     $statement = $connection->prepare(
       "DELETE FROM retrospective_remarque
-         WHERE id = :id"
+         WHERE retrospective_remarque_pk = :id"
     );
     $result = $statement->execute(
       array(

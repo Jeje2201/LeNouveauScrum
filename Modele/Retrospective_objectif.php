@@ -5,43 +5,23 @@
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "getObjectifs") {
-        $statement = $connection->prepare("SELECT O.id as id,
-        O.objectif,
-        P.nom AS projet,
-        CONCAT(employe.prenom,'&nbsp;', employe.initial) AS Employe,
-        O.objectif_statut AS etat
-        FROM retrospective_objectif O
-        INNER JOIN projet P
-          ON P.id = O.id_Projet
-        INNER JOIN employe
-          ON employe.id = O.id_Employe
-        WHERE O.id_Sprint = '".$_POST["idAffiche"]."'
-        ORDER BY Employe, P.nom, O.id");
+        $statement = $connection->prepare("SELECT * 
+        FROM retrospective_objectif
+        INNER JOIN projet ON projet_pk = retrospective_objectif_fk_projet
+        INNER JOIN user ON user_pk = retrospective_objectif_fk_user
+        WHERE retrospective_objectif_fk_sprint = '".$_POST["idAffiche"]."'
+        ORDER BY user_prenom, projet_nom, retrospective_objectif_pk");
           $statement->execute();
           $result = $statement->fetchAll();
-          $resultat = [];
 
-        foreach ($result as $row) {
-
-          $MonTest = [];
-
-          $MonTest['id'] = $row['id'];
-          $MonTest['objectif'] = $row['objectif'];
-          $MonTest['projet'] = $row['projet'];
-          $MonTest['Employe'] = $row['Employe'];
-          $MonTest['Etat'] = $row['etat'];
-
-          $resultat[] = $MonTest;
-        }
-
-        print json_encode($resultat);
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "putEtatObjectif") {
         $statement = $connection->prepare(
           "UPDATE retrospective_objectif 
-          SET objectif_statut = :EtatObjectif 
-          WHERE id = :id
+          SET retrospective_objectif_statut = :EtatObjectif 
+          WHERE retrospective_objectif_pk = :id
           "
         );
         $result = $statement->execute(
@@ -58,7 +38,7 @@
       
       if ($_POST["action"] == "Créer") {
         $statement = $connection->prepare("
-        INSERT INTO retrospective_objectif (id_Sprint, id_Projet, id_Employe, objectif, objectif_statut) 
+        INSERT INTO retrospective_objectif (retrospective_objectif_fk_sprint, retrospective_objectif_fk_projet, retrospective_objectif_fk_user, retrospective_objectif_label, retrospective_objectif_statut) 
         VALUES (:id_Sprint, :id_Projet, :id_Employe, :objectif, :id_StatutObjectif)
         ");
         $result = $statement->execute(
@@ -80,7 +60,7 @@
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM retrospective_objectif 
-        WHERE id = '" . $_POST["id"] . "' 
+        WHERE retrospective_objectif_pk = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
         $statement->execute();
@@ -92,8 +72,8 @@
       if ($_POST["action"] == "putObjectif") {
         $statement = $connection->prepare(
           "UPDATE retrospective_objectif 
-        SET objectif = :LabelObjectif, id_Sprint = :id_Sprint, id_Projet = :id_Projet, id_Employe = :id_Employe
-        WHERE id = :id
+        SET retrospective_objectif_label = :LabelObjectif, retrospective_objectif_fk_sprint = :id_Sprint, retrospective_objectif_fk_projet = :id_Projet, retrospective_objectif_fk_user = :id_Employe
+        WHERE retrospective_objectif_pk = :id
         "
         );
         $result = $statement->execute(
@@ -114,7 +94,7 @@
       if ($_POST["action"] == "dellObjectif") {
         $statement = $connection->prepare(
           "DELETE FROM retrospective_objectif
-        WHERE id = :id"
+        WHERE retrospective_objectif_pk = :id"
         );
         $result = $statement->execute(
           array(
