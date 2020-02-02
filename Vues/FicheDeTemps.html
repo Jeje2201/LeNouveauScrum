@@ -178,7 +178,7 @@
           dataType: "json",
           data: {
             action: "GetNewMax",
-            Done: DateSwitch($('#StartDate').val())
+            Done: CustomYourDate($('#StartDate').val())
           },
           success: function (data) {
             $('#InfosTempsFdt').text(MinutesIntoTime(444 - data))
@@ -214,7 +214,7 @@
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
             Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
-            Log: DateSwitch(ChoixDate(0))
+            Log: CustomYourDate(ChoixDate(0))
           },
           success: function (data) {
             if ((data.Liste).length > 0) {
@@ -234,10 +234,10 @@
       //Charger les infos
       function ChargerListeHeures1Jour1Ressource() {
 
-        var LaDate = DateSwitch($('#StartDate').val())
+        var LaDate = CustomYourDate($('#StartDate').val())
 
         if ($('#StartDate').val() == "") 
-          LaDate = DateSwitch(ChoixDate(0))
+          LaDate = CustomYourDate(ChoixDate(0))
 
         $.ajax({
           url: "Modele/FicheDeTemps.php",
@@ -316,8 +316,8 @@
             dates.forEach(element => {
               if(!data.includes(element)){
                 console.log(element)
-                $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + DateSwitch(element) + `</td></tr>`).on('click', function () {
-              $('#StartDate, #EndDate').val(DateSwitch(element));
+                $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + CustomYourDate(element) + `</td></tr>`).on('click', function () {
+              $('#StartDate, #EndDate').val(CustomYourDate(element));
                 ChargerListeHeures1Jour1Ressource();
                 InfoMaxSlider();
             }))

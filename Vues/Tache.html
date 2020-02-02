@@ -92,8 +92,8 @@
               },
               success: function (data) {
 
-                if (DateSwitch(ChoixDate(0)) >= data.sprint_dateDebut && DateSwitch(ChoixDate(0)) <= data.sprint_dateFin) {
-                  var dateDescente = DateSwitch(ChoixDate(0));
+                if (CustomYourDate(ChoixDate(0)) >= data.sprint_dateDebut && CustomYourDate(ChoixDate(0)) <= data.sprint_dateFin) {
+                  var dateDescente = CustomYourDate(ChoixDate(0));
                 } else {
                   var dateDescente = data.sprint_dateFin;
                 }

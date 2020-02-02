@@ -29,10 +29,10 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
     if (JourValide == 0) {
 
-      if (DateSwitch(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
+      if (CustomYourDate(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
         HeuresDescenduesParJoursSurToutLeSprint.push(null)
 
-      else if (new Date(DateSwitch(listeJoursDansSprint[i])).getDay() == 6 || new Date(DateSwitch(listeJoursDansSprint[i])).getDay() == 0)
+      else if (new Date(CustomYourDate(listeJoursDansSprint[i])).getDay() == 6 || new Date(CustomYourDate(listeJoursDansSprint[i])).getDay() == 0)
         HeuresDescenduesParJoursSurToutLeSprint.push(0)
 
       else {
@@ -82,7 +82,7 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
 
     if (JourValide == 0) {
 
-      if (DateSwitch(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
+      if (CustomYourDate(listeJoursDansSprint[i]) > new Date().toJSON().split('T')[0])
         HeuresDescenduesParJoursSurToutLeSprint.push(null)
 
       else {
@@ -126,20 +126,42 @@ function ChoixDate(jours) {
 };
 
 /**
- * Convertie la date dans le format inverse qu'il possède j-m-y <-> y-m-j
+ * Convertie la date dans le format que l'on souhaite, C'EST TOI LE MAITRE
  * @param {string} date date a convertir
+ * @param {string} LeFormat le format de concerstion
  */
-function DateSwitch(date) {
+function CustomYourDate(LaDate,LeFormat = "yyyy-mm-dd"){
 
-  if (date == null || date == undefined || date == "") {
-    return null
-  } else {
-    date = date.split("-")
-    NouvelleDate = date[2] + "-" + date[1] + "-" + date[0]
+    var jour,mois,annee
 
-    return NouvelleDate;
-  }
-};
+    if((/^[0-9]{4}/g).test(LaDate)){
+        var jour = LaDate.slice(8,10)
+        var mois = LaDate.slice(5,7)
+        var annee = LaDate.slice(0,4)
+    }
+
+    else if((/^[0-9]{2}/g).test(LaDate)){
+        var jour = LaDate.slice(0,2)
+        var mois = LaDate.slice(3,5)
+        var annee = LaDate.slice(6,10)
+    }
+
+    switch (LeFormat) {
+      case 'dd-mm-yyyy':
+        return jour + '-' + mois + '-'+ annee
+        break;
+      case 'dd/mm/yyyy':
+        return jour + '/' + mois + '/'+ annee
+        break;
+      case 'yyyy-mm-dd':
+        return annee + '-' + mois + '-'+ jour
+        break;
+    case 'yyyy/mm/dd':
+        return annee + '/' + mois + '/'+ jour
+        break;
+    }
+
+}
 
 /**
  * Retourn le tableau de date entré en paramettre avec son jour écrit devants chaque date exemple "Lun 05/10/18"
@@ -151,7 +173,7 @@ function AjouterJourFrDevantDate(date) {
 
   for (i = 0; i < date.length; i++) {
 
-    dateconnupourcheckday = new Date(DateSwitch(date[i]))
+    dateconnupourcheckday = new Date(CustomYourDate(date[i]))
 
     switch (dateconnupourcheckday.getDay()) {
       case 1:
@@ -245,7 +267,7 @@ function ListeJoursDate(DateDebut, DateFin) {
     while (start <= end) {
       var day = start.getDay();
 
-      EnsembleDeDate.push(DateSwitch(start.toJSON().split('T')[0]))
+      EnsembleDeDate.push(CustomYourDate(start.toJSON().split('T')[0]))
 
       start.setDate(start.getDate() + 1);
     }

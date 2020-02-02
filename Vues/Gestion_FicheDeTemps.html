@@ -132,8 +132,8 @@
           Employe: $('#employeId').val(),
           Projet: $('#projetId').val(),
           Time: $('#Time').val(),
-          Done: DateSwitch($('#Done').val()),
-          Log: DateSwitch($('#Log').val()),
+          Done: CustomYourDate($('#Done').val()),
+          Log: CustomYourDate($('#Log').val()),
           action: "Update"
         },
         success: function (data) {

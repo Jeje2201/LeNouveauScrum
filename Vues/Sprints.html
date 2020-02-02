@@ -147,16 +147,16 @@
 
     $('#modal_button').click(function () {
 
-      if (DateSwitch($('#dateFin').val()) > DateSwitch($('#dateDebut').val())) {
-        if ($('#numero').val() != '' && DateSwitch($('#dateDebut').val()) != '' && DateSwitch($('#dateFin').val()) != '') {
+      if (CustomYourDate($('#dateFin').val()) > CustomYourDate($('#dateDebut').val())) {
+        if ($('#numero').val() != '' && CustomYourDate($('#dateDebut').val()) != '' && CustomYourDate($('#dateFin').val()) != '') {
           $.ajax({
             url: "Modele/Sprint.php",
             method: "POST",
             data: {
               numero: $('#numero').val(),
-              dateDebut: DateSwitch($('#dateDebut').val()),
+              dateDebut: CustomYourDate($('#dateDebut').val()),
               id: $('#id').val(),
-              dateFin: DateSwitch($('#dateFin').val()),
+              dateFin: CustomYourDate($('#dateFin').val()),
               Attribuable: $('#attribuable').val(),
               action: 'Créer'
             },
@@ -192,23 +192,23 @@
           $('#action').val("Update"); //This code will change Button value to Update
           $('#id').val(id); //It will define value of id variable to this sprint id hidden field
           $('#numeroo').val(data.sprint_numero); //It will assign value to modal first name texbox
-          $('#dateDebutt').val(DateSwitch(data.sprint_dateDebut)); //It will assign value of modal last name textbox
-          $('#dateFinn').val(DateSwitch(data.sprint_dateFin)); //It will assign value of modal last name textbox
+          $('#dateDebutt').val(CustomYourDate(data.sprint_dateDebut)); //It will assign value of modal last name textbox
+          $('#dateFinn').val(CustomYourDate(data.sprint_dateFin)); //It will assign value of modal last name textbox
           $('#attribuableEdition').val(data.sprint_attribuable);
         }
       });
     });
 
     $('#action').click(function () {
-      if ($('#numeroo').val() != '' && DateSwitch($('#dateDebutt').val()) != '' && DateSwitch($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
+      if ($('#numeroo').val() != '' && CustomYourDate($('#dateDebutt').val()) != '' && CustomYourDate($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
         $.ajax({
           url: "Modele/Sprint.php", //Request send to "Sprint.php page"
           method: "POST", //Using of Post method for send data
           data: {
             numero: $('#numeroo').val(),
-            dateDebut: DateSwitch($('#dateDebutt').val()),
+            dateDebut: CustomYourDate($('#dateDebutt').val()),
             id: $('#id').val(),
-            dateFin: DateSwitch($('#dateFinn').val()),
+            dateFin: CustomYourDate($('#dateFinn').val()),
             attribuableEdi: $('#attribuableEdition').val(),
             action: $('#action').val() //Get the value of Modal Action button and stored into action variable
           }, //Send data to server

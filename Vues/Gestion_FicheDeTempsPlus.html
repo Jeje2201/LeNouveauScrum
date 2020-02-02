@@ -58,8 +58,8 @@
             data: {
               action: "ListeSelonProjetDateRessource",
               ProjetId: $('#projetId').val(),
-              Start: DateSwitch($('#Start').val()),
-              Finish: DateSwitch($('#Finish').val())
+              Start: CustomYourDate($('#Start').val()),
+              Finish: CustomYourDate($('#Finish').val())
             },
             success: function (data) {
               $('#TableauListFicheDeTemps').html(data);

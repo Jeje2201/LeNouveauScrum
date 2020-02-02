@@ -323,8 +323,8 @@
         method: "POST",
         data: {
           Labelretrospective: $('#LabelRemarque').val(),
-          remarque_DateDebut:  DateSwitch($('#DateDebut').val()),
-          remarque_DateFini:  DateSwitch($('#DateFin').val()),
+          remarque_DateDebut:  CustomYourDate($('#DateDebut').val()),
+          remarque_DateFini:  CustomYourDate($('#DateFin').val()),
           action: 'addRemarque'
         },
         success: function (data) {
@@ -353,8 +353,8 @@
           $('#ModalRemarque').modal('show');
           $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#LabelRemarque').val(data.retrospective_remarque_label);
-          $('#DateDebut').val(DateSwitch(data.retrospective_remarque_dateCreation));
-          $('#DateFin').val(DateSwitch(data.retrospective_remarque_dateFini));
+          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation));
+          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini));
         }
       });
 
@@ -368,8 +368,8 @@
         data: {
           remarque_id: $('#remarque_id').val(),
           remarque_label: $('#LabelRemarque').val(),
-          remarque_DateDebut:  DateSwitch($('#DateDebut').val()),
-          remarque_DateFin: DateSwitch($('#DateFin').val()),
+          remarque_DateDebut:  CustomYourDate($('#DateDebut').val()),
+          remarque_DateFin: CustomYourDate($('#DateFin').val()),
           action: 'putRemarque'
         },
         success: function (data) {

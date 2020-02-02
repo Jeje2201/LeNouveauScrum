@@ -472,7 +472,7 @@
         method: "POST",
         data: {
           id: $('#id_planif').val(),
-          Done: DateSwitch($('#Done').val()),
+          Done: CustomYourDate($('#Done').val()),
           idSprint: $('#numeroSprint').val(),
           idEmploye: $('#ListeEmployeEditionTache').val(),
           idProjet: $('#ListeProjeteditionTache').val(),
@@ -842,7 +842,7 @@
         element.StoryLabel = ($(this).parent().parent().children()[0].innerText).slice(0, -3)
 
         if ($(this).hasClass('Tachetrue'))
-          element.done = DateSwitch(ChoixDate(0))
+          element.done = CustomYourDate(ChoixDate(0))
         else
           element.done = null
 
@@ -898,8 +898,8 @@
         idAffiche: $('#numeroSprint').val()
       },
       success: function (data) {
-        DateMinSprint = DateSwitch(data.DateMin[0])
-        DateMaxSprint = DateSwitch(data.DateMax[0])
+        DateMinSprint = CustomYourDate(data.DateMin[0])
+        DateMaxSprint = CustomYourDate(data.DateMax[0])
 
         $('#InfoDateSprint').html('Sprint du ' + data.DateMin[0] + ' au ' + data.DateMax[0])
       }
@@ -944,7 +944,7 @@
 
                 var TempsCalendar = 0
                 
-                var DateCalendar = DateSwitch(this.end.dateTime.substring(0,10))
+                var DateCalendar = CustomYourDate(this.end.dateTime.substring(0,10))
 
                   // console.log(this.start.dateTime.substring(11,16))
                   // console.log(this.end.dateTime.substring(11,16))

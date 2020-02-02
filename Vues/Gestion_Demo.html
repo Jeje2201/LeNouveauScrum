@@ -160,8 +160,8 @@
           $('#employeId').val(data.retrospective_demo_fk_user);
           $('#ProjetDemo').val(data.retrospective_demo_fk_projet);
           $('#LabelDemo').val(data.retrospective_demo_label);
-          $('#DateEffectue').val(DateSwitch(data.retrospective_demo_dateEffectue));
-          $('#DateCree').val(DateSwitch(data.retrospective_demo_dateCree));
+          $('#DateEffectue').val(CustomYourDate(data.retrospective_demo_dateEffectue));
+          $('#DateCree').val(CustomYourDate(data.retrospective_demo_dateCree));
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"
@@ -200,8 +200,8 @@
           Employe: $('#employeId').val(),
           Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
-          DateCree: DateSwitch($('#DateCree').val()),
-          DateEffectue: DateSwitch($('#DateEffectue').val()),
+          DateCree: CustomYourDate($('#DateCree').val()),
+          DateEffectue: CustomYourDate($('#DateEffectue').val()),
           action: "putDemo"
         },
         success: function (data) {

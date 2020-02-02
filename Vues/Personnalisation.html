@@ -236,8 +236,8 @@
           method: "POST",
           data: {
             LaRessource: Ressource,
-            Start: DateSwitch($('#Start').val()),
-            End: DateSwitch($('#End').val()),
+            Start: CustomYourDate($('#Start').val()),
+            End: CustomYourDate($('#End').val()),
             action: "ListTotalSurDate"
           },
           success: function (data) {

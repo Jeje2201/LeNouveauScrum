@@ -560,7 +560,7 @@
           data: {
             projectId: projectId,
             echange_label: document.getElementById('Echange_Label').value,
-            echange_date: DateSwitch($('#Echange_Date').val()),
+            echange_date: CustomYourDate($('#Echange_Date').val()),
             echange_type: $("#Echange_Type").val(),
             action: "postEchange"
           },
@@ -580,7 +580,7 @@
           data: {
             echange_id: document.getElementById('Echange_ID').value,
             echange_label: document.getElementById('Echange_Label').value,
-            echange_date: DateSwitch($('#Echange_Date').val()),
+            echange_date: CustomYourDate($('#Echange_Date').val()),
             echange_type: $("#Echange_Type").val(),
             action: "putEchange"
           },
