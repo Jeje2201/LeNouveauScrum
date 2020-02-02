@@ -12,13 +12,7 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $resultat = [];
-
-      foreach ($result as $row) {
-        $resultat[] = $row;
-      }
-
-      print json_encode($resultat);
+      print json_encode($result);
     }
 
   }

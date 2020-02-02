@@ -26,8 +26,8 @@ $(document).ready(function () {
         $.each(data, function () {
 
           var divUnChangelog = $(`<div class="my-3"></div>`);
-          divUnChangelog.append($(`<h2> Changelog n°`+this.changelog_numero+` | `+this.changelog_date+` </h2>`));
-          divUnChangelog.append($(`<p>`+this.changelog_contenue.replace(/\n/g, "<br>")+`</p>`))
+          divUnChangelog.append($(`<h5 class="d-inline text-secondary"> n°`+this.changelog_numero+` </h5> <h4 class="d-inline"> `+this.changelog_titre+` </h4> <h5 class="d-inline text-secondary"> `+DateSwitch(this.changelog_date)+` </h5>`));
+          divUnChangelog.append($(`<p class="mt-2">`+this.changelog_contenue.replace(/\n/g, "<br>")+`</p>`))
 
           if(this.changelog_meme!=""){
             divUnChangelog.append($(`<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample`+this.changelog_numero+`" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Mème n°`+this.changelog_numero+` <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>`))
