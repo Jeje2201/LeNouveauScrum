@@ -116,9 +116,9 @@
 <script>
   $(document).ready(function () {
 
-    $('#dateDebut').val(ChoixDate(0));
+    $('#dateDebut').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
 
-    $('#dateFin').val(ChoixDate(14));
+    $('#dateFin').val(CustomYourDate(ChoixDate(14),'dd/mm/yyyy'));
 
     GetNumeroSprintMax();
 
@@ -126,7 +126,7 @@
 
     RequeteAjax('result', 'Load', 'Modele/Sprint.php')
 
-    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     $('#BouttonInfo').click(function () {
       $('#ModalInfoAttribuable').modal('show');
@@ -192,8 +192,8 @@
           $('#action').val("Update"); //This code will change Button value to Update
           $('#id').val(id); //It will define value of id variable to this sprint id hidden field
           $('#numeroo').val(data.sprint_numero); //It will assign value to modal first name texbox
-          $('#dateDebutt').val(CustomYourDate(data.sprint_dateDebut)); //It will assign value of modal last name textbox
-          $('#dateFinn').val(CustomYourDate(data.sprint_dateFin)); //It will assign value of modal last name textbox
+          $('#dateDebutt').val(CustomYourDate(data.sprint_dateDebut,'dd/mm/yyyy')); //It will assign value of modal last name textbox
+          $('#dateFinn').val(CustomYourDate(data.sprint_dateFin,'dd/mm/yyyy')); //It will assign value of modal last name textbox
           $('#attribuableEdition').val(data.sprint_attribuable);
         }
       });

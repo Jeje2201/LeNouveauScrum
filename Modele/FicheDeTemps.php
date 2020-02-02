@@ -379,19 +379,13 @@ function MinutesEnHeures($Minutes)
         $output = array();
         $statement = $connection->prepare(
           "SELECT * FROM fiche_de_temps 
-        WHERE id = '" . $_POST["id"] . "' 
+        WHERE fiche_de_temps_pk = '" . $_POST["id"] . "' 
         LIMIT 1"
         );
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["Done"] = date("d-m-Y", strtotime($result["Done"]));
-        $output["Log"] = date("d-m-Y", strtotime($result["Log"]));
-        $output["Time"] = $result["Time"];
-        $output["Ressource"] = $result["Fk_User"];
-        $output["Projet"] = $result["Fk_Project"];
-
-        print json_encode($output);
+        print json_encode($result);
       }
 
       //Update une fiche de temps

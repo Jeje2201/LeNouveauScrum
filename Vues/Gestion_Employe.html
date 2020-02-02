@@ -14,7 +14,7 @@
           </div>
 
           <div class="col-lg-3">
-              <button type="button" id="modal_button" class="btn btn-block btn-success" onclick="$('#EtapeRessource').modal('show');"><i class="fa fa-handshake-o" aria-hidden="true"></i> Etapes ressource</button>
+              <button type="button" class="btn btn-block btn-success" id="BoutonEtapeNouvelleRessource"><i class="fa fa-handshake-o" aria-hidden="true"></i> Etapes ressource</button>
           </div>
         </div>
 
@@ -128,7 +128,7 @@
   </div>
 </div>
 
-  <div id="EtapeRessource" class="modal fade">
+  <!-- <div id="EtapeRessource" class="modal fade">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -197,13 +197,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 <script>
 
   $(document).ready(function () {
 
-    $('#RegisterDate').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#RegisterDate').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
@@ -214,11 +214,18 @@
       $('#Initial').val(($("#Prenom").val()).charAt(0).toUpperCase()+($("#Nom").val()).charAt(0).toUpperCase())
     })
 
+    
+    $('#BoutonEtapeNouvelleRessource').click(function () {
+      window.open('https://docs.google.com/document/d/1oQel9RF6cJPf1CVkX5CIPWy-AKCYR5N8IqP5SUnOCiM','_blank');
+      $('#EtapeRessource').modal('show');
+    })
+
+
     $('#modal_button').click(function () {
       $('#InfoMdp').show()
       $('#ModalEmploye').modal('show');
       $('.modal-title').text("Ajouter une ressource");
-      $('#RegisterDate').val(ChoixDate(0));
+      $('#RegisterDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
       $('#action').val('Ajouter');
       $('#Prenom').val('');
       $('#Email').val('');
@@ -318,7 +325,7 @@
           $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
           $('#Email').val(data.Mail);
-          $('#RegisterDate').val(data.RegisterDate);
+          $('#RegisterDate').val(CustomYourDate(data.RegisterDate,'dd/mm/yyyy'));
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
           $('#mdp').hide();

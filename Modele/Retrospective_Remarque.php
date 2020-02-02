@@ -18,9 +18,10 @@ if (isset($_POST["action"])) {
   if ($_POST["action"] == "getRemarque") {
 
     $statement = $connection->prepare(
-      "SELECT * FROM retrospective_remarque 
-     WHERE retrospective_remarque_pk = '" . $_POST["remarque_id"] . "' 
-     LIMIT 1"
+      "SELECT *
+      FROM retrospective_remarque 
+      WHERE retrospective_remarque_pk = '" . $_POST["remarque_id"] . "' 
+      LIMIT 1"
     );
     $statement->execute();
     $result = $statement->fetch();

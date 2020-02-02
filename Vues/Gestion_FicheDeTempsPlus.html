@@ -38,7 +38,7 @@
     <script>
       $(document).ready(function () {
 
-        $('#Start, #Finish').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+        $('#Start, #Finish').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
         // RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
         // RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
@@ -46,8 +46,8 @@
         BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
         $("#projetId").select2({width: "100%"});
 
-        $('#Start').val(ChoixDate(-7));
-        $('#Finish').val(ChoixDate(0));
+        $('#Start').val(CustomYourDate(ChoixDate(-7),'dd/mm/yyyy'));
+        $('#Finish').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
 
         ChargerTableauListeFdT()
 

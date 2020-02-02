@@ -190,7 +190,7 @@
         width: "100%"
       });
 
-    $('#Echange_Date').datetimepicker({format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#Echange_Date').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     var projectId = parseInt(location.href.split('projet=')[1])
     
@@ -476,7 +476,7 @@
     
     $('#ModaleAddEchange').bind( "click", function() {
       ShowAndClearModaleForNew('ModaleComment','EditEchange','AddEchange')
-      $('#Echange_Date').val(ChoixDate(0));
+      $('#Echange_Date').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
       $('#Echange_Label').val('');
     });
 

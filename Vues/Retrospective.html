@@ -139,7 +139,7 @@
     var admin = isAdmin()
 
     $('#DateDebut, #DateFin').datetimepicker({
-    format: 'dd-mm-yyyy',
+    format: 'dd/mm/yyyy',
     autoclose: true,
     minView: 2,
     weekStart: 1
@@ -313,7 +313,7 @@
 
     $('#BouttonRemarque').click(function () {
       ShowAndClearModaleForNew('ModalRemarque', 'EditerRemarque', 'CreerRemarque')
-      $('#DateDebut').val(ChoixDate(0));
+      $('#DateDebut').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
     });
 
     $('#CreerRemarque').click(function () {
@@ -353,8 +353,8 @@
           $('#ModalRemarque').modal('show');
           $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#LabelRemarque').val(data.retrospective_remarque_label);
-          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation));
-          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini));
+          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation,'dd/mm/yyyy'));
+          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini,'dd/mm/yyyy'));
         }
       });
 

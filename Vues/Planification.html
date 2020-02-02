@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-7">
+        <div class="col-lg-9">
 
           <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
@@ -41,11 +41,11 @@
           <div id="TableListHeuresAttribueesRessources" class="table-responsive table-hover">
           </div>
         </div>
-        <div class="col-lg-2">
+        <!-- <div class="col-lg-2">
           <div id="TableauListeHeuresAttrbueesProjets" class="table-responsive table-hover">
           </div>
 
-        </div>
+        </div> -->
       </div>
     </div>
 </body>
@@ -247,9 +247,6 @@
 <div id="ModalGestionHeuresDescendues" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
 
         <div class="form-group">
@@ -312,7 +309,7 @@
       });
 
     $('#Done').datetimepicker({
-      format: 'dd-mm-yyyy',
+      format: 'dd/mm/yyyy',
       autoclose: true,
       minView: 2,
       weekStart: 1
@@ -449,14 +446,13 @@
         dataType: "json",
         success: function (data) {
           $('#ModalGestionHeuresDescendues').modal('show');
-          $('.modal-title').text("Metre à jour les heures descendues");
           $('#id_planif').val(id);
           $('#idSprint').val(data.id_Sprint);
           $('#ListeEmployeEditionTache').val(data.id_Employe);
           $('#ListeProjeteditionTache').val(data.id_Projet);
           $('#nbheureEditionTache').val(data.heure);
           $('#LabelTache').val(data.Label);
-          $('#Done').val(data.Done);
+          $('#Done').val(CustomYourDate(data.Done,'dd/mm/yyyy'));
 
           $("#ListeEmployeEditionTache, #ListeProjeteditionTache").select2({
             width: "100%"

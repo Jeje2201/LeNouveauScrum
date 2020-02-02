@@ -138,9 +138,9 @@
   <script>
     $(document).ready(function () {
 
-      $('#Start, #End').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1 });
-      $('#Start').val(ChoixDate(-1));
-      $('#End').val(ChoixDate(0));
+      $('#Start, #End').datetimepicker({ format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1 });
+      $('#Start').val(CustomYourDate(ChoixDate(-1),'dd/mm/yyyy'));
+      $('#End').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
 
 
       //Affiche la modal quand oublie son mot de passe

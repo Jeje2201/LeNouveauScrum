@@ -67,7 +67,7 @@
   $(document).ready(function () {
 
     $('#DateDebut, #DateFin').datetimepicker({
-    format: 'dd-mm-yyyy',
+    format: 'dd/mm/yyyy',
     autoclose: true,
     minView: 2,
     weekStart: 1
@@ -92,22 +92,22 @@
 
 
             var tableRemarque = $(`<tr>
-                                <td>` + this.remarque_dateCreation + `</td>
-                                <td>` + this.remarque_dateFini + `</td>
-                                <td>` + this.remarque_label + `</td>
+                                <td>` + CustomYourDate(this.retrospective_remarque_dateCreation,'dd/mm/yyyy') + `</td>
+                                <td>` + CustomYourDate(this.retrospective_remarque_dateFini,'dd/mm/yyyy') + `</td>
+                                <td>` + this.retrospective_remarque_label + `</td>
                               </tr>`);
 
             var $colloneBoutons = $('<td />');
 
             var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-            $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.remarque_id +
+            $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.retrospective_remarque_pk +
               '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getRemarque(this.id.split('_')[2])
             }));
 
-            $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.remarque_id +
+            $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.retrospective_remarque_pk +
               '" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellRemarque(this.id.split('_')[2])
@@ -138,10 +138,10 @@
         success: function (data) {
 
           $('#ModalRemarque').modal('show');
-          $('#remarque_id').val(data.RetrospectiveRemarque_id);
-          $('#labelRemarque').val(data.RetrospectiveRemarque_Label);
-          $('#DateDebut').val(data.RetrospectiveRemarque_DateCreation);
-          $('#DateFin').val(data.RetrospectiveRemarque_DateFini);
+          $('#remarque_id').val(remarque_id);
+          $('#labelRemarque').val(data.retrospective_remarque_label);
+          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation,'dd/mm/yyyy'));
+          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini),'dd/mm/yyyy');
         }
       });
 

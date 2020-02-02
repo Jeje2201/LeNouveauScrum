@@ -80,7 +80,7 @@
   $(document).ready(function () {
 
     $('#DateEffectue, #DateCree').datetimepicker({
-    format: 'dd-mm-yyyy',
+    format: 'dd/mm/yyyy',
     autoclose: true,
     minView: 2,
     weekStart: 1
@@ -109,8 +109,8 @@
           $.each(data, function () {
 
             var tableDemos = $(`<tr>
-                                <td>` + this.retrospective_demo_dateCree + `</td>
-                                <td>` + this.retrospective_demo_dateEffectue + `</td>
+                                <td>` + CustomYourDate(this.retrospective_demo_dateCree,'dd/mm/yyyy') + `</td>
+                                <td>` + CustomYourDate(this.retrospective_demo_dateEffectue,'dd/mm/yyyy') + `</td>
                                 <td>` + this.user_prenom + ` ` + this.user_initial + `</td>
                                 <td>` + this.projet_nom + `</td>
                                 <td>` + this.retrospective_demo_label + `</td>
@@ -160,8 +160,8 @@
           $('#employeId').val(data.retrospective_demo_fk_user);
           $('#ProjetDemo').val(data.retrospective_demo_fk_projet);
           $('#LabelDemo').val(data.retrospective_demo_label);
-          $('#DateEffectue').val(CustomYourDate(data.retrospective_demo_dateEffectue));
-          $('#DateCree').val(CustomYourDate(data.retrospective_demo_dateCree));
+          $('#DateEffectue').val(CustomYourDate(data.retrospective_demo_dateEffectue,'dd/mm/yyyy'));
+          $('#DateCree').val(CustomYourDate(data.retrospective_demo_dateCree,'dd/mm/yyyy'));
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"

@@ -26,7 +26,7 @@ $(document).ready(function () {
         $.each(data, function () {
 
           var divUnChangelog = $(`<div class="my-3"></div>`);
-          divUnChangelog.append($(`<h5 class="d-inline text-secondary"> n°`+this.changelog_numero+` </h5> <h4 class="d-inline"> `+this.changelog_titre+` </h4> <h5 class="d-inline text-secondary"> `+CustomYourDate(this.changelog_date)+` </h5>`));
+          divUnChangelog.append($(`<h5 class="d-inline text-secondary"> n°`+this.changelog_numero+` </h5> <h4 class="d-inline"> `+this.changelog_titre+` </h4> <h5 class="d-inline text-secondary"> `+CustomYourDate(this.changelog_date, 'dd/mm/yyyy')+` </h5>`));
           divUnChangelog.append($(`<p class="mt-2">`+this.changelog_contenue.replace(/\n/g, "<br>")+`</p>`))
 
           if(this.changelog_meme!=""){

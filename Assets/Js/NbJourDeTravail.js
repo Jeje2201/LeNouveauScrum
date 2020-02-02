@@ -134,6 +134,10 @@ function CustomYourDate(LaDate,LeFormat = "yyyy-mm-dd"){
 
     var jour,mois,annee
 
+    if(LaDate == "" || LaDate == null || LaDate == undefined){
+      return ""
+    }
+
     if((/^[0-9]{4}/g).test(LaDate)){
         var jour = LaDate.slice(8,10)
         var mois = LaDate.slice(5,7)
@@ -149,16 +153,12 @@ function CustomYourDate(LaDate,LeFormat = "yyyy-mm-dd"){
     switch (LeFormat) {
       case 'dd-mm-yyyy':
         return jour + '-' + mois + '-'+ annee
-        break;
       case 'dd/mm/yyyy':
         return jour + '/' + mois + '/'+ annee
-        break;
       case 'yyyy-mm-dd':
         return annee + '-' + mois + '-'+ jour
-        break;
     case 'yyyy/mm/dd':
         return annee + '/' + mois + '/'+ jour
-        break;
     }
 
 }
@@ -177,28 +177,28 @@ function AjouterJourFrDevantDate(date) {
 
     switch (dateconnupourcheckday.getDay()) {
       case 1:
-        retourDate.push("Lun " + date[i])
+        retourDate.push("Lun " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 2:
-        retourDate.push("Mar " + date[i])
+        retourDate.push("Mar " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 3:
-        retourDate.push("Mer " + date[i])
+        retourDate.push("Mer " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 4:
-        retourDate.push("Jeu " + date[i])
+        retourDate.push("Jeu " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 5:
-        retourDate.push("Ven " + date[i])
+        retourDate.push("Ven " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 6:
-        retourDate.push("Sam " + date[i])
+        retourDate.push("Sam " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       case 0:
-        retourDate.push("Dim " + date[i])
+        retourDate.push("Dim " + CustomYourDate(date[i],'dd/mm/yyyy'))
         break;
       default:
-        retourDate.push("NANI?" + date[i])
+        retourDate.push("NANI?" + CustomYourDate(date[i],'dd/mm/yyyy'))
     }
   }
 

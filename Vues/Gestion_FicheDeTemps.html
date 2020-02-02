@@ -68,15 +68,13 @@
 <script>
   $(document).ready(function () {
 
-    $('#Done, #Log, #DateACheck').datetimepicker({ format: 'dd-mm-yyyy', autoclose: true, minView: 2, weekStart: 1 });
+    $('#Done, #Log').datetimepicker({ format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1 });
     
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
     ChargerTableauListeFdT();
     BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
-
-    $('#DateACheck').val(ChoixDate(0));
 
     function ChargerTableauListeFdT() {
       $.ajax({
@@ -111,11 +109,11 @@
         success: function (data) {
           $('#ModaleFicheDeTemps').modal('show');
           $('#id').val(id);
-          $('#employeId').val(data.Ressource);
-          $('#projetId').val(data.Projet);
-          $('#Time').val(data.Time);
-          $('#Done').val(data.Done);
-          $('#Log').val(data.Log);
+          $('#employeId').val(data.fiche_de_temps_fk_user);
+          $('#projetId').val(data.fiche_de_temps_fk_projet);
+          $('#Time').val(data.fiche_de_temps_time);
+          $('#Done').val(CustomYourDate(data.fiche_de_temps_done,'dd/mm/yyyy'));
+          $('#Log').val(CustomYourDate(data.fiche_de_temps_log,'dd/mm/yyyy'));
 
 				  $("#projetId, #employeId").select2({width: "100%"});
         }
