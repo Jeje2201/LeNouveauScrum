@@ -59,21 +59,24 @@
         $numero = $_POST["idAffiche"];
 
         $statement = $connection->prepare("SELECT sum(tache_heure) AS NbHeure,
-        (
           (
             SELECT sprint_attribuable
             FROM sprint
             WHERE sprint_pk = $numero
-          )- sum(tache_heure)
-        ) AS Attribuable,
+          ) - sum(tache_heure)
+         AS Attribuable,
         user_prenom,
         user_initial
         FROM tache
-        inner JOIN user
-          ON user_pk = tache_fk_user
+        inner JOIN user ON user_pk = tache_fk_user
         WHERE tache_fk_sprint = $numero
-        GROUP BY tache_fk_user
-        ORDER BY user_prenom ASC");
+        GROUP BY tache_fk_user    
+        union 
+        select 0, 60, user_prenom, user_initial  from user where user_pk not in (
+        select tache_fk_user from tache where tache_fk_sprint = $numero group by tache_fk_user)
+        and user_actif = 1 and user_mailCir = 1
+        order by 1 desc,3
+        ");
           $statement->execute();
           $result = $statement->fetchAll();
           $output = '';
