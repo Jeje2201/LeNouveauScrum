@@ -28,22 +28,18 @@
 <div id="ModalInterference" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
 
-        <div class="form-group">
-          <label>Nombre heures</label>
-          <input class="form-control" id="nbheure" type="number" min="1" value="1">
-        </div>
-
-        <div id="leProjet" class="form-group">
-          <label>Projet</label>
-          <div id="ListProjet"> </div>
-        </div>
-
-        <div class="form-group">
+        <div class='row mb-2'>
+           <div class='col'>
+              <label>Nombre heures</label>
+              <input class="form-control" id="nbheure" type="number" min="1" value="1">
+            </div>
+           <div class='col'>
+              <label>Projet</label>
+              <div id="ListProjet"> </div>
+           </div>
+           <div class='col'>
           <label>Type</label>
           <select class="form-control"  id="typeinterference" >'
             <option value="Interférence">Interférence</option>
@@ -52,13 +48,11 @@
             <option value="Bugs">Bugs</option>
             <option value="Aide">Aide</option>
           </select>
+           </div>
         </div>
-
-        <div class="form-group">
           <label>Informations / Raison (peut être laissé vide)</label>
           <!-- <input class="form-control" type="text"> -->
           <textarea class="form-control" id="labelinterference" rows="2"></textarea>
-        </div>
 
       </div>
       <div class="modal-footer">
@@ -106,7 +100,6 @@
     $('#modal_button').click(function () {
       $('#labelinterference').val('');
       $('#ModalInterference').modal('show');
-      $('.modal-title').text("Ajouter une interférence");
       $('#action').val('Ajouter');
       $('#nbheure').val('0'),
 
@@ -152,7 +145,6 @@
         dataType: "json",
         success: function (data) {
           $('#ModalInterference').modal('show');
-          $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 
           $('#id').val(id);

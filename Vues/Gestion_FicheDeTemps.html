@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-10">
+        <div class="col">
 
           <h3>Gestion des feuilles de temps</h3>
           <div class="row">
@@ -29,30 +29,30 @@
       </div>
       <div class="modal-body">
 
-        <div class="form-group">
-          <label>Ressource</label>
-          <div id="ListEmploye"> </div>
-        </div>
+        <div class='row mb-2'>
+           <div class='col'>
+            <label>Ressource</label>
+            <div id="ListEmploye"> </div>
+           </div>
+           <div class='col'>
+            <label>Projet</label>
+            <div id="ListProjet"> </div>
+           </div>
+          </div>
 
-        <div class="form-group">
-          <label>Projet</label>
-          <div id="ListProjet"> </div>
-        </div>
+          <div class='row mb-2'>
+             <div class='col'>
+              <label>Done</label>
+              <input type="text" class="form-control" id="Done">
+             </div>
+             <div class='col'>
+              <label>Log</label>
+              <input type="text" class="form-control" id="Log">
+             </div>
+          </div>
 
-        <div class="form-group">
           <label>Jours de travail ( 0 ou 0,5 ou 1 )</label>
           <input type="number" class="form-control" id="Time" step="0.25" max="7" min="0.25">
-        </div>
-
-        <div class="form-group">
-          <label>Done</label>
-          <input type="text" class="form-control" id="Done">
-        </div>
-
-        <div class="form-group">
-          <label>Log</label>
-          <input type="text" class="form-control" id="Log">
-        </div>
 
       </div>
 
