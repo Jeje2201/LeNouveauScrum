@@ -44,17 +44,18 @@
 
             $GroupStory = '';
             if($SameStory != $row["tache_pivotal_id_Story"]){
-            $GroupStory = '<p> </p><span><b><u>'. $row["tache_pivotal_Label_Story"].'</u></b></span>';
+
+
+             
+            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
             $output1 .= $GroupStory . '
-      <div class="card BOUGEMOI p-1" id="' . $row["tache_pk"] . '" onclick="DeplaceToi(this)">
-        <div class="ml-1"><b>' . $row["projet_nom"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '">'. $ShowItsPivotal.'</b><br>
+      <div class="card BOUGEMOI" id="' . $row["tache_pk"] . '" onclick="DeplaceToi(this)">
 
           <span id="LabelDeLaTache">' . PreviewText($row["tache_label"]) . '</span> (' . $row["tache_heure"] . ')
-        <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>
-      </div>';
+        <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
           }
         } else {
           $output1 .= '';
