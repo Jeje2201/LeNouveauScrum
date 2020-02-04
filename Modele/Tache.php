@@ -32,6 +32,7 @@
         $output1 = '';
         $SameStory = '';
         if ($statement->rowCount() > 0) {
+          $LeCounterDeGroupe = 0;
           foreach ($result as $row) {
 
             if($row["projet_avatar"] == null){
@@ -44,15 +45,15 @@
 
             $GroupStory = '';
             if($SameStory != $row["tache_pivotal_id_Story"]){
-
+              $LeCounterDeGroupe +=1;
 
              
-            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
+            $GroupStory = ' </div><div id="GroupOfTacheN'.$LeCounterDeGroupe.'" class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
             $output1 .= $GroupStory . '
-      <div class="card BOUGEMOI" id="' . $row["tache_pk"] . '" onclick="DeplaceToi(this)">
+      <div class="card BOUGEMOI TacheOfGroupN'.$LeCounterDeGroupe.'" id="' . $row["tache_pk"] . '" onclick="DeplaceToi(this)">
 
           <span id="LabelDeLaTache">' . PreviewText($row["tache_label"]) . '</span> (' . $row["tache_heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';

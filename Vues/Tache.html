@@ -183,11 +183,11 @@
 
     function DeplaceToi(id) {
 
-      if ($(id).parent().attr('id') == 'EnCours') {
+      if ($(id).parent().parent().attr('id') == 'EnCours') {
         $(id).prependTo($("#Fini"));
 
       } else {
-        $(id).prependTo($("#EnCours"));
+        $(id).appendTo($("#GroupOfTacheN"+id.classList[2].split('TacheOfGroupN')[1]));
       }
     }
   </script>
