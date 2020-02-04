@@ -30,11 +30,7 @@
     <div class="modal-content">
       <div class="modal-body">
 
-        <div class='row mb-2'>
-           <div class='col'>
-              <label>Nombre heures</label>
-              <input class="form-control" id="nbheure" type="number" min="1" value="1">
-            </div>
+        <div class='row mb-3'>
            <div class='col'>
               <label>Projet</label>
               <div id="ListProjet"> </div>
@@ -49,8 +45,12 @@
             <option value="Aide">Aide</option>
           </select>
            </div>
+           <div class='col'>
+            <label>Nombre d'heures</label>
+            <input class="form-control" id="nbheure" type="number" min="1" value="1">
+          </div>
         </div>
-          <label>Informations / Raison (peut être laissé vide)</label>
+          <label>Informations / Raison (non obligatoire)</label>
           <!-- <input class="form-control" type="text"> -->
           <textarea class="form-control" id="labelinterference" rows="2"></textarea>
 
@@ -101,7 +101,6 @@
       $('#labelinterference').val('');
       $('#ModalInterference').modal('show');
       $('#action').val('Ajouter');
-      $('#nbheure').val('0'),
 
       $("#projetId, #typeinterference" ).select2({width: "100%"});
     });
