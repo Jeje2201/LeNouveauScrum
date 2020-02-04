@@ -68,40 +68,21 @@
           </div>
         </div>
 
-        <p></p>
-        <hr>
-        <p></p>
+        <hr class="my-3">
 
-        <div class="row">
 
-          <div class="row col-lg-12">
-            <h5>&nbsp;&nbsp; Objectifs</h5>
-          </div>
-          <div class="col-lg-9">
-            <textarea class="form-control" placeholder="Faire.." id="LabelObjectif"
-              rows="2"></textarea>
+            <h5>Objectifs</h5>
+            
+            <textarea class="form-control" placeholder="Faire.." id="LabelObjectif" rows="2"></textarea>
 
-          </div>
+            <button type="submit" class="btn btn-success EnvoyerObjectif mt-2 mb-4">Attribuer</button>
+        
 
-          <div class="col-lg-3">
-            <button type="submit" class="btn btn-success EnvoyerObjectif">Attribuer</button>
-          </div>
-        </div>
+            <h5>Démo</h5>
 
-        <p></p>
-
-        <div class="row">
-          <div class="row col-lg-12">
-            <h5>&nbsp;&nbsp; Démo</h5>
-          </div>
-          <div class="col-lg-9">
             <input class="form-control" id="LabelDemo" type="text" placeholder="Présentation de..">
-          </div>
 
-          <div class="col-lg-3">
-            <button id="postDemo" class="btn btn-success">Attribuer</button>
-          </div>
-        </div>
+            <button id="postDemo" class="btn btn-success  mt-2">Attribuer</button>
 
       </div>
       <div class="modal-footer">
@@ -126,43 +107,31 @@
             <div id="ListProjetPivotal"></div>
           </div>
         </div>
-        <p></p>
 
-        <div class="row">
-          <div class="row col-lg-12">
-            <h5>&nbsp;&nbsp; Planification manuelle</h5>
-          </div>
-        </div>
-        <div class="row">
+        <hr class="my-3">
+
+        <h5>Planification manuelle</h5>
+
+        <div class="row mb-4">
           <div class="col-lg-9">
             <input class="form-control" id="nbheure" type="text" placeholder="x+x+x">
           </div>
 
           <div class="col-lg-3">
-            <input type="submit" id="action" class="btn btn-success" value="Attribuer" />
+            <input type="submit" id="action" class="btn btn-block btn-success" value="Attribuer" />
           </div>
         </div>
 
-        <p></p>
+        <h5>Pivotal Tracker</h5>
 
-        <div class="row">
-          <div class="row col-lg-12">
-            <h5>&nbsp;&nbsp; Pivotal Tracker</h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-            <button id="ChercherApiPivotal" class="btn btn-block btn-info">Rechercher</button>
-          </div>
-        </div>
-
-
+        <button id="ChercherApiPivotal" class="btn px-5 btn-info">Rechercher</button>
+      
         <div class="FollowAttribuable">
           <div id="totalheure"></div>
           <button type="submit" id="EnvoyerApiPivotal" class="btn btn-block btn-success">Attribuer</button>
         </div>
-        <p></p>
-        <div id="AucuneStorie" class="hideElement">
+
+        <div id="AucuneStorie" class="hideElement mt-3">
           <h3>Aucunes storie pour ce projet ?</h3>
           <label>
             Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons
@@ -172,7 +141,7 @@
             </ul>
           </label>
         </div>
-        <div id="ListeTachesApi"></div>
+        <div id="ListeTachesApi" class="mt-3"></div>
 
       </div>
       <div class="modal-footer">
@@ -232,9 +201,8 @@
         <u>
           <div class="centered" id="InfoDateSprint"></div>
         </u>
-        <p></p>
 
-        <div id="ListReunion"></div>
+        <div id="ListReunion mt-3"></div>
 
       </div>
       <div class="modal-footer">
