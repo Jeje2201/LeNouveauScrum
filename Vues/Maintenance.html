@@ -17,18 +17,35 @@ body {
 	background: linear-gradient(-45deg, #8B008B, #9932CC, #483D8B, #00008B);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-}
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+
+background: linear-gradient(133deg, #e31616, #4b75df, #a34bdf, #df4b8b);
+background-size: 800% 800%;
+
+-webkit-animation: AnimationName 14s ease infinite;
+-moz-animation: AnimationName 14s ease infinite;
+-o-animation: AnimationName 14s ease infinite;
+animation: AnimationName 14s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 30%}
+    50%{background-position:100% 71%}
+    100%{background-position:0% 30%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 30%}
+    50%{background-position:100% 71%}
+    100%{background-position:0% 30%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 30%}
+    50%{background-position:100% 71%}
+    100%{background-position:0% 30%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 30%}
+    50%{background-position:100% 71%}
+    100%{background-position:0% 30%}
 }
 
 /* Position text in the top-left corner */
