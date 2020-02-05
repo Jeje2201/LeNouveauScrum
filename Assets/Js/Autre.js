@@ -31,7 +31,7 @@ $.ajax({
   },
   dataType: "json",
   success: function (data) {
-    if(localStorage.getItem('LastVersionKnown') != data[0].changelog_numero){
+    if(localStorage.getItem('LastVersionKnown') != data.length){
       $('#ChangelogBadge').append('<span id="newsgithub" class="badge badge-danger ml-2">News !</span>')
     }
   }
