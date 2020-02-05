@@ -1,20 +1,8 @@
 <style>
-/* Set height to 100% for body and html to enable the background image to cover the whole page: */
-body, html {
-  height: 100%
-}
-
+  
 .bgimg {
-  /* Background image */
-  background: #ff6e7f;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #bfe9ff, #ff6e7f);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #bfe9ff, #ff6e7f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   /* Full-screen */
   height: 100%;
-  /* Center the background image */
-  background-position: center;
-  /* Scale and zoom in the image */
-  background-size: cover;
   /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
   position: relative;
   /* Add a white text color to all elements inside the .bgimg container */
@@ -23,6 +11,24 @@ body, html {
   font-family: "Courier New", Courier, monospace;
   /* Set the font-size to 25 pixels */
   font-size: 25px;
+}
+
+body {
+	background: linear-gradient(-45deg, #8B008B, #9932CC, #483D8B, #00008B);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 /* Position text in the top-left corner */
@@ -36,7 +42,7 @@ body, html {
 .bottomleft {
   position: absolute;
   bottom: 0;
-  left: 16px;
+  right: 16px;
 }
 
 /* Position text in the middle */
@@ -56,15 +62,15 @@ hr {
 </style>
 
 <div class="bgimg">
-    <!-- <div class="topleft">
-      <p>Scrum Manager</p>
-    </div> -->
+    <div class="topleft">
+      <p>Tu rempliras ta fiche de temps un autre fois ¯\_(ツ)_/¯</p>
+    </div>
     <div class="middle">
       <h1>BIENTÔT DISPONIBLE</h1>
       <hr>
       <p>Scrum manager est en maintenance</p>
     </div>
     <div class="bottomleft">
-      <p>Tout va bien, merci de ne pas stresser Jérémy Leriche.</p>
+      <p>Tout va bien, Jérémy Leriche s'occupe d'améliorer son bébé.</p>
     </div>
   </div>
