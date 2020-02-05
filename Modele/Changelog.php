@@ -7,7 +7,7 @@
     if ($_POST["action"] == "GetChangelogs") {
       $output = array();
       $statement = $connection->prepare(
-        "SELECT * FROM changelog ORDER BY changelog_numero desc"
+        "SELECT * FROM changelog ORDER BY changelog_date desc"
       );
       $statement->execute();
       $result = $statement->fetchAll();
