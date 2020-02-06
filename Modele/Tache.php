@@ -23,7 +23,7 @@
           FROM tache
           INNER JOIN projet ON projet_pk = tache_fk_projet
           WHERE tache_fk_sprint = " . $_POST["idAffiche"] . "
-          AND tache_done IS NULL
+          
           AND tache_fk_user = " . $_SESSION['user']['id'] . "
           ORDER BY tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task, projet_nom");
 
@@ -52,8 +52,17 @@
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
+            if($row["tache_done"] == ""){
+              $classOfTache = "pointer";
+              $Fonction = 'onclick="DeplaceToi(this)"';
+            }
+            else{
+              $classOfTache = "PASTOUCHE";
+              $Fonction = '';
+            }
+
             $output1 .= $GroupStory . '
-      <div class="card BOUGEMOI TacheOfGroupN'.$LeCounterDeGroupe.'" id="' . $row["tache_pk"] . '" onclick="DeplaceToi(this)">
+      <div class="card '.$classOfTache.' TacheOfGroupN'.$LeCounterDeGroupe.'" id="' . $row["tache_pk"] . '" '.$Fonction.'>
 
           <span id="LabelDeLaTache">' . PreviewText($row["tache_label"]) . '</span> (' . $row["tache_heure"] . ')
         <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
@@ -62,36 +71,7 @@
           $output1 .= '';
         }
 
-        $statement = $connection->prepare("SELECT *
-        FROM tache
-        INNER JOIN projet ON projet_pk = tache_fk_projet
-        WHERE tache_fk_sprint =  $numero
-        AND tache_done IS NOT NULL
-        AND tache_fk_user = '" . $_SESSION['user']['id'] . "'
-        ORDER BY tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task, projet_nom");
-
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output2 = '';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-
-            if($row["projet_avatar"] == null){
-              $row["projet_avatar"] = 'default.png';
-            }
-
-            $output2 .= '
-<div class="card PASTOUCHE p-1">
-  <div class="ml-2"><b>' . $row["projet_nom"] . ' <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"></b><br>
-    ' . PreviewText($row["tache_label"]) . ' (' . $row["tache_heure"] . ')
-  </div>
-</div>';
-          }
-        } else {
-          $output2 .= '';
-        }
         $Test->Attribution = $output1;
-        $Test->Descendue = $output2;
 
         print json_encode($Test);
       }

@@ -4,8 +4,6 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      
-
       <div class="row mb-3">
         
         <div class="col">
@@ -21,25 +19,8 @@
       </div>
 
       <div class="row">
-        <div class="col">
-          <div class="card">
-            <div class="card-header centered">
-              En cours
-            </div>
-            <div class="card-body card-columns DeplacementDeTache" id="EnCours"></div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card">
-            <div class="card-header centered">
-              Validée
-            </div>
-            <div class="card-body card-columns DeplacementDeTache" id="Fini"></div>
-          </div>
-
-        </div>
-      </div>
+        <div class="col" id="EnCours"></div>
+    </div>
     </div>
   </body>
   <script>
@@ -60,7 +41,6 @@
           },
           success: function (data) {
             $('#EnCours').html(data.Attribution);
-            $('#Fini').html(data.Descendue);
           }
         });
       }
@@ -72,7 +52,6 @@
 
       $('#Descendre').click(function () {
         
-        var dateDescente
         $.ajax({
               url: "Modele/Tache.php",
               method: "POST",
@@ -111,6 +90,8 @@
                   var Task_id_Pivotal = $(this)
                     .children('#TaskId')
                     .text()
+
+                    debugger
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
 
@@ -180,12 +161,14 @@
     });
 
     function DeplaceToi(id) {
+      $(id).toggleClass("border-success");
+      // debugger
 
-      if ($(id).parent().parent().attr('id') == 'EnCours') {
-        $(id).prependTo($("#Fini"));
+      // if ($(id).parent().parent().attr('id') == 'EnCours') {
+      //   $(id).prependTo($("#Fini"));
 
-      } else {
-        $(id).appendTo($("#GroupOfTacheN"+id.classList[2].split('TacheOfGroupN')[1]));
-      }
+      // } else {
+      //   $(id).appendTo($("#GroupOfTacheN"+id.classList[2].split('TacheOfGroupN')[1]));
+      // }
     }
   </script>

@@ -192,7 +192,6 @@
         },
         success: function (data) {
           $('#CouleurUser').val('#' + data.split('#')[1].split(' ')[0]);
-          $('.BOUGEMOI').css("border-left", '5px solid #' + data.split('#')[1].split(' ')[0]);
         }
       });
 
@@ -259,7 +258,6 @@
       //Quand change la couleur pour les taches
       $('#CouleurUser').change(function () {
 
-        $('.BOUGEMOI').css('border-left', '5px solid ' + $('#CouleurUser').val())
         $.ajax({
           url: "Modele/Parametre.php",
           method: "POST",
