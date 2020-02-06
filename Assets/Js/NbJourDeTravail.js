@@ -17,7 +17,7 @@ function FusionnerJoursEtHeures(Debut, Fin, JoursAvecHeures, HeuresDesJours) {
 
     for (y = 0; y < JoursAvecHeures.length; y++) {
 
-      if (listeJoursDansSprint[i] == JoursAvecHeures[y]) {
+      if (CustomYourDate(listeJoursDansSprint[i]) == CustomYourDate(JoursAvecHeures[y])) {
 
         var JourValide = 1
         HeuresDescenduesParJoursSurToutLeSprint.push(HeuresDesJours[y])
