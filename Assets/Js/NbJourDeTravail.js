@@ -70,7 +70,7 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
 
     for (y = 0; y < JoursAvecHeures.length; y++) {
 
-      if (listeJoursDansSprint[i] == JoursAvecHeures[y]) {
+      if (listeJoursDansSprint[i] == CustomYourDate(JoursAvecHeures[y])) {
 
         var JourValide = 1
         HeureActuelle = HeuresDesJours[y]
@@ -249,15 +249,9 @@ function NbJourDeTravail(DateDebut, DateFin) {
  */
 function ListeJoursDate(DateDebut, DateFin) {
 
-  if (DateDebut.split('-')[0].length != 4)
-    start = new Date(DateDebut.split('-')[2] + '-' + DateDebut.split('-')[1] + '-' + DateDebut.split('-')[0])
-  else
-    start = new Date(DateDebut)
+  start = new Date(CustomYourDate(DateDebut))
 
-  if (DateFin.split('-')[0].length != 4)
-    end = new Date(DateFin.split('-')[2] + '-' + DateFin.split('-')[1] + '-' + DateFin.split('-')[0])
-  else
-    end = new Date(DateFin)
+  end = new Date(CustomYourDate(DateFin))
 
   var EnsembleDeDate = new Array
 
