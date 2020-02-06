@@ -86,7 +86,7 @@ html {
   color:white
 }
 
-.ListeDateManquante{
+#TableTotJoursNonPlein tr{
   cursor: pointer;
 }
 

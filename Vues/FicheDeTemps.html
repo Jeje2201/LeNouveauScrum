@@ -296,7 +296,8 @@
             //Je créer une variable "dates" qui va prendre toutes les jours sauf weekend depuis que la ressource arrive et les écrit comme le tableau precedent YYYY-MM-JJ
             var dates = new Array,
             currentDate = new Date("<?php print($_SESSION['user']['registerDate'] )?>"),
-            today = new Date()
+            today = new Date(CustomYourDate(ChoixDate(0),'yyyy-mm-dd'))
+
             addDays = function(days) {
               var date = new Date(this.valueOf());
               date.setDate(date.getDate() + days);
@@ -317,7 +318,7 @@
               if(!data.includes(element)){
                 console.log(element)
                 $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + CustomYourDate(element,'dd/mm/yyyy') + `</td></tr>`).on('click', function () {
-              $('#StartDate, #EndDate').val(CustomYourDate(element,'dd/mm/yyyy'));
+                $('#StartDate, #EndDate').val(CustomYourDate(element,'dd/mm/yyyy'));
                 ChargerListeHeures1Jour1Ressource();
                 InfoMaxSlider();
             }))

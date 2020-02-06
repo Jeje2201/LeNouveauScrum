@@ -471,7 +471,7 @@ function MinutesEnHeures($Minutes)
           having sum(fiche_de_temps_time)=444
           ");
           $statement->execute();
-          $NbDate[] = $statement->rowCount();
+          $NbDate[] = $statement->rowCount()+1;
         }
 
         $array['NbDatePerUser'] = $NbDate;
