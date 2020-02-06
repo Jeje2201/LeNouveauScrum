@@ -213,7 +213,7 @@
             action: "addFicheDeTemps",
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
-            Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val()),
+            Done: ListeJoursDate(CustomYourDate($('#StartDate').val(),'yyyy-mm-dd'), CustomYourDate($('#EndDate').val(),'yyyy-mm-dd')),
             Log: CustomYourDate(ChoixDate(0))
           },
           success: function (data) {
