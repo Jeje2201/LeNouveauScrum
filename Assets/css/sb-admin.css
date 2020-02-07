@@ -401,7 +401,19 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .card .PASTOUCHE{
-  opacity: 0.6;
+  opacity: 0.3;
+}
+
+.TacheGonnaBeDone{
+  border-color: #28a745 !important;
+}
+
+.TacheGonnaBeDone img{
+  display: block !important;
+  position: absolute;
+  width: 22px;
+  left: -10px;
+  top: -8px;
 }
 
 .card .PASTOUCHE:hover{

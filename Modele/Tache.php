@@ -62,7 +62,7 @@
 
             $output1 .= $GroupStory . '
       <div class="card '.$classOfTache.' TacheOfGroupN'.$LeCounterDeGroupe.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
-
+      <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
           <span id="LabelDeLaTache" class="float-right">' . PreviewText($row["tache_label"]) . '</span><span> (' . $row["tache_heure"] . ')</span>
         <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
           }
