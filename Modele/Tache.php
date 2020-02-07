@@ -29,7 +29,7 @@
         $statement->execute();
         $result = $statement->fetchAll();
         $output1 = '';
-        $SameStory = '';
+        $SameStory = '-';
         if ($statement->rowCount() > 0) {
           $LeCounterDeGroupe = 0;
           foreach ($result as $row) {
