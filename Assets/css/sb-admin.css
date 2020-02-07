@@ -390,16 +390,11 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .cardGroupTache div:not(:first-child){
-  margin-left: 2%;
+  margin-left: 1%;
   padding: 6px;
   border-color: #9a9a9a;
-  width: 96% !important;
+  width: 98% !important;
 }
-
-.cardGroupTache div:nth-child(2) {
-  margin-top: 12px !important;
-}
-
 
 .pointer{
   cursor: pointer;
