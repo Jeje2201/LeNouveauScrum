@@ -316,7 +316,6 @@
             i = 0
             dates.forEach(element => {
               if(!data.includes(element)){
-                console.log(element)
                 $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + CustomYourDate(element,'dd/mm/yyyy') + `</td></tr>`).on('click', function () {
                 $('#StartDate, #EndDate').val(CustomYourDate(element,'dd/mm/yyyy'));
                 ChargerListeHeures1Jour1Ressource();

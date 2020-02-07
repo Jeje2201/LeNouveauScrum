@@ -204,7 +204,6 @@
           action: "GetAvatar"
         },
         success: function (data) {
-          console.log('le avatar: ' + data.avatar)
           if(data.avatar == '' || data.avatar == undefined){
             $('#avatarUser').attr("src", 'Assets/Image/Ressources/default.png');
           }

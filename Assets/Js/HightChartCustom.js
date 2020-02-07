@@ -4,8 +4,6 @@
  * @param {string} div - Nom du div qui va prendre la chart
  */
 function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage, div) {
-  console.log("Id sprint : ", NumeroduSprint + " | Afficher projet: ", affichage);
-  console.log();
 
   $.ajax({
     url: "Modele/Accueil.php",
