@@ -2,22 +2,6 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Couleur cartes</h5>
-            <div class="card-body">
-              <input type="color" class="mb-3" id="CouleurUser">
-              <div class="card BOUGEMOI">
-                <div class="ml-2">
-                  <b>
-                    Prenom Nom | Projet
-                    <img class="LogoProjet" src="Assets/Image/Projets/default.png"></b>
-                  <p class="mb-n1">Texte de la tache</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="col-lg-8">
           <div class="card">
             <h5 class="card-header">Mot de passe</h5>
@@ -184,17 +168,6 @@
         }
       });
 
-      $.ajax({
-        url: "Modele/Parametre.php",
-        method: "POST",
-        data: {
-          action: "GetColor"
-        },
-        success: function (data) {
-          $('#CouleurUser').val('#' + data.split('#')[1].split(' ')[0]);
-        }
-      });
-
       function GetAvatar(){
       $.ajax({
         url: "Modele/Parametre.php",
@@ -253,23 +226,6 @@
           }
         })
       }
-
-      //Quand change la couleur pour les taches
-      $('#CouleurUser').change(function () {
-
-        $.ajax({
-          url: "Modele/Parametre.php",
-          method: "POST",
-          data: {
-            action: "CustomColorName",
-            couleur: $('#CouleurUser').val()
-          },
-          success: function (data) {
-            $.notify(data, "success");
-          }
-        });
-
-      })
 
       //Quand cliccjk pour set le mdp
       $('#SetMdp').click(function () {

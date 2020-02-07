@@ -6,20 +6,6 @@
 
       $idRessource = $_SESSION['user']['id'];
 
-      if ($_POST["action"] == "GetColor") {
-
-        $array = [];
-
-        $statement = $connection->prepare(
-          $sql = "SELECT user_couleur
-        FROM user
-        WHERE user_pk = $idRessource"
-        );
-        $statement->execute();
-        $result = $statement->fetch();
-        print trim($result["user_couleur"]);
-      }
-
       if ($_POST["action"] == "GetAvatar") {
 
         $output = array();
@@ -78,24 +64,6 @@
         }
         $output .= '</tbody></table>';
         print $output;
-      }
-
-      if ($_POST["action"] == "CustomColorName") {
-        $statement = $connection->prepare(
-          "UPDATE user 
-        SET user_couleur = :Couleur
-        WHERE user_pk = :id"
-        );
-        $result = $statement->execute(
-          array(
-            ':Couleur' => $_POST["couleur"],
-            ':id' => $idRessource 
-          )
-        );
-        if (!empty($result))
-          print 'Couleur de tâche changée en '.$_POST["couleur"];
-        else
-          print_r($statement->errorInfo());
       }
     }
 

@@ -21,7 +21,6 @@
       <th>Mail</th>
       <th>Job</th>
       <th>ID Pivotal</th>
-      <th>Couleur</th>
       <th class="centered">Actif</th>
       <th class="centered">Fiche de temps</th>
       <th class="centered">Admin</th>
@@ -38,8 +37,7 @@
               <td>' . $row["user_initial"] . '</td>
               <td>' . $row["user_mail"] . '</td>
               <td>' . $row["user_type"] . '</td>
-              <td>' . $row["user_apiPivotal"] . '</td>
-              <td style="background-color:' . $row["user_couleur"] . '"></td>';
+              <td>' . $row["user_apiPivotal"] . '</td>';
 
             if ($row["user_actif"])
               $output .= '<td class="centered text-white bg-success">Actif</td>';
@@ -78,15 +76,14 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO user (user_prenom, user_nom, user_couleur, user_actif, user_mailCir, user_admin, user_initial, user_type, user_mdp, user_apiPivotal, user_registerDate, user_mail) 
-          VALUES (:prenom, :nom, :Couleur, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
+          "INSERT INTO user (user_prenom, user_nom, user_actif, user_mailCir, user_admin, user_initial, user_type, user_mdp, user_apiPivotal, user_registerDate, user_mail) 
+          VALUES (:prenom, :nom, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
         $result = $statement->execute(
           array(
             ':prenom' => $_POST["Prenom_Employe"],
             ':nom' => $_POST["Nom_Employe"],
-            ':Couleur' => '#000000',
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':admin' => $_POST["admin"],
