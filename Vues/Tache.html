@@ -72,11 +72,11 @@
 
                 var IdAttribue = [];
 
-                $('#Fini .BOUGEMOI').each(function () {
+                $('.TacheGonnaBeDone').each(function () {
                   IdAttribue.push($(this).attr('id'));
                 });
 
-                $('#Fini .BOUGEMOI div').each(function () {
+                $('.TacheGonnaBeDone div').each(function () {
 
                   var TextDeLaTache = $(this)
                     .children('#LabelDeLaTache')
@@ -161,14 +161,6 @@
     });
 
     function DeplaceToi(id) {
-      $(id).toggleClass("border-success");
-      // debugger
-
-      // if ($(id).parent().parent().attr('id') == 'EnCours') {
-      //   $(id).prependTo($("#Fini"));
-
-      // } else {
-      //   $(id).appendTo($("#GroupOfTacheN"+id.classList[2].split('TacheOfGroupN')[1]));
-      // }
+      $(id).toggleClass("TacheGonnaBeDone");
     }
   </script>
