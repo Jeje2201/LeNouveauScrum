@@ -15,7 +15,6 @@
 
       //Fonction pour afficher les cards a DESCendre et DESCendues
       if ($_POST["action"] == "AfficherCards") {
-        $Test = new stdClass;
 
         $numero = $_POST["idAffiche"];
 
@@ -25,7 +24,7 @@
           WHERE tache_fk_sprint = " . $_POST["idAffiche"] . "
           
           AND tache_fk_user = " . $_SESSION['user']['id'] . "
-          ORDER BY tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task, projet_nom");
+          ORDER BY projet_nom, tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -62,18 +61,16 @@
             }
 
             $output1 .= $GroupStory . '
-      <div class="card '.$classOfTache.' TacheOfGroupN'.$LeCounterDeGroupe.'" id="' . $row["tache_pk"] . '" '.$Fonction.'>
+      <div class="card '.$classOfTache.' TacheOfGroupN'.$LeCounterDeGroupe.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
 
-          <span id="LabelDeLaTache">' . PreviewText($row["tache_label"]) . '</span> (' . $row["tache_heure"] . ')
+          <span id="LabelDeLaTache" class="float-right">' . PreviewText($row["tache_label"]) . '</span><span> (' . $row["tache_heure"] . ')</span>
         <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
           }
         } else {
           $output1 .= '';
         }
 
-        $Test->Attribution = $output1;
-
-        print json_encode($Test);
+        print json_encode($output1);
       }
 
       //Ressortir la date min et max du sprint
