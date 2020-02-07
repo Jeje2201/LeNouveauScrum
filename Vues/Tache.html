@@ -76,7 +76,7 @@
                   IdAttribue.push($(this).attr('id'));
                 });
 
-                $('.TacheGonnaBeDone div').each(function () {
+                $('.TacheGonnaBeDone').each(function () {
 
                   var TextDeLaTache = $(this)
                     .children('#LabelDeLaTache')
@@ -91,7 +91,7 @@
                     .children('#TaskId')
                     .text()
 
-                    debugger
+                    console.log('tache pivotal validé par l api\nProjet Api: '+ Project_id_Pivotal+'\nStory id pivtoal: '+ Story_id_Pivotal+'\n Tache id pivotal:'+ Task_id_Pivotal)
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
 
