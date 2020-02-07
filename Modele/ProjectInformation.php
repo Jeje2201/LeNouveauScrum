@@ -135,7 +135,7 @@ require_once('../Modele/Configs.php');
         $TableauEmploye = $_POST["UserId"];
 
         $statement = $connection->prepare(
-        "INSERT INTO projet_ressource (projet_ressource_fk_projet, projet_ressource_fk_ressource) 
+        "INSERT INTO projet_ressource (projet_ressource_fk_projet, projet_ressource_fk_user) 
         VALUES (:id_projet, :id_ressource)
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
