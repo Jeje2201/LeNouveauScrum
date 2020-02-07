@@ -45,10 +45,6 @@
               <label>Done</label>
               <input type="text" class="form-control" id="Done">
              </div>
-             <div class='col'>
-              <label>Log</label>
-              <input type="text" class="form-control" id="Log">
-             </div>
           </div>
 
           <label>Jours de travail ( 0 ou 0,5 ou 1 )</label>
@@ -68,7 +64,7 @@
 <script>
   $(document).ready(function () {
 
-    $('#Done, #Log').datetimepicker({ format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1 });
+    $('#Done').datetimepicker({ format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1 });
     
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
@@ -113,7 +109,6 @@
           $('#projetId').val(data.fiche_de_temps_fk_projet);
           $('#Time').val(data.fiche_de_temps_time);
           $('#Done').val(CustomYourDate(data.fiche_de_temps_done,'dd/mm/yyyy'));
-          $('#Log').val(CustomYourDate(data.fiche_de_temps_log,'dd/mm/yyyy'));
 
 				  $("#projetId, #employeId").select2({width: "100%"});
         }
@@ -131,7 +126,6 @@
           Projet: $('#projetId').val(),
           Time: $('#Time').val(),
           Done: CustomYourDate($('#Done').val()),
-          Log: CustomYourDate($('#Log').val()),
           action: "Update"
         },
         success: function (data) {

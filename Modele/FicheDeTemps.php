@@ -30,8 +30,7 @@ function MinutesEnHeures($Minutes)
         user_initial,
         projet_nom,
         fiche_de_temps_time,
-        fiche_de_temps_done,
-        fiche_de_temps_log
+        fiche_de_temps_done
         FROM fiche_de_temps C
         inner join user on fiche_de_temps_fk_user = user_pk
         inner join projet on fiche_de_temps_fk_projet = projet_pk
@@ -49,7 +48,6 @@ function MinutesEnHeures($Minutes)
         <th width="">Projet</th>
         <th width="">Heure(s)</th>
         <th width="">Date</th>
-        <th width="">Log</th>
         <th width=""><center>Éditer</center></th>
         </tr>
         </thead>
@@ -62,7 +60,6 @@ function MinutesEnHeures($Minutes)
             <td>' . $row["projet_nom"] . '</td>
             <td>' . $row["fiche_de_temps_time"] . '</td>
             <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_done"])) . '</td>
-            <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_log"])) . '</td>
             <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></div></center></td>
             </tr>';
           }
@@ -341,8 +338,6 @@ function MinutesEnHeures($Minutes)
           }
         }
 
-
-
         $JsonResult['Liste'] = $Liste;
         $JsonResult['Texte'] = $ListeText;
 
@@ -350,19 +345,18 @@ function MinutesEnHeures($Minutes)
           for ($i = 0; $i < sizeof($LesDates); $i++) {
 
             $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
-            if((date('N', strtotime($LaDate)) < 6)){
+            if(date('w', strtotime($LaDate)) != 0 && date('w', strtotime($LaDate)) != 6){
 
             $statement = $connection->prepare("
-            INSERT INTO fiche_de_temps (fiche_de_temps_fk_user, fiche_de_temps_fk_projet, fiche_de_temps_time, fiche_de_temps_done, fiche_de_temps_log) 
-            VALUES (:Fk_User, :Fk_Project, :Time, :Done, :Log)");
+            INSERT INTO fiche_de_temps (fiche_de_temps_fk_user, fiche_de_temps_fk_projet, fiche_de_temps_time, fiche_de_temps_done) 
+            VALUES (:Fk_User, :Fk_Project, :Time, :Done)");
     
               $result = $statement->execute(
                 array(
                   ':Fk_User' => $_SESSION['user']['id'],
                   ':Fk_Project' => $_POST["Projet"],
                   ':Time' => $_POST["Time"],
-                  ':Done' => $LaDate,
-                  ':Log' => $_POST["Log"]
+                  ':Done' => $LaDate
                 )
               );
               if (empty($result)){
@@ -393,16 +387,15 @@ function MinutesEnHeures($Minutes)
 
         $statement = $connection->prepare(
           "UPDATE fiche_de_temps
-        SET Fk_User = :User, Fk_Project= :Project, Time = :Time, Done = :Done, Log = :Log 
-        WHERE id = :id"
+        SET fiche_de_temps_fk_user = :User, fiche_de_temps_fk_projet= :Project, fiche_de_temps_time = :Temps, fiche_de_temps_done = :Done 
+        WHERE fiche_de_temps_pk = :id"
         );
         $result = $statement->execute(
           array(
             ':User' => $_POST["Employe"],
             ':Project' => $_POST["Projet"],
-            ':Time' => $_POST["Time"],
+            ':Temps' => $_POST["Time"],
             ':Done' => $_POST["Done"],
-            ':Log' => $_POST["Log"],
             ':id' => $_POST["id"]
           )
         );
