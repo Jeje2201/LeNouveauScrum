@@ -16,6 +16,7 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
+      <th class="centered">Avatar</th>
       <th>Ressource</th>
       <th>Initial</th>
       <th>Mail</th>
@@ -31,8 +32,16 @@
       ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
+
+            if (file_exists("../Assets/Image/Ressources/avatar_user_" . $row["user_pk"] .".png")) {
+              $row["user_avatar"] = "avatar_user_" . $row["user_pk"] .".png";
+            }else{
+              $row["user_avatar"] = "default.png";
+            }
+
             $output .= '
               <tr>
+              <td class="centered"><img src="Assets/Image/Ressources/'. $row["user_avatar"] .'" alt="'. $row["user_avatar"] .'" width="45px" height="45px"></td>
               <td>' . $row["user_prenom"] . ' '. $row["user_nom"] .'</td>
               <td>' . $row["user_initial"] . '</td>
               <td>' . $row["user_mail"] . '</td>
@@ -54,7 +63,7 @@
             else
               $output .= '<td class="centered text-white bg-danger">Lambda</td>';
 
-            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button><button type="button" id="avatar_' . $row["user_pk"] . '" class="btn btn-primary avatar_user"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }
@@ -171,6 +180,11 @@
           print 'Ressource supprimée';
         else
           print_r($statement->errorInfo());
+
+          if (file_exists("../Assets/Image/Ressources/avatar_user_" . $_POST["id"] .".png")) {
+            unlink("../Assets/Image/Ressources/avatar_user_" . $_POST["id"] .".png");
+            print "Une image pour ce user existait déjà, elle est supprimée.\n";
+          }
       }
 
       //fonction utilisée dans la page spécialisé au mdps
@@ -212,57 +226,26 @@
           print_r($statement->errorInfo());
       }
 
-      if ($_POST["action"] == "ChangerAvatar") {
+      if ($_POST["action"] == "User_Changer_Avatar") {
+        $imageFileType = strtolower(pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION));
+        $pathDeLimage= '../Assets/Image/Ressources/avatar_user_'. $_POST["user_avatar_id"] . '.png';
 
-        $target_file = basename($_FILES["image"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        $target_file = 'avatar_user_'. $_SESSION['user']['id'] . '.'.$imageFileType;
-        $pathDeLimage= "../Assets/Image/Ressources/" . $target_file;
-
-        if (file_exists($target_file)) {
-          print "Ce nom d'image existe déjà. Changez le nom et recommencez.";
-        }
-
-        else if ($_FILES["image"]["size"] > 2000000) {
-          print "Tu veux pas envoyer un fichier de la taille d'un film aussi ? Trouve plus petit (max = 2mo)";
-        }
-
-        else if (move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage)) {
-
-          $statement = $connection->prepare(
-            $sql = "SELECT user_avatar
-            FROM user
-            WHERE user_pk = " . $_SESSION['user']['id']
-          );
-  
-          $statement->execute();
-          $result = $statement->fetch();
-
-          if($result[0] != null){
-            if (unlink("../Assets/Image/Ressources/".$result[0])) {
-              print "Suppression du précédent avatar réussi\n";
-            } else {
-               print "Impossible de supprimer l'image précédente ".$result[0]."\n";
-            }
-         }else{
-            print "Aucune image précédente.\n";
-         }
-
-          $statement = $connection->prepare(
-            $sql = "UPDATE user
-            set user_avatar = '". $target_file ."'
-            WHERE user_pk = " . $_SESSION['user']['id']
-          );
-  
-          $statement->execute();
+        if($imageFileType == "png"){
+          if (file_exists($pathDeLimage)) {
+            unlink($pathDeLimage);
+            print "Une image pour ce compte existait déjà, elle est supprimée.\n";
+          }
+          else{
+            print "Aucune image connu pour se compte connu.\n";
+          }
 
           move_uploaded_file($_FILES["image"]["tmp_name"], $pathDeLimage);
 
-          print "Votre avatar a évolué ! Félicitation !";
+          print "Nouvel avatar créé avec succès.";
 
         }
         else{
-          print "Une erreur est survenu mais non reconnue.. L'image dépasse peut être 2mo ?";
+          print "L'image doit être un png.";
         }
       }
 

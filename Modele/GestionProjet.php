@@ -25,15 +25,15 @@
       ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
-            $output .= '
-        <tr id="Project' . $row["projet_pk"] . '">';
-        if($row['projet_avatar'] == null){
-          $output .= '<td class="centered" ><img src="Assets/Image/Projets/default.png" alt="default.png" width="35px" height="35px"/></td>';
-        }
-        else{
-          $output .= '<td class="centered" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>';
-        }
+
+            if (file_exists("../Assets/Image/Projets/avatar_projet_" . $row["projet_pk"] .".png")) {
+              $row["projet_avatar"] = "avatar_projet_" . $row["projet_pk"] .".png";
+            }else{
+              $row["projet_avatar"] = "default.png";
+            }
+
         $output .= '
+        <td class="centered" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>
         <td>' . $row["projet_nom"] . '</td>
         <td>' . $row["projet_type"] . '</td>
         <td>' . $row["projet_apiPivotal"] . '</td>';
@@ -135,6 +135,11 @@
           print 'Projet supprimé';
         else
           print_r($statement->errorInfo());
+
+        if (file_exists("../Assets/Image/Projets/avatar_projet_" . $_POST["id"] .".png")) {
+          unlink("../Assets/Image/Projets/avatar_projet_" . $_POST["id"] .".png");
+          print "Une image pour ce projet existait déjà, elle est supprimée.\n";
+        }
       }
     }
 

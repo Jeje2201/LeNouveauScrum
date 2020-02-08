@@ -128,76 +128,33 @@
   </div>
 </div>
 
-  <!-- <div id="EtapeRessource" class="modal fade">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Une ressource qui part ou arrive ? Les démarches à suivre</h4>
-          </div>
-          <div class="modal-body">
-              <h2>Étapes d'arrivée d"une ressource</h2>
-              <p>Voici une liste des actions à effectuer quant une ressource arrive pour s'assurer qu'elle soit bien intégrée</p>
-             <p>Si de nouvelles démarches font leur apparitions et ne sont pas notées là, merci de le faire savoir pour que la liste soit toujours à jour 👍🏻</p>
+<div id="ModaleLogo" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form id="image_form" method="post" enctype="multipart/form-data">
 
-             <hr class="mb-3">
-
-            <h2>Étapes de départ</h2>
-              <p>Voici une liste des actions à effectuer quant une ressource part pour s'assurer que les droits à révoquer sont révoqués, etc..</p>
-              <p>Si de nouvelles démarches font leur apparitions et ne sont pas notées là, merci de le faire savoir pour que la liste soit toujours à jour 👍🏻</p>
-              
-              <h4>Google admin</h4>
-              <ol>
-               <li>Se rendre sur Google Admin</li>
-               <li>Se rendre dans la liste des utilisateurs en cliquant sur "Utilisateurs"</li>
-               <li>Chercher la ressource en question</li>
-               <li>Tout a droite cliquer sur "Plus"</li>
-               <li>Cliquer sur "Supprimer le compte"</li>
-               <li>Tout cocher</li>
-               <li>Mettre une adresse de transfert</li>
-               <li>Supprimer</li>
-               </ol>
-
-               <h4>Synolution</h4>
-              <ol>
-                <li>Se connecter à la version web de synolution</li>
-                <li>Se rendre dans la liste des utilisateurs</li>
-                <li>Supprimer la ressource</li>
-                <li>Ne pas toucher à son dossier, si jamais on a besoin plus tard de ses fichiers</li>
-              </ol>
-              
-                <h4>Scrum Manager</h4>
-              
-                <ol>
-                <li>Se rendre dans la gestion des ressources</li>
-                <li>Chercher la ressource en question</li>
-                <li>Cliquer sur le bouton pour éditer situé à droite</li>
-                <li>Désactiver la checkbox "actif" et "recevoir un mail"</li>
-              </ol>
-              
-                <h4>InVisionApp</h4>
-              
-                <ol>
-                <li>Étape 1</li>
-                <li>Étape 2</li>
-                <li>Étape 3</li>
-              </ol>
-              
-                <h4>GitHub</h4>
-              
-                <ol>
-                <li>Se rendre dans la gestion de l'entreprise</li>
-                <li>Se rendre la liste des utilisateurs "People"</li>
-                <li>Cliquer sur la bouton en forme de réglage à coté de l'utilisateur en question</li>
-                <li>Cliquer sur "Remove from organisation"</li>
-              </ol>              
-              
+          <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control" name="user_avatar_id" id="user_avatar_id" readonly/>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+
+          <div class="form-group">
+            <input type="file" name="image" id="image" accept="image/*" class="mb-3 d-none" />
+          <label for="image" class="customInputFile p-1"><i class="fa fa-upload" aria-hidden="true"></i>
+            Choisir un avatar</label>
           </div>
-        </div>
+
+          
+          <input type="hidden" name="action" id="action" value="User_Changer_Avatar" />
+          <input type="submit" name="User_Changer_Avatar" id="User_Changer_Avatar" value="Changer"
+            class="btn btn-success" />
+          </form>
+
       </div>
-    </div> -->
+    </div>
+  </div>
+</div>
 
 <script>
 
@@ -219,6 +176,34 @@
       window.open('https://docs.google.com/document/d/1oQel9RF6cJPf1CVkX5CIPWy-AKCYR5N8IqP5SUnOCiM','_blank');
       $('#EtapeRessource').modal('show');
     })
+
+    $('.avatar_user').click(function () {
+      $('#user_avatar_id').val(this.id.split('_')[1]);
+      $('#ModaleLogo').modal('show');
+    });
+
+    $('#image_form').submit(function (event) {
+
+      event.preventDefault();
+
+      if ($('#image').val() == '') {
+        $.notify(`Choisie une image d'abord`, `error`);
+      } else {
+        $.ajax({
+          url: "Modele/GestionEmploye.php",
+          method: "POST",
+          data: new FormData(this),
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            $('#image_form')[0].reset();
+            $.notify(data, "info");
+            $('#ModaleLogo').modal('hide');
+            // RequeteAjax('TableauProjetHtml', 'Load', 'Modele/GestionProjet.php');
+          }
+        });
+      }
+      });
 
 
     $('#modal_button').click(function () {
