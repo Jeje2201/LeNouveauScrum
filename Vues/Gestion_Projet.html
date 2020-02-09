@@ -44,10 +44,10 @@
           <input class="form-control" id="ApiPivotal" type="number">
         </div>
 
-        <div>
-          <input id="Actif" type="checkbox" checked>
-          <label for="Actif">Actif</label>
-        </div>
+        <div><label class="mb-2">Etat</label></div>
+        <label class="radio-inline"><input type="radio" name="EtatProjet" value="2"> Actif</label>
+        <label class="radio-inline"><input type="radio" name="EtatProjet" value="1"> CIR</label>
+        <label class="radio-inline"><input type="radio" name="EtatProjet" value="0">  Innactif</label>
 
       </div>
       <div class="modal-footer">
@@ -131,16 +131,10 @@
       $('#action').val('Ajouter');
       $('#Nom').val('');
       $('#ApiPivotal').val('');
-      $('#Actif').prop("checked", true);
+      $("input[name=EtatProjet][value='2']").prop("checked",true);
     });
 
     $('#action').click(function () {
-
-      if (document.getElementById("Actif").checked == true) {
-        var Actif = 2;
-      } else {
-        var Actif = 0;
-      }
 
       if ($('#Nom').val() != '' && $('#ToutesLesImages').val() != '') {
         $.ajax({
@@ -150,7 +144,7 @@
             id: $('#id').val(),
             Nom: $('#Nom').val(),
             ApiPivotal: $('#ApiPivotal').val(),
-            Actif: Actif,
+            Actif: $("input[name='EtatProjet']:checked").val(),
             TypeProjet: $('#TypeProjet').val(),
             fileName: parseInt($('#ToutesLesImages').val()),
             action: $('#action').val()
@@ -184,10 +178,7 @@
           $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
 
-          if (data.projet_actif == 2)
-            $('#Actif').prop('checked', true);
-          else
-            $('#Actif').prop('checked', false);
+          $("input[name=EtatProjet][value='"+data.projet_actif+"']").prop("checked",true);
 
           $('#id').val(id);
           $('#ApiPivotal').val(data.projet_ApiPivotal);
