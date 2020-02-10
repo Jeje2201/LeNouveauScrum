@@ -30,6 +30,20 @@
 
       AfficherCards();
 
+      var ApiPivotalKey = ""
+
+      $.ajax({
+        url: "Modele/Autre.php",
+        method: "POST",
+        async: 'false',
+        data: {
+          action: "getApiPivotalKey"
+        },
+        success: function (data) {
+          ApiPivotalKey = data.trim()
+        }
+      })
+
       function AfficherCards() {
         $.ajax({
           url: "Modele/Tache.php",
@@ -90,7 +104,7 @@
                     $.ajax({
                       url: "https://www.pivotaltracker.com/services/v5/projects/" + Project_id_Pivotal + "/stories/" + Story_id_Pivotal + "/tasks/" + Task_id_Pivotal,
                       beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+                        xhr.setRequestHeader('X-TrackerToken', ApiPivotalKey);
                       },
                       type: 'PUT',
                       processData: false,

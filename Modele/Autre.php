@@ -9,5 +9,9 @@
       if ($_POST["action"] == "UrgentNotification") {
         print $Urgent_Notification;
       }
+
+      if ($_POST["action"] == "getApiPivotalKey") {
+        print $PivotalKey;
+      }
     }
     ?> 

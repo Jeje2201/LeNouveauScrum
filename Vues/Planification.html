@@ -290,6 +290,20 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
 
+    var ApiPivotalKey = ""
+
+    $.ajax({
+      url: "Modele/Autre.php",
+      method: "POST",
+      async: 'false',
+      data: {
+        action: "getApiPivotalKey"
+      },
+      success: function (data) {
+        ApiPivotalKey = data.trim()
+      }
+    })
+
     //Lorsque charge la liste, si le projet est pas dans pivotal tracker, disable le chercher
     if ($('#ProjetApi').val().split('|')[1] == "")
       $('#ChercherApiPivotal').prop('disabled', true);
@@ -619,7 +633,7 @@
         url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val().split('|')[1] +
           "/stories",
         beforeSend: function (xhr) {
-          xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+          xhr.setRequestHeader('X-TrackerToken', ApiPivotalKey);
         },
         type: 'GET',
         dataType: 'json',
@@ -644,7 +658,7 @@
               url: "https://www.pivotaltracker.com/services/v5/projects/" + $('#ProjetApi').val()
                 .split('|')[1] + "/stories/" + this.id + "/tasks",
               beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
+                xhr.setRequestHeader('X-TrackerToken', ApiPivotalKey);
               },
               async: false,
               type: 'GET',

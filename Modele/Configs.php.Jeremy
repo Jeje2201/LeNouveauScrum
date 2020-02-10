@@ -1,14 +1,19 @@
-	<?php
-$HostName = "localhost";
-$HostUsername = "root";
-$HostPassword = "";
-$BddTableName = "scrum";
-$ProjectFolderName = "ScrumManager";
+<?php
+    $HostName = "localhost";
+    $HostUsername = "root";
+    $HostPassword = "";
+    $BddTableName = "scrum";
+    $ProjectFolderName = "ScrumManager";
 
     //Etablir la connexion pour les requetes ajax
-$connection = new PDO('mysql:host=' . $HostName . ';dbname=' . $BddTableName . ';charset=utf8;port=3308', $HostUsername, $HostPassword);
+    $connection = new PDO('mysql:host=' . $HostName . ';dbname=' . $BddTableName . ';charset=utf8;port=3308', $HostUsername, $HostPassword);
 
-$Maintenance = 0;
+    // Si set à 1, le site n'est accessible que pour le user avec la pk = 22
+    $Maintenance = 0;
 
-$Urgent_Notification = "";
+    //Permet d'afficher une notification en rouge en haut de chaque page si du string est rentré
+    $Urgent_Notification = "";
+
+    //Permet d'accéder aux tâches pour la planification si la clé
+    $PivotalKey = "";
 ?>
