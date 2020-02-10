@@ -1,16 +1,12 @@
-<html>
-
-<body>
     <?php
+
+    require_once('Configs.php');
 
     //Fonction pour enlever les accents
     function stripAccents($str)
     {
         return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
     }
-
-    //Etablir la connexion pour les requetes ajax
-    $connection = new PDO('mysql:host=localhost;dbname=scrum;charset=utf8', 'jeremy', 'Spiderman2008');
 
     //Requete sql qui sort les adresses des gens ET les jours de la semaine en numeric
     $statement = $connection->prepare(
@@ -64,7 +60,3 @@
     }
 
     ?>
-
-</body>
-
-</html>
