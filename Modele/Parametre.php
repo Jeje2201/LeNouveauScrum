@@ -6,22 +6,6 @@
 
       $idRessource = $_SESSION['user']['id'];
 
-      if ($_POST["action"] == "GetAvatar") {
-
-        $output = array();
-        $statement = $connection->prepare(
-          "SELECT * FROM user 
-         WHERE user_pk = $idRessource
-         LIMIT 1"
-        );
-        $statement->execute();
-        $result = $statement->fetch();
-
-        $output["avatar"] = $result["user_avatar"];
-
-        print json_encode($output);
-      }
-
       if ($_POST["action"] == "LoadTacheValide") {
         $output = array();
         $statement = $connection->prepare(

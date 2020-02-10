@@ -133,7 +133,6 @@
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
       ListTotalSurSprint()
       ListTotalFdtSurDate();
-      GetAvatar()
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
@@ -146,25 +145,6 @@
           $('#TacheValide').html(data);
         }
       });
-
-      function GetAvatar(){
-      $.ajax({
-        url: "Modele/Parametre.php",
-        method: "POST",
-        dataType: "json",
-        data: {
-          action: "GetAvatar"
-        },
-        success: function (data) {
-          if(data.avatar == '' || data.avatar == undefined){
-            $('#avatarUser').attr("src", 'Assets/Image/Ressources/default.png');
-          }
-          else{
-          $('#avatarUser').attr("src", 'Assets/Image/Ressources/' + data.avatar);
-        }
-      }
-      });
-    }
 
       //Quand change sprint, charge list fiches de temps / sprint
       $('#ListSrint').change(function () {
