@@ -118,9 +118,14 @@ require_once('../Modele/Configs.php');
 
           $MonTest = [];
 
+          if (file_exists("../Assets/Image/Ressources/avatar_user_" . $row["user_pk"] .".png")) {
+            $MonTest['Avatar'] = "avatar_user_" . $row["user_pk"] .".png";
+          }else{
+            $MonTest['Avatar'] = "default.png";
+          }
+
           $MonTest['RessourceId'] = 'ressource_'.$row['projet_ressource_pk'];
           $MonTest['Prenom'] = $row['user_prenom'];
-          $MonTest['Avatar'] = $row['user_avatar'];
           $MonTest['Job'] = $row['user_type'];
 
           $resultat[] = $MonTest;
