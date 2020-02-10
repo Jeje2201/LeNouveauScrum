@@ -64,6 +64,11 @@
               },
               success: function (data) {
 
+                if($('.TacheGonnaBeDone').length == 0){
+                  $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
+                  return
+                }
+
                 if (CustomYourDate(ChoixDate(0)) >= data.sprint_dateDebut && CustomYourDate(ChoixDate(0)) <= data.sprint_dateFin) {
                   var dateDescente = CustomYourDate(ChoixDate(0));
                 } else {
@@ -74,14 +79,11 @@
 
                 $('.TacheGonnaBeDone').each(function () {
 
-                  IdAttribue.push($(this).attr('id'));
-
                   var TextDeLaTache = $(this).children('#LabelDeLaTache').text()
                   var Project_id_Pivotal = $(this).children('#ProjectIdPivotal').text()
                   var Story_id_Pivotal = $(this).children('#StoryId').text()
                   var Task_id_Pivotal = $(this).children('#TaskId').text()
-
-                    console.log('tache pivotal validé par l api\nProjet Api: '+ Project_id_Pivotal+'\nStory id pivtoal: '+ Story_id_Pivotal+'\n Tache id pivotal:'+ Task_id_Pivotal)
+                  var Tache_bdd_id = $(this).attr('id')
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
 
@@ -93,53 +95,45 @@
                       type: 'PUT',
                       processData: false,
                       data: 'complete=true',
-                      error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        $.notify(errorThrown, "error");
-                      },
-                      success: function (data) {
-                        //Liste des stories trouvées
-                        $.notify("Story validée aussi dans Pivotal Tracker !", "success");
-
-                        $.ajax({
-                          url: "https://www.pivotaltracker.com/services/v5/projects/" + Project_id_Pivotal + "/stories/" +Story_id_Pivotal + "/comments",
-                          beforeSend: function (xhr) {
-                            xhr.setRequestHeader('X-TrackerToken', 'b4a752782f711a7c564221c2b0c2d5dc');
-                          },
-                          type: 'POST',
-                          processData: false,
-                          data: 'text= Tâche validée sur Scrum Manager par ' + document.getElementById('TitreNavBar').text.split('Ns Scrum - ')[1] + ' : ' + TextDeLaTache,
-                          error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            $.notify(errorThrown, "error");
-                          },
-                          success: function (data) {
-                            $.notify("Ajout d'un commentaire dans Pivotal Tracker", "success");
-                          }
-                        })
+                      statusCode: {
+                        503: function(responseObject, textStatus, errorThrown) {
+                          $.notify("Trop de tâches d'un coup. \""+TextDeLaTache+"\" ne s'est pas faite validée par l'API de Pivotal Tracker", "error");                      
+                        },
+                        200: function(responseObject, textStatus, errorThrown) {
+                          
+                          $.ajax({
+                            url: "Modele/Tache.php",
+                            method: "POST",
+                            data: {
+                              IdAttribue: Tache_bdd_id,
+                              action: "Descendre",
+                              LeJourDeDescente: dateDescente
+                            },
+                            success: function (data) {
+                              AfficherCards();
+                            }
+                          });
+                        }
                       }
                     })
-                  }
-                  });
-
-
-                  if (IdAttribue != '') {
+                  }else{
                     $.ajax({
                       url: "Modele/Tache.php",
                       method: "POST",
                       data: {
-                        IdAttribue: IdAttribue,
+                        IdAttribue: Tache_bdd_id,
                         action: "Descendre",
                         LeJourDeDescente: dateDescente
                       },
                       success: function (data) {
-                        $.notify(data, "success");
                         AfficherCards();
                       }
                     });
-                  } else {
-                    $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
                   }
-            
+                  });
+
         }
+        
       });
 
     });

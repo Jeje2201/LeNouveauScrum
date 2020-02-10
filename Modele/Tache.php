@@ -94,10 +94,6 @@
       //Valider une tache, soit lui donner une date de validation
       if ($_POST["action"] == "Descendre") {
 
-        $IdAttribue = $_POST["IdAttribue"];
-
-        for ($i = 0; $i < sizeof($IdAttribue); $i++) {
-
           $statement = $connection->prepare("UPDATE tache
           set tache_done = :done
           WHERE tache_pk = :id");
@@ -105,10 +101,9 @@
           $result = $statement->execute(
             array(
               ':done' => $_POST["LeJourDeDescente"],
-              ':id' => $IdAttribue[$i]
+              ':id' => $_POST["IdAttribue"]
             )
           );
-        }
         if (!empty($result))
           print sizeof($IdAttribue)." tâche(s) validée(s)";
         else
