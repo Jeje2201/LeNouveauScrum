@@ -23,7 +23,7 @@
                   <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
                 </div>
                 <div class="form-group col-lg-3">
-                  <label>Sauvegarder</label>
+                  <label>Sauvegarder</label><br>
                   <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
                 </div>
               </div>
@@ -37,27 +37,6 @@
             <div class="card-body">
               <div id="TacheValide"></div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Avatar</h5>
-            <div class="card-body">
-              <div class="row">
-                <img style="width: 144px;height: 100%;" id="avatarUser" src="">
-              </div>
-              <div class="row">
-                <form id="image_form" method="post" enctype="multipart/form-data">
-                  <input type="file" name="image" id="image" accept="image/*" class="mb-3 d-none" />
-                  <label for="image" class="customInputFile px-2 py-1"><i class="fa fa-upload" aria-hidden="true"></i>
-                    Choisir un logo</label>
-                  <input type="hidden" id="action" name="action" value="ChangerAvatar" />
-                  <input type="submit" id="ChangerAvatar" value="Changer"
-                    class="btn btn-success" />
-                </form>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
