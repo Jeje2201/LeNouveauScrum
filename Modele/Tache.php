@@ -1,6 +1,6 @@
     <?php
     session_start();
-    require_once('../Modele/Configs.php');
+    require_once('Configs.php');
 
     //Si jamais le texte d'une tache risque de casser l'html qui ressort
     function PreviewText($input)

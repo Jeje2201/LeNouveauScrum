@@ -1,6 +1,6 @@
    <?php
 
-    require_once('../Modele/Configs.php');
+require_once('Configs.php');
 
     if (isset($_POST["action"])) {
 

@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once('../Modele/Configs.php');
+require_once('Configs.php');
 
 $EmployeLogin = $_POST['EmployeLogin'];
 $PasswordInput = $_POST['inputPassword'];
