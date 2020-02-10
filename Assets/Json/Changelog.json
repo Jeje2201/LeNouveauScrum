@@ -1,0 +1,50 @@
+[
+    {
+        "Date" : "22 Janvier, 2020",
+        "Fix" : [
+            "Remplacement générale de plein de “br” et “p” qui permettaient de faire des retours à la ligne en mode yolo part du vrai css “mb-2” etc.. le css c’est bien"
+        ],
+        "Ajout" : [
+            "Il est possible de faire apparaître un message d'alerte haut de chaque page. Promis je te spammerais pas avec, enfin, je crois :)",
+            "Les démos ont une date de création, oui oui",
+            "Tu l’auras peut être deviné, avec cet ajout, les démos ont un compteur de jours depuis leur date de création, affiché lors de la rétro, À VOS DÉMOS !",
+            "Les changelogs ont un titre, how awesome is that !",
+            "Si un total de 7 fiches de temps ou plus ne sont toujours pas descendues, la colonne du user devient rouge, si tu n’aimes pas être en rouge, descend tes fiches de temps :)"
+        ],
+        "Modif" : [
+            "Si une fiche de temps est remplie le weekend, ce qui arrive généralement quand le user rempli ses fiches de temps sur plusieurs dates d’un coup, elle n’est pas prise en compte. Fais pas genre tu travailles le weekend ;)",
+            "La bar de navigation est partie au sport, elle est enfin plus fine",
+            "l’algorithme pour afficher les différentes fiches de temps à descendre et le graphe ont entièrement été revu, sache une chose, travailler avec les dates et des tableaux dans des tableaux, c'est une horreur",
+            "Lorsqu’une tâche n’est pas planifiée en mode Pivotal Tracker, le label n’est plus “?” mais “Label inconnue”, un peu plus compréhensible",
+            "Certains modals ont été retouchés, leurs input par exemple ne sont plus forcément des col-lg-6, bref, elles sont plus sympa, c’est tout, accepte le",
+            "Le bouton qui affichait les instructions à suivre lorsqu’une ressource part est maintenant relié plutôt à un google doc pour simplifier son versionning",
+            "Le tableau qui affiche le total d’heures attribuées par ressource sur un sprint permet maintenant d’afficher aussi les ressources actives qui doivent faire la planif et qui ne l’ont toujours pas fait, vous ne pouvez plus vous cacher..",
+            "L’affichage des tâches à descendre a été beaucoup retouché pour être plus sympa visuellement et plus parlant, tu le feras peut être plus souvent du coup, ou pas",
+            "Si on annule une tâche qu’on a voulu descendre, elle se replace bien là où elle était avant et non pas tout en haut, elle a une intelligence artificielle qui connaît sa maison, c’est beau 2020",
+            "Le background de maintenance a un effet qui bouge, petite touche bling bling, tu connais",
+            "Les logos des projets sont stockés sur le serveur directement et non en base64 bourrant la base de données d’infos inutiles, on a pas du stockage nouuus",
+            "Point plus sérieux, la nomenclature de la base de données a été revue entièrement, du nom des tables aux noms des colonnes, ce qui a, par conséquent, cassé toutes les requêtes SQL, je te promet, passer 1 weekend entier à recoder toutes les requêtes, c’est nul, mais maintenant les requêtes sont bien plus allégées et vont permettre dans un futur proche d’alléger énormément davantage le back en renvoyant du json partout et non du html pur. Le Commit en question : https://github.com/Jeje2201/ScrumManager/commit/6c88603566a7edd6647332640c9b2e1edbe53671"
+        ],
+        "Suppression" : [
+        ]
+    },
+    {
+        "Date" : "24 Janvier 2020",
+        "Fix" : [
+        ],
+        "Ajout" : [
+            "Le changelog fait son grand retour :)",
+            "Un générateur de footer spéciale pour adresse mail Natural Solution a fait son apparition dans la page 'Bienvenue'",
+            "Une nouvelle page 'Information des projets' fait son apparition seulement pour les Scrum master, elle permet d'afficher les ressources mobilisées, technos mobilisées, client, timeline, bloc note, etc.."
+        ],
+        "Modif" : [
+            "Changer le mot de passe des ressources est maintenant plus facile pour les Scrum master",
+            "Amélioration de la rapidité du chargement du contenue de certaines pages (le back renvoi du json et non plus du html, reste encore beaucoup de pages à recoder)",
+            "Retouche du design à gauche et droite",
+            "Lors de la planification, si une tâche que l'on planifie a déjà été planifiée, une couleur de fond lui sera appliqué, à mort les doublons invisible !"
+        ],
+        "Suppression" : [
+            "Dans la page 'Information', le champ 'En tout' pour les fiches de temps a été supprimé car on peut retrouver le même résultat en changeant l'échelle de temps"
+        ]
+    }
+]

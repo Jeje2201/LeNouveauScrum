@@ -138,6 +138,27 @@ html {
     height: 85%;
   }
 
+  .changelog_Suppression{
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .changelog_Modif{
+    padding-left: 23px;
+    padding-right: 23px;
+  }
+
+  .changelog_Ajout{
+    padding-left: 51px;
+    padding-right: 51px;
+  }
+
+  .changelog_Fix{
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+
   /* Pour avoir la connnexion centrée */
   .PageConnexion{
     top: 30%;
