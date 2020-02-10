@@ -14,6 +14,6 @@
     //Permet d'afficher une notification en rouge en haut de chaque page si du string est rentré
     $Urgent_Notification = "";
 
-    //Permet d'accéder aux tâches pour la planification si la clé
+    //Permet d'accéder aux tâches pour la planification et de validé auto les taches sur pivotal tracker si la clé est renseignée
     $PivotalKey = "";
 ?>
