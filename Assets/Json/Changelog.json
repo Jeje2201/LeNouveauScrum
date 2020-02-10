@@ -1,6 +1,7 @@
 [
     {
         "Date" : "22 Janvier, 2020",
+        "Meme" : "Meme_2.jpg",
         "Fix" : [
             "Remplacement générale de plein de “br” et “p” qui permettaient de faire des retours à la ligne en mode yolo part du vrai css “mb-2” etc.. le css c’est bien"
         ],
@@ -29,7 +30,8 @@
         ]
     },
     {
-        "Date" : "24 Janvier 2020",
+        "Date" : "24 Janvier, 2020",
+        "Meme" : "Meme_1.jpg",
         "Fix" : [
         ],
         "Ajout" : [

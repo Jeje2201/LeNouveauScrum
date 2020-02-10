@@ -31,30 +31,30 @@ $(document).ready(function () {
 
           if(this.Fix.length > 0){
             this.Fix.forEach(element => {
-              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded font-weight-bold text-white changelog_Fix" style="background-color: #4646F1;">Fix</span> '+element+'</p>')
+              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded text-white changelog_Fix" style="background-color: #4646F1;">Fix</span> '+element+'</p>')
             });
           }
 
           if(this.Ajout.length > 0){
             this.Ajout.forEach(element => {
-              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded font-weight-bold text-white changelog_Ajout" style="background-color: #29A67A;">Ajout</span> '+element+'</p>')
+              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded text-white changelog_Ajout" style="background-color: #29A67A;">Ajout</span> '+element+'</p>')
             });
           }
 
           if(this.Modif.length > 0){
             this.Modif.forEach(element => {
-              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded font-weight-bold text-white changelog_Modif" style="background-color: orange;">Modification</span> '+element+'</p>')
+              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded text-white changelog_Modif" style="background-color: orange;">Modification</span> '+element+'</p>')
             });
           }
 
           if(this.Suppression.length > 0){
             this.Suppression.forEach(element => {
-              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded font-weight-bold text-white changelog_Suppression" style="background-color: #FF0000;">Suppression</span> '+element+'</p>')
+              divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded text-white changelog_Suppression" style="background-color: #FF0000;">Suppression</span> '+element+'</p>')
             });
           }
 
             divUnChangelog.append($(`<button class="btn btn-primary mt-3 btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample`+index+`" aria-expanded="false" aria-controls="multiCollapseExample2"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Mème n°`+index+` <i class="fa fa-hand-o-left" aria-hidden="true"></i></button>`))
-            divUnChangelog.append($(`<div class="collapse" id="multiCollapseExample`+index+`"><img class="border border-dark my-2" height="350px" src="Assets/Image/Meme/Meme_`+index+`.jpg"></div>`))
+            divUnChangelog.append($(`<div class="collapse" id="multiCollapseExample`+index+`"><img class="border border-dark my-2" height="350px" src="Assets/Image/Meme/`+this.Meme+`"></div>`))
           
           divUnChangelog.append($(`<hr class="mt-2">`))
 
