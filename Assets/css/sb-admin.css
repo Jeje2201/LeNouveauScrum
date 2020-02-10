@@ -139,8 +139,8 @@ html {
   }
 
   .changelog_Suppression{
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 23px;
+    padding-right: 23px;
   }
 
   .changelog_Modif{
@@ -149,13 +149,13 @@ html {
   }
 
   .changelog_Ajout{
-    padding-left: 51px;
-    padding-right: 51px;
+    padding-left: 49px;
+    padding-right: 49px;
   }
 
   .changelog_Fix{
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 58px;
+    padding-right: 58px;
   }
 
 
@@ -451,7 +451,9 @@ hr{
 }
 
 body {
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+}
 
 body.sticky-footer {
   margin-bottom: 56px; }
