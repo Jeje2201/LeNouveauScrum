@@ -34,8 +34,10 @@
           $LeCounterDeGroupe = 0;
           foreach ($result as $row) {
 
-            if($row["projet_avatar"] == null){
-              $row["projet_avatar"] = 'default.png';
+            if (file_exists("../Assets/Image/Projets/avatar_projet_" . $row["projet_pk"] .".png")) {
+              $row["projet_avatar"] = "avatar_projet_" . $row["projet_pk"] .".png";
+            }else{
+              $row["projet_avatar"] = "default.png";
             }
 
             $ShowItsPivotal = '';

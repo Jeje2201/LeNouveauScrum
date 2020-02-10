@@ -52,7 +52,6 @@ require_once('../Modele/Configs.php');
 
         $output["Nom"] = $result["projet_nom"];
         $output["Description"] = $result["projet_description"];
-        $output["Logo"] = $result["projet_avatar"];
 
         print json_encode($output);
       }
