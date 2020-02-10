@@ -18,11 +18,9 @@
       <tr>
       <th class="centered">Avatar</th>
       <th>Ressource</th>
-      <th>Initial</th>
-      <th>Mail</th>
       <th>Job</th>
-      <th>ID Pivotal</th>
       <th class="centered">Actif</th>
+      <th class="centered">Planification</th>
       <th class="centered">Fiche de temps</th>
       <th class="centered">Admin</th>
       <th><center>Éditer</center></th>
@@ -43,25 +41,27 @@
               <tr>
               <td class="centered"><img src="Assets/Image/Ressources/'. $row["user_avatar"] .'" alt="'. $row["user_avatar"] .'" width="45px" height="45px"></td>
               <td>' . $row["user_prenom"] . ' '. $row["user_nom"] .'</td>
-              <td>' . $row["user_initial"] . '</td>
-              <td>' . $row["user_mail"] . '</td>
-              <td>' . $row["user_type"] . '</td>
-              <td>' . $row["user_apiPivotal"] . '</td>';
+              <td>' . $row["user_type"] . '</td>';
 
             if ($row["user_actif"])
-              $output .= '<td class="centered text-white bg-success">Actif</td>';
+              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Actif</td>';
             else
-              $output .= '<td class="centered text-white bg-danger">Absents</td>';
+              $output .= '<td class="centered text-white" style="background-color: #b5424d">Absents</td>';
+
+            if ($row["user_doesPlanification"])
+              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Planif</td>';
+            else
+              $output .= '<td class="centered text-white" style="background-color: #b5424d">Repos</td>';
 
             if ($row["user_mailCir"])
-              $output .= '<td class="centered text-white bg-success">Mail</td>';
+              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Mail</td>';
             else
-            $output .= '<td class="centered text-white bg-danger">Rien</td>';
+            $output .= '<td class="centered text-white" style="background-color: #b5424d">Rien</td>';
 
             if ($row["user_admin"])
-              $output .= '<td class="centered text-white bg-success">Admin</td>';
+              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Admin</td>';
             else
-              $output .= '<td class="centered text-white bg-danger">Lambda</td>';
+              $output .= '<td class="centered text-white" style="background-color: #b5424d">Lambda</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button><button type="button" id="avatar_' . $row["user_pk"] . '" class="btn btn-primary avatar_user"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
         </tr>
@@ -85,8 +85,8 @@
           $_POST["ApiPivotal"] = 0;
 
         $statement = $connection->prepare(
-          "INSERT INTO user (user_prenom, user_nom, user_actif, user_mailCir, user_admin, user_initial, user_type, user_mdp, user_apiPivotal, user_registerDate, user_mail) 
-          VALUES (:prenom, :nom, :actif, :MailCir, :admin, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
+          "INSERT INTO user (user_prenom, user_nom, user_actif, user_mailCir, user_admin, user_doesPlanification, user_initial, user_type, user_mdp, user_apiPivotal, user_registerDate, user_mail) 
+          VALUES (:prenom, :nom, :actif, :MailCir, :admin, :user_doesPlanification, :Initial, :Type_Employe, :mdp, :ApiPivotal, :RegisterDate, :mail)
         ");
 
         $result = $statement->execute(
@@ -96,6 +96,7 @@
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':admin' => $_POST["admin"],
+            ':user_doesPlanification' => $_POST["doesPlanification"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':Initial' => $_POST["Initial"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
@@ -126,6 +127,7 @@
         $output["MailCir"] = $result["user_mailCir"];
         $output["admin"] = $result["user_admin"];
         $output["Mail"] = $result["user_mail"];
+        $output["doesPlanification"] = $result["user_doesPlanification"];
         $output["ApiPivotal"] = $result["user_apiPivotal"];
         $output["TypeEmploye"] = $result["user_type"];
         $output["RegisterDate"] = date("d-m-Y", strtotime($result["user_registerDate"]));
@@ -142,7 +144,7 @@
 
         $statement = $connection->prepare(
           "UPDATE user 
-          SET user_prenom = :prenom, user_nom = :nom, user_initial =:Initial, user_actif = :actif, user_mailCir = :MailCir, user_admin = :admin, user_apiPivotal = :ApiPivotal, user_type = :Type_Employe, user_registerDate = :RegisterDate, user_mail = :mail
+          SET user_prenom = :prenom, user_nom = :nom, user_initial =:Initial, user_actif = :actif, user_mailCir = :MailCir, user_admin = :admin, user_doesPlanification = :doesPlanification, user_apiPivotal = :ApiPivotal, user_type = :Type_Employe, user_registerDate = :RegisterDate, user_mail = :mail
           WHERE user_pk = :id"
         );
         $result = $statement->execute(
@@ -152,6 +154,7 @@
             ':actif' => $_POST["Actif"],
             ':MailCir' => $_POST["MailCir"],
             ':admin' => $_POST["admin"],
+            ':doesPlanification' => $_POST["doesPlanification"],
             ':RegisterDate' => date("Y-m-d", strtotime($_POST["RegisterDate"])),
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':Initial' => $_POST["Initial"],
@@ -282,8 +285,6 @@
         else
           print_r($statement->errorInfo());
       }
-
-
     }
 
     ?> 

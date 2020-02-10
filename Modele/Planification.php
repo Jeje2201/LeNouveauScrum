@@ -74,7 +74,7 @@
         union 
         select 0, 60, user_prenom, user_initial  from user where user_pk not in (
         select tache_fk_user from tache where tache_fk_sprint = $numero group by tache_fk_user)
-        and user_actif = 1 and user_mailCir = 1
+        and user_doesPlanification = 1
         order by 1 desc,3
         ");
           $statement->execute();

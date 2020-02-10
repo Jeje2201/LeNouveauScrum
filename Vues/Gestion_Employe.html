@@ -96,6 +96,11 @@
         </div>
 
         <div>
+          <input id="doesPlanification" type="checkbox" checked>
+          <label for="doesPlanification">Doit faire sa planification de tâche</label>
+        </div>
+
+        <div>
             <input id="admin" type="checkbox" checked>
             <label for="admin">Admin</label>
           </div>
@@ -219,6 +224,7 @@
       $('#Initial').val('');
       $('#Actif').prop("checked", true);
       $('#MailCir').prop("checked", true);
+      $('#doesPlanification').prop("checked", true);
       $('#admin').prop("checked", false);
     });
 
@@ -243,6 +249,12 @@
         var admin = 0;
       }
 
+      if (document.getElementById("doesPlanification").checked == true) {
+        var doesPlanification = 1;
+      } else {
+        var doesPlanification = 0;
+      }
+
       if ($('#Nom').val() == '' || $('#Prenom').val() == '' || $('#TypeEmploye').val() == '') {
         $.notify("Tous les champs ne sont pas remplis", "error");
         return 1;
@@ -260,6 +272,7 @@
           RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
           MailCir: MailCir,
+          doesPlanification : doesPlanification,
           admin: admin,
           Initial: $('#Initial').val(),
           Type_Employe: $('#TypeEmploye').val(),
@@ -299,6 +312,11 @@
             $('#MailCir').prop('checked', true);
           else
             $('#MailCir').prop('checked', false);
+
+          if (data.doesPlanification == 1)
+            $('#doesPlanification').prop('checked', true);
+          else
+            $('#doesPlanification').prop('checked', false);
 
           if (data.admin == 1)
             $('#admin').prop('checked', true);
