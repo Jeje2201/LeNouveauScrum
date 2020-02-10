@@ -24,11 +24,8 @@ $("#SlideNav").click(function () {
 
 //Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
 $.ajax({
-  url: "Modele/Changelog.php",
+  url: "Assets/Json/Changelog.json",
   method: "POST",
-  data: {
-    action: "GetChangelogs"
-  },
   dataType: "json",
   success: function (data) {
     if(localStorage.getItem('LastVersionKnown') != data.length){
