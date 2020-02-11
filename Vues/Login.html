@@ -12,7 +12,7 @@
       <div class="form-label-group mb-2">
         <label>Mot de passe</label>
         <input type="password" id="inputPassword" class="form-control" required="required">
-        <small id="wrongpassword" class="form-text text-hide text-danger">Non, je suis sûr que ce n'est pas le bon, essaie encore ¯\_(ツ)_/¯</small>
+        <small id="wrongpassword" class="form-text text-hide text-danger"></small>
       </div>
 
       <button class="btn btn-primary btn-block" id="Log">Connexion</button>
@@ -62,7 +62,7 @@
           if (data.Connexion) {
             location.reload();
           } else {
-            $("#wrongpassword").removeClass("text-hide");
+            $("#wrongpassword").removeClass("text-hide").text(data.Info);
             $("#inputPassword")
               .addClass("is-invalid")
               .effect("shake");

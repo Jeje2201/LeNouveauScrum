@@ -17,26 +17,35 @@ $statement = $connection->prepare(
 $statement->execute();
 $result = $statement->fetch();
 
-//Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
-if (password_verify($PasswordInput, $result['user_mdp'])) {
-
-    $statement = $connection->prepare(
-        $sql = "SELECT *
-        From user 
-        where user_mail like '$EmployeLogin'"
-    );
-    $statement->execute();
-    $result = $statement->fetch();
-
-    $_SESSION['user']['id'] = $result['user_pk'];
-    $_SESSION['user']['prenom'] = $result["user_prenom"];
-    $_SESSION['user']['admin'] = $result["user_admin"];
-    $_SESSION['user']['registerDate'] = $result["user_registerDate"];
-
-    $output["Connexion"] = true;
-    
-} else {
+//Si ne trouve pas de mot de passe pour le mail donné
+if($result == false){
     $output["Connexion"] = false;
+    $output["Info"] = "Mail inconnue ¯\_(ツ)_/¯";
+}
+
+//Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
+else{
+    if (password_verify($PasswordInput, $result['user_mdp'])) {
+
+        $statement = $connection->prepare(
+            $sql = "SELECT *
+            From user 
+            where user_mail like '$EmployeLogin'"
+        );
+        $statement->execute();
+        $result = $statement->fetch();
+
+        $_SESSION['user']['id'] = $result['user_pk'];
+        $_SESSION['user']['prenom'] = $result["user_prenom"];
+        $_SESSION['user']['admin'] = $result["user_admin"];
+        $_SESSION['user']['registerDate'] = $result["user_registerDate"];
+
+        $output["Connexion"] = true;
+        
+        } else {
+            $output["Connexion"] = false;
+            $output["Info"] = "Mauvais mot de passe ¯\_(ツ)_/¯";
+    }
 }
 
 print json_encode($output);
