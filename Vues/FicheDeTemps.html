@@ -52,17 +52,20 @@
               <label>Temps</label>
               <input type="time" id="TempsFdt" value="00:00" class="form-control">
             </div>
-            <div class="col">
-              <label>Il&nbsp;manque&nbsp;</label><span id="InfosTempsFdt"></span>
-              <div class="progress" style="height: 35px;">
-                <div class="progress-bar" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+            
 
             <div class="col">
               <div class="form-group">
                 <label>&nbsp;</label>
                 <button type="button" id="SetFicheDeTemps" class="btn btn-success btn-block">Envoyer</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Il&nbsp;manque&nbsp;</label><span id="InfosTempsFdt"></span>
+              <div class="progress" style="height: 35px;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
           </div>
@@ -146,6 +149,7 @@
       //Add les infos
       $('.btn-info').click(function () {
 
+        //Si il appuie sur max (22:22) alors on check combien manque et on lui applique sinon on lui applique la dif
         if($(this).val() == '22:22'){
           $('#TempsFdt').val($('#InfosTempsFdt').text().replace('h',':'))
         }else{
@@ -182,6 +186,8 @@
           },
           success: function (data) {
             $('#InfosTempsFdt').text(MinutesIntoTime(444 - data))
+
+            //Plutot mettre le temps qu'il manque
             $('.progress-bar')
               .text(Math.trunc(data / 444 * 100) + ' %')
               .css("width", Math.trunc(data / 444 * 100) + '%')
