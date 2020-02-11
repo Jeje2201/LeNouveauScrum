@@ -11,8 +11,10 @@
     // Si set à 1, le site n'est accessible que pour le user avec la pk = 22
     $Maintenance = 0;
 
-    //Permet d'afficher une notification en rouge en haut de chaque page si du string est rentré
-    $Urgent_Notification = "";
+    //Permet d'afficher une notification en haut de chaque page
+        //Premier parametre est le message, si vide alors rien ne s'affiche
+        //Deuxieme parametre est le type de message pour appliquer un style, possible : primary | secondary | success | danger | warning | info | light | dark
+    $Urgent_Notification = ["",""];
 
     //Permet d'accéder aux tâches pour la planification et de validé auto les taches sur pivotal tracker si la clé est renseignée
     $PivotalKey = "";

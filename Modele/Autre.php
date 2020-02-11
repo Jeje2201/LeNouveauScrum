@@ -7,7 +7,10 @@
 
       //Load les fiches de temps de tout le monde dans la gestion des fiches de temps
       if ($_POST["action"] == "UrgentNotification") {
-        print $Urgent_Notification;
+        $toto = [];
+        $toto['Message'] = $Urgent_Notification[0];
+        $toto['Type'] = $Urgent_Notification[1];
+        print json_encode($toto);
       }
 
       if ($_POST["action"] == "getApiPivotalKey") {

@@ -22,28 +22,17 @@ $("#SlideNav").click(function () {
   $("body").toggleClass("sidenav-toggled");
 });
 
-//Check si a jour avec la top versio, si ce n'est pas le cas, afficher un badge rouge
-$.ajax({
-  url: "Assets/Json/Changelog.json",
-  method: "POST",
-  dataType: "json",
-  success: function (data) {
-    if(localStorage.getItem('LastVersionKnown') != data.length){
-      $('#ChangelogBadge').append('<span id="newsgithub" class="badge badge-danger ml-2">News !</span>')
-    }
-  }
-})
-
 //Check si a une notification importante est a afficher, si oui, l'afficher
 $.ajax({
   url: "Modele/Autre.php",
   method: "POST",
+  dataType: 'json',
   data: {
     action: "UrgentNotification"
   },
   success: function (data) {
-    if(data.trim() != ""){
-    $('.container-fluid').prepend('<div class="alert alert-danger" role="alert">'+data.trim()+'</div>')
+    if(data.Message != ""){
+    $('.container-fluid').prepend('<div class="alert alert-'+data.Type+'" role="alert">'+data.Message+'</div>')
   }
   }
 })
