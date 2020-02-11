@@ -179,9 +179,9 @@ require_once('Configs.php');
           );
         }
         if (!empty($result))
-            print count($TableauHeurePlanifie) . ' tâche(s) attribuée(s)';
-          else
-            print_r($statement->errorInfo());
+          print true;
+        else
+          print_r($statement->errorInfo());
       }
 
       //Créer une tache depuis la méthode de reunion
@@ -234,9 +234,9 @@ require_once('Configs.php');
           );
         }
         if (!empty($result))
-        print count($ListeTache)-2 . ' tâche(s) pivotal planifiée(s)';
-      else
-        print_r($statement->errorInfo());
+          print true;
+        else
+          print_r($statement->errorInfo());
       }
 
       //Creer des taches de type scrum planing 
@@ -258,7 +258,7 @@ require_once('Configs.php');
             )
           );
           if (!empty($result))
-            print 'Tâche scrum planing planifiée'."\n";
+            print true;
           else
             print_r($statement->errorInfo());
         }

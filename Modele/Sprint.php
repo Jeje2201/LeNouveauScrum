@@ -59,7 +59,7 @@ require_once('Configs.php');
           )
         );
         if (!empty($result))
-          print 'Sprint n°'.$_POST["numero"].' créé';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -108,7 +108,7 @@ require_once('Configs.php');
           )
         );
         if (!empty($result))
-          print 'Sprint n°'.$_POST["numero"].' changé';
+          print true;
         else
           print_r($statement->errorInfo());
       }

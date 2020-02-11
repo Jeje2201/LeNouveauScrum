@@ -52,7 +52,7 @@ require_once('Configs.php');
           )
         );
         if (!empty($result))
-          print 'Tâche "'.$_POST["Label"].'" changée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -68,7 +68,7 @@ require_once('Configs.php');
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Tâche supprimée';
+          print true;
         else
           print_r($statement->errorInfo());
       }

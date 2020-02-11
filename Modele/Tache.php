@@ -105,7 +105,7 @@
             )
           );
         if (!empty($result))
-          print sizeof($IdAttribue)." tâche(s) validée(s)";
+          print true;
         else
           print_r($statement->errorInfo());
       }

@@ -77,7 +77,7 @@
           )
         );
         if (!empty($result))
-          print 'Projet "' .  $_POST["Nom"] . '" créé';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -116,7 +116,7 @@
           )
         );
         if (!empty($result))
-          print 'Projet "' . $_POST["Nom"] . '" changé';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -132,7 +132,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Projet supprimé';
+          print true;
         else
           print_r($statement->errorInfo());
 

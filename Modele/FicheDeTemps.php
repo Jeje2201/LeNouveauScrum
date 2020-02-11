@@ -359,10 +359,11 @@ function MinutesEnHeures($Minutes)
                   ':Done' => $LaDate
                 )
               );
-              if (empty($result)){
+              if (!empty($result))
+                print true;
+              else
                 print_r($statement->errorInfo());
-              } 
-          }
+                }
         }
         }
         print json_encode($JsonResult);
@@ -400,10 +401,9 @@ function MinutesEnHeures($Minutes)
           )
         );
         if (!empty($result))
-          print 'Fiche de temps changée';
-        else {
+          print true;
+        else
           print_r($statement->errorInfo());
-        }
       }
 
       //Delete une fiche de temps
@@ -417,7 +417,7 @@ function MinutesEnHeures($Minutes)
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Fiche de temps supprimée';
+          print true;
         else
           print_r($statement->errorInfo());
       }

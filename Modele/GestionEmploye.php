@@ -106,7 +106,7 @@
           )
         );
         if (!empty($result))
-          print 'Ressource "'.$_POST["Prenom_Employe"]. ' ' .$_POST["Nom_Employe"] .'" créée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -164,7 +164,7 @@
           )
         );
         if (!empty($result))
-          print 'Ressource "' .$_POST["Prenom_Employe"].' '. $_POST["Nom_Employe"] .'" changée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -180,7 +180,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Ressource supprimée';
+          print true;
         else
           print_r($statement->errorInfo());
 
@@ -224,7 +224,7 @@
           )
         );
         if (!empty($result))
-          print 'Nouveau mot de passe créé';
+          print true;
         else
           print_r($statement->errorInfo());
       }

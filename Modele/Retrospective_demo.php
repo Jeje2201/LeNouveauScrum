@@ -100,6 +100,8 @@
         );
         if ($statement->rowCount() > 0)
           print true;
+        else
+          print_r($statement->errorInfo());
       }
     }
     ?> 

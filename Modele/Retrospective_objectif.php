@@ -51,7 +51,7 @@
           )
         );
         if (!empty($result))
-          print 'Objectif "'.$_POST["LabelObjectif"].'" créé';
+          print true;
         else
           print_r($statement->errorInfo());
       }

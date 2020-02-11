@@ -75,7 +75,7 @@
           )
         );
         if (!empty($result))
-          print 'Interférence "'.$_POST["labelinterference"].'" créée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -118,7 +118,7 @@
           )
         );
         if (!empty($result))
-          print 'Interférence "'.$_POST["labelinterference"].'" changée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
@@ -134,7 +134,7 @@
           )
         );
         if ($statement->rowCount() > 0)
-          print 'Interférence supprimée';
+          print true;
         else
           print_r($statement->errorInfo());
       }
