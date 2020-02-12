@@ -2,23 +2,53 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="centered border border-dark mb-3" onclick="$('#ModaleClient').modal('show'); ">
-        <h2 class="centered mb-2" id="NomProjet"></h2>
-        <h4 class="centered mb-4" id="ClientEntreprise"></h4>
-        <h4 class="centered mb-3" id="DescriptionProjet"></h4>
+      <div class="row">
+        <div class="col-lg-3 centered align-middle">
+          <!-- <button class="btn btn-info">Retour</button> -->
+        </div>
+        <div class="col-lg-6">
+          <div class="border mb-3" onclick="$('#ModaleClient').modal('show'); ">
+            <h2 class="centered mb-2" id="NomProjet"></h2>
+            <h4 class="centered mb-4" id="ClientEntreprise"></h4>
+            <h4 class="centered mb-3" id="DescriptionProjet"></h4>
+          </div>
+        </div>
+        <div class="col-lg-3 my-auto">
+          <img class="pointer img-fluid" height="70px" width="70px" src="Assets/Image/Client/default.png">
+        </div>
       </div>
 
-      <div class="border border-dark mb-3">
-        <p class="ml-2 mt-1"><small>Ressoures mobilisées</small></p>
-        <div id="RessourcesMobilisees" class="col row"></div>
+      
+
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="border mb-3 DisableEffect">
+            <p class="ml-2 mt-1"><small>Niveau de facturation</small></p>
+            <div id="PieChartArgent" class="col row"></div>
+            <p class="centered mb-n1">Total</p>
+            <h3 class="centered">22 222 € HT</h3>
+          </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="border mb-3">
+              <p class="ml-2 mt-1"><small>Ressoures mobilisées</small></p>
+              <div id="RessourcesMobilisees" class="col row"></div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="border mb-3 DisableEffect">
+              <div id="datetimepicker12"></div>
+            </div>
+            
+          </div>
       </div>
 
-      <div class="border border-dark mb-3">
-        <p class="ml-2 mt-1"><small>Technologies mobilisées</small></p>
-        <div id="TechnologiesProjet" class="col row"></div>
-      </div>
+      
 
-      <div class="border border-dark mb-3">
+      
+      <div class="row">
+      <div class="col">
+        <div class="border mb-3">
         <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
         <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">Ajouter</button>
           <table class="table table-sm table-striped table-bordered">
@@ -36,8 +66,17 @@
           </table>
             
       </div>
+    </div>
+      <div class="col">
+        <div class="border mb-3">
+          <p class="ml-2 mt-1"><small>Technologies mobilisées</small></p>
+          <div id="TechnologiesProjet" class="col row"></div>
+        </div>
+      </div>
+    </div>
+      
 
-      <div class="border border-dark mb-3">
+      <div class="border mb-3">
         <p class="ml-2 mt-1"><small>Note</small></p>
         <div class="col row ml-1 mb-2">
           <textarea class="form-control mb-2" id="Note" rows="3"></textarea>
@@ -45,8 +84,8 @@
         </div>
       </div>
 
-      <div class="border">
-        <p><small>Timelinep</small></p>
+      <div class="border DisableEffect">
+        <p><small>Temps </small></p>
         <div id="ProjectTimeLine" class="col row"></div>
       </div>
 
@@ -202,6 +241,34 @@
     GetEchanges()
     GetTimeLine()
 
+    $('#datetimepicker12').datetimepicker({
+                inline: true,
+                sideBySide: true
+            });
+
+        //+-+-+-+-+-+-+-+-+-+-+ Infos Piechart Argent +-+-+-+-+-+-+-+-+-+-+
+
+    chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'PieChartArgent',
+                height: 200,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: '+ this.y +' €';
+                }
+            },
+            series: [{
+                data: [
+                {name:"Payé",y: 15},{name:"Manque",y: 9}],
+                innerSize: '40%',
+            }]
+        });
+
     //+-+-+-+-+-+-+-+-+-+-+ Infos Projet +-+-+-+-+-+-+-+-+-+-+
 
     function GetDescription(){
@@ -266,6 +333,7 @@
       },
       success: function (data) {
         Notify(data,'Client édité')
+        GetClient()
       }
     });
 
@@ -291,14 +359,14 @@
 
         $.each(data, function () {
 
-          var divRessource = $(`<div class="ml-3"></div>`);
+          var divRessource = $(`<div class="col"></div>`);
 
           if(this.Avatar == '' || this.Avatar == undefined || this.Avatar == null){ 
             this.Avatar = 'default.png'
           }
 
           divRessource.append($(`<img height="75px" width="75px" src="Assets/Image/Ressources/`+this.Avatar+`">`));
-          divRessource.append($(`<img id="`+this.RessourceId+`" height="25px" width="25px" style="position: relative;left: -19px;top: -27px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
+          divRessource.append($(`<img class="pointer" id="`+this.RessourceId+`" height="25px" width="25px" style="position: absolute;left: 74px;top: 1px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
             SuppRessource($(this))
           }));
 
@@ -308,12 +376,14 @@
           $('#RessourcesMobilisees').append(divRessource)
         
         })
-        $('#RessourcesMobilisees').append($(`<img height="75px" width="75px" class="mb-3 ml-3" onclick="$('#ModaleAddUser').modal('show'); " src="Assets/Image/Autre/addUser.png">`))
+        $('#RessourcesMobilisees').append($(`<img class="pointer ml-3 mb-3" height="75px" width="75px" onclick="$('#ModaleAddUser').modal('show'); " src="Assets/Image/Autre/addUser.png">`))
       }
     })
   }
 
     $('#AddRessourceToProject').bind( "click", function() { 
+      var test= $('#TOUTLEMONDE').val()
+      debugger
 
       if ($('#TOUTLEMONDE').val() != '') {
         $.ajax({
@@ -326,6 +396,8 @@
           },
           success: function (data) {
             Notify(data,'Resource(s) ajoutée(s)')
+            $("#TOUTLEMONDE > option").prop("selected", "");
+            $("#TOUTLEMONDE").trigger("change");
             GetRessources()
           }
         });
@@ -406,19 +478,19 @@
 
           $.each(data, function () {
 
-            var divTechnologie = $(`<div class="ml-3"></div>`);
+            var divTechnologie = $(`<div class="col"></div>`);
 
             divTechnologie.append($(`<img class="" height="75px" width="75px" src="` + `Assets/Image/Autre/Logo_Code.png">`))
-            divTechnologie.append($(`<img id="`+this.technologieId+`" height="25px" width="25px" style="position: relative;left: -19px;top: -27px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
+            divTechnologie.append($(`<img class="pointer" id="`+this.technologieId+`" height="25px" width="25px" style="position: absolute;left: 69px;top: -5px;" src="` + `Assets/Image/Autre/delete.png">`).bind( "click", function() {
               SuppTechno($(this))
           }));
 
-            divTechnologie.append($(`<p class="mb-3 centered pr-4">`+this.technologie+`</p>`))
+            divTechnologie.append($(`<p>`+this.technologie+`</p>`))
 
             $('#TechnologiesProjet').append(divTechnologie)
           })
         
-          $('#TechnologiesProjet').append($(`<img id="AddTechnoModal" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
+          $('#TechnologiesProjet').append($(`<img class="pointer ml-3 mb-3" id="AddTechnoModal" height="75px" width="75px" class="mb-3 ml-3" src="Assets/Image/Autre/AddLanguage.png">`).bind( "click", function() {
             ShowAndClearModaleForNew('ModaleTechno')
           }))
 
