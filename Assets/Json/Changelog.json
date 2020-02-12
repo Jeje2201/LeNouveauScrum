@@ -1,6 +1,6 @@
 [
     {
-        "Date": "12 Février, 2020",
+        "Date": "13 Février, 2020",
         "Titre": "Mise à jour rapide",
         "Fix": [
             "Lorsqu'une tâche de type pivotal est validée, si elle ne s'est pas validée chez pivotal tracker parce-que leur api est busy, la tâche n'est alors pas validée sur Scrum Manager et un message d'erreur apparaît",
@@ -37,32 +37,6 @@
             "Nouvelle colonne pour les users, true/false si le user doit faire une planification lors de sprints pour afficher seulement les users qui doivent vraiment en faire dans la page de planification",
             "Chart donnut dans la page d'information des projets affichant de l'argent par rapport au projet, pour le moment disable",
             "Agenda dans la page d'information de projets, pour le moment disable"
-        ]
-    },
-    {
-        "Date": "13 Février, 2020",
-        "Titre": "Fix fix fix",
-        "Fix": [
-            ""
-        ],
-        "Ajout": [
-            "La clé pivotal pour chercher les stories n'est plus stockée en gras dans l'appli mais dans un fichier non tracké par git",
-            "Lors de la connexion, sait faire la différence entre si c'est le mot de passe qui est faux ou l'adresse mail qui est mal rensignée",
-            "Nouvelle colonne pour les users true/false si le user doit faire une planification lors de sprints"
-        ],
-        "Modif": [
-            "La couleur de hover sur les tables est moins foncée",
-            "Le chemin pour aller chercher des fichiers a été allégé",
-            "Peut donner un thème à la notif qui apparait en haut de l'écran",
-            "Les icones de suppression n'ont plus le logo d'une croix mais d'une poubelle",
-            "Dans la gestion des users, n'affiche plus les infos innutiles tel que les initials, le mail, l'id pivotal",
-            "Fusion du fichier Gestion_projet.php dans projet.php",
-            "Le back renvoi '1' et non un message, c'est le front qui doit s'occuper d'écrire le message, donc beaucoup de '1' vont apparaitre le temps de s'occuper de réécrire les messages dans le front",
-            "Le user ne peux modifier que ses propres interférence mais pas les autres"
-        ],
-        "Suppression": [
-            "Ne store plus dans le local storage si le user a vérifié les changelogs",
-            "Les changelogs n'ont plus de mème, flemme de les tenir à jour"
         ]
     },
     {
