@@ -65,7 +65,7 @@
           $output1 .= '';
         }
 
-        print json_encode($output1);
+        print $output1;
       }
 
       //Ressortir la date min et max du sprint
