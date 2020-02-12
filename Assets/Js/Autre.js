@@ -87,12 +87,12 @@ function ShowAndClearModaleForNew(idModale,hideElement = null, showElement = nul
  * @param {string} resultSQL Prend le retour de la requete sql qui devrait etre "1" si tout c'est bien passé
  * @param {string} Message Message qu'on affiche si tout c'est bien pass"
  */
-function Notify(resultSQL, Message = 'Message non customisé') {
+function Notify(resultSQL, SucessMessage = 'Message succès', ErrorMessage = 'Message erreur') {
 
   if(resultSQL == true)
-    $.notify(Message, "success");
+    $.notify(SucessMessage, "success");
   else
-    $.notify("Erreur", "error");
+    $.notify(ErrorMessage, "error");
 }
 
 /**
@@ -104,7 +104,7 @@ function isAdmin(){
 
   $.ajax({
 
-    url: "Modele/GestionEmploye.php",
+    url: "Modele/User.php",
     method: "POST",
     async: false,
     data: {
