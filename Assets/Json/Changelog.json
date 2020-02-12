@@ -2,7 +2,6 @@
     {
         "Date" : "10 Février, 2020",
         "Titre" : "Déjà de retour, pour te jouer un mauvais tour",
-        "Meme" : "Meme_3.jpg",
         "Fix" : [
             "Il n’était plus possible de créer un projet @Khaled",
             "Les tâches ne s'affichaient pas dans le bon ordre si certains paramètres étaient présent @Amine",
@@ -34,7 +33,6 @@
     },
     {
         "Date" : "06 Février, 2020",
-        "Meme" : "Meme_2.jpg",
         "Titre" : "Un changelog aussi bien remplis que ton ventre après le nouvel an",
         "Fix" : [
             "Remplacement générale de plein de “br” et “p” qui permettaient de faire des retours à la ligne en mode yolo part du vrai css “mb-2” etc.. le css c’est bien"
@@ -65,7 +63,6 @@
     },
     {
         "Date" : "24 Janvier, 2020",
-        "Meme" : "Meme_1.jpg",
         "Titre" : "Guess who's back, back again",
         "Fix" : [
         ],
