@@ -2,15 +2,6 @@
     session_start();
     require_once('Configs.php');
 
-    //Si jamais le texte d'une tache risque de casser l'html qui ressort
-    function PreviewText($input)
-    {
-      $Problem = array("<", ">");
-      $input = str_replace($Problem, "", $input);
-
-      return $input;
-    }
-
     if (isset($_POST["action"])) {
 
       //Fonction pour afficher les cards a DESCendre et DESCendues
@@ -22,9 +13,8 @@
           FROM tache
           INNER JOIN projet ON projet_pk = tache_fk_projet
           WHERE tache_fk_sprint = " . $_POST["idAffiche"] . "
-          
           AND tache_fk_user = " . $_SESSION['user']['id'] . "
-          ORDER BY projet_nom, tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task");
+          ORDER BY tache_pivotal_id_Project desc, tache_pivotal_id_Story, tache_pivotal_id_Task, projet_nom");
 
         $statement->execute();
         $result = $statement->fetchAll();
@@ -43,13 +33,16 @@
             $ShowItsPivotal = '';
             if($row["tache_pivotal_id_Task"] != '')
             $ShowItsPivotal = '<span class="text-warning"> (Pivotal)</span>';
+            else{
+              $row["tache_label"] = '<b>' . $row["projet_nom"] . '</b> - '. $row["tache_label"] ;
+              $row["projet_nom"] = '';
+            }
 
             $GroupStory = '';
             if($SameStory != $row["tache_pivotal_id_Story"]){
-              $LeCounterDeGroupe +=1;
 
              
-            $GroupStory = ' </div><div id="GroupOfTacheN'.$LeCounterDeGroupe.'" class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
+            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
@@ -63,9 +56,9 @@
             }
 
             $output1 .= $GroupStory . '
-      <div class="card '.$classOfTache.' TacheOfGroupN'.$LeCounterDeGroupe.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
+      <div class="card '.$classOfTache.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
       <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
-          <span id="LabelDeLaTache" class="float-right">' . PreviewText($row["tache_label"]) . '</span><span> (' . $row["tache_heure"] . ')</span>
+          <span id="LabelDeLaTache" class="float-right">' . $row["tache_label"] . '</span><span> (' . $row["tache_heure"] . ')</span>
         <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
           }
         } else {
