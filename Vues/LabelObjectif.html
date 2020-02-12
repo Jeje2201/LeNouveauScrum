@@ -37,10 +37,10 @@
 
   function RemplirTableau() {
     $.ajax({
-      url: "Modele/LabelTache.php",
+      url: "Modele/Tache.php",
       method: "POST",
       data: {
-        action: "Load",
+        action: "Load_LabelTache",
         idSprint: $("#numeroSprint").val()
       },
       success: function (data) {
@@ -67,17 +67,22 @@
       }
     });
 
+    if(ToReturn.length > 0){
+
     $.ajax({
-      url: "Modele/LabelTache.php",
+      url: "Modele/Tache.php",
       method: "POST",
       data: {
-        action: "Changer",
+        action: "Changer_LabelTache",
         ToReturn: ToReturn
       },
       success: function (data) {
         $.notify(data, "success");
         RemplirTableau();
       }
-    });
+    });}
+    else{
+      Notify(0,"","Aucune tâche changée")
+    }
   };
 </script>
