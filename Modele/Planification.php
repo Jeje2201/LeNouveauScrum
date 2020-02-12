@@ -244,7 +244,7 @@ require_once('Configs.php');
         $TableauEmploye = $_POST["idEmploye"];
         $numero = $_POST["idSprint"];
         $statement = $connection->prepare("INSERT INTO tache (tache_heure, tache_fk_sprint, tache_fk_user, tache_fk_projet, tache_type, tache_label, tache_done) 
-        VALUES (:NombreHeure, :idSprint, :idEmploye, (select projet_pk FROM projet WHERE projet_nom = 'ScrumPlaning'), :TypeTache, :TypeTachee,(select sprint_dateDebut FROM sprint WHERE sprint_pk = $numero))
+        VALUES (:NombreHeure, :idSprint, :idEmploye, (select projet_pk FROM projet WHERE projet_nom like 'ScrumPlanning'), :TypeTache, :LabelTache,(select sprint_dateDebut FROM sprint WHERE sprint_pk = $numero))
         ");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
 
@@ -254,7 +254,7 @@ require_once('Configs.php');
               ':idSprint' => intval($_POST["idSprint"]),
               ':idEmploye' => intval($TableauEmploye[$i]),
               ':TypeTache' => $_POST["idTypeTache"],
-              ':TypeTachee' => $_POST["idTypeTache"]
+              ':LabelTache' => $_POST["idTypeTache"]
             )
           );
           if (!empty($result))
