@@ -1,19 +1,45 @@
 [
     {
-        "Date" : "10 Février, 2020",
-        "Titre" : "Déjà de retour, pour te jouer un mauvais tour",
-        "Fix" : [
+        "Date": "12 Février, 2020",
+        "Titre": "Fix fix fix",
+        "Fix": [
+            ""
+        ],
+        "Ajout": [
+            "La clé pivotal pour chercher les stories n'est plus stockée en gras dans l'appli mais dans un fichier non tracké par git",
+            "Lors de la connexion, sait faire la différence entre si c'est le mot de passe qui est faux ou l'adresse mail qui est mal rensignée",
+            "Nouvelle colonne pour les users true/false si le user doit faire une planification lors de sprints"
+        ],
+        "Modif": [
+            "La couleur de hover sur les tables est moins foncée",
+            "Le chemin pour aller chercher des fichiers a été allégé",
+            "Peut donner un thème à la notif qui apparait en haut de l'écran",
+            "Les icones de suppression n'ont plus le logo d'une croix mais d'une poubelle",
+            "Dans la gestion des users, n'affiche plus les infos innutiles tel que les initials, le mail, l'id pivotal",
+            "Fusion du fichier Gestion_projet.php dans projet.php",
+            "Le back renvoi '1' et non un message, c'est le front qui doit s'occuper d'écrire le message, donc beaucoup de '1' vont apparaitre le temps de s'occuper de réécrire les messages dans le front",
+            "Le user ne peux modifier que ses propres interférence mais pas les autres"
+        ],
+        "Suppression": [
+            "Ne store plus dans le local storage si le user a vérifié les changelogs",
+            "Les changelogs n'ont plus de mème, flemme de les tenir à jour"
+        ]
+    },
+    {
+        "Date": "09 Février, 2020",
+        "Titre": "Déjà de retour, pour te jouer un mauvais tour",
+        "Fix": [
             "Il n’était plus possible de créer un projet @Khaled",
             "Les tâches ne s'affichaient pas dans le bon ordre si certains paramètres étaient présent @Amine",
             "Si le user n’avait que des tâches de projets non pivotal, il était impossible de les valider @Nabil",
             "Le total d’heures attribuables ne se mettait pas à jour quand on planifiait de nouvelles heures @Angélique",
             "Il était impossible d’ajouter une ressource dans un projet"
         ],
-        "Ajout" : [
+        "Ajout": [
             "La font de l’application est maintenant en « font-family : robot »",
             "Le Scrum Master peut définir lui même les avatars des users, pour la gestion des ressources sur les projets, plus pratique"
         ],
-        "Modif" : [
+        "Modif": [
             "Modification de la façon de valider ses tâches, beaucoup plus intuitive, on check les tâches qu’on veut valider et on clic sur valider, fini les déplacement à gauche et droite",
             "Le changelog est maintenant généré par json et non pas dans une table en base de données",
             "Le type de chaque changement est précisé pour chaque ligne dans le changelog",
@@ -24,7 +50,7 @@
             "Quand sélectionne une image pour le logo du projet ou l’avatar du user, seul le format png est proposé",
             "Le bouton pour les issues ne renvoie plus sur une modale fun mais sur une modale qui explique comment écrire une issue et redirige le user sur les issues GitHub"
         ],
-        "Suppression" : [
+        "Suppression": [
             "Suppression de console.log() éparpillés par-ci par-là",
             "On n’enregistre plus quand est-ce que le user descend ses fiches de temps, inutile, juste la date de la fiche de temps suffit",
             "Le user ne peut plus customiser son avatar (n’a jamais été fait auparavant)",
@@ -32,19 +58,19 @@
         ]
     },
     {
-        "Date" : "06 Février, 2020",
-        "Titre" : "Un changelog aussi bien remplis que ton ventre après le nouvel an",
-        "Fix" : [
+        "Date": "06 Février, 2020",
+        "Titre": "Un changelog aussi bien remplis que ton ventre après le nouvel an",
+        "Fix": [
             "Remplacement générale de plein de “br” et “p” qui permettaient de faire des retours à la ligne en mode yolo part du vrai css “mb-2” etc.. le css c’est bien"
         ],
-        "Ajout" : [
+        "Ajout": [
             "Il est possible de faire apparaître un message d'alerte haut de chaque page. Promis je te spammerais pas avec, enfin, je crois :)",
             "Les démos ont une date de création, oui oui",
             "Tu l’auras peut être deviné, avec cet ajout, les démos ont un compteur de jours depuis leur date de création, affiché lors de la rétro, À VOS DÉMOS !",
             "Les changelogs ont un titre, how awesome is that !",
             "Si un total de 7 fiches de temps ou plus ne sont toujours pas descendues, la colonne du user devient rouge, si tu n’aimes pas être en rouge, descend tes fiches de temps :)"
         ],
-        "Modif" : [
+        "Modif": [
             "Si une fiche de temps est remplie le weekend, ce qui arrive généralement quand le user rempli ses fiches de temps sur plusieurs dates d’un coup, elle n’est pas prise en compte. Fais pas genre tu travailles le weekend ;)",
             "La bar de navigation est partie au sport, elle est enfin plus fine",
             "l’algorithme pour afficher les différentes fiches de temps à descendre et le graphe ont entièrement été revu, sache une chose, travailler avec les dates et des tableaux dans des tableaux, c'est une horreur",
@@ -58,26 +84,24 @@
             "Les logos des projets sont stockés sur le serveur directement et non en base64 bourrant la base de données d’infos inutiles, on a pas du stockage nouuus",
             "Point plus sérieux, la nomenclature de la base de données a été revue entièrement, du nom des tables aux noms des colonnes, ce qui a, par conséquent, cassé toutes les requêtes SQL, je te promet, passer 1 weekend entier à recoder toutes les requêtes, c’est nul, mais maintenant les requêtes sont bien plus allégées et vont permettre dans un futur proche d’alléger énormément davantage le back en renvoyant du json partout et non du html pur. Le Commit en question : https://github.com/Jeje2201/ScrumManager/commit/6c88603566a7edd6647332640c9b2e1edbe53671"
         ],
-        "Suppression" : [
-        ]
+        "Suppression": []
     },
     {
-        "Date" : "24 Janvier, 2020",
-        "Titre" : "Guess who's back, back again",
-        "Fix" : [
-        ],
-        "Ajout" : [
+        "Date": "24 Janvier, 2020",
+        "Titre": "Guess who's back, back again",
+        "Fix": [],
+        "Ajout": [
             "Le changelog fait son grand retour :)",
             "Un générateur de footer spéciale pour adresse mail Natural Solution a fait son apparition dans la page 'Bienvenue'",
             "Une nouvelle page 'Information des projets' fait son apparition seulement pour les Scrum master, elle permet d'afficher les ressources mobilisées, technos mobilisées, client, timeline, bloc note, etc.."
         ],
-        "Modif" : [
+        "Modif": [
             "Changer le mot de passe des ressources est maintenant plus facile pour les Scrum master",
             "Amélioration de la rapidité du chargement du contenue de certaines pages (le back renvoi du json et non plus du html, reste encore beaucoup de pages à recoder)",
             "Retouche du design à gauche et droite",
             "Lors de la planification, si une tâche que l'on planifie a déjà été planifiée, une couleur de fond lui sera appliqué, à mort les doublons invisible !"
         ],
-        "Suppression" : [
+        "Suppression": [
             "Dans la page 'Information', le champ 'En tout' pour les fiches de temps a été supprimé car on peut retrouver le même résultat en changeant l'échelle de temps"
         ]
     }
