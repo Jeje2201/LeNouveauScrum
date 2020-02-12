@@ -169,7 +169,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
-    RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
+    RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/User.php');
 
     $( "#Prenom, #Nom" ).keyup(function() {
       $('#Email').val($("#Prenom").val().toLowerCase()+'_'+$("#Nom").val().toLowerCase()+"@natural-solutions.eu")
@@ -195,7 +195,7 @@
         $.notify(`Choisie une image d'abord`, `error`);
       } else {
         $.ajax({
-          url: "Modele/GestionEmploye.php",
+          url: "Modele/User.php",
           method: "POST",
           data: new FormData(this),
           contentType: false,
@@ -261,7 +261,7 @@
       }
 
       $.ajax({
-        url: "Modele/GestionEmploye.php",
+        url: "Modele/User.php",
         method: "POST",
         data: {
           id: $('#id').val(),
@@ -282,7 +282,7 @@
         success: function (data) {
           $.notify(data, "success");
           $('#ModalEmploye').modal('hide');
-          RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
+          RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/User.php');
           GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
         }
       });
@@ -293,7 +293,7 @@
       var id = $(this).attr("id");
       $('#InfoMdp').hide()
       $.ajax({
-        url: "Modele/GestionEmploye.php",
+        url: "Modele/User.php",
         method: "POST",
         data: { id: $(this).attr("id"), action: "Select" },
         dataType: "json",
@@ -341,11 +341,11 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette ressource ?"))
         $.ajax({
-          url: "Modele/GestionEmploye.php",
+          url: "Modele/User.php",
           method: "POST",
           data: { id: $(this).attr("id"), action: "Delete" },
           success: function (data) {
-            RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/GestionEmploye.php');
+            RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/User.php');
             $.notify(data, "success");
             GarderLaRecherche('BarreDeRecherche', 'TableauEmployeHtml');
           }
@@ -362,7 +362,7 @@
     $(document).on('click', '#putPassword', function () {
 
       $.ajax({
-							url: "Modele/GestionEmploye.php",
+							url: "Modele/User.php",
 							method: "POST",
 							data: {
 								action: "setMdpOp",
