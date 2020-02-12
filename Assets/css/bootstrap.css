@@ -1564,8 +1564,8 @@ pre code {
 }
 
 .table-hover tbody tr:hover {
-  color: white;
-  background-color: #606060;
+  cursor:default;
+  background-color: #d0d3d7;
 }
 
 .table-primary,
