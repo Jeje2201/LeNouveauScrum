@@ -359,10 +359,9 @@ function MinutesEnHeures($Minutes)
                   ':Done' => $LaDate
                 )
               );
-              if (!empty($result))
-                print true;
-              else
+              if (empty($result)){
                 print_r($statement->errorInfo());
+              } 
                 }
         }
         }
