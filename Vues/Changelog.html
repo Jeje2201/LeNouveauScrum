@@ -18,33 +18,30 @@ $(document).ready(function () {
       dataType: "json",
       success: function (data) {
 
-        var index = data.length
-
         $.each(data, function ( ) {
-
 
           var divUnChangelog = $(`<div class="my-3"></div>`);
           divUnChangelog.append(`<h2 class="d-inline text-secondary"> `+this.Date+` </h2><h4 class="d-inline">`+this.Titre+`</h4><p></p>`);
 
-          if(this.Fix.length > 0){
+          if(this.Fix != undefined){
             this.Fix.forEach(element => {
               divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded mr-1 text-white changelog_Fix" style="background-color: #4646F1;">Fix</span> '+element+'</p>')
             });
           }
 
-          if(this.Ajout.length > 0){
+          if(this.Ajout != undefined){
             this.Ajout.forEach(element => {
               divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded mr-1 text-white changelog_Ajout" style="background-color: #29A67A;">Ajout</span> '+element+'</p>')
             });
           }
 
-          if(this.Modif.length > 0){
+          if(this.Modif != undefined){
             this.Modif.forEach(element => {
               divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded mr-1 text-white changelog_Modif" style="background-color: orange;">Modification</span> '+element+'</p>')
             });
           }
 
-          if(this.Suppression.length > 0){
+          if(this.Suppression != undefined){
             this.Suppression.forEach(element => {
               divUnChangelog.append('<p style="margin-bottom: 3px;"><span class="rounded mr-1 text-white changelog_Suppression" style="background-color: #FF0000;">Suppression</span> '+element+'</p>')
             });
@@ -54,7 +51,6 @@ $(document).ready(function () {
 
           $('#Changelog').append(divUnChangelog)
 
-        index -=1
         })
       }
     })

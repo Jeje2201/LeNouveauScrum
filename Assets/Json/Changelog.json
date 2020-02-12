@@ -1,6 +1,46 @@
 [
     {
         "Date": "12 Février, 2020",
+        "Titre": "Mise à jour rapide",
+        "Fix": [
+            "Lorsqu'une tâche de type pivotal est validée, si elle ne s'est pas validée chez pivotal tracker parce-que leur api est busy, la tâche n'est alors pas validée sur Scrum Manager et un message d'erreur apparaît",
+            "Lorsqu'une tâche était de type ScrumPlanning (réunion, cp, etc..), elle n'était pas affichée dans la liste des tâches planifiées, ni dans la liste des tâches à descendre, etc..",
+            "Les avatars des users qui travaillent sur un projet n'étaient pas correctement affichés",
+            "Les tâches ne s'affichaient pas dans le bon ordre lors de leur validation si elle n'étaient pas de type pivotal"
+        ],
+        "Modif": [
+            "Les messages de notifications après avoir effectué une action peuvent être aussi customisés si c'est une erreur",
+            "Le chemin pour accéder à des fichiers simplifié",
+            "Le user ne peux modifier que ses propres interférences",
+            "La clé pivotal pour chercher les tâches et les valider n'est plus log dans le code mais dans un fichier non tracké par git",
+            "Le message d'alerte qui apparaît en haut de la page peut être de différentes couleurs selon le type d'alerte",
+            "Les boutons de suppression n'ont plus une croix comme logo mais une poubelle",
+            "Nouveau système de notification, pour le moment peut renvoyer \"1\", le temps de s'occuper de customiser tous les messages d'info",
+            "Dans les fiches de temps, la barre qui affiche le total % d'heures est descendue",
+            "Lorsque l'on ajoute une ressource à la page d'information de projet, l'input des ressources ajoutées se vide",
+            "Retouche du design de la page d'information des projets",
+            "Les bouton pour changer l'état des objectifs sont plus gros @Olivier",
+            "N'affiche les informations du client lié à un projet seulement sur le clic du logo de client et non sur le nom du projet"
+        ],
+        "Suppression": [
+            "Fin des mèmes dans les changelog",
+            "Fin de la notification de nouveau changelog dans la navbar, elle se fera par une alerte générale qui restera 1 journée",
+            "Fichier LabelTache.php mergé dans le fichier tache.php",
+            "Fichier GestionProjet.php mergé dans le fichier projet.php",
+            "Suppression de méthodes devenues inutiles",
+            "Ne store plus dans le local storage si le user a vérifié les changelogs"
+        ],
+        "Ajout": [
+            "Lors de la connexion, le message d'erreur peut aussi indiquer si c'est l'adresse mail qui est inconnue",
+            "Création d'une page web qui permet de générer le json de changelog plus rapidement et plus facilement",
+            "Class css qui donne un effet de désactivé",
+            "Nouvelle colonne pour les users, true/false si le user doit faire une planification lors de sprints pour afficher seulement les users qui doivent vraiment en faire dans la page de planification",
+            "Chart donnut dans la page d'information des projets affichant de l'argent par rapport au projet, pour le moment disable",
+            "Agenda dans la page d'information de projets, pour le moment disable"
+        ]
+    },
+    {
+        "Date": "12 Février, 2020",
         "Titre": "Fix fix fix",
         "Fix": [
             ""

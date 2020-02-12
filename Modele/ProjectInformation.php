@@ -67,14 +67,7 @@
         $statement->execute();
         $result = $statement->fetch();
 
-        $output["entreprise"] = $result["projet_client_entreprise"];
-        $output["Nom"] = $result["projet_client_nom"];
-        $output["job"] = $result["projet_client_job"];
-        $output["mail"] = $result["projet_client_mail"];
-        $output["telephone"] = $result["projet_client_telephone"];
-        $output["id"] = $result["projet_client_pk"];
-
-        print json_encode($output);
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "putClient") {

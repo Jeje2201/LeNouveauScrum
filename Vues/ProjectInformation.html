@@ -7,14 +7,14 @@
           <!-- <button class="btn btn-info">Retour</button> -->
         </div>
         <div class="col-lg-6">
-          <div class="border mb-3" onclick="$('#ModaleClient').modal('show'); ">
+          <div class="border mb-3">
             <h2 class="centered mb-2" id="NomProjet"></h2>
             <h4 class="centered mb-4" id="ClientEntreprise"></h4>
             <h4 class="centered mb-3" id="DescriptionProjet"></h4>
           </div>
         </div>
         <div class="col-lg-3 my-auto">
-          <img class="pointer img-fluid" height="70px" width="70px" src="Assets/Image/Client/default.png">
+          <img class="pointer img-fluid" onclick="$('#ModaleClient').modal('show');" height="70px" width="70px" src="Assets/Image/Client/default.png">
         </div>
       </div>
 
@@ -382,8 +382,6 @@
   }
 
     $('#AddRessourceToProject').bind( "click", function() { 
-      var test= $('#TOUTLEMONDE').val()
-      debugger
 
       if ($('#TOUTLEMONDE').val() != '') {
         $.ajax({
