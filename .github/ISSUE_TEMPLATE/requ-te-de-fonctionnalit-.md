@@ -1,7 +1,7 @@
 ---
 name: Requête de fonctionnalité
 about: Propose ton idée
-title: Idée pour Scrum Manager
+title: ''
 labels: Amélioration / Idée
 assignees: Jeje2201
 
