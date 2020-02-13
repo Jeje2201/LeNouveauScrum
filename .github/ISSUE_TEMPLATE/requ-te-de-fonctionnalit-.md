@@ -2,7 +2,7 @@
 name: Requête de fonctionnalité
 about: Propose ton idée
 title: Idée pour Scrum Manager
-labels: Bug
+labels: Amélioration / Idée
 assignees: Jeje2201
 
 ---
