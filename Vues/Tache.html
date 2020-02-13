@@ -87,8 +87,6 @@
                   var dateDescente = data.sprint_dateFin;
                 }
 
-                var IdAttribue = [];
-
                 $('.TacheGonnaBeDone').each(function () {
 
                   var TextDeLaTache = $(this).children('#LabelDeLaTache').text()
@@ -112,7 +110,8 @@
                           $.notify("Trop de tâches d'un coup. \""+TextDeLaTache+"\" ne s'est pas faite validée par l'API de Pivotal Tracker", "error");                      
                         },
                         200: function(responseObject, textStatus, errorThrown) {
-                          
+                          $.notify("Tâche \""+TextDeLaTache+"\" validé !", "success");  
+
                           $.ajax({
                             url: "Modele/Tache.php",
                             method: "POST",
@@ -139,6 +138,7 @@
                       },
                       success: function (data) {
                         AfficherCards();
+                        $.notify("Tâche \""+TextDeLaTache+"\" validé !", "success");  
                       }
                     });
                   }
