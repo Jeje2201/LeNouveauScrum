@@ -345,40 +345,17 @@
         },
         success: function (data) {
 
-            LeNomUser = new Array
-            LeNomUser = data['NomUser']
-
-            RegsiterDate = new Array
-            RegsiterDate = data['RegsiterDate']
-
-            NbDateRemplis = new Array
-            NbDateRemplis = data['NbDatePerUser']
-
-            //NbDataRemplis = nombre de fdt remplus, pour chaques user, on check le nb de jours qu'il doit remplir ses feuilles NbJourDeTravai() moins le nombre qu'il a déjà remplis pour savoir combien il doit encore remplir
-            i=0
-            NbDateRemplis.forEach(element => {
-              NbDateRemplis[i] = NbJourDeTravail(RegsiterDate[i],ChoixDate(0))-element+1
-              i+=1
+            data.forEach(element => {
+              element.NbDate = NbJourDeTravail(element.user_RegisterDate,ChoixDate(0))-element.NbDate+1
             });
 
-             //1) combine the arrays:
-             var list = [];
-            for (var j = 0; j < NbDateRemplis.length; j++) 
-                list.push({'NbDateRemplis': NbDateRemplis[j], 'LeNomUser': LeNomUser[j], 'RegsiterDate': RegsiterDate[j]});
+            var ListDesNomUsers = new Array
+            var LeNombreDeFdtManquante = new Array
 
-            //2) sort:
-            list.sort(function(a, b) {
-                return ((a.NbDateRemplis > b.NbDateRemplis) ? -1 : ((a.NbDateRemplis == b.NbDateRemplis) ? 0 : 1));
-                //Sort could be modified to, for example, sort on the LeNomUser 
-                // if the NbDateRemplis is the same.
+            data.forEach(element => {
+              ListDesNomUsers.push(element.user_nom)
+              LeNombreDeFdtManquante.push(element.NbDate)
             });
-
-            //3) separate them back out:
-            for (var k = 0; k < list.length; k++) {
-                NbDateRemplis[k] = list[k].NbDateRemplis;
-                LeNomUser[k] = list[k].LeNomUser;
-                RegsiterDate[k] = list[k].RegsiterDate;
-            }
           
           Highcharts.chart('RetardEnGeneral', {
             chart: {
@@ -389,7 +366,7 @@
             },
             xAxis: {
               type: 'category',
-              categories: LeNomUser,
+              categories: ListDesNomUsers,
               labels: {
                 rotation: -45,
                 style: {
@@ -422,7 +399,7 @@
             series: [
               {
                 name: 'feuilles de temps non remplies',
-                data: NbDateRemplis,
+                data: LeNombreDeFdtManquante,
                 stack: 0,
                 pointPadding: 0.3,
                 zones: [{

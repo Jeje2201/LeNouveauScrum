@@ -424,10 +424,7 @@ function MinutesEnHeures($Minutes)
       //Liste pour généré la chart des nb de feuilles de temps non remplies par ressource dans gestion
       if ($_POST["action"] == "RetardEnGeneral") {
 
-        $array = [];
-        $id = [];
-        $NomUser = [];
-        $NbDate = [];
+        $Liste = [];
 
         //Liste les users qui devraient remplir la feuille de temps
         $statement = $connection->prepare(
@@ -442,33 +439,29 @@ function MinutesEnHeures($Minutes)
         $result = $statement->fetchAll();
 
         foreach ($result as $row) {
-          $id[] = $row['user_pk'];
-          $NomUser[] = $row['user_nom'];
-          $RegsiterDate[] = $row['user_registerDate'];
-        }
-
-        $array['NomUser'] = $NomUser;
-        $array['RegsiterDate'] = $RegsiterDate;
-
-        foreach ($id as $UnId) {
+          $NouvelleEntree = [];
 
           $statement = $connection->prepare(
-          "SELECT fiche_de_temps_done
-          From fiche_de_temps
-          where fiche_de_temps_fk_user = $UnId
-          and fiche_de_temps_done >= (SELECT user_registerDate from user where user_pk = $UnId)
-          and DAYOFWEEK(fiche_de_temps_done) != 1
-          and DAYOFWEEK(fiche_de_temps_done) != 7
-          group by fiche_de_temps_done, fiche_de_temps_fk_user
-          having sum(fiche_de_temps_time)=444
-          ");
-          $statement->execute();
-          $NbDate[] = $statement->rowCount()+1;
+            "SELECT fiche_de_temps_done
+            From fiche_de_temps
+            where fiche_de_temps_fk_user = ". $row['user_pk'] . "
+            and fiche_de_temps_done >= (SELECT user_registerDate from user where user_pk = ". $row['user_pk'] . ")
+            and DAYOFWEEK(fiche_de_temps_done) != 1
+            and DAYOFWEEK(fiche_de_temps_done) != 7
+            group by fiche_de_temps_done, fiche_de_temps_fk_user
+            having sum(fiche_de_temps_time)=444
+            ");
+            $statement->execute();
+
+            $NouvelleEntree['NbDate'] = $statement->rowCount()+1;;
+            $NouvelleEntree['user_id'] = $row['user_pk'];
+            $NouvelleEntree['user_nom'] = $row['user_nom'];
+            $NouvelleEntree['user_RegisterDate'] = $row['user_registerDate'];
+
+            $Liste[] = $NouvelleEntree;
         }
 
-        $array['NbDatePerUser'] = $NbDate;
-
-        print json_encode($array);
+        print json_encode($Liste);
       }
     }
 
