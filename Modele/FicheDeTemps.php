@@ -446,6 +446,7 @@ function MinutesEnHeures($Minutes)
             From fiche_de_temps
             where fiche_de_temps_fk_user = ". $row['user_pk'] . "
             and fiche_de_temps_done >= (SELECT user_registerDate from user where user_pk = ". $row['user_pk'] . ")
+            and fiche_de_temps_done <= NOW()
             and DAYOFWEEK(fiche_de_temps_done) != 1
             and DAYOFWEEK(fiche_de_temps_done) != 7
             group by fiche_de_temps_done, fiche_de_temps_fk_user

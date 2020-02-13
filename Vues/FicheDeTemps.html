@@ -349,6 +349,10 @@
               element.NbDate = NbJourDeTravail(element.user_RegisterDate,ChoixDate(0))-element.NbDate+1
             });
 
+            data.sort(function(a, b){
+                return b.NbDate - a.NbDate;
+            });
+
             var ListDesNomUsers = new Array
             var LeNombreDeFdtManquante = new Array
 
