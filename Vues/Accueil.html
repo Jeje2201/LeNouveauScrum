@@ -1,67 +1,46 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
+      
+      <little>Sprint</little>
+      <div id="ListSrint"></div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card-body centered">
-              <span id="VersionScrumManager" class="small mt-3 text-muted"></span>
-            <div id="ListSrint"></div>
-          </div>
-        </div>
+      <div class="centered py-4">
+        <div class="d-inline-block">Avancement du sprint :&nbsp;</div><span id="PourcentageDescendue"></span>
+        <div id="BarDePourcentageDheureDescendue" class="DonneesBurndownChart"></div>
       </div>
 
       <div class="row">
-        <div class="card col-lg-12">
-          <div class="card-body centered pt-2">
-            <div class="d-inline-block">Avancement du sprint :&nbsp;</div><span id="PourcentageDescendue"></span>
-            <div id="BarDePourcentageDheureDescendue" class="DonneesBurndownChart"></div>
-            
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="card col-lg-3" id="BadInfo1">
-          <div class="card-body">
+        <div class="col-lg-3 border">
             <div id="TotalHattribueDescendue"></div>
-          </div>
         </div>
 
-        <div class="card col-lg-9">
-          <div class="card-body">
+        <div class="border col-lg-9">
             <div id="EmplacementChart"></div>
-          </div>
         </div>
 
       </div>
 
       <div class="row">
-        <div class="card col-lg-8">
-          <div class="card-body">
+        <div class="col-lg-8 border">
             <div id="HeureDescenduesParJours"></div>
-          </div>
         </div>
 
-        <div class="card col-lg-4">
-          <div class="card-body">
+        <div class="border col-lg-4">
             <div id="PieChartStatueObjectif"></div>
-          </div>
         </div>
 
       </div>
 
       <div class="row">
 
-        <div class="card col-lg-12" id="BadInfo2">
-          <div class="card-body centered">
+        <div class="centered mt-2 col-lg-12">
               <div class="btn-group" role="group" >
                 <button type="button" id="BoutonEmployes" class="btn btn-warning update">Ressources</button>
                 <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
               </div>
             <div id="HeureDescenduParEmploye"></div>
           </div>
-        </div>
 
       </div>
     </div>
@@ -74,22 +53,6 @@
 <script>
 
   $(document).ready(function () {
-
-    
-    var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", ".git/refs/heads/master", false);
-  rawFile.onreadystatechange = function ()
-  {
-      if(rawFile.readyState === 4)
-      {
-          if(rawFile.status === 200 || rawFile.status == 0)
-          {
-              var allText = rawFile.responseText.split('branch')[0];
-              $("#VersionScrumManager").html('<span class="small mt-3">Version: ' + allText + '</span>');
-          }
-      }
-  }
-  rawFile.send(null);
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');

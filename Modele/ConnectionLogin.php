@@ -37,6 +37,7 @@ else{
 
         $_SESSION['user']['id'] = $result['user_pk'];
         $_SESSION['user']['prenom'] = $result["user_prenom"];
+        $_SESSION['user']['nom'] = $result["user_nom"];
         $_SESSION['user']['admin'] = $result["user_admin"];
         $_SESSION['user']['registerDate'] = $result["user_registerDate"];
 
