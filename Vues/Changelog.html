@@ -1,9 +1,12 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid">
+      
+      <h2>Changelog </h2>
+      <span id="VersionScrumManager" class="small text-muted"></span>
 
-      <h2><i class="fa fa-bullhorn"></i> Changelog </h2>
       <hr>
+
       <div class="mt-3" id="Changelog" ></div>
     </div>
   </div>
@@ -11,6 +14,21 @@
 <script>
 
 $(document).ready(function () {
+
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", ".git/refs/heads/master", false);
+  rawFile.onreadystatechange = function ()
+  {
+      if(rawFile.readyState === 4)
+      {
+          if(rawFile.status === 200 || rawFile.status == 0)
+          {
+              var allText = rawFile.responseText.split('branch')[0];
+              $("#VersionScrumManager").html('<span class="small mt-3">Version: ' + allText + '</span>');
+          }
+      }
+  }
+  rawFile.send(null);
 
   $.ajax({
       url: "Assets/Json/Changelog.json",
