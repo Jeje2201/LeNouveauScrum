@@ -36,6 +36,83 @@
         print_r($statement->errorInfo());
   }
 
+  //+-+-+-+-+-+-+-+-+-+-+ Infos Budget +-+-+-+-+-+-+-+-+-+-+
+
+  if ($_POST["action"] == "getBudgets") {
+    $output = array();
+    $statement = $connection->prepare(
+      "SELECT * FROM projet_budget 
+    WHERE projet_budget_fk_projet = '" . $_POST["projectId"] . "'"
+    );
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    print json_encode($result);
+  }
+
+  if ($_POST["action"] == "Delete_Projet_Budget") {
+
+    $statement = $connection->prepare(
+      "DELETE FROM projet_budget
+      WHERE projet_budget_pk = :projet_budget_pk"
+    );
+    $result = $statement->execute(
+      array(
+        ':projet_budget_pk' => $_POST["projet_budget_pk"]
+      )
+    );
+
+    if ($statement->rowCount() > 0){
+      print true;
+    }
+    else
+        print_r($statement->errorInfo());
+  }
+
+  if ($_POST["action"] == "Update_Projet_Budget") {
+
+    $statement = $connection->prepare(
+      "UPDATE projet_budget 
+      SET
+      projet_budget_label = :projet_budget_label,
+      projet_budget_montant = :projet_budget_montant,
+      projet_budget_fk_projet = :projet_budget_fk_projet
+      WHERE projet_budget_pk = :projet_budget_pk"
+      );
+      $result = $statement->execute(
+      array(
+        ':projet_budget_label' => $_POST["projet_budget_label"],
+        ':projet_budget_montant' => $_POST["projet_budget_montant"],
+        ':projet_budget_fk_projet' => $_POST["projet_budget_fk_projet"],
+        ':projet_budget_pk' => $_POST["projet_budget_pk"]
+      )
+      );
+      if (!empty($result))
+        print true;
+      else
+        print_r($statement->errorInfo());
+  }
+
+  if ($_POST["action"] == "Create_Projet_Budget") {
+
+    $statement = $connection->prepare(
+    "INSERT INTO projet_budget (projet_budget_label, projet_budget_montant, projet_budget_fk_projet) 
+    VALUES (:projet_budget_label, :projet_budget_montant, :projet_budget_fk_projet)
+    ");
+      $result = $statement->execute(
+        array(
+          ':projet_budget_label' => $_POST["projet_budget_label"],
+          ':projet_budget_montant' => $_POST["projet_budget_montant"],
+          ':projet_budget_fk_projet' => $_POST["projet_budget_fk_projet"]
+        )
+      );
+    if (!empty($result))
+      print true;
+    else
+      print_r($statement->errorInfo());
+  }
+     
+
 //+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
 
     if (isset($_POST["action"])) {
