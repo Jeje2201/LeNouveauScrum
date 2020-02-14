@@ -16,12 +16,6 @@ if(isAdmin() != 1){
     $(this).remove()
   });
 }
-
-// Active ou désactive le css sidenav-toggled quand clic ou non sur la navbar "gestion"
-$("#SlideNav").click(function () {
-  $("body").toggleClass("sidenav-toggled");
-});
-
 //Check si a une notification importante est a afficher, si oui, l'afficher
 $.ajax({
   url: "Modele/Autre.php",

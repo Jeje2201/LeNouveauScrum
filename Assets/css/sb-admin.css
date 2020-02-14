@@ -462,13 +462,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-body.sticky-footer {
+/* body.sticky-footer {
   margin-bottom: 56px; }
   body.sticky-footer .content-wrapper {
-    min-height: calc(100vh - 56px - 56px); }
+    min-height: calc(100vh - 56px - 56px); } */
 
-body.fixed-nav {
-  padding-top: 56px; }
+/* body.fixed-nav {
+  padding-top: 56px; } */
 
 .content-wrapper {
   min-height: calc(100vh - 56px);
@@ -581,7 +581,7 @@ body.fixed-nav {
     max-height: none; }
     #mainNav .navbar-collapse .navbar-sidenav {
       position: absolute;
-      top: 0;
+      top: -65px;
       left: 0;
       overflow-x: hidden;
       overflow-y: auto;
@@ -590,13 +590,14 @@ body.fixed-nav {
       flex-direction: column;
       margin-top: 56px; }
       #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
-        width: 212px;
+        width: 190px;
         padding: 0; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
-          padding: 1em; }
+          padding: 12px; }
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
         #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
-          padding-left: 0;}
+          padding-left: 0;
+          margin-left: -20px;}
           #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li,
           #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li {
             width: 250px; }
@@ -620,7 +621,7 @@ body.fixed-nav {
 
 @media (min-width: 992px) {
   #mainNav.fixed-top .navbar-sidenav {
-    height: calc(100vh - 112px); }
+    height: 101vh; }
   #mainNav.fixed-top .sidenav-toggler {
     position: absolute;
     top: 0;
@@ -633,7 +634,7 @@ body.fixed-nav {
     flex-direction: column;
     margin-top: calc(100vh - 56px); }
     #mainNav.fixed-top .sidenav-toggler > .nav-item {
-      width: 212px;
+      width: 193px;
       padding: 0; }
       #mainNav.fixed-top .sidenav-toggler > .nav-item > .nav-link {
         padding: 1.3em; } }
@@ -683,7 +684,7 @@ body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
   background: white; }
   @media (min-width: 992px) {
     .content-wrapper {
-      margin-left: 212px; } }
+      margin-left: 193px; } }
 
 #sidenavToggler i {
   font-weight: 800; }

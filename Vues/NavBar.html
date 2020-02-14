@@ -1,20 +1,12 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 
-		<a class="navbar-brand" href="index.php" id="TitreNavBar">Ns Scrum - <?php echo $_SESSION['user']['prenom'] ?></a>
-		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-			data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-
-		</button>
 		<div class="collapse navbar-collapse " id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 
-				<li class="nav-item">
-					<a class="nav-link" href="index.php?vue=Changelog">
-						<i class="fa fa-fw fa-bullhorn" aria-hidden="true"></i>
-						<span class="nav-link-text">Changelog</span>
+				<li class="nav-item mt-2 mb-n1 h5">
+					<a class="nav-link text-white" href="index.php">
+						<span class="text-center"><?php echo $_SESSION['user']['prenom']?></span>
 					</a>
 				</li>
 
@@ -53,26 +45,13 @@
 					</a>
 				</li>
 
-				<li class="nav-item mb-3">
+				<li class="nav-item">
 					<a class="nav-link" href="index.php?vue=Achievement">
 						<i class="fa fa-fw fa-trophy"></i>
 						<span class="nav-link-text">Achievement</span>
 					</a>
 				</li>
 
-				<li class="nav-item AdminOnly">
-					<a class="nav-link" href="index.php?vue=Sprints">
-						<i class="fa fa-fw fa-calendar"></i>
-						<span class="nav-link-text">Sprints</span>
-					</a>
-				</li>
-
-				<li class="nav-item AdminOnly mb-3">
-					<a class="nav-link" href="index.php?vue=Planification">
-						<i class="fa fa-fw fa fa-tasks"></i>
-						<span class="nav-link-text">Planification</span>
-					</a>
-				</li>
 
 				<li class="nav-item" data-original-title="Menu Levels">
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
@@ -97,7 +76,27 @@
 						</li>
 					</ul>
 				</li>
-				<li class="nav-item AdminOnly mb-3" data-original-title="Menu Levels">
+
+				<li class="position-relative w-50 my-1" style="
+						left: 17px !important;
+						background-color: #9d9d9d;
+				"><hr></li>
+
+				<li class="nav-item AdminOnly">
+					<a class="nav-link" href="index.php?vue=Sprints">
+						<i class="fa fa-fw fa-calendar"></i>
+						<span class="nav-link-text">Sprints</span>
+					</a>
+				</li>
+
+				<li class="nav-item AdminOnly">
+					<a class="nav-link" href="index.php?vue=Planification">
+						<i class="fa fa-fw fa fa-tasks"></i>
+						<span class="nav-link-text">Planification</span>
+					</a>
+				</li>
+
+				<li class="nav-item AdminOnly" data-original-title="Menu Levels">
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#ColapseGestion"
 						data-parent="#exampleAccordion" aria-expanded="false">
 						<i class="fa fa-fw fa-database" aria-hidden="true"></i>
@@ -136,6 +135,19 @@
 						</li>
 					</ul>
 				</li>
+
+				<li class="position-relative my-1 w-50 AdminOnly" style="
+						left: 17px !important;
+						background-color: #9d9d9d;
+				"><hr></li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=Changelog">
+						<i class="fa fa-fw fa-bullhorn" aria-hidden="true"></i>
+						<span class="nav-link-text">Changelog</span>
+					</a>
+				</li>
+
 				<li class="nav-item">
 					<a class="nav-link" onclick="$('#ModalHelp').modal('show');">
 						<i class="fa fa-fw fa-blind"></i>
@@ -146,14 +158,6 @@
 					<a class="nav-link" href="Modele/ConnectionLogout.php">
 						<i class="fa fa-fw fa-sign-out"></i>
 						<span class="nav-link-text">Déconnexion</span>
-					</a>
-				</li>
-			</ul>
-
-			<ul class="navbar-nav sidenav-toggler">
-				<li class="nav-item" id="SlideNav">
-					<a class="nav-link text-center" id="sidenavToggler">
-						<i class="fa fa-fw fa-angle-left"></i>
 					</a>
 				</li>
 			</ul>
