@@ -34,6 +34,11 @@
 <script src="Assets/Js/Autre.js"></script>
 <script>
 
+//Check si en dev mod par le :.../index
+if(location.href.match(/:[0-9]{2,4}/g) != null){
+  document.title = "Dev Mode";
+}
+
   $(window).scroll(function () {
     if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
       $('#return-to-top').fadeIn(200);    // Fade in the arrow
