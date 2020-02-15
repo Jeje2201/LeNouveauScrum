@@ -217,14 +217,8 @@
       $('.modal-title').text("Ajouter une ressource");
       $('#RegisterDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
       $('#action').val('Ajouter');
-      $('#Prenom').val('');
-      $('#Email').val('');
-      $('#ApiPivotal').val('');
-      $('#Nom').val('');
-      $('#Initial').val('');
-      $('#Actif').prop("checked", true);
-      $('#MailCir').prop("checked", true);
-      $('#doesPlanification').prop("checked", true);
+      $('#Prenom, #Email, #ApiPivotal, #Nom, #Initial').val('');
+      $('#Actif, #MailCir, #doesPlanification').prop("checked", true);
       $('#admin').prop("checked", false);
     });
 
@@ -354,7 +348,8 @@
     
     $(document).on('click', '.password', function () {
 
-      ShowAndClearModaleForNew('ModalPassword');
+      $('#ModalPassword').modal('show');
+      $('#inputMotDePasse').val('');
       $('#inputPassword_id').val($(this).attr("id"))
       
     });
