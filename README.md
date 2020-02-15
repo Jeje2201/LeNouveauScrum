@@ -95,4 +95,4 @@ List of retrospective's remark that were create, where the Scrum Master can crea
 
 <hr>
 <h2>Autheur 👨‍💻</h2>
-<a href="http://JeremyLeriche.fr">Leriche Jérémy</a>
+<a href="https://JeremyLeriche.fr">Leriche Jérémy</a>

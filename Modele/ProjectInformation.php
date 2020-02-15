@@ -39,7 +39,6 @@
   //+-+-+-+-+-+-+-+-+-+-+ Infos Budget +-+-+-+-+-+-+-+-+-+-+
 
   if ($_POST["action"] == "getBudgets") {
-    $output = array();
     $statement = $connection->prepare(
       "SELECT * FROM projet_budget 
     WHERE projet_budget_fk_projet = '" . $_POST["projectId"] . "'"
