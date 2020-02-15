@@ -100,6 +100,8 @@
 
 //+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
 
+    if (isset($_POST["action"])) {
+
       if ($_POST["action"] == "getClient") {
         $output = array();
         $statement = $connection->prepare(
