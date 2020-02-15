@@ -4,20 +4,6 @@
 
 //+-+-+-+-+-+-+-+-+-+-+ Infos Note +-+-+-+-+-+-+-+-+-+-+
 
-  if ($_POST["action"] == "getNote") {
-    $output = array();
-    $statement = $connection->prepare(
-      "SELECT * FROM projet 
-    WHERE projet_pk = '" . $_POST["projectId"] . "'"
-    );
-    $statement->execute();
-    $result = $statement->fetch();
-
-    $output["Note"] = $result["projet_note"];
-
-    print json_encode($output);
-  }
-
   if ($_POST["action"] == "putNote") {
     $statement = $connection->prepare(
       "UPDATE projet 
@@ -113,24 +99,6 @@
      
 
 //+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
-
-    if (isset($_POST["action"])) {
-
-      if ($_POST["action"] == "getDescription") {
-        $output = array();
-        $statement = $connection->prepare(
-        "SELECT * FROM projet 
-         WHERE projet_pk = '" . $_POST["projectId"] . "' 
-         LIMIT 1"
-        );
-        $statement->execute();
-        $result = $statement->fetch();
-
-        $output["Nom"] = $result["projet_nom"];
-        $output["Description"] = $result["projet_description"];
-
-        print json_encode($output);
-      }
 
       if ($_POST["action"] == "getClient") {
         $output = array();

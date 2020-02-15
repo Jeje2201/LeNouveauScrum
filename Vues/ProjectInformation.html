@@ -435,16 +435,16 @@
 
     function GetDescription(){
     $.ajax({
-      url: "Modele/ProjectInformation.php",
+      url: "Modele/Projet.php",
       method: "POST",
       data: {
-        projectId: projectId,
-        action: "getDescription"
+        id: projectId,
+        action: "Select"
       },
       dataType: "json",
       success: function (data) {
-        $('#NomProjet').text(data.Nom);
-        $('#DescriptionProjet').text(data.Description);
+        $('#NomProjet').text(data.projet_nom);
+        $('#DescriptionProjet').text(data.projet_description);
       }
     });
     }
@@ -592,15 +592,15 @@
 
     function GetNote(){
     $.ajax({
-      url: "Modele/ProjectInformation.php",
+      url: "Modele/Projet.php",
       method: "POST",
       data: {
-        projectId: projectId,
-        action: "getNote"
+        id: projectId,
+        action: "Select"
       },
       dataType: "json",
       success: function (data) {
-        $('#Note').text(data.Note);
+        $('#Note').text(data.projet_note);
       }
     });
     }
