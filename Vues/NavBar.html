@@ -25,6 +25,13 @@
 				</li>
 
 				<li class="nav-item">
+					<a class="nav-link" href="index.php?vue=FicheDeTemps">
+						<i class="fa fa-fw fa-file-text-o"></i>
+						<span class="nav-link-text">Fiche de temps</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
 					<a class="nav-link" href="index.php?vue=Retrospective">
 						<i class="fa fa-fw fa-television"></i>
 						<span class="nav-link-text">Rétrospective</span>
@@ -38,42 +45,32 @@
 					</a>
 				</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="index.php?vue=FicheDeTemps">
-						<i class="fa fa-fw fa-file-text-o"></i>
-						<span class="nav-link-text">Fiche de temps</span>
-					</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link" href="index.php?vue=Achievement">
-						<i class="fa fa-fw fa-trophy"></i>
-						<span class="nav-link-text">Achievement</span>
-					</a>
-				</li>
-
-
 				<li class="nav-item" data-original-title="Menu Levels">
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse"
 						href="#collapseInformation" data-parent="#exampleAccordion" aria-expanded="false">
 						<i class="fa fa-fw fa-address-card-o" aria-hidden="true"></i>
-						<span class="nav-link-text">Information</span>
+						<span class="nav-link-text">Moi</span>
 					</a>
 					<ul class="sidenav-second-level collapse" id="collapseInformation">
-
+						<li class="nav-item">
+							<a class="nav-link" href="index.php?vue=Bienvenue">
+								<i class="fa fa-fw fa-thumbs-o-up" aria-hidden="true"></i> Bienvenue</a>
+						</li>
 						<li>
 							<a href="index.php?vue=Personnalisation">
-								<i class="fa fa-fw fa-user" aria-hidden="true"></i> Moi</a>
+								<i class="fa fa-fw fa-user" aria-hidden="true"></i> Information</a>
 						</li>
-
+						<li>
+							<a class="nav-link" href="index.php?vue=Achievement">
+								<i class="fa fa-fw fa-trophy"></i>
+								<span class="nav-link-text">Achievement</span>
+							</a>
+						</li>
 						<li>
 							<a href="index.php?vue=LabelObjectif">
 								<i class="fa fa-fw fa-font" aria-hidden="true"></i> Label tâche</a>
 						</li>
-						<li>
-							<a href="index.php?vue=Bienvenue">
-								<i class="fa fa-fw fa-thumbs-o-up" aria-hidden="true"></i> Bienvenue</a>
-						</li>
+						
 					</ul>
 				</li>
 
@@ -100,7 +97,7 @@
 					<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#ColapseGestion"
 						data-parent="#exampleAccordion" aria-expanded="false">
 						<i class="fa fa-fw fa-database" aria-hidden="true"></i>
-						<span class="nav-link-text">Gestions</span>
+						<span class="nav-link-text">Données</span>
 					</a>
 					<ul class="sidenav-second-level collapse" id="ColapseGestion">
 
@@ -126,12 +123,12 @@
 
 						<li class="AdminOnly">
 							<a href="index.php?vue=Gestion_FicheDeTemps">
-								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche De Temps</a>
+								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche de temps</a>
 						</li>
 
 						<li class="AdminOnly">
 							<a href="index.php?vue=Gestion_FicheDeTempsPlus">
-								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche De Temps +</a>
+								<i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i> Fiche de temps +</a>
 						</li>
 					</ul>
 				</li>
@@ -154,6 +151,7 @@
 						<span class="nav-link-text">Idée ? Bug ?</span>
 					</a>
 				</li>
+
 				<li class="nav-item">
 					<a class="nav-link" href="Modele/ConnectionLogout.php">
 						<i class="fa fa-fw fa-sign-out"></i>
