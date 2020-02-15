@@ -16,13 +16,13 @@
       <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
       <thead class="thead-light">
       <tr>
-      <th class="centered">Avatar</th>
+      <th class="text-center">Avatar</th>
       <th>Ressource</th>
       <th>Job</th>
-      <th class="centered">Actif</th>
-      <th class="centered">Planification</th>
-      <th class="centered">Fiche de temps</th>
-      <th class="centered">Admin</th>
+      <th class="text-center">Actif</th>
+      <th class="text-center">Planification</th>
+      <th class="text-center">Fiche de temps</th>
+      <th class="text-center">Admin</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -39,29 +39,29 @@
 
             $output .= '
               <tr>
-              <td class="centered"><img src="Assets/Image/Ressources/'. $row["user_avatar"] .'" alt="'. $row["user_avatar"] .'" width="45px" height="45px"></td>
+              <td class="text-center"><img src="Assets/Image/Ressources/'. $row["user_avatar"] .'" alt="'. $row["user_avatar"] .'" width="45px" height="45px"></td>
               <td>' . $row["user_prenom"] . ' '. $row["user_nom"] .'</td>
               <td>' . $row["user_type"] . '</td>';
 
             if ($row["user_actif"])
-              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Actif</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #4a8a58">Actif</td>';
             else
-              $output .= '<td class="centered text-white" style="background-color: #b5424d">Absents</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #b5424d">Absents</td>';
 
             if ($row["user_doesPlanification"])
-              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Planif</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #4a8a58">Planif</td>';
             else
-              $output .= '<td class="centered text-white" style="background-color: #b5424d">Repos</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #b5424d">Repos</td>';
 
             if ($row["user_mailCir"])
-              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Mail</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #4a8a58">Mail</td>';
             else
-            $output .= '<td class="centered text-white" style="background-color: #b5424d">Rien</td>';
+            $output .= '<td class="text-center text-white" style="background-color: #b5424d">Rien</td>';
 
             if ($row["user_admin"])
-              $output .= '<td class="centered text-white" style="background-color: #4a8a58">Admin</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #4a8a58">Admin</td>';
             else
-              $output .= '<td class="centered text-white" style="background-color: #b5424d">Lambda</td>';
+              $output .= '<td class="text-center text-white" style="background-color: #b5424d">Lambda</td>';
 
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button type="button" id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button><button type="button" id="avatar_' . $row["user_pk"] . '" class="btn btn-primary avatar_user"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
         </tr>

@@ -17,7 +17,7 @@
       <th>Nom</th>
       <th>Type</th>
       <th>ID Pivotal</th>
-      <th class="centered">Actif</th>
+      <th class="text-center">Actif</th>
       <th><center>Éditer</center></th>
       </tr>
       </thead>
@@ -33,16 +33,16 @@
             }
 
         $output .= '
-        <td class="centered" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>
+        <td class="text-center" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>
         <td>' . $row["projet_nom"] . '</td>
         <td>' . $row["projet_type"] . '</td>
         <td>' . $row["projet_apiPivotal"] . '</td>';
             if ($row["projet_actif"] == 2)
-              $output .= '<td class="bg-success centered text-white">En cours</td>';
+              $output .= '<td class="bg-success text-center text-white">En cours</td>';
             else if ($row["projet_actif"] == 1)
-              $output .= '<td class="bg-warning centered text-white">CIR</td>';
+              $output .= '<td class="bg-warning text-center text-white">CIR</td>';
             else
-              $output .= '<td class="bg-danger centered text-white">Terminé</td>';
+              $output .= '<td class="bg-danger text-center text-white">Terminé</td>';
             $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button type="button" id="'. $row["projet_pk"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }
