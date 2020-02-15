@@ -47,7 +47,7 @@
     $Objet = "Oublie feuille de temps du " . date("d/m/y");
 
     //Le message à envoyer
-    $Message = "<p>Il semble que vous ayez oublié de remplir votre feuille de temps du " . date("d/m/y")   . " ? Merci de prendre le temps rectifier cela <a href=\"https://scrummanager.natural-solutions.eu/index.php?vue=FicheDeTemps\">ici</a></p><i>" . $Citation[rand(0, count($Citation) - 1)] . "</i>";
+    $Message = "<p>Il semble que tu as oublié de remplir ta feuille de temps du " . date("d/m/y")   . " ? N'oublie pas de la remplir ou tu vas surement oublier ce que t'as fait, <a href=\"https://scrummanager.natural-solutions.eu/index.php?vue=FicheDeTemps\">ici</a></p><i>" . $Citation[rand(0, count($Citation) - 1)] . "</i>";
 
     //Use wordwrap() if lines are longer than 70 characters
     $Message = wordwrap($Message, 70);
