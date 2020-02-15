@@ -133,7 +133,6 @@ function MinutesEnHeures($Minutes)
 
       //Afficher la liste des dates où il manque des fiche de temps non remplies
       if ($_POST["action"] == "TableTotJoursNonPlein") {
-        $output = array();
 
         $statement = $connection->prepare(
           "SELECT DISTINCT fiche_de_temps_done
@@ -144,7 +143,7 @@ function MinutesEnHeures($Minutes)
           order by fiche_de_temps_done asc");
 
         $statement->execute();
-        $result = $statement->fetchAll();
+        $result = $statement->fetchAll(PDO::FETCH_COLUMN);
 
         print json_encode($result);
       }

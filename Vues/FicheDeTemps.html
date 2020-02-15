@@ -289,14 +289,7 @@
             action: "TableTotJoursNonPlein"
           },
           success: function (data) {
-            
-            //Je set mon tableau de toutes les dates enregistrés de {0:... fichedescendue:...} en juste [fichedescendue...,fichedescendue..]
-            i=0
-            data.forEach(element => {
-            
-              data[i] = data[i].fiche_de_temps_done
-              i+=1  
-            })
+          
 
             //Je créer une variable "dates" qui va prendre toutes les jours sauf weekend depuis que la ressource arrive et les écrit comme le tableau precedent YYYY-MM-JJ
             var dates = new Array,
