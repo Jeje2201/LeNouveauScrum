@@ -122,6 +122,6 @@ function isAdmin(){
  */
 function IfNoRows(idTable, Text = "Aucune donnée.."){
   if($('#'+idTable+' td').length == 0){
-    $('#'+idTable).prepend('<td colspan="6"  class="centered bg-light">'+Text+'</td>')
+    $('#'+idTable).prepend('<td colspan="6"  class="text-center bg-light">'+Text+'</td>')
   }
 }
