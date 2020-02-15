@@ -1,20 +1,16 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <div class="content-wrapper">
     <div class="container-fluid ">
-      <div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>En cours de développement!</strong>
-        Voici un avant gout.. (づ￣ 3￣)づ
-      </div>
+      <small>Survole un badge pour découvrir sa condition d'obtemption</small><br>
       <label>Condition:&nbsp;</label><b><span id="Condition" class="mb-3"></span></b>
       
       <div class="row centered">
 
         <div class="col">
-          <img id="Conge" class="TrophePasEncore" src="Assets/Image/Autre/achievement.png" text="Avoir un total de plus de 30j de congés">
+          <img id="Conge" class="TrophePasEncore" src="Assets/Image/Autre/achievement.png" text="Avoir pris au moins 30j de congés (basé sur les fiches de temps)">
           <p>Yes, we can'd</p>
         </div>
-
+<!-- 
         <div class="col">
           <img id="NotreProjet" class="TrophePasEncore" src="Assets/Image/Autre/achievement.png" text="Avoir plus de 48h passées au total sur un projet">
           <p>PARCE QUE C'EST NOTRE PROJET</p>
@@ -53,7 +49,7 @@
         <div class="col">
           <img id="Ancien" class="TrophePasEncore" src="Assets/Image/Autre/achievement.png" text="?">
           <p>?</p>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -78,25 +74,27 @@
       },
       success: function (data) {
 
-        //Objectif 30j congé
-        if (data[0] == "1") 
+        //Objectif >= 30j congé
+        if (parseFloat(data.TotJourDeConge) >= 30) 
           $('#Conge').removeClass('TrophePasEncore')
 
-        //Objectif +48h total sur un projet
-        if (data[1] == "1") 
-          $('#NotreProjet').removeClass('TrophePasEncore')
+        // //Objectif +48h total sur un projet
+        // if (data[1] == "1") 
+        //   $('#NotreProjet').removeClass('TrophePasEncore')
 
-        //Objectif +50 objectifs rétro 'ok'
-        if (data[2] == "1") 
-          $('#Objectif').removeClass('TrophePasEncore')
+        // //Objectif +50 objectifs rétro 'ok'
+        // if (data[2] == "1") 
+        //   $('#Objectif').removeClass('TrophePasEncore')
 
-        //Objectif +30h interference
-        if (data[3] == "1") 
-          $('#Interference').removeClass('TrophePasEncore')
+        // //Objectif +30h interference
+        // if (data[3] == "1") 
+        //   $('#Interference').removeClass('TrophePasEncore')
             
-        //Objectif +100 taches validees
-        if (data[4] == "1") 
-          $('#TacheValides').removeClass('TrophePasEncore')
+        // //Objectif +100 taches validees
+        // if (data[4] == "1") 
+        //   $('#TacheValides').removeClass('TrophePasEncore')
+
+        // debugger
       }
     });
 
