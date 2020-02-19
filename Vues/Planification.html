@@ -247,10 +247,9 @@
       </div>
 
       <div class="modal-footer">
-        <input id="id_planif" placeholder="id ModalGestionHeuresDescendues" class="form-control" readonly/>
-        <input type="submit" id="actionEditionTache" class="btn btn-success"
-          value="Mettre à jour" />
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <input id="id_planif" type="text" placeholder="id ModalGestionHeuresDescendues" class="form-control" readonly/>
+        <input type="submit" id="actionEditionTache" class="btn btn-success" value="Sauvegarder" />
+        <button class="btn btn-secondary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -401,11 +400,11 @@
     $(document).on('click', '.delete', function () {
       if (confirm("Es-tu sûr de vouloir supprimer cette tâche ?"))
         $.ajax({
-          url: "Modele/GestionTache.php",
+          url: "Modele/Tache.php",
           method: "POST",
           data: {
             id: $(this).attr("id"),
-            action: "Delete"
+            action: "DeleteTache"
           },
           success: function (data) {
             RemplirTableau('TableListHeuresAttribuees');
@@ -419,13 +418,12 @@
     //Remplie le modal avec les infos de la tache a éditer
     $(document).on('click', '.update', function () {
       var id = $(this).attr("id");
-      var action = "Select";
       $.ajax({
-        url: "Modele/GestionTache.php",
+        url: "Modele/Tache.php",
         method: "POST",
         data: {
           id: id,
-          action: action
+          action: "GetTache"
         },
         dataType: "json",
         success: function (data) {
@@ -448,7 +446,7 @@
     //Maj de la tache envoyée au back
     $('#actionEditionTache').click(function () {
       $.ajax({
-        url: "Modele/GestionTache.php",
+        url: "Modele/Tache.php",
         method: "POST",
         data: {
           id: $('#id_planif').val(),
@@ -458,7 +456,7 @@
           idProjet: $('#ListeProjeteditionTache').val(),
           NombreHeure: $('#nbheureEditionTache').val(),
           Label: $('#LabelTache').val(),
-          action: "Update"
+          action: "UpdateTache"
         },
         success: function (data) {
           $.notify(data, "success");
