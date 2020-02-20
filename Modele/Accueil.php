@@ -74,7 +74,7 @@
         (
           SELECT IFNULL( sum(tache_heure),0)
           FROM tache
-          WHERE tache_pk_projet = projet_pk
+          WHERE tache_fk_projet = projet_pk
           AND tache_fk_sprint = $NumeroduSprint
           AND tache_done IS NOT NULL) AS nbheuredescendu,
         (
@@ -97,8 +97,7 @@
         AND tache_type IS NULL
         GROUP BY projet_pk
         ORDER BY nbheuredescendu DESC, heurerestantes DESC
-       "
-        );
+       ");
 
         $statement->execute();
         $result = $statement->fetchAll();

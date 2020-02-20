@@ -34,13 +34,13 @@
 
       <div class="row">
 
-        <div class="text-center mt-2 col-lg-12">
-              <div class="btn-group" role="group" >
-                <button type="button" id="BoutonEmployes" class="btn btn-warning update">Ressources</button>
-                <button type="button" id="BoutonProjets" class="btn btn-danger delete">Projets</button>
-              </div>
+        <div class="text-center border col-6">
             <div id="HeureDescenduParEmploye"></div>
           </div>
+
+          <div class="text-center border col-6">
+          <div id="HeureDescenduParProjet"></div>
+        </div>
 
       </div>
     </div>
@@ -57,21 +57,20 @@
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Ressources", 'HeureDescenduParEmploye');
+    GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Projets", 'HeureDescenduParProjet');
     ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
     GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
     HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
 
     $('#numeroSprint').change(function () {
       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Ressources", 'HeureDescenduParEmploye');
+      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Projets", 'HeureDescenduParProjet');
       ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
       GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
       UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     });
 
-    $('#BoutonEmployes, #BoutonProjets').click(function () {
-      GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), $(this).text(), 'HeureDescenduParEmploye');
-    });
   });
 
 </script>
