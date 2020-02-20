@@ -19,8 +19,7 @@ $result = $statement->fetch();
 
 //Si ne trouve pas de mot de passe pour le mail donné
 if($result == false){
-    $output["Connexion"] = false;
-    $output["Info"] = "Mail inconnue ¯\_(ツ)_/¯";
+    header($_SERVER["SERVER_PROTOCOL"].' 500 '.utf8_decode('Mail non reconnue'));
 }
 
 //Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
@@ -44,8 +43,7 @@ else{
         $output["Connexion"] = true;
         
         } else {
-            $output["Connexion"] = false;
-            $output["Info"] = "Mauvais mot de passe ¯\_(ツ)_/¯";
+            header($_SERVER["SERVER_PROTOCOL"].' 500 '.utf8_decode('Mot de passe incorrect'));
     }
 }
 

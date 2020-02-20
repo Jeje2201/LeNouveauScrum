@@ -50,6 +50,9 @@
 
     //fonction pour se connecter, trigger quand log on ou press enter
     function SeConnecter() {
+
+      $("#inputPassword, #EmployeLoginMail").removeClass("is-invalid")
+
       $.ajax({
         url: "Modele/ConnectionLogin.php",
         method: "POST",
@@ -59,14 +62,17 @@
           EmployeLogin: $('#EmployeLoginMail').val()
         },
         success: function (data) {
-          if (data.Connexion) {
             location.reload();
-          } else {
-            $("#wrongpassword").removeClass("text-hide").text(data.Info);
-            $("#inputPassword")
-              .addClass("is-invalid")
-              .effect("shake");
+        },
+        error: function (xhr,status,erreur){
+          if(erreur.split('Mot').length == 2){
+            $("#inputPassword").addClass("is-invalid").effect("shake");
           }
+          else{
+            $("#EmployeLoginMail").addClass("is-invalid").effect("shake");
+          }
+          
+          $.notify(erreur, "error");
         }
       });
     }
