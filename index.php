@@ -1,18 +1,14 @@
 <?php
 
-// Idée : 
-// Créer la liste des vue seulement admin style ['planificatio','toto','tutu']
-// Pas de case ou switch, seuelement un 
-// if $vue est dans la liste de admin style, alors on check si admin, sinon on envoit dans tous les cas le "Vues/.$vue" car le nom doit correspondre au fichier
-
 session_start();
 
 require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
 
-if (!isset($_SESSION['user']['admin']) || !isset($_SESSION['user']['id']))
+if (!isset($_SESSION['user']['admin']) || !isset($_SESSION['user']['id'])){
   require_once('Vues/Login.html');
+}
 
 else {
 
@@ -61,6 +57,5 @@ else {
     else {
       require_once("Vues/" . $vue . ".html");
     }
-
-  require_once("Vues/footer.html");
 }
+require_once("Vues/footer.html");

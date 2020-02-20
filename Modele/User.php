@@ -253,6 +253,8 @@
       }
 
       if ($_POST["action"] == "isAdmin") {
+
+        if(isset($_SESSION['user']['id'])){
         
         $output = array();
         $statement = $connection->prepare(
@@ -264,6 +266,9 @@
         $result = $statement->fetch();
 
         $output["Admin"] = $result["user_admin"];
+      }else{
+        $output["Admin"] = 0;
+      }
 
         print json_encode($output);
       }
