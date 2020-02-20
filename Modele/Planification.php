@@ -117,47 +117,47 @@ require_once('Configs.php');
         print $output;
       }
 
-      if ($_POST["action"] == "RemplirTableauProjets") {
-        $numero = $_POST["idAffiche"];
-        $statement = $connection->prepare("SELECT sum(tache_heure) AS NbHeure,
-        projet_nom
-        FROM tache
-        inner JOIN projet ON projet_pk = tache_fk_projet
-        WHERE tache_fk_sprint = $numero
-        GROUP BY tache_fk_projet
-        ORDER BY projet_nom ASC");
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output = '';
-          $output .= '
-        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-        <thead class="thead-light">
-        <tr>
-        <th>Projet</th>
-        <th>H</th>
-        </tr>
-        </thead>
-        <tbody id="myTable">
-        ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-        <tr>
-        <td>' . $row["projet_nom"] . '</td>
-        <td>' . $row["NbHeure"] . '</td>
-        </tr>
-        ';
-          }
-        } else {
-          $output .= '
-        <tr>
-        <td align="center" colspan="10">Pas de données</td>
-        </tr>
-        ';
-        }
-        $output .= '</tbody></table>';
-        print $output;
-      }
+      // if ($_POST["action"] == "RemplirTableauProjets") {
+      //   $numero = $_POST["idAffiche"];
+      //   $statement = $connection->prepare("SELECT sum(tache_heure) AS NbHeure,
+      //   projet_nom
+      //   FROM tache
+      //   inner JOIN projet ON projet_pk = tache_fk_projet
+      //   WHERE tache_fk_sprint = $numero
+      //   GROUP BY tache_fk_projet
+      //   ORDER BY projet_nom ASC");
+      //     $statement->execute();
+      //     $result = $statement->fetchAll();
+      //     $output = '';
+      //     $output .= '
+      //   <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+      //   <thead class="thead-light">
+      //   <tr>
+      //   <th>Projet</th>
+      //   <th>H</th>
+      //   </tr>
+      //   </thead>
+      //   <tbody id="myTable">
+      //   ';
+      //   if ($statement->rowCount() > 0) {
+      //     foreach ($result as $row) {
+      //       $output .= '
+      //   <tr>
+      //   <td>' . $row["projet_nom"] . '</td>
+      //   <td>' . $row["NbHeure"] . '</td>
+      //   </tr>
+      //   ';
+      //     }
+      //   } else {
+      //     $output .= '
+      //   <tr>
+      //   <td align="center" colspan="10">Pas de données</td>
+      //   </tr>
+      //   ';
+      //   }
+      //   $output .= '</tbody></table>';
+      //   print $output;
+      // }
 
       //Créer une tache depuis la méthode x+x+x
       if ($_POST["action"] == "Attribuer") {
