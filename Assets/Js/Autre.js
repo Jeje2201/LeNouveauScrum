@@ -3,6 +3,26 @@ $("#navbarResponsive li").each(function () {
   $(this).removeClass("active");
 });
 
+//Check si en dev mod par le :.../index
+if(location.href.match(/:[0-9]{2,4}/g) != null){
+  document.title = "Dev Mode";
+  document.getElementById('iconAppli').href = "/Assets/Image/Autre/icon_dev.png";
+}
+
+//Fait apparaitre un scroll top si user trop scroll down
+$(window).scroll(function () {
+  if ($(this).scrollTop() >= 50) {        
+    $('#return-to-top').fadeIn(200);    
+  } else {
+    $('#return-to-top').fadeOut(200);   
+  }
+});
+$('#return-to-top').click(function () {      
+  $('body,html').animate({
+    scrollTop: 0                      
+  }, 500);
+});
+
 //Cherche sur quelle page il est puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
   var LaPage = 'Accueil'
   if(window.location.href.split('=')[1] != undefined){
