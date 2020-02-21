@@ -2,47 +2,35 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8">
-          <div class="card">
-            <h5 class="card-header">Mot de passe</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="form-group col-lg-3">
-                  <label>Ancien mot de passe</label>
-                  <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
-                  <a class="d-block small text-primary mt-3" id="target" style="cursor:pointer">
-                    <u>Mot de passe oublié ?</u>
-                  </a>
-                </div>
-                <div class="form-group col-lg-3">
-                  <label>Nouveau mot de passe</label>
-                  <input type="password" class="form-control" id="mdp" minlength="5" required="required">
-                </div>
-                <div class="form-group col-lg-3">
-                  <label>Confirmer</label>
-                  <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
-                </div>
-                <div class="form-group col-lg-3">
-                  <label>Sauvegarder</label><br>
-                  <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
-                </div>
-              </div>
-
+        <div class="col">
+          <h2><u>Mot de passe</u></h2>
+          <div class="row">
+            <div class="form-group col-lg-3">
+              <label>Ancien mot de passe</label>
+              <input type="password" class="form-control" id="ancienmdp" minlength="5" required="required">
+              <a class="d-block small text-primary mt-2" id="target" style="cursor:pointer">
+                <u>Mot de passe oublié ?</u>
+              </a>
+            </div>
+            <div class="form-group col-lg-3">
+              <label>Nouveau mot de passe</label>
+              <input type="password" class="form-control" id="mdp" minlength="5" required="required">
+            </div>
+            <div class="form-group col-lg-3">
+              <label>Confirmer</label>
+              <input type="password" class="form-control" id="confirmmdp" minlength="5" required="required">
+            </div>
+            <div class="form-group col-lg-3">
+              <label>Sauvegarder</label><br>
+              <button class="btn btn-primary" id="SetMdp">Sauvegarder</button>
             </div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <h5 class="card-header">Total des tâches validées</h5>
-            <div class="card-body">
-              <div id="TacheValide"></div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     <hr>
 
-    <h2 class="d-inline-flex mt-1">Infos fiches de temps</h2>&Tab;<label>(Les données sont enregistrées depuis Mars 2019)</label>
+    <h2 class="mt-3 mb-n1"><u>Infos fiches de temps</u></h2>
     <div id="ListEmpAdmin">
       <div class="form-group">
         <div id="ListEmploye"></div>
@@ -74,7 +62,16 @@
           </div>
         </div>
       </div>
+      <div class="col">
+        <div class="card">
+          <h5 class="card-header">Total des tâches validées</h5>
+          <div class="card-body">
+            <div id="TacheValide"></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <hr class="mt-3">
   </div>
   </div>
   <div id="ModalOublieMdp" class="modal fade">
