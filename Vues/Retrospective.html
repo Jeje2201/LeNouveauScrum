@@ -51,7 +51,7 @@
 
       
       <h2 class="d-inline-block">Liste des remarques</h2>
-      <button type="button" id="BouttonRemarque" class="btn btn-success float-right">
+      <button  id="BouttonRemarque" class="btn btn-success float-right">
         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Remarque</button>
     
 
@@ -97,7 +97,7 @@
         <input id="id" class="form-control" readonly/>
         <input type="submit" id="EditerObjectif" class="btn btn-success" />
         <input type="submit" id="SupprimerObjectif" value="Supprimer" class="btn btn-danger"></input>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <button  class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -129,7 +129,7 @@
         <button id="SupprimerRemarque" class="btn btn-danger">Supprimer</button>
         <button id="CreerRemarque" class="btn btn-success">Créer</button>
         <button id="EditerRemarque" class="btn btn-success">Éditer</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <button  class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -195,13 +195,13 @@
                 var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.retrospective_demo_pk +
+                $GroupBouton.append($('<button  id="Edit_Demo_' + this.retrospective_demo_pk +
                   '" class="btn btn-success btn-sm mr-1"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveDemo(this.id.split('_')[2])
                 }));
 
-                $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.retrospective_demo_pk +
+                $GroupBouton.append($('<button  id="Delete_Demo_' + this.retrospective_demo_pk +
                   '" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   dellDemo(this.id.split('_')[2])
@@ -286,13 +286,13 @@
               var $GroupBouton = $('<div class="btn-group" role="group" />');
 
               if(admin){
-                $GroupBouton.append($('<button type="button" id="Achieve_Remarque_' + this.retrospective_remarque_pk +
+                $GroupBouton.append($('<button  id="Achieve_Remarque_' + this.retrospective_remarque_pk +
                   '" class="btn btn-success btn-sm mr-1"><i class="fa fa fa-check" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   achieveRemarque(this.id.split('_')[2])
                 }));
 
-                $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.retrospective_remarque_pk +
+                $GroupBouton.append($('<button  id="Edit_Remarque_' + this.retrospective_remarque_pk +
                   '" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getRemarque(this.id.split('_')[2])
@@ -446,32 +446,32 @@
 
               if(admin){
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-primary"><i class="fa fa-question" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Inconnue')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-warning"><i class="fa fa-hourglass-half" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'En cours')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-success"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Ok')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk + '" class="btn mr-1 btn-danger"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Non')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk + '" class="btn mr-2 btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk + '" class="btn mr-2 btn-dark"><i class="fa fa-times" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   putEtatObjectif(this.id, 'Annule')
                 }));
 
-                $GroupBouton.append($('<button type="button" id="' + this.retrospective_objectif_pk +
+                $GroupBouton.append($('<button  id="' + this.retrospective_objectif_pk +
                   '" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
                 ).on('click', function () {
                   getObjectif(this.id)

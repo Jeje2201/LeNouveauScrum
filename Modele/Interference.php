@@ -43,7 +43,7 @@
 
         if($row["user_pk"] == $_SESSION['user']['id']){
 
-          $output .='<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["interference_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["interference_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+          $output .='<td><center><div class="btn-group" role="group" ><button  id="' . $row["interference_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["interference_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
         </tr>';
         }
           }

@@ -70,7 +70,7 @@
       <div class="modal-footer">
         <input class="form-control" id="id" readonly/>
         <input type="submit" id="putDemo" class="btn btn-success" />
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <button  class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -119,13 +119,13 @@
 
             var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-            $GroupBouton.append($('<button type="button" id="Edit_Demo_' + this.retrospective_demo_pk +
+            $GroupBouton.append($('<button  id="Edit_Demo_' + this.retrospective_demo_pk +
               '" class="btn btn-warning btn-sm mr-1"><i class="fa fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getDemo(this.id.split('_')[2])
             }));
 
-            $GroupBouton.append($('<button type="button" id="Delete_Demo_' + this.retrospective_demo_pk +
+            $GroupBouton.append($('<button  id="Delete_Demo_' + this.retrospective_demo_pk +
               '" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellDemo(this.id.split('_')[2])

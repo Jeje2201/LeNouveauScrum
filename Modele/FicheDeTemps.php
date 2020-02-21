@@ -60,7 +60,7 @@ function MinutesEnHeures($Minutes)
             <td>' . $row["projet_nom"] . '</td>
             <td>' . $row["fiche_de_temps_time"] . '</td>
             <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_done"])) . '</td>
-            <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+            <td><center><div class="btn-group" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
             </tr>';
           }
         } else {
@@ -117,7 +117,7 @@ function MinutesEnHeures($Minutes)
         <tr>
         <td>' . $row["projet_nom"] . '</td>
         <td>' . MinutesEnHeures($row["fiche_de_temps_time"]) . '</td>
-        <td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+        <td><center><div class="btn-group" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }

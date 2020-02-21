@@ -57,7 +57,7 @@
       <div class="modal-footer">
         <input id="remarque_id" class="form-control" readonly/>
         <button id="EditerRemarque" class="btn btn-success">Éditer</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <button  class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -101,13 +101,13 @@
 
             var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-            $GroupBouton.append($('<button type="button" id="Edit_Remarque_' + this.retrospective_remarque_pk +
+            $GroupBouton.append($('<button  id="Edit_Remarque_' + this.retrospective_remarque_pk +
               '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
             ).on('click', function () {
               getRemarque(this.id.split('_')[2])
             }));
 
-            $GroupBouton.append($('<button type="button" id="Delete_Remarque_' + this.retrospective_remarque_pk +
+            $GroupBouton.append($('<button  id="Delete_Remarque_' + this.retrospective_remarque_pk +
               '" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>'
             ).on('click', function () {
               dellRemarque(this.id.split('_')[2])

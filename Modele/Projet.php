@@ -43,7 +43,7 @@
               $output .= '<td class="bg-warning text-center text-white">CIR</td>';
             else
               $output .= '<td class="bg-danger text-center text-white">Terminé</td>';
-            $output .= '<td><center><div class="btn-group" role="group" ><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button type="button" id="' . $row["projet_pk"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button type="button" id="'. $row["projet_pk"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group" role="group" ><button  id="' . $row["projet_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["projet_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button  id="' . $row["projet_pk"] . '" class="btn btn-info projectInfo"><i class="fa fa-info" aria-hidden="true"></i></button><button  id="'. $row["projet_pk"] . '" class="btn btn-dark projectLogo"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
       </tr>';
           }
         } else {

@@ -76,7 +76,7 @@
         <p class="ml-2 mt-1"><small>Note</small></p>
         <div class="col row ml-1 mb-2">
           <textarea class="form-control mb-2" id="Note" rows="3"></textarea>
-          <button type="button" class="btn btn-success" id="putNote" data-dismiss="modal">Valider</button>
+          <button  class="btn btn-success" id="putNote" data-dismiss="modal">Valider</button>
         </div>
       </div>
 
@@ -128,8 +128,8 @@
       </div>
       <div class="modal-footer">
         <input class="form-control" id="ClientID" type="text" readonly>
-        <button type="button" class="btn btn-success" id="putClient" data-dismiss="modal">Editer</button>
-        <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        <button  class="btn btn-success" id="putClient" data-dismiss="modal">Editer</button>
+        <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -150,12 +150,12 @@
           <input type="number" class="form-control" id="Add_Montant_Budget">
         </div>
         <div class="form-group col-2">
-          <button type="button" id="InsertBudget" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button  id="InsertBudget" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       </div>
 
       <input class="form-control" type="hidden" id="ClientID" type="text">
-      <button type="button" class="btn btn-dark" data-dismiss="modal">Fermer</button>
+      <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
 
@@ -170,7 +170,7 @@
         <p>Ressources</p>
 
         <div id="ListEmployeCheckBox"></div>
-        <button type="button" id="AddRessourceToProject" class="btn btn-info mt-2 btn-sm">Ajouter ressource(s)</button>
+        <button  id="AddRessourceToProject" class="btn btn-info mt-2 btn-sm">Ajouter ressource(s)</button>
       </div>
 
     </div>
@@ -193,7 +193,7 @@
             <option value="VueJs">
         </datalist>
 
-        <button type="button" id="AddTechnoToProject" class="btn btn-info mb-1 btn-sm">Ajouter Techno</button>
+        <button  id="AddTechnoToProject" class="btn btn-info mb-1 btn-sm">Ajouter Techno</button>
       </div>
 
     </div>
@@ -239,8 +239,8 @@
         <input type="number" class="form-control d-none" id="Echange_ID">
 
         <div class="col">
-          <button type="button" id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel échange</button>
-          <button type="button" id="EditEchange" class="btn btn-info mt-2 btn-block">Éditer échange</button>
+          <button  id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel échange</button>
+          <button  id="EditEchange" class="btn btn-info mt-2 btn-block">Éditer échange</button>
         </div>
 
         
@@ -330,8 +330,8 @@
             <input id="Montant_Budget_`+this.projet_budget_pk+`" class="form-control" type="number" value="`+this.projet_budget_montant+`"/>
           </div>
           <div class="form-group col-2">
-            <button type="button" id="Update_Budgete_`+this.projet_budget_pk+`" class="btn btn-warning UpdateBudget"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button type="button" id="Delete_Budgete_`+this.projet_budget_pk+`" class="btn btn-danger DeleteBudget"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button  id="Update_Budgete_`+this.projet_budget_pk+`" class="btn btn-warning UpdateBudget"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button  id="Delete_Budgete_`+this.projet_budget_pk+`" class="btn btn-danger DeleteBudget"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>`)
         })
@@ -763,11 +763,11 @@
 
         var $GroupBouton = $('<div class="btn-group" role="group" />');
 
-        $GroupBouton.append($('<button type="button" id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
+        $GroupBouton.append($('<button  id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
           GetEchange(this.id.split('_')[1])
         }));
 
-        $GroupBouton.append($('<button type="button" id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>').on('click', function() {
+        $GroupBouton.append($('<button  id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>').on('click', function() {
           DellEchange(this.id.split('_')[1])
         }));
         
