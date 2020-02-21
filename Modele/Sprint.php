@@ -61,7 +61,7 @@ require_once('Configs.php');
         if (!empty($result))
           print true;
         else
-          print_r($statement->errorInfo());
+          header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de création du sprint'));
       }
 
       if ($_POST["action"] == "SprintMax") {
@@ -75,7 +75,7 @@ require_once('Configs.php');
         if (isset($result["numero"]))
           print $result["numero"];
         else
-          print 1;
+          header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de récupération du sprint maximum'));
       }
 
       if ($_POST["action"] == "Select") {
@@ -110,7 +110,7 @@ require_once('Configs.php');
         if (!empty($result))
           print true;
         else
-          print_r($statement->errorInfo());
+          header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de mise à jour du sprint'));
       }
 
       if ($_POST["action"] == "Delete") {
@@ -126,7 +126,7 @@ require_once('Configs.php');
         if ($statement->rowCount() > 0)
           print 'Sprint supprimé';
         else
-          print_r($statement->errorInfo());
+        header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de suppression du sprint'));
       }
     }
 

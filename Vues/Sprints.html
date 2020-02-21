@@ -42,7 +42,7 @@
         <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
       </div>
 
-      <div id="result" class="table-responsive table-hover"></div>
+      <div id="TableSprint" class="table-responsive table-hover"></div>
 
       <!-- This is sprint Modal. It will be use for Create new Records and Update Existing Records!-->
       <div id="ModalInfoAttribuable" class="modal fade">
@@ -109,9 +109,9 @@
 
     GetNumeroSprintMax();
 
-    BarreDeRecherche('BarreDeRecherche', 'result');
+    BarreDeRecherche('BarreDeRecherche', 'TableSprint');
 
-    RequeteAjax('result', 'Load', 'Modele/Sprint.php')
+    RequeteAjax('TableSprint', 'Load', 'Modele/Sprint.php')
 
     $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
@@ -135,7 +135,6 @@
     $('#modal_button').click(function () {
 
       if (CustomYourDate($('#dateFin').val()) > CustomYourDate($('#dateDebut').val())) {
-        if ($('#numero').val() != '' && CustomYourDate($('#dateDebut').val()) != '' && CustomYourDate($('#dateFin').val()) != '') {
           $.ajax({
             url: "Modele/Sprint.php",
             method: "POST",
@@ -148,16 +147,14 @@
               action: 'Créer'
             },
             success: function (data) {
-
               $.notify(data, "success");
               GetNumeroSprintMax();
-              RequeteAjax('result', 'Load', 'Modele/Sprint.php')
-
+              RequeteAjax('TableSprint', 'Load', 'Modele/Sprint.php')
+            },
+            error: function (xhr,status,erreur){
+              $.notify(erreur, "error");
             }
           });
-        } else {
-          $.notify("Tous les champs doivent être remplis.", "error");
-        }
       } else {
       $.notify("La date de début est supérieure à celle de fin, ça ne peut pas marcher", "error");
       }
@@ -187,7 +184,6 @@
     });
 
     $('#action').click(function () {
-      if ($('#numeroo').val() != '' && CustomYourDate($('#dateDebutt').val()) != '' && CustomYourDate($('#dateFinn').val()) != '' && $('#attribuableEdition').val() > 0) { //This condition will check both variable has some value
         $.ajax({
           url: "Modele/Sprint.php", //Request send to "Sprint.php page"
           method: "POST", //Using of Post method for send data
@@ -202,12 +198,12 @@
           success: function (data) {
             $.notify(data, "success");
             $('#ModalSprint').modal('hide'); //It will hide sprint Modal from webpage.
-            RequeteAjax('result', 'Load', 'Modele/Sprint.php') // Fetch User function has been called and it will load data under divison tag with id result
+            RequeteAjax('TableSprint', 'Load', 'Modele/Sprint.php') // Fetch User function has been called and it will load data under divison tag with id TableSprint
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
           }
         });
-      } else {
-        $.notify("Tous les champs doivent être remplis.", "error"); //If both or any one of the variable has no value them it will display this message
-      }
     });
 
     //This JQuery code is for Delete sprint data. If we have click on any sprint row delete button then this code will execute
@@ -221,8 +217,11 @@
             action: "Delete" //Define action variable value Delete
           }, //Data send to server from ajax method
           success: function (data) {
-            RequeteAjax('result', 'Load', 'Modele/Sprint.php') // fetchUser() function has been called and it will load data under divison tag with id result
+            RequeteAjax('TableSprint', 'Load', 'Modele/Sprint.php') // fetchUser() function has been called and it will load data under divison tag with id TableSprint
             $.notify(data, "success");
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
           }
         })
       } else { //Confim Box if cancel then
