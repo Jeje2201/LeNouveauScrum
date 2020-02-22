@@ -4,7 +4,8 @@
         "Titre": "Y'a du nouveau sous le sapin",
         "Fix": [
             "La chart des heures descendues par projet dans la page d’accueil ne se chargeait plus",
-            "Fix la chart de fiche de temps qui affichait d'oublie trop important ou un nombre négatif <b>@Ludovic</b>"
+            "La chart de fiche de temps affichait un nombre d'oublie trop important ou négatif <b>@Ludovic</b>",
+            "La register date d'une ressource ne se formattait pas bien <b>@Ludovic</b>"
         ],
         "Modif": [
             "Lors de la connexion, capable de dire si le mail n'est pas bon et faire trembler son input",
