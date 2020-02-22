@@ -1,5 +1,43 @@
 [
     {
+        "Date": "23 Février, 2020",
+        "Titre": "Y'a du nouveau sous le sapin",
+        "Fix": [
+            "La chart des heures descendues par projet dans la page d’accueil ne se chargeait plus",
+            "Fix la chart de fiche de temps qui affichait d'oublie trop important ou un nombre négatif <b>@Ludovic</b>"
+        ],
+        "Modif": [
+            "Lors de la connexion, capable de dire si le mail n'est pas bon et faire trembler son input",
+            "Lors de la création d'issue, les titres ne sont plus générés automatiquement <b>@Ludovic</b>",
+            "Le background de la page de login est enregistré et non plus en url qui requiert une connexion",
+            "Lorsque le user est en mode \"dev\", l'icone et le titre de la page changent",
+            "Le code js dans le footer est maintenant dans le script appelé dans le footer",
+            "La class \"centered\" laisse place à \"text-center\"",
+            "La div flottante des heures encore attribuables est mieux placée lors de la planification",
+            "Lors de la planif', tout est placé dans la même modale (heures, objectifs, démos) mais dans des accordéons",
+            "La navbar est encore plus fine qu'avant",
+            "La navbar est séparée en différentes catégories",
+            "Il n'y a plus de barre noir en haut de la page",
+            "Le back renvoi des erreurs serveurs 400 lorsque la requête SQL n'est pas bonne, ce qui permet de passer dans le \"fail\" de la requête ajax, à mettre partout",
+            "Réduction de l'utilisation des cards quand ce n'est pas nécessaire",
+            "La version du changelog est dans la page changelog et non plus dans la page d'accueil",
+            "Retouche de la page de personnalisation ",
+            "Le footer est chargé même dans la page du login"
+        ],
+        "Suppression": [
+            "A la suite de la demande de <b>@Fred</b>, le style mobile n'est plus optimisé pour le style ordinateur",
+            "Fichier \"GestionTache\" merge dans \"Tache\""
+        ],
+        "Ajout": [
+            "Nouvelle page qui liste les issues et suggestions avec l'API de github",
+            "Nouvelle page pour générer le json du changelog",
+            "Nouveau style \"Accordion\" utilisé dans la planif'",
+            "Les achievements sont maintenant fonctionnels, la page est à revoir maintenant",
+            "Ajout du module de budget d'un projet dans la page d'information d'un projet",
+            "Notifie à nouveau quand une tâche est bien validée"
+        ]
+    },
+    {
         "Date": "13 Février, 2020",
         "Titre": "Mise à jour rapide",
         "Fix": [
@@ -19,7 +57,7 @@
             "Dans les fiches de temps, la barre qui affiche le total % d'heures est descendue",
             "Lorsque l'on ajoute une ressource à la page d'information de projet, l'input des ressources ajoutées se vide",
             "Retouche du design de la page d'information des projets",
-            "Les bouton pour changer l'état des objectifs sont plus gros @Olivier",
+            "Les bouton pour changer l'état des objectifs sont plus gros <b>@Olivier</b>",
             "N'affiche les informations du client lié à un projet seulement sur le clic du logo de client et non sur le nom du projet"
         ],
         "Suppression": [
@@ -43,10 +81,10 @@
         "Date": "09 Février, 2020",
         "Titre": "Déjà de retour, pour te jouer un mauvais tour",
         "Fix": [
-            "Il n’était plus possible de créer un projet @Khaled",
-            "Les tâches ne s'affichaient pas dans le bon ordre si certains paramètres étaient présent @Amine",
-            "Si le user n’avait que des tâches de projets non pivotal, il était impossible de les valider @Nabil",
-            "Le total d’heures attribuables ne se mettait pas à jour quand on planifiait de nouvelles heures @Angélique",
+            "Il n’était plus possible de créer un projet <b>@Khaled</b>",
+            "Les tâches ne s'affichaient pas dans le bon ordre si certains paramètres étaient présent <b>@Amine</b>",
+            "Si le user n’avait que des tâches de projets non pivotal, il était impossible de les valider <b>@Nabil</b>",
+            "Le total d’heures attribuables ne se mettait pas à jour quand on planifiait de nouvelles heures <b>@Angélique</b>",
             "Il était impossible d’ajouter une ressource dans un projet"
         ],
         "Ajout": [
