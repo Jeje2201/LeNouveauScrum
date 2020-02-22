@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+<head>
+    <title>Changelog Generator</title>
+</head>
+<style>
+    textarea,
+    input {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <label>Date</label>
+    <input type="text" id="date" placeholder="12 Février, 2020" style="margin-bottom: 8px;">
+    <label>Titre</label>
+    <input type="text" id="titre" placeholder="Un changelog aussi bien remplis que ton ventre après le nouvel an" style="margin-bottom: 8px;">
+    <label>Fix</label>
+    <textarea rows="7" id="fix"></textarea>
+    <label>Ajout</label>
+    <textarea rows="7" id="Ajout"></textarea>
+    <label>Modification</label>
+    <textarea rows="7" id="Modification"></textarea>
+    <label>Suppression</label>
+    <textarea rows="7" id="Suppression"></textarea>
+
+    <input type="button" value="Générer json changelog" onclick="GenerateChangelog()" style="margin-bottom: 8px;">
+
+    <label>Résultat</label>
+    <textarea id="testok" rows="7"></textarea>
+</body>
+<script>
+
+function GenerateChangelog(){
+
+var test = {
+    Date : document.getElementById('date').value,
+    Titre : document.getElementById('titre').value,
+    Fix : document.getElementById('fix').value.split('\n'),
+    Modif : document.getElementById('Modification').value.split('\n'),
+    Suppression : document.getElementById('Suppression').value.split('\n'),
+    Ajout : document.getElementById('Ajout').value.split('\n'),
+}
+
+console.log(JSON.stringify(test))
+document.getElementById('testok').textContent = JSON.stringify(test)
+}
+</script>
+
+</html>
