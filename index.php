@@ -5,7 +5,6 @@ session_start();
 require_once('Modele/Configs.php');
 require_once("Vues/header.html");
 
-
 if (!isset($_SESSION['user']['admin']) || !isset($_SESSION['user']['id'])){
   require_once('Vues/Login.html');
 }
