@@ -38,39 +38,9 @@ function MinutesEnHeures($Minutes)
         and fiche_de_temps_done <= (SELECT sprint_dateFin from sprint where sprint_pk = " . $_POST["IdSprint"] . " )
         ORDER BY fiche_de_temps_done DESC");
         $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-        <thead class="thead-light">
-        <tr>
-        <th width="">Ressource</th>
-        <th width="">Projet</th>
-        <th width="">Heure(s)</th>
-        <th width="">Date</th>
-        <th width=""><center>Éditer</center></th>
-        </tr>
-        </thead>
-        <tbody id="myTable">';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-            <tr>
-            <td>' . $row["user_prenom"] . ' ' . $row["user_initial"] . '</td>
-            <td>' . $row["projet_nom"] . '</td>
-            <td>' . $row["fiche_de_temps_time"] . '</td>
-            <td>' . date("d/m/Y", strtotime($row["fiche_de_temps_done"])) . '</td>
-            <td><center><div class="btn-group" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-warning Get"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
-            </tr>';
-          }
-        } else {
-            $output .= '
-            <tr>
-            <td align="center" colspan="10">Pas de données</td>
-            </tr>';
-        }
-        $output .= '</tbody></table>';
-        print $output;
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        print json_encode($result);
       }
 
       // Get combien déjà remplis pour set bon % et max etc..
