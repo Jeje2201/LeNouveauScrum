@@ -76,6 +76,8 @@
 
   $(document).ready(function () {
 
+    var admin = isAdmin()
+
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
     BarreDeRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
@@ -107,7 +109,7 @@
             <td>` + this.interference_type + `</td>
             <td>` + this.interference_label + `</td>`
 
-            if(document.getElementById('prenom_nom_user').textContent == this.user_prenom + ' ' + this.user_nom)
+            if(document.getElementById('prenom_nom_user').textContent == this.user_prenom + ' ' + this.user_nom || admin)
             table +=`<td>
                 <div class="btn-group d-flex" role="group">
                 <button id="` + this.interference_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
