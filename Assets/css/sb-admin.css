@@ -201,7 +201,6 @@ html {
     padding-right: 57px;
   }
 
-
   /* Pour avoir la connnexion centrée */
   .PageConnexion{
     top: 30%;
@@ -697,7 +696,6 @@ body.sidenav-toggled #mainNav.fixed-top #sidenavToggler i {
 #mainNav.static-top .sidenav-toggler {
   display: none; }
 
-
   #mainNav.static-top .sidenav-toggler {
     display: flex; } 
 
@@ -758,7 +756,6 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
 
 #mainNav.navbar-dark .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
   color: #adb5bd; }
-
 
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
     background: #343a40; }

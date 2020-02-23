@@ -4,7 +4,6 @@
 
     if (isset($_POST["action"])) {
 
-
       if ($_POST["action"] == "DeleteTache") {
         $statement = $connection->prepare(
           "DELETE FROM tache

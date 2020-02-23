@@ -6,7 +6,6 @@
 
       $action = $_POST["action"];
 
-
       switch ($action) {
 
         case 'ListeDeroulanteSprint':
@@ -141,7 +140,6 @@
           break;
 
           /////////////////////////////////////
-
 
         case 'ListeDeroulanteEmploye':
 
