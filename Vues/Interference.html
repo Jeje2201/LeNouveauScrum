@@ -100,7 +100,7 @@
 
           $.each(data, function () {
 
-            var tableDemos = $(`<tr>
+            $('#myTable').append(`<tr>
                                   <td>` + this.interference_heure + `</td>
                                   <td>` + this.user_prenom + ` ` + this.user_nom + `</td>
                                   <td>` + this.projet_nom + `</td>
@@ -113,8 +113,6 @@
                                     </div>
                                   </td>
                               </tr>`);
-
-          $('#myTable').append(tableDemos)
 
           })
 

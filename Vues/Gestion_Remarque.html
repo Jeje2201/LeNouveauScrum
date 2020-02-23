@@ -89,39 +89,24 @@
 
           $.each(data, function () {
 
-            var tableRemarque = $(`<tr>
+            $('#TableRemarque').prepend(`<tr>
                                 <td>` + CustomYourDate(this.retrospective_remarque_dateCreation,'dd/mm/yyyy') + `</td>
                                 <td>` + CustomYourDate(this.retrospective_remarque_dateFini,'dd/mm/yyyy') + `</td>
                                 <td>` + this.retrospective_remarque_label + `</td>
+                                <td>
+                                  <div class="btn-group d-flex" role="group">
+                                    <button id="` + this.retrospective_remarque_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                    <button id="` + this.retrospective_remarque_pk + `" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                  </div>
+                                </td>
                               </tr>`);
-
-            var $colloneBoutons = $('<td />');
-
-            var $GroupBouton = $('<div class="btn-group" role="group" />');
-
-            $GroupBouton.append($('<button  id="Edit_Remarque_' + this.retrospective_remarque_pk +
-              '" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
-            ).on('click', function () {
-              getRemarque(this.id.split('_')[2])
-            }));
-
-            $GroupBouton.append($('<button  id="Delete_Remarque_' + this.retrospective_remarque_pk +
-              '" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>'
-            ).on('click', function () {
-              dellRemarque(this.id.split('_')[2])
-            }));
-
-            $colloneBoutons.append($GroupBouton);
-            tableRemarque.append($colloneBoutons);
-
-            $('#TableRemarque').prepend(tableRemarque)
 
           })
         }
       });
     }
 
-    function getRemarque(remarque_id) {
+    $(document).on('click', '.update', function () {
 
       ShowAndClearModaleForNew('ModalRemarque', 'CreerRemarque', 'EditerRemarque')
 
@@ -130,20 +115,19 @@
         method: "POST",
         dataType: 'json',
         data: {
-          remarque_id: remarque_id,
+          remarque_id: this.id,
           action: "getRemarque"
         },
         success: function (data) {
-
           $('#ModalRemarque').modal('show');
-          $('#remarque_id').val(remarque_id);
+          $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#labelRemarque').val(data.retrospective_remarque_label);
           $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation,'dd/mm/yyyy'));
           $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini),'dd/mm/yyyy');
         }
       });
 
-    };
+    });
 
     $('#EditerRemarque').click(function () {
       $.ajax({
@@ -164,13 +148,13 @@
       });
     });
 
-    function dellRemarque(remarque_id) {
-      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?"))
+    $(document).on('click', '.delete', function () {
+      if (confirm("Es-tu sûr de vouloir supprimer cette remarque ?")){
         $.ajax({
           url: "Modele/Retrospective_Remarque.php",
           method: "POST",
           data: {
-            remarque_id: remarque_id,
+            remarque_id: this.id,
             action: "dellRemarque"
           },
           success: function (data) {
@@ -178,7 +162,8 @@
             Notify(data, 'Remarque supprimée')
           }
         })
-    }
+      }
+    })
   })
 
 </script>
