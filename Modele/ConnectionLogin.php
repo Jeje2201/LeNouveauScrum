@@ -4,15 +4,11 @@ session_start();
 
 require_once('Configs.php');
 
-$EmployeLogin = $_POST['EmployeLogin'];
-$PasswordInput = $_POST['inputPassword'];
-$output = [];
-
 //Recuperer le mdp chiffré du user qui essaie de se connecter
 $statement = $connection->prepare(
     $sql = "SELECT user_mdp
     FROM user
-    WHERE user_mail like '$EmployeLogin'"
+    WHERE user_mail like '".$_POST['EmployeLogin']."'"
 );
 $statement->execute();
 $result = $statement->fetch();
@@ -24,12 +20,12 @@ if($result == false){
 
 //Checker si le mdp rentré est le meme que celui de ce user chiffré dans la bdd et le renvoyé sur l'index avec ou sans message d'erreur
 else{
-    if (password_verify($PasswordInput, $result['user_mdp'])) {
+    if (password_verify($_POST['inputPassword'], $result['user_mdp'])) {
 
         $statement = $connection->prepare(
             $sql = "SELECT *
             From user 
-            where user_mail like '$EmployeLogin'"
+            where user_mail like '".$_POST['EmployeLogin']."'"
         );
         $statement->execute();
         $result = $statement->fetch();
