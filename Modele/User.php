@@ -63,7 +63,7 @@
             else
               $output .= '<td class="text-center text-white" style="background-color: #b5424d">Lambda</td>';
 
-            $output .= '<td><center><div class="btn-group" role="group" ><button  id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button  id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button><button  id="avatar_' . $row["user_pk"] . '" class="btn btn-primary avatar_user"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
+            $output .= '<td><center><div class="btn-group d-flex" role="group" ><button  id="' . $row["user_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["user_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button><button  id="' . $row["user_pk"] . '" class="btn btn-dark password"><i class="fa fa-key" aria-hidden="true"></i></button><button  id="avatar_' . $row["user_pk"] . '" class="btn btn-primary avatar_user"><i class="fa fa-file-image-o" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }

@@ -87,7 +87,7 @@ function MinutesEnHeures($Minutes)
         <tr>
         <td>' . $row["projet_nom"] . '</td>
         <td>' . MinutesEnHeures($row["fiche_de_temps_time"]) . '</td>
-        <td><center><div class="btn-group" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+        <td><center><div class="btn-group d-flex" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
         </tr>
         ';
           }
