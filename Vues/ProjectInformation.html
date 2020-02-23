@@ -706,7 +706,7 @@
       $('#Echange_Label').val('');
     });
 
-    function GetEchange(idComment){
+    $(document).on('click', '.updateEchange', function () {
 
       $('#AddEchange').hide()
       $('#EditEchange').show()
@@ -715,7 +715,7 @@
         url: "Modele/ProjectInformation.php",
         method: "POST",
         data: {
-          idComment: idComment,
+          idComment: this.id,
           action: "getEchange"
         },
         dataType: "json",
@@ -730,7 +730,7 @@
         }
       });
 
-      }
+      })
 
     function GetEchanges(){
     
@@ -747,30 +747,17 @@
       success: function (data) {
 
       $.each(data, function () {
-
-        var divEchange = $(`<tr>
+        $('#EchangesProjet').prepend(`<tr>
                 <td>`+this.resume_echange+`</td>
                 <td>`+this.date_echange+`</td>
                 <td>`+this.type_echange+`</td>
+                <td>
+                  <div class="btn-group d-flex" role="group">
+                    <button id="` + this.id_echange + `" class="btn btn-warning btn-sm updateEchange"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button id="` + this.id_echange + `" class="btn btn-danger btn-sm deleteEchange"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+                </td>
               </tr>`);
-
-        var $colloneBoutons = $('<td />');
-
-        var $GroupBouton = $('<div class="btn-group" role="group" />');
-
-        $GroupBouton.append($('<button  id="EditResume_'+this.id_echange+'" class="btn btn-warning mr-1 btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button>').on('click', function() {
-          GetEchange(this.id.split('_')[1])
-        }));
-
-        $GroupBouton.append($('<button  id="DeleteResume_'+this.id_echange+'" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>').on('click', function() {
-          DellEchange(this.id.split('_')[1])
-        }));
-        
-        $colloneBoutons.append($GroupBouton);
-        divEchange.append($colloneBoutons);
-
-        $('#EchangesProjet').prepend(divEchange)
-
       })
       IfNoRows('EchangesProjet','Aucun échange trouvé..')
       }
@@ -820,7 +807,7 @@
 
      });
 
-    function DellEchange(idEchange) {
+     $(document).on('click', '.deleteEchange', function () {
 
       if (confirm("Es-tu sûr de vouloir supprimer cet échange ?"))
         $.ajax({
@@ -828,7 +815,7 @@
           method: "POST",
           data: {
             projectId: projectId,
-            idEchange: idEchange,
+            idEchange: this.id,
             action: "DellEchange"
           },
           success: function (data) {
@@ -836,7 +823,7 @@
             GetEchanges();
           }
         });
-    };
+    });
   
     //+-+-+-+-+-+-+-+-+-+-+ Timeline +-+-+-+-+-+-+-+-+-+-+
 
