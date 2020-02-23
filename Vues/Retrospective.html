@@ -182,18 +182,24 @@
 
             if (this.retrospective_demo_dateEffectue == null) {
 
-              $('#TableDemo').prepend(`<tr>
-                                          <td>` + nbJoursEntreDeuxDates(this.retrospective_demo_dateCree) + `</td>
-                                          <td>` + this.user_prenom + ` ` + this.user_initial + `</td>
-                                          <td>` + this.projet_nom + `</td>
-                                          <td>` + this.retrospective_demo_label + `</td>
-                                          <td>
-                                            <div class="btn-group d-flex" role="group">
-                                              <button id="` + this.retrospective_demo_pk + `" class="btn btn-success btn-sm achieveDemo"><i class="fa fa-check" aria-hidden="true"></i></button>
-                                              <button id="` + this.retrospective_demo_pk + `" class="btn btn-danger btn-sm deleteDemo"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                            </div>
-                                          </td>
-                                        </tr>`);
+             var table = `<tr>
+                            <td>` + nbJoursEntreDeuxDates(this.retrospective_demo_dateCree) + `</td>
+                            <td>` + this.user_prenom + ` ` + this.user_initial + `</td>
+                            <td>` + this.projet_nom + `</td>
+                            <td>` + this.retrospective_demo_label + `</td>`
+
+            if(admin)
+            table += `<td>
+              <div class="btn-group d-flex" role="group">
+                <button id="` + this.retrospective_demo_pk + `" class="btn btn-success btn-sm achieveDemo"><i class="fa fa-check" aria-hidden="true"></i></button>
+                <button id="` + this.retrospective_demo_pk + `" class="btn btn-danger btn-sm deleteDemo"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
+            </td>`
+                                          
+            table += ` </tr>`;
+
+            $('#TableDemo').prepend(table)
+            
             }
 
           })
@@ -258,16 +264,20 @@
 
             if (this.retrospective_remarque_dateFini == null) {
 
-              $('#TableRemarque').prepend(`<tr>
+              var table = `<tr>
                                 <td>` + nbJoursEntreDeuxDates(this.retrospective_remarque_dateCreation) + `</td>
-                                <td>` + this.retrospective_remarque_label + `</td>
-                                <td>
+                                <td>` + this.retrospective_remarque_label + `</td>`
+              if(admin)
+              table +=`<td>
                                   <div class="btn-group d-flex" role="group">
                                     <button id="` + this.retrospective_remarque_pk + `" class="btn btn-success btn-sm achieveRemarque"><i class="fa fa-check" aria-hidden="true"></i></button>
                                     <button id="` + this.retrospective_remarque_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                   </div>
-                                </td>
-                              </tr>`);
+                                </td>`
+                                
+              table +=`</tr>`
+
+              $('#TableRemarque').append(table);
             }
 
           })

@@ -100,19 +100,24 @@
 
           $.each(data, function () {
 
-            $('#myTable').append(`<tr>
-                                  <td>` + this.interference_heure + `</td>
-                                  <td>` + this.user_prenom + ` ` + this.user_nom + `</td>
-                                  <td>` + this.projet_nom + `</td>
-                                  <td>` + this.interference_type + `</td>
-                                  <td>` + this.interference_label + `</td>
-                                  <td>
-                                    <div class="btn-group d-flex" role="group">
-                                      <button id="` + this.interference_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                                      <button id="` + this.interference_pk + `" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </div>
-                                  </td>
-                              </tr>`);
+           var table = `<tr>
+            <td>` + this.interference_heure + `</td>
+            <td>` + this.user_prenom + ` ` + this.user_nom + `</td>
+            <td>` + this.projet_nom + `</td>
+            <td>` + this.interference_type + `</td>
+            <td>` + this.interference_label + `</td>`
+
+            if(document.getElementById('prenom_nom_user').textContent == this.user_prenom + ' ' + this.user_nom)
+            table +=`<td>
+                <div class="btn-group d-flex" role="group">
+                <button id="` + this.interference_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button id="` + this.interference_pk + `" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
+            </td>`
+
+            table +=`</tr>`;
+
+            $('#myTable').append(table)
 
           })
 
