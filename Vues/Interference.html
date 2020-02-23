@@ -4,26 +4,34 @@
 
       <div class="mb-3">
         <div class="row">
-            <div class="col-lg-1">
+            <div class="col-2">
               <div id="ListSrint"></div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col">
               <input class="form-control  mt-0" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
             </div>
 
-            <div class="col-lg-3">
-              <button  id="modal_button" class="btn btn-block btn-info">
-                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Créer&nbsp;une&nbsp;interférence
-              </button>
+            <div class="col">
+              <button  id="modal_button" class="btn btn-block btn-success">Créer interférence</button>
             </div>
 
-        </div>
-
-        <div id="TableauInterferanceHtml" class="table-responsive table-hover"></div>
+          </div>
+        <table class="table table-sm table-striped table-bordered" id="TableauInterferanceHtml" width="100%" cellspacing="0">
+          <thead class="thead-light">
+          <tr>
+          <th>Heures</th>
+          <th>Ressource</th>
+          <th>Projet</th>
+          <th>Type</th>
+          <th>Label</th>
+          <th class="text-center">Éditer</th>
+          </tr>
+          </thead>
+          <tbody id="myTable"></tbody>
+        </table>
       </div>
     </div>
-
 
 <div id="ModalInterference" class="modal fade">
   <div class="modal-dialog">
@@ -81,16 +89,41 @@
       $.ajax({
         url: "Modele/Interference.php",
         method: "POST",
+        dataType: "json",
         data: {
           action: "Load",
           idAffiche: $('#numeroSprint').val()
         },
         success: function (data) {
-          $('#TableauInterferanceHtml').html(data);
-          GarderLaRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
+
+          $('#myTable').html("");
+
+          $.each(data, function () {
+
+            var tableDemos = $(`<tr>
+                                  <td>` + this.interference_heure + `</td>
+                                  <td>` + this.user_prenom + ` ` + this.user_nom + `</td>
+                                  <td>` + this.projet_nom + `</td>
+                                  <td>` + this.interference_type + `</td>
+                                  <td>` + this.interference_label + `</td>
+                                  <td>
+                                    <div class="btn-group d-flex" role="group">
+                                      <button id="` + this.interference_pk + `" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                      <button id="` + this.interference_pk + `" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                  </td>
+                              </tr>`);
+
+          $('#myTable').append(tableDemos)
+
+          })
 
         }
-      });
+
+      })
+
+      GarderLaRecherche('BarreDeRecherche', 'TableauInterferanceHtml');
+
     }
 
     $('#ListSrint').change(function () {

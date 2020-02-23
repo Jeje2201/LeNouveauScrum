@@ -14,48 +14,9 @@
       WHERE interference_fk_sprint = $numero
       ORDER BY user_prenom, interference_fk_projet asc");
         $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      <thead class="thead-light">
-      <tr>
-      <th>Heures</th>
-      <th>Ressource</th>
-      <th>Projet</th>
-      <th>Type</th>
-      <th>Label</th>
-      <th><center>Éditer</center></th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-        <tr>
-        <td>' . $row["interference_heure"] . '</td>
-        <td>' . $row["user_prenom"] . ' ' . $row["user_nom"] . '</td>
-        <td>' . $row["projet_nom"] . '</td>
-        <td>' . $row["interference_type"] . '</td>
-        <td>' . $row["interference_label"] . '</td>';
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-        if($row["user_pk"] == $_SESSION['user']['id']){
-
-          $output .='<td><center><div class="btn-group" role="group" ><button  id="' . $row["interference_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["interference_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
-        </tr>';
-        }
-          }
-        } else {
-          $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
-        }
-        $output .= '</tbody></table>';
-        print $output;
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "Ajouter") {
@@ -103,7 +64,7 @@
       if ($_POST["action"] == "Update") {
         $statement = $connection->prepare(
           "UPDATE interference 
-   SET interference_heure = :heure, interference_type = :typeinterference, interference_fk_sprint =:sprint, interference_fk_projet = :projet, interference_fk_user = :employe, interference_label = :label
+   SET interference_heure = :heure, interference_type = :typeinterference, interference_fk_sprint =:sprint, interference_fk_projet = :projet, interference_label = :label
    WHERE interference_pk = :id"
         );
         $result = $statement->execute(
@@ -112,7 +73,6 @@
             ':typeinterference' => $_POST["TypeInterferance"],
             ':sprint' => $_POST["idAffichee"],
             ':projet' => $_POST["Projet"],
-            ':employe' => $_SESSION['user']['id'],
             ':label' => $_POST["labelinterference"],
             ':id' => $_POST["id"]
           )
