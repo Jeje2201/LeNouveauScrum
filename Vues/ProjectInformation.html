@@ -80,8 +80,9 @@
         </div>
       </div>
 
-      <div class="border DisableEffect">
-        <p><small>Temps </small></p>
+      <div class="border mb-3">
+        <span class="ml-2 mt-1"><small>Timeline</small></span>
+        <button id="ModaleTimeLineButton" class="btn btn-success btn-sm float-right my-2 mr-2">Données</button>
         <div id="ProjectTimeLine" class="col row"></div>
       </div>
 
@@ -144,7 +145,7 @@
           <input type="text" class="form-control" id="Add_Label_Budget" placeholder="Label">
         </div>
         <div class="form-group col-2">
-          <input type="number" class="form-control" id="Add_Montant_Budget">
+          <input type="number" class="form-control" id="Add_Montant_Budget" >
         </div>
         <div class="form-group col-2">
           <button  id="InsertBudget" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -152,6 +153,37 @@
       </div>
 
       <input class="form-control" type="hidden" id="ClientID" type="text">
+      <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="ModaleTimeLine" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body mb-2">
+
+        <div id="TimeLineConnu"></div>
+
+      <div class="form-row">
+        <div class="form-group col-6">
+          <input type="text" class="form-control" id="Add_Label_TimeLine" placeholder="Label">
+        </div>
+        <div class="form-group col-2">
+          <input type="text" class="form-control" id="Add_Debut_TimeLine" placeholder="Début">
+        </div>
+        <div class="form-group col-2">
+          <input type="text" class="form-control" id="Add_Fin_TimeLine" placeholder="Fin">
+        </div>
+        <div class="form-group col-2">
+          <button  id="InsertTimeLine" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+      </div>
+
+      <input class="form-control" id="TimeLineID" type="text" readonly>
       <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -255,7 +287,7 @@
         width: "100%"
       });
 
-    $('#Echange_Date').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#Echange_Date, #Add_Debut_TimeLine, #Add_Fin_TimeLine').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
     var projectId = parseInt(location.href.split('projet=')[1])
     
@@ -827,6 +859,122 @@
   
     //+-+-+-+-+-+-+-+-+-+-+ Timeline +-+-+-+-+-+-+-+-+-+-+
 
+
+    $('#ModaleTimeLineButton').bind( "click", function() {
+      $('#ModaleTimeLine').modal('show')
+      LoadListTimeLine()
+    })
+
+      function LoadListTimeLine(){
+      $('#TimeLineConnu').html('')
+
+      $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        projectId: projectId,
+        action: "getTimeLines"
+      },
+      dataType: "json",
+      success: function (data) {
+
+        $.each(data, function () {
+
+        $('#TimeLineConnu').append(`
+        <div class="form-row">
+          <div class="form-group col-6">
+            <input id="Label_Timeline_`+this.projet_timeline_pk+`" class="form-control" type="text" value="`+this.projet_timeline_label+`"/>
+          </div>
+          <div class="form-group col-2">
+            <input id="projet_timeline_debut_`+this.projet_timeline_pk+`" class="form-control projet_timeline_debut" type="text" value="`+CustomYourDate(this.projet_timeline_debut,'dd/mm/yyyy')+`"/>
+          </div>
+          <div class="form-group col-2">
+            <input id="projet_timeline_fin_`+this.projet_timeline_pk+`" class="form-control projet_timeline_fin" type="text" value="`+CustomYourDate(this.projet_timeline_fin,'dd/mm/yyyy')+`"/>
+          </div>
+          <div class="form-group col-2">
+            <button  id="Update_Timeline_`+this.projet_timeline_pk+`" class="btn btn-warning UpdateTimeline"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button  id="Delete_Timeline_`+this.projet_timeline_pk+`" class="btn btn-danger DeleteTimeline"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </div>
+        </div>`)
+        })
+
+        $('.UpdateTimeline').bind( "click", function() {
+
+          $.ajax({
+            url: "Modele/ProjectInformation.php",
+            method: "POST",
+            data: {
+              projet_timeline_fk_projet: projectId,
+              projet_timeline_label: $("#Label_Timeline_"+this.id.split('_')[2]).val(),
+              projet_timeline_debut: CustomYourDate($("#projet_timeline_debut_"+this.id.split('_')[2]).val()),
+              projet_timeline_fin: CustomYourDate($("#projet_timeline_fin_"+this.id.split('_')[2]).val()),
+              projet_timeline_pk: parseInt(this.id.split('_')[2]),
+              action: "Update_Projet_Timeline"
+            },
+            dataType: "json",
+            success: function (data) {
+              $.notify("succes", "success");
+              GetTimeLine()
+            },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
+          }
+          })
+
+        })
+
+        $('.DeleteTimeline').bind( "click", function() {
+          
+          $.ajax({
+            url: "Modele/ProjectInformation.php",
+            method: "POST",
+            data: {
+              projet_timeline_pk: parseInt(this.id.split('_')[2]),
+              action: "Delete_Projet_Timeline"
+            },
+            dataType: "json",
+            success: function (data) {
+              $.notify("succes", "success");
+              LoadListTimeLine()
+              GetTimeLine()
+            },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
+          }
+          })
+
+        })
+        
+      }
+    });
+  }
+
+  $('#InsertTimeLine').bind( "click", function() {
+
+    $.ajax({
+      url: "Modele/ProjectInformation.php",
+      method: "POST",
+      data: {
+        projet_timeline_fk_projet: projectId,
+        projet_timeline_label: $("#Add_Label_TimeLine").val(),
+        projet_timeline_debut: CustomYourDate($("#Add_Debut_TimeLine").val()),
+        projet_timeline_fin: CustomYourDate($("#Add_Fin_TimeLine").val()),
+        action: "Create_Projet_Timeline"
+      },
+      dataType: "json",
+      success: function (data) {
+        $.notify("Nouvelle time line ajoutée", "success");
+        $("#Add_Label_timeline, #Add_Debut_TimeLine, #Add_Fin_TimeLine").val('')
+        LoadListTimeLine()
+        GetTimeLine()
+      },
+      error: function (xhr,status,erreur){
+        $.notify(erreur, "error");
+      }
+    })
+
+  })
+
     function GetTimeLine(){
 
       google.charts.load("current", {packages:["timeline"]});
@@ -840,9 +988,13 @@
         dataTable.addColumn({ type: 'date', id: 'Start' });
         dataTable.addColumn({ type: 'date', id: 'End' });
         dataTable.addRows([
-          [ 'Projet', 'Design maquette', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
-          [ 'Projet', 'Développement', new Date(1797, 2, 4), new Date(1801, 2, 4) ],
-          [ 'Projet', 'Intégration', new Date(1801, 2, 4), new Date(1809, 2, 4) ]]);
+          [ 'Projet', 'Début', new Date(2020, 01, 01), new Date(2020, 01, 22) ],
+
+          [ 'Projet', 'Pendant début', new Date(2020, 01, 10), new Date(2020, 01, 18) ],
+
+          [ 'Projet', 'Milieu', new Date(2020, 01, 25), new Date(2020, 01, 30) ],
+
+          [ 'Projet', 'Fin', new Date(2020, 2, 4), new Date(2020, 2, 20) ]]);
 
         var options = {
         };

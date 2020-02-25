@@ -139,6 +139,8 @@
             print_r($statement->errorInfo());
       }
 
+      //+-+-+-+-+-+-+-+-+-+-+ Partie Ressources +-+-+-+-+-+-+-+-+-+-+
+
       if ($_POST["action"] == "GetRessources") {
         $output = array();
         $statement = $connection->prepare(
@@ -214,6 +216,8 @@
         print_r($statement->errorInfo());
   }
 
+      //+-+-+-+-+-+-+-+-+-+-+ Partie Technos +-+-+-+-+-+-+-+-+-+-+
+
       if ($_POST["action"] == "GetTechnos") {
         $output = array();
         $statement = $connection->prepare(
@@ -272,6 +276,8 @@
         else
         print_r($statement->errorInfo());
     }
+
+      //+-+-+-+-+-+-+-+-+-+-+ Partie Echanges +-+-+-+-+-+-+-+-+-+-+
 
     if ($_POST["action"] == "getEchanges") {
       $output = array();
@@ -377,6 +383,87 @@
       else
         print_r($statement->errorInfo());
   }
+
+  //+-+-+-+-+-+-+-+-+-+-+ Partie Echanges +-+-+-+-+-+-+-+-+-+-+
+
+  if ($_POST["action"] == "getTimeLines") {
+    $output = array();
+    $statement = $connection->prepare(
+      "SELECT *
+      FROM projet_timeline
+       WHERE projet_timeline_fk_projet = " . $_POST["projectId"]
+    );
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    print json_encode($result);
+  }
+
+  if ($_POST["action"] == "Create_Projet_Timeline") {
+
+    $statement = $connection->prepare(
+    "INSERT INTO projet_timeline
+    (projet_timeline_label, projet_timeline_debut, projet_timeline_fin, projet_timeline_fk_projet) 
+    VALUES (:projet_timeline_label, :projet_timeline_debut, :projet_timeline_fin, :projet_timeline_fk_projet)
+    ");
+    $result = $statement->execute(
+      array(
+        ':projet_timeline_label' => $_POST["projet_timeline_label"],
+        ':projet_timeline_debut' => $_POST["projet_timeline_debut"],
+        ':projet_timeline_fin' => $_POST["projet_timeline_fin"],
+        ':projet_timeline_fk_projet' => $_POST["projet_timeline_fk_projet"]
+      )
+    );
+    if (!empty($result))
+      print true;
+    else
+      print_r($statement->errorInfo());
+}
+
+  if ($_POST["action"] == "Update_Projet_Timeline") {
+
+    $statement = $connection->prepare(
+      "UPDATE projet_timeline 
+      SET projet_timeline_label = :projet_timeline_label,
+      projet_timeline_debut = :projet_timeline_debut,
+      projet_timeline_fin = :projet_timeline_fin,
+      projet_timeline_fk_projet = :projet_timeline_fk_projet
+      WHERE projet_timeline_pk = :projet_timeline_pk"
+      );
+      $result = $statement->execute(
+      array(
+        ':projet_timeline_pk' => $_POST["projet_timeline_pk"],
+        ':projet_timeline_label' => $_POST["projet_timeline_label"],
+        ':projet_timeline_debut' => (date("Y-m-d", strtotime($_POST["projet_timeline_debut"]))),
+        ':projet_timeline_fin' => (date("Y-m-d", strtotime($_POST["projet_timeline_fin"]))),
+        ':projet_timeline_fk_projet' => $_POST["projet_timeline_fk_projet"]
+      )
+      );
+      if (!empty($result))
+        print true;
+      else
+        print_r($statement->errorInfo());
+  }
+
+  if ($_POST["action"] == "Delete_Projet_Timeline") {
+
+    $statement = $connection->prepare(
+      "DELETE FROM projet_timeline
+      WHERE projet_timeline_pk = :projet_timeline_pk"
+    );
+    $result = $statement->execute(
+      array(
+        ':projet_timeline_pk' => $_POST["projet_timeline_pk"]
+      )
+    );
+    if ($statement->rowCount() > 0)
+      print true;
+    else
+      print_r($statement->errorInfo());
+  }
+
+
+
 
 }
 
