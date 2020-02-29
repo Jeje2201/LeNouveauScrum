@@ -462,9 +462,6 @@
       print_r($statement->errorInfo());
   }
 
-
-
-
 }
 
     ?> 

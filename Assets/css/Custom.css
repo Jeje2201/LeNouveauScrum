@@ -1,0 +1,373 @@
+.DisableEffect {
+  pointer-events: none;
+  opacity: 0.5;
+  background: #CCC;
+  cursor: not-allowed;
+}
+
+.customInputFile {
+  font-weight: 700;
+  color: white;
+  background-color: #df474b;
+  cursor: pointer;
+}
+
+.LaSignatureDeMail table,
+.LaSignatureDeMail th,
+.LaSignatureDeMail td {
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.LaSignatureDeMail td img {
+  width: auto;
+  height: 1.2em;
+  vertical-align: inherit;
+  padding-right: .5em;
+}
+
+.LaSignatureDeMail td:nth-of-type(1) {
+  padding-left: 1em;
+  text-align: center;
+}
+
+.LaSignatureDeMail td[colspan="2"] {
+  text-align: left;
+}
+
+.LaSignatureDeMail a {
+  text-decoration: none;
+  color: #525252;
+}
+
+.LaSignatureDeMail th img {
+  width: 60%;
+  min-width: 8em;
+  max-width: 12em;
+  float: right;
+}
+
+.LaSignatureDeMail #Name {
+  color: black;
+  font-size: 14px;
+  font-weight: 700;
+  padding-right: .5em;
+}
+
+.LaSignatureDeMail #Job {
+  color: #666666;
+}
+
+/*////////// objectif ////////////////*/
+
+.Objectif_OK {
+  background-color: #95D972;
+}
+
+.Objectif_Inconnue {
+  background-color: #007bff;
+}
+
+.Objectif_Non {
+  background-color: #E8514E;
+}
+
+.Objectif_Annule {
+  background-color: #424242;
+}
+
+.Objectif_En_cours {
+  background-color: #E88648;
+}
+
+/*//////////////////////////////*/
+
+#ModalApi .accordion {
+  background-color: #eee;
+  /* color: #444; */
+  cursor: pointer;
+  padding: 7px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 22px;
+}
+
+#ModalApi .active {
+  background-color: #000;
+  color: white;
+}
+
+#ModalApi .accordion:after {
+  content: '\002B';
+  /* color: #777; */
+  font-weight: bold;
+  float: right;
+  margin-top: 3px;
+}
+
+#ModalApi .active:after {
+  content: "\2212";
+}
+
+#ModalApi .panel {
+  padding-top: 10px !important;
+  margin-bottom: 7px;
+  padding: 0 17px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.HeaderTablePlanif {
+  color: white
+}
+
+.HeaderTablePlanif:hover {
+  color: white
+}
+
+#TableTotJoursNonPlein tr {
+  cursor: pointer;
+}
+
+.TrophePasEncore {
+  -webkit-filter: grayscale(100%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+
+/*Div qui permet de follow le screen meme si scroll, appartient au div quand planif avec l'api*/
+.FollowAttribuable {
+  z-index: 1;
+  top: 50%;
+  right: 5%;
+  background: white;
+  position: fixed;
+  padding: 8px;
+  border-style: solid;
+  border-width: 1.5px;
+  border-radius: 8px;
+}
+
+/* Si la tache est déjà faite, la mettre en verte quand api pivotal l'affiche*/
+.TacheTrue {
+  background-color: #c7f8c2;
+}
+
+.cardGroupTache div:not(:first-child) {
+  margin-left: 1%;
+  padding: 6px;
+  border-color: #9a9a9a;
+  width: 98% !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.card .PASTOUCHE {
+  opacity: 0.3;
+}
+
+.TacheGonnaBeDone {
+  border-color: #28a745 !important;
+}
+
+.TacheGonnaBeDone img {
+  display: block !important;
+  position: absolute;
+  width: 22px;
+  left: -10px;
+  top: -8px;
+}
+
+.card .PASTOUCHE:hover {
+  cursor: not-allowed;
+}
+
+hr {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+
+}
+
+.LogoProjet {
+  width: 22px;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+}
+
+#BarreDeRecherche {
+  background-image: url('/Assets/css/searchicon.png');
+  /* Add a search icon to input */
+  background-position: 10px 9px;
+  /* Position the search icon */
+  background-repeat: no-repeat;
+  /* Do not repeat the icon image */
+  width: 100%;
+  /* Full-width */
+  padding: 12px 20px 12px 40px;
+  /* Add some padding */
+  border: 1px solid #ddd;
+  /* Add a grey border */
+  margin-bottom: 12px;
+  /* Add some space below the input */
+  margin-top: 12px;
+  /* Add some space below the input */
+}
+
+.changelog_Suppression {
+  padding-left: 23px;
+  padding-right: 23px;
+}
+
+.changelog_Modif {
+  padding-left: 23px;
+  padding-right: 23px;
+}
+
+.changelog_Ajout {
+  padding-left: 49px;
+  padding-right: 49px;
+}
+
+.changelog_Fix {
+  padding-left: 57px;
+  padding-right: 57px;
+}
+
+/* Pour avoir la connnexion centrée */
+.PageConnexion {
+  top: 30%;
+  left: 50%;
+  width: 30em;
+  height: 18em;
+  margin-top: -9em;
+  margin-left: -15em;
+  position: fixed;
+}
+
+.ImageLogin {
+  position: fixed;
+  display: block;
+  background-color: #e0e0e0;
+  background-image: url('/Assets/Image/Autre/BgLogin.jpg');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  /* 
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px); */
+}
+
+/* Mettre des couleurs dans les statues de mail */
+.Mailnon {
+  color: red
+}
+
+.Mail\? {
+  color: blue
+}
+
+.Mailok {
+  color: #76bf00
+}
+
+.MailEn.cours {
+  color: orange
+}
+
+#return-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#return-to-top i {
+  color: #fff;
+  margin: 0;
+  position: relative;
+  left: 16px;
+  top: 13px;
+  font-size: 19px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#return-to-top:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+#return-to-top:hover i {
+  color: #fff;
+  top: 5px;
+}
+
+.SpecialHr {
+  margin-top: 5px;
+  margin-bottom: 2px;
+  height: 1px;
+  width: 5%;
+  background-color: #cecece;
+}
+
+.hideElement {
+  display: none;
+}
+
+.loginText {
+  color: blue;
+}
+
+.DonneesBurndownChart {
+  color: #f30866;
+  display: inline;
+  font-size: 115%;
+  font-weight: bold;
+}
+
+#AfficherCouleur {
+  height: 30px;
+  width: 30px;
+}
+
+/* Eviter que les tables sorte de la page */
+#TableListHeuresAttribuees,
+#TableauEmployeHtml,
+#TableauProjetHtml,
+#TableauHeuresDescendues {
+  height: 85%;
+}
+
+/* Overwrite de la taille des lignes dans les tableau en les mettant plus petit */
+.table-sm th,
+.table-sm td {
+  padding: 0.2rem;
+  vertical-align: middle;
+}
