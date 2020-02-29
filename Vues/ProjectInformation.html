@@ -46,7 +46,7 @@
       <div class="col">
         <div class="border mb-3">
         <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
-        <button class="btn btn-info btn-sm ml-2 mb-2" id="ModaleAddEchange">Ajouter</button>
+        <button class="btn btn-success btn-sm ml-2 mb-2" id="ModaleAddEchange">Ajouter</button>
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -152,7 +152,7 @@
         </div>
       </div>
 
-      <input class="form-control" type="hidden" id="ClientID" type="text">
+      <input class="form-control" id="ClientID" type="text" readonly>
       <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -183,7 +183,6 @@
         </div>
       </div>
 
-      <input class="form-control" id="TimeLineID" type="text" readonly>
       <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -222,7 +221,7 @@
             <option value="VueJs">
         </datalist>
 
-        <button  id="AddTechnoToProject" class="btn btn-info mb-1 btn-sm">Ajouter Techno</button>
+        <button  id="AddTechnoToProject" class="btn btn-success mb-1 btn-sm">Ajouter Techno</button>
       </div>
 
     </div>
@@ -268,7 +267,7 @@
         <input type="number" class="form-control d-none" id="Echange_ID">
 
         <div class="col">
-          <button  id="AddEchange" class="btn btn-info mt-2 btn-block">Nouvel échange</button>
+          <button  id="AddEchange" class="btn btn-success mt-2 btn-block">Nouvel échange</button>
           <button  id="EditEchange" class="btn btn-warning mt-2 btn-block">Éditer échange</button>
         </div>
 
@@ -976,30 +975,47 @@
 
     function GetTimeLine(){
 
-      google.charts.load("current", {packages:["timeline"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var container = document.getElementById('ProjectTimeLine');
-        var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn({ type: 'string', id: 'vide' });
-        dataTable.addColumn({ type: 'string', id: 'Name' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-        dataTable.addRows([
-          [ 'Projet', 'Début', new Date(2020, 01, 01), new Date(2020, 01, 22) ],
+      $.ajax({
+        url: "Modele/ProjectInformation.php",
+        method: "POST",
+        data: {
+          projectId: projectId,
+          action: "getTimeLines"
+        },
+        dataType: "json",
+        success: function (data) {
 
-          [ 'Projet', 'Pendant début', new Date(2020, 01, 10), new Date(2020, 01, 18) ],
+          var TotalDates = new Array
 
-          [ 'Projet', 'Milieu', new Date(2020, 01, 25), new Date(2020, 01, 30) ],
+          $.each(data, function () {
 
-          [ 'Projet', 'Fin', new Date(2020, 2, 4), new Date(2020, 2, 20) ]]);
+            var LaDate = ['Projet',this.projet_timeline_label, new Date(this.projet_timeline_debut), new Date(this.projet_timeline_fin)]
 
-        var options = {
-        };
+            TotalDates.push(LaDate)
+          })
 
-        chart.draw(dataTable, options);
-      }
+          google.charts.load("current", {packages:["timeline"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+
+          var container = document.getElementById('ProjectTimeLine');
+          var chart = new google.visualization.Timeline(container);
+          var dataTable = new google.visualization.DataTable();
+          dataTable.addColumn({ type: 'string', id: 'vide' });
+          dataTable.addColumn({ type: 'string', id: 'Name' });
+          dataTable.addColumn({ type: 'date', id: 'Start' });
+          dataTable.addColumn({ type: 'date', id: 'End' });
+          dataTable.addRows(TotalDates);
+
+          var options = {
+          };
+
+          chart.draw(dataTable, options);
+        }
+        }
+      })
+
+      
     }
   
   })
