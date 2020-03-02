@@ -51,8 +51,10 @@
                                       <div class="card-header"><a href="`+ this.html_url + `">` + this.title + `</a>
                                       </div>
                                       <div class="card-body">
-                                        `+ this.body + `
-                                        <p class="text-muted mt-1 mb-n2" style="text-align: end">`+this.comments+` commentaires</p>
+                                      <p>
+                                        `+ this.body.substring(0,150)+`...` + `
+                                      </p>
+                                      <p class="text-muted mt-1 my-n3" style="text-align: end">`+this.comments+` commentaires</p>
                                       </div>
                                       <div class="card-footer text-muted">
                                         <span class="float-left"> `+ this.user.login + `</span> <span class="float-right">` + CustomYourDate(this.created_at, 'dd/mm/yyyy') + `</span>
