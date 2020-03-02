@@ -139,6 +139,10 @@
 
     var admin = isAdmin()
 
+    if(!admin){
+      $("#BouttonRemarque").hide()
+    }
+
     $('#DateDebut, #DateFin').datetimepicker({
     format: 'dd/mm/yyyy',
     autoclose: true,
