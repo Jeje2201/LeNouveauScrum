@@ -23,8 +23,8 @@ require_once('Configs.php');
         <th>Projet</th>
         <th>Label</th>
         <th>Heures</th>
-        <th>Fini</th>
-        <th>Éditer</th>
+        <th class="text-center">Fini</th>
+        <th class="text-center">Action</th>
         </tr>
         </thead>
         <tbody id="myTable">
@@ -42,7 +42,7 @@ require_once('Configs.php');
         else
           $output .= '<td>' . date("d/m/Y", strtotime($row["tache_done"])) . '</td>';
 
-          $output .='<td><center><div class="btn-group d-flex" role="group" ><button  id="' . $row["tache_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["tache_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>';
+          $output .='<td><div class="btn-group d-flex" role="group" ><button  id="' . $row["tache_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["tache_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></td>';
           }
         } else {
           $output .= '

@@ -74,9 +74,9 @@ function MinutesEnHeures($Minutes)
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
-        <th width="">Projet</th>
-        <th width="">Heures du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
-        <th width="10%"><center>Supprimer</center></th>
+        <th>Projet</th>
+        <th>Heures du '.date("d/m/Y", strtotime($_POST["Done"])).'</th>
+        <th class="text-center">Supprimer</th>
         </tr>
         </thead>
         <tbody id="myTable">';
@@ -87,7 +87,7 @@ function MinutesEnHeures($Minutes)
         <tr>
         <td>' . $row["projet_nom"] . '</td>
         <td>' . MinutesEnHeures($row["fiche_de_temps_time"]) . '</td>
-        <td><center><div class="btn-group d-flex" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+        <td><div class="btn-group d-flex" role="group" ><button  id="' . $row["fiche_de_temps_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></td>
         </tr>
         ';
           }
@@ -140,8 +140,8 @@ function MinutesEnHeures($Minutes)
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
-        <th width="">Projet</th>
-        <th width="">Total</th>
+        <th>Projet</th>
+        <th>Total</th>
         </tr>
         </thead>
         <tbody id="myTable">
@@ -186,8 +186,8 @@ function MinutesEnHeures($Minutes)
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
-        <th width="">Projet</th>
-        <th width="">Total</th>
+        <th>Projet</th>
+        <th>Total</th>
         </tr>
         </thead>
         <tbody id="myTable">
@@ -248,8 +248,8 @@ function MinutesEnHeures($Minutes)
         <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
         <thead class="thead-light">
         <tr>
-        <th width="">Ressource</th>
-        <th width="">Heures (Total: '.MinutesEnHeures($resultN0[0]).')</th>
+        <th>Ressource</th>
+        <th>Heures (Total: '.MinutesEnHeures($resultN0[0]).')</th>
         </tr>
         </thead>
         <tbody id="myTable">

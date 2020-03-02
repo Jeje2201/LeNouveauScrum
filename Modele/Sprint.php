@@ -17,7 +17,7 @@ require_once('Configs.php');
     <th>Début</th>
     <th>Fin</th>
     <th>Attribuable (h)</th>
-    <th><center>Éditer</center></th>
+    <th class="text-center">Action</th>
     </tr>
     </thead>
     <tbody id="myTable">
@@ -30,7 +30,7 @@ require_once('Configs.php');
        <td>' . date("d/m/Y", strtotime($row["sprint_dateDebut"])) . '</td>
        <td>' . date("d/m/Y", strtotime($row["sprint_dateFin"])) . '</td>
        <td>' . $row["sprint_attribuable"] . '</td>
-       <td><center><div class="btn-group d-flex" role="group" ><button  id="' . $row["sprint_pk"] . '" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["sprint_pk"] . '" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></center></td>
+       <td><div class="btn-group d-flex" role="group" ><button  id="' . $row["sprint_pk"] . '" class="btn btn-warning btn-sm update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["sprint_pk"] . '" class="btn btn-danger btn-sm delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></td>
        </tr>
        ';
           }
