@@ -59,7 +59,7 @@ require_once('Configs.php');
           )
         );
         if (!empty($result))
-          print true;
+          print "Sprint généré";
         else
           header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de création du sprint'));
       }
@@ -108,7 +108,7 @@ require_once('Configs.php');
           )
         );
         if (!empty($result))
-          print true;
+          print "Sprint modifié";
         else
           header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de mise à jour du sprint'));
       }
