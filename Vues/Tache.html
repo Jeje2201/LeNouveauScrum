@@ -10,6 +10,11 @@
         </div>
 
         <div class="col">
+          <span>Date</span>
+        <input type="text" id="DoneDate" class="form-control"/>
+      </div>
+
+        <div class="col">
           <span>&nbsp;</span>
             <button  id="Descendre" class="btn btn-success btn-block">Valider</button>
         </div>
@@ -23,6 +28,15 @@
   
   <script>
     $(document).ready(function () {
+
+      $('#DoneDate').datetimepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        minView: 2,
+        weekStart: 1
+      });
+
+      $('#DoneDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'))
 
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
@@ -79,11 +93,7 @@
                   return
                 }
 
-                if (CustomYourDate(ChoixDate(0)) >= data.sprint_dateDebut && CustomYourDate(ChoixDate(0)) <= data.sprint_dateFin) {
-                  var dateDescente = CustomYourDate(ChoixDate(0));
-                } else {
-                  var dateDescente = data.sprint_dateFin;
-                }
+                dateDescente = CustomYourDate($('#DoneDate').val())
 
                 $('.TacheGonnaBeDone').each(function () {
 
