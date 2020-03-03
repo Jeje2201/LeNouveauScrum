@@ -243,9 +243,8 @@ require_once('Configs.php');
       if ($_POST["action"] == "AttributionScrumPlaning") {
         $TableauEmploye = $_POST["idEmploye"];
         $numero = $_POST["idSprint"];
-        $statement = $connection->prepare("INSERT INTO tache (tache_heure, tache_fk_sprint, tache_fk_user, tache_fk_projet, tache_type, tache_label, tache_done) 
-        VALUES (:NombreHeure, :idSprint, :idEmploye, (select projet_pk FROM projet WHERE projet_nom like 'ScrumPlanning'), :TypeTache, :LabelTache,(select sprint_dateDebut FROM sprint WHERE sprint_pk = $numero))
-        ");
+        $statement = $connection->prepare("INSERT INTO tache (tache_heure, tache_fk_sprint, tache_fk_user, tache_fk_projet, tache_type, tache_label) 
+        VALUES (:NombreHeure, :idSprint, :idEmploye, (select projet_pk FROM projet WHERE projet_nom like 'ScrumPlanning'), :TypeTache, :LabelTache)");
         for ($i = 0; $i < count($TableauEmploye); $i++) {
 
           $result = $statement->execute(
