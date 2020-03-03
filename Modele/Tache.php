@@ -99,7 +99,7 @@
           $LeCounterDeGroupe = 0;
           foreach ($result as $row) {
 
-            if (file_exists("../Assets/Image/Projets/avatar_projet_" . $row["projet_pk"] .".png")) {
+            if (file_exists("../Assets/Image/Projets/avatar_projet_" . $row["projet_pk"] .".png") && $row["tache_pivotal_Label_Story"] != "Tâches planifiées normalement") {
               $row["projet_avatar"] = "avatar_projet_" . $row["projet_pk"] .".png";
             }else{
               $row["projet_avatar"] = "default.png";
