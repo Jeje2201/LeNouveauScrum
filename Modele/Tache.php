@@ -117,7 +117,7 @@
             if($SameStory != $row["tache_pivotal_id_Story"]){
 
              
-            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> '. $row["tache_pivotal_Label_Story"].' '. $ShowItsPivotal.'</div>';
+            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>'. $ShowItsPivotal.'</div>';
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
