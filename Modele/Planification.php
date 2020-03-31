@@ -72,7 +72,11 @@ require_once('Configs.php');
         WHERE tache_fk_sprint = $numero
         GROUP BY tache_fk_user    
         union 
-        select 0, 60, user_prenom, user_initial  from user where user_pk not in (
+        select 0,  (
+            SELECT sprint_attribuable
+            FROM sprint
+            WHERE sprint_pk = $numero
+          ), user_prenom, user_initial  from user where user_pk not in (
         select tache_fk_user from tache where tache_fk_sprint = $numero group by tache_fk_user)
         and user_doesPlanification = 1
         order by 1 desc,3
