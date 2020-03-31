@@ -13,7 +13,7 @@
         </div>
         <div class="col">
           <button  id="ButtonScrumPlaning" class="btn btn-block btn-info"
-            onclick="$('#ModalScrumPlaning').modal('show');">Scrum planning </button>
+            onclick="$('#ModalScrumPlaning').modal('show');">Non projet</button>
         </div>
 
       </div>
@@ -64,10 +64,8 @@
 
         <hr class="my-3">
 
-        <button class="accordion">Heures</button>
+        <button class="accordion">Planification manuelle</button>
         <div class="panel">
-    
-              <h5>Manuelle</h5>
 
         <div class="row mb-4">
           <div class="col-lg-9">
@@ -78,10 +76,18 @@
             <input type="submit" id="action" class="btn btn-block btn-success" value="Attribuer" />
           </div>
         </div>
+      </div>
 
-        <h5>Pivotal Tracker</h5>
-
-        <button id="ChercherApiPivotal" class="btn px-5 btn-info">Rechercher</button>
+      <button class="accordion">Planification Pivotal Tracker</button>
+      <div class="panel">
+        <div class='row'>
+           <div class='col'>
+            <input class="form-control" id="LaRechercheDansPivotal" type="text" placeholder="Rechercher dans le result">
+           </div>
+           <div class='col'>
+            <button id="ChercherApiPivotal" class="btn px-5 btn-info">Rechercher</button>
+           </div>
+        </div>
 
         <div id="AucuneStorie" class="hideElement mt-3">
           <h3>Aucunes storie pour ce projet ?</h3>
@@ -264,6 +270,23 @@
       minView: 2,
       weekStart: 1
     });
+
+    //Permet de rechercher dans les stories que pivotal a trouvé
+    $('#LaRechercheDansPivotal').keyup(function () {
+
+      var searchWord = $('#LaRechercheDansPivotal').val()
+
+      $(".HeaderTablePlanif").each(function () {
+
+        if ($(this).text().toLowerCase().includes(searchWord.toLowerCase())) {
+          $(this).closest('table').show()
+        } else {
+          $(this).closest('table').hide()
+        }
+
+      });
+    })
+    
 
     RemplirTableau('TableListHeuresAttribuees');
     RemplirTableauRessources('TableListHeuresAttribueesRessources');
