@@ -58,28 +58,56 @@ require_once('Configs.php');
       if ($_POST["action"] == "RemplirTableauRessources") {
         $numero = $_POST["idAffiche"];
 
-        $statement = $connection->prepare("SELECT sum(tache_heure) AS NbHeure,
-          (
-            SELECT sprint_attribuable
-            FROM sprint
-            WHERE sprint_pk = $numero
-          ) - sum(tache_heure)
-         AS Attribuable,
-        user_prenom,
-        user_initial
-        FROM tache
-        inner JOIN user ON user_pk = tache_fk_user
-        WHERE tache_fk_sprint = $numero
-        GROUP BY tache_fk_user    
-        union 
-        select 0,  (
-            SELECT sprint_attribuable
-            FROM sprint
-            WHERE sprint_pk = $numero
-          ), user_prenom, user_initial  from user where user_pk not in (
-        select tache_fk_user from tache where tache_fk_sprint = $numero group by tache_fk_user)
-        and user_doesPlanification = 1
-        order by 1 desc,3
+        $statement = $connection->prepare("SELECT * from 
+
+        (
+          SELECT sum(tache_heure) AS Planifié,
+          sprint_attribuable - sum(tache_heure) AS Planifiable,
+          user_prenom,
+          user_initial,
+          tache_fk_user
+          FROM tache
+          inner JOIN user ON user_pk = tache_fk_user
+          inner join sprint on tache_fk_sprint = sprint_pk
+          WHERE sprint_pk = $numero
+          GROUP BY tache_fk_user 
+
+          union 
+
+          select 0,  (
+              SELECT sprint_attribuable
+              FROM sprint
+              WHERE sprint_pk = $numero
+            ), user_prenom, user_initial, user_pk from user where user_pk not in (
+          select tache_fk_user from tache where tache_fk_sprint = $numero group by tache_fk_user)
+          and user_doesPlanification = 1
+          order by Planifié desc, user_prenom
+        ) as t1
+
+        left join 
+
+        (
+          select count(*) as NbObjectif, 
+          retrospective_objectif_fk_user as user_pk
+          from retrospective_objectif
+          where retrospective_objectif_fk_sprint = $numero
+          GROUP by retrospective_objectif_fk_user
+
+          UNION
+          
+          select 0,
+          user.user_pk
+          from user
+          where user.user_pk not in (
+            select retrospective_objectif_fk_user
+            from retrospective_objectif
+            where retrospective_objectif_fk_sprint = $numero
+            GROUP by retrospective_objectif_fk_user
+          )
+          and user.user_doesPlanification = 1
+        ) as t2
+        
+        on t1.tache_fk_user = t2.user_pk
         ");
           $statement->execute();
           $result = $statement->fetchAll();
@@ -90,25 +118,34 @@ require_once('Configs.php');
         <tr>
         <th>Ressource</th>
         <th>Planifié (Dispo)</th>
+        <th>Objectif</th>
         </tr>
         </thead>
         <tbody id="myTable">
         ';
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
+
+            if ($row["Planifiable"] == 0){
+              $CouleurPlanif = "#baffc9";
+            }
+            else{
+              $CouleurPlanif = "#ffb3ba";
+            }
+
+            if ($row["NbObjectif"] >= 2){
+              $CouleurObj = "#baffc9";
+            }
+            else{
+              $CouleurObj = "#ffb3ba";
+            }
+
             $output .= '
-        <tr>
-        <td>' . $row["user_prenom"] . ' ' . $row["user_initial"] . '</td>';
-            if ($row["Attribuable"] == 0) {
-              $output .= '<td style="background-color:#baffc9">' . $row["NbHeure"] . ' (' . $row["Attribuable"] . ')</td>';
-            }
-            if ($row["Attribuable"] > 0) {
-              $output .= '<td>' . $row["NbHeure"] . ' (' . $row["Attribuable"] . ')</td>';
-            }
-            if ($row["Attribuable"] < 0) {
-              $output .= '<td style="background-color:#ffb3ba">' . $row["NbHeure"] . ' (' . $row["Attribuable"] . ')</td>';
-            }
-            $output .= '</tr>';
+            <tr>
+              <td>' . $row["user_prenom"] . ' ' . $row["user_initial"] . '</td>
+              <td style="background-color:'.$CouleurPlanif.'">' . $row["Planifié"] . ' (' . $row["Planifiable"] . ')</td>
+              <td style="background-color:'.$CouleurObj.'">' . $row["NbObjectif"] . '</td>
+            </tr>';
           }
         } else {
           $output .= '
