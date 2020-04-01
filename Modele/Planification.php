@@ -127,24 +127,24 @@ require_once('Configs.php');
           foreach ($result as $row) {
 
             if ($row["Planifiable"] == 0){
-              $CouleurPlanif = "#baffc9";
+              $CouleurPlanif = "bg-success";
             }
             else{
-              $CouleurPlanif = "#ffb3ba";
+              $CouleurPlanif = "bg-danger";
             }
 
             if ($row["NbObjectif"] >= 2){
-              $CouleurObj = "#baffc9";
+              $CouleurObj = "bg-success";
             }
             else{
-              $CouleurObj = "#ffb3ba";
+              $CouleurObj = "bg-danger";
             }
 
             $output .= '
             <tr>
               <td>' . $row["user_prenom"] . ' ' . $row["user_initial"] . '</td>
-              <td style="background-color:'.$CouleurPlanif.'">' . $row["Planifié"] . ' (' . $row["Planifiable"] . ')</td>
-              <td style="background-color:'.$CouleurObj.'">' . $row["NbObjectif"] . '</td>
+              <td class="text-white ' . $CouleurPlanif . '">' . $row["Planifié"] . ' (' . $row["Planifiable"] . ')</td>
+              <td class="text-center text-white ' . $CouleurObj . '">' . $row["NbObjectif"] . '</td>
             </tr>';
           }
         } else {
