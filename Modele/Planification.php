@@ -109,7 +109,7 @@ require_once('Configs.php');
         
         on t1.tache_fk_user = t2.user_pk
 
-        order by t1.Planifié desc
+        order by t1.Planifié desc, t1.user_prenom asc
         ");
           $statement->execute();
           $result = $statement->fetchAll();
@@ -131,9 +131,6 @@ require_once('Configs.php');
             if ($row["Planifiable"] == 0){
               $CouleurPlanif = "bg-success";
             }
-            // else if($row["Planifiable"] > 0){
-            //   $CouleurPlanif = "";
-            // }
             else{
               $CouleurPlanif = "bg-danger";
             }

@@ -1,5 +1,25 @@
 [
     {
+        "Date": "01 Avril, 2020",
+        "Titre": "Et non, ce n'est pas un poisson d'avril",
+        "Fix": null,
+        "Modif": [
+            "Le titre de certaines colonnes sont passées de \"Editer\" à \"Action\"",
+            "Les tâches de type \"réunion\" \"formation\" etc.. ne sont plus validées automatiquement",
+            "Certaines notifications affichées \"1\". Maintenant elles affichent une information plus précise, il en reste encore à modifier",
+            "La planification par Pivotal ou Manuelle est maintenant séparée en deux onglets différents"
+        ],
+        "Suppression": [
+            "Les templates d'issues et suggestion sont trop long à remplir, vous êtes libre de rédiger comme vous le souhaitez"
+        ],
+        "Ajout": [
+            "Après avoir été beaucoup demandé, il est à nouveau possible de choisir la date lors de la validation de ses tâches :)",
+            "Lors de la planification il est maintenant possible de savoir combien d'objectifs ont été planifiés pour s'assurer d'en remplir au moins 2",
+            "Dans l'onglet \"Tâche\" il est possible de cliquer sur les stories pour être renvoyé sur son lien Pivotal Tracker directement (toujours plus pratique)",
+            "Il est maintenant possible lors de la planification de rechercher dans les stories qui ressortent de pivotal tracker, pour faire des planifications encore plus rapide "
+        ]
+    },
+    {
         "Date": "23 Février, 2020",
         "Titre": "Y'a du nouveau sous le sapin",
         "Fix": [
