@@ -593,9 +593,10 @@
         },
         success: function (data) {
           $.notify(data, "success");
+          $('#LabelObjectif').val('');
+          RemplirTableauRessources('TableListHeuresAttribueesRessources');
         }
       });
-      $('#LabelObjectif').val('');
     });
 
     // Selectionner ou déselectionner tout le monde
