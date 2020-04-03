@@ -1,36 +1,43 @@
 <body class="fixed-nav sticky-footer" id="page-top">
-  <div class="content-wrapper">
+  <div class="content-wrapper projets">
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-lg-3 text-center align-middle">
+        <div class="col-lg-3 align-middle">
           <!-- <button class="btn btn-info">Retour</button> -->
+          <button class="btn btn-primary back">
+            <i class="fa fa-chevron-left pr-2"></i>
+            Retour à la liste des projets
+          </button>
         </div>
         <div class="col-lg-6">
-          <div class="border mb-3">
+          <div class="mb-3">
             <h2 class="text-center mb-2" id="NomProjet"></h2>
             <h4 class="text-center mb-4" id="ClientEntreprise"></h4>
             <h4 class="text-center mb-3" id="DescriptionProjet"></h4>
           </div>
         </div>
-        <div class="col-lg-3 my-auto">
-          <img class="pointer img-fluid" onclick="$('#ModaleClient').modal('show');" height="70px" width="70px" src="Assets/Image/Client/default.png">
+        <div class="col-lg-3 text-right">
+          <!-- <img class="pointer img-fluid" onclick="$('#ModaleClient').modal('show');" height="70px" width="70px" src="Assets/Image/Client/default.png"> -->
+          <button class="btn btn-primary edit" onclick="$('#ModaleClient').modal('show');">Editer le projet</button>
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-3">
-          <div class="border mb-3">
-            <span class="ml-2 mt-1"><small>Niveau de facturation</small></span>
-            <button id="ModaleBudgeButton" class="btn btn-success btn-sm float-right mt-2 mr-2">Données</button>
-            <div id="PieChartArgent" class="col row"></div>
+          <div class="frame mb-3">
+            <span class="mt-1"><small>Niveau de facturation</small></span>
+            <button class="btn btn-sm ml-2 mb-2 btn-add" id="ModaleBudgeButton">
+              <i class="fa fa-plus-circle"></i>
+            </button>
+            <div id="PieChartArgent" class="col row m-0"></div>
             <p class="text-center mb-n1">Total</p>
             <h3 class="text-center" id="MontantBudgetBottom"></h3>
           </div>
           </div>
           <div class="col-lg-6">
-            <div class="border mb-3">
-              <p class="ml-2 mt-1"><small>Ressoures mobilisées</small></p>
+            <div class="frame mb-3">
+              <p class="mt-1"><small>Ressoures mobilisées</small></p>
               <div id="RessourcesMobilisees" class="col row"></div>
             </div>
           </div>
@@ -44,9 +51,14 @@
       
       <div class="row">
       <div class="col">
-        <div class="border mb-3">
-        <p class="ml-2 mt-1"><small>Échange réalisés</small></p>
-        <button class="btn btn-success btn-sm ml-2 mb-2" id="ModaleAddEchange">Ajouter</button>
+        <div class="frame mb-3">
+        <p class="mt-1">
+          <small>Échange réalisés</small>
+          <button class="btn btn-sm ml-2 mb-2 btn-add" id="ModaleAddEchange">
+            <i class="fa fa-plus-circle"></i>
+          </button>
+        </p>
+        
           <table class="table table-sm table-striped table-bordered">
             <thead>
               <tr>
@@ -64,25 +76,27 @@
       </div>
     </div>
       <div class="col">
-        <div class="border mb-3">
-          <p class="ml-2 mt-1"><small>Technologies mobilisées</small></p>
+        <div class="frame mb-3">
+          <p class="mt-1"><small>Technologies mobilisées</small></p>
           <div id="TechnologiesProjet" class="col row"></div>
         </div>
       </div>
     </div>
       
 
-      <div class="border mb-3">
-        <p class="ml-2 mt-1"><small>Note</small></p>
-        <div class="col row ml-1 mb-2">
+      <div class="frame mb-3">
+        <p class=""><small>Note</small></p>
+        <div class="col p-0">
           <textarea class="form-control mb-2" id="Note" rows="3"></textarea>
           <button  class="btn btn-success" id="putNote" data-dismiss="modal">Valider</button>
         </div>
       </div>
 
-      <div class="border mb-3">
-        <span class="ml-2 mt-1"><small>Timeline</small></span>
-        <button id="ModaleTimeLineButton" class="btn btn-success btn-sm float-right my-2 mr-2">Données</button>
+      <div class="frame mb-3">
+        <span class="mt-1"><small>Timeline</small></span>
+        <button class="btn btn-sm ml-2 mb-2 btn-add" id="ModaleTimeLineButton">
+          <i class="fa fa-plus-circle"></i>
+        </button>
         <div id="ProjectTimeLine" class="col row"></div>
       </div>
 
@@ -558,7 +572,7 @@
           }));
 
           divRessource.append($(`<p class="mb-n1"><b>`+this.Prenom+`</b></p>`))
-          divRessource.append($(`<p>`+this.Job+`</p>`))
+          divRessource.append($(`<small>`+this.Job+`</small>`))
           
           $('#RessourcesMobilisees').append(divRessource)
         

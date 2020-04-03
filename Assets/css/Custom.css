@@ -371,3 +371,57 @@ body {
   padding: 0.2rem;
   vertical-align: middle;
 }
+
+/* PAGE PROJETS */
+.projets .frame{
+  background: #f8f8f8;
+  padding: 15px;
+}
+.projets button.btn-add{
+  float: right;
+  font-size: 30px;
+  padding: 0px;
+}
+.projets button.back{
+  background: #343a40;
+  border-radius: 0px 25px 25px 0px;
+  border: none;
+}
+.projets button.edit{
+  background: transparent;
+  border-radius: 25px;
+  border: solid 2px #343a40;
+  color: #343a40;
+  padding: 5px 50px;
+}
+/* card facturation */
+.projets rect.highcharts-background{
+  fill: transparent;
+}
+/* ressources mobilisées */
+.projets #RessourcesMobilisees div{
+  text-align: center;
+}
+/* echanges réalisés */
+.projets table thead th{
+  background: #444;
+  color: #fff;
+  font-size: 12px;
+}
+.projets table tbody td{
+  border: none;
+  background: white;
+}
+/* technos */
+.projets #TechnologiesProjet div{
+  text-align: center;
+}
+/* notes */
+.projets textarea{
+  border: none;
+}
+.projets textarea ~ button{
+  border-radius: 25px;
+  border: none;
+  padding: 5px 20px;
+}
