@@ -580,8 +580,12 @@
 
     //Créer des objectifs
     $(document).on('click', '.EnvoyerObjectif', function () {
-
-      $.ajax({
+      
+      if($('#LabelObjectif').val() == ""){
+        $.notify("Pas d'objectifs vide", "warning");
+      }
+      else{
+        $.ajax({
         url: "Modele/Retrospective_objectif.php",
         method: "POST",
         data: {
@@ -597,6 +601,8 @@
           RemplirTableauRessources('TableListHeuresAttribueesRessources');
         }
       });
+      }
+      
     });
 
     // Selectionner ou déselectionner tout le monde
