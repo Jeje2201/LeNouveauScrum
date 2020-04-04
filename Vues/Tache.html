@@ -97,8 +97,8 @@
       $(document).on('click', '.EditerTexteTache', function () {
         
         $('#ModaleEditTextTache').modal('show');
-        $('#InputTextTache').val($(this).siblings('#LabelDeLaTache').text())
-        $('#idTextTache').val( $(this).closest('.card').attr('id'))        
+        $('#InputTextTache').val($(this).parent().siblings('.DivContentTache').children('#LabelDeLaTache').text())
+        $('#idTextTache').val( $(this).parent().siblings('.DivContentTache').children('#TaskId').text())        
 
       });
 
@@ -142,20 +142,20 @@
               },
               success: function (data) {
 
-                if($('.TacheGonnaBeDone').length == 0){
+                if($('.EnCours input[type=checkbox]:checked').length == 0){
                   $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
                   return
                 }
 
                 dateDescente = CustomYourDate($('#DoneDate').val())
 
-                $('.TacheGonnaBeDone').each(function () {
+                $('.EnCours input[type=checkbox]:checked').each(function () {
 
-                  var TextDeLaTache = $(this).find('#LabelDeLaTache').text()
-                  var Project_id_Pivotal = $(this).find('#ProjectIdPivotal').text()
-                  var Story_id_Pivotal = $(this).find('#StoryId').text()
-                  var Task_id_Pivotal = $(this).find('#TaskId').text()
-                  var Tache_bdd_id = $(this).attr('id')
+                  var TextDeLaTache = $(this).parent().parent().find('#LabelDeLaTache').text()
+                  var Project_id_Pivotal = $(this).parent().parent().find('#ProjectId_Pivotal').text()
+                  var Story_id_Pivotal = $(this).parent().parent().find('#StoryId_Pivotal').text()
+                  var Task_id_Pivotal = $(this).parent().parent().find('#TaskId_Pivotal').text()
+                  var Tache_bdd_id = $(this).parent().parent().find('#TaskId').text()
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
 
@@ -214,7 +214,4 @@
 
     });
 
-    function DeplaceToi(id) {
-      $(id).toggleClass("TacheGonnaBeDone");  
-    }
   </script>

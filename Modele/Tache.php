@@ -118,8 +118,8 @@
 
              
             $GroupStory = ' </div>
-              <div class="card cardGroupTache mb-3">
-                <div class="card-header">
+              <div class="cardGroupTache border mb-4">
+                <div class="border m-2 pl-2 py-1">
                   <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '">
                   <b>' . $row["projet_nom"] . '</b>
                   <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>
@@ -129,19 +129,35 @@
           }
 
             if($row["tache_done"] == ""){
-              $classOfTache = "pointer";
-              $Fonction = 'onclick="DeplaceToi(this)"';
+              $classDisable = 'EnCours';
+              $inputTacheChecked = "";
             }
             else{
-              $classOfTache = "PASTOUCHE";
-              $Fonction = '';
+              $classDisable = 'TacheFini';
+              $inputTacheChecked = "checked disabled";
+
             }
 
             $output1 .= $GroupStory . '
-      <div class="card '.$classOfTache.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
-      <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
-          <span id="LabelDeLaTache" class="float-right">' . $row["tache_label"] . '</span><span> (' . $row["tache_heure"] . ')</span>
-        <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span><button class="btn btn-warning EditerTexteTache"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button></div>';
+            <div class="border ml-4 '. $classDisable . ' row m-2">
+              <div class="col d-flex justify-content-center my-auto">
+              <input type="checkbox" class="position-static" id="exampleCheck1" '.$inputTacheChecked .'>
+              </div>
+              <div class="col-10 DivContentTache my-auto">
+                <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
+                <span id="LabelDeLaTache" class="">' . $row["tache_label"] . '</span>
+                <span class="hideElement" id="TaskId">'. $row["tache_pk"] . '</span>
+                <span class="hideElement" id="TaskId_Pivotal">'. $row["tache_pivotal_id_Task"].'</span>
+                <span class="hideElement" id="StoryId_Pivotal">'. $row["tache_pivotal_id_Story"].'</span>
+                <span class="hideElement" id="ProjectId_Pivotal">'. $row["tache_pivotal_id_Project"].'</span>
+              </div>
+              <div class="col my-auto text-center">
+                <span class="">' . $row["tache_heure"] . '</span>
+              </div>
+              <div class="col my-auto">
+                <button class="btn btn-warning EditerTexteTache"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
+              </div>
+            </div>';
           }
         } else {
           $output1 .= '';

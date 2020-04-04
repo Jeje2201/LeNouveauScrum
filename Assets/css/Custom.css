@@ -156,41 +156,17 @@
   background-color: #c7f8c2;
 }
 
-.cardGroupTache div:not(:first-child) {
-  margin-left: 1%;
-  padding: 6px;
-  border-color: #9a9a9a;
-  width: 98% !important;
-}
-
 .pointer {
   cursor: pointer;
 }
 
-.card .PASTOUCHE {
-  opacity: 0.3;
-}
-
-.TacheGonnaBeDone {
-  border-color: #28a745 !important;
-}
-
-.TacheGonnaBeDone img {
-  display: block !important;
-  position: absolute;
-  width: 22px;
-  left: -10px;
-  top: -8px;
-}
-
-.card .PASTOUCHE:hover {
-  cursor: not-allowed;
+.TacheFini {
+  opacity: 0.4;
 }
 
 hr {
   margin-top: 0rem;
   margin-bottom: 0rem;
-
 }
 
 .LogoProjet {
