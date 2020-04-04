@@ -25,6 +25,30 @@
         <div class="col" id="EnCours" style="margin-top: 70px;"></div>
     </div>
     </div>
+
+    <div id="ModaleEditTextTache" class="modal fade">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+
+            <div class="row">
+
+              <div class="form-group col">
+                  <label>Label</label>
+                <input class="form-control" id="InputTextTache" type="text">
+              </div>
+    
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <input id="idTextTache" class="form-control" readonly/>
+            <input type="submit" id="ValiderNouveauTextTache" class="btn btn-success" />
+            <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
   <script>
     $(document).ready(function () {
@@ -42,7 +66,7 @@
 
       AfficherCards();
 
-      var ApiPivotalKey = ""
+      var ApiPivotalKey = "";
 
       $.ajax({
         url: "Modele/Autre.php",
@@ -69,6 +93,36 @@
           }
         });
       }
+
+      $(document).on('click', '.EditerTexteTache', function () {
+        
+        $('#ModaleEditTextTache').modal('show');
+        $('#InputTextTache').val($(this).siblings('#LabelDeLaTache').text())
+        $('#idTextTache').val( $(this).closest('.card').attr('id'))        
+
+      });
+
+      $(document).on('click', '#ValiderNouveauTextTache', function () {
+
+        $.ajax({
+          url: "Modele/Tache.php",
+          method: "POST",
+          data: {
+            action: "Changer_LabelTache",
+            TextTache: $('#InputTextTache').val(),
+            IdTache: $('#idTextTache').val()
+          },
+          success: function (data) {
+            $.notify(data, "success");
+            $('#ModaleEditTextTache').modal('hide');
+            AfficherCards();
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
+          }
+        });
+
+      });
 
       $('#numeroSprint').change(function () {
         AfficherCards();
@@ -97,10 +151,10 @@
 
                 $('.TacheGonnaBeDone').each(function () {
 
-                  var TextDeLaTache = $(this).children('#LabelDeLaTache').text()
-                  var Project_id_Pivotal = $(this).children('#ProjectIdPivotal').text()
-                  var Story_id_Pivotal = $(this).children('#StoryId').text()
-                  var Task_id_Pivotal = $(this).children('#TaskId').text()
+                  var TextDeLaTache = $(this).find('#LabelDeLaTache').text()
+                  var Project_id_Pivotal = $(this).find('#ProjectIdPivotal').text()
+                  var Story_id_Pivotal = $(this).find('#StoryId').text()
+                  var Task_id_Pivotal = $(this).find('#TaskId').text()
                   var Tache_bdd_id = $(this).attr('id')
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {

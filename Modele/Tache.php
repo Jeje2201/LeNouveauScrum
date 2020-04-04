@@ -117,7 +117,14 @@
             if($SameStory != $row["tache_pivotal_id_Story"]){
 
              
-            $GroupStory = ' </div><div class="card cardGroupTache mb-3"><div class="card-header"><img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '"> <b>' . $row["projet_nom"] . '</b> <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>'. $ShowItsPivotal.'</div>';
+            $GroupStory = ' </div>
+              <div class="card cardGroupTache mb-3">
+                <div class="card-header">
+                  <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '">
+                  <b>' . $row["projet_nom"] . '</b>
+                  <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>
+                  '. $ShowItsPivotal.'
+                </div>';
             $SameStory = $row["tache_pivotal_id_Story"];
           }
 
@@ -134,7 +141,7 @@
       <div class="card '.$classOfTache.' my-1" id="' . $row["tache_pk"] . '" '.$Fonction.'>
       <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
           <span id="LabelDeLaTache" class="float-right">' . $row["tache_label"] . '</span><span> (' . $row["tache_heure"] . ')</span>
-        <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span></div>';
+        <span class="hideElement" id="TaskId">'. $row["tache_pivotal_id_Task"].'</span><span class="hideElement" id="StoryId">'. $row["tache_pivotal_id_Story"].'</span><span class="hideElement" id="ProjectIdPivotal">'. $row["tache_pivotal_id_Project"].'</span><button class="btn btn-warning EditerTexteTache"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button></div>';
           }
         } else {
           $output1 .= '';
@@ -178,53 +185,7 @@
           print_r($statement->errorInfo());
       }
 
-      if ($_POST["action"] == "Load_LabelTache") {
-        $idEmploye = $_SESSION['user']['id'];
-        $IdSprint = $_POST["idSprint"];
-        $statement = $connection->prepare(
-        "SELECT *
-        FROM tache
-        inner join projet on tache_fk_projet = projet_pk
-        WHERE tache_fk_user = $idEmploye
-        AND tache_fk_sprint = $IdSprint");
-        $statement->execute();
-        $result = $statement->fetchAll();
-        $output = '';
-        $output .= '
-      <table class="table table-sm table-striped table-bordered" id="datatable" >
-      <thead class="thead-light">
-      <tr>
-      <th>H</th>
-      <th>Projet</th>
-      <th>Label</th>
-      </tr>
-      </thead>
-      <tbody id="myTable">
-      ';
-        if ($statement->rowCount() > 0) {
-          foreach ($result as $row) {
-            $output .= '
-        <tr >
-        <td>' . $row["tache_heure"] . '</td>
-        <td>' . $row["projet_nom"] . '</td>
-        <td><input class="form-control" name="LabelObjectif" onkeyup="ListInputChanged(this)" id="' . $row["tache_pk"] . '" type="text" value="' . $row["tache_label"] . '"></td>
-        </tr>
-        ';
-          }
-        } else {
-          $output .= '
-     <tr>
-     <td align="center" colspan="10">Pas de données</td>
-     </tr>
-     ';
-        }
-        $output .= '</tbody></table>';
-        print $output;
-      }
-
       if ($_POST["action"] == "Changer_LabelTache") {
-
-        $TableauLabelObjectuf = $_POST["ToReturn"];
 
         $statement = $connection->prepare(
           "UPDATE tache 
@@ -232,17 +193,17 @@
         WHERE tache_pk = :id"
         );
 
-        for ($i = 0; $i < count($TableauLabelObjectuf); $i++) {
-
           $result = $statement->execute(
             array(
-              ':id' => $TableauLabelObjectuf[$i][0],
-              ':Label' => $TableauLabelObjectuf[$i][1]
+              ':id' => $_POST["IdTache"],
+              ':Label' => $_POST["TextTache"]
             )
           );
-        print 'Label "'.$TableauLabelObjectuf[$i][1].'" changé'."\n";
+          if (!empty($result))
+          print "Tâche modifiée";
+          else
+            header($_SERVER["SERVER_PROTOCOL"].' 400 '.utf8_decode('Erreur de mise à jour de la tâche'));
         }
       }
-    }
 
     ?> 
