@@ -100,44 +100,42 @@
 
 //+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
 
-    if (isset($_POST["action"])) {
+    //   if ($_POST["action"] == "getClient") {
+    //     $output = array();
+    //     $statement = $connection->prepare(
+    //     "SELECT *
+    //     FROM projet_client 
+    //      WHERE projet_client_pk = (select projet_fk_client from projet where projet_pk = '" . $_POST["projectId"] . "') 
+    //      LIMIT 1"
+    //     );
+    //     $statement->execute();
+    //     $result = $statement->fetch();
 
-      if ($_POST["action"] == "getClient") {
-        $output = array();
-        $statement = $connection->prepare(
-        "SELECT *
-        FROM projet_client 
-         WHERE projet_client_pk = (select projet_fk_client from projet where projet_pk = '" . $_POST["projectId"] . "') 
-         LIMIT 1"
-        );
-        $statement->execute();
-        $result = $statement->fetch();
+    //     print json_encode($result);
+    //   }
 
-        print json_encode($result);
-      }
+    //   if ($_POST["action"] == "putClient") {
 
-      if ($_POST["action"] == "putClient") {
-
-        $statement = $connection->prepare(
-          "UPDATE projet_client 
-          SET projet_client_entreprise = :clientprojet_entreprise, projet_client_nom = :clientprojet_nom, projet_client_job = :clientprojet_job, projet_client_mail = :clientprojet_mail, projet_client_telephone = :clientprojet_telephone
-          WHERE projet_client_pk = :clientprojet_id"
-          );
-          $result = $statement->execute(
-          array(
-            ':clientprojet_entreprise' => $_POST["client_entreprise"],
-            ':clientprojet_nom' => $_POST["client_nom"],
-            ':clientprojet_job' => $_POST["client_job"],
-            ':clientprojet_mail' => $_POST["client_mail"],
-            ':clientprojet_telephone' => $_POST["client_telephone"],
-            ':clientprojet_id' => $_POST["client_id"]
-          )
-          );
-          if (!empty($result))
-            print true;
-          else
-            print_r($statement->errorInfo());
-      }
+    //     $statement = $connection->prepare(
+    //       "UPDATE projet_client 
+    //       SET projet_client_entreprise = :clientprojet_entreprise, projet_client_nom = :clientprojet_nom, projet_client_job = :clientprojet_job, projet_client_mail = :clientprojet_mail, projet_client_telephone = :clientprojet_telephone
+    //       WHERE projet_client_pk = :clientprojet_id"
+    //       );
+    //       $result = $statement->execute(
+    //       array(
+    //         ':clientprojet_entreprise' => $_POST["client_entreprise"],
+    //         ':clientprojet_nom' => $_POST["client_nom"],
+    //         ':clientprojet_job' => $_POST["client_job"],
+    //         ':clientprojet_mail' => $_POST["client_mail"],
+    //         ':clientprojet_telephone' => $_POST["client_telephone"],
+    //         ':clientprojet_id' => $_POST["client_id"]
+    //       )
+    //       );
+    //       if (!empty($result))
+    //         print true;
+    //       else
+    //         print_r($statement->errorInfo());
+    //   }
 
       //+-+-+-+-+-+-+-+-+-+-+ Partie Ressources +-+-+-+-+-+-+-+-+-+-+
 
@@ -461,7 +459,5 @@
     else
       print_r($statement->errorInfo());
   }
-
-}
 
     ?> 
