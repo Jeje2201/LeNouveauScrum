@@ -42,6 +42,11 @@
           <label>ID Pivotal Tracker</label>
           <input class="form-control" id="ApiPivotal" type="number">
         </div>
+        
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" placeholder="Projet qui permet de.." id="DescriptionProjet" rows="2"></textarea>
+        </div>
 
         <div><label class="mb-2">Etat</label></div>
         <label class="radio-inline"><input type="radio" name="EtatProjet" value="2"> Actif</label>
@@ -133,7 +138,7 @@
 
     $('#action').click(function () {
 
-      if ($('#Nom').val() != '' && $('#ToutesLesImages').val() != '') {
+      if ($('#Nom').val() != '') {
         $.ajax({
           url: "Modele/Projet.php",
           method: "POST",
@@ -143,7 +148,7 @@
             ApiPivotal: $('#ApiPivotal').val(),
             Actif: $("input[name='EtatProjet']:checked").val(),
             TypeProjet: $('#TypeProjet').val(),
-            fileName: parseInt($('#ToutesLesImages').val()),
+            PDescription: $('#DescriptionProjet').val(),
             action: $('#action').val()
           },
 
@@ -181,6 +186,7 @@
           $('#ApiPivotal').val(data.projet_ApiPivotal);
           $('#Nom').val(data.projet_nom);
           $('#TypeProjet').val(data.projet_type);
+          $('#DescriptionProjet').val(data.projet_description);
 
         }
       });

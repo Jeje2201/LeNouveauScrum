@@ -108,9 +108,13 @@
 
         $statement = $connection->prepare(
           "UPDATE projet 
-   SET projet_nom = :nom, projet_type = :id_TypeProjet, projet_actif = :actif, projet_apiPivotal = :ApiPivotal
-   WHERE projet_pk = :id
-   "
+          SET projet_nom = :nom,
+          projet_type = :id_TypeProjet,
+          projet_actif = :actif,
+          projet_apiPivotal = :ApiPivotal,
+          projet_description = :PDescription
+          WHERE projet_pk = :id
+          "
         );
         $result = $statement->execute(
           array(
@@ -118,6 +122,7 @@
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':actif' => $_POST["Actif"],
             ':id_TypeProjet' => $_POST["TypeProjet"],
+            ':PDescription' => $_POST["PDescription"],
             ':id' => $_POST["id"]
           )
         );
