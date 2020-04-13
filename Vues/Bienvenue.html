@@ -108,10 +108,24 @@
       <h4>Projets</h4>
       <hr class="mb-2">
       <small>Voici la liste des projets actifs, basée sur la base de données de l'application</small>
-      <div class="border border-danger my-3 p-5">
-        Chargement en cours..
+      <div class="border border-danger my-3 p-5 row" id="ListProjet">
       </div>
 
+    </div>
+  </div>
+
+  <div id="ModaleInfoProjet" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Information du projet</h4>
+        </div>
+        <div class="modal-body" id="LaModaleInfoProjet">
+        </div>
+        <div class="modal-footer">
+          <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -132,6 +146,62 @@
       document.getElementById('Mail').href = 'mailto:'+email
 
     });
+
+    $.ajax({
+      url: "Modele/Bienvenue.php",
+      method: "POST",
+      data: {
+        action: "ListeProjets"
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log(data)
+        $.each(data, function () {
+
+          var toto = $('<div class="border col-3 text-center"></div>')
+
+          var projet_pk = this.projet_pk
+          $.get("Assets/Image/Projets/avatar_projet_"+projet_pk)
+            .done(function() { 
+                toto.prepend('<img class="img-fluid p-3" style="height:175px" src="Assets/Image/Projets/avatar_projet_'+projet_pk+'.png">')
+            }).fail(function() { 
+                toto.prepend('<img class="img-fluid p-3" style="height:175px" src="Assets/Image/Projets/default.png">')
+          })         
+
+          toto.append('<p class="text-center"><b>'+this.projet_nom+'</b></p>')
+          toto.append('<p>'+this.projet_description+'</p>')
+
+          toto.append('<button value="'+this.projet_pk+'" class="btn btn-success btn-block mb-3">Information</button>')
+
+          var ResteDeLaDiv = $('<div id="Info_Projet_'+projet_pk+'" class="hideElement"></div>');
+          ResteDeLaDiv.append('<span>Ressources mobilisée(s): </span>')
+          var ressources = $('<ul></ul>')
+          $.each(this.Ressource, function () {
+            ressources.append('<li>'+this.user_prenom+' '+this.user_nom+'</li>')
+          })
+          ResteDeLaDiv.append(ressources)
+          
+          ResteDeLaDiv.append('<span>Client : </span>')
+          var client = $('<ul></ul>')
+          client.append('<li>Prénom : '+this.client_nom+'</li>')
+          client.append('<li>Entreprise : '+this.client_entreprise+'</li>')
+          client.append('<li>Job : '+this.client_job+'</li>')
+          ResteDeLaDiv.append(client)
+
+          toto.append(ResteDeLaDiv)
+
+          $('#ListProjet').append(toto)
+        })
+
+      }
+    });
+  
+    $(document).on('click', '.btn-block', function () {
+      // alert(this.value)
+      $('#ModaleInfoProjet').modal('show');
+      console.log($('#Info_Projet_'+this.value))
+      $('#LaModaleInfoProjet').html($('#Info_Projet_'+this.value).html());
+    })
 
   })
 </script>
