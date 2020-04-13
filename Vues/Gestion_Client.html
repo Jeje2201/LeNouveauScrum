@@ -1,0 +1,229 @@
+<body class="fixed-nav sticky-footer" id="page-top">
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="mb-5">
+
+        <div class="row">
+          <div class="col-lg-11">
+            <input class="form-control mt-0" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
+          </div>
+          <div class="col-lg-1">
+            <button onclick="ShowAndClearModaleForNew('ModaleClient', 'EditerClient', 'AddClient')"
+              class="btn btn-block btn-success"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;</button>
+          </div>
+        </div>
+
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Entreprise</th>
+              <th>Métier</th>
+              <th>Mail</th>
+              <th>Téléphone</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ListeClients">
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="ModaleClient" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label>Prenom</label>
+            <input class="form-control" id="client_Prenom" type="text">
+          </div>
+
+          <div class="form-group">
+            <label>Nom</label>
+            <input class="form-control" id="client_Nom" type="text">
+          </div>
+
+          <div class="form-group">
+            <label>Entreprise</label>
+            <input class="form-control" id="client_Entreprise" type="text">
+          </div>
+
+          <div class="form-group">
+            <label>Métier</label>
+            <input class="form-control" id="client_Métier" type="text">
+          </div>
+
+          <div class="form-group">
+            <label>Mail</label>
+            <input class="form-control" id="client_Mail" type="mail">
+          </div>
+
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input class="form-control" id="client_Téléphone" type="number">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <input id="client_id" class="form-control" readonly />
+          <button id="AddClient" class="btn btn-success ">Ajouter</button>
+          <button id="EditerClient" class="btn btn-warning ">Éditer</button>
+          <button class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      ListeClient()
+      BarreDeRecherche('BarreDeRecherche', 'ListeClients');
+
+      //Liste des clients
+      function ListeClient() {
+        $.ajax({
+          url: "Modele/Client.php",
+          method: "POST",
+          data: {
+            action: "GetClients"
+          },
+          dataType: "json",
+          success: function (data) {
+
+            $('#ListeClients').html('')
+
+            $.each(data, function () {
+              $('#ListeClients').append(`<tr>
+                <td>` + this.client_prenom + ` ` + this.client_nom + `</td>
+                <td>` + this.client_entreprise + `</td>
+                <td>` + this.client_job + `</td>
+                <td>` + this.client_mail + `</td>
+                <td>` + this.client_telephone + `</td>
+                <td>
+                  <div class="btn-group d-flex" role="group">
+                    <button id="` + this.client_pk + `" class="btn btn-warning btn-sm updateClient"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button id="` + this.client_pk + `" class="btn btn-danger btn-sm deleteClient"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+                </td>
+              </tr>`);
+            })
+            IfNoRows('ListeClients', 'Aucun échange trouvé..')
+          },
+          error: function (xhr, status, erreur) {
+            $.notify(erreur, "error");
+          }
+        });
+      }
+
+      //Supprimer un client
+      $(document).on('click', '.deleteClient', function () {
+
+        if (confirm("Es-tu sûr de vouloir supprimer ?"))
+          $.ajax({
+            url: "Modele/Client.php",
+            method: "POST",
+            data: {
+              id_Client: this.id,
+              action: "DellClient"
+            },
+            success: function (data) {
+              $.notify(data, "success");
+              ListeClient()
+            },
+            error: function (xhr, status, erreur) {
+              $.notify(erreur, "error");
+            }
+          });
+
+      })
+
+      //Get les infos d'un client
+      $(document).on('click', '.updateClient', function () {
+
+        ShowAndClearModaleForNew('ModaleClient', 'AddClient', 'EditerClient')
+
+        $.ajax({
+          url: "Modele/Client.php",
+          method: "POST",
+          dataType: "json",
+          data: {
+            client_pk: this.id,
+            action: "getUnClient"
+          },
+          success: function (data) {
+            $('#client_Prenom').val(data.client_prenom);
+            $('#client_Nom').val(data.client_nom);
+            $('#client_Entreprise').val(data.client_entreprise);
+            $('#client_Métier').val(data.client_job);
+            $('#client_Mail').val(data.client_mail);
+            $('#client_Téléphone').val(data.client_telephone);
+            $('#client_id').val(data.client_pk);
+          }
+        });
+
+      })
+
+      //Creer un client
+      $('#AddClient').bind("click", function () {
+
+        $.ajax({
+          url: "Modele/Client.php",
+          method: "POST",
+          data: {
+            client_prenom: $("#client_Prenom").val(),
+            client_nom: $("#client_Nom").val(),
+            client_entreprise: $("#client_Entreprise").val(),
+            client_job: $("#client_Métier").val(),
+            client_mail: $("#client_Mail").val(),
+            client_telephone: $("#client_Téléphone").val(),
+            action: "CreerClient"
+          },
+          success: function (data) {
+            $('#ModaleClient').modal('hide');
+            $.notify(data, "success");
+            ListeClient()
+          },
+          error: function (xhr, status, erreur) {
+            $.notify(erreur, "error");
+          }
+        });
+
+      });
+
+      //Modifier un client
+      $('#EditerClient').bind("click", function () {
+
+        $.ajax({
+          url: "Modele/Client.php",
+          method: "POST",
+          data: {
+            client_prenom: $("#client_Prenom").val(),
+            client_nom: $("#client_Nom").val(),
+            client_entreprise: $("#client_Entreprise").val(),
+            client_job: $("#client_Métier").val(),
+            client_mail: $("#client_Mail").val(),
+            client_telephone: $("#client_Téléphone").val(),
+            client_pk: $("#client_id").val(),
+            action: "EditerClient"
+          },
+          success: function (data) {
+            $('#ModaleClient').modal('hide');
+            $.notify(data, "success");
+            ListeClient()
+          },
+          error: function (xhr, status, erreur) {
+            $.notify(erreur, "error");
+          }
+        });
+
+      });
+
+    });
+  </script>
