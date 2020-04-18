@@ -129,19 +129,21 @@
           }
 
             if($row["tache_done"] == ""){
-              $classDisable = 'EnCours';
+              $classDisable = 'EnCours pointer';
               $inputTacheChecked = "";
+              $fonctionCheck = "onclick=\"CheckLaTache($(this))\"";
             }
             else{
               $classDisable = 'TacheFini';
               $inputTacheChecked = "checked disabled";
-
+              $fonctionCheck = "";
             }
 
             $output1 .= $GroupStory . '
             <div class="border ml-4 '. $classDisable . ' row m-2">
+            <div class="col-11 row" '. $fonctionCheck . '>
               <div class="col d-flex justify-content-center my-auto">
-              <input type="checkbox" class="position-static" id="exampleCheck1" '.$inputTacheChecked .'>
+              <input type="checkbox" class="position-static" style="width: 23px; height: 23px; pointer-events:none;" '.$inputTacheChecked .'>
               </div>
               <div class="col-10 DivContentTache my-auto">
                 <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
@@ -153,6 +155,7 @@
               </div>
               <div class="col my-auto text-center">
                 <span class="">' . $row["tache_heure"] . '</span>
+              </div>
               </div>
               <div class="col my-auto">
                 <button class="btn btn-warning EditerTexteTache"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>

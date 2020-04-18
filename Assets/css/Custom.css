@@ -164,6 +164,10 @@
   opacity: 0.4;
 }
 
+.TacheFini .DivContentTache  {
+  text-decoration: line-through;
+}
+
 hr {
   margin-top: 0rem;
   margin-bottom: 0rem;

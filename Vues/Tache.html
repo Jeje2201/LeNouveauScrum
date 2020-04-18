@@ -143,7 +143,7 @@
               success: function (data) {
 
                 if($('.EnCours input[type=checkbox]:checked').length == 0){
-                  $.notify(`Tu dois d'abord déplacer au moins une tâche de son emplacement "En cours" -> "Achevée."`, "error");
+                  $.notify(`Tu dois d'abord cocher au moins une tâche`, "error");
                   return
                 }
 
@@ -213,5 +213,10 @@
     });
 
     });
+
+    function CheckLaTache(element) {
+        var isCHecked = !element.find('input').prop('checked');
+        element.find('input').prop('checked',isCHecked);
+        }
 
   </script>
