@@ -1030,7 +1030,12 @@
           var options = {
           };
 
-          chart.draw(dataTable, options);
+          if(data.length == 0){
+            document.getElementById('ProjectTimeLine').innerHTML= '<div>Timeline vide</div>'
+          }
+          else{
+            chart.draw(dataTable, options);
+          }
         }
         }
       })
