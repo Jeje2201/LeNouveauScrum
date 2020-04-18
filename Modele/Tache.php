@@ -160,7 +160,7 @@
             </div>';
           }
         } else {
-          $output1 .= '';
+          $output1 = "<h4 class='mt-2'>Il serait peut être temps de faire ta planification ?</h4>";
         }
 
         print $output1;
