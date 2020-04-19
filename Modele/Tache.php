@@ -158,7 +158,7 @@
               </div>
               </div>
               <div class="col my-auto">
-                <button class="btn btn-warning EditerTexteTache"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
+                <button class="btn btn-warning EditerTexteTache my-1"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
               </div>
             </div>';
           }

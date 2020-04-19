@@ -162,6 +162,7 @@
 
 .TacheFini {
   opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .TacheFini .DivContentTache  {
