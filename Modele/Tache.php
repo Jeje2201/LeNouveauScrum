@@ -109,7 +109,6 @@
             if($row["tache_pivotal_id_Task"] != '')
             $ShowItsPivotal = '<span class="text-warning"> (Pivotal)</span>';
             else{
-              $row["tache_label"] = '<b>' . $row["projet_nom"] . '</b> - '. $row["tache_label"] ;
               $row["projet_nom"] = '';
             }
 
@@ -129,22 +128,17 @@
           }
 
             if($row["tache_done"] == ""){
-              $classDisable = 'EnCours pointer';
+              $classDisable = 'TacheEnCours pointer';
               $inputTacheChecked = "";
-              $fonctionCheck = "onclick=\"CheckLaTache($(this))\"";
             }
             else{
               $classDisable = 'TacheFini';
               $inputTacheChecked = "checked disabled";
-              $fonctionCheck = "";
             }
 
             $output1 .= $GroupStory . '
-            <div class="border ml-4 '. $classDisable . ' row m-2">
-            <div class="col-11 row" '. $fonctionCheck . '>
-              <div class="col d-flex justify-content-center my-auto">
-              <input type="checkbox" class="position-static" style="width: 23px; height: 23px; pointer-events:none;" '.$inputTacheChecked .'>
-              </div>
+            <div class="border ml-4 row m-2">
+            <div class="col-11 row '. $classDisable . ' ">
               <div class="col-10 DivContentTache my-auto">
                 <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
                 <span id="LabelDeLaTache" class="">' . $row["tache_label"] . '</span>

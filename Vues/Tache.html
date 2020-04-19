@@ -97,9 +97,13 @@
       $(document).on('click', '.EditerTexteTache', function () {
         
         $('#ModaleEditTextTache').modal('show');
-        $('#InputTextTache').val($(this).parent().siblings('.DivContentTache').children('#LabelDeLaTache').text())
-        $('#idTextTache').val( $(this).parent().siblings('.DivContentTache').children('#TaskId').text())        
+        $('#InputTextTache').val($(this).parent().parent().find('#LabelDeLaTache').text())
+        $('#idTextTache').val( $(this).parent().parent().find('#TaskId').text())        
 
+      });
+
+      $(document).on('click', '.TacheEnCours ', function () {
+        $(this).parent().toggleClass('TacheGonnaBeDone')
       });
 
       $(document).on('click', '#ValiderNouveauTextTache', function () {
@@ -142,20 +146,22 @@
               },
               success: function (data) {
 
-                if($('.EnCours input[type=checkbox]:checked').length == 0){
+                if($('.TacheGonnaBeDone').length == 0){
                   $.notify(`Tu dois d'abord cocher au moins une tâche`, "error");
                   return
                 }
 
                 dateDescente = CustomYourDate($('#DoneDate').val())
 
-                $('.EnCours input[type=checkbox]:checked').each(function () {
+                $('.TacheGonnaBeDone').each(function () {
 
-                  var TextDeLaTache = $(this).parent().parent().find('#LabelDeLaTache').text()
-                  var Project_id_Pivotal = $(this).parent().parent().find('#ProjectId_Pivotal').text()
-                  var Story_id_Pivotal = $(this).parent().parent().find('#StoryId_Pivotal').text()
-                  var Task_id_Pivotal = $(this).parent().parent().find('#TaskId_Pivotal').text()
-                  var Tache_bdd_id = $(this).parent().parent().find('#TaskId').text()
+                  var TextDeLaTache = $(this).find('#LabelDeLaTache').text()
+                  var Project_id_Pivotal = $(this).find('#ProjectId_Pivotal').text()
+                  var Story_id_Pivotal = $(this).find('#StoryId_Pivotal').text()
+                  var Task_id_Pivotal = $(this).find('#TaskId_Pivotal').text()
+                  var Tache_bdd_id = $(this).find('#TaskId').text()
+
+                  debugger
 
                   if (Project_id_Pivotal != "" && Story_id_Pivotal != "" && Task_id_Pivotal != "") {
 
@@ -213,10 +219,5 @@
     });
 
     });
-
-    function CheckLaTache(element) {
-        var isCHecked = !element.find('input').prop('checked');
-        element.find('input').prop('checked',isCHecked);
-        }
 
   </script>
