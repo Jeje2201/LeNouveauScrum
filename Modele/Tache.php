@@ -121,7 +121,7 @@
                 <div class="border m-2 pl-2 py-1">
                   <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '">
                   <b>' . $row["projet_nom"] . '</b>
-                  <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>
+                  <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'" target="_blank">'. $row["tache_pivotal_Label_Story"].'</a></u>
                   '. $ShowItsPivotal.'
                 </div>';
             $SameStory = $row["tache_pivotal_id_Story"];
