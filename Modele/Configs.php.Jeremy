@@ -7,6 +7,7 @@
 
     //Etablir la connexion pour les requetes ajax
     $connection = new PDO('mysql:host=' . $HostName . ';dbname=' . $BddTableName . ';charset=utf8;port=3308', $HostUsername, $HostPassword);
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Si set à 1, le site n'est accessible que pour le user avec la pk = 22
     $Maintenance = 0;
