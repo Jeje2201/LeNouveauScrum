@@ -70,15 +70,15 @@
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare("
-   INSERT INTO projet (projet_nom, projet_actif, projet_type, projet_apiPivotal) 
-   VALUES (:Nom, :actif, :id_TypeProjet, :ApiPivotal)
+   INSERT INTO projet (projet_nom, projet_fk_client, projet_type, projet_apiPivotal) 
+   VALUES (:Nom, :actif, :client, :ApiPivotal)
    ");
 
         $result = $statement->execute(
           array(
             ':Nom' => $_POST["Nom"],
             ':actif' => $_POST["Actif"],
-            ':id_TypeProjet' => $_POST["TypeProjet"],
+            ':client' => $_POST["Client"],
             ':ApiPivotal' => $_POST["ApiPivotal"]
           )
         );
@@ -109,7 +109,7 @@
         $statement = $connection->prepare(
           "UPDATE projet 
           SET projet_nom = :nom,
-          projet_type = :id_TypeProjet,
+          projet_fk_client = :client,
           projet_actif = :actif,
           projet_apiPivotal = :ApiPivotal,
           projet_description = :PDescription
@@ -121,7 +121,7 @@
             ':nom' => $_POST["Nom"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':actif' => $_POST["Actif"],
-            ':id_TypeProjet' => $_POST["TypeProjet"],
+            ':client' => $_POST["Client"],
             ':PDescription' => $_POST["PDescription"],
             ':id' => $_POST["id"]
           )
