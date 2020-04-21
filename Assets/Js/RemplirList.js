@@ -41,12 +41,21 @@ function FillEmptySelect(returnDiv, parametrePHP, pathPHP, parametreJS) {
           }
           break;
 
+        case 'LaListeDesUsers':
+          for (const user of data) {
+            $('#' + returnDiv).append(`<option value="` + user.user_pk + `">` + user.user_prenom + ` ` + user.user_nom + ` </option>`);
+          }
+          break;
+
         default:
           console.log('Oups, parametre js non reconnu pour la liste de select');
 
       }
 
       $("#" + returnDiv).select2({ width: "100%" });
+    },
+    error: function (xhr, status, erreur) {
+      $.notify(erreur, "error");
     }
   });
 }
