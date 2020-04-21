@@ -16,8 +16,8 @@
             <h4 class="text-center mb-3" id="DescriptionProjet"></h4>
           </div>
         </div>
-        <div class="col-lg-3 text-right">
-          <button class="btn btn-primary edit" onclick="$('#ModaleClient').modal('show');">Editer le projet</button>
+        <div class="col-lg-3 text-center my-auto">
+          <img src="Assets/Image/Autre/Client_Info.png" class="img-fluid pointer" style="height: 100px;" onclick="$('#ModaleClient').modal('show');">
         </div>
       </div>
 
@@ -112,43 +112,13 @@
   </div>
 
 <div id="ModaleClient" class="modal fade">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-
-        <div class="form-row">
-          <div class="form-group col-12">
-            <label>Entreprise</label>
-            <input class="form-control" id="ClientEntrepriseModale" type="text">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label>Nom</label>
-            <input class="form-control" id="ClientNomModale" type="text">
-          </div>
-          <div class="form-group col-6">
-            <label>Poste</label>
-            <input class="form-control" id="ClientJobModale" type="text">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label>Mail</label>
-            <input class="form-control" id="ClientMailModale" type="email">
-          </div>
-          <div class="form-group col-6">
-            <label>Téléphone</label>
-            <input class="form-control" id="ClientTelephoneModale" type="tel">
-          </div>
-        </div>
 
       </div>
       <div class="modal-footer">
         <input class="form-control" id="ClientID" type="text" readonly>
-        <button  class="btn btn-success" id="putClient" data-dismiss="modal">Modifier</button>
         <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
       </div>
     </div>
@@ -173,8 +143,6 @@
           <button  id="InsertBudget" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       </div>
-
-      <input class="form-control" id="ClientID" type="text" readonly>
       <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
 
       </div>
@@ -219,7 +187,8 @@
       <div class="modal-body">
         <p>Ressources</p>
 
-        <div id="ListEmployeCheckBox"></div>
+        <select class="form-control" id="ListeRessource">
+        </select>
         <button  id="AddRessourceToProject" class="btn btn-info mt-2 btn-sm">Ajouter ressource(s)</button>
       </div>
 
@@ -302,10 +271,7 @@
 <script>
   $(document).ready(function () {
 
-    RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
-    $("#TOUTLEMONDE").select2({
-        width: "100%"
-      });
+    FillEmptySelect('ListeRessource','GetUsers','Modele/User.php','LaListeDesUsers')
 
     $('#Echange_Date, #Add_Debut_TimeLine, #Add_Fin_TimeLine').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
 
@@ -313,7 +279,7 @@
     
     GetDescription()
     GetClient()
-    GetRessources()
+    GetRessourcesMobilisees()
     GetTechnos()
     GetNote()
     GetEchanges()
@@ -494,6 +460,9 @@
       dataType: "json",
       success: function (data) {
         $('#NomProjet').text(data.projet_nom);
+        if(data.projet_description == null){
+          data.projet_description = "Description manquante"
+        }
         $('#DescriptionProjet').text(data.projet_description);
       }
     });
@@ -505,57 +474,32 @@
     $.ajax({
       url: "Modele/ProjectInformation.php",
       method: "POST",
+      dataType: "json",
       data: {
         projectId: projectId,
         action: "getClient"
       },
-      dataType: "json",
       success: function (data) {
 
-        if(data.logo == '' || data.logo == undefined || data.logo == null){ 
-            data.logo = 'default'
-        }
+        $('#ModaleClient .modal-body').append('<h1>Client</h1>');
+        $('#ModaleClient .modal-body').append('<p><b>Entreprise: </b>'+data.client_entreprise+'</p>');
+        $('#ModaleClient .modal-body').append('<p><b>Client: </b>'+data.client_prenom+' '+data.client_nom+'</p>');
+        $('#ModaleClient .modal-body').append('<p><b>Job: </b>'+data.client_job+'</p>');
+        $('#ModaleClient .modal-body').append('<p><b>Mail: </b>'+data.client_mail+'</p>');
+        $('#ModaleClient .modal-body').append('<p><b>Téléphone: </b>'+data.client_telephone+'</p>');
 
-        $('#ClientEntreprise').text(data.entreprise);
+        $('#ClientID').val(data.client_pk);
 
-        $('#ClientEntrepriseModale').val(data.entreprise);
-        $('#ClientNomModale').val(data.Nom);
-        $('#ClientJobModale').val(data.job);
-        $('#ClientMailModale').val(data.mail);
-        $('#ClientTelephoneModale').val(data.telephone);
-        $('#ClientID').val(data.id);
-
-      }
+      },
+          error: function (xhr, status, erreur) {
+            $.notify(erreur, "error");
+          }
     });
   }
 
-    $('#putClient').bind( "click", function() {
-
-  $.ajax({
-      url: "Modele/ProjectInformation.php",
-      method: "POST",
-      data: {
-        client_id: document.getElementById('ClientID').value,
-        client_entreprise: document.getElementById('ClientEntrepriseModale').value,
-        client_nom: document.getElementById('ClientNomModale').value,
-        client_job: document.getElementById('ClientJobModale').value,
-        client_mail: document.getElementById('ClientMailModale').value,
-        client_telephone: document.getElementById('ClientTelephoneModale').value,
-        action: "putClient"
-      },
-      success: function (data) {
-        Notify(data,'Client édité')
-        GetClient()
-      }
-    });
-
-    $('#ModaleClient').modal('hide');
-
-  });
-
   //+-+-+-+-+-+-+-+-+-+-+ Ressources +-+-+-+-+-+-+-+-+-+-+
 
-    function GetRessources() {
+    function GetRessourcesMobilisees() {
 
     $('#RessourcesMobilisees').html('')
 
@@ -593,25 +537,23 @@
   }
 
     $('#AddRessourceToProject').bind( "click", function() { 
-
-      if ($('#TOUTLEMONDE').val() != '') {
         $.ajax({
           url: "Modele/ProjectInformation.php",
           method: "POST",
           data: {
             projectId: projectId,
-            UserId: $('#TOUTLEMONDE').val(),
+            UserId: $('#ListeRessource').val(),
             action: "AddRessource"
           },
           success: function (data) {
-            Notify(data,'Resource(s) ajoutée(s)')
-            $("#TOUTLEMONDE > option").prop("selected", "");
-            $("#TOUTLEMONDE").trigger("change");
-            GetRessources()
+            $.notify(data, "success");
+            GetRessourcesMobilisees();
+            $('#ListeRessource').val('').select2()
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
           }
         });
-      } else
-        $.notify("Aucune ressource selectionnée ?", "error");
 
      });
 
@@ -631,7 +573,7 @@
             },
             success: function (data) {
               Notify(data,'Ressource '+RessourceNom+' supprimée')
-              GetRessources();
+              GetRessourcesMobilisees();
             }
           });
       
