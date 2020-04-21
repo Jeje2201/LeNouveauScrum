@@ -39,8 +39,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_type not like 'CIR'
-          and projet_actif > 0
+          where projet_actif = 2
           ORDER BY projet_nom asc");
 
           $statement->execute();
@@ -91,8 +90,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_type not like 'CIR'
-          and projet_actif = 2
+          where projet_actif = 2
           ORDER BY projet_nom asc");
 
           $statement->execute();
