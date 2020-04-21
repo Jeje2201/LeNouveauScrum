@@ -138,7 +138,10 @@
 
     $('#modal_button').click(function () {
 
-      ShowAndClearModaleForNew('ModaleProjet', 'CreerRemarque', 'EditerRemarque')
+      $('#ModaleProjet').modal('show')
+      $('#DescriptionProjet, #ApiPivotal, #ListeClient, #Nom, #id').val('')
+      $('#ListeClient').select2({ width: "100%" });
+
       $('#action').val('Ajouter');
       $("input[name=EtatProjet][value='2']").prop("checked",true);
     });
@@ -164,6 +167,9 @@
             $('#ModaleProjet').modal('hide');
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/Projet.php');
             GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
           }
         });
       }
