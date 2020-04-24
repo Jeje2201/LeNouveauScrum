@@ -118,7 +118,7 @@
              
             $GroupStory = ' </div>
               <div class="cardGroupTache border mb-4">
-                <div class="border m-2 pl-2 py-1">
+                <div class="border-bottom pl-2 py-2" style="background-color: #f5f5f5d4;">
                   <img class="LogoProjet" src="Assets/Image/Projets/' . $row["projet_avatar"] . '">
                   <b>' . $row["projet_nom"] . '</b>
                   <u><a class="text-dark" href="https://www.pivotaltracker.com/story/show/'. $row["tache_pivotal_id_Story"].'">'. $row["tache_pivotal_Label_Story"].'</a></u>
@@ -130,16 +130,18 @@
             if($row["tache_done"] == ""){
               $classDisable = 'TacheEnCours pointer';
               $inputTacheChecked = "";
+              $style= "";
             }
             else{
               $classDisable = 'TacheFini';
               $inputTacheChecked = "checked disabled";
+              $style= "pointer-events: none; opacity: 0.4;";
             }
 
             $output1 .= $GroupStory . '
-            <div class="border ml-4 row m-2">
-            <div class="col-11 row '. $classDisable . ' ">
-              <div class="col-10 DivContentTache my-auto">
+            <div class=" ml-4 row mx-2 border-bottom">
+            <div class="col-lg-10 row '. $classDisable . ' ">
+              <div class="col-lg-11 DivContentTache my-auto">
                 <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
                 <span id="LabelDeLaTache" class="">' . $row["tache_label"] . '</span>
                 <span class="hideElement" id="TaskId">'. $row["tache_pk"] . '</span>
@@ -147,12 +149,13 @@
                 <span class="hideElement" id="StoryId_Pivotal">'. $row["tache_pivotal_id_Story"].'</span>
                 <span class="hideElement" id="ProjectId_Pivotal">'. $row["tache_pivotal_id_Project"].'</span>
               </div>
-              <div class="col my-auto text-center">
+              <div class="col-lg-1 my-auto text-center">
                 <span class="">' . $row["tache_heure"] . '</span>
               </div>
               </div>
-              <div class="col my-auto">
-                <button class="btn btn-warning EditerTexteTache my-1"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
+              <div class="col-lg-2 my-auto">
+                <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
+                <button class="btn btn-success EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-reply" aria-hidden="true"></i></button>
               </div>
             </div>';
           }
