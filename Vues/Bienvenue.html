@@ -13,12 +13,12 @@
       <p>En arrivant à Natural Solutions, tu obtiens un compte google professionel doté d'une adresse mail qui se
         compose de ton prénom et nom sans majuscule ou accent : prenom_nom@natural-solutions.eu </p>
 
-      <h4>Communication</h4>
+      <!-- <h4>Communication</h4>
       <hr class="mb-2">
       <p>Nous utilisons Skype pour communiquer.</p>
       <p>Tu peux utiliser l'adresse mail fournie par Natural Solutions pour te créer un compte.</p>
       <p>Tu seras invité à rejoindre un groupe général puis en fonction de ton besoin, tu auras accès à d'autres
-        groupes.</p>
+        groupes.</p> -->
 
       <h4>Télétravail</h4>
       <hr class="mb-2">
@@ -40,7 +40,7 @@
         </ol>
       </p>
 
-      <h4>Github</h4>
+      <!-- <h4>Github</h4>
       <hr class="mb-2">
       <p>Tous les projets sont hostés sur un Github propre à Natural Solutions, l'organisation est accessible <a
           class="" href='https://github.com/NaturalSolutions'>ici</a> attribué en fonction du besoin</p>
@@ -48,7 +48,7 @@
       <h4>Synolution</h4>
       <hr class="mb-2">
       <p>En plus du stockage Google Drive proposé avec ton compte Gmail, Natural Solutions possède un espace de stockage
-        local accessible depuis l'extérieur <a class="" href='http://nastural-solutions.quickconnect.to/'>ici</a></p>
+        local accessible depuis l'extérieur <a class="" href='http://nastural-solutions.quickconnect.to/'>ici</a></p> -->
 
       <h4>Signature de mails</h4>
       <hr class="mb-2">
@@ -106,38 +106,54 @@
 
       </div>
 
-      <h4>Ressources</h4>
-      <hr class="mb-2">
-      <small>Voici la liste des ressources actives, basée sur la base de données de l'application</small>
-      <div class="my-3 px-3 row" id="ListRessources">
-      </div>
-
       <h4>Applications externes</h4>
       <hr class="mb-2">
       <small>Liste des applications utilisées au seins de Natural Solutions</small>
       <div class="my-3 px-3 row">
-        <div class="border col-lg-3">
+        <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Invision</b></span><br><span>Design</span></div>
+            <div class="weshAlors"></div>
           </div>
         </div>
-        <div class="border col-lg-3" id="LaRessourceN_46">
+        <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Skype</b></span><br><span>Blabla</span></div>
           </div>
         </div>
-        <div class="border col-lg-3" id="LaRessourceN_46">
+        <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Github</b></span><br><span>Projets</span></div>
           </div>
         </div>
-
+        <div class="border col-lg-3 Projet_Externe">
+          <div class="row">
+            <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
+            <div class="col-lg-9 my-auto"><span><b>Synolution</b></span><br><span>Stockage</span></div>
+          </div>
+        </div>
+        <div class="border col-lg-3 Projet_Externe">
+          <div class="row">
+            <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
+            <div class="col-lg-9 my-auto"><span><b>Trello</b></span><br><span>Gestion tâches</span></div>
+          </div>
+        </div>
+        <div class="border col-lg-3 Projet_Externe">
+          <div class="row">
+            <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
+            <div class="col-lg-9 my-auto"><span><b>Pivotal</b></span><br><span>Gestion tâches</span></div>
+          </div>
+        </div>
       </div>
 
-
+      <h4>Ressources</h4>
+      <hr class="mb-2">
+      <small>Voici la liste des ressources actives, basée sur la base de données de l'application</small>
+      <div class="my-3 px-3 row" id="ListRessources">
+      </div>
 
       <h4>Projets</h4>
       <hr class="mb-2">
@@ -152,9 +168,24 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Information du projet</h4>
+          <h4 class="modal-title">Information</h4>
         </div>
         <div class="modal-body" id="LaModaleInfoProjet">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-dark" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ModaleInfoProjetExterne" class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body" id="LaModaleInfoProjetExterne">
         </div>
         <div class="modal-footer">
           <button class="btn btn-dark" data-dismiss="modal">Fermer</button>
@@ -261,14 +292,19 @@
         }
       });
 
-
-
       //Quand clic sur un projets
       $(document).on('click', '.UnProjetDiv', function () {
         $('#ModaleInfoProjet').modal('show')
         console.log(this.id.split('_')[1])
       })
 
+      //Quand clic sur un projets
+      $(document).on('click', '.Projet_Externe', function () {
+        $('#ModaleInfoProjetExterne').modal('show')
+        // $('#LaModaleInfoProjetExterne').html($(this).find('.weshAlors'))
+        $('#LaModaleInfoProjetExterne').html("toto")
+        console.log(this)
+      })
 
     })
   </script>
