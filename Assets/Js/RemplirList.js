@@ -21,3 +21,43 @@ function RequeteAjax(DivId, action, path, id) {
     }
   });
 }
+
+function FillEmptySelect(returnDiv, parametrePHP, pathPHP, parametreJS) {
+  $.ajax({
+    url: pathPHP,
+    method: "POST",
+    async: true,
+    dataType: "json",
+    data: {
+      action: parametrePHP,
+    },
+    success: function (data) {
+
+      switch (parametreJS) {
+
+        case 'LaListeDesClients':
+          for (const client of data) {
+            $('#' + returnDiv).append(`<option value="` + client.client_pk + `">` + client.client_entreprise + ` - ` + client.client_prenom + ` ` + client.client_nom + ` </option>`);
+          }
+          break;
+
+        case 'LaListeDesUsers':
+          for (const user of data) {
+            $('#' + returnDiv).append(`<option value="` + user.user_pk + `">` + user.user_prenom + ` ` + user.user_nom + ` </option>`);
+          }
+          break;
+
+        default:
+          console.log('Oups, parametre js non reconnu pour la liste de select');
+
+      }
+
+      $("#" + returnDiv).select2({ width: "100%" });
+    },
+    error: function (xhr, status, erreur) {
+      $.notify(erreur, "error");
+    }
+  });
+}
+
+

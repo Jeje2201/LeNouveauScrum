@@ -22,9 +22,6 @@
 <div id="ModaleProjet" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-      </div>
       <div class="modal-body">
 
         <div class="form-group">
@@ -32,9 +29,21 @@
           <input class="form-control" id="Nom" type="text">
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Type</label>
-          <div id="listeTypeProjet"></div>
+          <select class="form-control" id="TypeProjet">
+            <option value="Autres">Autres</option>
+            <option value="CIR">CIR</option>
+            <option value="Autres">Autres</option>
+            <option value="Autres">Autres</option>
+            <option value="Autres">Autres</option>
+          </select>
+        </div> -->
+
+        <div class="form-group">
+          <label>Client</label>
+          <select class="form-control" id="ListeClient">
+          </select>
         </div>
 
         <div class="form-group">
@@ -66,7 +75,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <form id="image_form" method="post" enctype="multipart/form-data">
+        <form id="Form_Editer_Logo" method="post" enctype="multipart/form-data">
 
           <div class="form-group">
             <label>Id</label>
@@ -95,7 +104,7 @@
 
     BarreDeRecherche('BarreDeRecherche', 'TableauProjetHtml');
 
-    RequeteAjax('listeTypeProjet', 'ListeDeroulanteTypeProjet', 'Modele/RequetesAjax.php')
+    FillEmptySelect('ListeClient','GetClients','Modele/Client.php','LaListeDesClients')
 
     RequeteAjax('TableauProjetHtml', 'Load', 'Modele/Projet.php')
 
@@ -104,7 +113,7 @@
       $('#ModaleLogo').modal('show');
     });
 
-    $('#image_form').submit(function (event) {
+    $('#Form_Editer_Logo').submit(function (event) {
 
         event.preventDefault();
 
@@ -118,7 +127,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-              $('#image_form')[0].reset();
+              $('#Form_Editer_Logo')[0].reset();
               $.notify(data, "info");
               $('#ModaleLogo').modal('hide');
               // RequeteAjax('TableauProjetHtml', 'Load', 'Modele/Projet.php');
@@ -128,10 +137,12 @@
       });
 
     $('#modal_button').click(function () {
-      $('#ModaleProjet').modal('show');
-      $('.modal-title').text("Ajouter un projet");
+
+      $('#ModaleProjet').modal('show')
+      $('#DescriptionProjet, #ApiPivotal, #ListeClient, #Nom, #id').val('')
+      $('#ListeClient').select2({ width: "100%" });
+
       $('#action').val('Ajouter');
-      $('#Nom, #ApiPivotal').val('');
       $("input[name=EtatProjet][value='2']").prop("checked",true);
     });
 
@@ -146,7 +157,7 @@
             Nom: $('#Nom').val(),
             ApiPivotal: $('#ApiPivotal').val(),
             Actif: $("input[name='EtatProjet']:checked").val(),
-            TypeProjet: $('#TypeProjet').val(),
+            Client: $('#ListeClient').val(),
             PDescription: $('#DescriptionProjet').val(),
             action: $('#action').val()
           },
@@ -156,6 +167,9 @@
             $('#ModaleProjet').modal('hide');
             RequeteAjax('TableauProjetHtml', 'Load', 'Modele/Projet.php');
             GarderLaRecherche('BarreDeRecherche', 'TableauProjetHtml');
+          },
+          error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
           }
         });
       }
@@ -176,17 +190,15 @@
         dataType: "json",
         success: function (data) {
           $('#ModaleProjet').modal('show');
-          $('.modal-title').text("Mettre à jour");
           $('#action').val("Update");
-
           $("input[name=EtatProjet][value='"+data.projet_actif+"']").prop("checked",true);
-
           $('#id').val(id);
-          $('#ApiPivotal').val(data.projet_ApiPivotal);
+          $('#ApiPivotal').val(data.projet_apiPivotal);
           $('#Nom').val(data.projet_nom);
-          $('#TypeProjet').val(data.projet_type);
+          $('#ListeClient').val(data.projet_fk_client)
           $('#DescriptionProjet').val(data.projet_description);
 
+          $('#ListeClient').select2({ width: "100%" });
         }
       });
     });

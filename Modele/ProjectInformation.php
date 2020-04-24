@@ -100,19 +100,23 @@
 
 //+-+-+-+-+-+-+-+-+-+-+ Pas encore rangé +-+-+-+-+-+-+-+-+-+-+
 
-    //   if ($_POST["action"] == "getClient") {
-    //     $output = array();
-    //     $statement = $connection->prepare(
-    //     "SELECT *
-    //     FROM projet_client 
-    //      WHERE projet_client_pk = (select projet_fk_client from projet where projet_pk = '" . $_POST["projectId"] . "') 
-    //      LIMIT 1"
-    //     );
-    //     $statement->execute();
-    //     $result = $statement->fetch();
+      if ($_POST["action"] == "getClient") {
+        try{
+        $output = array();
+        $statement = $connection->prepare(
+        "SELECT *
+        FROM client 
+         WHERE client_pk = (select projet_fk_client from projet where projet_pk = '" . $_POST["projectId"] . "') 
+         LIMIT 1"
+        );
+        $statement->execute();
+        $result = $statement->fetch();
 
-    //     print json_encode($result);
-    //   }
+        print json_encode($result);
+      } catch (PDOException $e) {
+        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+      }
+      }
 
     //   if ($_POST["action"] == "putClient") {
 
@@ -174,25 +178,21 @@
       }
       
       if ($_POST["action"] == "AddRessource") {
-
-        $TableauEmploye = $_POST["UserId"];
-
-        $statement = $connection->prepare(
-        "INSERT INTO projet_ressource (projet_ressource_fk_projet, projet_ressource_fk_user) 
-        VALUES (:id_projet, :id_ressource)
-        ");
-        for ($i = 0; $i < count($TableauEmploye); $i++) {
-          $result = $statement->execute(
-            array(
-              ':id_projet' => $_POST["projectId"],
-              ':id_ressource' => intval($TableauEmploye[$i])
-            )
-          );
+        try{
+          $statement = $connection->prepare(
+          "INSERT INTO projet_ressource (projet_ressource_fk_projet, projet_ressource_fk_user) 
+          VALUES (:id_projet, :id_ressource)
+          ");
+            $result = $statement->execute(
+              array(
+                ':id_projet' => $_POST["projectId"],
+                ':id_ressource' => $_POST["UserId"]
+              )
+            );
+            print "Ressource ajoutée au projet";
+        } catch (PDOException $e) {
+        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
         }
-        if (!empty($result))
-          print true;
-        else
-          print_r($statement->errorInfo());
       }
 
     if ($_POST["action"] == "DellRessourceProjet") {

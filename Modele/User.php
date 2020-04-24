@@ -84,6 +84,17 @@
         print $output;
       }
 
+      //Liste une ressource
+      if ($_POST["action"] == "GetUsers") {
+        $statement = $connection->prepare("SELECT *
+        FROM user
+        ORDER BY user_prenom asc");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($result);
+
+      };
+
       //Créer une ressource
       if ($_POST["action"] == "Ajouter") {
 

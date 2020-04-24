@@ -5,6 +5,7 @@
 
       if ($_POST["action"] == "Load") {
         $statement = $connection->prepare("SELECT * FROM projet
+        left join client on projet.projet_fk_client = client.client_pk
       ORDER BY projet_actif desc, projet_nom asc");
         $statement->execute();
         $result = $statement->fetchAll();
@@ -15,7 +16,7 @@
       <tr>
       <th width=35>Icone</th>
       <th>Nom</th>
-      <th>Type</th>
+      <th>Client</th>
       <th>ID Pivotal</th>
       <th class="text-center">Actif</th>
       <th class="text-center">Action</th>
@@ -24,6 +25,7 @@
       <tbody id="myTable">
       ';
         if ($statement->rowCount() > 0) {
+          
           foreach ($result as $row) {
 
             if (file_exists("../Assets/Image/Projets/avatar_projet_" . $row["projet_pk"] .".png")) {
@@ -35,7 +37,7 @@
         $output .= '
         <td class="text-center" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>
         <td>' . $row["projet_nom"] . '</td>
-        <td>' . $row["projet_type"] . '</td>
+        <td>' . $row["client_entreprise"] . '</td>
         <td>' . $row["projet_apiPivotal"] . '</td>';
             if ($row["projet_actif"] == 2)
               $output .= '<td class="bg-success text-center text-white">En cours</td>';
@@ -64,28 +66,39 @@
         print $output;
       }
 
+      if ($_POST["action"] == "AllProjets") {
+        $statement = $connection->prepare("SELECT *
+        FROM projet
+        ORDER BY projet_nom asc");
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        print json_encode($result);
+      }
+
       if ($_POST["action"] == "Ajouter") {
+        try{
 
-        if ($_POST["ApiPivotal"] == "")
-          $_POST["ApiPivotal"] = null;
+          if ($_POST["ApiPivotal"] == "")
+            $_POST["ApiPivotal"] = null;
 
-        $statement = $connection->prepare("
-   INSERT INTO projet (projet_nom, projet_actif, projet_type, projet_apiPivotal) 
-   VALUES (:Nom, :actif, :id_TypeProjet, :ApiPivotal)
-   ");
+          $statement = $connection->prepare("
+          INSERT INTO projet (projet_nom, projet_description, projet_actif, projet_fk_client, projet_apiPivotal) 
+          VALUES (:nom, :description, :actif, :client, :ApiPivotal)
+          ");
 
-        $result = $statement->execute(
-          array(
-            ':Nom' => $_POST["Nom"],
-            ':actif' => $_POST["Actif"],
-            ':id_TypeProjet' => $_POST["TypeProjet"],
-            ':ApiPivotal' => $_POST["ApiPivotal"]
-          )
-        );
-        if (!empty($result))
-          print true;
-        else
-          print_r($statement->errorInfo());
+          $result = $statement->execute(
+            array(
+              ':nom' => $_POST["Nom"],
+              ':description' => $_POST["PDescription"],
+              ':actif' => $_POST["Actif"],
+              ':client' => $_POST["Client"],
+              ':ApiPivotal' => $_POST["ApiPivotal"]
+            )
+          );
+        } catch (PDOException $e) {
+            header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+          }
+        
       }
 
       if ($_POST["action"] == "Select") {
@@ -102,14 +115,14 @@
       }
 
       if ($_POST["action"] == "Update") {
-
+        try{
         if ($_POST["ApiPivotal"] == "")
           $_POST["ApiPivotal"] = null;
 
         $statement = $connection->prepare(
           "UPDATE projet 
           SET projet_nom = :nom,
-          projet_type = :id_TypeProjet,
+          projet_fk_client = :client,
           projet_actif = :actif,
           projet_apiPivotal = :ApiPivotal,
           projet_description = :PDescription
@@ -121,15 +134,15 @@
             ':nom' => $_POST["Nom"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':actif' => $_POST["Actif"],
-            ':id_TypeProjet' => $_POST["TypeProjet"],
+            ':client' => $_POST["Client"],
             ':PDescription' => $_POST["PDescription"],
             ':id' => $_POST["id"]
           )
         );
-        if (!empty($result))
-          print true;
-        else
-          print_r($statement->errorInfo());
+          print "Projet mit à jour";
+        } catch (PDOException $e) {
+          header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+        }
       }
 
       if ($_POST["action"] == "Delete") {

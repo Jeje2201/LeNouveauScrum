@@ -39,8 +39,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_type not like 'CIR'
-          and projet_actif > 0
+          where projet_actif = 2
           ORDER BY projet_nom asc");
 
           $statement->execute();
@@ -91,8 +90,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_type not like 'CIR'
-          and projet_actif = 2
+          where projet_actif = 2
           ORDER BY projet_nom asc");
 
           $statement->execute();
@@ -182,31 +180,6 @@
             foreach ($result as $row) {
 
               $output2 .= '<option value="' . $row["user_pk"] . '"> ' . $row["user_prenom"] . ' ' . $row["user_nom"] . ' </option>';
-            }
-
-            $output2 .= '</select>';
-          }
-
-          print $output2;
-
-          break;
-
-          /////////////////////////////////////
-
-        case 'ListeDeroulanteTypeProjet':
-
-          $statement = $connection->prepare("SELECT distinct(projet_type)
-        FROM projet
-        ORDER BY projet_type asc");
-
-          $statement->execute();
-          $result = $statement->fetchAll();
-          $output2 = '<select class="form-control"  id="TypeProjet" >';
-
-          if ($statement->rowCount() > 0) {
-            foreach ($result as $row) {
-
-              $output2 .= '<option value="' . $row["projet_type"] . '"> ' . $row["projet_type"] . ' </option>';
             }
 
             $output2 .= '</select>';
