@@ -114,37 +114,60 @@
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Invision</b></span><br><span>Design</span></div>
-            <div class="weshAlors"></div>
+            <div class="hideelement">
+              <div class="weshAlors">
+                <p>Tous les projets ont des maquettes, pour les retrouver, il faut se creer un compte sur le site web et
+                  demander le droit aux maquettes aux designers, accessible <a class=""
+                    href='https://projects.invisionapp.com/d/main#/projects'>ici</a> et attribué en fonction du besoin
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Skype</b></span><br><span>Blabla</span></div>
+            <div class="hideelement">
+              <div class="weshAlors">
+                <p>Outils de communication qui va bientot mourrir</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
-            <div class="col-lg-9 my-auto"><span><b>Github</b></span><br><span>Projets</span></div>
+            <div class="col-lg-9 my-auto"><span><b>Github</b></span><br><span>Code</span></div>
+            <div class="hideelement">
+              <div class="weshAlors">
+                <p>Tous les projets sont hostés sur un Github propre à Natural Solutions, l'organisation est accessible
+                  <a class="" href='https://github.com/NaturalSolutions'>ici</a> attribué en fonction du besoin</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
             <div class="col-lg-9 my-auto"><span><b>Synolution</b></span><br><span>Stockage</span></div>
+            <div class="hideelement">
+              <div class="weshAlors">
+                <p>Outils de stockage qui va peut etre bientot mourir pour garder 1 seul outils, Google Drive</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="border col-lg-3 Projet_Externe">
           <div class="row">
             <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
-            <div class="col-lg-9 my-auto"><span><b>Trello</b></span><br><span>Gestion tâches</span></div>
-          </div>
-        </div>
-        <div class="border col-lg-3 Projet_Externe">
-          <div class="row">
-            <div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>
-            <div class="col-lg-9 my-auto"><span><b>Pivotal</b></span><br><span>Gestion tâches</span></div>
+            <div class="col-lg-9 my-auto"><span><b>Pivotal (bientot dead)</b></span><br><span>Gestion tâches</span>
+            </div>
+            <div class="hideelement">
+              <div class="weshAlors">
+                <p>Outils de gestion de taches, va bientôt changer</p>
+              </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -225,7 +248,11 @@
           $.each(data, function () {
 
             if (this.projet_description == null) {
-              this.projet_description = '...'
+              this.projet_description = '&nbsp;'
+            }
+
+            if (this.projet_nom.length > 16) {
+              this.projet_nom = this.projet_nom.substr(0, 16) + '...'
             }
 
             if (this.projet_description.length > 17) {
@@ -234,18 +261,24 @@
 
             if (this.projet_actif == 2) {
 
-              var UneDiv = $('<div class="border col-lg-3 pointer UnProjetDiv" id="LeProjetN_' + this.projet_pk + '"></div>')
+              var UneDiv = $('<div class="border col-lg-3 pointer UnProjetDiv" id="LeProjetN_' + this
+                .projet_pk + '"></div>')
               var DansLaDiv = $('<div class="row"></div>')
 
               var projet_pk = this.projet_pk
               $.get("Assets/Image/Projets/avatar_projet_" + projet_pk)
                 .done(function () {
-                  DansLaDiv.prepend('<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/avatar_projet_' + projet_pk + '.png"></div>')
+                  DansLaDiv.prepend(
+                    '<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/avatar_projet_' +
+                    projet_pk + '.png"></div>')
                 }).fail(function () {
-                  DansLaDiv.prepend('<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>')
+                  DansLaDiv.prepend(
+                    '<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>'
+                  )
                 })
 
-              DansLaDiv.append('<div class="col-lg-9"><span><b>' + this.projet_nom + '</b></span><br><span>' + this.projet_description + '</span></div>')
+              DansLaDiv.append('<div class="col-lg-9 my-auto"><span><b>' + this.projet_nom +
+                '</b></span><br><span>' + this.projet_description + '</span></div>')
 
               $(UneDiv).append(DansLaDiv)
               $('#ListProjet').append(UneDiv)
@@ -277,12 +310,17 @@
               var user_pk = this.user_pk
               $.get("Assets/Image/Ressources/avatar_user_" + user_pk)
                 .done(function () {
-                  DansLaDiv.prepend('<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Ressources/avatar_user_' + user_pk + '.png"></div>')
+                  DansLaDiv.prepend(
+                    '<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Ressources/avatar_user_' +
+                    user_pk + '.png"></div>')
                 }).fail(function () {
-                  DansLaDiv.prepend('<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>')
+                  DansLaDiv.prepend(
+                    '<div class="col-lg-3 my-auto"><img class="img-fluid my-1" src="Assets/Image/Projets/default.png"></div>'
+                  )
                 })
 
-              DansLaDiv.append('<div class="col-lg-9 my-auto"><span><b>' + this.user_prenom + ' ' + this.user_nom + '</b></span><br><span>' + this.user_type + '</span></div>')
+              DansLaDiv.append('<div class="col-lg-9 my-auto"><span><b>' + this.user_prenom + ' ' + this
+                .user_nom + '</b></span><br><span>' + this.user_type + '</span></div>')
 
               $(UneDiv).append(DansLaDiv)
               $('#ListRessources').append(UneDiv)
@@ -301,8 +339,9 @@
       //Quand clic sur un projets
       $(document).on('click', '.Projet_Externe', function () {
         $('#ModaleInfoProjetExterne').modal('show')
-        // $('#LaModaleInfoProjetExterne').html($(this).find('.weshAlors'))
-        $('#LaModaleInfoProjetExterne').html("toto")
+        // debugger
+        $('#LaModaleInfoProjetExterne').html($(this).find('.weshAlors')[0])
+        // $('#LaModaleInfoProjetExterne').html("toto")
         console.log(this)
       })
 

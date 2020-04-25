@@ -155,7 +155,7 @@
               </div>
               <div class="col-lg-2 my-auto">
                 <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
-                <button class="btn btn-success EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-reply" aria-hidden="true"></i></button>
+                <button class="btn btn-success EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
               </div>
             </div>';
           }
