@@ -176,7 +176,7 @@
         method: "POST",
         dataType: "json",
         data: {
-          action: "getDemos"
+          action: "getDemosRetro"
         },
         success: function (data) {
 
@@ -184,7 +184,6 @@
 
           $.each(data, function () {
 
-            if (this.retrospective_demo_dateEffectue == null) {
 
              var table = `<tr>
                             <td>` + nbJoursEntreDeuxDates(this.retrospective_demo_dateCree) + `</td>
@@ -203,8 +202,6 @@
             table += ` </tr>`;
 
             $('#TableDemo').prepend(table)
-            
-            }
 
           })
           

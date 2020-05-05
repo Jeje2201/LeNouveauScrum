@@ -16,6 +16,19 @@
         print json_encode($result);
       }
 
+      if ($_POST["action"] == "getDemosRetro") {
+        $statement = $connection->prepare("SELECT *
+        FROM retrospective_demo
+        INNER JOIN projet on projet_pk = retrospective_demo_fk_projet
+        INNER JOIN user on user_pk = retrospective_demo_fk_user
+        WHERE retrospective_demo_dateEffectue IS NULL
+        ORDER BY retrospective_demo_dateCree DESC");
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        print json_encode($result);
+      }
+
       if ($_POST["action"] == "getDemo") {
 
         $statement = $connection->prepare("SELECT *
