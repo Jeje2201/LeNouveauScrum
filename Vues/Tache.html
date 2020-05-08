@@ -166,6 +166,9 @@
                         503: function(responseObject, textStatus, errorThrown) {
                           $.notify("Trop de tâches d'un coup. \""+TextDeLaTache+"\" ne s'est pas faite validée par l'API de Pivotal Tracker", "error");                      
                         },
+                        400: function(responseObject, textStatus, errorThrown) {
+                          $.notify("Cette story n'existe pas sur Pivotal Tracker", "error")       
+                        },
                         200: function(responseObject, textStatus, errorThrown) {
                           $.notify("Tâche \""+TextDeLaTache+"\" validé !", "success");  
 
