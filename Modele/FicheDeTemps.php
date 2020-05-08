@@ -316,21 +316,22 @@ function MinutesEnHeures($Minutes)
             $LaDate = date("Y-m-d", strtotime($LesDates[$i]));
             if(date('w', strtotime($LaDate)) != 0 && date('w', strtotime($LaDate)) != 6){
 
-            $statement = $connection->prepare("
-            INSERT INTO fiche_de_temps (fiche_de_temps_fk_user, fiche_de_temps_fk_projet, fiche_de_temps_time, fiche_de_temps_done) 
-            VALUES (:Fk_User, :Fk_Project, :Time, :Done)");
-    
-              $result = $statement->execute(
-                array(
-                  ':Fk_User' => $_SESSION['user']['id'],
-                  ':Fk_Project' => $_POST["Projet"],
-                  ':Time' => $_POST["Time"],
-                  ':Done' => $LaDate
-                )
-              );
-              if (empty($result)){
-                print_r($statement->errorInfo());
-              } 
+              try{
+                  $statement = $connection->prepare("
+                  INSERT INTO fiche_de_temps (fiche_de_temps_fk_user, fiche_de_temps_fk_projet, fiche_de_temps_time, fiche_de_temps_done) 
+                  VALUES (:Fk_User, :Fk_Project, :Time, :Done)");
+          
+                    $result = $statement->execute(
+                      array(
+                        ':Fk_User' => $_SESSION['user']['id'],
+                        ':Fk_Project' => $_POST["Projet"],
+                        ':Time' => $_POST["Time"],
+                        ':Done' => $LaDate
+                      )
+                    );
+                  } catch (PDOException $e) {
+                    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+                  }
                 }
         }
         }

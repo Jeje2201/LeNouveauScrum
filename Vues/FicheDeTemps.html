@@ -230,7 +230,10 @@
               $.notify("Fiche de temps créée avec succès", "success");
               InfoMaxSlider()
             }
-          }
+          },
+            error: function (xhr, status, erreur) {
+              $.notify("Une erreur s'est produite, vérifie ta connexion internet. Si le problème persiste demande à un développeur", "error");
+            }
         });
       });
 
