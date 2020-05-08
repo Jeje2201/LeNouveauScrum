@@ -165,10 +165,6 @@
   cursor: not-allowed;
 }
 
-.TacheGonnaBeDone {
-  border-color: #28a745 !important; 
-}
-
 .TacheFini .DivContentTache  {
   text-decoration: line-through;
 }

@@ -128,7 +128,7 @@
           }
 
             if($row["tache_done"] == ""){
-              $classDisable = 'TacheEnCours pointer';
+              $classDisable = 'TacheEnCours';
               $inputTacheChecked = "";
               $style= "";
             }
@@ -142,7 +142,6 @@
             <div class=" ml-4 row mx-2 border-bottom">
             <div class="col-lg-10 row '. $classDisable . ' ">
               <div class="col-lg-11 DivContentTache my-auto">
-                <img style="display:none" src="Assets/Image/Autre/CheckedTache.png">
                 <span id="LabelDeLaTache" class="">' . $row["tache_label"] . '</span>
                 <span class="hideElement" id="TaskId">'. $row["tache_pk"] . '</span>
                 <span class="hideElement" id="TaskId_Pivotal">'. $row["tache_pivotal_id_Task"].'</span>
@@ -155,7 +154,7 @@
               </div>
               <div class="col-lg-2 my-auto">
                 <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
-                <button class="btn btn-success EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
+                <button class="btn btn-success ValiderTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
               </div>
             </div>';
           }
