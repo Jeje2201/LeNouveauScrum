@@ -1,5 +1,15 @@
 [
     {
+        "Date": "13 mai, 2020",
+        "Titre": "Ça bosse même en télétravail",
+        "Fix": null,
+        "Modif": [
+            "Beaucoup trop de modifications ont été apportées et impossible de tout résumer ici, disons que cette mise a pour but de te laisser découvrir ce qui a changé :)"
+        ],
+        "Suppression": null,
+        "Ajout": null
+    },
+    {
         "Date": "01 Avril, 2020",
         "Titre": "Et non, ce n'est pas un poisson d'avril",
         "Fix": null,
