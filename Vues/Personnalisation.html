@@ -30,6 +30,66 @@
       </div>
     <hr>
 
+
+
+    <h2 class="mt-3 mb-n1"><u>Signature de mails</u></h2>
+    <hr class="mb-2">
+    <p>Il est possible d'avoir une signature de mail customisée spéciale Natural Solutions. Pour ce faire il suffit de
+      : </p>
+    <ol>
+      <li>Cliquer <span id="ButtonMail" class="text-danger font-weight-bold pointer">ici</span></li>
+      <li>Répondre aux questions</li>
+      <li>Une fois la signature customisée, la sélectionner entièrement et la copier</li>
+      <li>Se rendre dans ton application favorite de mails (gmail, etc..)</li>
+      <li>La changer là-bas en collant la nouvelle</li>
+    </ol>
+    <p>Vous voilà avec une signature customisée spéciale Natural Solutions</p>
+    <div class="LaSignatureDeMail p-3 mb-3" style="border: dotted;">
+
+      <table>
+        <tr>
+          <th rowspan="5"><a href="http://www.natural-solutions.eu/"><img
+                src="Assets/Image/MailFooter/Banner.png"></a></th>
+          <td colspan="2"><span id="Name">Nom Prenom</span> <span id="Job"><i>Job</i></span></td>
+        </tr>
+        <tr>
+          <td>
+            <a href="http://www.natural-solutions.eu/"><img src="Assets/Image/MailFooter/internet.png"></a>
+          </td>
+          <td>
+            <a href="http://www.natural-solutions.eu/">natural-solutions.eu</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="tel:0491720026"><img src="Assets/Image/MailFooter/call.png"></a>
+          </td>
+          <td>
+            <a href="tel:+33491720026">04 91 72 00 26</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="mailto:AdresseMail"><img src="Assets/Image/MailFooter/Mail.png"></a>
+          </td>
+          <td>
+            <a href="mailto:AdresseMail" id="Mail">AdresseMail</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="https://goo.gl/maps/1X4TcrYwwi22"><img src="Assets/Image/MailFooter/map.png"></a>
+          </td>
+          <td>
+            <a href="https://goo.gl/maps/1X4TcrYwwi22">68 rue Sainte 13001 Marseille</a>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <hr>
+
     <h2 class="mt-3 mb-n1"><u>Infos</u></h2>
     <div id="ListEmpAdmin">
       <div class="form-group">
@@ -118,6 +178,22 @@
       //Charge liste heures fiche de temps sur un sprint au lancement de la page pour les différentes grilles
       ListTotalSurSprint()
       ListTotalFdtSurDate();
+
+      //Créer un footer custom
+      $("#ButtonMail").click(function () {
+
+        var prenom = prompt("Ton prénom ?");
+        var nom = prompt("Ton nom ?");
+        var job = prompt("Ton poste ?");
+        var email = prompt("Ton email ?", prenom + '_' + nom + '@natural-solutions.eu');
+        window.alert("On est tout bon.. Quelques tours de magies et... voilà !");
+
+        document.getElementById('Name').innerText = prenom + ' ' + nom
+        document.getElementById('Job').innerText = job
+        document.getElementById('Mail').innerText = email
+        document.getElementById('Mail').href = 'mailto:' + email
+
+      });
 
       //Charge total de temps pour par projets pour les taches validées depuis les premiers logs en bdd
       $.ajax({
