@@ -628,7 +628,6 @@
 
       var htmlDeFin = ""
 
-      // var test1 = new Array();
       var myStories
 
       console.log('🎁 Projet: ' + $("#ProjetApi option:selected").text())
@@ -671,23 +670,14 @@
               contentType: 'application/json',
               processData: false,
               success: function (LesTaches) {
-
-                // var test2 = new Array();
-                // var test3 = new Array();
-
-                // test2.push(Storyname) 
-                // test1.push(test2) 
                 console.log('   📙 Storie: ' + Storyname)
                 htmlDeFin +=
                   '<table class="table table-sm thead-dark table-bordered"><tbody class="thead-dark"><tr><th colspan="10"><u><a class="HeaderTablePlanif" href=' +
                   Storyurl + '>' + Storyname + '</a></u> 🔗</th></tr>';
 
                 $.each(LesTaches, function () {
-                  // var test4 = new Array();
-                  // var test5 = new Array();
                   try {
                     var ListeHeures = /\.-(.+)/.exec(this.description)[1];
-                    // test4.push(this.description)
                     console.log('       📃 Une tache à faire : ' + this.description)
                   } catch {
                     console.log("       🔴🔴🔴🔴" + this.description)
@@ -699,19 +689,15 @@
 
                   match = RegexGroupeHeure.exec(ListeHeures);
                   while (match != null) {
-                    // test5.push(match[0])
                     InputHeure += '<option value=' + match[0] + '>' + match[0] + '</option>'
                     match = RegexGroupeHeure.exec(ListeHeures);
                   }
-                  // test4.push(test5)
-                  // test3.push(test4)
                   InputHeure += '</select>'
                   htmlDeFin += InputHeure + ' <span id="TaskDescription">' + this
                     .description + '</span><span id="StoryId" class="hideElement">' +
                     StoryId + '</span><span id="TaskId" class="hideElement">' + this.id +
                     '</span></td></tr>'
                 })
-                // test2.push(test3)
                 htmlDeFin += "</tbody></table>"
 
                 document.getElementById("ListeTachesApi").innerHTML = htmlDeFin
@@ -727,7 +713,6 @@
           } else {
             $('#EnvoyerApiPivotal').show()
           }
-          // console.log('array sort: ',test1.sort())
         }
       });
     })
