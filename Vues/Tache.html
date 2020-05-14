@@ -97,6 +97,28 @@
 
       });
 
+      $(document).on('click', '.SupprimerTache', function () {
+        
+
+        if (confirm("Es-tu sûr de vouloir supprimer cette donnée ?"))
+        $.ajax({
+          url: "Modele/Tache.php",
+          method: "POST",
+          data: {
+            id: $(this).parent().parent().find('#TaskId').text(),
+            action: "DeleteTache"
+          },
+          success: function (data) {
+            AfficherCards();
+            $.notify(data, "success");
+          },error: function (xhr,status,erreur){
+            $.notify(erreur, "error");
+          }
+        })       
+
+      });
+
+
       $(document).on('click', '#ValiderNouveauTextTache', function () {
 
         $.ajax({

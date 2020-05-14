@@ -5,6 +5,7 @@
     if (isset($_POST["action"])) {
 
       if ($_POST["action"] == "DeleteTache") {
+        try{
         $statement = $connection->prepare(
           "DELETE FROM tache
          WHERE tache_pk = :id"
@@ -14,10 +15,10 @@
             ':id' => $_POST["id"]
           )
         );
-        if ($statement->rowCount() > 0)
-          print true;
-        else
-          print_r($statement->errorInfo());
+        print "Tâche supprimée";
+        } catch (PDOException $e) {
+          header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+        }
       }
 
             //Mettre a jour une tache
@@ -154,6 +155,7 @@
               </div>
               <div class="col-lg-2 my-auto">
                 <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa-font" aria-hidden="true"></i></button>
+                <button class="btn btn-danger SupprimerTache my-1" style="'.$style.'"><i class="fa fa-fw fa-trash" aria-hidden="true"></i></button>
                 <button class="btn btn-success ValiderTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
               </div>
             </div>';
