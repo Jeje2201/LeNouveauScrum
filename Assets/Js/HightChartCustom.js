@@ -196,27 +196,6 @@ function CreerLaBurnDownChart(heures, seuils, div, jours) {
 }
 
 /**
- * Fonction pour remplir les textes a coté de la burbndown chart
- * @param {Array} infosource - Tableau avec toutes les valeurs de la burndown chart
- */
-function fillInformation(infosource) {
-
-  // var moyenne = Math.round((infosource["TotalHeuresDescendues"][0] + infosource["TotalHeuresInterference"][0]) / infosource["TotalHeuresAttribuees"][0] * 100);
-  var moyenne = Math.round(infosource["TotalHeuresDescendues"][0] / infosource["TotalHeuresAttribuees"][0] * 100);
-
-  if (moyenne < 50) 
-    var couleurBar = "danger";
-  else if (moyenne >= 50 && moyenne < 75) 
-    var couleurBar = "warning";
-  else 
-    var couleurBar = "success";
-  
-  $("#BarDePourcentageDheureDescendue").html('<div class="progress"><div class="progress-bar bg-' + couleurBar + '" role="progressbar" style="width: ' + moyenne + '%; aria-valuenow="' + moyenne + '" aria-valuemin="0" aria-valuemax="100"></div></div>');
-
-  $("#PourcentageDescendue").text(Math.round(moyenne) + "%");
-}
-
-/**
  * Création / mettre a jours les infos de la burndownchart
  * @param {number} NumeroSprint - Int numéro du sprint en cours
  * @param {string} div - String div dans lequel mettre la burndownchart
@@ -231,8 +210,6 @@ function UpdateBurndownchart(NumeroSprint, div) {
       NumeroduSprint: NumeroSprint
     },
     success: function (Total) {
-      
-      fillInformation(Total);
 
       console.log("Liste d'infos", Total);
 
