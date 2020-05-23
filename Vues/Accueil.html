@@ -11,12 +11,12 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-3 border">
-            <div id="TotalHattribueDescendue"></div>
+        <div class="col-lg-6 border">
+            <div id="EmplacementChart"></div>
         </div>
 
-        <div class="border col-lg-9">
-            <div id="EmplacementChart"></div>
+        <div class="col-lg-6 border">
+            <div id="TotalHattribueDescendue"><p>Comming soon</p></div>
         </div>
 
       </div>
@@ -52,22 +52,181 @@
 
   $(document).ready(function () {
 
+
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Ressources", 'HeureDescenduParEmploye');
     GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Projets", 'HeureDescenduParProjet');
-    ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
-    GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
+    ChargerPieObjectif($('#numeroSprint').val());
     HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
+    Last10Sprint(parseInt($("#numeroSprint").val()))
+
 
     $('#numeroSprint').change(function () {
       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Ressources", 'HeureDescenduParEmploye');
       GetTotalHeuresAttribueDescendueProjetEmploye($('#numeroSprint').val(), "Projets", 'HeureDescenduParProjet');
-      ChargerPieObjectif($('#numeroSprint').val(), 'PieChartStatueObjectif');
-      GetTotalHeuresAttribueDescendue($('#numeroSprint').val(), 'TotalHattribueDescendue');
+      ChargerPieObjectif($('#numeroSprint').val());
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
       UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
+      Last10Sprint(parseInt($("#numeroSprint").val()))
+
     });
+
+    function ChargerPieObjectif(NumeroduSprint) {
+      $.ajax({
+        url: "Modele/Accueil.php",
+        method: "POST",
+        dataType: 'json',
+        data: {
+          action: "ObjectifStat",
+          NumeroduSprint: NumeroduSprint
+        },
+        success: function (data) {
+
+          var TousLesObjectifs = new Array
+
+          data.forEach(element => {
+            
+            var temp_array = new Array
+
+            temp_array.push(element.Statut)
+            temp_array.push(parseInt(element.Nombre))
+
+            switch (element.Statut) {
+              case "En cours":
+                temp_array.push('#E88648')
+                break;
+                case "Ok":
+                temp_array.push('#95D972')
+                break;
+                case "Annule":
+                temp_array.push('#424242')
+                break;
+                case "Non":
+                temp_array.push('#E8514E')
+                break;
+                case "Inconnue":
+                temp_array.push('#007bff')
+                break;
+            
+              default:
+                break;
+            }
+
+            TousLesObjectifs.push(temp_array)
+
+          });
+
+          Highcharts.chart('PieChartStatueObjectif', {
+            chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: "pie"
+            },
+            colors: TousLesObjectifs.map(o => o[2]),
+            title: {
+              text: "Objectifs"
+            },
+            tooltip: {
+              pointFormat: "<b>{point.percentage:.1f}%</b>"
+            },
+            plotOptions: {
+              pie: {
+                allowPointSelect: true,
+                cursor: "pointer",
+                dataLabels: {
+                  enabled: true,
+                  format: "{point.name} ({point.y})"
+                }
+              }
+            },
+            series: [
+              {
+                name: " ",
+                data: TousLesObjectifs
+              }
+            ]
+          });
+        }
+      });
+    }
+
+    function Last10Sprint(NumeroduSprint) {
+      $.ajax({
+        url: "Modele/Accueil.php",
+        method: "POST",
+        dataType: 'json',
+        data: {
+          NumeroduSprint: NumeroduSprint,
+          action: "Last10Sprint",
+        },
+        success: function (data) {
+
+          var MoyenneValideSprint = new Array();
+          var List10DernierSprint = new Array();
+          var NumeroSprintAffiche = NumeroduSprint -10
+          
+          let sum = data.reduce((previous, current) => current += previous);
+          for (let index = 0; index < 10; index++) {
+            MoyenneValideSprint.push(Math.round(sum / data.length));
+            List10DernierSprint.push(NumeroSprintAffiche+1);
+            NumeroSprintAffiche+= 1
+          }
+
+          new Highcharts.Chart({
+            chart: {
+              renderTo: "TotalHattribueDescendue"
+            },
+            title: {
+              text: "Moyenne sur les 10 derniers sprints"
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: "Heures"
+              }
+            },
+            xAxis: {
+              type: "string",
+              categories: List10DernierSprint
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                },
+                enableMouseTracking: true
+              }
+            },
+            series: [
+              {
+                name: "Moyenne",
+                data: MoyenneValideSprint,
+                color: "#c1c1c1",
+                marker: false,
+                enableMouseTracking: false,
+                dataLabels: {
+                  enabled: false
+                }
+              }, {
+                name: "Heures descendues par jour",
+                data: data,
+                zones: [
+                  {
+                    value: MoyenneValideSprint[0],
+                    color: "#ff4747"
+                  }, {
+                    color: "#00c652"
+                  }
+                ]
+              }
+            ]
+          });
+
+        }
+      });
+    }
 
   });
 

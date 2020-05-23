@@ -4,9 +4,10 @@
 
     if (isset($_POST["action"])) {
 
+      $NumeroduSprint = $_POST["NumeroduSprint"];
+
       if ($_POST["action"] == "GetTotalHeuresDescenduesParEmploye") {
 
-        $NumeroduSprint = $_POST["NumeroduSprint"];
 
         //Requete pour obtenir la liste des heures attribués / DESCendues / interferances par ressource (soit le graphe tout en bas)
         $statement = $connection->prepare(
@@ -67,6 +68,8 @@
         $array['RessourceHeureAttribuees'] = $Hattribue;
         $array['RessourceHeureInterference'] = $HInterference;
 
+        //Une chart, laquelle ?
+
         $statement = $connection->prepare(
           $sql = "SELECT 
         projet_nom,
@@ -119,53 +122,6 @@
         $array['ProjetHeuresDescendues'] = $HDescendueProjet;
         $array['ProjetHeuresAttribuees'] = $HattribueProjet;
         $array['ProjetHeuresInterferences'] = $HInterferenceProjet;
-
-        //Requete pour la charte des objectifs
-        $statement = $connection->prepare(
-          $sql = "SELECT COUNT(retrospective_objectif_pk) AS Nombre,
-                  retrospective_objectif_statut AS Statut
-                FROM retrospective_objectif O
-                WHERE retrospective_objectif_fk_sprint = $NumeroduSprint
-                GROUP BY retrospective_objectif_statut
-                ORDER BY retrospective_objectif_statut
-      "
-        );
-
-        $statement->execute();
-        $result = $statement->fetchAll();
-
-        $Total = [];
-
-        foreach ($result as $row) {
-
-          $MonTest = [];
-
-          $MonTest[] = $row['Statut'];
-          $MonTest[] = intval($row['Nombre']);
-
-          switch ($row['Statut']) {
-            case "En cours":
-              $MonTest[] = '#E88648';
-              break;
-            case "Ok":
-              $MonTest[] = '#95D972';
-              break;
-            case "Annule":
-              $MonTest[] = '#424242';
-              break;
-            case "Non":
-              $MonTest[] = '#E8514E';
-              break;
-            case "Inconnue":
-              $MonTest[] = '#007bff';
-              break;
-            default:
-              $MonTest[] = '#c1349c';
-        }
-          $Total[] = $MonTest;
-        }
-
-        $array['Objectifs'] = $Total;
 
         //Requete pour obtenir la  charte "Total heures attribuées/descendues (toutes ressources comprises)" 
         $statement = $connection->prepare(
@@ -225,9 +181,49 @@
         $result = $statement->fetch();
         $array['DateFinSprint'] = $result["sprint_dateFin"];
         $array['DateDebutSprint'] = $result["sprint_dateDebut"];
+
+        print json_encode($array);
       }
 
-      print json_encode($array);
+      if ($_POST["action"] == "ObjectifStat") {
+        $statement = $connection->prepare("SELECT COUNT(retrospective_objectif_pk) AS Nombre,
+                  retrospective_objectif_statut AS Statut
+                FROM retrospective_objectif O
+                WHERE retrospective_objectif_fk_sprint = $NumeroduSprint
+                GROUP BY retrospective_objectif_statut
+                ORDER BY retrospective_objectif_statut");
+
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        print json_encode($result);
+    }
+
+    if ($_POST["action"] == "Last10Sprint") {
+
+      $Last10 = [];
+
+      $UnDesDixSprints = $NumeroduSprint-9;
+
+      for ($i=1 ; $i<=10 ; $i++)
+      {
+        $statement = $connection->prepare("SELECT
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $UnDesDixSprints) AS TotalHeuresAttribuees,
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $UnDesDixSprints AND tache_done IS NOT NULL) AS TotalHeuresDescendues");
+
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $Last10[] = round($result["TotalHeuresDescendues"] / $result["TotalHeuresAttribuees"] * 100);
+        
+        $UnDesDixSprints += 1;
+
+      }
+
+      print json_encode($Last10);
+      
+    }
+      
     }
 
     ?> 
