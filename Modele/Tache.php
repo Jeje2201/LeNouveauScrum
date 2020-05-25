@@ -110,6 +110,7 @@
             if($row["tache_pivotal_id_Task"] != '')
             $ShowItsPivotal = '<span class="text-warning"> (Pivotal)</span>';
             else{
+              $row["tache_label"] = $row["projet_nom"] .  ' : '. $row["tache_label"];
               $row["projet_nom"] = '';
             }
 
