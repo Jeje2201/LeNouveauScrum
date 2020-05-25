@@ -1,4 +1,17 @@
    <?php
+
+function CutLongText($text){
+  if(strlen($text)== 0){
+    return ".. ?";
+  }
+  else if(strlen($text)>58){
+    return substr($text, 0, 58).'...';
+  }
+  else{
+    return $text;
+  }
+}
+
     require_once('Configs.php');
 
     if (isset($_POST["action"])) {
@@ -16,6 +29,7 @@
       <tr>
       <th width=35>Icone</th>
       <th>Nom</th>
+      <th>Description</th>
       <th>Client</th>
       <th>ID Pivotal</th>
       <th class="text-center">Actif</th>
@@ -38,6 +52,7 @@
         $output .= '
         <td class="text-center" ><img src="Assets/Image/Projets/' . $row['projet_avatar'] . '" alt="' . $row['projet_avatar'] . '" width="35px" height="35px"/></td>
         <td>' . $row["projet_nom"] . '</td>
+        <td>' . CutLongText($row["projet_description"]) . '</td>
         <td>' . $row["client_entreprise"] . '</td>
         <td>' . $row["projet_apiPivotal"] . '</td>';
             if ($row["projet_actif"] == 1)
