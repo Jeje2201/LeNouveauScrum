@@ -174,16 +174,19 @@
               renderTo: "TotalHattribueDescendue"
             },
             title: {
-              text: "Moyenne sur les 10 derniers sprints"
+              text: "Complétion % des 10 derniers sprints"
             },
             yAxis: {
               min: 0,
               title: {
-                text: "Heures"
+                text: "Complétion %"
               }
             },
             xAxis: {
               type: "string",
+              title: {
+                text: "Sprint"
+              },
               categories: List10DernierSprint
             },
             plotOptions: {
@@ -205,7 +208,7 @@
                   enabled: false
                 }
               }, {
-                name: "Heures descendues par jour",
+                name: "Complétion %",
                 data: data,
                 zones: [
                   {
