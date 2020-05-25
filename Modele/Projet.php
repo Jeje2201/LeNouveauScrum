@@ -19,6 +19,7 @@
       <th>Client</th>
       <th>ID Pivotal</th>
       <th class="text-center">Actif</th>
+      <th class="text-center">CIR</th>
       <th class="text-center">Action</th>
       </tr>
       </thead>
@@ -39,12 +40,15 @@
         <td>' . $row["projet_nom"] . '</td>
         <td>' . $row["client_entreprise"] . '</td>
         <td>' . $row["projet_apiPivotal"] . '</td>';
-            if ($row["projet_actif"] == 2)
+            if ($row["projet_actif"] == 1)
               $output .= '<td class="bg-success text-center text-white">En cours</td>';
-            else if ($row["projet_actif"] == 1)
-              $output .= '<td class="bg-warning text-center text-white">CIR</td>';
             else
               $output .= '<td class="bg-danger text-center text-white">Terminé</td>';
+
+            if ($row["projet_cir"] == 1)
+              $output .= '<td class="text-center text-white">✔️</td>';
+            else
+              $output .= '<td class="text-center text-white">❌</td>';
             $output .= '<td>
             <div class="btn-group d-flex" role="group" >
               <button  id="' . $row["projet_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -82,8 +86,8 @@
             $_POST["ApiPivotal"] = null;
 
           $statement = $connection->prepare("
-          INSERT INTO projet (projet_nom, projet_description, projet_actif, projet_fk_client, projet_apiPivotal) 
-          VALUES (:nom, :description, :actif, :client, :ApiPivotal)
+          INSERT INTO projet (projet_nom, projet_description, projet_actif, projet_cir, projet_fk_client, projet_apiPivotal) 
+          VALUES (:nom, :description, :actif, :cir, :client, :ApiPivotal)
           ");
 
           $result = $statement->execute(
@@ -91,6 +95,7 @@
               ':nom' => $_POST["Nom"],
               ':description' => $_POST["PDescription"],
               ':actif' => $_POST["Actif"],
+              ':cir' => $_POST["CIR"],
               ':client' => $_POST["Client"],
               ':ApiPivotal' => $_POST["ApiPivotal"]
             )
@@ -124,6 +129,7 @@
           SET projet_nom = :nom,
           projet_fk_client = :client,
           projet_actif = :actif,
+          projet_cir = :cir,
           projet_apiPivotal = :ApiPivotal,
           projet_description = :PDescription
           WHERE projet_pk = :id
@@ -134,6 +140,7 @@
             ':nom' => $_POST["Nom"],
             ':ApiPivotal' => $_POST["ApiPivotal"],
             ':actif' => $_POST["Actif"],
+            ':cir' => $_POST["CIR"],
             ':client' => $_POST["Client"],
             ':PDescription' => $_POST["PDescription"],
             ':id' => $_POST["id"]

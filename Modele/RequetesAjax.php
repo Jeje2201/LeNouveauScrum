@@ -39,7 +39,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_actif = 2
+          where projet_actif = 1
           ORDER BY projet_nom asc");
 
           $statement->execute();
@@ -64,7 +64,7 @@
 
         $statement = $connection->prepare("SELECT *
         FROM projet
-        WHERE projet_actif > 0
+        WHERE projet_cir = 1
         ORDER BY projet_nom asc");
 
         $statement->execute();
@@ -90,7 +90,7 @@
 
           $statement = $connection->prepare("SELECT *
           FROM projet
-          where projet_actif = 2
+          where projet_actif = 1
           ORDER BY projet_nom asc");
 
           $statement->execute();

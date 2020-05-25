@@ -56,10 +56,13 @@
           <textarea class="form-control" placeholder="Projet qui permet de.." id="DescriptionProjet" rows="2"></textarea>
         </div>
 
-        <div><label class="mb-2">Etat</label></div>
-        <label class="radio-inline"><input type="radio" name="EtatProjet" value="2"> Actif</label>
-        <label class="radio-inline"><input type="radio" name="EtatProjet" value="1"> CIR</label>
+        <div><label class="mb-2"><u>Etat du projet</u></label></div>
+        <label class="radio-inline mr-3"><input type="radio" name="EtatProjet" value="1" checked> Actif</label>
         <label class="radio-inline"><input type="radio" name="EtatProjet" value="0">  Innactif</label>
+
+        <div><label class="mb-2"><u>Fait partie du CIR</u></label></div>
+        <label class="radio-inline mr-3"><input type="radio" name="CIR_Projet" value="0" checked>  Non</label>
+        <label class="radio-inline"><input type="radio" name="CIR_Projet" value="1"> Oui</label>
 
       </div>
       <div class="modal-footer">
@@ -143,7 +146,8 @@
       $('#ListeClient').select2({ width: "100%" });
 
       $('#action').val('Ajouter');
-      $("input[name=EtatProjet][value='2']").prop("checked",true);
+      $("input[name=EtatProjet][value='1']").prop("checked",true);
+      $("input[name=CIR_Projet][value='0']").prop("checked",true);
     });
 
     $('#action').click(function () {
@@ -157,6 +161,7 @@
             Nom: $('#Nom').val(),
             ApiPivotal: $('#ApiPivotal').val(),
             Actif: $("input[name='EtatProjet']:checked").val(),
+            CIR: $("input[name='CIR_Projet']:checked").val(),
             Client: $('#ListeClient').val(),
             PDescription: $('#DescriptionProjet').val(),
             action: $('#action').val()
@@ -192,6 +197,7 @@
           $('#ModaleProjet').modal('show');
           $('#action').val("Update");
           $("input[name=EtatProjet][value='"+data.projet_actif+"']").prop("checked",true);
+          $("input[name=CIR_Projet][value='"+data.projet_cir+"']").prop("checked",true);
           $('#id').val(id);
           $('#ApiPivotal').val(data.projet_apiPivotal);
           $('#Nom').val(data.projet_nom);
