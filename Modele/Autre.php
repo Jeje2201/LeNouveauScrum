@@ -18,7 +18,7 @@
       }
 
       if ($_POST["action"] == "getEnvStatue") {
-        print json_encode($Env_Statue);
+        print json_encode($Env_Prod);
       }
     }
     ?> 

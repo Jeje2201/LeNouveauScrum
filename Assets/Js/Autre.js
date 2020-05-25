@@ -9,7 +9,7 @@ $.ajax({
     action: "getEnvStatue"
   },
   success: function (data) {
-    if(data[0] == "Dev"){
+    if(data != 1){
       document.title = "Dev Mode";
       document.getElementById('iconAppli').href = "/Assets/Image/Autre/icon_dev.png";
     }
