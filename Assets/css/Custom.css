@@ -165,7 +165,7 @@
   cursor: not-allowed;
 }
 
-.TacheFini .DivContentTache  {
+.TacheFini div{
   text-decoration: line-through;
 }
 
