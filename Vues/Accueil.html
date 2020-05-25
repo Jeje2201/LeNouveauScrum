@@ -165,7 +165,7 @@
           let sum = data.reduce((previous, current) => current += previous);
           for (let index = 0; index < 10; index++) {
             MoyenneValideSprint.push(Math.round(sum / data.length));
-            List10DernierSprint.push(NumeroSprintAffiche+1);
+            List10DernierSprint.push('Sprint '+ (NumeroSprintAffiche+1));
             NumeroSprintAffiche+= 1
           }
 
@@ -184,9 +184,6 @@
             },
             xAxis: {
               type: "string",
-              title: {
-                text: "Sprint"
-              },
               categories: List10DernierSprint
             },
             plotOptions: {
