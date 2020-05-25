@@ -1,15 +1,40 @@
-//Enlever actif a toutes les class
+/**
+ * Check si en dev mod par le parametre dans le fichier de config
+ */
+$.ajax({
+  url: "Modele/Autre.php",
+  method: "POST",
+  dataType: 'json',
+  data: {
+    action: "getEnvStatue"
+  },
+  success: function (data) {
+    if(data[0] == "Dev"){
+      document.title = "Dev Mode";
+      document.getElementById('iconAppli').href = "/Assets/Image/Autre/icon_dev.png";
+    }
+  }
+})
+
+/**
+ * Enlever actif a toutes les class
+ */
 $("#navbarResponsive li").each(function () {
   $(this).removeClass("active");
 });
 
-//Check si en dev mod par le :.../index
-if(location.href.match(/:[0-9]{2,4}/g) != null){
-  document.title = "Dev Mode";
-  document.getElementById('iconAppli').href = "/Assets/Image/Autre/icon_dev.png";
-}
+/**
+ * Cherche sur quelle page il est puis cherche la nav qui a la page d'affichée et lui donner la class active et ouvrir l'acordéon le plus proche
+ */
+  var LaPage = 'Accueil'
+  if(window.location.href.split('=')[1] != undefined){
+    LaPage = window.location.href.split('=')[1]
+  }
+$('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
 
-//Fait apparaitre un scroll top si user trop scroll down
+/**
+ * Fait apparaitre un scroll top si user trop scroll down
+ */
 $(window).scroll(function () {
   if ($(this).scrollTop() >= 50) {        
     $('#return-to-top').fadeIn(200);    
@@ -23,20 +48,18 @@ $('#return-to-top').click(function () {
   }, 500);
 });
 
-//Cherche sur quelle page il est puis cherche la nav qui a la page d'affichéE et lui donner la class active et ouvrir l'acordéon le plus proche
-  var LaPage = 'Accueil'
-  if(window.location.href.split('=')[1] != undefined){
-    LaPage = window.location.href.split('=')[1]
-  }
-$('nav a[href="index.php?vue=' + LaPage + '"]').closest("li").addClass("active").closest("ul").addClass("show");
-
-//Si user n'est pas admin, alors enlever tout ce qui est pour les admins
+/**
+ * Si user n'est pas admin, alors enlever tout ce qui est pour les admins
+ */
 if(isAdmin() != 1){
   $(".AdminOnly").each(function () {
     $(this).remove()
   });
 }
-//Check si a une notification importante est a afficher, si oui, l'afficher
+
+/**
+ * Check si a une notification importante est a afficher, si oui, l'afficher
+ */
 $.ajax({
   url: "Modele/Autre.php",
   method: "POST",
@@ -136,7 +159,6 @@ function isAdmin(){
 }
 
 /**
- * 
  * @param {string} idTable ID Table qu'on va check
  * @param {string} Text Texte a afficher si aucune résultat n'arrive
  */

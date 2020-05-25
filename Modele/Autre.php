@@ -16,5 +16,9 @@
       if ($_POST["action"] == "getApiPivotalKey") {
         print $PivotalKey;
       }
+
+      if ($_POST["action"] == "getEnvStatue") {
+        print json_encode($Env_Statue);
+      }
     }
     ?> 

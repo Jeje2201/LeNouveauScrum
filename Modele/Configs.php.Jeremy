@@ -17,6 +17,10 @@
         //Deuxieme parametre est le type de message pour appliquer un style, possible : primary | secondary | success | danger | warning | info | light | dark
     $Urgent_Notification = ["",""];
 
+    //Environnement : Prod | Dev
+        //Permet de changer l'icone et le titre dans la navbar pour mieux savoir sur quelle version tu es
+    $Env_Statue = ["Dev"];
+
     //Permet d'accéder aux tâches pour la planification et de validé auto les taches sur pivotal tracker si la clé est renseignée
     $PivotalKey = "";
 ?>
