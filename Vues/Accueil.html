@@ -158,15 +158,15 @@
         },
         success: function (data) {
 
+          ListSprint = data.Sprint_Numero
+          ListeCompletion = data.Taux_Completion
+
           var MoyenneValideSprint = new Array();
           var List10DernierSprint = new Array();
-          var NumeroSprintAffiche = NumeroduSprint -10
           
-          let sum = data.reduce((previous, current) => current += previous);
+          let sum = ListeCompletion.reduce((previous, current) => current += previous);
           for (let index = 0; index < 10; index++) {
-            MoyenneValideSprint.push(Math.round(sum / data.length));
-            List10DernierSprint.push('Sprint '+ (NumeroSprintAffiche+1));
-            NumeroSprintAffiche+= 1
+            MoyenneValideSprint.push(Math.round(sum / ListeCompletion.length));
           }
 
           new Highcharts.Chart({
@@ -184,7 +184,7 @@
             },
             xAxis: {
               type: "string",
-              categories: List10DernierSprint
+              categories: ListSprint
             },
             plotOptions: {
               line: {
@@ -206,7 +206,7 @@
                 }
               }, {
                 name: "Complétion %",
-                data: data,
+                data: ListeCompletion,
                 zones: [
                   {
                     value: MoyenneValideSprint[0],

@@ -50,11 +50,6 @@
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $employe = [];
-        $HDescendue = [];
-        $Hattribue = [];
-        $HInterference = [];
-
         foreach ($result as $row) {
 
           $employe[] = $row['user_prenom'] . ' (' . $row['user_initial'] . ')';
@@ -105,11 +100,6 @@
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $projet = [];
-        $HDescendueProjet = [];
-        $HattribueProjet = [];
-        $HInterferenceProjet = [];
-
         foreach ($result as $row) {
 
           $projet[] = $row['projet_nom'];
@@ -156,10 +146,7 @@
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $Descendues = [];
-        $Date = [];
         $BurndownchartHeures = $array['TotalHeuresAttribuees'][0];
-        $BurndownchartHeuresTable = [];
 
         foreach ($result as $row) {
           $BurndownchartHeures -= intval($row['heures']);
@@ -201,26 +188,31 @@
 
     if ($_POST["action"] == "Last10Sprint") {
 
-      $Last10 = [];
+      $statement = $connection->prepare("SELECT sprint_numero FROM sprint ORDER BY sprint.sprint_pk DESC limit 10");
+      $statement->execute();
+      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-      $UnDesDixSprints = $NumeroduSprint-9;
+      foreach ($result as $row) {
+        $ListSprint[] = $row['sprint_numero'];
+      }
 
-      for ($i=1 ; $i<=10 ; $i++)
+      $return['Sprint_Numero'] = array_reverse($ListSprint);
+
+      for ($i=0 ; $i<10 ; $i++)
       {
         $statement = $connection->prepare("SELECT
-        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $UnDesDixSprints) AS TotalHeuresAttribuees,
-        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = $UnDesDixSprints AND tache_done IS NOT NULL) AS TotalHeuresDescendues");
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = (SELECT sprint_pk FROM `sprint` ORDER BY `sprint`.`sprint_pk` DESC limit 1 OFFSET $i)) AS TotalHeuresAttribuees,
+        (select sum(tache_heure) FROM tache WHERE tache_fk_sprint = (SELECT sprint_pk FROM `sprint` ORDER BY `sprint`.`sprint_pk` DESC limit 1 OFFSET $i) AND tache_done IS NOT NULL) AS TotalHeuresDescendues");
 
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         $Last10[] = round($result["TotalHeuresDescendues"] / $result["TotalHeuresAttribuees"] * 100);
-        
-        $UnDesDixSprints += 1;
-
       }
 
-      print json_encode($Last10);
+      $return['Taux_Completion'] = array_reverse($Last10);
+
+      print json_encode($return);
       
     }
       
