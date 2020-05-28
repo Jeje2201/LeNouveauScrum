@@ -1,5 +1,25 @@
 [
     {
+        "Date": "28 mai, 2020",
+        "Titre": "Si tu veux blame une personne pour cette maj si rapide -> Noémie :))",
+        "Fix": null,
+        "Modif": [
+            "Supprimer une tâche se fait dans le bouton qui permet d'éditer cette dernière, gain d'espace pour un bouton qui devrait être rarement utilisé",
+            "L'application prévient que l'utilisateur est en mode dev si il l'a renseigné dans la config et non plus auto en regardant l'url",
+            "Simplification de la génération de quelques charts qui s'affichent sur la page d’accueil",
+            "Le CIR n'est plus dépendant de l'état d'un projet, il a sa propre colonne",
+            "Les input datetime sont générés automatiquement si la data-type est renseigné, l'automatisation c'est cool"
+        ],
+        "Suppression": null,
+        "Ajout": [
+            "Sur la page d’accueil, on peut découvrir l'état des 10 derniers sprints basés sur celui sélectionné ! @Makki",
+            "Lorsqu'une tâches est validée, le nombre indiquant son estimation d'heure est aussi barré",
+            "Il est possible pour les Scrum Masters d'obtenir toutes les fiches de temps pour une ressource sur une échelle de temps définie @Noémie",
+            "Sur la page de gestion des projets, la description s'affiche maintenant. Si trop longue elle est coupée et rajout de \"...\" à la fin, si vide alors affiche \"..?\"",
+            "La colonne CIR pour les projets fait son apparition"
+        ]
+    },
+    {
         "Date": "13 mai, 2020",
         "Titre": "Ça bosse même en télétravail",
         "Fix": null,
