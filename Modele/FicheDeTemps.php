@@ -118,6 +118,7 @@ function MinutesEnHeures($Minutes)
         print json_encode($result);
       }
 
+      //TODO supprimer cette parti là car déjà faite en dessous en full json
       //List des heures par date de rempli
       if ($_POST["action"] == "ListTotalSurDate") {
         $output = array();
@@ -163,6 +164,31 @@ function MinutesEnHeures($Minutes)
         }
         $output .= '</tbody></table>';
         print $output;
+      }
+
+      //List des heures par date de rempli
+      if ($_POST["action"] == "ListTotalSurDateSelonUser") {
+        try{
+          $output = array();
+          $statement = $connection->prepare(
+          "SELECT
+            projet_nom,
+            sum(fiche_de_temps_time)/444 as Temps
+          FROM fiche_de_temps
+          inner JOIN projet on projet_pk = fiche_de_temps_fk_projet
+          WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'  
+          and fiche_de_temps_done <= '" . $_POST["End"] ."' 
+          and fiche_de_temps_fk_user = " . $_POST["User"] . "
+          GROUP BY fiche_de_temps_fk_projet
+          ORDER BY Temps desc");
+          
+          $statement->execute();
+          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+          print json_encode($result);
+        }
+        catch (PDOException $e) {
+          header($_SERVER["SERVER_PROTOCOL"] . ' 400 ' . utf8_decode($e->getMessage()));
+        }
       }
 
       //List des heures par sprint de rempli

@@ -14,12 +14,12 @@
             <div class="col">
               <label>Début</label>
 
-              <input type="text" class="form-control" id="Start">
+              <input type="text" data-type="datetimepicker" class="form-control" id="Start">
             </div>
 
             <div class="col">
               <label>Fin</label>
-              <input type="text" class="form-control" id="Finish">
+              <input type="text" data-type="datetimepicker" class="form-control" id="Finish">
             </div>
           </div>
           <div class="row">
@@ -33,23 +33,57 @@
 
       </div>
 
+        <h3 class="mt-4">Temps passé par une ressource selon les fiches de temps</h3>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <label>User</label>
+            <select class="form-control" id="ListeRessource">
+            </select>
+            </div>
+          <div class="col-lg-4">
+            <label>Début</label>
+
+            <input type="text" data-type="datetimepicker" class="form-control" id="StartSelonRessource">
+          </div>
+
+          <div class="col-lg-4">
+            <label>Fin</label>
+            <input type="text" data-type="datetimepicker" class="form-control" id="FinishSelonRessource">
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-lg-12">
+            <table class="table table-sm table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Projet</th>
+                  <th>Jours travaillé (un jour = 7h24)</th>
+                </tr>
+              </thead>
+              <tbody id="FicheDeTempsSelonRessource">
+                
+              </tbody>
+            </table>
+          </div> 
+      </div>
+
     </div>
 
     <script>
       $(document).ready(function () {
 
-        $('#Start, #Finish').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
-
-        // RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-        // RequeteAjax('ListEmploye', 'ListeDeroulanteEmploye', 'Modele/RequetesAjax.php');
         RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
+        FillEmptySelect('ListeRessource','GetUsers','Modele/User.php','LaListeDesUsers')
         BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
         $("#projetId").select2({width: "100%"});
 
         $('#Start').val(CustomYourDate(ChoixDate(-7),'dd/mm/yyyy'));
-        $('#Finish').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+        $('#Finish, #StartSelonRessource, #FinishSelonRessource').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
 
         ChargerTableauListeFdT()
+        ChargerTableauSelonRessource()
 
         function ChargerTableauListeFdT() {
           $.ajax({
@@ -68,11 +102,70 @@
           });
         }
 
+        function ChargerTableauSelonRessource(){
+          $.ajax({
+            url: "Modele/FicheDeTemps.php",
+            method: "POST",
+            dataType: "json",
+            data: {
+              action: "ListTotalSurDateSelonUser",
+              User: $('#ListeRessource').val(),
+              Start: CustomYourDate($('#StartSelonRessource').val()),
+              End: CustomYourDate($('#FinishSelonRessource').val())
+            },
+            success: function (data) {
+
+              $('#FicheDeTempsSelonRessource').html('')
+
+              $.each(data, function () {
+                $('#FicheDeTempsSelonRessource').prepend(`<tr>
+                    <td>`+this.projet_nom+`</td>
+                    <td>`+FredCestPasCool(this.Temps)+`</td>
+                  </tr>`);
+              })
+
+              IfNoRows('FicheDeTempsSelonRessource','Aucune fiche de temps trouvée..')
+
+            }
+    });
+        }
+
           $('#ListProjet, #Start, #Finish').change(function () {
             if ($('#projetId').val() != '' && $('#Start').val() != '' && $('#Finish').val()) {
               ChargerTableauListeFdT()
             }
           });
+
+          $('#ListeRessource, #StartSelonRessource, #FinishSelonRessource').change(function () {
+            ChargerTableauSelonRessource()
+          });
+
+          function FredCestPasCool(nombre){
+            //on coupe notre nombre en deux en se basant sur le point, donc 17.21 va devenir 17 d'un coté et 21 de l'autre
+            separation = (nombre + "").split(".");
+
+            //Si en coupant sur le point il trouve des nombre derriere, c'est qu'on a une décimal donc on va jouer avec
+            if(separation[1]){
+
+              //La décimal peut etre du genre 4568494984 donc on la coupe avec seulement les deux premier soit 45
+              separation[1] = separation[1].substring(0,2);
+
+              //ensuite on regarde la décimal pour savoir quoi faire
+
+              //Si notre décimal est sup a 50 alors on ajout 1 a notre nombre sans les décimal donc 17.52 -> 18
+              if(separation[1] > 50){
+                nombre = parseInt(separation[0])+1
+              }
+              
+              //Sinon si notre nombre est < 50 mais > 00 alors on prend le nombre entier, et on lui dit que sa décimal vaut 50
+              else if(separation[1] < 50 && separation[1] > 0){
+                nombre = Math.trunc(nombre)+0.5
+              }
+            }
+
+            //Sinon si notre nombre tombe exactement sur 0.5 ou 00 on ne fait rien car on ne rentre dans aucune des deux cas vu audessus
+            return nombre
+          }
 
         })
     </script>
