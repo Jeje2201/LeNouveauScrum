@@ -47,7 +47,6 @@
 
   $(document).ready(function () {
 
-
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
     UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
     GetTotalHeuresAttribueDescendueProjetEmploye(parseInt($('#numeroSprint').val()), "Ressources", 'HeureDescenduParEmploye');
@@ -63,8 +62,6 @@
       ChargerPieObjectif($('#numeroSprint').val());
       HeuresDescenduesParJours($('#numeroSprint').val(), 'HeureDescenduesParJours')
       UpdateBurndownchart(parseInt($("#numeroSprint").val()), 'EmplacementChart');
-      Last10Sprint(parseInt($("#numeroSprint").val()))
-
     });
 
     function ChargerPieObjectif(NumeroduSprint) {

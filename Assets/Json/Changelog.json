@@ -12,7 +12,7 @@
         ],
         "Suppression": null,
         "Ajout": [
-            "Sur la page d’accueil, on peut découvrir l'état des 10 derniers sprints basés sur celui sélectionné ! @Makki",
+            "Sur la page d’accueil, on peut découvrir l'état des 10 derniers sprints ! @Makki",
             "Lorsqu'une tâches est validée, le nombre indiquant son estimation d'heure est aussi barré",
             "Il est possible pour les Scrum Masters d'obtenir toutes les fiches de temps pour une ressource sur une échelle de temps définie @Noémie",
             "Sur la page de gestion des projets, la description s'affiche maintenant. Si trop longue elle est coupée et rajout de \"...\" à la fin, si vide alors affiche \"..?\"",
