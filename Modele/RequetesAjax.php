@@ -58,13 +58,13 @@
 
           break;
 
-          /////////////////////////////////////
+          ///////////////////////////////////// TODO supprimer cette partie car en haut fait parreil maix fix le probleme de l'id du coup
 
         case 'ListeDeroulanteProjetAvecCir':
 
         $statement = $connection->prepare("SELECT *
         FROM projet
-        WHERE projet_cir = 1
+        WHERE projet_actif = 1
         ORDER BY projet_nom asc");
 
         $statement->execute();
