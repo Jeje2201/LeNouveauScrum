@@ -22,7 +22,14 @@ function RequeteAjax(DivId, action, path, id) {
   });
 }
 
-function FillEmptySelect(returnDiv, parametrePHP, pathPHP, parametreJS) {
+/**
+ * Fonction qui permet de créer des select2 depuis le json qui est renvoyé par les requetes SQL
+ * @param {string} selectID ID du Select dans lequel est retournée la liste en mode select2
+ * @param {string} parametrePHP Action PHP qui va etre appelé pour savoir quelle requete sql executer
+ * @param {string} pathPHP Path où se trouve le fichier php qui a la requete  
+ * @param {string} parametreJS Choisir quoi faire dans le switch une fois qu'on a toutes les données
+ */
+function FillEmptySelect(selectID, parametrePHP, pathPHP, parametreJS) {
   $.ajax({
     url: pathPHP,
     method: "POST",
@@ -37,13 +44,13 @@ function FillEmptySelect(returnDiv, parametrePHP, pathPHP, parametreJS) {
 
         case 'LaListeDesClients':
           for (const client of data) {
-            $('#' + returnDiv).append(`<option value="` + client.client_pk + `">` + client.client_entreprise + ` - ` + client.client_prenom + ` ` + client.client_nom + ` </option>`);
+            $('#' + selectID).append(`<option value="` + client.client_pk + `">` + client.client_entreprise + ` - ` + client.client_prenom + ` ` + client.client_nom + ` </option>`);
           }
           break;
 
         case 'LaListeDesUsers':
           for (const user of data) {
-            $('#' + returnDiv).append(`<option value="` + user.user_pk + `">` + user.user_prenom + ` ` + user.user_nom + ` </option>`);
+            $('#' + selectID).append(`<option value="` + user.user_pk + `">` + user.user_prenom + ` ` + user.user_nom + ` </option>`);
           }
           break;
 
@@ -52,7 +59,7 @@ function FillEmptySelect(returnDiv, parametrePHP, pathPHP, parametreJS) {
 
       }
 
-      $("#" + returnDiv).select2({ width: "100%" });
+      $("#" + selectID).select2({ width: "100%" });
     },
     error: function (xhr, status, erreur) {
       $.notify(erreur, "error");
