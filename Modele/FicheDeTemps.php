@@ -305,8 +305,6 @@ function MinutesEnHeures($Minutes)
         $LesDates = $_POST["Done"];
         $Time = $_POST["Time"];
         $DatesOk = true;
-        $JsonResult = [];
-        $Liste = [];
         $ListeText = "";
 
         //pour chaque date
@@ -420,8 +418,6 @@ function MinutesEnHeures($Minutes)
       //Liste pour généré la chart des nb de feuilles de temps non remplies par ressource dans gestion
       if ($_POST["action"] == "RetardEnGeneral") {
 
-        $Liste = [];
-
         //Liste les users qui devraient remplir la feuille de temps
         $statement = $connection->prepare(
             "SELECT user_pk, user_registerDate, CONCAT(user_prenom,' ', user_initial) AS user_nom
@@ -435,7 +431,6 @@ function MinutesEnHeures($Minutes)
         $result = $statement->fetchAll();
 
         foreach ($result as $row) {
-          $NouvelleEntree = [];
 
           $statement = $connection->prepare(
             "SELECT fiche_de_temps_done

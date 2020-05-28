@@ -155,11 +155,7 @@
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $resultat = [];
-
         foreach ($result as $row) {
-
-          $MonTest = [];
 
           if (file_exists("../Assets/Image/Ressources/avatar_user_" . $row["user_pk"] .".png")) {
             $MonTest['Avatar'] = "avatar_user_" . $row["user_pk"] .".png";
@@ -226,11 +222,7 @@
         $statement->execute();
         $result = $statement->fetchAll();
 
-        $resultat = [];
-
         foreach ($result as $row) {
-
-          $MonTest = [];
 
           $MonTest['technologieId'] = 'technologie_'.$row['projet_technologie_pk'];
           $MonTest['technologie'] = $row['projet_technologie_technologie'];
@@ -288,11 +280,7 @@
       $statement->execute();
       $result = $statement->fetchAll();
 
-      $resultat = [];
-
       foreach ($result as $row) {
-
-        $MonTest = [];
 
         $MonTest['id_echange'] = $row['projet_echange_pk'];
         $MonTest['resume_echange'] = $row['projet_echange_label'];
@@ -314,8 +302,6 @@
       );
       $statement->execute();
       $result = $statement->fetch();
-
-      $resultat = [];
 
       $resultat['id_echange'] = $result['projet_echange_pk'];
       $resultat['resume_echange'] = $result['projet_echange_label'];
