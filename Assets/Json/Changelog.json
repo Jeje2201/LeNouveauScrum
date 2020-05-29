@@ -1,6 +1,17 @@
 [
     {
-        "Date": "28 mai, 2020",
+        "Date": "29 Mai, 2020",
+        "Titre": "Un petit soucie avec la dernière mise à jour ? :(",
+        "Fix": [
+            "Les fiches de temps se remplissaient mais rien ne s'affichait @Angélique",
+            "La liste des projets n'était pas complète @Aurélie"
+        ],
+        "Modif": null,
+        "Suppression": null,
+        "Ajout": null
+    },
+    {
+        "Date": "28 Mai, 2020",
         "Titre": "Si tu veux blame une personne pour cette maj si rapide -> Noémie :))",
         "Fix": null,
         "Modif": [
@@ -20,7 +31,7 @@
         ]
     },
     {
-        "Date": "13 mai, 2020",
+        "Date": "13 Mai, 2020",
         "Titre": "Ça bosse même en télétravail",
         "Fix": null,
         "Modif": [
