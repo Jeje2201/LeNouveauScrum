@@ -306,6 +306,7 @@ function MinutesEnHeures($Minutes)
         $Time = $_POST["Time"];
         $DatesOk = true;
         $ListeText = "";
+        $Liste = [];
 
         //pour chaque date
         for ($i = 0; $i < sizeof($LesDates); $i++) {
