@@ -59,7 +59,8 @@
               <thead>
                 <tr>
                   <th>Projet</th>
-                  <th>Jours travaillé (un jour = 7h24)</th>
+                  <th>Jour(s) travaillé(s) (un jour = 7h24)</th>
+                  <th>Jour(s) travaillé(s) (sans arrondie au 0.5)</th>
                 </tr>
               </thead>
               <tbody id="FicheDeTempsSelonRessource">
@@ -117,10 +118,14 @@
 
               $('#FicheDeTempsSelonRessource').html('')
 
+              
+
               $.each(data, function () {
+
                 $('#FicheDeTempsSelonRessource').prepend(`<tr>
                     <td>`+this.projet_nom+`</td>
                     <td>`+FredCestPasCool(this.Temps)+`</td>
+                    <td>`+Math.trunc(this.Temps * 100)/100  +`</td>
                   </tr>`);
               })
 
