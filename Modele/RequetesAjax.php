@@ -196,6 +196,7 @@
           $statement = $connection->prepare("SELECT *
         FROM user
         WHERE user_actif = 1
+        and user_doesPlanification = 1
         ORDER BY user_prenom asc");
 
           $statement->execute();
