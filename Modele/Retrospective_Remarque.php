@@ -53,12 +53,13 @@ if (isset($_POST["action"])) {
       $_POST["remarque_DateFini"] = null;
 
     $statement = $connection->prepare("
-   INSERT INTO retrospective_remarque (retrospective_remarque_label, retrospective_remarque_dateCreation, retrospective_remarque_dateFini) 
-   VALUES (:Label, :DateCreation, :DateFin)
+   INSERT INTO retrospective_remarque (retrospective_remarque_label, retrospective_remarque_user, retrospective_remarque_dateCreation, retrospective_remarque_dateFini) 
+   VALUES (:Label, :User, :DateCreation, :DateFin)
    ");
     $result = $statement->execute(
       array(
         ':Label' => $_POST["Labelretrospective"],
+        ':User' => $_POST["Userretrospective"],
         ':DateCreation' => $_POST["remarque_DateDebut"],
         ':DateFin' => $_POST["remarque_DateFini"]
       )
@@ -76,12 +77,16 @@ if (isset($_POST["action"])) {
       
     $statement = $connection->prepare(
       "UPDATE retrospective_remarque
-      SET retrospective_remarque_label = :remarque_label, retrospective_remarque_dateCreation = :remarque_DateDebut, retrospective_remarque_dateFini = :remarque_DateFin
+      SET retrospective_remarque_label = :remarque_label,
+      retrospective_remarque_user = :remarque_user,
+      retrospective_remarque_dateCreation = :remarque_DateDebut,
+      retrospective_remarque_dateFini = :remarque_DateFin
       WHERE retrospective_remarque_pk = :remarque_id"
     );
     $result = $statement->execute(
       array(
         ':remarque_label' => $_POST["remarque_label"],
+        ':remarque_user' => $_POST["remarque_user"],
         ':remarque_DateDebut' => $_POST["remarque_DateDebut"],
         ':remarque_DateFin' => $_POST["remarque_DateFin"],
         ':remarque_id' => $_POST["remarque_id"]
