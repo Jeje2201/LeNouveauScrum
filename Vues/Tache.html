@@ -11,7 +11,7 @@
 
         <div class="col">
           <span>Date</span>
-        <input type="text" id="DoneDate" class="form-control"/>
+        <input type="date" id="DoneDate" class="form-control"/>
       </div>
 
       </div>
@@ -58,15 +58,6 @@
   
   <script>
     $(document).ready(function () {
-
-      $('#DoneDate').datetimepicker({
-        format: 'dd/mm/yyyy',
-        autoclose: true,
-        minView: 2,
-        weekStart: 1
-      });
-
-      $('#DoneDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'))
 
       RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
@@ -173,8 +164,7 @@
               },
               success: function (data) {
 
-                dateDescente = CustomYourDate($('#DoneDate').val())
-
+                  var dateDescente = $('#DoneDate').val()
                   var TextDeLaTache = that.parent().parent().find('#LabelDeLaTache').text()
                   var Project_id_Pivotal = that.parent().parent().find('#ProjectId_Pivotal').text()
                   var Story_id_Pivotal = that.parent().parent().find('#StoryId_Pivotal').text()

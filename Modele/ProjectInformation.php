@@ -305,7 +305,7 @@
 
       $resultat['id_echange'] = $result['projet_echange_pk'];
       $resultat['resume_echange'] = $result['projet_echange_label'];
-      $resultat['date_echange'] = date("d-m-Y", strtotime($result['projet_echange_date']));
+      $resultat['date_echange'] = $result['projet_echange_date'];
       $resultat['type_echange'] = $result['projet_echange_type'];
 
       print json_encode($resultat);

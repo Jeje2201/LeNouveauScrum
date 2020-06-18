@@ -41,14 +41,14 @@
           <div class="input-group-prepend">
             <span class="input-group-text">Début</span>
           </div>
-          <input type="text" id='DateDebut' class="form-control" />
+          <input type="date" id='DateDebut' class="form-control" />
         </div>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Fin</span>
           </div>
-          <input type="text" id='DateFin' class="form-control" />
+          <input type="date" id='DateFin' class="form-control" />
         </div>
 
       </div>
@@ -64,13 +64,6 @@
 
 <script>
   $(document).ready(function () {
-
-    $('#DateDebut, #DateFin').datetimepicker({
-    format: 'dd/mm/yyyy',
-    autoclose: true,
-    minView: 2,
-    weekStart: 1
-  });
 
     getRemarques()
     BarreDeRecherche('BarreDeRecherche', 'TableauRemarques');
@@ -122,8 +115,8 @@
           $('#ModalRemarque').modal('show');
           $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#labelRemarque').val(data.retrospective_remarque_label);
-          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation,'dd/mm/yyyy'));
-          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini),'dd/mm/yyyy');
+          $('#DateDebut').val(data.retrospective_remarque_dateCreation);
+          $('#DateFin').val(data.retrospective_remarque_dateFini);
         }
       });
 
@@ -135,8 +128,8 @@
         method: "POST",
         data: {
           remarque_id: $('#remarque_id').val(),
-          remarque_DateDebut: CustomYourDate($('#DateDebut').val()),
-          remarque_DateFin: CustomYourDate($('#DateFin').val()),
+          remarque_DateDebut: $('#DateDebut').val(),
+          remarque_DateFin: $('#DateFin').val(),
           remarque_label: $('#labelRemarque').val(),
           action: 'putRemarque'
         },

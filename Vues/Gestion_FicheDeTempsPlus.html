@@ -14,12 +14,12 @@
             <div class="col">
               <label>Début</label>
 
-              <input type="text" data-type="datetimepicker" class="form-control" id="Start">
+              <input type="date" class="form-control" id="Start">
             </div>
 
             <div class="col">
               <label>Fin</label>
-              <input type="text" data-type="datetimepicker" class="form-control" id="Finish">
+              <input type="date" class="form-control" id="Finish">
             </div>
           </div>
           <div class="row">
@@ -44,12 +44,12 @@
           <div class="col-lg-4">
             <label>Début</label>
 
-            <input type="text" data-type="datetimepicker" class="form-control" id="StartSelonRessource">
+            <input type="date" class="form-control" id="StartSelonRessource">
           </div>
 
           <div class="col-lg-4">
             <label>Fin</label>
-            <input type="text" data-type="datetimepicker" class="form-control" id="FinishSelonRessource">
+            <input type="date" class="form-control" id="FinishSelonRessource">
           </div>
         </div>
 
@@ -80,8 +80,7 @@
         BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
         $("#projetId").select2({width: "100%"});
 
-        $('#Start').val(CustomYourDate(ChoixDate(-7),'dd/mm/yyyy'));
-        $('#Finish, #StartSelonRessource, #FinishSelonRessource').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+        document.getElementById("Start").stepDown(7)
 
         ChargerTableauListeFdT()
         ChargerTableauSelonRessource()
@@ -93,8 +92,8 @@
             data: {
               action: "ListeSelonProjetDateRessource",
               ProjetId: $('#projetId').val(),
-              Start: CustomYourDate($('#Start').val()),
-              Finish: CustomYourDate($('#Finish').val())
+              Start: $('#Start').val(),
+              Finish: $('#Finish').val()
             },
             success: function (data) {
               $('#TableauListFicheDeTemps').html(data);
@@ -111,8 +110,8 @@
             data: {
               action: "ListTotalSurDateSelonUser",
               User: $('#ListeRessource').val(),
-              Start: CustomYourDate($('#StartSelonRessource').val()),
-              End: CustomYourDate($('#FinishSelonRessource').val())
+              Start: $('#StartSelonRessource').val(),
+              End: $('#FinishSelonRessource').val()
             },
             success: function (data) {
 

@@ -96,70 +96,42 @@ function FusionnerJoursEtHeuresBurndDownChart(Debut, Fin, JoursAvecHeures, Heure
   return HeuresDescenduesParJoursSurToutLeSprint;
 
 }
-/**
- * Fonction pour sortir une date en fonction du nombre de jours a ajouter a aujourd'hui, exemple ChoixDate(0) ressort la date d'aujourd'hui
- * @param {integer} jours Nombre de jours a ajouter depuis la date d'aujourdhui 
- */
-function ChoixDate(jours) {
-
-  if (jours == null) {
-    var jours = 14;
-  } else {
-    jours = parseInt(jours);
-  }
-
-  var Apres = new Date();
-  Apres.setDate(Apres.getDate() + jours);
-  j = Apres.getDate(),
-    m = Apres.getMonth() + 1,
-    a = Apres.getFullYear();
-
-  if (j < 10) {
-    j = "0" + j;
-  };
-  if (m < 10) {
-    m = "0" + m;
-  };
-
-  return j + "-" + m + "-" + a;
-
-};
 
 /**
  * Convertie la date dans le format que l'on souhaite, C'EST TOI LE MAITRE
  * @param {string} date date a convertir
  * @param {string} LeFormat le format de concerstion
  */
-function CustomYourDate(LaDate,LeFormat = "yyyy-mm-dd"){
+function CustomYourDate(LaDate, LeFormat = "yyyy-mm-dd") {
 
-    var jour,mois,annee
+  var jour, mois, annee
 
-    if(LaDate == "" || LaDate == null || LaDate == undefined){
-      return ""
-    }
+  if (LaDate == "" || LaDate == null || LaDate == undefined) {
+    return ""
+  }
 
-    if((/^[0-9]{4}/g).test(LaDate)){
-        var jour = LaDate.slice(8,10)
-        var mois = LaDate.slice(5,7)
-        var annee = LaDate.slice(0,4)
-    }
+  if ((/^[0-9]{4}/g).test(LaDate)) {
+    var jour = LaDate.slice(8, 10)
+    var mois = LaDate.slice(5, 7)
+    var annee = LaDate.slice(0, 4)
+  }
 
-    else if((/^[0-9]{2}/g).test(LaDate)){
-        var jour = LaDate.slice(0,2)
-        var mois = LaDate.slice(3,5)
-        var annee = LaDate.slice(6,10)
-    }
+  else if ((/^[0-9]{2}/g).test(LaDate)) {
+    var jour = LaDate.slice(0, 2)
+    var mois = LaDate.slice(3, 5)
+    var annee = LaDate.slice(6, 10)
+  }
 
-    switch (LeFormat) {
-      case 'dd-mm-yyyy':
-        return jour + '-' + mois + '-'+ annee
-      case 'dd/mm/yyyy':
-        return jour + '/' + mois + '/'+ annee
-      case 'yyyy-mm-dd':
-        return annee + '-' + mois + '-'+ jour
+  switch (LeFormat) {
+    case 'dd-mm-yyyy':
+      return jour + '-' + mois + '-' + annee
+    case 'dd/mm/yyyy':
+      return jour + '/' + mois + '/' + annee
+    case 'yyyy-mm-dd':
+      return annee + '-' + mois + '-' + jour
     case 'yyyy/mm/dd':
-        return annee + '/' + mois + '/'+ jour
-    }
+      return annee + '/' + mois + '/' + jour
+  }
 
 }
 
@@ -173,32 +145,32 @@ function AjouterJourFrDevantDate(date) {
 
   for (i = 0; i < date.length; i++) {
 
-    dateconnupourcheckday = new Date(CustomYourDate(date[i]))
+    dateConnuPourCheckDay = new Date(CustomYourDate(date[i]))
 
-    switch (dateconnupourcheckday.getDay()) {
+    switch (dateConnuPourCheckDay.getDay()) {
       case 1:
-        retourDate.push("Lun " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Lun " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 2:
-        retourDate.push("Mar " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Mar " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 3:
-        retourDate.push("Mer " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Mer " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 4:
-        retourDate.push("Jeu " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Jeu " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 5:
-        retourDate.push("Ven " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Ven " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 6:
-        retourDate.push("Sam " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Sam " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       case 0:
-        retourDate.push("Dim " + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("Dim " + CustomYourDate(date[i], 'dd/mm/yyyy'))
         break;
       default:
-        retourDate.push("NANI?" + CustomYourDate(date[i],'dd/mm/yyyy'))
+        retourDate.push("NANI?" + CustomYourDate(date[i], 'dd/mm/yyyy'))
     }
   }
 
@@ -281,5 +253,5 @@ function nbJoursEntreDeuxDates(dateDebut) {
   const diffTime = Math.abs(date2 - date1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  return diffDays-1
+  return diffDays - 1
 }

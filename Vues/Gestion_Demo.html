@@ -33,13 +33,13 @@
            <div class='col'>
             <div class="form-group">
               <label>Date créée</label>
-              <input type="text" id='DateCree' class="form-control" />
+              <input type="date" id='DateCree' class="form-control" />
             </div>
            </div>
            <div class='col'>
             <div class="form-group">
               <label>Date effectuée</label>
-              <input type="text" id='DateEffectue' class="form-control" />
+              <input type="date" id='DateEffectue' class="form-control" />
             </div>
            </div>
         </div>
@@ -78,13 +78,6 @@
 
 <script>
   $(document).ready(function () {
-
-    $('#DateEffectue, #DateCree').datetimepicker({
-    format: 'dd/mm/yyyy',
-    autoclose: true,
-    minView: 2,
-    weekStart: 1
-  });
 
     getDemos();
 
@@ -141,8 +134,8 @@
           $('#employeId').val(data.retrospective_demo_fk_user);
           $('#ProjetDemo').val(data.retrospective_demo_fk_projet);
           $('#LabelDemo').val(data.retrospective_demo_label);
-          $('#DateEffectue').val(CustomYourDate(data.retrospective_demo_dateEffectue,'dd/mm/yyyy'));
-          $('#DateCree').val(CustomYourDate(data.retrospective_demo_dateCree,'dd/mm/yyyy'));
+          $('#DateEffectue').val(data.retrospective_demo_dateEffectue);
+          $('#DateCree').val(data.retrospective_demo_dateCree);
 
           $("#ProjetDemo, #employeId").select2({
             width: "100%"
@@ -181,8 +174,8 @@
           Employe: $('#employeId').val(),
           Projet: $('#ProjetDemo').val(),
           LabelDemo: $('#LabelDemo').val(),
-          DateCree: CustomYourDate($('#DateCree').val()),
-          DateEffectue: CustomYourDate($('#DateEffectue').val()),
+          DateCree: $('#DateCree').val(),
+          DateEffectue: $('#DateEffectue').val(),
           action: "putDemo"
         },
         success: function (data) {

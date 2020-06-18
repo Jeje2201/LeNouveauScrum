@@ -16,11 +16,11 @@
             </div>
             <div class="col">
                 <label>Début</label>
-                <input type="text" id='dateDebut' class="form-control"/>
+                <input type="date" id='dateDebut' class="form-control"/>
             </div>
             <div class="col">
                 <label>Fin</label>
-                <input type="text" id='dateFin' class="form-control"/>
+                <input type="date" id='dateFin' class="form-control"/>
             </div>
             <div class="col">
                 <label>Attribuables</label>
@@ -77,11 +77,11 @@
               <div class='row mb-2'>
                  <div class='col'>
                   <label>Début</label>
-                  <input type="text" id='dateDebutt' class="form-control"/>
+                  <input type="date" id='dateDebutt' class="form-control"/>
                  </div>
                  <div class='col'>
                   <label>Fin</label>
-                  <input type="text" id='dateFinn' class="form-control"/>
+                  <input type="date" id='dateFinn' class="form-control"/>
                  </div>
               </div>
             
@@ -102,10 +102,8 @@
 
 <script>
   $(document).ready(function () {
-
-    $('#dateDebut').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
-
-    $('#dateFin').val(CustomYourDate(ChoixDate(14),'dd/mm/yyyy'));
+    
+    document.getElementById("dateFin").stepUp(11)
 
     GetNumeroSprintMax();
 
@@ -113,7 +111,10 @@
 
     RequeteAjax('TableSprint', 'Load', 'Modele/Sprint.php')
 
-    $('#dateDebut,#dateFin,#dateDebutt,#dateFinn').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
+    $('#dateDebut').on('change', function (ev) {
+      document.getElementById("dateFin").value = document.getElementById("dateDebut").value
+      document.getElementById("dateFin").stepUp(11)
+      });
 
     $('#BouttonInfo').click(function () {
       $('#ModalInfoAttribuable').modal('show');
@@ -134,15 +135,15 @@
 
     $('#modal_button').click(function () {
 
-      if (CustomYourDate($('#dateFin').val()) > CustomYourDate($('#dateDebut').val())) {
+      if ($('#dateFin').val() > $('#dateDebut').val()) {
           $.ajax({
             url: "Modele/Sprint.php",
             method: "POST",
             data: {
               numero: $('#numero').val(),
-              dateDebut: CustomYourDate($('#dateDebut').val()),
+              dateDebut: $('#dateDebut').val(),
               id: $('#id').val(),
-              dateFin: CustomYourDate($('#dateFin').val()),
+              dateFin: $('#dateFin').val(),
               Attribuable: $('#attribuable').val(),
               action: 'Créer'
             },
@@ -176,8 +177,8 @@
           $('#action').val("Update"); //This code will change Button value to Update
           $('#id').val(id); //It will define value of id variable to this sprint id hidden field
           $('#numeroo').val(data.sprint_numero); //It will assign value to modal first name texbox
-          $('#dateDebutt').val(CustomYourDate(data.sprint_dateDebut,'dd/mm/yyyy')); //It will assign value of modal last name textbox
-          $('#dateFinn').val(CustomYourDate(data.sprint_dateFin,'dd/mm/yyyy')); //It will assign value of modal last name textbox
+          $('#dateDebutt').val(data.sprint_dateDebut); //It will assign value of modal last name textbox
+          $('#dateFinn').val(data.sprint_dateFin); //It will assign value of modal last name textbox
           $('#attribuableEdition').val(data.sprint_attribuable);
         }
       });
@@ -189,9 +190,9 @@
           method: "POST", //Using of Post method for send data
           data: {
             numero: $('#numeroo').val(),
-            dateDebut: CustomYourDate($('#dateDebutt').val()),
+            dateDebut: $('#dateDebutt').val(),
             id: $('#id').val(),
-            dateFin: CustomYourDate($('#dateFinn').val()),
+            dateFin: $('#dateFinn').val(),
             attribuableEdi: $('#attribuableEdition').val(),
             action: $('#action').val() //Get the value of Modal Action button and stored into action variable
           }, //Send data to server
@@ -228,24 +229,6 @@
         return false; //No action will perform
       }
     });
-
-    $('#dateFin, #dateDebut')
-      .datetimepicker()
-      .on('changeDate', function (ev) {
-
-        $("#attribuable").attr({
-          "max": (NbJourDeTravail($('#dateDebut').val(), $('#dateFin').val()) * 7)
-        });
-
-      });
-
-    $('#dateFin, #dateDebut')
-      .datetimepicker()
-      .on('click', function (ev) {
-
-        $('#dateFin').datetimepicker('setStartDate', $('#dateDebut').val());
-
-      });
 
   });
 </script>

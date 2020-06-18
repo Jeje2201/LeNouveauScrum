@@ -46,7 +46,6 @@
           </div>
           <div class="col-lg-3">
             <div class="border mb-3 DisableEffect">
-              <!-- <div id="datetimepicker12"></div> -->
             </div>
             
           </div>
@@ -163,10 +162,10 @@
           <input type="text" class="form-control" id="Add_Label_TimeLine" placeholder="Label">
         </div>
         <div class="form-group col-2">
-          <input type="text" class="form-control" id="Add_Debut_TimeLine" placeholder="Début">
+          <input type="date" class="form-control" id="Add_Debut_TimeLine" placeholder="Début">
         </div>
         <div class="form-group col-2">
-          <input type="text" class="form-control" id="Add_Fin_TimeLine" placeholder="Fin">
+          <input type="date" class="form-control" id="Add_Fin_TimeLine" placeholder="Fin">
         </div>
         <div class="form-group col-2">
           <button  id="InsertTimeLine" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -236,7 +235,7 @@
         <div class="col">
           <div class="form-group">
             <label>Date</label>
-            <input type="text" class="form-control" id="Echange_Date">
+            <input type="date" class="form-control" id="Echange_Date">
           </div>
         </div>
 
@@ -273,8 +272,6 @@
 
     FillEmptySelect('ListeRessource','GetUsers','Modele/User.php','LaListeDesUsers')
 
-    $('#Echange_Date, #Add_Debut_TimeLine, #Add_Fin_TimeLine').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
-
     var projectId = parseInt(location.href.split('projet=')[1])
     
     GetDescription()
@@ -285,11 +282,6 @@
     GetEchanges()
     GetTimeLine()
     LoadBudgetsChart()
-
-    $('#datetimepicker12').datetimepicker({
-                inline: true,
-                sideBySide: true
-            });
 
     $('.back').bind( "click", function() {
       window.location.href = location.origin+location.pathname+'?vue=Gestion_Projet';
@@ -695,7 +687,7 @@
     
     $('#ModaleAddEchange').bind( "click", function() {
       ShowAndClearModaleForNew('ModaleComment','EditEchange','AddEchange')
-      $('#Echange_Date').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+      $('#Echange_Date').val(new Date().toJSON().split('T')[0]);
       $('#Echange_Label').val('');
     });
 
@@ -766,7 +758,7 @@
           data: {
             projectId: projectId,
             echange_label: document.getElementById('Echange_Label').value,
-            echange_date: CustomYourDate($('#Echange_Date').val()),
+            echange_date: $('#Echange_Date').val(),
             echange_type: $("#Echange_Type").val(),
             action: "postEchange"
           },
@@ -786,7 +778,7 @@
           data: {
             echange_id: document.getElementById('Echange_ID').value,
             echange_label: document.getElementById('Echange_Label').value,
-            echange_date: CustomYourDate($('#Echange_Date').val()),
+            echange_date: $('#Echange_Date').val(),
             echange_type: $("#Echange_Type").val(),
             action: "putEchange"
           },
@@ -846,10 +838,10 @@
             <input id="Label_Timeline_`+this.projet_timeline_pk+`" class="form-control" type="text" value="`+this.projet_timeline_label+`"/>
           </div>
           <div class="form-group col-2">
-            <input id="projet_timeline_debut_`+this.projet_timeline_pk+`" class="form-control projet_timeline_debut" type="text" value="`+CustomYourDate(this.projet_timeline_debut,'dd/mm/yyyy')+`"/>
+            <input id="projet_timeline_debut_`+this.projet_timeline_pk+`" class="form-control projet_timeline_debut" type="date" value="`+this.projet_timeline_debut+`"/>
           </div>
           <div class="form-group col-2">
-            <input id="projet_timeline_fin_`+this.projet_timeline_pk+`" class="form-control projet_timeline_fin" type="text" value="`+CustomYourDate(this.projet_timeline_fin,'dd/mm/yyyy')+`"/>
+            <input id="projet_timeline_fin_`+this.projet_timeline_pk+`" class="form-control projet_timeline_fin" type="date" value="`+this.projet_timeline_fin+`"/>
           </div>
           <div class="form-group col-2">
             <button  id="Update_Timeline_`+this.projet_timeline_pk+`" class="btn btn-warning UpdateTimeline"><i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -866,8 +858,8 @@
             data: {
               projet_timeline_fk_projet: projectId,
               projet_timeline_label: $("#Label_Timeline_"+this.id.split('_')[2]).val(),
-              projet_timeline_debut: CustomYourDate($("#projet_timeline_debut_"+this.id.split('_')[2]).val()),
-              projet_timeline_fin: CustomYourDate($("#projet_timeline_fin_"+this.id.split('_')[2]).val()),
+              projet_timeline_debut: $("#projet_timeline_debut_"+this.id.split('_')[2]).val(),
+              projet_timeline_fin: $("#projet_timeline_fin_"+this.id.split('_')[2]).val(),
               projet_timeline_pk: parseInt(this.id.split('_')[2]),
               action: "Update_Projet_Timeline"
             },
@@ -917,8 +909,8 @@
       data: {
         projet_timeline_fk_projet: projectId,
         projet_timeline_label: $("#Add_Label_TimeLine").val(),
-        projet_timeline_debut: CustomYourDate($("#Add_Debut_TimeLine").val()),
-        projet_timeline_fin: CustomYourDate($("#Add_Fin_TimeLine").val()),
+        projet_timeline_debut: $("#Add_Debut_TimeLine").val(),
+        projet_timeline_fin: $("#Add_Fin_TimeLine").val(),
         action: "Create_Projet_Timeline"
       },
       dataType: "json",

@@ -112,10 +112,10 @@
           <div class="card-body">
             <div class="form-row">
               <div class="col">
-                <input type="text" class="form-control" id="Start">
+                <input type="date" class="form-control" id="Start">
               </div>
               <div class="col">
-                <input type="text" class="form-control" id="End">
+                <input type="date" class="form-control" id="End">
               </div>
             </div>
             <div class="mt-2" id="TotRempliDate"></div>
@@ -163,9 +163,7 @@
   <script>
     $(document).ready(function () {
 
-      $('#Start, #End').datetimepicker({ format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1 });
-      $('#Start').val(CustomYourDate(ChoixDate(-1),'dd/mm/yyyy'));
-      $('#End').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+      document.getElementById("Start").stepDown(30)
 
       //Affiche la modal quand oublie son mot de passe
       $("#target").click(function () {
@@ -236,8 +234,8 @@
           method: "POST",
           data: {
             LaRessource: Ressource,
-            Start: CustomYourDate($('#Start').val()),
-            End: CustomYourDate($('#End').val()),
+            Start: $('#Start').val(),
+            End: $('#End').val(),
             action: "ListTotalSurDate"
           },
           success: function (data) {

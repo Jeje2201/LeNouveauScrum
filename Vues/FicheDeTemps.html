@@ -17,13 +17,13 @@
             <div class="col">
               <div class="form-group">
                 <label>Début</label>
-                <input type="text" class="form-control" id="StartDate">
+                <input type="date" class="form-control" id="StartDate">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label>Fin</label>
-                <input type="text" class="form-control" id="EndDate">
+                <input type="date" class="form-control" id="EndDate">
               </div>
             </div>
             <div class="col">
@@ -121,10 +121,6 @@
   <script>
     $(document).ready(function () {
 
-      //Date d'aujourd'hui
-      $('#StartDate, #EndDate').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
-      $('#StartDate, #EndDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
-
       InfoMaxSlider()
 
       //Charger liste projets
@@ -180,7 +176,7 @@
           dataType: "json",
           data: {
             action: "GetNewMax",
-            Done: CustomYourDate($('#StartDate').val())
+            Done: $('#StartDate').val()
           },
           success: function (data) {
             $('#InfosTempsFdt').text(MinutesIntoTime(444 - data))
@@ -217,7 +213,7 @@
             action: "addFicheDeTemps",
             Projet: $('#projetId').val(),
             Time: parseInt($('#TempsFdt').val().split(':')[0] * 60) + parseInt($('#TempsFdt').val().split(':')[1]),
-            Done: ListeJoursDate(CustomYourDate($('#StartDate').val(),'yyyy-mm-dd'), CustomYourDate($('#EndDate').val(),'yyyy-mm-dd'))
+            Done: ListeJoursDate($('#StartDate').val(), $('#EndDate').val())
           },
           success: function (data) {
             if ((data.Liste).length > 0) {
@@ -240,10 +236,10 @@
       //Charger les infos
       function ChargerListeHeures1Jour1Ressource() {
 
-        var LaDate = CustomYourDate($('#StartDate').val())
+        var LaDate = $('#StartDate').val()
 
-        if ($('#StartDate').val() == "") 
-          LaDate = CustomYourDate(ChoixDate(0))
+        // if ($('#StartDate').val() == "") 
+        //   LaDate = new Date().toJSON().split('T')[0]
 
         $.ajax({
           url: "Modele/FicheDeTemps.php",
@@ -278,8 +274,6 @@
           })
       });
 
-      
-
       //Load la liste des fiches de temps non rempli + fonction pour update la date sélectionné quand click sur une date de la liste
       function TableTotJoursNonPlein() {
         $.ajax({
@@ -295,7 +289,8 @@
             //Je créer une variable "dates" qui va prendre toutes les jours sauf weekend depuis que la ressource arrive et les écrit comme le tableau precedent YYYY-MM-JJ
             var dates = new Array,
             currentDate = new Date("<?php print($_SESSION['user']['registerDate'] )?>"),
-            today = new Date(CustomYourDate(ChoixDate(0),'yyyy-mm-dd'))
+
+            today = new Date()
 
             addDays = function(days) {
               var date = new Date(this.valueOf());
@@ -316,7 +311,7 @@
             dates.forEach(element => {
               if(!data.includes(element)){
                 $('#TableTotJoursNonPlein').prepend($(`<tr><td>` + CustomYourDate(element,'dd/mm/yyyy') + `</td></tr>`).on('click', function () {
-                $('#StartDate, #EndDate').val(CustomYourDate(element,'dd/mm/yyyy'));
+                $('#StartDate, #EndDate').val(CustomYourDate(element,'yyyy-mm-dd'));
                 ChargerListeHeures1Jour1Ressource();
                 InfoMaxSlider();
             }))
@@ -340,7 +335,7 @@
         success: function (data) {
 
             data.forEach(element => {
-              element.NbDate = NbJourDeTravail(element.user_RegisterDate,ChoixDate(0))-element.NbDate+1
+              element.NbDate = NbJourDeTravail(element.user_RegisterDate,new Date().toJSON().split('T')[0])-element.NbDate+1
             });
 
             data.sort(function(a, b){

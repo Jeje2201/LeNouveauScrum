@@ -71,7 +71,7 @@
         if ($result["tache_done"] == null)
           $output["Done"] = "";
         else
-          $output["Done"] = date("d-m-Y", strtotime($result["tache_done"]));
+          $output["Done"] = $result["tache_done"];
 
         $output["Label"] = $result["tache_label"];
         $output["id_Employe"] = $result["tache_fk_user"];

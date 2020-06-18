@@ -61,7 +61,7 @@
 
         <div class="form-group col-lg-12">
             <label>Date d'arrivée</label>
-          <input class="form-control" id="RegisterDate" type="text">
+          <input class="form-control" id="RegisterDate" type="date">
         </div>
         </div>
 
@@ -164,8 +164,6 @@
 
   $(document).ready(function () {
 
-    $('#RegisterDate').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
-
     BarreDeRecherche('BarreDeRecherche', 'TableauEmployeHtml');
 
     RequeteAjax('TableauEmployeHtml', 'Load', 'Modele/User.php');
@@ -213,7 +211,7 @@
       $('#InfoMdp').show()
       $('#ModalEmploye').modal('show');
       $('.modal-title').text("Ajouter une ressource");
-      $('#RegisterDate').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+      $('#RegisterDate').val(new Date().toJSON().split('T')[0]);
       $('#action').val('Ajouter');
       $('#Prenom, #Email, #ApiPivotal, #Nom, #Initial').val('');
       $('#Actif, #MailCir, #doesPlanification').prop("checked", true);
@@ -261,7 +259,7 @@
           Prenom_Employe: $('#Prenom').val(),
           ApiPivotal: $('#ApiPivotal').val(),
           Email: $('#Email').val(),
-          RegisterDate: CustomYourDate($('#RegisterDate').val()),
+          RegisterDate: $('#RegisterDate').val(),
           Actif: Actif,
           MailCir: MailCir,
           doesPlanification : doesPlanification,
@@ -320,7 +318,7 @@
           $('#ApiPivotal').val(data.ApiPivotal);
           $('#Nom').val(data.Nom);
           $('#Email').val(data.Mail);
-          $('#RegisterDate').val(CustomYourDate(data.RegisterDate,'dd/mm/yyyy'));
+          $('#RegisterDate').val(data.RegisterDate);
           $('#TypeEmploye').val(data.TypeEmploye);
           $('#Initial').val(data.Initial);
           $('#mdp').hide();

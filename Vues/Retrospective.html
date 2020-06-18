@@ -111,11 +111,11 @@
         <div class='row mb-2'>
            <div class='col'>
             <label>Création</label>
-            <input type="text" id='DateDebut' class="form-control" />
+            <input type="date" id='DateDebut' class="form-control" />
            </div>
            <div class='col'>
             <label>Fini</label>
-            <input type="text" id='DateFin' class="form-control" />
+            <input type="date" id='DateFin' class="form-control" />
            </div>
         </div>
 
@@ -146,13 +146,6 @@
     if(!admin){
       $("#BouttonRemarque").hide()
     }
-
-    $('#DateDebut, #DateFin').datetimepicker({
-    format: 'dd/mm/yyyy',
-    autoclose: true,
-    minView: 2,
-    weekStart: 1
-  });
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
 
@@ -294,7 +287,7 @@
 
     $('#BouttonRemarque').click(function () {
       ShowAndClearModaleForNew('ModalRemarque', 'EditerRemarque', 'CreerRemarque')
-      $('#DateDebut').val(CustomYourDate(ChoixDate(0),'dd/mm/yyyy'));
+      $('#DateDebut').val(new Date().toJSON().split('T')[0]);
     });
 
     $('#CreerRemarque').click(function () {
@@ -305,8 +298,8 @@
         data: {
           Labelretrospective: $('#LabelRemarque').val(),
           Userretrospective: $('#LabelUser').val(),
-          remarque_DateDebut:  CustomYourDate($('#DateDebut').val()),
-          remarque_DateFini:  CustomYourDate($('#DateFin').val()),
+          remarque_DateDebut:  $('#DateDebut').val(),
+          remarque_DateFini: $('#DateFin').val(),
           action: 'addRemarque'
         },
         success: function (data) {
@@ -336,8 +329,8 @@
           $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#LabelRemarque').val(data.retrospective_remarque_label);
           $('#LabelUser').val(data.retrospective_remarque_user);
-          $('#DateDebut').val(CustomYourDate(data.retrospective_remarque_dateCreation,'dd/mm/yyyy'));
-          $('#DateFin').val(CustomYourDate(data.retrospective_remarque_dateFini,'dd/mm/yyyy'));
+          $('#DateDebut').val(data.retrospective_remarque_dateCreation);
+          $('#DateFin').val(data.retrospective_remarque_dateFini);
         }
       });
 
@@ -352,8 +345,8 @@
           remarque_id: $('#remarque_id').val(),
           remarque_label: $('#LabelRemarque').val(),
           remarque_user: $('#LabelUser').val(),
-          remarque_DateDebut:  CustomYourDate($('#DateDebut').val()),
-          remarque_DateFin: CustomYourDate($('#DateFin').val()),
+          remarque_DateDebut:  $('#DateDebut').val(),
+          remarque_DateFin: $('#DateFin').val(),
           action: 'putRemarque'
         },
         success: function (data) {

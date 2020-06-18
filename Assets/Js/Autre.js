@@ -23,15 +23,10 @@ $("#navbarResponsive li").each(function () {
   $(this).removeClass("active");
 });
 
-/**
- * En se basant sur le parametre data- des input, si il a data-type="datetimepicker" alors on lui met comme quoi c'est un date time picker auto
- */
-$('input[data-type="datetimepicker"]').each(function () {
-  $(this).datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
+//Auto set date aujourd'hui a mettre partout
+$('input[type="date"]').each(function () {
+  this.value = new Date().toJSON().split('T')[0];
 });
-
-// $('#Start, #Finish, #StartSelonRessource, #FinishSelonRessource').datetimepicker({format: 'dd/mm/yyyy', autoclose: true, minView: 2, weekStart: 1});
-
 
 /**
  * Cherche sur quelle page il est puis cherche la nav qui a la page d'affichée et lui donner la class active et ouvrir l'acordéon le plus proche

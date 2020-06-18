@@ -139,7 +139,7 @@
           $('#employeId').val(data.fiche_de_temps_fk_user);
           $('#projetId').val(data.fiche_de_temps_fk_projet);
           $('#Time').val(data.fiche_de_temps_time);
-          $('#Done').val(CustomYourDate(data.fiche_de_temps_done,'dd/mm/yyyy'));
+          $('#Done').val(data.fiche_de_temps_done);
 
 				  $("#projetId, #employeId").select2({width: "100%"});
         }
@@ -156,7 +156,7 @@
           Employe: $('#employeId').val(),
           Projet: $('#projetId').val(),
           Time: $('#Time').val(),
-          Done: CustomYourDate($('#Done').val()),
+          Done: $('#Done').val(),
           action: "Update"
         },
         success: function (data) {

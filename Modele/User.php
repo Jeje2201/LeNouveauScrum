@@ -147,7 +147,7 @@
         $output["doesPlanification"] = $result["user_doesPlanification"];
         $output["ApiPivotal"] = $result["user_apiPivotal"];
         $output["TypeEmploye"] = $result["user_type"];
-        $output["RegisterDate"] = date("d-m-Y", strtotime($result["user_registerDate"]));
+        $output["RegisterDate"] = $result["user_registerDate"];
         $output["Initial"] = $result["user_initial"];
 
         print json_encode($output);
