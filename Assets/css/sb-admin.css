@@ -334,7 +334,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 #mainNav.fixed-top .navbar-sidenav {
-  height: 101vh;
+  height: 102vh;
 }
 
 #mainNav.fixed-top .sidenav-toggler {
