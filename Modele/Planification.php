@@ -128,7 +128,7 @@ require_once('Configs.php');
         if ($statement->rowCount() > 0) {
           foreach ($result as $row) {
 
-            if ($row["Planifiable"] == 0){
+            if ($row["Planifiable"] <= 0){
               $CouleurPlanif = "bg-success";
             }
             else{
