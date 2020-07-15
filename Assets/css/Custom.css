@@ -338,14 +338,6 @@ body {
   width: 30px;
 }
 
-/* Eviter que les tables sorte de la page */
-#TableListHeuresAttribuees,
-#TableauEmployeHtml,
-#TableauProjetHtml,
-#TableauHeuresDescendues {
-  height: 85%;
-}
-
 /* Overwrite de la taille des lignes dans les tableau en les mettant plus petit */
 .table-sm th,
 .table-sm td {
