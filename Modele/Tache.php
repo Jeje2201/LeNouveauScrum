@@ -141,20 +141,18 @@
             }
 
             $output1 .= $GroupStory . '
-            <div class=" ml-4 row mx-2 border-bottom">
-              <div class="col-lg-10 row '. $classDisable . ' ">
-                <div class="col-lg-10 DivContentTache my-auto">
+            <div class="row ml-2 border-bottom '. $classDisable . '">
+                <div class="col-8 DivContentTache my-auto">
                   <span id="LabelDeLaTache" class="">' . $row["tache_label"] . '</span>
                   <span class="hideElement" id="TaskId">'. $row["tache_pk"] . '</span>
                   <span class="hideElement" id="TaskId_Pivotal">'. $row["tache_pivotal_id_Task"].'</span>
                   <span class="hideElement" id="StoryId_Pivotal">'. $row["tache_pivotal_id_Story"].'</span>
                   <span class="hideElement" id="ProjectId_Pivotal">'. $row["tache_pivotal_id_Project"].'</span>
                </div>
-                <div class="col-lg-1 my-auto text-center">
+                <div class="col my-auto">
                   <span>' . $row["tache_heure"] . '</span>
                 </div>
-              </div>
-              <div class="col-lg-2 my-auto">
+              <div class="col my-auto">
                 <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa fa-pencil" aria-hidden="true"></i></button>
                 <button class="btn btn-success ValiderTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
               </div>
@@ -187,12 +185,14 @@
       if ($_POST["action"] == "Descendre") {
 
           $statement = $connection->prepare("UPDATE tache
-          set tache_done = :done
+          set tache_done = :done,
+          tache_hours_spent = :HoursSpent
           WHERE tache_pk = :id");
 
           $result = $statement->execute(
             array(
               ':done' => $_POST["LeJourDeDescente"],
+              ':HoursSpent' => $_POST["HoursSpent"],
               ':id' => $_POST["IdAttribue"]
             )
           );
