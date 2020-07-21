@@ -168,19 +168,28 @@ function MinutesEnHeures($Minutes)
 
       //List des heures par date de rempli
       if ($_POST["action"] == "ListTotalSurDateSelonUser") {
+
+        if($_POST["onlyReneco"] == "true"){
+          $ChoixRequete = "and projet_fk_client = ( select client_pk from client where client_entreprise like 'Reneco')";
+        }else{
+          $ChoixRequete = "and projet_fk_client not in ( select client_pk from client where client_entreprise like 'Reneco')";
+        }
+
         try{
           $output = array();
           $statement = $connection->prepare(
           "SELECT
             projet_nom,
+            user_initial,
             sum(fiche_de_temps_time)/444 as Temps
           FROM fiche_de_temps
           inner JOIN projet on projet_pk = fiche_de_temps_fk_projet
+          INNER JOIN user on user_pk = fiche_de_temps_fk_user
           WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'  
           and fiche_de_temps_done <= '" . $_POST["End"] ."' 
-          and fiche_de_temps_fk_user = " . $_POST["User"] . "
+          ".$ChoixRequete."
           GROUP BY fiche_de_temps_fk_projet
-          ORDER BY Temps desc");
+          ORDER BY user_initial desc,projet_nom desc");
           
           $statement->execute();
           $result = $statement->fetchAll(PDO::FETCH_ASSOC);
