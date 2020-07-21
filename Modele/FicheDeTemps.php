@@ -188,7 +188,7 @@ function MinutesEnHeures($Minutes)
           WHERE fiche_de_temps_done >= '" . $_POST["Start"] ."'  
           and fiche_de_temps_done <= '" . $_POST["End"] ."' 
           ".$ChoixRequete."
-          GROUP BY fiche_de_temps_fk_projet
+          GROUP BY fiche_de_temps_fk_projet, user_initial
           ORDER BY user_initial desc,projet_nom desc");
           
           $statement->execute();
