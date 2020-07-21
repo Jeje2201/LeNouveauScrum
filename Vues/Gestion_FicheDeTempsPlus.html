@@ -36,20 +36,26 @@
         <h3 class="mt-4">Temps passé par une ressource selon les fiches de temps</h3>
 
         <div class="row">
-          <div class="col-lg-4">
-            <label>User</label>
-            <select class="form-control" id="ListeRessource">
-            </select>
-            </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <label>Début</label>
 
             <input type="date" class="form-control" id="StartSelonRessource">
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <label>Fin</label>
             <input type="date" class="form-control" id="FinishSelonRessource">
+          </div>
+
+          <div class="col-lg-2" style="text-align: center;">
+            <label>Reneco seulement</label>
+            <input type="checkbox" class="form-control" id="onlyReneco">
+          </div>
+        </div>
+
+        <div class="row mt-3 mb-n3">
+          <div class="col-lg-12">
+            <input class="form-control mt-0" id="BarreDeRechercheNoemie" type="text" placeholder="Rechercher sur un projet ou une ressource ou un nombre de jours">
           </div>
         </div>
 
@@ -58,9 +64,9 @@
             <table class="table table-sm table-striped table-bordered">
               <thead>
                 <tr>
+                  <th>Jours</th>
                   <th>Projet</th>
-                  <th>Jour(s) travaillé(s) (un jour = 7h24)</th>
-                  <th>Jour(s) travaillé(s) (sans arrondie au 0.5)</th>
+                  <th>User</th>
                 </tr>
               </thead>
               <tbody id="FicheDeTempsSelonRessource">
@@ -76,8 +82,9 @@
       $(document).ready(function () {
 
         RequeteAjax('ListProjet', 'ListeDeroulanteProjetAvecCir', 'Modele/RequetesAjax.php');
-        FillEmptySelect('ListeRessource','GetUsers','Modele/User.php','LaListeDesUsers')
         BarreDeRecherche('BarreDeRecherche', 'TableauListFicheDeTemps');
+        BarreDeRecherche('BarreDeRechercheNoemie', 'FicheDeTempsSelonRessource');
+
         $("#projetId").select2({width: "100%"});
 
         document.getElementById("Start").stepDown(7)
@@ -103,15 +110,22 @@
         }
 
         function ChargerTableauSelonRessource(){
+
+          if (document.getElementById("onlyReneco").checked == true) {
+            var onlyReneco = true;
+          } else {
+            var onlyReneco = false;
+          }
+
           $.ajax({
             url: "Modele/FicheDeTemps.php",
             method: "POST",
             dataType: "json",
             data: {
               action: "ListTotalSurDateSelonUser",
-              User: $('#ListeRessource').val(),
               Start: $('#StartSelonRessource').val(),
-              End: $('#FinishSelonRessource').val()
+              End: $('#FinishSelonRessource').val(),
+              onlyReneco : onlyReneco
             },
             success: function (data) {
 
@@ -119,9 +133,9 @@
 
               $.each(data, function () {
                 $('#FicheDeTempsSelonRessource').prepend(`<tr>
-                    <td>`+this.projet_nom+`</td>
-                    <td>`+FredCestPasCool(this.Temps)+`</td>
-                    <td>`+Math.trunc(this.Temps * 100)/100  +`</td>
+                  <td>`+FredCestPasCool(this.Temps)+`</td>
+                  <td>`+this.projet_nom+`</td>
+                  <td>`+this.user_initial+`</td>
                   </tr>`);
               })
 
@@ -137,11 +151,12 @@
             }
           });
 
-          $('#ListeRessource, #StartSelonRessource, #FinishSelonRessource').change(function () {
+          $('#StartSelonRessource, #FinishSelonRessource, #onlyReneco').change(function () {
             ChargerTableauSelonRessource()
           });
 
           function FredCestPasCool(nombre){
+
             //on coupe notre nombre en deux en se basant sur le point, donc 17.21 va devenir 17 d'un coté et 21 de l'autre
             separation = (nombre + "").split(".");
 
@@ -162,6 +177,13 @@
               else if(separation[1] < 50 && separation[1] > 0){
                 nombre = Math.trunc(nombre)+0.5
               }
+
+              //on remet le nombre en string
+              nombre = nombre.toString();
+
+              //pour pouvoir remplacer le . par une , pour le tableau de noémie
+              nombre = nombre.replace('.',',')
+
             }
 
             //Sinon si notre nombre tombe exactement sur 0.5 ou 00 on ne fait rien car on ne rentre dans aucune des deux cas vu audessus
