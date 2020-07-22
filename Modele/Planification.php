@@ -1,5 +1,6 @@
    <?php
 
+session_start();
 require_once('Configs.php');
 
     if (isset($_POST["action"])) {
@@ -53,6 +54,69 @@ require_once('Configs.php');
         }
         $output .= '</tbody></table>';
         print $output;
+      }
+
+      if ($_POST["action"] == "RemplirTableauPerso") {
+        $numero = $_POST["idAffiche"];
+
+        $statement = $connection->prepare("SELECT *
+        FROM tache
+        inner JOIN user ON tache_fk_user = user_pk
+        INNER JOIN projet ON  tache_fk_projet = projet_pk
+        WHERE tache_fk_sprint = $numero
+        AND user_pk = " . $_SESSION['user']['id'] . "
+        ORDER BY tache_pk DESC");
+          $statement->execute();
+          $result = $statement->fetchAll();
+          $output = '';
+          $output .= '
+        <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
+        <thead class="thead-light">
+        <tr>
+        <th>Projet</th>
+        <th>Label</th>
+        <th>Heures</th>
+        <th class="text-center">Fini</th>
+        <th class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        ';
+        if ($statement->rowCount() > 0) {
+          foreach ($result as $row) {
+            $output .= '
+        <tr>
+        <td>' . $row["projet_nom"] . '</td>
+        <td>' . $row["tache_label"] . '</td>
+        <td>' . $row["tache_heure"] . '</td>';
+        if ($row["tache_done"] == null)
+          $output .= '<td></td>';
+        else
+          $output .= '<td>' . date("d/m/Y", strtotime($row["tache_done"])) . '</td>';
+
+          $output .='<td><div class="btn-group d-flex" role="group" ><button  id="' . $row["tache_pk"] . '" class="btn btn-warning update"><i class="fa fa-pencil" aria-hidden="true"></i></button><button  id="' . $row["tache_pk"] . '" class="btn btn-danger delete"><i class="fa fa-trash" aria-hidden="true"></i></button></div></td>';
+          }
+        } else {
+          $output .= '
+          <tr>
+          <td align="center" colspan="10">Pas de données</td>
+          </tr>
+          ';
+        }
+        $output .= '</tbody></table>';
+        print $output;
+      }
+
+      if ($_POST["action"] == "RessourcePivotalPerso") {
+        $output = array();
+        $statement = $connection->prepare(
+          "SELECT user_pk, user_apiPivotal
+          FROM user
+          WHERE user_pk = " . $_SESSION['user']['id']);
+        $statement->execute();
+        $result = $statement->fetch();
+
+        print json_encode($result);
       }
 
       if ($_POST["action"] == "RemplirTableauRessources") {
@@ -160,48 +224,6 @@ require_once('Configs.php');
         print $output;
       }
 
-      // if ($_POST["action"] == "RemplirTableauProjets") {
-      //   $numero = $_POST["idAffiche"];
-      //   $statement = $connection->prepare("SELECT sum(tache_heure) AS NbHeure,
-      //   projet_nom
-      //   FROM tache
-      //   inner JOIN projet ON projet_pk = tache_fk_projet
-      //   WHERE tache_fk_sprint = $numero
-      //   GROUP BY tache_fk_projet
-      //   ORDER BY projet_nom ASC");
-      //     $statement->execute();
-      //     $result = $statement->fetchAll();
-      //     $output = '';
-      //     $output .= '
-      //   <table class="table table-sm table-striped table-bordered" id="datatable" width="100%" cellspacing="0">
-      //   <thead class="thead-light">
-      //   <tr>
-      //   <th>Projet</th>
-      //   <th>H</th>
-      //   </tr>
-      //   </thead>
-      //   <tbody id="myTable">
-      //   ';
-      //   if ($statement->rowCount() > 0) {
-      //     foreach ($result as $row) {
-      //       $output .= '
-      //   <tr>
-      //   <td>' . $row["projet_nom"] . '</td>
-      //   <td>' . $row["NbHeure"] . '</td>
-      //   </tr>
-      //   ';
-      //     }
-      //   } else {
-      //     $output .= '
-      //   <tr>
-      //   <td align="center" colspan="10">Pas de données</td>
-      //   </tr>
-      //   ';
-      //   }
-      //   $output .= '</tbody></table>';
-      //   print $output;
-      // }
-
       //Créer une tache depuis la méthode x+x+x
       if ($_POST["action"] == "Attribuer") {
         $TableauHeurePlanifie = $_POST["NombreHeure"];
@@ -226,28 +248,6 @@ require_once('Configs.php');
         else
           print_r($statement->errorInfo());
       }
-
-      //Créer une tache depuis la méthode de reunion
-      // if ($_POST["action"] == "AttribuerReunion") {
-      //   $TableauHeurePlanifie = $_POST["NombreHeure"];
-      //   $statement = $connection->prepare("
-      //   INSERT INTO tache (heure, id_Sprint, id_Employe, id_Projet, Label, tache_type) 
-      //   VALUES (:NombreHeure, :idSprint, (select employe.id from employe where employe.mail like :emailEmploye), (select projet.id from projet where projet.nom like 'NS Interne'), :Label, 'Réunion')
-      //   ");
-
-      //     $result = $statement->execute(
-      //       array(
-      //         ':NombreHeure' => $_POST["NombreHeure"],
-      //         ':idSprint' => $_POST["idSprint"],
-      //         ':Label' => $_POST["Label"],
-      //         ':emailEmploye' => $_POST["mailEmploye"]
-      //       )
-      //     );
-      //   if (!empty($result))
-      //       print 'Reunion bien prise en compte';
-      //     else
-      //       print_r($statement->errorInfo());
-      // }
 
       //Créer une tache depuis l'api
       if ($_POST["action"] == "CreerTacheApi") {

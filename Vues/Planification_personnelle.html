@@ -16,27 +16,16 @@
 
       </div>
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
 
           <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
         </div>
-
-        <div class="col-lg-3">
-
-          <div id="TableListHeuresAttribueesRessources" class="table-responsive table-hover">
-          </div>
-        </div>
-        <!-- <div class="col-lg-2">
-          <div id="TableauListeHeuresAttrbueesProjets" class="table-responsive table-hover">
-          </div>
-
-        </div> -->
       </div>
     </div>
 
@@ -49,12 +38,12 @@
           <button type="submit" id="EnvoyerApiPivotal" class="btn btn-block btn-success">Attribuer</button>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="hideElement">
             <label>Ressource</label>
-            <div id="ListEmployePivotal"> </div>
+            <input type="text" class="form-control" id="ListEmployePivotal" disabled>
           </div>
 
-          <div class="col-lg-6">
+          <div class="col">
             <label>Projet</label>
             <div id="ListProjetPivotal"></div>
           </div>
@@ -130,13 +119,6 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label>Ressources</label>
-          <div id="ListEmployeCheckBox"></div>
-          <input type="checkbox" class="mt-2 mr-1" id="CheckAll">
-          <label for="CheckAll" class="pointer">Tout le monde</label>
-        </div>
-
-        <div class="form-group">
           <label>Type de tâche</label>
           <div id="ListTypeTache"></div>
         </div>
@@ -155,46 +137,10 @@
   </div>
 </div>
 
-<div id="ModalGoogleCalendar" class="modal fade">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-4">
-            <button class="btn btn-block btn-primary" onclick="authenticate().then(loadClient)">Autoriser</button>
-          </div>
-          <div class="col-lg-4">
-            <button  class="btn btn-block btn-primary" id="SearchCalendarEvent" onclick="execute()"
-              disabled>Charger</button>
-          </div>
-          <div class="col-lg-4">
-            <button  class="btn btn-block btn-primary" id="EnvoyerEventBdd"
-              disabled>Envoyer</button>
-          </div>
-        </div>
-        <u>
-          <div class="text-center" id="InfoDateSprint"></div>
-        </u>
-
-        <div id="ListReunion mt-3"></div>
-
-      </div>
-      <div class="modal-footer">
-        <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="ModalGestionHeuresDescendues" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-
-        <div class="form-group">
-          <label>Ressource</label>
-          <div id="ListEmployeEditionTache"></div>
-        </div>
 
         <div class="form-group">
           <label>Projet</label>
@@ -231,20 +177,25 @@
 <script>
   $(document).ready(function () {
 
+    $.ajax({
+        url: "Modele/Planification.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+          action: "RessourcePivotalPerso",
+        },
+        success: function (data) {
+          $('#ListEmployePivotal').val(data.user_pk + '|'+data.user_apiPivotal);
+        }
+      });
+
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListEmployeEditionTache', 'ListeDeroulanteEmployeActif', 'Modele/RequetesAjax.php',
-      'ListeEmployeEditionTache');
     RequeteAjax('ListProjetEditionTache', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php',
       'ListeProjeteditionTache');
-    RequeteAjax('ListEmployePivotal', 'RessourcePivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListEmployeCheckBox', 'ListEmployeCheckBox', 'Modele/RequetesAjax.php');
 
-    $("#TOUTLEMONDE, #RessourceApi, #ProjetApi, #ListMailRessource")
-      .select2({
-        width: "100%"
-      });
+    $("#ProjetApi").select2({width: "100%"});
 
       var acc = document.getElementsByClassName("accordion");
       var i;
@@ -281,7 +232,6 @@
     
 
     RemplirTableau('TableListHeuresAttribuees');
-    RemplirTableauRessources('TableListHeuresAttribueesRessources');
     // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
 
     BarreDeRecherche('BarreDeRecherche', 'TableListHeuresAttribuees');
@@ -300,19 +250,13 @@
       }
     })
 
-    //Lorsque charge la liste, si le projet est pas dans pivotal tracker, disable le chercher
-    if ($('#ProjetApi').val().split('|')[1] == "")
-      $('#ChercherApiPivotal').prop('disabled', true);
-    else
-      $('#ChercherApiPivotal').prop('disabled', false);
-
     //Remplir le tableu avec toutes les tâches de tout le monde
     function RemplirTableau(Div) {
       $.ajax({
         url: "Modele/Planification.php",
         method: "POST",
         data: {
-          action: "RemplirTableau",
+          action: "RemplirTableauPerso",
           idAffiche: $('#numeroSprint').val()
         },
         success: function (data) {
@@ -337,36 +281,6 @@
       });
     }
 
-    //Remplir le tableau avec toutes les ressources qui ont des heures planifiés
-    function RemplirTableauRessources(Div) {
-      $.ajax({
-        url: "Modele/Planification.php",
-        method: "POST",
-        data: {
-          action: "RemplirTableauRessources",
-          idAffiche: $('#numeroSprint').val()
-        },
-        success: function (data) {
-          $('#' + Div).html(data);
-        }
-      });
-    }
-
-    //Remplir tableau avec tous les projets, pas de id pivotal
-    // function RemplirTableauProjets(Div) {
-    //   $.ajax({
-    //     url: "Modele/Planification.php",
-    //     method: "POST",
-    //     data: {
-    //       action: "RemplirTableauProjets",
-    //       idAffiche: $('#numeroSprint').val()
-    //     },
-    //     success: function (data) {
-    //       $('#' + Div).html(data);
-    //     }
-    //   });
-    // }
-
     //Petite infos quand planifie qui indique combiens d'heures encore planifiables
     function HeureAttribuable1Ressource() {
       $.ajax({
@@ -375,7 +289,7 @@
         data: {
           action: "NbHeureRestantePlanifiable",
           Sprint: $('#numeroSprint').val(),
-          Employe: $('#RessourceApi').val().split('|')[0]
+          Employe: $('#ListEmployePivotal').val().split('|')[0]
         },
         dataType: "json",
         success: function (data) {
@@ -388,7 +302,6 @@
     //Si le numéro de sprint change, tout recharger
     $('#numeroSprint').change(function () {
       RemplirTableau('TableListHeuresAttribuees');
-      RemplirTableauRessources('TableListHeuresAttribueesRessources');
       // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
     });
 
@@ -404,7 +317,6 @@
           },
           success: function (data) {
             RemplirTableau('TableListHeuresAttribuees');
-            RemplirTableauRessources('TableListHeuresAttribueesRessources');
             // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
             $.notify(data, "success");
           }
@@ -426,13 +338,12 @@
           $('#ModalGestionHeuresDescendues').modal('show');
           $('#id_planif').val(id);
           $('#idSprint').val(data.id_Sprint);
-          $('#ListeEmployeEditionTache').val(data.id_Employe);
           $('#ListeProjeteditionTache').val(data.id_Projet);
           $('#nbheureEditionTache').val(data.heure);
           $('#LabelTache').val(data.Label);
           $('#Done').val(data.Done);
 
-          $("#ListeEmployeEditionTache, #ListeProjeteditionTache").select2({
+          $("#ListeProjeteditionTache").select2({
             width: "100%"
           });
         }
@@ -448,8 +359,8 @@
           id: $('#id_planif').val(),
           Done: $('#Done').val(),
           idSprint: $('#numeroSprint').val(),
-          idEmploye: $('#ListeEmployeEditionTache').val(),
           idProjet: $('#ListeProjeteditionTache').val(),
+          idEmploye: $('#ListEmployePivotal').val().split('|')[0],
           NombreHeure: $('#nbheureEditionTache').val(),
           Label: $('#LabelTache').val(),
           action: "UpdateTache"
@@ -458,23 +369,8 @@
           $.notify(data, "success");
           $('#ModalGestionHeuresDescendues').modal('hide');
           RemplirTableau('TableListHeuresAttribuees');
-          RemplirTableauRessources('TableListHeuresAttribueesRessources');
-          // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
         }
       });
-    });
-
-    //Si change liste projet, checker si pivotal ou non et donc disable ou non bouton
-    $('#ListProjetPivotal').change(function () {
-      if ($('#ProjetApi').val().split('|')[1] == "")
-        $('#ChercherApiPivotal').prop('disabled', true);
-      else
-        $('#ChercherApiPivotal').prop('disabled', false);
-    });
-
-    //Si change ressource api, remettre le compteur d'heure attribuable flotant au bon nombre
-    $('#RessourceApi').change(function () {
-      HeureAttribuable1Ressource();
     });
 
     //Click sur le bouton pour planifier des heures
@@ -508,15 +404,14 @@
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
-            idEmploye: $('#RessourceApi').val().split('|')[0],
             idProjet: $('#ProjetApi').val().split('|')[0],
+            idEmploye: $('#ListEmployePivotal').val().split('|')[0],
             NombreHeure: NombreHeure,
             action: "Attribuer"
           },
           success: function (data) {
             $.notify(data, "success");
             RemplirTableau('TableListHeuresAttribuees');
-            RemplirTableauRessources('TableListHeuresAttribueesRessources');
             // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
             HeureAttribuable1Ressource()
           }
@@ -530,13 +425,15 @@
     //Planifier des heures spéciales scrum planing
     $(document).on('click', '.AttribuerHeureScrumPlaning', function () {
 
-      if ($('#TOUTLEMONDE').length > 0) {
+      let tableau1ressource = new Array
+      tableau1ressource.push($('#ListEmployePivotal').val().split('|')[0])
+
         $.ajax({
           url: "Modele/Planification.php",
           method: "POST",
           data: {
             idSprint: $('#numeroSprint').val(),
-            idEmploye: $('#TOUTLEMONDE').val(),
+            idEmploye: tableau1ressource,
             NombreHeure: $('#nbheure2').val(),
             idTypeTache: $('#RemplirTypeTache1').val(),
             action: "AttributionScrumPlaning"
@@ -544,12 +441,9 @@
           success: function (data) {
             $.notify(data, "success");
             RemplirTableau('TableListHeuresAttribuees');
-            RemplirTableauRessources('TableListHeuresAttribueesRessources');
             // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
           }
         });
-      } else
-        $.notify("Aucune ressource selectionnée ?", "error");
     });
 
     $(document).on('click', '#postDemo', function () {
@@ -558,7 +452,7 @@
         url: "Modele/Retrospective_demo.php",
         method: "POST",
         data: {
-          idEmploye: $('#RessourceApi').val().split('|')[0],
+          idEmploye: $('#ListEmployePivotal').val().split('|')[0],
           idProjet: $('#ProjetApi').val().split('|')[0],
           LabelDemo: $('#LabelDemo').val(),
           action: "addDemo"
@@ -583,29 +477,17 @@
         data: {
           idSprint: $('#numeroSprint').val(),
           LabelObjectif: $('#LabelObjectif').val(),
-          idEmploye: $('#RessourceApi').val().split('|')[0],
+          idEmploye: $('#ListEmployePivotal').val().split('|')[0],
           idProjet: $('#ProjetApi').val().split('|')[0],
           action: "Créer"
         },
         success: function (data) {
           $.notify(data, "success");
           $('#LabelObjectif').val('');
-          RemplirTableauRessources('TableListHeuresAttribueesRessources');
         }
       });
       }
       
-    });
-
-    // Selectionner ou déselectionner tout le monde
-    $("#CheckAll").click(function () {
-      if ($("#CheckAll").is(':checked')) {
-        $("#TOUTLEMONDE > option").prop("selected", "selected");
-        $("#TOUTLEMONDE").trigger("change");
-      } else {
-        $("#TOUTLEMONDE > option").prop("selected", "");
-        $("#TOUTLEMONDE").trigger("change");
-      }
     });
 
     //Click sur le bouton pour chercher toutes les heures planifiable sur pivotal tracker
@@ -635,9 +517,10 @@
         dataType: 'json',
         contentType: 'application/json',
         processData: false,
-        data: 'filter=mywork:' + $('#RessourceApi').val().split('|')[1],
+        data: 'filter=mywork:' + $('#ListEmployePivotal').val().split('|')[1],
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-          $.notify("Le projet n'a pas d'API Pivotal Tracker enregistrée.", "error");
+          $('#AucuneStorie').removeClass('hideElement')
+          $("#ChercherApiPivotal").attr("disabled", false).text('Rechercher');
         },
         success: function (data) {
           //Liste des stories trouvées
@@ -719,13 +602,11 @@
             action: "CreerTacheApi",
             ListeTaches: TotalHoursChecked(),
             Sprint: $('#numeroSprint').val(),
-            Employe: $('#RessourceApi').val().split('|')[0],
+            Employe: $('#ListEmployePivotal').val().split('|')[0],
             Projet: $('#ProjetApi').val().split('|')[0]
           },
           success: function (data) {
             RemplirTableau('TableListHeuresAttribuees');
-            RemplirTableauRessources('TableListHeuresAttribueesRessources');
-            // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets');
             $.notify(data, "success");
             document.getElementById("ListeTachesApi").innerHTML = ""
             HeureAttribuable1Ressource();
@@ -737,40 +618,6 @@
         $.notify("Aucune tâche n'est sélectionnée", "error");
     })
 
-    
-    $('#EnvoyerEventBdd').click(function () {
-    var counter = 0
-    console.log(LaVariable)
-
-    LaVariable.forEach(function (element) {
-
-          $.ajax({
-          url: "Modele/Planification.php",
-          method: "POST",
-          async: "false",
-          data: {
-            idSprint: $('#numeroSprint').val(),
-            mailEmploye: element.email,
-            NombreHeure: element.Temps,
-            Label: element.Event,
-            action: "AttribuerReunion"
-          },
-          success: function (data) {  
-            counter += 1       
-          }
-        });
-
-        });
-          console.log('le compteur: '+counter)
-          $.notify(LaVariable.length+ ' tâches de réunions ajoutées', "success");
-          // location.reload();
-
-          RemplirTableau('TableListHeuresAttribuees');
-          RemplirTableauRessources('TableListHeuresAttribueesRessources');
-          // RemplirTableauProjets('TableauListeHeuresAttrbueesProjets')
-
-  })
-
   });
 
   //Lorsque click sur le bouton flottant vert attribuer des heures planifiées pivotal, liste toutes les taches qui ne sont pas des "non" et les mettres dans un tableau qui sera envoyé
@@ -780,7 +627,7 @@
     var TotalHeures = 0;
 
     cart.push({
-      'User': $('#RessourceApi').val().split('|')[0]
+      'User': $('#ListEmployePivotal').val().split('|')[0]
     });
 
     cart.push({
