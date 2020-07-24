@@ -53,10 +53,15 @@
 
         <button class="accordion">Planification manuelle</button>
         <div class="panel">
+          <p class="text-secondary small">
+            Créer des tâches rapidement si elles ne sont pas présentent sur l'outil Pivotal Tracker.<br>
+             Pour ce faire il suffit de remplir les heures de chaques taches séparées par un "+".<br>
+             Exemple : 2+2+0+1+1+9+9+6
+          </p>
 
         <div class="row mb-4">
           <div class="col-lg-9">
-            <input class="form-control" id="nbheure" type="text" placeholder="x+x+x">
+            <input class="form-control" id="nbheure" type="text">
           </div>
 
           <div class="col-lg-3">
@@ -67,9 +72,16 @@
 
       <button class="accordion">Planification Pivotal Tracker</button>
       <div class="panel">
+        <p class="text-secondary small">
+          Si la tâche est présente dans Pivotal Tracker, après avoir choisi le bon projet, appuyez sur "Rechercher".<br>
+          En fonction du nombre de stories présentent dans le projet, le chargement peut prendre entre 0 et 30+ secondes.<br>
+          Une fois le chargement fini, vous pouvez utiliser la barre de recherche pour afficher rapidement une story qui vous intéresse.<br>
+          Pour choisir les tâches qui vous intéressent, changez "Non" par le bon nombre d'heure.<br>
+          Une fois toutes les tâches choisies pour un projet, cliquer sur "Attribuer".
+       </p>
         <div class='row'>
            <div class='col'>
-            <input class="form-control" id="LaRechercheDansPivotal" type="text" placeholder="Rechercher dans le result">
+            <input class="form-control" id="LaRechercheDansPivotal" type="text" placeholder="Rechercher dans le titre des stories">
            </div>
            <div class='col'>
             <button id="ChercherApiPivotal" class="btn px-5 btn-info">Rechercher</button>
@@ -77,13 +89,10 @@
         </div>
 
         <div id="AucuneStorie" class="hideElement mt-3">
-          <h3>Aucunes storie pour ce projet ?</h3>
+          <h3>Aucune story pour ce projet ?</h3>
           <label>
-            Si vous êtes sûr du contraire, le problème peut provenir de différentes raisons
-            <ul>
-              <li>La ressource n'est pas owner des stories ? </li>
-              <li>L'ID pivotal tracker du projet ou de la ressource n'est pas le bon ?</li>
-            </ul>
+            <p>Ce problème provient généralement parce-que vous n'êtes "owner" d'aucune storie Pivotal Tracker pour ce projet.<br>
+               Si vous êtes sûr du contraire, n'hésitez pas à contacter un Scrum Master qui saura vérifier ça pour vous.</p>
           </label>
         </div>
         <div id="ListeTachesApi" class="mt-3"></div>
@@ -92,6 +101,11 @@
 
         <button class="accordion">Objectifs</button>
         <div class="panel">
+          <p class="text-secondary small">
+            Les objectifs correspondent à des tâches que vous trouvez importantes<br>
+            Il vous faut au moins 2 objectifs à chaques sprint<br>
+            Attribuer un objectif par un objectif et non plusieurs en même temps.
+        </p>
             <textarea class="form-control" placeholder="Faire.." id="LabelObjectif" rows="2"></textarea>
 
             <button type="submit" class="btn btn-success EnvoyerObjectif mt-2 mb-1">Attribuer</button>
@@ -99,6 +113,10 @@
 
         <button class="accordion">Démos</button>
         <div class="panel">
+          <p class="text-secondary small">
+            Il se peut que tu veuilles présenter quelques choses aux autres ressources. Un outil, une formation que tu as suivi, etc..<br>
+            Rempli ici le titre de ta démo, elle sera affichée avec les autres lors de la rétrospective de fin de sprint<br>
+        </p>
           <input class="form-control" id="LabelDemo" type="text" placeholder="Présentation de..">
 
           <button id="postDemo" class="btn btn-success mb-1 mt-2">Attribuer</button>
