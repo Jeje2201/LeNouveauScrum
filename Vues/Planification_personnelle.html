@@ -2,6 +2,33 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
+      <div id="ModalObjectif" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+      
+              <div class='row mb-2'>
+                <div class='col'>
+
+                  <label>Projet</label>
+                  <div id="ListProjet"> </div>
+                 </div>
+              </div>
+              <label>Objectif</label>
+              <textarea class="form-control" placeholder="Faire.." id="LabelObjectif"
+                rows="2"></textarea>
+      
+            </div>
+            <div class="modal-footer">
+              <input id="id_objectif" class="form-control" readonly/>
+              <input type="submit" id="EditerObjectif" value="Modifier" class="btn btn-warning">
+              <input type="submit" id="SupprimerObjectif" value="Supprimer" class="btn btn-danger">
+              <button  class="btn btn-dark" data-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col">
           <div id="ListSrint"></div>
@@ -16,16 +43,32 @@
 
       </div>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-7">
           <input class="form-control" id="BarreDeRecherche" type="text" placeholder="Rechercher..">
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-7">
 
           <div id="TableListHeuresAttribuees" class="table-responsive table-hover"></div>
 
         </div>
+
+        <div class='col-5'>
+          <table class="table table-striped table-hover table-sm table-bordered">
+            <thead>
+              <tr>
+                <th>Projet</th>
+                <th>Objectif</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="TableObjectif">
+    
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
 
@@ -208,10 +251,12 @@
       });
 
     RequeteAjax('ListSrint', 'ListeDeroulanteSprint', 'Modele/RequetesAjax.php');
-    RequeteAjax('ListProjetEditionTache', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php',
-      'ListeProjeteditionTache');
+    RequeteAjax('ListProjetEditionTache', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ListeProjeteditionTache');
+    RequeteAjax('ListProjet', 'ListeDeroulanteProjet', 'Modele/RequetesAjax.php', 'ProjetRetrospective');
+
     RequeteAjax('ListProjetPivotal', 'ProjetPivotal', 'Modele/RequetesAjax.php');
     RequeteAjax('ListTypeTache', 'RemplirTypeTache', 'Modele/RequetesAjax.php');
+    getObjectifs()
 
     $("#ProjetApi").select2({width: "100%"});
 
@@ -502,6 +547,7 @@
         success: function (data) {
           $.notify(data, "success");
           $('#LabelObjectif').val('');
+          getObjectifs()
         }
       });
       }
@@ -635,6 +681,110 @@
       else
         $.notify("Aucune tâche n'est sélectionnée", "error");
     })
+
+
+    //objectif
+    function getObjectifs() {
+      $.ajax({
+        url: "Modele/Retrospective_objectif.php",
+        method: "POST",
+        dataType: "json",
+        data: {
+          action: "getObjectifs",
+          idAffiche: $('#numeroSprint').val()
+        },
+        success: function (data) {
+
+          $('#TableObjectif').html('')
+          
+          $.each(data, function (index) {
+
+            if(this.user_pk == $('#ListEmployePivotal').val().split('|')[0]){
+              var TableObjectif = `<tr>
+            <td class="align-middle">` + this.projet_nom + `</td>
+            <td class="align-middle">` + this.retrospective_objectif_label + `</td>
+            <td>
+                  <button id="` + this.retrospective_objectif_pk + `" class="btn btn-warning ml-2 updateObjectif"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+              </td>
+            </tr>`;
+
+            $('#TableObjectif').append(TableObjectif)
+            }
+
+            })
+
+            IfNoRows('TableObjectif', "Aucun objectif trouvé, il t'en faut au moins deux..")
+        }
+      });
+    }
+
+    $(document).on('click', '.updateObjectif', function () {
+      $.ajax({
+        url: "Modele/Retrospective_objectif.php",
+        method: "POST",
+        data: {
+          id: this.id,
+          action: "getObjectif"
+        },
+        dataType: "json",
+        success: function (data) {
+          $('#ModalObjectif').modal('show');
+          $('#id_objectif').val(data.retrospective_objectif_pk);
+          $('#ProjetRetrospective').val(data.retrospective_objectif_fk_projet);
+          $('#LabelObjectif').val(data.retrospective_objectif_label);
+
+          $("#ProjetRetrospective").select2({
+            width: "100%"
+          });
+
+        }
+      });
+
+      });
+
+      $('#SupprimerObjectif').click(function () {
+      if (confirm("Es-tu sûr de vouloir supprimer cet objectif ?"))
+        $.ajax({
+          url: "Modele/Retrospective_objectif.php",
+          method: "POST",
+          data: {
+            id: $('#id_objectif').val(),
+            action: "dellObjectif"
+          },
+          success: function (data) {
+            $('#ModalObjectif').modal('hide');
+            Notify(data,"Objectif supprimé")
+            getObjectifs();
+          }
+        });
+    });
+
+    $('#EditerObjectif').click(function () {
+      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#ProjetRetrospective').val() != '') {
+        $.ajax({
+          url: "Modele/Retrospective_objectif.php",
+          method: "POST",
+          data: {
+            id: $('#id_objectif').val(),
+            idSprint: $('#numeroSprint').val(),
+            LabelObjectif: $('#LabelObjectif').val(),
+            idEmploye: $('#ListEmployePivotal').val().split('|')[0],
+            idProjet: $('#ProjetRetrospective').val(),
+            action: 'putObjectif'
+          },
+          success: function (data) {
+            $('#ModalObjectif').modal('hide');
+            Notify(data,'Objectif changé')
+            getObjectifs();
+          }
+        });
+      } else {
+        $.notify("Tous les champs doivent être remplis", "error");
+      }
+    });
+
+
+
 
   });
 
