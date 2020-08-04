@@ -15,7 +15,7 @@
                  </div>
               </div>
               <label>Objectif</label>
-              <textarea class="form-control" placeholder="Faire.." id="LabelObjectif"
+              <textarea class="form-control" placeholder="Faire.." id="LabelObjectif_edition"
                 rows="2"></textarea>
       
             </div>
@@ -731,7 +731,7 @@
           $('#ModalObjectif').modal('show');
           $('#id_objectif').val(data.retrospective_objectif_pk);
           $('#ProjetRetrospective').val(data.retrospective_objectif_fk_projet);
-          $('#LabelObjectif').val(data.retrospective_objectif_label);
+          $('#LabelObjectif_edition').val(data.retrospective_objectif_label);
 
           $("#ProjetRetrospective").select2({
             width: "100%"
@@ -760,14 +760,14 @@
     });
 
     $('#EditerObjectif').click(function () {
-      if ($('#numeroSprint').val() != '' && $('#LabelObjectif').val() != '' && $('#ProjetRetrospective').val() != '') {
+      if ($('#numeroSprint').val() != '' && $('#LabelObjectif_edition').val() != '' && $('#ProjetRetrospective').val() != '') {
         $.ajax({
           url: "Modele/Retrospective_objectif.php",
           method: "POST",
           data: {
             id: $('#id_objectif').val(),
             idSprint: $('#numeroSprint').val(),
-            LabelObjectif: $('#LabelObjectif').val(),
+            LabelObjectif: $('#LabelObjectif_edition').val(),
             idEmploye: $('#ListEmployePivotal').val().split('|')[0],
             idProjet: $('#ProjetRetrospective').val(),
             action: 'putObjectif'
