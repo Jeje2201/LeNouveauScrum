@@ -29,14 +29,15 @@
     $result = $statement->fetchAll();
 
     $Citation = array(
-        "Mon cerveau est mon deuxième organe préféré. (Frédéric)",
-        "Être ou ne pas être alors ne pas être. (Nabil)",
-        "Mieux vaux fermer sa gueule et passer pour un con, que de l'ouvrir et ne laisser aucun doute à ce sujet. (Herve)",
-        "Un grand pouvoir entraîne de grandes irresponsabilités. (Jérémy)",
-        "Et l'immateriel est à présent immatériel. (Garance)",
-        "Trop de paperasse, trop d'administratif : ça tue ! (Amine)",
-        "Mieux vaut marcher lentement dans la bonne direction que de courir dans la mauvaise. (Théa)",
-        "Pour vivre longtemps, à son cul il faut donner vent. (Angélique)"
+        "Mon cerveau est mon deuxième organe préféré. (Frédéric B.)",
+        "Être ou ne pas être alors ne pas être. (Nabil H.)",
+        "Mieux vaux fermer sa gueule et passer pour un con, que de l'ouvrir et ne laisser aucun doute à ce sujet. (Hervé A.)",
+        "Un grand pouvoir entraîne de grandes irresponsabilités. (Jérémy L.)",
+        "Et l'immateriel est à présent immatériel. (Garance L.)",
+        "Trop de paperasse, trop d'administratif : ça tue ! (Amine H.)",
+        "Mieux vaut marcher lentement dans la bonne direction que de courir dans la mauvaise. (Théa A.)",
+        "Ce n'est pas la destination qui compte mais le chemin parcouru. (Laura A.)",
+        "Pour vivre longtemps, à son cul il faut donner vent. (Angélique R.)"
     );
 
     //En tete pour prendre l'utf8 et le css
