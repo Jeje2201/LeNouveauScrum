@@ -40,7 +40,8 @@
         <thead>
           <tr>
             <th>Depuis (j)</th>
-            <th>User</th>
+            <th>Requêté</th>
+            <th>Assigné</th>
             <th>Remarque</th>
             <th>Action</th>
           </tr>
@@ -119,8 +120,11 @@
            </div>
         </div>
 
-        <label>Ressource</label>
-        <input class="form-control" id="LabelUser" type="text">
+        <label>Ressource qui demande</label>
+        <input class="form-control" id="LabelUserDemande" type="text">
+
+        <label>Ressource qui est assignée</label>
+        <input class="form-control" id="LabelUserAssigne" type="text">
 
         <label>Remarque</label>
         <input class="form-control" id="LabelRemarque" type="text">
@@ -252,7 +256,7 @@
         method: "POST",
         dataType: "json",
         data: {
-          action: "getRemarques"
+          action: "getRemarquesRetro"
         },
         success: function (data) {
 
@@ -260,11 +264,10 @@
 
           $.each(data, function () {
 
-            if (this.retrospective_remarque_dateFini == null) {
-
               var table = `<tr>
                                 <td>` + nbJoursEntreDeuxDates(this.retrospective_remarque_dateCreation) + `</td>
-                                <td>` + this.retrospective_remarque_user + `</td>
+                                <td>` + this.retrospective_remarque_user_requete + `</td>
+                                <td>` + this.retrospective_remarque_user_assigne + `</td>
                                 <td>` + this.retrospective_remarque_label + `</td>`
               if(admin)
               table +=`<td>
@@ -277,7 +280,6 @@
               table +=`</tr>`
 
               $('#TableRemarque').append(table);
-            }
 
           })
           IfNoRows('TableRemarque', 'Aucune remarque trouvée..')
@@ -297,15 +299,19 @@
         method: "POST",
         data: {
           Labelretrospective: $('#LabelRemarque').val(),
-          Userretrospective: $('#LabelUser').val(),
+          Userretrospective_assigne: $('#LabelUserAssigne').val(),
+          Userretrospective_demande: $('#LabelUserDemande').val(),
           remarque_DateDebut:  $('#DateDebut').val(),
           remarque_DateFini: $('#DateFin').val(),
           action: 'addRemarque'
         },
         success: function (data) {
-          Notify(data, 'Remarque "' + $('#LabelRemarque').val() + '" créée.')
-          $('#LabelRemarque, #LabelUser').val('')
+          $.notify(data, 'success')
+          $('#LabelRemarque, #LabelUserAssigne, #LabelUserDemande').val('')
           getRemarques();
+        },
+        error: function (xhr, status, erreur) {
+          $.notify(erreur, "error");
         }
       });
     });
@@ -328,7 +334,8 @@
           $('#ModalRemarque').modal('show');
           $('#remarque_id').val(data.retrospective_remarque_pk);
           $('#LabelRemarque').val(data.retrospective_remarque_label);
-          $('#LabelUser').val(data.retrospective_remarque_user);
+          $('#LabelUserAssigne').val(data.retrospective_remarque_user_assigne);
+          $('#LabelUserDemande').val(data.retrospective_remarque_user_requete);
           $('#DateDebut').val(data.retrospective_remarque_dateCreation);
           $('#DateFin').val(data.retrospective_remarque_dateFini);
         }
@@ -344,7 +351,8 @@
         data: {
           remarque_id: $('#remarque_id').val(),
           remarque_label: $('#LabelRemarque').val(),
-          remarque_user: $('#LabelUser').val(),
+          remarque_user_assigne: $('#LabelUserAssigne').val(),
+          remarque_user_demande: $('#LabelUserDemande').val(),
           remarque_DateDebut:  $('#DateDebut').val(),
           remarque_DateFin: $('#DateFin').val(),
           action: 'putRemarque'

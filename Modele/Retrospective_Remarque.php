@@ -15,6 +15,18 @@ if (isset($_POST["action"])) {
     print json_encode($result);
   }
 
+  if ($_POST["action"] == "getRemarquesRetro") {
+    $statement = $connection->prepare("SELECT *
+        FROM retrospective_remarque
+        where retrospective_remarque_dateFini is null
+        ORDER BY retrospective_remarque_dateCreation Desc");
+
+    $statement->execute();
+    $result = $statement->fetchAll();
+
+    print json_encode($result);
+  }
+
   if ($_POST["action"] == "getRemarque") {
 
     $statement = $connection->prepare(
@@ -53,13 +65,14 @@ if (isset($_POST["action"])) {
       $_POST["remarque_DateFini"] = null;
 
     $statement = $connection->prepare("
-   INSERT INTO retrospective_remarque (retrospective_remarque_label, retrospective_remarque_user, retrospective_remarque_dateCreation, retrospective_remarque_dateFini) 
-   VALUES (:Label, :User, :DateCreation, :DateFin)
+   INSERT INTO retrospective_remarque (retrospective_remarque_label, retrospective_remarque_user_assigne, retrospective_remarque_user_requete, retrospective_remarque_dateCreation, retrospective_remarque_dateFini) 
+   VALUES (:Label, :UserAssigne, :UserRequete, :DateCreation, :DateFin)
    ");
     $result = $statement->execute(
       array(
         ':Label' => $_POST["Labelretrospective"],
-        ':User' => $_POST["Userretrospective"],
+        ':UserAssigne' => $_POST["Userretrospective_assigne"],
+        ':UserRequete' => $_POST["Userretrospective_demande"],
         ':DateCreation' => $_POST["remarque_DateDebut"],
         ':DateFin' => $_POST["remarque_DateFini"]
       )
@@ -78,7 +91,8 @@ if (isset($_POST["action"])) {
     $statement = $connection->prepare(
       "UPDATE retrospective_remarque
       SET retrospective_remarque_label = :remarque_label,
-      retrospective_remarque_user = :remarque_user,
+      retrospective_remarque_user_assigne = :remarque_user_assigne,
+      retrospective_remarque_user_requete = :remarque_user_demande,
       retrospective_remarque_dateCreation = :remarque_DateDebut,
       retrospective_remarque_dateFini = :remarque_DateFin
       WHERE retrospective_remarque_pk = :remarque_id"
@@ -86,7 +100,8 @@ if (isset($_POST["action"])) {
     $result = $statement->execute(
       array(
         ':remarque_label' => $_POST["remarque_label"],
-        ':remarque_user' => $_POST["remarque_user"],
+        ':remarque_user_assigne' => $_POST["remarque_user_assigne"],
+        ':remarque_user_demande' => $_POST["remarque_user_demande"],
         ':remarque_DateDebut' => $_POST["remarque_DateDebut"],
         ':remarque_DateFin' => $_POST["remarque_DateFin"],
         ':remarque_id' => $_POST["remarque_id"]
