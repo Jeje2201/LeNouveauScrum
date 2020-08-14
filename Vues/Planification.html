@@ -803,11 +803,7 @@
           .selectedIndex].value)
         element.label = /(.+)\.-/.exec($(this).children('#TaskDescription').text())[1].trim();
         element.StoryLabel = ($(this).parent().parent().children()[0].innerText).slice(0, -3)
-
-        if ($(this).hasClass('Tachetrue'))
-          element.done = new Date().toJSON().split('T')[0]
-        else
-          element.done = null
+        element.done = null
 
         cart.push(element)
       }
