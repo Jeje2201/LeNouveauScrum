@@ -151,6 +151,16 @@
       $(document).on('click', '.ValiderTache', function () {
 
         var that = $(this);
+
+        let HoursSpent = prompt("Combien d'heures as-tu passé sur cette tache ?");
+
+        HoursSpent = parseInt(HoursSpent)
+
+        if (Number.isNaN(HoursSpent) || HoursSpent < 0) {
+          
+          $.notify("Je ne suis pas sûr de comprendre ce que tu as renseigné", "error")
+          return
+        }
         
         $.ajax({
               url: "Modele/Tache.php",
@@ -197,7 +207,8 @@
                             data: {
                               IdAttribue: Tache_bdd_id,
                               action: "Descendre",
-                              LeJourDeDescente: dateDescente
+                              LeJourDeDescente: dateDescente,
+                              HoursSpent: HoursSpent
                             },
                             success: function (data) {
                               AfficherCards();
@@ -213,7 +224,8 @@
                       data: {
                         IdAttribue: Tache_bdd_id,
                         action: "Descendre",
-                        LeJourDeDescente: dateDescente
+                        LeJourDeDescente: dateDescente,
+                        HoursSpent: HoursSpent
                       },
                       success: function (data) {
                         AfficherCards();

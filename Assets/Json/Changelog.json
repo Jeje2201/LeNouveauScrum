@@ -1,5 +1,22 @@
 [
     {
+        "Date": "07 Juillet, 2020",
+        "Titre": "C'est peut être un changelog pour vous, mais pour moi, ça veut dire beaucoup",
+        "Fix": null,
+        "Modif": [
+            "Lorsque l'on sélectionne \"tous les utilisateurs\" lors de la planif', ça ne prend que les utilisateurs qui doivent faire une planification",
+            "Emplacement de cette checkbox et texte mieux positionnés",
+            "Changement de l'ordre de certains items dans la navbar",
+            "L'utilisateur est au vert et non plus au rouge si il dépasse le cota de 60h attribuables "
+        ],
+        "Suppression": [
+            "Fin de la library DateTimePicker de bootstrap délaissée avec des possibles failles"
+        ],
+        "Ajout": [
+            "Il est possible d'attribuer une ressource à une remarque lors de la rétrospective"
+        ]
+    },
+    {
         "Date": "29 Mai, 2020",
         "Titre": "Un petit soucie avec la dernière mise à jour ? :(",
         "Fix": [
