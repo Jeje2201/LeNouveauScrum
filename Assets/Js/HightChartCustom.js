@@ -21,7 +21,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
             type: "column"
           },
           title: {
-            text: "Total heures attribuées / descendues (triées par ressources)"
+            text: "Total heures attribuées / descendues (par ressources)"
           },
           xAxis: {
             type: "category",
@@ -81,7 +81,7 @@ function GetTotalHeuresAttribueDescendueProjetEmploye(NumeroduSprint, affichage,
             type: "column"
           },
           title: {
-            text: "Total heures attribuées / descendues (triées par projet)"
+            text: "Total heures attribuées / descendues (par projet)"
           },
           xAxis: {
             type: "category",
