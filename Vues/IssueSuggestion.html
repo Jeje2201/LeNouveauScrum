@@ -3,12 +3,15 @@
     <div class="container-fluid">
       <button class="btn btn-success mt-2 mb-4" id="newIssueSuggestion">Créer un bug / idée</button>
       <div class="row" id="TableauIdeeIssue">
-        <div class="col-6" id="Issue">
+        <div class="col-12" id="Issue">
           <h2>Bugs</h2>
           <hr>
         </div>
-        <div class="col-6" id="Idee">
+        <div class="col-12" >
           <h2>Suggestion</h2>
+          <div class='row' id="Idee">
+             
+          </div>
           <hr>
         </div>
       </div>
@@ -47,19 +50,20 @@
           else
             var divAppend = "Idee"
 
-          $("#" + divAppend).append(`<div class="card mt-2">
-                                      <div class="card-header"><a href="`+ this.html_url + `">` + this.title + `</a>
+          $("#" + divAppend).append(`<div class="col-4"><div class="card mt-2">
+                                      <div class="card-header"><a href="`+ this.html_url + `">` + this.title.substring(0,60) + `...` + `</a>
                                       </div>
                                       <div class="card-body">
                                       <p>
-                                        `+ this.body.substring(0,150)+`...` + `
+                                        `+ this.body.substring(0,60)+`...` + `
                                       </p>
                                       <p class="text-muted mt-1 my-n3" style="text-align: end">`+this.comments+` commentaires</p>
                                       </div>
                                       <div class="card-footer text-muted">
                                         <span class="float-left"> `+ this.user.login + `</span> <span class="float-right">` + CustomYourDate(this.created_at, 'dd/mm/yyyy') + `</span>
                                       </div>
-                                    </div>`)
+                                    </div>
+                                  </div>`)
         })
       }
     })

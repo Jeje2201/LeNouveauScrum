@@ -152,7 +152,7 @@
 
         var that = $(this);
 
-        let HoursSpent = prompt("Combien d'heures as-tu passé sur cette tache ?");
+        let HoursSpent = prompt("Combien d'heures as-tu passé sur cette tache ?",that[0].getAttribute('data-heure-planifie'));
 
         HoursSpent = parseInt(HoursSpent)
 

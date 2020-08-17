@@ -154,7 +154,7 @@
                 </div>
               <div class="col my-auto">
                 <button class="btn btn-warning EditerTexteTache my-1" style="'.$style.'"><i class="fa fa-fw fa fa-pencil" aria-hidden="true"></i></button>
-                <button class="btn btn-success ValiderTache my-1" style="'.$style.'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
+                <button class="btn btn-success ValiderTache my-1" style="'.$style.'" data-heure-planifie="'. $row["tache_heure"] .'"><i class="fa fa-fw fa-check" aria-hidden="true"></i></button>
               </div>
             </div>';
           }
