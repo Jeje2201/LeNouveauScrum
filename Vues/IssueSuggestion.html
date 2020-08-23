@@ -31,16 +31,19 @@
     })
 
     $.ajax({
-      url: "https://api.github.com/repos/Jeje2201/ScrumManager/issues",
+      url: "https://gitlab.com/api/v4/projects/20690131/issues",
       type: 'GET',
       dataType: 'json',
       contentType: 'application/json',
       success: function (data) {
+        // console.log(data);
 
       $('#TableauIdeeIssue').show()
       $('#LogoChargement').hide()
 
         $.each(data, function () {
+
+          console.log(this);
 
           if (this.labels.length == 0)
             return
